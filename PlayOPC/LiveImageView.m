@@ -623,27 +623,39 @@
 }
 
 /// 撮影中を示すフラッシュの表示を終了します。
-- (void)hideFlashing {
+- (void)hideFlashing:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
 
-	if (!self.showingFlashing) {
-		return;
+	if (!animated) {
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	}
+	self.flashingLayer.opacity = 0.0;
+	if (!animated) {
+		[CATransaction commit];
 	}
 	
 	self.showingFlashing = NO;
-	self.flashingLayer.opacity = 0.0;
 }
 
 /// 撮影中を示すフラッシュの表示を開始します。
-- (void)showFlashing {
+- (void)showFlashing:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
-	
-	if (self.showingFlashing) {
+
+	if (!self.image) {
 		return;
 	}
 	
-	self.showingFlashing = YES;
+	if (!animated) {
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	}
 	self.flashingLayer.opacity = self.flashingOpacity;
+	if (!animated) {
+		[CATransaction commit];
+	}
+	
+	self.showingFlashing = YES;
 }
 
 #pragma mark -

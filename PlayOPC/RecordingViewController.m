@@ -875,10 +875,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			}
 		} else if (progress == OLYCameraTakingProgressReadyCapturing) {
 			// 撮影を開始する時にフラッシュ表現を開始します。
-			[weakSelf.liveImageView showFlashing];
+			[weakSelf.liveImageView showFlashing:YES];
 		} else if (progress == OLYCameraTakingProgressFinished) {
 			// 撮影を完了した時にフラッシュ表現を終了します。
-			[weakSelf.liveImageView hideFlashing];
+			[weakSelf.liveImageView hideFlashing:YES];
 		}
 	} completionHandler:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);

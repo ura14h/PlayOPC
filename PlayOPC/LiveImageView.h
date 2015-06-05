@@ -69,9 +69,9 @@ typedef enum : NSInteger {
 - (void)showAutoExposureEffectiveArea:(CGRect)rect duration:(NSTimeInterval)duration animated:(BOOL)animated;
 
 /// 撮影中を示すフラッシュの表示を終了します。
-- (void)hideFlashing;
+- (void)hideFlashing:(BOOL)animated;
 
 /// 撮影中を示すフラッシュの表示を開始します。
-- (void)showFlashing;
+- (void)showFlashing:(BOOL)animated;
 
 @end

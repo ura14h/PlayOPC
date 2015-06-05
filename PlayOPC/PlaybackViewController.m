@@ -27,6 +27,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 @property (weak, nonatomic) IBOutlet UILabel *tableviewFooterLabel;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
+@property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
 @property (assign, nonatomic) BOOL needsDownloadContentList; ///< コンテンツ一覧をダウンロードする必要があるか否か
 @property (strong, nonatomic) NSMutableArray *contentList; ///< コンテンツ一覧
 @property (strong, nonatomic) NSCache *contentThumbnailCache; ///< コンテンツキャッシュ
@@ -45,6 +46,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
+	self.previousRunMode = OLYCameraRunModeUnknown;
 	
 	// コンテンツ一覧とキャッシュをクリアします。
 	self.needsDownloadContentList = YES;
@@ -131,6 +133,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		// カメラを再生モードに移行します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
+		weakSelf.previousRunMode = camera.runMode;
 		if (![camera changeRunMode:OLYCameraRunModePlayback error:&error]) {
 			// モードを移行できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start Playback", nil)];
@@ -163,18 +166,23 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	// 画像キャッシュをクリアします。
 	[self.contentThumbnailCache removeAllObjects];
 	
-	// 撮影モードを終了します。
-	__weak PlaybackViewController *weakSelf = self;
+	// 再生モードを終了します。
+	// !!!: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
+	__block PlaybackViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
-		// カメラをスタンドアロンモードに移行します。
+		// カメラを以前のモードに移行します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
-		if (![camera changeRunMode:OLYCameraRunModeStandalone error:&error]) {
+		if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
 			// エラーを無視して続行します。
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 		}
+
+		// 画面操作の後始末が完了しました。
+		weakSelf = nil;
+		DEBUG_LOG(@"");
 	}];
 	
 	// ビューコントローラーが活動を停止しました。

@@ -28,6 +28,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensFirmwareVersionCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
+@property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
 
 @end
@@ -44,6 +45,7 @@
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
+	self.previousRunMode = OLYCameraRunModeUnknown;
 
 	// 監視するカメラプロパティ名とそれに紐づいた対応処理(メソッド名)を対とする辞書を用意して、
 	// Objective-CのKVOチックに、カメラプロパティに変化があったらその個別処理を呼び出せるようにしてみます。
@@ -133,6 +135,7 @@
 		// カメラ実行モードを保守モードにします。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
+		weakSelf.previousRunMode = camera.runMode;
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
 			// モードを移行できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start System", nil)];
@@ -165,19 +168,21 @@
 	}
 	
 	// 画面操作の後始末を開始します。
-	__weak SystemViewController *weakSelf = self;
+	// !!!: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
+	__block SystemViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
-		// カメラ実行モードをスタンドアロンモードにします。
+		// カメラ実行モードを以前のモードにします。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
-		if (![camera changeRunMode:OLYCameraRunModeStandalone error:&error]) {
+		if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
 			// エラーを無視して続行します。
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 		}
 		
 		// 画面操作の後始末が完了しました。
+		weakSelf = nil;
 		DEBUG_LOG(@"");
 	}];
 	

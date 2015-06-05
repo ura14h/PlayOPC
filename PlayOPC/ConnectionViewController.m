@@ -585,6 +585,14 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			return;
 		}
 
+		// !!!: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
+		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
+		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
+			// 実行モードを変更できませんでした。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -619,6 +627,14 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		NSError *error = nil;
 		if (![camera connect:&error]) {
 			// カメラにアプリ接続できませんでした。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+
+		// !!!: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
+		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
+		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
+			// 実行モードを変更できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
 			return;
 		}

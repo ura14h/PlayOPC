@@ -94,6 +94,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIButton *showVPanelButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
+@property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
 @property (assign, nonatomic) ControlPanelVisibleStatus controlPanelVisibleStatus; ///< コントロールの表示状態
 @property (strong, nonatomic) SPanelViewController *embeddedSPanelViewController; ///< Sパネルのビューコントローラ
@@ -117,6 +118,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
+	self.previousRunMode = OLYCameraRunModeUnknown;
 
 	// 監視するカメラプロパティ名とそれに紐づいた対応処理(メソッド名)を対とする辞書を用意して、
 	// Objective-CのKVOチックに、カメラプロパティに変化があったらその個別処理を呼び出せるようにしてみます。
@@ -227,6 +229,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		camera.autoStartLiveView = NO;	// ライブビュー自動開始を無効にします。
 
 		// カメラを撮影モードに移行します。
+		weakSelf.previousRunMode = camera.runMode;
 		if (![camera changeRunMode:OLYCameraRunModeRecording error:&error]) {
 			// モードを移行できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start Recording", nil)];
@@ -273,7 +276,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self.embeddedVPanelViewController didFinishActivity];
 	
 	// 撮影モードを終了します。
-	__weak RecordingViewController *weakSelf = self;
+	// !!!: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
+	__block RecordingViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
@@ -293,14 +297,18 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 		}
 		
-		// カメラをスタンドアロンモードに移行します。
-		if (![camera changeRunMode:OLYCameraRunModeStandalone error:&error]) {
+		// カメラを以前のモードに移行します。
+		if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
 			// エラーを無視して続行します。
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 		}
 
 		// デバイスのスリープを許可します。
 		[UIApplication sharedApplication].idleTimerDisabled = NO;
+
+		// 画面操作の後始末が完了しました。
+		weakSelf = nil;
+		DEBUG_LOG(@"");
 	}];
 
 	// ビューコントローラーが活動を停止しました。

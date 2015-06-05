@@ -1,0 +1,24 @@
+//
+//  PlayOPC-Prefix.pch
+//  PlayOPC
+//
+//  Created by Hiroki Ishiura on 2015/03/21.
+//  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
+//
+//  Released under the MIT license
+//  http://opensource.org/licenses/mit-license.php
+//
+
+#ifndef PlayOPC_PlayOPC_Prefix_pch
+#define PlayOPC_PlayOPC_Prefix_pch
+
+/** デバッグログ出力マクロ */
+#if (DEBUG == 1)
+#	define DEBUG_DETAIL_LOG(fmt, ...) //	NSLog((@"%s(%d): " fmt), __func__, __LINE__, ##__VA_ARGS__)
+#	define DEBUG_LOG(fmt, ...) 				NSLog((@"%s(%d): " fmt), __func__, __LINE__, ##__VA_ARGS__)
+#else
+#	define DEBUG_DETAIL_LOG(fmt, ...)
+#	define DEBUG_LOG(fmt, ...)
+#endif
+
+#endif

@@ -1,0 +1,264 @@
+//
+//  WifiConnector.m
+//  PlayOPC
+//
+//  Created by Hiroki Ishiura on 2015/04/04.
+//  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
+//
+//  Released under the MIT license
+//  http://opensource.org/licenses/mit-license.php
+//
+
+#import "WifiConnector.h"
+#import <SystemConfiguration/CaptiveNetwork.h>
+#import "Reachability.h"
+
+NSString *const WifiConnectionChangedNotification = @"WifiConnectionChangedNotification";
+NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
+
+@interface WifiConnector ()
+
+@property (strong, nonatomic) NSString *SSID;
+@property (strong, nonatomic) NSString *BSSID;
+@property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
+@property (strong, nonatomic) Reachability *reachability;
+
+@end
+
+#pragma mark -
+
+@implementation WifiConnector
+
+#pragma mark -
+
+- (instancetype)init {
+	DEBUG_LOG(@"");
+	
+	self = [super init];
+	if (!self) {
+		return nil;
+	}
+
+	_SSID = nil;
+	_BSSID = nil;
+	_reachability = [Reachability reachabilityForLocalWiFi];
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+
+	return self;
+}
+
+- (void)dealloc {
+	DEBUG_LOG(@"");
+
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter removeObserver:self name:kReachabilityChangedNotification object:nil];
+	_reachability = nil;
+	_SSID = nil;
+	_BSSID = nil;
+}
+
+#pragma mark -
+
+- (WifiConnectionStatus)currentConnectionStatus {
+	DEBUG_DETAIL_LOG(@"");
+	
+#if !(TARGET_IPHONE_SIMULATOR)
+	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
+	switch (networkStatus) {
+		case ReachableViaWiFi:
+			if (self.SSID && self.BSSID) {
+				return WifiConnectionStatusConnected;
+			} else {
+				// ???: アプリ起動直後にこの状態になることがある。(原因は追求していない)
+				return WifiConnectionStatusUnknown;
+			}
+		case NotReachable:
+			return WifiConnectionStatusNotConnected;
+		default:
+			return WifiConnectionStatusUnknown;
+	}
+#else
+	return WifiConnectionStatusConnected;
+#endif
+}
+
+- (BOOL)startMonitoring:(NSError **)error {
+	DEBUG_LOG(@"");
+	
+	if (self.monitoring) {
+		// 監視はすでに実行中です。
+		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"Already runnning now.", nil)];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	
+	[self updateNetworkInfo];
+	if (![self.reachability startNotifier]) {
+		// Reachabilityの通知開始に失敗しました。
+		NSError *internalError = [self createError:WifiConnectorErrorReachabilityFailed description:NSLocalizedString(@"Could not start monitoring by failed [Reachability startNotifier].", nil)];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	self.monitoring = YES;
+	
+	return YES;
+}
+
+- (BOOL)stopMonitoring:(NSError **)error {
+	DEBUG_LOG(@"");
+
+	if (!self.monitoring) {
+		// 監視は未実行です。
+		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"Not runnning now.", nil)];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	
+	[self.reachability stopNotifier];
+	self.monitoring = NO;
+	
+	return YES;
+}
+
+- (BOOL)isPossibleToAccessCamera {
+	DEBUG_LOG(@"");
+
+	// 接続していなかったらカメラにはアクセスできません。
+	if ([self currentConnectionStatus] != WifiConnectionStatusConnected) {
+		return NO;
+	}
+
+#if !(TARGET_IPHONE_SIMULATOR)
+	// SSIDが"AIR-A01-?????????"でなければカメラにアクセスできません。
+	// FIXME: 現状ではこんな判断の方法しかないようです。
+	NSString *pattern = @"^AIR-A\\d+-.+$";
+	NSError *error = nil;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+	NSTextCheckingResult *match = [regex firstMatchInString:self.SSID options:0 range:NSMakeRange(0, self.SSID.length)];
+	if (!match) {
+		return NO;
+	}
+#endif
+	return YES;
+}
+
+- (BOOL)waitForConnectionStatus:(WifiConnectionStatus)status timeout:(NSTimeInterval)timeout {
+	DEBUG_LOG(@"timeout=%ld", (long)timeout);
+
+	// 引数を確認します。
+	if (status != WifiConnectionStatusConnected &&
+		status != WifiConnectionStatusNotConnected) {
+		return NO;
+	}
+
+	// 監視を一時的に停止します。
+	[self.reachability stopNotifier];
+	
+#if !(TARGET_IPHONE_SIMULATOR)
+	// 接続状態の変化をポーリングします。
+	NSDate *waitStartTime = [NSDate date];
+	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
+		if ([self currentConnectionStatus] == status) {
+			// 期待した接続状態になったらSSIDを更新します。(Wi-Fi接続状態変化の通知が飛ぶかもしれません)
+			[self reachabilityChanged:nil];
+			BOOL result;
+			if (status == WifiConnectionStatusConnected) {
+				// 接続中になったらカメラに接続できるか否かを確認します。
+				if ([self isPossibleToAccessCamera]) {
+					result = YES;
+				} else {
+					// Wi-Fi接続済みでカメラにアクセスできない状態は望みがないので異常終了です。
+					result = NO;
+				}
+			} else if (status == WifiConnectionStatusNotConnected) {
+				// 切断中になったら正常終了です。
+				result = YES;
+			}
+			// 監視を再開します。
+			if (![self.reachability startNotifier]) {
+				DEBUG_LOG(@"Could not restart monitoring by failed [Reachability startNotifier].");
+			}
+			return result;
+		}
+		[NSThread sleepForTimeInterval:0.1];
+	}
+	
+	// タイムアウトしました。
+	return NO;
+#else
+	return YES;
+#endif
+}
+
+#pragma mark -
+
+/// Wi-Fi接続の状態が変化した時に呼び出されます。
+- (void)reachabilityChanged:(NSNotification *)notification {
+	DEBUG_LOG(@"");
+
+	NSString *currentSSID = self.SSID;
+	NSString *currentBSSID = self.BSSID;
+	[self updateNetworkInfo];
+	if ([self.SSID isEqualToString:currentSSID] && [self.BSSID isEqualToString:currentBSSID]) {
+		return;
+	}
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
+}
+
+/// ネットワーク接続情報を更新します。
+- (BOOL)updateNetworkInfo {
+	DEBUG_LOG(@"");
+	
+	NSString *currentSSID = nil;
+	NSString *currentBSSID = nil;
+#if !(TARGET_IPHONE_SIMULATOR)
+	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
+	if (networkStatus == ReachableViaWiFi) {
+		CFArrayRef supportedInterfaces = CNCopySupportedInterfaces();
+		if (supportedInterfaces) {
+			// FIXME: このブロックの潜在的メモリーリークに関する警告をどうやって解消するのか分かりませんでした...
+			CFStringRef interfaceName = CFArrayGetValueAtIndex(supportedInterfaces, 0);
+			if (interfaceName) {
+				CFDictionaryRef currentNetworkInfo = CNCopyCurrentNetworkInfo(interfaceName);
+				if (currentNetworkInfo) {
+					currentSSID = CFDictionaryGetValue(currentNetworkInfo, kCNNetworkInfoKeySSID);
+					currentBSSID = CFDictionaryGetValue(currentNetworkInfo, kCNNetworkInfoKeyBSSID);
+				}
+			}
+		}
+	}
+#endif
+	
+	BOOL updated = NO;
+	if (![self.SSID isEqualToString:currentSSID]) {
+		self.SSID = currentSSID;
+		updated = YES;
+	}
+	if (![self.BSSID isEqualToString:currentBSSID]) {
+		self.BSSID = currentBSSID;
+		updated = YES;
+	}
+	return updated;
+}
+
+/// エラー情報を作成します。
+- (NSError *)createError:(NSInteger)code description:(NSString *)description {
+	DEBUG_LOG(@"code=%ld, description=%@", (long)code, description);
+	
+	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description };
+	NSError *error = [[NSError alloc] initWithDomain:WifiConnectorErrorDomain code:code userInfo:userInfo];
+	return error;
+}
+
+@end

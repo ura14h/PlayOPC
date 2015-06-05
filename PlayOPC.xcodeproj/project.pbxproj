@@ -1,0 +1,1079 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A8097B1AD04DE400186E4D /* SystemViewController.m */; };
+		310D78281AECE4E200FFCBA5 /* RecImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 310D78271AECE4E200FFCBA5 /* RecImageView.m */; };
+		310D78291AECE4E200FFCBA5 /* RecImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 310D78271AECE4E200FFCBA5 /* RecImageView.m */; };
+		311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
+		311199B61B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
+		311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199B91B086FB200538FA0 /* MBProgressHUD.m */; };
+		311199BD1B086FB200538FA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199B91B086FB200538FA0 /* MBProgressHUD.m */; };
+		311199BE1B086FB200538FA0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199BB1B086FB200538FA0 /* Reachability.m */; };
+		311199BF1B086FB200538FA0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199BB1B086FB200538FA0 /* Reachability.m */; };
+		311268F81AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */; };
+		311268F91AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */; };
+		311268FC1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268FB1AFF4A6600AEA860 /* PlaybackViewController.m */; };
+		311268FD1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268FB1AFF4A6600AEA860 /* PlaybackViewController.m */; };
+		311B75BE1ABC287C00A7D38C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75BD1ABC287C00A7D38C /* main.m */; };
+		311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C01ABC287C00A7D38C /* AppDelegate.m */; };
+		311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C31ABC287C00A7D38C /* ConnectionViewController.m */; };
+		311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C51ABC287C00A7D38C /* Main.storyboard */; };
+		311B75C91ABC287C00A7D38C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C81ABC287C00A7D38C /* Images.xcassets */; };
+		311B75CC1ABC287C00A7D38C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 311B75CA1ABC287C00A7D38C /* LaunchScreen.xib */; };
+		311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75D71ABC287C00A7D38C /* PlayOPCTests.m */; };
+		311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
+		311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
+		313870A41AC7D27600B00309 /* BluetoothConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 313870A31AC7D27600B00309 /* BluetoothConnector.m */; };
+		313870A51AC7D27600B00309 /* BluetoothConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 313870A31AC7D27600B00309 /* BluetoothConnector.m */; };
+		313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313870A61AC7D3B300B00309 /* CoreBluetooth.framework */; };
+		31392FCB1B14B69D0097FF1B /* ReferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31392FCA1B14B69D0097FF1B /* ReferenceViewController.m */; };
+		31392FCC1B14B69D0097FF1B /* ReferenceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31392FCA1B14B69D0097FF1B /* ReferenceViewController.m */; };
+		31392FD01B14BEC40097FF1B /* Reference.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD31B14BEC40097FF1B /* Reference.html */; };
+		31392FD11B14BEC40097FF1B /* Reference.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD31B14BEC40097FF1B /* Reference.html */; };
+		31392FD41B14BECE0097FF1B /* Acknowledgement.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD71B14BECE0097FF1B /* Acknowledgement.html */; };
+		31392FD51B14BECE0097FF1B /* Acknowledgement.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD71B14BECE0097FF1B /* Acknowledgement.html */; };
+		31392FD81B14BED40097FF1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDB1B14BED40097FF1B /* Localizable.strings */; };
+		31392FD91B14BED40097FF1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDB1B14BED40097FF1B /* Localizable.strings */; };
+		31392FDC1B14BEDA0097FF1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */; };
+		31392FDD1B14BEDA0097FF1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */; };
+		313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */; };
+		313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */; };
+		313D44B81B0CCF0700D6EEAC /* CPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */; };
+		313D44B91B0CCF0700D6EEAC /* CPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */; };
+		3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */; };
+		3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */; };
+		314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
+		314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
+		314D7A481ACF87AE004C2644 /* WifiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A471ACF87AE004C2644 /* WifiConnector.m */; };
+		314D7A491ACF87AE004C2644 /* WifiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A471ACF87AE004C2644 /* WifiConnector.m */; };
+		314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */; };
+		314D7A511ACFDA03004C2644 /* AppCameraLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */; };
+		314D7A541ACFE265004C2644 /* CameraLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A531ACFE265004C2644 /* CameraLogViewController.m */; };
+		314D7A551ACFE265004C2644 /* CameraLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A531ACFE265004C2644 /* CameraLogViewController.m */; };
+		3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */; };
+		3152CF1B1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */; };
+		3154BA631ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */; };
+		3154BA641ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */; };
+		3162EB091ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3162EB081ABE789B00C71BE7 /* BluetoothSettingViewController.m */; };
+		3162EB0A1ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3162EB081ABE789B00C71BE7 /* BluetoothSettingViewController.m */; };
+		3162EB0B1ABE78A900C71BE7 /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C31ABC287C00A7D38C /* ConnectionViewController.m */; };
+		3162EB0C1ABE78B100C71BE7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C01ABC287C00A7D38C /* AppDelegate.m */; };
+		3165E5E51ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
+		3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
+		31731EB91AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
+		31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
+		31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EBC1AEB886A0094193A /* APanelViewController.m */; };
+		31731EBE1AEB886A0094193A /* APanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EBC1AEB886A0094193A /* APanelViewController.m */; };
+		31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC01AEB888B0094193A /* ZPanelViewController.m */; };
+		31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC01AEB888B0094193A /* ZPanelViewController.m */; };
+		31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
+		31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
+		319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284331AD8E7E0003BC78F /* RecordingViewController.m */; };
+		319284351AD8E7E0003BC78F /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284331AD8E7E0003BC78F /* RecordingViewController.m */; };
+		319284381AD914D3003BC78F /* UIViewController+Threading.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284371AD914D3003BC78F /* UIViewController+Threading.m */; };
+		319284391AD914D3003BC78F /* UIViewController+Threading.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284371AD914D3003BC78F /* UIViewController+Threading.m */; };
+		319284401AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */; };
+		319284411AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */; };
+		319396941B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319396931B04CD4B00EAAE35 /* PictureContentViewController.m */; };
+		319396951B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319396931B04CD4B00EAAE35 /* PictureContentViewController.m */; };
+		3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */; };
+		31A8097C1AD04DE400186E4D /* SystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A8097B1AD04DE400186E4D /* SystemViewController.m */; };
+		31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD645F1B0865FD00934C3B /* VideoContentViewController.m */; };
+		31BD64611B0865FD00934C3B /* VideoContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD645F1B0865FD00934C3B /* VideoContentViewController.m */; };
+		31C71DA41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D741AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png */; };
+		31C71DA51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D751AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png */; };
+		31C71DA61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D761AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png */; };
+		31C71DA71AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D771AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-12.png */; };
+		31C71DA81AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D781AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-13.png */; };
+		31C71DA91AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-14.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D791AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-14.png */; };
+		31C71DAA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D7A1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png */; };
+		31C71DAB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D7B1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-16.png */; };
+		31C71DAC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D7C1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png */; };
+		31C71DAD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D7D1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png */; };
+		31C71DAE1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-19.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D7E1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-19.png */; };
+		31C71DAF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D7F1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-2.png */; };
+		31C71DB01AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-20.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D801AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-20.png */; };
+		31C71DB11AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-21.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D811AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-21.png */; };
+		31C71DB21AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D821AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png */; };
+		31C71DB31AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D831AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png */; };
+		31C71DB41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D841AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png */; };
+		31C71DB51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-25.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D851AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-25.png */; };
+		31C71DB61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D861AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png */; };
+		31C71DB71AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-27.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D871AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-27.png */; };
+		31C71DB81AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-28.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D881AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-28.png */; };
+		31C71DB91AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-29.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D891AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-29.png */; };
+		31C71DBA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D8A1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-3.png */; };
+		31C71DBB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D8B1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png */; };
+		31C71DBC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D8C1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-5.png */; };
+		31C71DBD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D8D1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-6.png */; };
+		31C71DBE1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D8E1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-7.png */; };
+		31C71DBF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D8F1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png */; };
+		31C71DC01AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D901AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-9.png */; };
+		31C71DC11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D921AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-0.png */; };
+		31C71DC21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D931AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png */; };
+		31C71DC31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D941AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png */; };
+		31C71DC41AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D951AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-11.png */; };
+		31C71DC51AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-12.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D961AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-12.png */; };
+		31C71DC61AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D971AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png */; };
+		31C71DC71AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-14.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D981AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-14.png */; };
+		31C71DC81AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-15.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D991AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-15.png */; };
+		31C71DC91AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-16.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D9A1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-16.png */; };
+		31C71DCA1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D9B1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png */; };
+		31C71DCB1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-2.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D9C1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-2.png */; };
+		31C71DCC1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D9D1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png */; };
+		31C71DCD1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-4.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D9E1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-4.png */; };
+		31C71DCE1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-5.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D9F1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-5.png */; };
+		31C71DCF1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DA01AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png */; };
+		31C71DD01AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-7.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DA11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-7.png */; };
+		31C71DD11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DA21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png */; };
+		31C71DD21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DA31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png */; };
+		31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */; };
+		31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
+		31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
+		31D7A5871B14AE4D0023AC76 /* author.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7A5861B14AE4D0023AC76 /* author.m */; };
+		31D7A5881B14AE4D0023AC76 /* author.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7A5861B14AE4D0023AC76 /* author.m */; };
+		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
+		31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
+		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
+		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		311B75D21ABC287C00A7D38C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 311B75B01ABC287C00A7D38C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 311B75B71ABC287C00A7D38C;
+			remoteInfo = PlayOPC;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		310D78261AECE4E200FFCBA5 /* RecImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecImageView.h; sourceTree = "<group>"; };
+		310D78271AECE4E200FFCBA5 /* RecImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecImageView.m; sourceTree = "<group>"; };
+		311199B41B086F4800538FA0 /* OLYCameraKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OLYCameraKit.framework; path = PlayOPC/Imports/OLYCameraKit.framework; sourceTree = "<group>"; };
+		311199B81B086FB200538FA0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = Imports/MBProgressHUD.h; sourceTree = "<group>"; };
+		311199B91B086FB200538FA0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Imports/MBProgressHUD.m; sourceTree = "<group>"; };
+		311199BA1B086FB200538FA0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Imports/Reachability.h; sourceTree = "<group>"; };
+		311199BB1B086FB200538FA0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Imports/Reachability.m; sourceTree = "<group>"; };
+		311268F61AFF4A3D00AEA860 /* PlaybackViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewCell.h; sourceTree = "<group>"; };
+		311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewCell.m; sourceTree = "<group>"; };
+		311268FA1AFF4A6600AEA860 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
+		311268FB1AFF4A6600AEA860 /* PlaybackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = PlaybackViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		311B75B81ABC287C00A7D38C /* PlayOPC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayOPC.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		311B75BC1ABC287C00A7D38C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		311B75BD1ABC287C00A7D38C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		311B75BF1ABC287C00A7D38C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppDelegate.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		311B75C01ABC287C00A7D38C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		311B75C21ABC287C00A7D38C /* ConnectionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ConnectionViewController.h; sourceTree = "<group>"; };
+		311B75C31ABC287C00A7D38C /* ConnectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ConnectionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		311B75C61ABC287C00A7D38C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		311B75C81ABC287C00A7D38C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		311B75CB1ABC287C00A7D38C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		311B75D11ABC287C00A7D38C /* PlayOPCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayOPCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		311B75D61ABC287C00A7D38C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		311B75D71ABC287C00A7D38C /* PlayOPCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayOPCTests.m; sourceTree = "<group>"; };
+		311F081A1ADFEE2F00318028 /* ItemSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemSelectionViewController.h; sourceTree = "<group>"; };
+		311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemSelectionViewController.m; sourceTree = "<group>"; };
+		313870A21AC7D27600B00309 /* BluetoothConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothConnector.h; sourceTree = "<group>"; };
+		313870A31AC7D27600B00309 /* BluetoothConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothConnector.m; sourceTree = "<group>"; };
+		313870A61AC7D3B300B00309 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		31392FC91B14B69D0097FF1B /* ReferenceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReferenceViewController.h; sourceTree = "<group>"; };
+		31392FCA1B14B69D0097FF1B /* ReferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceViewController.m; sourceTree = "<group>"; };
+		31392FD21B14BEC40097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Reference.html; sourceTree = "<group>"; };
+		31392FD61B14BECE0097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Acknowledgement.html; sourceTree = "<group>"; };
+		31392FDA1B14BED40097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		31392FDE1B14BEDA0097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		31392FE01B14BF320097FF1B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ja; path = ja.lproj/Reference.html; sourceTree = "<group>"; };
+		313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPanelViewController.h; sourceTree = "<group>"; };
+		313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPanelViewController.m; sourceTree = "<group>"; };
+		313D44B61B0CCF0700D6EEAC /* CPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPanelViewController.h; sourceTree = "<group>"; };
+		313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPanelViewController.m; sourceTree = "<group>"; };
+		314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayOPC-Prefix.pch"; sourceTree = "<group>"; };
+		3147538C1ABD4BE700FF462E /* AcknowledgementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcknowledgementViewController.h; sourceTree = "<group>"; };
+		3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcknowledgementViewController.m; sourceTree = "<group>"; };
+		314A4EC81B08B1C1002E4128 /* CameraLogViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraLogViewCell.h; sourceTree = "<group>"; };
+		314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraLogViewCell.m; sourceTree = "<group>"; };
+		314D7A461ACF87AE004C2644 /* WifiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiConnector.h; sourceTree = "<group>"; };
+		314D7A471ACF87AE004C2644 /* WifiConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiConnector.m; sourceTree = "<group>"; };
+		314D7A4E1ACFDA03004C2644 /* AppCameraLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCameraLog.h; sourceTree = "<group>"; };
+		314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCameraLog.m; sourceTree = "<group>"; };
+		314D7A521ACFE265004C2644 /* CameraLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraLogViewController.h; sourceTree = "<group>"; };
+		314D7A531ACFE265004C2644 /* CameraLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CameraLogViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3152CF181AF859A500E97036 /* ArtbktPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtbktPanelViewController.h; sourceTree = "<group>"; };
+		3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ArtbktPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3154BA611ADFDAA000D96EBE /* UITableViewController+Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewController+Cell.h"; sourceTree = "<group>"; };
+		3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewController+Cell.m"; sourceTree = "<group>"; };
+		3162EB071ABE789B00C71BE7 /* BluetoothSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothSettingViewController.h; sourceTree = "<group>"; };
+		3162EB081ABE789B00C71BE7 /* BluetoothSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothSettingViewController.m; sourceTree = "<group>"; };
+		3165E5E31ADBC21200D4A680 /* LiveImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveImageView.h; sourceTree = "<group>"; };
+		3165E5E41ADBC21200D4A680 /* LiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveImageView.m; sourceTree = "<group>"; };
+		31731EB71AEB88140094193A /* EPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPanelViewController.h; sourceTree = "<group>"; };
+		31731EB81AEB88140094193A /* EPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EPanelViewController.m; sourceTree = "<group>"; };
+		31731EBB1AEB886A0094193A /* APanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APanelViewController.h; sourceTree = "<group>"; };
+		31731EBC1AEB886A0094193A /* APanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = APanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31731EBF1AEB888B0094193A /* ZPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZPanelViewController.h; sourceTree = "<group>"; };
+		31731EC01AEB888B0094193A /* ZPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPanelViewController.m; sourceTree = "<group>"; };
+		31731EC31AEB88AB0094193A /* VPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPanelViewController.h; sourceTree = "<group>"; };
+		31731EC41AEB88AB0094193A /* VPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		319284321AD8E7E0003BC78F /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
+		319284331AD8E7E0003BC78F /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RecordingViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		319284361AD914D3003BC78F /* UIViewController+Threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Threading.h"; sourceTree = "<group>"; };
+		319284371AD914D3003BC78F /* UIViewController+Threading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Threading.m"; sourceTree = "<group>"; };
+		3192843E1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraPropertyValueSelectionViewController.h; sourceTree = "<group>"; };
+		3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CameraPropertyValueSelectionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		319396921B04CD4B00EAAE35 /* PictureContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureContentViewController.h; sourceTree = "<group>"; };
+		319396931B04CD4B00EAAE35 /* PictureContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureContentViewController.m; sourceTree = "<group>"; };
+		3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		31A8097A1AD04DE400186E4D /* SystemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemViewController.h; sourceTree = "<group>"; };
+		31A8097B1AD04DE400186E4D /* SystemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SystemViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31BD645E1B0865FD00934C3B /* VideoContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoContentViewController.h; sourceTree = "<group>"; };
+		31BD645F1B0865FD00934C3B /* VideoContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoContentViewController.m; sourceTree = "<group>"; };
+		31C71D741AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-1.png"; sourceTree = "<group>"; };
+		31C71D751AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-10.png"; sourceTree = "<group>"; };
+		31C71D761AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-11.png"; sourceTree = "<group>"; };
+		31C71D771AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-12.png"; sourceTree = "<group>"; };
+		31C71D781AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-13.png"; sourceTree = "<group>"; };
+		31C71D791AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-14.png"; sourceTree = "<group>"; };
+		31C71D7A1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-15.png"; sourceTree = "<group>"; };
+		31C71D7B1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-16.png"; sourceTree = "<group>"; };
+		31C71D7C1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-17.png"; sourceTree = "<group>"; };
+		31C71D7D1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-18.png"; sourceTree = "<group>"; };
+		31C71D7E1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-19.png"; sourceTree = "<group>"; };
+		31C71D7F1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-2.png"; sourceTree = "<group>"; };
+		31C71D801AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-20.png"; sourceTree = "<group>"; };
+		31C71D811AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-21.png"; sourceTree = "<group>"; };
+		31C71D821AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-22.png"; sourceTree = "<group>"; };
+		31C71D831AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-23.png"; sourceTree = "<group>"; };
+		31C71D841AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-24.png"; sourceTree = "<group>"; };
+		31C71D851AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-25.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-25.png"; sourceTree = "<group>"; };
+		31C71D861AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-26.png"; sourceTree = "<group>"; };
+		31C71D871AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-27.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-27.png"; sourceTree = "<group>"; };
+		31C71D881AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-28.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-28.png"; sourceTree = "<group>"; };
+		31C71D891AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-29.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-29.png"; sourceTree = "<group>"; };
+		31C71D8A1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-3.png"; sourceTree = "<group>"; };
+		31C71D8B1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-4.png"; sourceTree = "<group>"; };
+		31C71D8C1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-5.png"; sourceTree = "<group>"; };
+		31C71D8D1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-6.png"; sourceTree = "<group>"; };
+		31C71D8E1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-7.png"; sourceTree = "<group>"; };
+		31C71D8F1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-8.png"; sourceTree = "<group>"; };
+		31C71D901AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-9.png"; sourceTree = "<group>"; };
+		31C71D921AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-0.png"; sourceTree = "<group>"; };
+		31C71D931AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-1.png"; sourceTree = "<group>"; };
+		31C71D941AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-10.png"; sourceTree = "<group>"; };
+		31C71D951AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-11.png"; sourceTree = "<group>"; };
+		31C71D961AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-12.png"; sourceTree = "<group>"; };
+		31C71D971AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-13.png"; sourceTree = "<group>"; };
+		31C71D981AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-14.png"; sourceTree = "<group>"; };
+		31C71D991AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-15.png"; sourceTree = "<group>"; };
+		31C71D9A1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-16.png"; sourceTree = "<group>"; };
+		31C71D9B1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-17.png"; sourceTree = "<group>"; };
+		31C71D9C1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-2.png"; sourceTree = "<group>"; };
+		31C71D9D1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-3.png"; sourceTree = "<group>"; };
+		31C71D9E1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-4.png"; sourceTree = "<group>"; };
+		31C71D9F1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-5.png"; sourceTree = "<group>"; };
+		31C71DA01AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-6.png"; sourceTree = "<group>"; };
+		31C71DA11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-7.png"; sourceTree = "<group>"; };
+		31C71DA21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-8.png"; sourceTree = "<group>"; };
+		31C71DA31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-9.png"; sourceTree = "<group>"; };
+		31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-0.png"; sourceTree = "<group>"; };
+		31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomAlbum.h"; sourceTree = "<group>"; };
+		31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
+		31D7A5861B14AE4D0023AC76 /* author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = author.m; sourceTree = "<group>"; };
+		31DB84021AD101C900E50B03 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
+		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
+		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCamera.h; sourceTree = "<group>"; };
+		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCamera.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		311B75B51ABC287C00A7D38C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
+				311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */,
+				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		311B75CE1ABC287C00A7D38C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				311199B61B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		311199B71B086F5E00538FA0 /* Imported Classes */ = {
+			isa = PBXGroup;
+			children = (
+				311199B81B086FB200538FA0 /* MBProgressHUD.h */,
+				311199B91B086FB200538FA0 /* MBProgressHUD.m */,
+				311199BA1B086FB200538FA0 /* Reachability.h */,
+				311199BB1B086FB200538FA0 /* Reachability.m */,
+			);
+			name = "Imported Classes";
+			sourceTree = "<group>";
+		};
+		311199C01B08702100538FA0 /* Extended Classes */ = {
+			isa = PBXGroup;
+			children = (
+				31DB84021AD101C900E50B03 /* UIViewController+Alert.h */,
+				31DB84031AD101C900E50B03 /* UIViewController+Alert.m */,
+				319284361AD914D3003BC78F /* UIViewController+Threading.h */,
+				319284371AD914D3003BC78F /* UIViewController+Threading.m */,
+				3154BA611ADFDAA000D96EBE /* UITableViewController+Cell.h */,
+				3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */,
+				31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */,
+				31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */,
+			);
+			name = "Extended Classes";
+			sourceTree = "<group>";
+		};
+		311199C11B08725A00538FA0 /* Connection Section */ = {
+			isa = PBXGroup;
+			children = (
+				311B75C21ABC287C00A7D38C /* ConnectionViewController.h */,
+				311B75C31ABC287C00A7D38C /* ConnectionViewController.m */,
+				3162EB071ABE789B00C71BE7 /* BluetoothSettingViewController.h */,
+				3162EB081ABE789B00C71BE7 /* BluetoothSettingViewController.m */,
+				313870A21AC7D27600B00309 /* BluetoothConnector.h */,
+				313870A31AC7D27600B00309 /* BluetoothConnector.m */,
+				314D7A461ACF87AE004C2644 /* WifiConnector.h */,
+				314D7A471ACF87AE004C2644 /* WifiConnector.m */,
+			);
+			name = "Connection Section";
+			sourceTree = "<group>";
+		};
+		311199C21B08726E00538FA0 /* Recording Section */ = {
+			isa = PBXGroup;
+			children = (
+				319284321AD8E7E0003BC78F /* RecordingViewController.h */,
+				319284331AD8E7E0003BC78F /* RecordingViewController.m */,
+				3165E5E31ADBC21200D4A680 /* LiveImageView.h */,
+				3165E5E41ADBC21200D4A680 /* LiveImageView.m */,
+				310D78261AECE4E200FFCBA5 /* RecImageView.h */,
+				310D78271AECE4E200FFCBA5 /* RecImageView.m */,
+				313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */,
+				313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */,
+				31731EB71AEB88140094193A /* EPanelViewController.h */,
+				31731EB81AEB88140094193A /* EPanelViewController.m */,
+				313D44B61B0CCF0700D6EEAC /* CPanelViewController.h */,
+				313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */,
+				31731EBB1AEB886A0094193A /* APanelViewController.h */,
+				31731EBC1AEB886A0094193A /* APanelViewController.m */,
+				31731EBF1AEB888B0094193A /* ZPanelViewController.h */,
+				31731EC01AEB888B0094193A /* ZPanelViewController.m */,
+				31731EC31AEB88AB0094193A /* VPanelViewController.h */,
+				31731EC41AEB88AB0094193A /* VPanelViewController.m */,
+				3152CF181AF859A500E97036 /* ArtbktPanelViewController.h */,
+				3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */,
+			);
+			name = "Recording Section";
+			sourceTree = "<group>";
+		};
+		311199C31B08728200538FA0 /* Playback Section */ = {
+			isa = PBXGroup;
+			children = (
+				311268FA1AFF4A6600AEA860 /* PlaybackViewController.h */,
+				311268FB1AFF4A6600AEA860 /* PlaybackViewController.m */,
+				311268F61AFF4A3D00AEA860 /* PlaybackViewCell.h */,
+				311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */,
+				319396921B04CD4B00EAAE35 /* PictureContentViewController.h */,
+				319396931B04CD4B00EAAE35 /* PictureContentViewController.m */,
+				31BD645E1B0865FD00934C3B /* VideoContentViewController.h */,
+				31BD645F1B0865FD00934C3B /* VideoContentViewController.m */,
+			);
+			name = "Playback Section";
+			sourceTree = "<group>";
+		};
+		311199C41B0872B700538FA0 /* Information Section */ = {
+			isa = PBXGroup;
+			children = (
+				314D7A521ACFE265004C2644 /* CameraLogViewController.h */,
+				314D7A531ACFE265004C2644 /* CameraLogViewController.m */,
+				314A4EC81B08B1C1002E4128 /* CameraLogViewCell.h */,
+				314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */,
+				31392FC91B14B69D0097FF1B /* ReferenceViewController.h */,
+				31392FCA1B14B69D0097FF1B /* ReferenceViewController.m */,
+				3147538C1ABD4BE700FF462E /* AcknowledgementViewController.h */,
+				3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */,
+			);
+			name = "Information Section";
+			sourceTree = "<group>";
+		};
+		311199C51B0872CD00538FA0 /* System Section */ = {
+			isa = PBXGroup;
+			children = (
+				31A8097A1AD04DE400186E4D /* SystemViewController.h */,
+				31A8097B1AD04DE400186E4D /* SystemViewController.m */,
+			);
+			name = "System Section";
+			sourceTree = "<group>";
+		};
+		311B75AF1ABC287C00A7D38C = {
+			isa = PBXGroup;
+			children = (
+				311B75BA1ABC287C00A7D38C /* PlayOPC */,
+				311B75D41ABC287C00A7D38C /* PlayOPCTests */,
+				313870A81AC7D3C900B00309 /* Frameworks */,
+				311B75B91ABC287C00A7D38C /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		311B75B91ABC287C00A7D38C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				311B75B81ABC287C00A7D38C /* PlayOPC.app */,
+				311B75D11ABC287C00A7D38C /* PlayOPCTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		311B75BA1ABC287C00A7D38C /* PlayOPC */ = {
+			isa = PBXGroup;
+			children = (
+				311B75C51ABC287C00A7D38C /* Main.storyboard */,
+				311B75BF1ABC287C00A7D38C /* AppDelegate.h */,
+				311B75C01ABC287C00A7D38C /* AppDelegate.m */,
+				31F3782C1AE12D23001A7CAD /* AppCamera.h */,
+				31F3782D1AE12D23001A7CAD /* AppCamera.m */,
+				314D7A4E1ACFDA03004C2644 /* AppCameraLog.h */,
+				314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */,
+				311199C11B08725A00538FA0 /* Connection Section */,
+				311199C21B08726E00538FA0 /* Recording Section */,
+				311199C31B08728200538FA0 /* Playback Section */,
+				311199C51B0872CD00538FA0 /* System Section */,
+				311199C41B0872B700538FA0 /* Information Section */,
+				311F081A1ADFEE2F00318028 /* ItemSelectionViewController.h */,
+				311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */,
+				3192843E1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.h */,
+				3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */,
+				311199C01B08702100538FA0 /* Extended Classes */,
+				311199B71B086F5E00538FA0 /* Imported Classes */,
+				311B75C81ABC287C00A7D38C /* Images.xcassets */,
+				31C71D721AF9D1260088C2A6 /* CameraProperty Images */,
+				311B75CA1ABC287C00A7D38C /* LaunchScreen.xib */,
+				311B75BB1ABC287C00A7D38C /* Supporting Files */,
+			);
+			path = PlayOPC;
+			sourceTree = "<group>";
+		};
+		311B75BB1ABC287C00A7D38C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				311B75BC1ABC287C00A7D38C /* Info.plist */,
+				31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */,
+				31392FDB1B14BED40097FF1B /* Localizable.strings */,
+				311B75BD1ABC287C00A7D38C /* main.m */,
+				31D7A5861B14AE4D0023AC76 /* author.m */,
+				314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */,
+				31392FD71B14BECE0097FF1B /* Acknowledgement.html */,
+				31392FD31B14BEC40097FF1B /* Reference.html */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		311B75D41ABC287C00A7D38C /* PlayOPCTests */ = {
+			isa = PBXGroup;
+			children = (
+				311B75D71ABC287C00A7D38C /* PlayOPCTests.m */,
+				311B75D51ABC287C00A7D38C /* Supporting Files */,
+			);
+			path = PlayOPCTests;
+			sourceTree = "<group>";
+		};
+		311B75D51ABC287C00A7D38C /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				311B75D61ABC287C00A7D38C /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		313870A81AC7D3C900B00309 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				311199B41B086F4800538FA0 /* OLYCameraKit.framework */,
+				3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */,
+				313870A61AC7D3B300B00309 /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		31C71D721AF9D1260088C2A6 /* CameraProperty Images */ = {
+			isa = PBXGroup;
+			children = (
+				31C71D731AF9D1260088C2A6 /* COLOR_CREATOR_COLOR */,
+				31C71D911AF9D1260088C2A6 /* COLOR_PHASE */,
+			);
+			path = "CameraProperty Images";
+			sourceTree = "<group>";
+		};
+		31C71D731AF9D1260088C2A6 /* COLOR_CREATOR_COLOR */ = {
+			isa = PBXGroup;
+			children = (
+				31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */,
+				31C71D741AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png */,
+				31C71D7F1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-2.png */,
+				31C71D8A1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-3.png */,
+				31C71D8B1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png */,
+				31C71D8C1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-5.png */,
+				31C71D8D1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-6.png */,
+				31C71D8E1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-7.png */,
+				31C71D8F1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png */,
+				31C71D901AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-9.png */,
+				31C71D751AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png */,
+				31C71D761AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png */,
+				31C71D771AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-12.png */,
+				31C71D781AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-13.png */,
+				31C71D791AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-14.png */,
+				31C71D7A1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png */,
+				31C71D7B1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-16.png */,
+				31C71D7C1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png */,
+				31C71D7D1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png */,
+				31C71D7E1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-19.png */,
+				31C71D801AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-20.png */,
+				31C71D811AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-21.png */,
+				31C71D821AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png */,
+				31C71D831AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png */,
+				31C71D841AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png */,
+				31C71D851AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-25.png */,
+				31C71D861AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png */,
+				31C71D871AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-27.png */,
+				31C71D881AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-28.png */,
+				31C71D891AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-29.png */,
+			);
+			path = COLOR_CREATOR_COLOR;
+			sourceTree = "<group>";
+		};
+		31C71D911AF9D1260088C2A6 /* COLOR_PHASE */ = {
+			isa = PBXGroup;
+			children = (
+				31C71D921AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-0.png */,
+				31C71D931AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png */,
+				31C71D9C1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-2.png */,
+				31C71D9D1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png */,
+				31C71D9E1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-4.png */,
+				31C71D9F1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-5.png */,
+				31C71DA01AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png */,
+				31C71DA11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-7.png */,
+				31C71DA21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png */,
+				31C71DA31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png */,
+				31C71D941AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png */,
+				31C71D951AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-11.png */,
+				31C71D961AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-12.png */,
+				31C71D971AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png */,
+				31C71D981AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-14.png */,
+				31C71D991AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-15.png */,
+				31C71D9A1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-16.png */,
+				31C71D9B1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png */,
+			);
+			path = COLOR_PHASE;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		311B75B71ABC287C00A7D38C /* PlayOPC */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 311B75DB1ABC287C00A7D38C /* Build configuration list for PBXNativeTarget "PlayOPC" */;
+			buildPhases = (
+				311B75B41ABC287C00A7D38C /* Sources */,
+				311B75B51ABC287C00A7D38C /* Frameworks */,
+				31B5C46E1ABC6CF10048AA44 /* ShellScript */,
+				311B75B61ABC287C00A7D38C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PlayOPC;
+			productName = PlayOPC;
+			productReference = 311B75B81ABC287C00A7D38C /* PlayOPC.app */;
+			productType = "com.apple.product-type.application";
+		};
+		311B75D01ABC287C00A7D38C /* PlayOPCTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 311B75DE1ABC287C00A7D38C /* Build configuration list for PBXNativeTarget "PlayOPCTests" */;
+			buildPhases = (
+				311B75CD1ABC287C00A7D38C /* Sources */,
+				311B75CE1ABC287C00A7D38C /* Frameworks */,
+				311B75CF1ABC287C00A7D38C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				311B75D31ABC287C00A7D38C /* PBXTargetDependency */,
+			);
+			name = PlayOPCTests;
+			productName = PlayOPCTests;
+			productReference = 311B75D11ABC287C00A7D38C /* PlayOPCTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		311B75B01ABC287C00A7D38C /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0620;
+				ORGANIZATIONNAME = "Hiroki Ishiura";
+				TargetAttributes = {
+					311B75B71ABC287C00A7D38C = {
+						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = U853Z6LKZW;
+					};
+					311B75D01ABC287C00A7D38C = {
+						CreatedOnToolsVersion = 6.2;
+						TestTargetID = 311B75B71ABC287C00A7D38C;
+					};
+				};
+			};
+			buildConfigurationList = 311B75B31ABC287C00A7D38C /* Build configuration list for PBXProject "PlayOPC" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				ja,
+			);
+			mainGroup = 311B75AF1ABC287C00A7D38C;
+			productRefGroup = 311B75B91ABC287C00A7D38C /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				311B75B71ABC287C00A7D38C /* PlayOPC */,
+				311B75D01ABC287C00A7D38C /* PlayOPCTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		311B75B61ABC287C00A7D38C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31C71DC71AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-14.png in Resources */,
+				31C71DBE1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-7.png in Resources */,
+				31C71DA81AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-13.png in Resources */,
+				31C71DCA1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png in Resources */,
+				31C71DC61AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png in Resources */,
+				31C71DC21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png in Resources */,
+				31392FD81B14BED40097FF1B /* Localizable.strings in Resources */,
+				31C71DAA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png in Resources */,
+				31C71DD11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png in Resources */,
+				31C71DCF1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png in Resources */,
+				31C71DB91AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-29.png in Resources */,
+				31C71DC41AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-11.png in Resources */,
+				31C71DB81AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-28.png in Resources */,
+				31C71DBD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-6.png in Resources */,
+				31C71DB71AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-27.png in Resources */,
+				31C71DC11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-0.png in Resources */,
+				31C71DC31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png in Resources */,
+				31C71DB21AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png in Resources */,
+				31C71DAC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png in Resources */,
+				31C71DCC1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png in Resources */,
+				31392FD01B14BEC40097FF1B /* Reference.html in Resources */,
+				31C71DB31AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png in Resources */,
+				31C71DBB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png in Resources */,
+				31C71DB41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png in Resources */,
+				31C71DA51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png in Resources */,
+				31C71DC51AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-12.png in Resources */,
+				31392FDC1B14BEDA0097FF1B /* InfoPlist.strings in Resources */,
+				31C71DD21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png in Resources */,
+				31C71DB01AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-20.png in Resources */,
+				31C71DA71AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-12.png in Resources */,
+				31C71DBC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-5.png in Resources */,
+				31C71DCB1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-2.png in Resources */,
+				31C71DA61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png in Resources */,
+				311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */,
+				31C71DAD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png in Resources */,
+				311B75CC1ABC287C00A7D38C /* LaunchScreen.xib in Resources */,
+				31C71DB61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png in Resources */,
+				31C71DBF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png in Resources */,
+				31C71DC01AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-9.png in Resources */,
+				31C71DB51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-25.png in Resources */,
+				31C71DAE1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-19.png in Resources */,
+				31C71DC81AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-15.png in Resources */,
+				311B75C91ABC287C00A7D38C /* Images.xcassets in Resources */,
+				31C71DA91AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-14.png in Resources */,
+				31C71DB11AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-21.png in Resources */,
+				31C71DCE1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-5.png in Resources */,
+				31C71DC91AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-16.png in Resources */,
+				31C71DAB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-16.png in Resources */,
+				31C71DAF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-2.png in Resources */,
+				31C71DCD1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-4.png in Resources */,
+				31C71DD01AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-7.png in Resources */,
+				31C71DBA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-3.png in Resources */,
+				31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */,
+				31392FD41B14BECE0097FF1B /* Acknowledgement.html in Resources */,
+				31C71DA41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		311B75CF1ABC287C00A7D38C /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				31392FD11B14BEC40097FF1B /* Reference.html in Resources */,
+				31392FD51B14BECE0097FF1B /* Acknowledgement.html in Resources */,
+				31392FDD1B14BEDA0097FF1B /* InfoPlist.strings in Resources */,
+				31392FD91B14BED40097FF1B /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		31B5C46E1ABC6CF10048AA44 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/bin/bash\nbuild_number=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuild_number=$(($build_number+1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$INFOPLIST_FILE\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		311B75B41ABC287C00A7D38C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				319396941B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
+				314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
+				31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */,
+				31731EB91AEB88140094193A /* EPanelViewController.m in Sources */,
+				311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */,
+				314D7A541ACFE265004C2644 /* CameraLogViewController.m in Sources */,
+				311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */,
+				311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
+				313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
+				31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */,
+				31A8097C1AD04DE400186E4D /* SystemViewController.m in Sources */,
+				31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */,
+				310D78281AECE4E200FFCBA5 /* RecImageView.m in Sources */,
+				311268FC1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
+				31392FCB1B14B69D0097FF1B /* ReferenceViewController.m in Sources */,
+				311B75BE1ABC287C00A7D38C /* main.m in Sources */,
+				31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */,
+				313D44B81B0CCF0700D6EEAC /* CPanelViewController.m in Sources */,
+				319284381AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
+				3165E5E51ADBC21200D4A680 /* LiveImageView.m in Sources */,
+				314D7A481ACF87AE004C2644 /* WifiConnector.m in Sources */,
+				319284401AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
+				311268F81AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
+				313870A41AC7D27600B00309 /* BluetoothConnector.m in Sources */,
+				31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */,
+				311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
+				3162EB091ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,
+				314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */,
+				31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */,
+				311199BE1B086FB200538FA0 /* Reachability.m in Sources */,
+				3154BA631ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
+				319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
+				3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
+				3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
+				31D7A5871B14AE4D0023AC76 /* author.m in Sources */,
+				31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		311B75CD1ABC287C00A7D38C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				319396951B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
+				314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
+				31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */,
+				31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
+				3162EB0A1ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,
+				314D7A551ACFE265004C2644 /* CameraLogViewController.m in Sources */,
+				3162EB0C1ABE78B100C71BE7 /* AppDelegate.m in Sources */,
+				3162EB0B1ABE78A900C71BE7 /* ConnectionViewController.m in Sources */,
+				313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
+				31BD64611B0865FD00934C3B /* VideoContentViewController.m in Sources */,
+				31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */,
+				314D7A491ACF87AE004C2644 /* WifiConnector.m in Sources */,
+				310D78291AECE4E200FFCBA5 /* RecImageView.m in Sources */,
+				319284351AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
+				31392FCC1B14B69D0097FF1B /* ReferenceViewController.m in Sources */,
+				311268FD1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
+				31731EBE1AEB886A0094193A /* APanelViewController.m in Sources */,
+				313D44B91B0CCF0700D6EEAC /* CPanelViewController.m in Sources */,
+				311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
+				313870A51AC7D27600B00309 /* BluetoothConnector.m in Sources */,
+				3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
+				314D7A511ACFDA03004C2644 /* AppCameraLog.m in Sources */,
+				319284411AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
+				311268F91AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
+				3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */,
+				31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */,
+				311199BD1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
+				319284391AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
+				3154BA641ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
+				31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */,
+				311199BF1B086FB200538FA0 /* Reachability.m in Sources */,
+				311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */,
+				31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */,
+				3152CF1B1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
+				31D7A5881B14AE4D0023AC76 /* author.m in Sources */,
+				310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		311B75D31ABC287C00A7D38C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 311B75B71ABC287C00A7D38C /* PlayOPC */;
+			targetProxy = 311B75D21ABC287C00A7D38C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		311B75C51ABC287C00A7D38C /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				311B75C61ABC287C00A7D38C /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		311B75CA1ABC287C00A7D38C /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				311B75CB1ABC287C00A7D38C /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		31392FD31B14BEC40097FF1B /* Reference.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31392FD21B14BEC40097FF1B /* Base */,
+				31392FE01B14BF320097FF1B /* ja */,
+			);
+			name = Reference.html;
+			sourceTree = "<group>";
+		};
+		31392FD71B14BECE0097FF1B /* Acknowledgement.html */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31392FD61B14BECE0097FF1B /* Base */,
+			);
+			name = Acknowledgement.html;
+			sourceTree = "<group>";
+		};
+		31392FDB1B14BED40097FF1B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31392FDA1B14BED40097FF1B /* Base */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31392FDE1B14BEDA0097FF1B /* Base */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		311B75D91ABC287C00A7D38C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlayOPC/PlayOPC-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		311B75DA1ABC287C00A7D38C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PlayOPC/PlayOPC-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		311B75DC1ABC287C00A7D38C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayOPC/Imports",
+				);
+				INFOPLIST_FILE = PlayOPC/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		311B75DD1ABC287C00A7D38C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayOPC/Imports",
+				);
+				INFOPLIST_FILE = PlayOPC/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		311B75DF1ABC287C00A7D38C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayOPC/Imports",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = PlayOPCTests/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlayOPC.app/PlayOPC";
+			};
+			name = Debug;
+		};
+		311B75E01ABC287C00A7D38C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/PlayOPC/Imports",
+				);
+				INFOPLIST_FILE = PlayOPCTests/Info.plist;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlayOPC.app/PlayOPC";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		311B75B31ABC287C00A7D38C /* Build configuration list for PBXProject "PlayOPC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				311B75D91ABC287C00A7D38C /* Debug */,
+				311B75DA1ABC287C00A7D38C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		311B75DB1ABC287C00A7D38C /* Build configuration list for PBXNativeTarget "PlayOPC" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				311B75DC1ABC287C00A7D38C /* Debug */,
+				311B75DD1ABC287C00A7D38C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		311B75DE1ABC287C00A7D38C /* Build configuration list for PBXNativeTarget "PlayOPCTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				311B75DF1ABC287C00A7D38C /* Debug */,
+				311B75E01ABC287C00A7D38C /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 311B75B01ABC287C00A7D38C /* Project object */;
+}

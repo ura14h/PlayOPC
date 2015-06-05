@@ -1,0 +1,27 @@
+/* 
+  Localizable.strings
+  PlayOPC
+
+  Created by Hiroki Ishiura on 2015/04/26.
+  Copyright (c) 2015年 Hiroki Ishiura. All rights reserved.
+*/
+
+"<EXPOSE_MOVIE_SELECT>" = "Shooting Mode for Video";
+"<EXPOSE_MOVIE_SELECT/P>" = "P";
+"<EXPOSE_MOVIE_SELECT/A>" = "A";
+"<EXPOSE_MOVIE_SELECT/S>" = "S";
+"<EXPOSE_MOVIE_SELECT/M>" = "M";
+"<COLOR_CREATOR_COLOR>" = "Hue for Color Creator";
+"<COLOR_CREATOR_VIVID>" = "Chroma for Color Creator";
+"<RECENTLY_ART_FILTER>" = "Filter for ART";
+"<COLOR_PHASE>" = "Hue for Partcolor";
+"<AF_LOCK_STATE/LOCK>" = "Locking";
+"<AF_LOCK_STATE/UNLOCK>" = "Unlocking";
+"<AE_LOCK_STATE/LOCK>" = "Locking";
+"<AE_LOCK_STATE/UNLOCK>" = "Unlocking";
+"<AE/AE_CENTER>" = "Center Weighted";
+"<FOCUS_STILL>" = "Focus Mode for Picture";
+"<FOCUS_MOVIE>" = "Focus Mode for Video";
+"<FACE_SCAN>" = "Face Detect";
+"<IMAGESIZE>" = "Image Size";
+"<QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME>" = "Short Movie Time";

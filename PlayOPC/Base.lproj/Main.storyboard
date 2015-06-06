@@ -5,10 +5,10 @@
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--App Navigation Controller-->
         <scene sceneID="eZx-5B-DJ6">
             <objects>
-                <navigationController hidesBottomBarWhenPushed="YES" id="qKY-Ma-50d" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="AppNavigationController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="qKY-Ma-50d" customClass="AppNavigationController" sceneMemberID="viewController">
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6ME-aC-Wgb">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>

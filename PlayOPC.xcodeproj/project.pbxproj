@@ -136,6 +136,8 @@
 		31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */; };
 		31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
 		31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
+		31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
+		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31D7A5871B14AE4D0023AC76 /* author.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7A5861B14AE4D0023AC76 /* author.m */; };
 		31D7A5881B14AE4D0023AC76 /* author.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7A5861B14AE4D0023AC76 /* author.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
@@ -285,6 +287,8 @@
 		31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-0.png"; sourceTree = "<group>"; };
 		31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomAlbum.h"; sourceTree = "<group>"; };
 		31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
+		31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
+		31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationController.m; sourceTree = "<group>"; };
 		31D7A5861B14AE4D0023AC76 /* author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = author.m; sourceTree = "<group>"; };
 		31DB84021AD101C900E50B03 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
 		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				31F3782D1AE12D23001A7CAD /* AppCamera.m */,
 				314D7A4E1ACFDA03004C2644 /* AppCameraLog.h */,
 				314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */,
+				31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */,
+				31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */,
 				311199C11B08725A00538FA0 /* Connection Section */,
 				311199C21B08726E00538FA0 /* Recording Section */,
 				311199C31B08728200538FA0 /* Playback Section */,
@@ -783,6 +789,7 @@
 				31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */,
 				311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
 				3162EB091ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,
+				31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */,
 				314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */,
 				31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */,
 				311199BE1B086FB200538FA0 /* Reachability.m in Sources */,
@@ -826,6 +833,7 @@
 				3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */,
 				31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */,
 				311199BD1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
+				31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */,
 				319284391AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
 				3154BA641ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
 				31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */,
@@ -994,6 +1002,7 @@
 				);
 				INFOPLIST_FILE = PlayOPC/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -1008,6 +1017,7 @@
 				);
 				INFOPLIST_FILE = PlayOPC/Info.plist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

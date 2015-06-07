@@ -46,6 +46,14 @@
     [super didReceiveMemoryWarning];
 }
 
+- (void)dealloc {
+	DEBUG_LOG(@"");
+
+	_currentTrait = nil;
+	_portraitTrait = nil;
+	_landscapeTrait = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"animated=%ld", (long)animated);
 	[super viewWillAppear:animated];

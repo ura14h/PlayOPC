@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
+/// リファレンスマニュアルを表示します。
 @interface ReferenceViewController : UIViewController
 
 @end

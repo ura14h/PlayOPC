@@ -25,7 +25,7 @@
 	DEBUG_LOG(@"");
 	[super viewDidLoad];
 	
-	// 謝辞を表示します。
+	// リファレンスマニュアルを表示します。
 	NSString *htmlFilePath = [[NSBundle mainBundle] pathForResource:@"Reference" ofType:@"html"];
 	NSURL *htmlFileUrl = [NSURL fileURLWithPath:htmlFilePath];
 	[self.webView loadRequest:[NSURLRequest requestWithURL:htmlFileUrl]];

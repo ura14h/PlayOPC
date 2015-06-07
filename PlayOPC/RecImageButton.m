@@ -55,6 +55,8 @@
 	DEBUG_LOG(@"");
 }
 
+#pragma mark -
+
 - (void)setImage:(UIImage *)image {
 	DEBUG_LOG(@"image=%@", image);
 	

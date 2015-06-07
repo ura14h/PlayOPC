@@ -19,7 +19,11 @@
 
 @end
 
+#pragma mark -
+
 @implementation AppNavigationController
+
+#pragma mark -
 
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");

@@ -1194,17 +1194,23 @@
                                                     <outletCollection property="gestureRecognizers" destination="Gqq-dB-tCI" appends="YES" id="Aoy-PY-x5l"/>
                                                 </connections>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="64" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="zfi-oz-gcU" customClass="RecImageView">
+                                            <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="64" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjO-Vu-jx4" userLabel="Rec Image Button" customClass="RecImageButton">
                                                 <rect key="frame" x="248" y="8" width="64" height="64"/>
-                                            </imageView>
+                                                <state key="normal">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapRecImageButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="00Z-Xb-wjq"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="5bp-ZD-veE"/>
                                             <constraint firstAttribute="trailing" secondItem="AJr-e7-fHh" secondAttribute="trailing" id="EJu-WK-r5s"/>
-                                            <constraint firstItem="zfi-oz-gcU" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="L9d-56-TJr"/>
+                                            <constraint firstAttribute="trailing" secondItem="zjO-Vu-jx4" secondAttribute="trailing" constant="8" id="FdD-jn-l1i"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="MKe-Ce-YFP"/>
                                             <constraint firstAttribute="bottom" secondItem="AJr-e7-fHh" secondAttribute="bottom" id="Zf8-AQ-zgg"/>
-                                            <constraint firstAttribute="trailing" secondItem="zfi-oz-gcU" secondAttribute="trailing" constant="8" id="xgo-lQ-qR0"/>
+                                            <constraint firstItem="zjO-Vu-jx4" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="dUG-U2-3gu"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-Yr-lpp" userLabel="Control Panel">
@@ -1393,7 +1399,7 @@
                         <outlet property="controlPanelViewWidthConstraints" destination="dV3-Nl-DZ8" id="kau-8v-wwp"/>
                         <outlet property="finderPanelView" destination="mWa-4Q-MUL" id="OfG-N2-RJg"/>
                         <outlet property="liveImageView" destination="AJr-e7-fHh" id="tis-Mh-mcY"/>
-                        <outlet property="recImageView" destination="zfi-oz-gcU" id="vzx-qs-hcF"/>
+                        <outlet property="recImageButton" destination="zjO-Vu-jx4" id="l4x-3G-UtX"/>
                         <outlet property="showAPanelButton" destination="ZQQ-QB-tBG" id="sYW-rV-4dd"/>
                         <outlet property="showCPanelButton" destination="VqA-pW-FV9" id="qat-Jx-dLu"/>
                         <outlet property="showEPanelButton" destination="RuL-RO-ACs" id="0Ps-OE-eF4"/>
@@ -1402,6 +1408,7 @@
                         <outlet property="showZPanelButton" destination="Vee-qt-gfv" id="RUh-8F-F2e"/>
                         <outlet property="takeButton" destination="Ufl-R2-jWH" id="hlX-Hh-NOv"/>
                         <outlet property="toolPanelView" destination="Uhi-Ra-5Lp" id="rck-gb-ua0"/>
+                        <segue destination="ATI-Lf-Tbo" kind="show" identifier="ShowRecImageViewController" id="ihW-WT-6vn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uTL-1V-NFb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -3673,6 +3680,64 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XVQ-sd-JgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3901" y="1960"/>
+        </scene>
+        <!--Latest Picture-->
+        <scene sceneID="BuU-pT-dgP">
+            <objects>
+                <viewController storyboardIdentifier="RecImageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ATI-Lf-Tbo" customClass="RecImageViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="IPj-sn-cRY"/>
+                        <viewControllerLayoutGuide type="bottom" id="sQY-VB-9Tr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wF6-zq-te7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aw8-Ul-KHw">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="568" translatesAutoresizingMaskIntoConstraints="NO" id="5cf-lY-c6o">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                                    </imageView>
+                                </subviews>
+                                <gestureRecognizers/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="5cf-lY-c6o" secondAttribute="bottom" id="III-wR-QY9"/>
+                                    <constraint firstAttribute="trailing" secondItem="5cf-lY-c6o" secondAttribute="trailing" id="Jlh-ur-YcP"/>
+                                    <constraint firstItem="5cf-lY-c6o" firstAttribute="top" secondItem="aw8-Ul-KHw" secondAttribute="top" id="uF0-2o-6So"/>
+                                    <constraint firstItem="5cf-lY-c6o" firstAttribute="leading" secondItem="aw8-Ul-KHw" secondAttribute="leading" id="zhM-ah-xbN"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="delegate" destination="ATI-Lf-Tbo" id="h4e-xG-84C"/>
+                                    <outletCollection property="gestureRecognizers" destination="ojo-7M-QBE" appends="YES" id="C2X-eD-alR"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.10000000000000001" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="aw8-Ul-KHw" firstAttribute="top" secondItem="wF6-zq-te7" secondAttribute="top" id="1zc-73-7MT"/>
+                            <constraint firstAttribute="bottom" secondItem="aw8-Ul-KHw" secondAttribute="bottom" id="GaE-OZ-bXf"/>
+                            <constraint firstItem="aw8-Ul-KHw" firstAttribute="leading" secondItem="wF6-zq-te7" secondAttribute="leading" id="SvB-m7-Ib4"/>
+                            <constraint firstAttribute="trailing" secondItem="aw8-Ul-KHw" secondAttribute="trailing" id="fqj-gR-N0P"/>
+                        </constraints>
+                    </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Latest Picture" id="S2d-Sr-ERw">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="uQh-LP-Yxa"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="imageView" destination="5cf-lY-c6o" id="ZnY-5k-xpO"/>
+                        <outlet property="scrollView" destination="aw8-Ul-KHw" id="iOh-fG-C2f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jL2-aM-pm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer numberOfTapsRequired="2" id="ojo-7M-QBE">
+                    <connections>
+                        <action selector="didTapScrollView:" destination="ATI-Lf-Tbo" id="9JR-m7-HOb"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="1896" y="-1298"/>
         </scene>
     </scenes>
     <resources>

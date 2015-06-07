@@ -14,7 +14,8 @@
 #import "AppCamera.h"
 #import "MBProgressHUD.h"
 #import "LiveImageView.h"
-#import "RecImageView.h"
+#import "RecImageButton.h"
+#import "RecImageViewController.h"
 #import "SPanelViewController.h"
 #import "EPanelViewController.h"
 #import "CPanelViewController.h"
@@ -74,7 +75,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIView *finderPanelView;
 @property (weak, nonatomic) IBOutlet UIView *cameraPanelView;
 @property (weak, nonatomic) IBOutlet LiveImageView *liveImageView;
-@property (weak, nonatomic) IBOutlet RecImageView *recImageView;
+@property (weak, nonatomic) IBOutlet RecImageButton *recImageButton;
 @property (weak, nonatomic) IBOutlet UIView *controlPanelView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewHeightConstraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewWidthConstraints;
@@ -96,6 +97,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
+@property (strong, nonatomic) UIImage *latestRecImage; ///< 最新の撮影後確認画像
 @property (assign, nonatomic) ControlPanelVisibleStatus controlPanelVisibleStatus; ///< コントロールの表示状態
 @property (strong, nonatomic) SPanelViewController *embeddedSPanelViewController; ///< Sパネルのビューコントローラ
 @property (strong, nonatomic) EPanelViewController *embeddedEPanelViewController; ///< Eパネルのビューコントローラ
@@ -149,6 +151,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera removeObserver:self forKeyPath:CameraPropertyDetectedHumanFaces];
 	[camera removeCameraPropertyDelegate:self];
 	_cameraPropertyObserver = nil;
+	_latestRecImage = nil;
 	_embeddedSPanelViewController = nil;
 	_embeddedEPanelViewController = nil;
 	_embeddedCPanelViewController = nil;
@@ -199,12 +202,16 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)willTransitionToTraitCollection:(UITraitCollection *)collection withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
 	DEBUG_LOG(@"collection=%@", collection);
 	[super willTransitionToTraitCollection:collection withTransitionCoordinator:coordinator];
-	
+
 	// !!!: プログラムで変更したレイアウト制約をここで一度外しておかないとこのメソッドの後にAuto Layoutから警告を受けてしまいます。
 	// デバイスが回転してレイアウトが変わる前の制約が何か邪魔しているっぽいです。
 	// 以下はアドホックな対策ですが、他に良い方法が見つかりませんでした。
-	self.controlPanelViewWidthConstraints.active = NO;
-	self.controlPanelViewHeightConstraints.active = NO;
+	// !!!: 他のビューコントローラーのビューが表示されている時に実施されないようにします。
+	// これを考慮しないと制約が外れたままになってしまいこのビューコントローラーの表示が復帰した時に画面レイアウトが崩れてしまいます。
+	if (self.view.window) {
+		self.controlPanelViewWidthConstraints.active = NO;
+		self.controlPanelViewHeightConstraints.active = NO;
+	}
 }
 
 #pragma mark -
@@ -248,6 +255,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start Recording", nil)];
 			return;
 		}
+
+		// レックビューの表示を消去します。
+		weakSelf.latestRecImage = nil;
+		[weakSelf.recImageButton setImage:nil];
 		
 		// デバイスのスリープを禁止します。
 		// ???: Xcodeでケーブル接続してデバッグ実行しているとスリープは発動しないようです。
@@ -322,37 +333,43 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"segue=%@", segue);
 	
 	// セグエに応じた画面遷移の準備処理を呼び出します。
-	// セグエは埋め込み用セグエでかつ埋め込んであるのはナビゲーションコントローラーしか許しません。
 	NSString *segueIdentifier = segue.identifier;
-	if (![segueIdentifier hasPrefix:@"Embedded"] || ![segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
-		return;
-	}
-	UINavigationController *navigationController = segue.destinationViewController;
-	// ついでにコントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
-	UIFont *titleFont = [UIFont systemFontOfSize:17.0]; // ???:ナビゲーションバータイトルの省略時のフォントサイズがわからなかったのでハードコーディングしました。
-	UIColor *titleColor = [UIColor colorWithWhite:0.5 alpha:1.0];
-	NSDictionary *titleAttributes = @{
-		NSFontAttributeName: titleFont,
-		NSForegroundColorAttributeName: titleColor,
-	};
-	navigationController.navigationBar.titleTextAttributes = titleAttributes;
-	navigationController.navigationBar.tintColor = self.view.tintColor;
-	// 各パネルのビューコントローラーを保持します。
-	// それぞれのパネルの入り口はナビゲーションコントローラーのルートビューコントローラになっている必要があります。
-	if ([segueIdentifier isEqualToString:@"EmbeddedSPanelViewController"]) {
-		self.embeddedSPanelViewController = navigationController.viewControllers[0];
-	} else if ([segueIdentifier isEqualToString:@"EmbeddedEPanelViewController"]) {
-		self.embeddedEPanelViewController = navigationController.viewControllers[0];
-	} else if ([segueIdentifier isEqualToString:@"EmbeddedCPanelViewController"]) {
-		self.embeddedCPanelViewController = navigationController.viewControllers[0];
-	} else if ([segueIdentifier isEqualToString:@"EmbeddedAPanelViewController"]) {
-		self.embeddedAPanelViewController = navigationController.viewControllers[0];
-	} else if ([segueIdentifier isEqualToString:@"EmbeddedZPanelViewController"]) {
-		self.embeddedZPanelViewController = navigationController.viewControllers[0];
-	} else if ([segueIdentifier isEqualToString:@"EmbeddedVPanelViewController"]) {
-		self.embeddedVPanelViewController = navigationController.viewControllers[0];
+	if ([segueIdentifier hasPrefix:@"Embedded"] && [segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
+		// セグエは埋め込み用セグエでかつ埋め込んであるのはナビゲーションコントローラーしか許しません。
+		UINavigationController *navigationController = segue.destinationViewController;
+		// ついでにコントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
+		UIFont *titleFont = [UIFont systemFontOfSize:17.0]; // ???:ナビゲーションバータイトルの省略時のフォントサイズがわからなかったのでハードコーディングしました。
+		UIColor *titleColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+		NSDictionary *titleAttributes = @{
+			NSFontAttributeName: titleFont,
+			NSForegroundColorAttributeName: titleColor,
+		};
+		navigationController.navigationBar.titleTextAttributes = titleAttributes;
+		navigationController.navigationBar.tintColor = self.view.tintColor;
+		// 各パネルのビューコントローラーを保持します。
+		// それぞれのパネルの入り口はナビゲーションコントローラーのルートビューコントローラになっている必要があります。
+		if ([segueIdentifier isEqualToString:@"EmbeddedSPanelViewController"]) {
+			self.embeddedSPanelViewController = navigationController.viewControllers[0];
+		} else if ([segueIdentifier isEqualToString:@"EmbeddedEPanelViewController"]) {
+			self.embeddedEPanelViewController = navigationController.viewControllers[0];
+		} else if ([segueIdentifier isEqualToString:@"EmbeddedCPanelViewController"]) {
+			self.embeddedCPanelViewController = navigationController.viewControllers[0];
+		} else if ([segueIdentifier isEqualToString:@"EmbeddedAPanelViewController"]) {
+			self.embeddedAPanelViewController = navigationController.viewControllers[0];
+		} else if ([segueIdentifier isEqualToString:@"EmbeddedZPanelViewController"]) {
+			self.embeddedZPanelViewController = navigationController.viewControllers[0];
+		} else if ([segueIdentifier isEqualToString:@"EmbeddedVPanelViewController"]) {
+			self.embeddedVPanelViewController = navigationController.viewControllers[0];
+		} else {
+			// 何もしません。
+		}
 	} else {
-		// 何もしません。
+		if ([segueIdentifier isEqualToString:@"ShowRecImageViewController"]) {
+			RecImageViewController *viewController = segue.destinationViewController;
+			viewController.image = self.latestRecImage;
+		} else {
+			// 何もしません。
+		}
 	}
 }
 
@@ -438,7 +455,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 
 	// レックビューの表示を一旦消去します。
-	self.recImageView.image = nil;
+	self.latestRecImage = nil;
+	[self.recImageButton setImage:nil];
 }
 
 - (void)camera:(OLYCamera *)camera didReceiveCapturedImagePreview:(NSData *)data metadata:(NSDictionary *)metadata {
@@ -446,14 +464,16 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// レックビューの表示を最新の画像で更新します。
 	UIImage *image = OLYCameraConvertDataToImage(data, metadata);
-	self.recImageView.image = image;
+	self.latestRecImage = image;
+	[self.recImageButton setImage:image];
 }
 
 - (void)camera:(OLYCamera *)camera didFailToReceiveCapturedImagePreviewWithError:(NSError *)error {
 	DEBUG_LOG(@"error=%@", error);
 
 	// レックビューの取得に失敗しました。
-	self.recImageView.image = nil;
+	self.latestRecImage = nil;
+	[self.recImageButton setImage:nil];
 	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not show captured image", nil)];
 }
 
@@ -487,9 +507,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"error=%@", error);
 
 	// 進捗表示用のビューを消去します。
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = delegate.window;
-	[MBProgressHUD hideHUDForView:window animated:YES];
+	[self hideProgress:YES];
 
 	// 撮影画像の取得に失敗しました。
 	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download captured image", nil)];
@@ -602,6 +620,27 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[self stopTakingPicture];
 		}
 	}
+}
+
+/// 撮影後確認画像ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapRecImageButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// 撮影後確認画像がない場合は何もしません。
+	if (!self.latestRecImage) {
+		DEBUG_LOG(@"no image.");
+		return;
+	}
+	
+	// 撮影中の時は何もできません。
+	AppCamera *camera = GetAppCamera();
+	if (camera.takingPicture || camera.recordingVideo) {
+		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+		return;
+	}
+	
+	// 撮影後確認画像を表示します。
+	[self performSegueWithIdentifier:@"ShowRecImageViewController" sender:self];
 }
 
 /// 'S'ボタンがタップされた時に呼び出されます。

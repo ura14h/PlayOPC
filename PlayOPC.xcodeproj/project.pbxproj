@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3103FEA21B23F29E008244C9 /* RecImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3103FEA11B23F29E008244C9 /* RecImageButton.m */; };
+		3103FEA31B23F29E008244C9 /* RecImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3103FEA11B23F29E008244C9 /* RecImageButton.m */; };
 		310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A8097B1AD04DE400186E4D /* SystemViewController.m */; };
-		310D78281AECE4E200FFCBA5 /* RecImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 310D78271AECE4E200FFCBA5 /* RecImageView.m */; };
-		310D78291AECE4E200FFCBA5 /* RecImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 310D78271AECE4E200FFCBA5 /* RecImageView.m */; };
 		311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
 		311199B61B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
 		311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199B91B086FB200538FA0 /* MBProgressHUD.m */; };
@@ -46,6 +46,8 @@
 		313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */; };
 		313D44B81B0CCF0700D6EEAC /* CPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */; };
 		313D44B91B0CCF0700D6EEAC /* CPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */; };
+		3142ACD61B23D44F008B2754 /* RecImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3142ACD51B23D44F008B2754 /* RecImageViewController.m */; };
+		3142ACD71B23D44F008B2754 /* RecImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3142ACD51B23D44F008B2754 /* RecImageViewController.m */; };
 		3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */; };
 		3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */; };
 		314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
@@ -157,8 +159,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		310D78261AECE4E200FFCBA5 /* RecImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecImageView.h; sourceTree = "<group>"; };
-		310D78271AECE4E200FFCBA5 /* RecImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecImageView.m; sourceTree = "<group>"; };
+		3103FEA01B23F29E008244C9 /* RecImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecImageButton.h; sourceTree = "<group>"; };
+		3103FEA11B23F29E008244C9 /* RecImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecImageButton.m; sourceTree = "<group>"; };
 		311199B41B086F4800538FA0 /* OLYCameraKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OLYCameraKit.framework; path = PlayOPC/Imports/OLYCameraKit.framework; sourceTree = "<group>"; };
 		311199B81B086FB200538FA0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = Imports/MBProgressHUD.h; sourceTree = "<group>"; };
 		311199B91B086FB200538FA0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Imports/MBProgressHUD.m; sourceTree = "<group>"; };
@@ -197,6 +199,8 @@
 		313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPanelViewController.m; sourceTree = "<group>"; };
 		313D44B61B0CCF0700D6EEAC /* CPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CPanelViewController.h; sourceTree = "<group>"; };
 		313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CPanelViewController.m; sourceTree = "<group>"; };
+		3142ACD41B23D44F008B2754 /* RecImageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecImageViewController.h; sourceTree = "<group>"; };
+		3142ACD51B23D44F008B2754 /* RecImageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecImageViewController.m; sourceTree = "<group>"; };
 		314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayOPC-Prefix.pch"; sourceTree = "<group>"; };
 		3147538C1ABD4BE700FF462E /* AcknowledgementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcknowledgementViewController.h; sourceTree = "<group>"; };
 		3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcknowledgementViewController.m; sourceTree = "<group>"; };
@@ -366,8 +370,10 @@
 				319284331AD8E7E0003BC78F /* RecordingViewController.m */,
 				3165E5E31ADBC21200D4A680 /* LiveImageView.h */,
 				3165E5E41ADBC21200D4A680 /* LiveImageView.m */,
-				310D78261AECE4E200FFCBA5 /* RecImageView.h */,
-				310D78271AECE4E200FFCBA5 /* RecImageView.m */,
+				3103FEA01B23F29E008244C9 /* RecImageButton.h */,
+				3103FEA11B23F29E008244C9 /* RecImageButton.m */,
+				3142ACD41B23D44F008B2754 /* RecImageViewController.h */,
+				3142ACD51B23D44F008B2754 /* RecImageViewController.m */,
 				313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */,
 				313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */,
 				31731EB71AEB88140094193A /* EPanelViewController.h */,
@@ -765,16 +771,17 @@
 				319396941B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
 				314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
 				31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */,
+				3142ACD61B23D44F008B2754 /* RecImageViewController.m in Sources */,
 				31731EB91AEB88140094193A /* EPanelViewController.m in Sources */,
 				311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */,
 				314D7A541ACFE265004C2644 /* CameraLogViewController.m in Sources */,
 				311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */,
+				3103FEA21B23F29E008244C9 /* RecImageButton.m in Sources */,
 				311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
 				313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
 				31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */,
 				31A8097C1AD04DE400186E4D /* SystemViewController.m in Sources */,
 				31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */,
-				310D78281AECE4E200FFCBA5 /* RecImageView.m in Sources */,
 				311268FC1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
 				31392FCB1B14B69D0097FF1B /* ReferenceViewController.m in Sources */,
 				311B75BE1ABC287C00A7D38C /* main.m in Sources */,
@@ -809,16 +816,17 @@
 				319396951B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
 				314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
 				31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */,
+				3142ACD71B23D44F008B2754 /* RecImageViewController.m in Sources */,
 				31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
 				3162EB0A1ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,
 				314D7A551ACFE265004C2644 /* CameraLogViewController.m in Sources */,
 				3162EB0C1ABE78B100C71BE7 /* AppDelegate.m in Sources */,
+				3103FEA31B23F29E008244C9 /* RecImageButton.m in Sources */,
 				3162EB0B1ABE78A900C71BE7 /* ConnectionViewController.m in Sources */,
 				313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
 				31BD64611B0865FD00934C3B /* VideoContentViewController.m in Sources */,
 				31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */,
 				314D7A491ACF87AE004C2644 /* WifiConnector.m in Sources */,
-				310D78291AECE4E200FFCBA5 /* RecImageView.m in Sources */,
 				319284351AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
 				31392FCC1B14B69D0097FF1B /* ReferenceViewController.m in Sources */,
 				311268FD1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,

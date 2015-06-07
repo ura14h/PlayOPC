@@ -1,17 +1,17 @@
 //
-//  RecImageView.m
+//  RecImageButton.m
 //  PlayOPC
 //
-//  Created by Hiroki Ishiura on 2015/04/26.
+//  Created by Hiroki Ishiura on 2015/06/07.
 //  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 //
 //  Released under the MIT license
 //  http://opensource.org/licenses/mit-license.php
 //
 
-#import "RecImageView.h"
+#import "RecImageButton.h"
 
-@interface RecImageView ()
+@interface RecImageButton ()
 
 @property (assign, nonatomic) CGSize thumbnailImageSize; ///< レックビューサムネイル画像のサイズ
 
@@ -19,7 +19,7 @@
 
 #pragma mark -
 
-@implementation RecImageView
+@implementation RecImageButton
 
 #pragma mark -
 
@@ -57,7 +57,7 @@
 
 - (void)setImage:(UIImage *)image {
 	DEBUG_LOG(@"image=%@", image);
-
+	
 	// フェードアニメーションを設定します。
 	// ???: 一度削除してから再び設定しているがこの方法で良いのかよく分からない。
 	[self.layer removeAllAnimations];
@@ -68,7 +68,7 @@
 	
 	if (!image) {
 		// 設定する画像がない場合は非表示にします。
-		[super setImage:image];
+		[super setImage:image forState:UIControlStateNormal];
 		return;
 	}
 	
@@ -87,7 +87,7 @@
 	UIGraphicsEndImageContext();
 	
 	// 表示を更新します。
-	[super setImage:thumbnailImage];
+	[super setImage:thumbnailImage forState:UIControlStateNormal];
 }
 
 @end

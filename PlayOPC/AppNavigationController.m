@@ -47,7 +47,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated {
-	DEBUG_LOG(@"animated=%ld", (long)animated);
+	DEBUG_DETAIL_LOG(@"animated=%ld", (long)animated);
 	[super viewWillAppear:animated];
 	
 	// 使用するTrait Collectionを縦横のサイズを元に変更します。
@@ -61,7 +61,7 @@
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator {
-	DEBUG_LOG(@"size=%@, coordinator=%@", NSStringFromCGSize(size), coordinator);
+	DEBUG_DETAIL_LOG(@"size=%@, coordinator=%@", NSStringFromCGSize(size), coordinator);
 
 	// 使用するTrait Collectionを縦横のサイズを元に変更します。
 	if (self.portraitTrait && self.landscapeTrait) {
@@ -74,7 +74,7 @@
 }
 
 - (UITraitCollection *)overrideTraitCollectionForChildViewController:(UIViewController *)childViewController {
-	DEBUG_LOG(@"childViewController=%@", childViewController);
+	DEBUG_DETAIL_LOG(@"childViewController=%@", childViewController);
 
 	if (self.portraitTrait && self.landscapeTrait && self.currentTrait) {
 		return self.currentTrait;

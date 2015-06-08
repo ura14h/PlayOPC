@@ -55,6 +55,12 @@
 	DEBUG_LOG(@"");
 }
 
+- (CGSize)intrinsicContentSize {
+	DEBUG_DETAIL_LOG(@"");
+	
+	return self.imageView.intrinsicContentSize;
+}
+
 #pragma mark -
 
 - (void)setImage:(UIImage *)image {

@@ -588,6 +588,15 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		if (![camera connect:OLYCameraConnectionTypeBluetoothLE error:&error]) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			camera.bluetoothPeripheral = nil;
+			camera.bluetoothPassword = nil;
+			// カメラとのBluetooth接続を解除します。
+			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
+				// カメラとのBluetooth接続解除に失敗しました。
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+			weakSelf.bluetoothConnector.peripheral = nil;
 			return;
 		}
 

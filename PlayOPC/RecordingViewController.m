@@ -256,10 +256,6 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			return;
 		}
 
-		// レックビューの表示を消去します。
-		weakSelf.latestRecImage = nil;
-		[weakSelf.recImageButton setImage:nil];
-		
 		// デバイスのスリープを禁止します。
 		// ???: Xcodeでケーブル接続してデバッグ実行しているとスリープは発動しないようです。
 		[UIApplication sharedApplication].idleTimerDisabled = YES;

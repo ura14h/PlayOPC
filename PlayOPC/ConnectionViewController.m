@@ -489,13 +489,27 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 		camera.bluetoothPassword = bluetoothPasscode;
 		camera.bluetoothPrepareForRecordingWhenPowerOn = ReadyLensWhenPowerOn;
-		if (![camera wakeup:&error]) {
+		BOOL wokenUp = [camera wakeup:&error];
+		if (!wokenUp) {
 			// カメラの電源を入れるのに失敗しました。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not wake up", nil)];
-			return;
 		}
 		camera.bluetoothPeripheral = nil;
 		camera.bluetoothPassword = nil;
+		
+		// カメラとのBluetooth接続を解除します。
+		// ???: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
+		if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
+			// カメラとのBluetooth接続解除に失敗しました。
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		weakSelf.bluetoothConnector.peripheral = nil;
+
+		// カメラの電源を入れるのに失敗している場合はここで諦めます。
+		if (!wokenUp) {
+			return;
+		}
 		
 		// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 		// !!!: カメラ本体のLEDはすぐに接続中になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
@@ -511,14 +525,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			return;
 		}
 
-		// カメラとのBluetooth接続を解除します。
-		if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
-			// カメラとのBluetooth接続解除に失敗しました。
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		weakSelf.bluetoothConnector.peripheral = nil;
-		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];

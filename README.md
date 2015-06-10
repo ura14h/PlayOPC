@@ -33,6 +33,10 @@ OLYMPUS AIR A01 is necessary to use this application.
 * The app cannot initialize media cards in the camera.
 * The app cannot set the time at the camera and change the network setting of the camera.
 
+## Runs Immediately
+
+You may find the binary version of application in [iTunes App Store](https://itunes.apple.com/app/play-opc/id999316498). Please download it if you want to see immediately this application works. 
+
 ## Requirements
 
 Building this application requires:

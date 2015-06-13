@@ -824,9 +824,11 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		__weak ConnectionViewController *weakSelf = self;
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+			[weakSelf hideAllProgresses:YES];
 			[weakSelf.navigationController popToViewController:weakSelf animated:YES];
 		}];
 	} else {
+		[self hideAllProgresses:NO];
 		[self.navigationController popToViewController:self animated:NO];
 	}
 }

@@ -61,6 +61,14 @@
 	[MBProgressHUD hideHUDForView:window animated:YES];
 }
 
+- (void)hideAllProgresses:(BOOL)animated {
+	DEBUG_DETAIL_LOG(@"animated=%@", (animated ? @"YES" : @"NO"));
+	
+	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	UIWindow *window = delegate.window;
+	[MBProgressHUD hideAllHUDsForView:window animated:animated];
+}
+
 - (void)showProgress:(BOOL)animated whileExecutingBlock:(void (^)(MBProgressHUD *progressView))block {
 	DEBUG_DETAIL_LOG(@"animated=%@", (animated ? @"YES" : @"NO"));
 

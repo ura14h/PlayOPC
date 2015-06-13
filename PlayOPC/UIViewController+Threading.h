@@ -33,6 +33,9 @@
 // 進捗表示用のビューを消去します。
 - (void)hideProgress:(BOOL)animated;
 
+// 進捗表示用のビューを全て消去します。
+- (void)hideAllProgresses:(BOOL)animated;
+	
 /// 進捗表示ビューを表示しながら、指定された処理ブロックを実行します。
 - (void)showProgress:(BOOL)animated whileExecutingBlock:(void (^)(MBProgressHUD *progress))block;
 

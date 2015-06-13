@@ -10,7 +10,6 @@
 //
 
 #import "VideoContentViewController.h"
-#import <AssetsLibrary/ALAsset.h>
 #import "AppDelegate.h"
 #import "AppCamera.h"
 #import "UIViewController+Alert.h"

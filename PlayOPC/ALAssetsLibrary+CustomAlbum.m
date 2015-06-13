@@ -52,6 +52,16 @@
 				// 写真アルバムにカスタムグループが見つからなかった場合はグループを新規作成して画像を登録します。
 				DEBUG_LOG(@"Create the new album: groupName=%@", groupName);
 				[weakSelf addAssetsGroupAlbumWithName:groupName resultBlock:^(ALAssetsGroup *group) {
+					// FIXME: iOS 8.xでは引数のgroupがnilで渡されるようです。したがってこの先の登録処理は正しく動作しません。
+					// ???: これは暗にPhotos Frameworkを使えと言っているようです...
+					if (!group) {
+						if (completionBlock) {
+							NSLog(@"The captured image was saved into the standard album but could not create a new custom album and add the image.");
+							completionBlock(assetURL, nil); // FIXME: このエラーは握りつぶしておきます。
+						}
+						weakSelf = nil;
+						return;
+					}
 					[weakSelf assetForURL:assetURL resultBlock:^(ALAsset *asset) {
 						[group addAsset:asset];
 						if (completionBlock) {

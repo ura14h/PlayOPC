@@ -18,10 +18,6 @@
 #import "UITableViewController+Cell.h"
 
 static NSString *const CameraSettingsFilePath = @"CameraSettings.plist"; ///< 一括取得したカメラプロパティ値を保存するファイル名
-static NSString *const CameraSettingsFileFormatVersion = @"1.0"; ///< ファイルのフォーマットバージョン
-static NSString *const CameraSettingsFileFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
-static NSString *const CameraSettingsFilePropertyValuesKey = @"PropertyValues"; ///< ファイルのカメラプロパティ値の辞書キー
-static NSString *const CameraSettingsFileLiveViewSizeKey = @"LiveViewSize"; ///< ファイルのライブビューサイズ設定の辞書キー
 
 @interface SPanelViewController () <OLYCameraPropertyDelegate>
 
@@ -354,61 +350,24 @@ static NSString *const CameraSettingsFileLiveViewSizeKey = @"LiveViewSize"; ///<
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
-		// 共有ドキュメントフォルダから設定ファイルを読み込みます。
+		// 共有ドキュメントフォルダから設定のスナップショットファイルを読み込みます。
 		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *directoryPath = directoryPaths[0];
 		NSString *filePath = [directoryPath stringByAppendingPathComponent:CameraSettingsFilePath];
-		NSDictionary *fileContent = [NSDictionary dictionaryWithContentsOfFile:filePath];
+		NSDictionary *snapshot = [NSDictionary dictionaryWithContentsOfFile:filePath];
 		DEBUG_LOG(@"filePath=%@", filePath);
-		DEBUG_LOG(@"fileContent=%@", fileContent);
-		if (!fileContent) {
+		DEBUG_LOG(@"snapshot=%@", snapshot);
+		if (!snapshot) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera settings from file.", nil) title:NSLocalizedString(@"Could not apply camera settings.", nil)];
 			return;
 		}
-		if (!fileContent[CameraSettingsFileFormatVersionKey] ||
-			![fileContent[CameraSettingsFileFormatVersionKey] isEqualToString:CameraSettingsFileFormatVersion]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Unmatched the version of camera settings in file.", nil) title:NSLocalizedString(@"Could not apply camera settings.", nil)];
-			return;
-		}
-		NSDictionary *propertyValues = fileContent[CameraSettingsFilePropertyValuesKey];
-		OLYCameraLiveViewSize liveViewSize = CGSizeFromString(fileContent[CameraSettingsFileLiveViewSizeKey]);
-
-		// 一時的にライブビューを止めて表示のチラツキを食い止めます。
+		
+		// スナップショットからカメラの設定を復元します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
-		if (![camera stopLiveView:&error]) {
-			// 停止できませんでした。
+		if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera settings.", nil)];
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// 読み込んだカメラプロパティの設定値をカメラに反映します。
-		if (![camera setCameraPropertyValues:propertyValues error:&error]) {
-			if (!camera.connected) {
-				DEBUG_LOG(@"Warning! The application unknowns all status of the camera.");
-				return;
-			}
-			// カメラに設定できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera settings.", nil)];
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-
-		// 読み込んだライブビューサイズの設定値をカメラに反映します。
-		if (![camera changeLiveViewSize:liveViewSize error:&error]) {
-			// カメラに設定できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera settings.", nil)];
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-
-		// ライブビューを再開します。
-		if (![camera startLiveView:&error]) {
-			// 再開できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera settings.", nil)];
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
+			return;
 		}
 		
 		// カメラ設定のロードが完了しました。
@@ -426,35 +385,24 @@ static NSString *const CameraSettingsFileLiveViewSizeKey = @"LiveViewSize"; ///<
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
-		// 現在のカメラプロパティの設定値を全て取得します。
-		// !!!: プロパティの一覧がNSArrayで取得できてプロパティ値の取得はNSSetで指定しなければならない仕様になっています。
+		// 現在のカメラ設定のスナップショットを作成します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
-		NSSet *properties = [NSSet setWithArray:[camera cameraPropertyNames]];
-		NSDictionary *propertyValues = [camera cameraPropertyValues:properties error:&error];
-		if (!propertyValues) {
+		NSDictionary *snapshot = [camera createSnapshotOfSettings:&error];
+		if (!snapshot) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save camera settings.", nil)];
 			return;
 		}
-		DEBUG_LOG(@"propertyValues=%@", propertyValues);
-		
-		// 現在設定されているライブビューのサイズを取得します。
-		NSString *liveViewSize = NSStringFromCGSize(camera.liveViewSize);
-		DEBUG_LOG(@"liveViewSize=%@", liveViewSize);
 		
 		// 取得したカメラプロパティの設定値を共有ドキュメントフォルダのファイルとして保存します。
 		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
 		NSString *directoryPath = directoryPaths[0];
 		NSString *filePath = [directoryPath stringByAppendingPathComponent:CameraSettingsFilePath];
-		NSDictionary *fileContent = @{
-			CameraSettingsFileFormatVersionKey: CameraSettingsFileFormatVersion,
-			CameraSettingsFilePropertyValuesKey: propertyValues,
-			CameraSettingsFileLiveViewSizeKey: liveViewSize,
-		};
 		DEBUG_LOG(@"filePath=%@", filePath);
-		DEBUG_LOG(@"fileContent=%@", fileContent);
-		if (![fileContent writeToFile:filePath atomically:YES]) {
+		DEBUG_LOG(@"fileContent=%@", snapshot);
+		if (![snapshot writeToFile:filePath atomically:YES]) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera settings to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save camera settings.", nil)];
+			return;
 		}
 		
 		// カメラ設定をセーブが完了しました。

@@ -90,6 +90,11 @@ NSString *const CameraPropertyCurrentDigitalZoomScale = @"currentDigitalZoomScal
 NSString *const CameraPropertyOpticalZoomingSpeed = @"opticalZoomingSpeed";
 NSString *const CameraPropertyArtFilterAutoBracket = @"BRACKET_PICT_POPART";
 
+static NSString *const CameraSettingsSnapshotFormatVersion = @"1.0"; ///< ファイルのフォーマットバージョン
+static NSString *const CameraSettingsSnapshotFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
+static NSString *const CameraSettingsSnapshotPropertyValuesKey = @"PropertyValues"; ///< ファイルのカメラプロパティ値の辞書キー
+static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; ///< ファイルのライブビューサイズ設定の辞書キー
+
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
 
 @property (assign, nonatomic, readwrite) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
@@ -880,6 +885,81 @@ NSString *const CameraPropertyArtFilterAutoBracket = @"BRACKET_PICT_POPART";
 	
 	DEBUG_DETAIL_LOG(@"nmea=%lf", nmea);
 	return nmea;
+}
+
+- (NSDictionary *)createSnapshotOfSettings:(NSError **)error {
+	DEBUG_LOG(@"");
+
+	// 現在のカメラプロパティの設定値を全て取得します。
+	// !!!: プロパティの一覧がNSArrayで取得できてプロパティ値の取得はNSSetで指定しなければならない仕様になっています。
+	NSError *internalError = nil;
+	NSSet *properties = [NSSet setWithArray:[self cameraPropertyNames]];
+	NSDictionary *propertyValues = [self cameraPropertyValues:properties error:&internalError];
+	if (!propertyValues) {
+		if (error) {
+			*error = internalError;
+		}
+		return nil;
+	}
+	DEBUG_LOG(@"propertyValues=%@", propertyValues);
+	
+	// 現在設定されているライブビューのサイズを取得します。
+	NSString *liveViewSize = NSStringFromCGSize(self.liveViewSize);
+	DEBUG_LOG(@"liveViewSize=%@", liveViewSize);
+
+	// スナップショットにする情報を集約します。
+	NSDictionary *snapshot = @{
+		CameraSettingsSnapshotFormatVersionKey: CameraSettingsSnapshotFormatVersion,
+		CameraSettingsSnapshotPropertyValuesKey: propertyValues,
+		CameraSettingsSnapshotLiveViewSizeKey: liveViewSize,
+	};
+	
+	return snapshot;
+}
+
+- (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error {
+	DEBUG_LOG(@"");
+
+	// スナップショットから復元する情報を取り出します。
+	if (!snapshot[CameraSettingsSnapshotFormatVersionKey] ||
+		![snapshot[CameraSettingsSnapshotFormatVersionKey] isEqualToString:CameraSettingsSnapshotFormatVersion]) {
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unmatched the version of snapshot format." };
+		NSError *internalError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	NSDictionary *propertyValues = snapshot[CameraSettingsSnapshotPropertyValuesKey];
+	OLYCameraLiveViewSize liveViewSize = CGSizeFromString(snapshot[CameraSettingsSnapshotLiveViewSizeKey]);
+	
+	// 一時的にライブビューを止めて表示のチラツキを食い止めます。
+	BOOL needToStartLiveView = self.liveViewEnabled;
+	if (needToStartLiveView) {
+		if (![self stopLiveView:error]) {
+			return NO;
+		}
+	}
+	
+	// 読み込んだカメラプロパティの設定値をカメラに反映します。
+	if (![self setCameraPropertyValues:propertyValues error:error]) {
+		return NO;
+	}
+	
+	// 読み込んだライブビューサイズの設定値をカメラに反映します。
+	if (![self changeLiveViewSize:liveViewSize error:error]) {
+		return NO;
+	}
+	
+	// ライブビューを再開します。
+	if (needToStartLiveView) {
+		if (![self startLiveView:error]) {
+			return NO;
+		}
+	}
+	
+	// 復元完了しました。
+	return YES;
 }
 
 @end

@@ -158,4 +158,10 @@ extern NSString *const CameraPropertyArtFilterAutoBracket;
 /// Core Locationから得た位置情報をカメラに登録します。
 - (BOOL)setGeolocationWithCoreLocation:(CLLocation *)location error:(NSError **)error;
 
+/// 現在のカメラ設定のスナップショットを作成します。
+- (NSDictionary *)createSnapshotOfSettings:(NSError **)error;
+
+/// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
+- (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error;
+
 @end

@@ -246,6 +246,16 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			DEBUG_LOG(@"Why the live view is already started?");
 		}
 		
+		// 最新スナップショットからカメラ設定を復元します。
+		NSDictionary *snapshot = GetApp().latestSnapshotOfCameraSettings;
+		if (snapshot) {
+			if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+		
 		// ライブビューの表示を開始にします。
 		// !!!: ライブビュー自動開始が有効でないなら、明示的にライブビューの表示開始を呼び出さなければなりません。
 		[camera addLiveViewDelegate:weakSelf];
@@ -300,6 +310,16 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera removeRecordingSupportsDelegate:weakSelf];
 		NSError *error = nil;
 		if (![camera stopLiveView:&error]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// カメラ設定のスナップショットを取ります。
+		// ???: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
+		NSDictionary *snapshot = [camera createSnapshotOfSettings:&error];
+		if (snapshot) {
+			GetApp().latestSnapshotOfCameraSettings = snapshot;
+		} else {
 			// エラーを無視して続行します。
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 		}

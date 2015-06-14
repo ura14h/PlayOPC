@@ -32,6 +32,8 @@ extern NSString *const UserDefaultsBluetoothPasscode;
 
 @property (strong, nonatomic) UIWindow *window;
 
+@property (strong, nonatomic) NSDictionary *latestSnapshotOfCameraSettings; ///< カメラ設定の最新スナップショット
+
 @end
 
 /// アプリ内で唯一のアプリケーションデリゲートインスタンスを取得します。

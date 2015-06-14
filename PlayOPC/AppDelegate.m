@@ -40,6 +40,9 @@ NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
 	[UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
 	[UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.6 alpha:1.0];
 	
+	// カメラ設定の最新スナップショットを初期化します。
+	self.latestSnapshotOfCameraSettings = nil;
+	
 	// カメラログインスタンスをカメラインスタンスより先に生成しておかないと、カメラの初期化に関わるログが記録されません。
 	self.cameraLog = [[AppCameraLog alloc] init];
 	self.camera = [[AppCamera alloc] init];

@@ -30,7 +30,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *showBluetoothSettingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWifiSettingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *wakeUpWithUsingBluetoothCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *connectWithUsingBluetoothCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *connectWithUsingWiFiCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *disconnectCell;
@@ -47,7 +46,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 @property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報へアクセスする権限があるか調べるための位置情報マネージャ
 @property (strong, nonatomic) BluetoothConnector *bluetoothConnector; ///< Bluetooth接続の監視
 @property (strong, nonatomic) WifiConnector *wifiConnector; ///< Wi-Fi接続の監視
-@property (strong, nonatomic) NSIndexPath *visibleWhenWakedUp; ///< カメラの電源オンが完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenConnected; ///< アプリ接続が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenDisconnected; ///< アプリ接続の切断が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenSleeped; ///< カメラの電源オフが完了した後のスクロール位置
@@ -113,10 +111,9 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	self.applicationVersionCell.detailTextLabel.text = applicationVersion;
 
 	// それぞれの処理が完了した後のスクロール位置を設定します。
-	self.visibleWhenWakedUp = [NSIndexPath indexPathForRow:1 inSection:1]; // アプリ接続へ
 	self.visibleWhenConnected = [NSIndexPath indexPathForRow:0 inSection:2]; // 撮影モードへ
 	self.visibleWhenDisconnected = [NSIndexPath indexPathForRow:1 inSection:1]; // アプリ接続へ
-	self.visibleWhenSleeped = [NSIndexPath indexPathForRow:0 inSection:1]; // カメラ電源投入へ
+	self.visibleWhenSleeped = [NSIndexPath indexPathForRow:0 inSection:1]; // アプリ接続(カメラ電源投入)へ
 }
 
 - (void)didReceiveMemoryWarning {
@@ -144,7 +141,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	[notificationCenter removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 
-	_visibleWhenWakedUp = nil;
 	_visibleWhenConnected = nil;
 	_visibleWhenDisconnected = nil;
 	_visibleWhenSleeped = nil;
@@ -321,8 +317,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	// セルに応じたカメラ操作処理を呼び出します。
 	if ([cellReuseIdentifier isEqualToString:@"ShowWifiSetting"]) {
 		// iOSの設定画面のWi-Fiセクションを開くことができたら素晴らしいのに。
-	} else if ([cellReuseIdentifier isEqualToString:@"WakeUpWithUsingBluetooth"]) {
-		[self didSelectRowAtWakeUpWithUsingBluetoothCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"ConnectWithUsingBluetooth"]) {
 		[self didSelectRowAtConnectWithUsingBluetoothCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"ConnectWithUsingWifi"]) {
@@ -444,102 +438,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	[self updateShowBluetoothSettingCell];
 }
 
-/// 'WakeUp with using Bluetooth'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtWakeUpWithUsingBluetoothCell {
-	DEBUG_LOG(@"");
-
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *bluetoothLocalName = [userDefaults objectForKey:UserDefaultsBluetoothLocalName];
-	NSString *bluetoothPasscode = [userDefaults objectForKey:UserDefaultsBluetoothPasscode];
-	if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
-		// Bluetoothデバイスの設定が不完全です。
-		[self showAlertMessage:NSLocalizedString(@"Bluetooth local name is empty. Please configure Bluetooth setting.", nil) title:NSLocalizedString(@"Could not wake up", nil)];
-		return;
-	}
-
-	// カメラの電源投入を開始します。
-	__weak ConnectionViewController *weakSelf = self;
-	weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
-	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// カメラを探します。
-		NSError *error = nil;
-		if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotFound) {
-			if (![weakSelf.bluetoothConnector discoverPeripheral:&error]) {
-				// カメラが見つかりませんでした。
-				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not wake up", nil)];
-				return;
-			}
-		}
-		
-		// カメラにBluetooth接続します。
-		if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotConnected) {
-			if (![weakSelf.bluetoothConnector connectPeripheral:&error]) {
-				// カメラにBluetooth接続できませんでした。
-				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not wake up", nil)];
-				return;
-			}
-		}
-		
-		// カメラの電源を入れます。
-		// ???: wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
-		AppCamera *camera = GetAppCamera();
-		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
-		camera.bluetoothPassword = bluetoothPasscode;
-		camera.bluetoothPrepareForRecordingWhenPowerOn = ReadyLensWhenPowerOn;
-		BOOL wokenUp = [camera wakeup:&error];
-		if (!wokenUp) {
-			// カメラの電源を入れるのに失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not wake up", nil)];
-		}
-		camera.bluetoothPeripheral = nil;
-		camera.bluetoothPassword = nil;
-		
-		// カメラとのBluetooth接続を解除します。
-		// ???: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
-		if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
-			// カメラとのBluetooth接続解除に失敗しました。
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		weakSelf.bluetoothConnector.peripheral = nil;
-
-		// カメラの電源を入れるのに失敗している場合はここで諦めます。
-		if (!wokenUp) {
-			return;
-		}
-		
-		// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
-		// !!!: カメラ本体のLEDはすぐに接続中になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
-		// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
-		if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:30.0]) {
-			if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
-				// Wi-Fi接続が有効になりませんでした。
-				[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection.", nil) title:NSLocalizedString(@"Could not wake up", nil)];
-			} else {
-				// カメラにアクセスできるWi-Fi接続ではありませんでした。
-				[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.", nil) title:NSLocalizedString(@"Could not wake up", nil)];
-			}
-			return;
-		}
-
-		// 画面表示を更新します。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[weakSelf updateShowBluetoothSettingCell];
-			[weakSelf updateShowWifiSettingCell];
-			[weakSelf updateCameraConnectionCells];
-			[weakSelf updateCameraOperationCells];
-			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenWakedUp atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
-		}];
-		
-		// 電源投入が完了しました。
-		[weakSelf reportBlockFinishedToProgress:progressView];
-		DEBUG_LOG(@"");
-	}];
-}
-
 /// 'Connect with using Bluetooth'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtConnectWithUsingBluetoothCell {
 	DEBUG_LOG(@"");
@@ -581,6 +479,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		}
 		
 		// カメラにアプリ接続します。
+		// この応答が返ってくるまでやや時間がかかるようです。作者の環境ではiPhone 4Sだと10秒程度かかっています。
 		AppCamera *camera = GetAppCamera();
 		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 		camera.bluetoothPassword = bluetoothPasscode;
@@ -625,16 +524,115 @@ static BOOL ReadyLensWhenPowerOn = YES;
 /// 'Connect with using Wi-Fi'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtConnectWithUsingWifiCell {
 	DEBUG_LOG(@"");
+
+	// カメラへの接続するのに電源投入も必要か否かを調べます。
+	BOOL demandToWakeUpWithUsingBluetooth = NO;
+	if (self.wifiConnector.currentConnectionStatus == WifiConnectionStatusConnected) {
+		if ([self.wifiConnector isPossibleToAccessCamera]) {
+			// Wi-Fi接続済みで接続先はカメラ
+		} else {
+			// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
+			[self showAlertMessage:NSLocalizedString(@"This Wi-Fi connection is not the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+	} else {
+		if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+			// Wi-Fi未接続でBluetooth経由の電源投入により自動接続できる見込みあり
+			demandToWakeUpWithUsingBluetooth = YES;
+		} else {
+			// Wi-Fi未接続でBluetooth使用不可なため自動でカメラに接続できる見込みなし
+			[self showAlertMessage:NSLocalizedString(@"There is no Wi-Fi connection with the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+	}
+
+	// Bluetoothデバイスの設定を確認します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	NSString *bluetoothLocalName = [userDefaults objectForKey:UserDefaultsBluetoothLocalName];
+	NSString *bluetoothPasscode = [userDefaults objectForKey:UserDefaultsBluetoothPasscode];
+	if (demandToWakeUpWithUsingBluetooth) {
+		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
+			// Bluetoothデバイスの設定が不完全です。
+			[self showAlertMessage:NSLocalizedString(@"Bluetooth local name is empty. Please configure Bluetooth setting.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+	}
 	
-	// カメラへの接続を開始します。
+	// カメラの電源を投入し接続を開始します。
+	// 作者の環境ではiPhone 4Sだと電源投入から接続確率まで20秒近くかかっています。
 	__weak ConnectionViewController *weakSelf = self;
+	weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
+	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
-		// カメラにアクセスできるWi-Fi接続か確認します。
-		if (![weakSelf.wifiConnector isPossibleToAccessCamera]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"This Wi-Fi connection is not the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
-			return; // ここで戻らずに突き進んだとしても接続エラーになるでしょう。
+		// カメラに電源投入を試みます。
+		if (demandToWakeUpWithUsingBluetooth) {
+			// カメラを探します。
+			NSError *error = nil;
+			if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotFound) {
+				if (![weakSelf.bluetoothConnector discoverPeripheral:&error]) {
+					// カメラが見つかりませんでした。
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+					return;
+				}
+			}
+			
+			// カメラにBluetooth接続します。
+			if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotConnected) {
+				if (![weakSelf.bluetoothConnector connectPeripheral:&error]) {
+					// カメラにBluetooth接続できませんでした。
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+					return;
+				}
+			}
+			
+			// カメラの電源を入れます。
+			// !!!: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
+			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			// ???: カメラがUSB経由で給電中だと、wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
+			AppCamera *camera = GetAppCamera();
+			camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
+			camera.bluetoothPassword = bluetoothPasscode;
+			camera.bluetoothPrepareForRecordingWhenPowerOn = ReadyLensWhenPowerOn;
+			BOOL wokenUp = [camera wakeup:&error];
+			if (!wokenUp) {
+				// カメラの電源を入れるのに失敗しました。
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			}
+			camera.bluetoothPeripheral = nil;
+			camera.bluetoothPassword = nil;
+			
+			// カメラとのBluetooth接続を解除します。
+			// ???: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
+			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
+				// カメラとのBluetooth接続解除に失敗しました。
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+			weakSelf.bluetoothConnector.peripheral = nil;
+			
+			// カメラの電源を入れるのに失敗している場合はここで諦めます。
+			if (!wokenUp) {
+				return;
+			}
+			
+			// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
+			// !!!: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
+			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:30.0]) {
+				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
+					// Wi-Fi接続が有効になりませんでした。
+					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+				} else {
+					// カメラにアクセスできるWi-Fi接続ではありませんでした。
+					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+				}
+				return;
+			}
+
+			// 電源投入が完了しました。
+			DEBUG_LOG(@"To wake the camera up is success.");
 		}
 		
 		// カメラにアプリ接続します。
@@ -884,7 +882,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
 		// Bluetoothで接続中です。
-		[self tableViewCell:self.wakeUpWithUsingBluetoothCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingBluetoothCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 		[self tableViewCell:self.disconnectCell enabled:YES];
@@ -893,7 +890,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		self.connectWithUsingWiFiCell.accessoryType = UITableViewCellAccessoryNone;
 	} else if (camera.connected && camera.connectionType == OLYCameraConnectionTypeWiFi) {
 		// Wi-Fiで接続中です。
-		[self tableViewCell:self.wakeUpWithUsingBluetoothCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingBluetoothCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 		[self tableViewCell:self.disconnectCell enabled:YES];
@@ -903,25 +899,29 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	} else {
 		// 未接続です。
 		if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
-			[self tableViewCell:self.wakeUpWithUsingBluetoothCell enabled:YES];
+			// Bluetooth使用可
 			[self tableViewCell:self.connectWithUsingBluetoothCell enabled:YES];
 		} else {
-			[self tableViewCell:self.wakeUpWithUsingBluetoothCell enabled:NO];
+			// Bluetooth使用不可
 			[self tableViewCell:self.connectWithUsingBluetoothCell enabled:NO];
 		}
-#if 0 // Wi-Fi接続かどうかだけ確認するならこのブロックを有効にしてください。
 		if (self.wifiConnector.currentConnectionStatus == WifiConnectionStatusConnected) {
-			[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
+			if ([self.wifiConnector isPossibleToAccessCamera]) {
+				// Wi-Fi接続済みで接続先はカメラ
+				[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
+			} else {
+				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
+				[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
+			}
 		} else {
-			[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
+			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+				// Wi-Fi未接続でBluetooth経由の電源投入により自動接続できる見込みあり
+				[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
+			} else {
+				// Wi-Fi未接続でBluetooth使用不可なため自動でカメラに接続できる見込みなし
+				[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
+			}
 		}
-#else // カメラにアクセス可能なWi-Fi接続かどうかを確認するならこのブロックを有効にしてください。
-		if ([self.wifiConnector isPossibleToAccessCamera]) {
-			[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
-		} else {
-			[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
-		}
-#endif
 		[self tableViewCell:self.disconnectCell enabled:NO];
 		[self tableViewCell:self.disconnectAndSleepCell enabled:NO];
 		self.connectWithUsingBluetoothCell.accessoryType = UITableViewCellAccessoryNone;

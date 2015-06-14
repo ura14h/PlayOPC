@@ -87,19 +87,6 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Camera Connection" id="fHo-6S-Eiu">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="WakeUpWithUsingBluetooth" textLabel="6hT-KY-QQF" style="IBUITableViewCellStyleDefault" id="Icf-5S-e2r">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Icf-5S-e2r" id="f6O-Sa-2kN">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Wake Up with using Bluetooth" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6hT-KY-QQF">
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="16"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ConnectWithUsingBluetooth" textLabel="mkn-q0-odx" style="IBUITableViewCellStyleDefault" id="7h6-7d-283">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7h6-7d-283" id="SYe-P6-VMg">
@@ -331,7 +318,6 @@
                         <outlet property="showReferenceCell" destination="HGC-hz-oMz" id="FYw-Lc-BHN"/>
                         <outlet property="showSystemCell" destination="Bsz-lK-bBd" id="C6H-B1-1jb"/>
                         <outlet property="showWifiSettingCell" destination="71c-sS-o4X" id="fyN-aq-npi"/>
-                        <outlet property="wakeUpWithUsingBluetoothCell" destination="Icf-5S-e2r" id="jS0-Ti-Eqh"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="feb-sv-25q" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -34,6 +34,9 @@ extern NSString *const UserDefaultsBluetoothPasscode;
 
 @end
 
+/// アプリ内で唯一のアプリケーションデリゲートインスタンスを取得します。
+extern AppDelegate *GetApp();
+
 /// アプリ内で唯一のカメラインスタンスを取得します。
 extern AppCamera *GetAppCamera();
 

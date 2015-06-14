@@ -98,6 +98,14 @@ NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
 
 #pragma mark -
 
+AppDelegate *GetApp() {
+	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	if (!delegate) {
+		return nil;
+	}
+	return delegate;
+}
+
 AppCamera *GetAppCamera() {
 	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
 	if (!delegate) {

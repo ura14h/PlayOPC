@@ -48,24 +48,21 @@
 - (void)showProgress:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"animated=%@", (animated ? @"YES" : @"NO"));
 	
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = delegate.window;
+	UIWindow *window = GetApp().window;
 	[MBProgressHUD showHUDAddedTo:window animated:YES];
 }
 
 - (void)hideProgress:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"animated=%@", (animated ? @"YES" : @"NO"));
 	
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = delegate.window;
+	UIWindow *window = GetApp().window;
 	[MBProgressHUD hideHUDForView:window animated:YES];
 }
 
 - (void)hideAllProgresses:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"animated=%@", (animated ? @"YES" : @"NO"));
 	
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = delegate.window;
+	UIWindow *window = GetApp().window;
 	[MBProgressHUD hideAllHUDsForView:window animated:animated];
 }
 
@@ -73,8 +70,7 @@
 	DEBUG_DETAIL_LOG(@"animated=%@", (animated ? @"YES" : @"NO"));
 
 	// 進捗表示用のビューを作成します。
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-	UIWindow *window = delegate.window;
+	UIWindow *window = GetApp().window;
 	MBProgressHUD *progressHUD = [[MBProgressHUD alloc] initWithWindow:window];
 	progressHUD.removeFromSuperViewOnHide = YES;
 

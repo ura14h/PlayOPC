@@ -141,8 +141,6 @@
 		31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
 		31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
-		31D7A5871B14AE4D0023AC76 /* author.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7A5861B14AE4D0023AC76 /* author.m */; };
-		31D7A5881B14AE4D0023AC76 /* author.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D7A5861B14AE4D0023AC76 /* author.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
 		31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
@@ -295,7 +293,6 @@
 		31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
 		31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
 		31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationController.m; sourceTree = "<group>"; };
-		31D7A5861B14AE4D0023AC76 /* author.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = author.m; sourceTree = "<group>"; };
 		31DB84021AD101C900E50B03 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
 		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCamera.h; sourceTree = "<group>"; };
@@ -491,7 +488,6 @@
 				31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */,
 				31392FDB1B14BED40097FF1B /* Localizable.strings */,
 				311B75BD1ABC287C00A7D38C /* main.m */,
-				31D7A5861B14AE4D0023AC76 /* author.m */,
 				314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */,
 				31392FD71B14BECE0097FF1B /* Acknowledgement.html */,
 				31392FD31B14BEC40097FF1B /* Reference.html */,
@@ -808,7 +804,6 @@
 				319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
 				3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
 				3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
-				31D7A5871B14AE4D0023AC76 /* author.m in Sources */,
 				31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -853,7 +848,6 @@
 				311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */,
 				31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */,
 				3152CF1B1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
-				31D7A5881B14AE4D0023AC76 /* author.m in Sources */,
 				310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

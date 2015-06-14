@@ -24,6 +24,7 @@ int main(int argc, char * argv[]) {
 			// キャッチできない致命的な例外は情報をデバッグコンソールに出力します。
 			DEBUG_LOG(@"exception=%@", [exception description]);
 			DEBUG_LOG(@"stack trace={\n%@\n}", [exception callStackSymbols]);
+			@throw;
 		}
 		return exit_code;
 	}

@@ -404,6 +404,9 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="shareButton" destination="kuu-qp-pLI" id="cY8-5q-buU"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lso-eC-UM8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -784,7 +787,9 @@
                     </navigationItem>
                     <connections>
                         <outlet property="imageView" destination="kIc-Cx-7jK" id="BRN-c6-75X"/>
+                        <outlet property="resizeButton" destination="qC6-d9-fTV" id="Jm4-SJ-Hhu"/>
                         <outlet property="scrollView" destination="6GD-gB-KPG" id="RX3-Rt-2X4"/>
+                        <outlet property="shareButton" destination="Mq2-ko-Klt" id="yyk-dm-D9M"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHf-MR-5wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2843,6 +2848,8 @@
                     <connections>
                         <outlet property="contentInformationLabel" destination="dzV-cP-l2l" id="8Qo-en-2tp"/>
                         <outlet property="imageView" destination="8KU-vD-ebk" id="fVJ-ki-IQq"/>
+                        <outlet property="resizeButton" destination="Vuz-b5-wlp" id="3k9-oN-6Tu"/>
+                        <outlet property="shareButton" destination="o2l-pX-4oR" id="DPQ-7m-nLm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2GC-PS-3cq" userLabel="First Responder" sceneMemberID="firstResponder"/>

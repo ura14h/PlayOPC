@@ -30,10 +30,13 @@
 	NSString *alertTitle = title;
 	NSString *alertMessage = message;
 	NSString *alertActionTitle = NSLocalizedString(@"OK", nil);
-	UIAlertController *alert = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.sourceRect = self.view.bounds;
+	alertController.popoverPresentationController.permittedArrowDirections = 0;
 	UIAlertAction *alertAction = [UIAlertAction actionWithTitle:alertActionTitle style:UIAlertActionStyleDefault handler:nil];
-	[alert addAction:alertAction];
-	[self presentViewController:alert animated:YES completion:nil];
+	[alertController addAction:alertAction];
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 @end

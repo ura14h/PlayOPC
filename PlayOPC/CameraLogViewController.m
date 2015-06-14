@@ -18,6 +18,8 @@
 
 @interface CameraLogViewController ()
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSArray *messages; ///< ログ履歴
 
@@ -232,6 +234,8 @@
 		// 一番最初だけ表示されるまでとても時間がかかるようです。
 		NSArray *shareItems = @[ logText ];
 		UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+		shareController.popoverPresentationController.sourceView = weakSelf.view;
+		shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{

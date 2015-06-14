@@ -19,6 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 
@@ -183,6 +185,8 @@
 	NSString *message = NSLocalizedString(@"An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it.", nil);
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = self.resizeButton;
 	
 	__weak PictureContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
@@ -246,6 +250,8 @@
 	NSString *message = NSLocalizedString(@"The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.", nil);
 	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = self.shareButton;
 	
 	__weak PictureContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
@@ -498,6 +504,8 @@
 		// 一番最初だけ表示されるまでとても時間がかかるようです。
 		NSArray *shareItems = @[ imageUrl ];
 		UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+		shareController.popoverPresentationController.sourceView = weakSelf.view;
+		shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
 		shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 			// 完了したので画像ファイルを破棄します。
 			NSError *error = nil;

@@ -18,8 +18,9 @@
 @interface VideoContentViewController ()
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-
 @property (weak, nonatomic) IBOutlet UILabel *contentInformationLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (assign, nonatomic) NSTimeInterval estimatedPlaybackTime; ///< コンテンツの再生時間
@@ -122,6 +123,8 @@
 	NSString *message = [NSString stringWithFormat:messageFormat, self.estimatedPlaybackTime];
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = (UIBarButtonItem *)sender;
 	
 	__weak VideoContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
@@ -187,6 +190,8 @@
 	NSString *message = NSLocalizedString(@"The app downloads this video before sharing it. The handling takes a little bit of time.", nil);
 	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = (UIBarButtonItem *)sender;
 	
 	__weak VideoContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
@@ -461,6 +466,8 @@
 		// 一番最初だけ表示されるまでとても時間がかかるようです。
 		NSArray *shareItems = @[ videoUrl ];
 		UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+		shareController.popoverPresentationController.sourceView = weakSelf.view;
+		shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
 		shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 			// 完了したので動画ファイルを破棄します。
 			NSError *error = nil;

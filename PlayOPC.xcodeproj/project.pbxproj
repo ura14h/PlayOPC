@@ -58,6 +58,8 @@
 		314D7A511ACFDA03004C2644 /* AppCameraLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */; };
 		314D7A541ACFE265004C2644 /* CameraLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A531ACFE265004C2644 /* CameraLogViewController.m */; };
 		314D7A551ACFE265004C2644 /* CameraLogViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A531ACFE265004C2644 /* CameraLogViewController.m */; };
+		314E1DB31B3023E90052F8EF /* RecordingLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */; };
+		314E1DB41B3023E90052F8EF /* RecordingLocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */; };
 		3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */; };
 		3152CF1B1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */; };
 		3154BA631ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */; };
@@ -211,6 +213,8 @@
 		314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCameraLog.m; sourceTree = "<group>"; };
 		314D7A521ACFE265004C2644 /* CameraLogViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraLogViewController.h; sourceTree = "<group>"; };
 		314D7A531ACFE265004C2644 /* CameraLogViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = CameraLogViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		314E1DB11B3023E90052F8EF /* RecordingLocationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingLocationManager.h; sourceTree = "<group>"; };
+		314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordingLocationManager.m; sourceTree = "<group>"; };
 		3152CF181AF859A500E97036 /* ArtbktPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArtbktPanelViewController.h; sourceTree = "<group>"; };
 		3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ArtbktPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		3154BA611ADFDAA000D96EBE /* UITableViewController+Cell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewController+Cell.h"; sourceTree = "<group>"; };
@@ -368,6 +372,8 @@
 			children = (
 				319284321AD8E7E0003BC78F /* RecordingViewController.h */,
 				319284331AD8E7E0003BC78F /* RecordingViewController.m */,
+				314E1DB11B3023E90052F8EF /* RecordingLocationManager.h */,
+				314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */,
 				3165E5E31ADBC21200D4A680 /* LiveImageView.h */,
 				3165E5E41ADBC21200D4A680 /* LiveImageView.m */,
 				3103FEA01B23F29E008244C9 /* RecImageButton.h */,
@@ -778,6 +784,7 @@
 				311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */,
 				3103FEA21B23F29E008244C9 /* RecImageButton.m in Sources */,
 				311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
+				314E1DB31B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
 				31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */,
 				31A8097C1AD04DE400186E4D /* SystemViewController.m in Sources */,
@@ -822,6 +829,7 @@
 				3162EB0C1ABE78B100C71BE7 /* AppDelegate.m in Sources */,
 				3103FEA31B23F29E008244C9 /* RecImageButton.m in Sources */,
 				3162EB0B1ABE78A900C71BE7 /* ConnectionViewController.m in Sources */,
+				314E1DB41B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
 				31BD64611B0865FD00934C3B /* VideoContentViewController.m in Sources */,
 				31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */,

@@ -10,10 +10,10 @@
 //
 
 #import "VPanelViewController.h"
-#import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
 #import "AppCamera.h"
 #import "CameraPropertyValueSelectionViewController.h"
+#import "RecordingLocationManager.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
 #import "UITableViewController+Cell.h"
@@ -38,9 +38,6 @@
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
 @property (strong, nonatomic) NSArray *liveViewSizes; ///< ライブビューサイズの選択肢
-@property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報マネージャ
-@property (strong, nonatomic) CLLocation *location; ///< デバイスの現在位置
-@property (strong, nonatomic) NSError *locationError; ///< デバイスの現在位置が取得できなかった時のエラー内容
 
 @end
 
@@ -152,9 +149,6 @@
 	[camera removeCameraPropertyDelegate:self];
 	_cameraPropertyObserver = nil;
 	_liveViewSizes = nil;
-	_locationManager = nil;
-	_location = nil;
-	_locationError = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -197,14 +191,6 @@
 		return;
 	}
 	
-	// 現在位置の取得を準備します。
-	self.locationManager = [[CLLocationManager alloc] init];
-	self.locationManager.delegate = self;
-	self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-	self.locationManager.distanceFilter = kCLHeadingFilterNone;
-	self.location = nil;
-	self.locationError = nil;
-	
 	// 表示を更新します。
 	[self updateShowSoundVolumeLevelCell];
 	[self updateShowLiveViewSizeCell];
@@ -232,36 +218,11 @@
 		return;
 	}
 
-	// 現在位置の取得を終了します。
-	[self.locationManager stopUpdatingLocation];
-	self.locationManager.delegate = nil;
-	self.locationManager = nil;
-	self.location = nil;
-	self.locationError = nil;
-	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
 }
 
 #pragma mark -
-
-/// 現在位置が更新された時に呼び出されます。
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations {
-	DEBUG_LOG(@"locations=%@", locations);
-	
-	/// 現在位置を更新します。
-	self.location = [locations lastObject];
-	self.locationError = nil;
-}
-
-/// 現在位置の取得に失敗した時に呼び出されます。
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error {
-	DEBUG_LOG(@"error=%@", error.description);
-	
-	/// 現在位置を無効にします。
-	self.location = nil;
-	self.locationError = error;
-}
 
 /// セグエを準備する(画面が遷移する)時に呼び出されます。
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
@@ -542,54 +503,24 @@
 - (void)didSelectRowAtSetCurrentGeolocationCell {
 	DEBUG_LOG(@"");
 
-	// 現在位置利用の権限があるかを確認します。
-	switch ([CLLocationManager authorizationStatus]) {
-		case kCLAuthorizationStatusNotDetermined:
-		case kCLAuthorizationStatusDenied:
-		case kCLAuthorizationStatusRestricted:
-			[self showAlertMessage:NSLocalizedString(@"Turn on location service to allow this application to determine your location.", nil) title:NSLocalizedString(@"Could not set current geolocation", nil)];
-			return;
-		case kCLAuthorizationStatusAuthorizedAlways:
-		case kCLAuthorizationStatusAuthorizedWhenInUse:
-			break;
-	}
-	
-	// 現在位置の取得を開始します。
-	// 現在位置利用の権限は接続画面で確認済みです。
-	self.location = nil;
-	self.locationError = nil;
-	[self.locationManager startUpdatingLocation];
-	
 	// 位置情報の設定を開始します。
 	__weak VPanelViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
 		// 現在位置を取得します。
-		NSTimeInterval timeout = 10.0;
-		NSDate *scanStartTime = [NSDate date];
-		while (!weakSelf.location && !weakSelf.locationError && [[NSDate date] timeIntervalSinceDate:scanStartTime] < timeout) {
-			[NSThread sleepForTimeInterval:0.1];
-		}
-		[weakSelf.locationManager stopUpdatingLocation];
-		CLLocation *location = weakSelf.location;
-		NSError *locationError = weakSelf.locationError;
-		weakSelf.location = nil;
-		weakSelf.locationError = nil;
+		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
+		NSError *error = nil;
+		CLLocation *location = [locationManager currentLocation:10.0 error:&error];
 		if (!location) {
 			// 現在位置が取得できませんでした。
-			if (locationError) {
-				[weakSelf showAlertMessage:locationError.description title:NSLocalizedString(@"Could not set current geolocation", nil)];
-			} else {
-				[weakSelf showAlertMessage:NSLocalizedString(@"Could not get current geolocation.", nil) title:NSLocalizedString(@"Could not set current geolocation", nil)];
-			}
+			[weakSelf showAlertMessage:error.description title:NSLocalizedString(@"Could not set current geolocation", nil)];
 			return;
 		}
 		DEBUG_LOG(@"location=%@", location.description);
 		
 		// カメラに位置情報を設定します。
 		AppCamera *camera = GetAppCamera();
-		NSError *error = nil;
 		if (![camera setGeolocationWithCoreLocation:location error:&error]) {
 			// 位置情報を設定できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not set current geolocation", nil)];

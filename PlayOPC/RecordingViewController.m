@@ -12,7 +12,7 @@
 #import "RecordingViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
-#import "MBProgressHUD.h"
+#import "RecordingLocationManager.h"
 #import "LiveImageView.h"
 #import "RecImageButton.h"
 #import "RecImageViewController.h"
@@ -251,6 +251,23 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (snapshot) {
 			if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+		
+		// 現在位置を取得します。
+		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
+		CLLocation *location = [locationManager currentLocation:10.0 error:&error];
+		if (location) {
+			// カメラに位置情報を設定します。
+			if (![camera setGeolocationWithCoreLocation:location error:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		} else {
+			// カメラに設定されている位置情報をクリアします。
+			if (![camera clearGeolocation:&error]) {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}

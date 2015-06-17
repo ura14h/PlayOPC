@@ -620,7 +620,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// !!!: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
-			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:30.0]) {
+			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:20.0]) {
 				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
 					// Wi-Fi接続が有効になりませんでした。
 					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection.", nil) title:NSLocalizedString(@"Could not connect", nil)];
@@ -748,7 +748,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
 			// !!!: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
-			if ([weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusNotConnected timeout:30.0]) {
+			if ([weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusNotConnected timeout:20.0]) {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}

@@ -620,6 +620,9 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// !!!: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Connecting...", nil);
+			}];
 			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:20.0]) {
 				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
 					// Wi-Fi接続が有効になりませんでした。
@@ -674,6 +677,11 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// 画面表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenDisconnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+		}];
 		
 		// カメラとのアプリ接続を解除します。
 		AppCamera *camera = GetAppCamera();
@@ -703,7 +711,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			[weakSelf updateShowWifiSettingCell];
 			[weakSelf updateCameraConnectionCells];
 			[weakSelf updateCameraOperationCells];
-			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenDisconnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 		}];
 		
 		// カメラの接続解除が完了しました。
@@ -720,6 +727,11 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// 画面表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenSleeped atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
+		}];
 		
 		// カメラとのアプリ接続を解除し電源を切ります。
 		AppCamera *camera = GetAppCamera();
@@ -748,6 +760,9 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
 			// !!!: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Disconnecting...", nil);
+			}];
 			if ([weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusNotConnected timeout:20.0]) {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
@@ -760,7 +775,6 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			[weakSelf updateShowWifiSettingCell];
 			[weakSelf updateCameraConnectionCells];
 			[weakSelf updateCameraOperationCells];
-			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenSleeped atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 		}];
 		
 		// カメラの接続解除が完了しました。

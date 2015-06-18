@@ -13,9 +13,9 @@
 
 @interface AppNavigationController ()
 
-@property (weak, nonatomic) UITraitCollection *currentTrait;
-@property (strong, nonatomic) UITraitCollection *portraitTrait;
-@property (strong, nonatomic) UITraitCollection *landscapeTrait;
+@property (weak, nonatomic) UITraitCollection *currentTrait; ///< 現在のトレイト
+@property (strong, nonatomic) UITraitCollection *portraitTrait; ///< 縦置き時のトレイト
+@property (strong, nonatomic) UITraitCollection *landscapeTrait; ///< 横置き時のトレイト
 
 @end
 

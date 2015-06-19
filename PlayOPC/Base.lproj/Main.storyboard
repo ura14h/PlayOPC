@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--App Navigation Controller-->
@@ -862,10 +863,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufl-R2-jWH">
                                         <rect key="frame" x="128" y="0.0" width="64" height="64"/>
                                         <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="56" id="1Cf-LG-oPK"/>
-                                            <constraint firstAttribute="width" constant="64" id="jJz-W5-kFU"/>
-                                        </constraints>
                                         <state key="normal" image="TakeButtonDefault">
                                             <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -879,23 +876,6 @@
                                         <state key="highlighted" image="TakeButtonHighlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="1Cf-LG-oPK"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="1Cf-LG-oPK"/>
-                                                <exclude reference="jJz-W5-kFU"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=regular">
-                                            <mask key="constraints">
-                                                <exclude reference="1Cf-LG-oPK"/>
-                                                <include reference="jJz-W5-kFU"/>
-                                            </mask>
-                                        </variation>
                                         <connections>
                                             <outletCollection property="gestureRecognizers" destination="5ug-ab-zhU" appends="YES" id="uOp-Fw-C3n"/>
                                             <outletCollection property="gestureRecognizers" destination="qb5-XH-F3C" appends="YES" id="ifd-53-pNr"/>
@@ -983,6 +963,7 @@
                                     <constraint firstItem="vso-DW-Pa1" firstAttribute="leading" secondItem="Uhi-Ra-5Lp" secondAttribute="leading" id="KJX-Oe-x2T"/>
                                     <constraint firstAttribute="width" constant="64" id="KhM-qk-TVA"/>
                                     <constraint firstItem="ZQQ-QB-tBG" firstAttribute="width" secondItem="4DG-lg-VzC" secondAttribute="width" id="MEo-ir-v7W"/>
+                                    <constraint firstItem="Ufl-R2-jWH" firstAttribute="width" secondItem="Uhi-Ra-5Lp" secondAttribute="width" multiplier="0.2" id="NHY-Yb-HsN"/>
                                     <constraint firstAttribute="trailing" secondItem="VqA-pW-FV9" secondAttribute="trailing" id="PDB-8Y-Wvb"/>
                                     <constraint firstItem="RuL-RO-ACs" firstAttribute="leading" secondItem="4DG-lg-VzC" secondAttribute="trailing" id="QFh-x3-pVr"/>
                                     <constraint firstItem="Ufl-R2-jWH" firstAttribute="leading" secondItem="VqA-pW-FV9" secondAttribute="trailing" id="Qhu-oe-8LE"/>
@@ -1012,6 +993,7 @@
                                     <constraint firstItem="ZQQ-QB-tBG" firstAttribute="top" secondItem="Ufl-R2-jWH" secondAttribute="bottom" id="qld-sn-kLB"/>
                                     <constraint firstItem="vso-DW-Pa1" firstAttribute="height" secondItem="Vee-qt-gfv" secondAttribute="height" id="rEG-L9-Zyr"/>
                                     <constraint firstItem="RuL-RO-ACs" firstAttribute="top" secondItem="4DG-lg-VzC" secondAttribute="bottom" id="rGf-yH-bS7"/>
+                                    <constraint firstItem="Ufl-R2-jWH" firstAttribute="height" secondItem="Uhi-Ra-5Lp" secondAttribute="height" multiplier="0.2" id="rLz-bg-jHA"/>
                                     <constraint firstAttribute="bottom" secondItem="ZQQ-QB-tBG" secondAttribute="bottom" id="tUn-g2-T25"/>
                                     <constraint firstAttribute="bottom" secondItem="vso-DW-Pa1" secondAttribute="bottom" id="w5I-7D-eWA"/>
                                     <constraint firstItem="RuL-RO-ACs" firstAttribute="leading" secondItem="Uhi-Ra-5Lp" secondAttribute="leading" id="wvc-CU-UGG"/>
@@ -1033,6 +1015,7 @@
                                         <exclude reference="3hM-vV-Fv6"/>
                                         <exclude reference="9df-VY-TzV"/>
                                         <exclude reference="BVb-q7-zna"/>
+                                        <exclude reference="rLz-bg-jHA"/>
                                         <exclude reference="RhS-Ik-efe"/>
                                         <exclude reference="a1A-qy-sdK"/>
                                         <exclude reference="qld-sn-kLB"/>
@@ -1075,9 +1058,11 @@
                                         <include reference="3hM-vV-Fv6"/>
                                         <include reference="9df-VY-TzV"/>
                                         <include reference="BVb-q7-zna"/>
+                                        <exclude reference="NHY-Yb-HsN"/>
                                         <exclude reference="Qhu-oe-8LE"/>
                                         <exclude reference="b5P-tf-8aQ"/>
                                         <exclude reference="ngB-xU-Hmd"/>
+                                        <include reference="rLz-bg-jHA"/>
                                         <exclude reference="8sQ-fm-eO8"/>
                                         <exclude reference="B08-FJ-Q9m"/>
                                         <exclude reference="MEo-ir-v7W"/>
@@ -1135,9 +1120,11 @@
                                         <exclude reference="3hM-vV-Fv6"/>
                                         <exclude reference="9df-VY-TzV"/>
                                         <exclude reference="BVb-q7-zna"/>
+                                        <include reference="NHY-Yb-HsN"/>
                                         <include reference="Qhu-oe-8LE"/>
                                         <include reference="b5P-tf-8aQ"/>
                                         <include reference="ngB-xU-Hmd"/>
+                                        <exclude reference="rLz-bg-jHA"/>
                                         <include reference="8sQ-fm-eO8"/>
                                         <include reference="B08-FJ-Q9m"/>
                                         <include reference="MEo-ir-v7W"/>

@@ -198,7 +198,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Information" footerTitle="© 2015 Hiroki Ishiura" id="sCE-T0-mCR">
+                            <tableViewSection headerTitle="Camera Information" id="sCE-T0-mCR">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ShowCameaKitLog" textLabel="PQx-Vh-H1S" style="IBUITableViewCellStyleDefault" id="68d-Ol-630">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -237,6 +237,56 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="App Preferences" id="owG-pU-UuJ">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="KeepLastCameraSetting" id="aJs-La-lrd">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aJs-La-lrd" id="Tnq-5p-5Dh">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Keep Last Camera Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-dB-th3">
+                                                    <rect key="frame" x="15" y="0.0" width="240" height="43"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zdq-h5-uaS">
+                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="didChangeKeepLastCameraSettingSwitchState:" destination="ncL-9e-CV0" eventType="valueChanged" id="KsQ-6z-0Id"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="3A1-dB-th3" firstAttribute="leading" secondItem="Tnq-5p-5Dh" secondAttribute="leading" constant="15" id="0n2-8l-Kgo"/>
+                                                <constraint firstItem="3A1-dB-th3" firstAttribute="top" secondItem="Tnq-5p-5Dh" secondAttribute="top" id="GWF-5Q-JUo"/>
+                                                <constraint firstItem="Zdq-h5-uaS" firstAttribute="leading" secondItem="3A1-dB-th3" secondAttribute="trailing" constant="8" id="HLD-zX-V7r"/>
+                                                <constraint firstAttribute="bottom" secondItem="3A1-dB-th3" secondAttribute="bottom" id="P6t-ht-fQL"/>
+                                                <constraint firstAttribute="centerY" secondItem="Zdq-h5-uaS" secondAttribute="centerY" id="URb-jD-hwt"/>
+                                                <constraint firstAttribute="trailing" secondItem="Zdq-h5-uaS" secondAttribute="trailing" constant="8" id="lmX-Xs-hMV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ClearRememberedCameraSetting" textLabel="bgd-Q7-fKi" style="IBUITableViewCellStyleDefault" id="Gaq-GV-zBf">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gaq-GV-zBf" id="Xtd-7G-h96">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Clear Remembered Camera Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bgd-Q7-fKi">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="App Information" footerTitle="© 2015 Hiroki Ishiura" id="ANk-sQ-l0P">
+                                <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ApplicationVersion" textLabel="6Wj-7V-u00" detailTextLabel="22F-XF-7J9" style="IBUITableViewCellStyleValue1" id="VwO-YV-bSd">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VwO-YV-bSd" id="uvZ-yF-oPc">
@@ -307,10 +357,13 @@
                     <connections>
                         <outlet property="applicationVersionCell" destination="VwO-YV-bSd" id="8My-J4-cdD"/>
                         <outlet property="cameraKitVersionCell" destination="VLN-Cj-j0z" id="NsV-hS-E9A"/>
+                        <outlet property="clearRememberedCameraSettingCell" destination="Gaq-GV-zBf" id="5Bl-PR-8C5"/>
                         <outlet property="connectWithUsingBluetoothCell" destination="7h6-7d-283" id="qBt-wq-ZtJ"/>
                         <outlet property="connectWithUsingWiFiCell" destination="W4B-e5-rbm" id="pwz-5Y-nMK"/>
                         <outlet property="disconnectAndSleepCell" destination="HDz-s9-Ptj" id="Oda-4g-S1F"/>
                         <outlet property="disconnectCell" destination="Deg-yE-6iB" id="oyR-5L-d0g"/>
+                        <outlet property="keepLastCameraSettingCell" destination="aJs-La-lrd" id="S4g-Ei-vTG"/>
+                        <outlet property="keepLastCameraSettingSwitch" destination="Zdq-h5-uaS" id="B4m-TX-kz6"/>
                         <outlet property="showAcknowledgementCell" destination="2Cf-f1-rok" id="zB6-JY-Wxw"/>
                         <outlet property="showBluetoothSettingCell" destination="Rxc-gz-eoW" id="KFh-bA-pJi"/>
                         <outlet property="showCameraLogCell" destination="68d-Ol-630" id="vgx-yb-8aM"/>

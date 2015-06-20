@@ -19,6 +19,8 @@ NSString *const AppOACentralConfigurationDidGetNotification = @"AppOACentralConf
 NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACentralConfigurationDidGetNotificationUserInfo";
 NSString *const UserDefaultsBluetoothLocalName = @"BluetoothLocalName";
 NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
+NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetting";
+NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfCameraSettings";
 
 @interface AppDelegate ()
 
@@ -33,15 +35,25 @@ NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
 
 #pragma mark -
 
++ (void)initialize {
+	DEBUG_LOG(@"");
+	
+	if ([self class] != [AppDelegate class]) {
+		return;
+	}
+
+	// ユーザー設定の工場出荷設定値を読み込んで初期化します。
+	NSString *userDefaultsPath = [[NSBundle mainBundle] pathForResource:@"UserDefaults" ofType:@"plist"];
+	NSDictionary *userDefaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:userDefaultsPath];
+	[[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDictionary];
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	DEBUG_LOG(@"launchOptions=%@", launchOptions);
 
 	// Storyboardで設定しても有効にならないので、ここで規定の色合いをハードコーディングして変更します。
 	[UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
 	[UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.6 alpha:1.0];
-	
-	// カメラ設定の最新スナップショットを初期化します。
-	self.latestSnapshotOfCameraSettings = nil;
 	
 	// カメラログインスタンスをカメラインスタンスより先に生成しておかないと、カメラの初期化に関わるログが記録されません。
 	self.cameraLog = [[AppCameraLog alloc] init];

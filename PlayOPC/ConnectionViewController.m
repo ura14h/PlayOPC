@@ -39,6 +39,9 @@ static BOOL ReadyLensWhenPowerOn = YES;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showSystemCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showCameraLogCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *cameraKitVersionCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *keepLastCameraSettingCell;
+@property (weak, nonatomic) IBOutlet UISwitch *keepLastCameraSettingSwitch;
+@property (weak, nonatomic) IBOutlet UITableViewCell *clearRememberedCameraSettingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *applicationVersionCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAcknowledgementCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showReferenceCell;
@@ -79,6 +82,9 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	self.wifiConnector = [[WifiConnector alloc] init];
 	[notificationCenter addObserver:self selector:@selector(didChangeWifiConnection:) name:WifiConnectionChangedNotification object:nil];
 
+	// ユーザー設定の値変更を監視開始します。
+	[notificationCenter addObserver:self selector:@selector(userDefaultsValueChanged:) name:NSUserDefaultsDidChangeNotification object:nil];
+	
 	// カメラの接続状態を監視開始します。
 	AppCamera *camera = GetAppCamera();
 	[camera addConnectionDelegate:self];
@@ -88,6 +94,8 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	[self updateShowWifiSettingCell];
 	[self updateCameraConnectionCells];
 	[self updateCameraOperationCells];
+	[self updateKeepLastCameraSettingCell];
+	[self updateClearRememberedCameraSettingCell];
 	
 	// カメラキットのバージョン情報を表示します。
 #if 0 // ビルド番号も表示する場合はこのブロックを有効にします。
@@ -128,19 +136,20 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	[camera removeConnectionDelegate:self];
 	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
 	[notificationCenter removeObserver:self name:BluetoothConnectionChangedNotification object:nil];
 	[notificationCenter removeObserver:self name:WifiConnectionChangedNotification object:nil];
 	_bluetoothConnector = nil;
 	_wifiConnector = nil;
 
-	_locationManager.delegate = nil;
-	_locationManager = nil;
-	
 	[notificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 
+	_locationManager.delegate = nil;
+	_locationManager = nil;
+	
 	_visibleWhenConnected = nil;
 	_visibleWhenDisconnected = nil;
 	_visibleWhenSleeped = nil;
@@ -306,6 +315,14 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	}
 }
 
+/// ユーザー設定の値が変化した時に呼び出されます。
+- (void)userDefaultsValueChanged:(NSNotification *)notification {
+	DEBUG_LOG(@"");
+
+	// 画面表示を更新します。
+	[self updateClearRememberedCameraSettingCell];
+}
+
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_LOG(@"indexPath=%@", indexPath);
@@ -325,6 +342,8 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		[self didSelectRowAtDisconnectCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"DisconnectAndSleep"]) {
 		[self didSelectRowAtDisconnectAndSleepCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"ClearRememberedCameraSetting"]) {
+		[self didSelectRowAtClearRememberedCameraSettingCell];
 	} else {
 		// 何もしません。
 	}
@@ -782,6 +801,25 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	}];
 }
 
+/// 'Keep Last Camera Setting'のセルのスイッチ状態が変化した時に呼び出されます。
+- (IBAction)didChangeKeepLastCameraSettingSwitchState:(id)sender {
+	DEBUG_LOG(@"on=%@", self.keepLastCameraSettingSwitch.on ? @"YES" : @"NO");
+	
+	// 現在選択された値を設定値として保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[userDefaults setBool:self.keepLastCameraSettingSwitch.on forKey:UserDefaultsKeepLastCameraSetting];
+}
+
+/// 'Clear Remembered Camera Setting'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtClearRememberedCameraSettingCell {
+	DEBUG_LOG(@"");
+
+	// 記憶している前回のカメラ設定をクリアします。
+	// !!!: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[userDefaults setObject:nil forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+}
+
 #pragma mark -
 
 /// 写真アルバムの利用してよいか問い合わせます。
@@ -958,6 +996,27 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		[self tableViewCell:self.showRecordingCell enabled:NO];
 		[self tableViewCell:self.showPlaybackCell enabled:NO];
 		[self tableViewCell:self.showSystemCell enabled:NO];
+	}
+}
+
+- (void)updateKeepLastCameraSettingCell {
+	DEBUG_LOG(@"");
+
+	// 設定値をスイッチの状態に反映します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	self.keepLastCameraSettingSwitch.on = [userDefaults boolForKey:UserDefaultsKeepLastCameraSetting];
+}
+
+- (void)updateClearRememberedCameraSettingCell {
+	DEBUG_LOG(@"");
+	
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if ([userDefaults objectForKey:UserDefaultsLatestSnapshotOfCameraSettings]) {
+		// 記憶している前回のカメラ設定があります。
+		[self tableViewCell:self.clearRememberedCameraSettingCell enabled:YES];
+	} else {
+		// 記憶している前回のカメラ設定はありません。
+		[self tableViewCell:self.clearRememberedCameraSettingCell enabled:NO];
 	}
 }
 

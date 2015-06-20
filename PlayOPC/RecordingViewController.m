@@ -247,12 +247,18 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 		
 		// 最新スナップショットからカメラ設定を復元します。
-		NSDictionary *snapshot = GetApp().latestSnapshotOfCameraSettings;
-		if (snapshot) {
-			if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
-				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
+		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+		BOOL keepLastCameraSetting = [userDefaults boolForKey:UserDefaultsKeepLastCameraSetting];
+		if (keepLastCameraSetting) {
+			NSDictionary *snapshot = [userDefaults objectForKey:UserDefaultsLatestSnapshotOfCameraSettings];
+			if (snapshot) {
+				if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
+			} else {
+				DEBUG_LOG(@"No snapshots.");
 			}
 		}
 		
@@ -333,12 +339,20 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		
 		// カメラ設定のスナップショットを取ります。
 		// ???: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
-		NSDictionary *snapshot = [camera createSnapshotOfSettings:&error];
-		if (snapshot) {
-			GetApp().latestSnapshotOfCameraSettings = snapshot;
-		} else {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
+		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+		BOOL keepLastCameraSetting = [userDefaults boolForKey:UserDefaultsKeepLastCameraSetting];
+		if (keepLastCameraSetting) {
+			NSDictionary *snapshot = [camera createSnapshotOfSettings:&error];
+			if (snapshot) {
+				// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
+				// (接続画面側の画面更新がとても遅れる)
+				[weakSelf executeAsynchronousBlockOnMainThread:^{
+					[userDefaults setObject:snapshot forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+				}];
+			} else {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
 		}
 		
 		// カメラを以前のモードに移行します。

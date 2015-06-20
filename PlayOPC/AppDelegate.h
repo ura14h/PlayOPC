@@ -25,14 +25,15 @@ extern NSString *const AppOACentralConfigurationDidGetNotificationUserInfo;
 extern NSString *const UserDefaultsBluetoothLocalName;
 /// アプリ設定に保存されているBluetoothペリフェラルのパスコードの辞書キー
 extern NSString *const UserDefaultsBluetoothPasscode;
-
+/// アプリ設定に保存されているの最後のカメラ設定を記憶するか否かの辞書キー
+extern NSString *const UserDefaultsKeepLastCameraSetting;
+/// アプリ設定に保存されているの最後のカメラ設定の辞書キー
+extern NSString *const UserDefaultsLatestSnapshotOfCameraSettings;
 
 /// アプリケーションデリゲート
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
-
-@property (strong, nonatomic) NSDictionary *latestSnapshotOfCameraSettings; ///< カメラ設定の最新スナップショット
 
 @end
 

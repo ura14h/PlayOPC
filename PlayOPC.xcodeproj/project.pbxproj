@@ -78,6 +78,8 @@
 		31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC01AEB888B0094193A /* ZPanelViewController.m */; };
 		31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
 		31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
+		3190B3461B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
+		3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
 		319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284331AD8E7E0003BC78F /* RecordingViewController.m */; };
 		319284351AD8E7E0003BC78F /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284331AD8E7E0003BC78F /* RecordingViewController.m */; };
 		319284381AD914D3003BC78F /* UIViewController+Threading.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284371AD914D3003BC78F /* UIViewController+Threading.m */; };
@@ -231,6 +233,7 @@
 		31731EC01AEB888B0094193A /* ZPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPanelViewController.m; sourceTree = "<group>"; };
 		31731EC31AEB88AB0094193A /* VPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPanelViewController.h; sourceTree = "<group>"; };
 		31731EC41AEB88AB0094193A /* VPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		3190B3451B34F61C006B0A16 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
 		319284321AD8E7E0003BC78F /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
 		319284331AD8E7E0003BC78F /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RecordingViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		319284361AD914D3003BC78F /* UIViewController+Threading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Threading.h"; sourceTree = "<group>"; };
@@ -495,6 +498,7 @@
 				31392FDB1B14BED40097FF1B /* Localizable.strings */,
 				311B75BD1ABC287C00A7D38C /* main.m */,
 				314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */,
+				3190B3451B34F61C006B0A16 /* UserDefaults.plist */,
 				31392FD71B14BECE0097FF1B /* Acknowledgement.html */,
 				31392FD31B14BEC40097FF1B /* Reference.html */,
 			);
@@ -701,6 +705,7 @@
 				31C71DC31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png in Resources */,
 				31C71DB21AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png in Resources */,
 				31C71DAC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png in Resources */,
+				3190B3461B34F61C006B0A16 /* UserDefaults.plist in Resources */,
 				31C71DCC1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png in Resources */,
 				31392FD01B14BEC40097FF1B /* Reference.html in Resources */,
 				31C71DB31AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png in Resources */,
@@ -745,6 +750,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31392FD11B14BEC40097FF1B /* Reference.html in Resources */,
+				3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */,
 				31392FD51B14BECE0097FF1B /* Acknowledgement.html in Resources */,
 				31392FDD1B14BEDA0097FF1B /* InfoPlist.strings in Resources */,
 				31392FD91B14BED40097FF1B /* Localizable.strings in Resources */,

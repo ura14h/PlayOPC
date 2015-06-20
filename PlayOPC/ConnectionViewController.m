@@ -610,6 +610,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			// !!!: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			// ???: カメラがUSB経由で給電中だと、wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
+			[weakSelf reportBlockWakingUp:progressView];
 			AppCamera *camera = GetAppCamera();
 			camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 			camera.bluetoothPassword = bluetoothPasscode;
@@ -639,6 +640,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// !!!: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			[weakSelf reportBlockConnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Connecting...", nil);
 			}];
@@ -654,6 +656,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			}
 
 			// 電源投入が完了しました。
+			progressView.mode = MBProgressHUDModeIndeterminate;
 			DEBUG_LOG(@"To wake the camera up is success.");
 		}
 		
@@ -779,6 +782,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
 			// !!!: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			[weakSelf reportBlockDisconnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Disconnecting...", nil);
 			}];
@@ -1020,13 +1024,85 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	}
 }
 
+/// 進捗画面に電源投入中を報告します。
+- (void)reportBlockWakingUp:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		NSArray *images = @[
+			[UIImage imageNamed:@"Progress-Power-25"],
+			[UIImage imageNamed:@"Progress-Power-50"],
+			[UIImage imageNamed:@"Progress-Power-75"],
+			[UIImage imageNamed:@"Progress-Power-100"],
+		];
+		UIImageView *progressImageView;
+		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
+		progressImageView.animationImages = images;
+		progressImageView.animationDuration = 1.0;
+		progressImageView.alpha = 0.75;
+
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
+		
+		[progressImageView startAnimating];
+	});
+}
+
+/// 進捗画面にWi-Fi接続中を報告します。
+- (void)reportBlockConnectingWifi:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		NSArray *images = @[
+			[UIImage imageNamed:@"Progress-Wifi-25"],
+			[UIImage imageNamed:@"Progress-Wifi-50"],
+			[UIImage imageNamed:@"Progress-Wifi-75"],
+			[UIImage imageNamed:@"Progress-Wifi-100"],
+		];
+		UIImageView *progressImageView;
+		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
+		progressImageView.animationImages = images;
+		progressImageView.animationDuration = 1.0;
+		progressImageView.alpha = 0.75;
+		
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
+		
+		[progressImageView startAnimating];
+	});
+}
+
+/// 進捗画面にWi-Fi切断中を報告します。
+- (void)reportBlockDisconnectingWifi:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		NSArray *images = @[
+			[UIImage imageNamed:@"Progress-Wifi-100"],
+			[UIImage imageNamed:@"Progress-Wifi-75"],
+			[UIImage imageNamed:@"Progress-Wifi-50"],
+			[UIImage imageNamed:@"Progress-Wifi-25"],
+		];
+		UIImageView *progressImageView;
+		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
+		progressImageView.animationImages = images;
+		progressImageView.animationDuration = 1.0;
+		progressImageView.alpha = 0.75;
+		
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
+		
+		[progressImageView startAnimating];
+	});
+}
+
 /// 進捗画面に処理完了を報告します。
 - (void)reportBlockFinishedToProgress:(MBProgressHUD *)progress {
 	DEBUG_LOG(@"");
 	
 	__block UIImageView *progressImageView;
 	dispatch_sync(dispatch_get_main_queue(), ^{
-		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark.png"];
+		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
 	});
 	progress.customView = progressImageView;

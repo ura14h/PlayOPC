@@ -9,63 +9,349 @@
 				font-size: 9pt;
 				-webkit-text-size-adjust: none;
 			}
-			h2 {
-				font-family: sans-serif;
-				text-align : center;
-			}
+		h1 {
+			font-family: sans-serif;
+			margin-top: 0;
+			margin-bottom: 1pt;
+			padding-left: 4pt;
+			color: #ffffff;
+			background-color: #00c375;
+			-webkit-user-select: none;
+		}
+		h2 {
+			font-family: sans-serif;
+		}
+		ul {
+			-webkit-padding-start: 20pt;
+		}
+		div.section {
+			margin-left: 4pt;
+			margin-bottom: 18pt;
+		}
 		</style>
+		<script language="javascript" type="text/javascript">
+			function showSection(id) {
+				var sections = document.getElementsByClassName("section");
+				for (var index = 0; index < sections.length; index++) {
+					var section = sections[index];
+					if (section.id == id) {
+						if (section.style.display == "block") {
+							section.style.display = "none";
+						} else {
+							section.style.display = "block";
+						}
+					} else {
+						section.style.display = "none";
+					}
+				}
+			}
+		</script>
 	</head>
 	<body>
-		<h2>Play OPC!</h2>
-		
-		<h3>About This Application</h3>
-		
-		<p>
-		This application can operate Open Platform Camera (OLYMPUS AIR A01) of Olympus.
-		You can try most functions of SDK 1.0 provided by Olympus with using this application.
-		</p>
-		
-		<p>
-		OLYMPUS AIR A01 is necessary to use this application.
-		(It is OLYMPUS AIR A01 if this description says a camera.)
-		</p>
-		
-		<h3>Features are:</h3>
-
-		<ul>
-		<li>Switching on the camera via Bluetooth</li>
-		<li>Taking a picture with using the camera</li>
-		<li>Recording a video with using the camera</li>
-		<li>Displaying various states of the camera</li>
-		<li>Preserving a favorite camera setting to the device</li>
-		<li>Changing a shooting mode</li>
-		<li>Coordinating some exposure parameters</li>
-		<li>Changing the color taste of the image</li>
-		<li>Adding special effects to an image</li>
-		<li>Locking auto focus and auto exposure</li>
-		<li>Changing an angle of view using optical zoom and digital zoom (The optical zooming requires a motor zoom lens)</li>
-		<li>Changing a quality of picture  to store at the camera</li>
-		<li>Changing sound volume</li>
-		<li>Registering the current geolocation as the photography place</li>
-		<li>Watching and sharing a picture or a video</li>
-		<li>Switching off the camera</li>
-		</ul>
-		
-		<h3>Known Issue</h3>
-		
-		<p>
-		If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.
-		The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.
-		The app cannot delete pictures and videos which stored in the camera.
-		The app cannot initialize media cards in the camera.
-		The app cannot set the time at the camera and change the network setting of the camera.
-		</p>
-		
-		<h3>Other Information</h3>
-
-		<p>
-		If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. (http://olympus-imaging.jp/product/opc/a01/)<br/>
-		If you have an interest in camera functions and camera parameters, please read SDK document in "OPC Hack &amp; Make Project" site. (https://opc.olympus-imaging.com/sdkdocs)
-		</p>
+		<h1 onclick="showSection('section1')">Introduction</h1>
+		<div id="section1" class="section" style="display:block;">
+			
+			<h2>Play OPC!</h2>
+			<h3>About This Application</h3>
+			<p>
+			This application can operate Open Platform Camera (OLYMPUS AIR A01) of Olympus.
+			You can try most functions of SDK 1.0 provided by Olympus with using this application.
+			</p>
+			<p>
+			OLYMPUS AIR A01 is necessary to use this application.
+			(It is OLYMPUS AIR A01 if this description says a camera.)
+			</p>
+			<h3>Features</h3>
+			<ul>
+				<li>Switching on the camera via Bluetooth</li>
+				<li>Taking a picture with using the camera</li>
+				<li>Recording a video with using the camera</li>
+				<li>Displaying various states of the camera</li>
+				<li>Preserving a favorite camera setting to the device</li>
+				<li>Changing a shooting mode</li>
+				<li>Coordinating some exposure parameters</li>
+				<li>Changing the color taste of the image</li>
+				<li>Adding special effects to an image</li>
+				<li>Locking auto focus and auto exposure</li>
+				<li>Changing an angle of view using optical zoom and digital zoom (The optical zooming requires a motor zoom lens)</li>
+				<li>Changing a quality of picture  to store at the camera</li>
+				<li>Changing sound volume</li>
+				<li>Registering the current geolocation as the photography place</li>
+				<li>Watching and sharing a picture or a video</li>
+				<li>Switching off the camera</li>
+			</ul>
+			<h3>Known Issue</h3>
+			<ul>
+				<li>If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.</li>
+				<li>The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.</li>
+				<li>The app cannot delete pictures and videos which stored in the camera.</li>
+				<li>The app cannot initialize media cards in the camera.</li>
+				<li>The app cannot set the time at the camera and change the network setting of the camera.</li>
+			</ul>
+			<h3>Other Information</h3>
+			<p>
+			If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. (http://olympus-imaging.jp/product/opc/a01/)<br/>
+			If you have an interest in camera functions and camera parameters, please read SDK document in "OPC Hack &amp; Make Project" site. (https://opc.olympus-imaging.com/sdkdocs)
+			</p>
+			
+		</div>
+		<h1 onclick="showSection('section2')">Operations</h1>
+		<div id="section2" class="section" style="display:block;">
+			
+			<h2>Recording</h2>
+			<h3>Live-View</h3>
+			<ul>
+				<li>Tapping
+					<ul>
+						<li>Locking AF position, Locking AF ... You can unlock in A panel.</li>
+					</ul>
+				</li>
+				<li>Long pressing
+					<ul>
+						<li>Locking AE position, Locking AE ... You can unlcok in A panel.</li>
+					</ul>
+				</li>
+				<li>Green frame ... Area that AF position and AF is locked</li>
+				<li>Yellow frame ... Area that AE position and AE is locked</li>
+				<li>Blue frame ... Area that detected as human face</li>
+				<li>Small red frame ... Area that AF position and AF is failed</li>
+				<li>Large red frame ... Area that tapping and log pressing is effective</li>
+			</ul>
+			<h3>Thumbnail of Rec-View</h3>
+			<ul>
+				<li>Tapping
+					<ul>
+						<li>Showing Rec-View with using picture viewer</li>
+					</ul>
+				</li>
+			</ul>
+			<h3>Shutter button</h3>
+			<ul>
+				<li>Still image (Single) ... You can change the mode in E panel.
+					<ul>
+						<li>Tapping - Taking a picture.</li>
+					</ul>
+				</li>
+				<li>Still image (Sequential)... You can change the mode in E panel.
+					<ul>
+						<li>Pressing - Starting capture</li>
+						<li>Releasing - Stopping capture ... UI response delays sometimes.</li>
+					</ul>
+				</li>
+				<li>Video ... You can change the mode in E panel.
+					<ul>
+						<li>First time - Starting capture</li>
+						<li>Second time - Stopping capture ... UI response delays sometimes.</li>
+					</ul>
+				</li>
+			</ul>
+			<h3>Control Panel</h3>
+			<h4>Panel S - Status &amp; Saving Setup</h4>
+			<ul>
+				<li>Camera Body Status
+					<ul>
+						<li>Battery Level</li>
+						<li>High Temperature Warning</li>
+					</ul>
+				</li>
+				<li>Exposure Status
+					<ul>
+						<li>IO Sensitivty Warning</li>
+						<li>Exposure Warning</li>
+						<li>Exposure Metering Warning</li>
+					</ul>
+				</li>
+				<li>Media Status
+					<ul>
+						<li>Media Busy</li>
+						<li>Media Error</li>
+					</ul>
+				</li>
+				<li>Media Capacity
+					<ul>
+						<li>As Media ... Unit is bytes</li>
+						<li>As Image ... Unit is images</li>
+						<li>As Video ... Unit is seconds</li>
+					</ul>
+				</li>
+				<li>Level Gauge
+					<ul>
+						<li>Orientation</li>
+						<li>Rolling</li>
+						<li>Pitching</li>
+					</ul></li>
+				<li>Saving Camera Settings
+					<ul>
+						<li>Apply Camera Settings ... You can read stored setting and apply to a camera.</li>
+						<li>Save Camera Settings ... You can store a current camera property to iPhone.</li>
+					</ul>
+				</li>
+			</ul>
+			<h4>Panel E - Exposure &amp; Action</h4>
+			<ul>
+				<li>Exposure Parameters
+					<ul>
+						<li>Aperture (F value)</li>
+						<li>Shutter Speed</li>
+						<li>Exposure Compensation</li>
+						<li>ISO Sensitivity</li>
+					</ul>
+				</li>
+				<li>Action Modes
+					<ul>
+						<li>Shooting Mode for Picture</li>
+						<li>Shooting Mode for Video</li>
+						<li>Drive Mode</li>
+						<li>Sequential Shooting Speed</li>
+					</ul>
+				</li>
+			</ul>
+			<h4>Panel C - Color &amp; Effect</h4>
+			<ul>
+				<li>White Balance
+					<ul>
+						<li>White Balance Type</li>
+						<li>Custom White Balance ... The parameter is effective when white balance is CWB.</li>
+					</ul>
+				</li>
+				<li>Color &amp; Effect
+					<ul>
+						<li>Picture Mode ... The parameter is effective when shooting mode is P.</li>
+						<li>Filter for ART ... The parameter is effective when shooting mode is ART.</li>
+						<li>Chroma for Color Creator</li>
+						<li>Hue for Color Creator</li>
+						<li>Hue for Partcolor</li>
+						<li>Art Filter Auto Bracket</li>
+					</ul>
+				</li>
+			</ul>
+			<h4>Panel A - AF &amp; AE</h4>
+			<ul>
+				<li>Auto Focus
+					<ul>
+						<li>AF Lock</li>
+						<li>Unlock AF</li>
+					</ul>
+				</li>
+				<li>Auto Exposure
+					<ul>
+						<li>AE Lock</li>
+						<li>Unlock AE</li>
+					</ul>
+				</li>
+				<li>Auto Focus Settings
+					<ul>
+						<li>Full-time AF</li>
+						<li>Focus Mode for Picture</li>
+						<li>Focus Mode for Video</li>
+					</ul>
+				</li>
+				<li>Auto Exposure Settings
+					<ul>
+						<li>Metering mothod</li>
+					</ul>
+				</li>
+			</ul>
+			<h4>Panel Z - Zooming</h4>
+			<ul>
+				<li>Optical Zooming
+					<ul>
+						<li>Minimum focal length</li>
+						<li>Maximum focal length</li>
+						<li>Current focal length</li>
+						<li>Zooming by slider</li>
+						<li>Toward Wide End</li>
+						<li>Toward Tele End</li>
+						<li>Zooming Speed ... The parameter is used at 'Toward Wide End' and 'Toward Tele End'.</li>
+					</ul>
+				</li>
+				<li>Digital Zooming
+					<ul>
+						<li>Minimum scale</li>
+						<li>Maximum scale</li>
+						<li>Current scale</li>
+						<li>Changeing scale by slider</li>
+					</ul>
+				</li>
+			</ul>
+			<h4>Panel V - View &amp; Save</h4>
+			<ul>
+				<li>View Settings
+					<ul>
+						<li>Live View Size</li>
+						<li>Face Detect</li>
+						<li>Rec View</li>
+					</ul>
+				</li>
+				<li>Sound Settings
+					<ul>
+						<li>Sound Volume</li>
+					</ul>
+				</li>
+				<li>Save Settings
+					<ul>
+						<li>Image Aspect</li>
+						<li>Image Size</li>
+						<li>Image Quality</li>
+						<li>File Save Mode</li>
+						<li>Video Quality</li>
+						<li>Short Movie Time</li>
+						<li>GPS Tag</li>
+						<li>Capture Data Store</li>
+					</ul>
+				</li>
+				<li>Geolocation
+					<ul>
+						<li>Set Current Geolocation</li>
+						<li>Clear Geolocation</li>
+					</ul>
+				</li>
+			</ul>
+			<h2>Playback</h2>
+			<h3>Content List</h3>
+			<ul>
+				<li>Latest ... Scrolling to the latest content.</li>
+			</ul>
+			<h3>Content Detail</h3>
+			<ul>
+				<li>Picture Viewer
+					<ul>
+						<li>Pinch Open, Pinch Out ... You can change scale of image.</li>
+						<li>Double Tapping ... You can switch overall scale and 'dot by dot' scale.</li>
+					</ul>
+				</li>
+				<li>Resize
+					<ul>
+						<li>When the content is picture type, Switching to a resized image.</li>
+						<li>When the content is video type, Generating a resized video.</li>
+					</ul>
+				</li>
+				<li>Share
+					<ul>
+						<li>When the content is picture type, Sharing an original picture.</li>
+						<li>When the content is video type, Sharing an original video.</li>
+					</ul>
+				</li>
+			</ul>
+			<h2>System</h2>
+			<ul>
+				<li>Camera Status
+					<ul>
+						<li>Battery Level</li>
+						<li>Lens Mount Status</li>
+						<li>Media Mount Status</li>
+					</ul>
+				</li>
+				<li>Hardware Information
+					<ul>
+						<li>Camera Model Name</li>
+						<li>Camera Firmware Version</li>
+						<li>Lens Model ID</li>
+						<li>Lens Firmware Version</li>
+					</ul>
+				</li>
+			</ul>
+			
+		</div>
 	</body>
 </html>

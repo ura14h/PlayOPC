@@ -73,7 +73,7 @@ enum OLYCameraError {
      * 
 	 * Connecting to camera failed.
 	 *
-	 * The camera and mobile device may not be connected with Bluetooth or Wi-Fi.
+	 * The camera and mobile device may not be connected via Wi-Fi or Bluetooth.
 	 * Please check whether the mobile device is connected to the camera before trying to control the camera.
 	 *
      * 

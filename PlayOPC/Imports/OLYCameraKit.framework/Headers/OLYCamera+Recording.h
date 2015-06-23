@@ -1,9 +1,13 @@
-/**
- * 
+﻿/**
+ * @~english
  * @file	OLYCamera+Recording.h
  * @brief	OLYCamera(Recording) class interface file.
  *
- * 
+ * @~japanese
+ * @file	OLYCamera+Recording.h
+ * @brief	OLYCamera(Recording) クラスインターフェースファイル
+ *
+ * @~
  */
 /*
  * Copyright (c) Olympus Imaging Corporation. All rights reserved.
@@ -226,14 +230,14 @@ extern NSString *const OLYCameraStartTakingPictureOptionLimitShootingsKey;
 
 /**
  * 
- * Dictionary key to access focusing result given as paramter of progressHandler when shooting.
+ * Dictionary key to access focusing result given as parameter of progressHandler when shooting.
  * 
  */
 extern NSString *const OLYCameraTakingPictureProgressInfoFocusResultKey;	
 
 /**
  * 
- * Dictionary key to access coordinates of focus given as paramter of progressHandler when shooting.
+ * Dictionary key to access coordinates of focus given as parameter of progressHandler when shooting.
  * 
  */
 extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;	
@@ -250,7 +254,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * 
  * Recording category of Olympus camera class.
  *
- * This category takes still pictures and records video, exposure control, and focus control.
+ * This category takes still pictures, records video, and controls exposure and focus.
  *
  * Application can configure exposure parameters, focus, color and tone using camera property control methods in
  * @ref OLYCamera(CameraSystem) categories.
@@ -263,9 +267,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 
 /**
  * 
- * Indicate that live view starts automaticaly when run mode is changed to Recording mode.
+ * Indicate that live view starts automatically when run mode is changed to Recording mode.
  *
- * If the value is false, it is necessary to call a live view start explicitly after having changed to Recording mode.
+ * If false, call API to start live view after changing run mode to Recording mode.
  *
  * @see OLYCamera::startLiveView:
  * @see OLYCamera::stopLiveView:
@@ -276,7 +280,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 
 /**
  * 
- * Indicate that live view is starting。
+ * Indicate that live view started.
  *
  * @see OLYCamera::startLiveView:
  * @see OLYCamera::stopLiveView:
@@ -287,7 +291,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 
 /**
  * 
- * Pixel size of live view.
+ * Frame size of live view in pixels.
  *
  * @see OLYCamera::changeLiveViewSize:error:
  *
@@ -305,7 +309,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 
 /**
  * 
- * Delegate object that notifies camera state when it changes. The camera state is regarding capturing operation which affects still image or movie.
+ * Delegate object that notifies camera state when it changes. The camera state relates to capturing operation which affects still image or movie.
  *
  * 
  */
@@ -396,10 +400,10 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * This value can change depending on the state of the object and
  * the shooting mode.
  * This value can be changed when zooming where the focal length is set to the minimum aperture.
- * Aperture value is set to the minimum value if the value to be set is smaller than tha minimum value.
+ * Aperture value is set to the minimum value if the value to be set is smaller than the minimum value.
  * Please refer to the documentation of the list of camera properties for more information.
  *
- * This property is not set if the following conditions are not met.
+ * This property is set only if the following conditions are met.
  *   - Lens is mounted.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
@@ -417,7 +421,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * the shooting mode.
  * Please refer to the documentation of the list of camera properties for more information.
  * 
- * This property is not set if the following conditions are not met.
+ * This property is set only if the following conditions are met.
  *   - Lens is mounted.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
@@ -434,7 +438,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * the shooting mode.
  * Please refer to the documentation of the list of camera properties for more information.
  * 
- * This property is not set if the following conditions are not met.
+ * This property is set only if the following conditions are met.
  *   - Lens is mounted.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
@@ -453,7 +457,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * the shooting mode.
  * Please refer to the documentation of the list of camera properties for more information.
  *
- * This property is not set if the following conditions are not met.
+ * This property is set only if the following conditions are met.
  *   - Lens is mounted.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
@@ -474,11 +478,11 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 
 /**
  * 
- * Indicates that out of range warning of the exposure is occurring on the camera.
+ * Indicate that out of range warning of the exposure is occurring in the camera.
  *
  * The camera can not determine ISO sensitivity, shutter speed or aperture value corresponding
  * to current exposure value.
- * When the shooting during the warning, the image may be underexposed or overexposed.
+ * When shooting during the warning, the image may be underexposed or overexposed.
  *
  * 
  */
@@ -486,27 +490,27 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 
 /**
  * 
- * Indicates that warning of the exposure metering is occurring on the camera.
+ * Indicate that warning of the exposure metering is occurring in the camera.
  *
  * Subject is too dark or too bright to be measured by the camera's exposure meter.
- * When the shooting during the warning, the image may be underexposed or overexposed.
+ * When shooting during the warning, the image may be underexposed or overexposed.
  *
  * 
  */
 @property (assign, nonatomic, readonly) BOOL exposureMeteringWarning;	
 
-/**
+/** 
  * 
- * Start the live view.
- *
- * When a live view is not started, a method about the photography returns an error,
- * and a property may not show an accurate value.
+ * Start live view.
+ * 
+ * If live view is not started, some properties cannot update their values, and
+ * some methods for taking pictures and recording movies return an error.
  *
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::autoStartLiveView
@@ -516,15 +520,15 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  */
 - (BOOL)startLiveView:(NSError **)error;	
 
-/**
+/** 
  * 
- * Stop the live view.
+ * Stop live view.
  *
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::autoStartLiveView
@@ -552,7 +556,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * 
  * Get the shooting mode and drive mode.
  *
- * The application can determine whether to perform any shooting processing
+ * The application can determine whether to perform any shooting
  * as a response to a user tap by referring to this value.
  * Please refer to the description of #OLYCameraActionType.
  *
@@ -572,9 +576,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param completionHandler Callback used when download is complete.
  * @param errorHandler Callback used when download is aborted.
  *
- * Optional parameters of the shooting.
- *   - When application wants to customize shooting action, please set the parameter in a dictionary format.
- *     - #OLYCameraStartTakingPictureOptionLimitShootingsKey ... The upper limit of the number of pictures provided by one continuous shooting. Default value is 20. Maximum value is 200.
+ * Optional shooting parameters.
+ *   - Set the parameter in dictionary format to customize shooting.
+ *     - #OLYCameraStartTakingPictureOptionLimitShootingsKey ... The maximum number of pictures taken by one continuous shooting. Range is 1 to 200, and default is 20.
  *
  * Argument of progressHandler
  *   - progress ... Progress of the photographing operation.
@@ -592,8 +596,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * The application can convert the rectangular coordinates in live view image using
  * the coordinate conversion utility #OLYCameraConvertRectOnViewfinderIntoLiveImage.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::stopTakingPicture:completionHandler:errorHandler:
@@ -624,8 +628,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * Argument of errorHandler
  *   - error ... Error details are set when operation is abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::startTakingPicture:progressHandler:completionHandler:errorHandler:
@@ -647,9 +651,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param completionHandler Callback used when download is complete.
  * @param errorHandler Callback used when download is aborted.
  *
- * Optional parameters of the shooting.
- *   - When application wants to customize shooting action, please set the parameter in a dictionary format.
- *     - #OLYCameraStartTakingPictureOptionLimitShootingsKey ... The upper limit of the number of pictures provided by one continuous shooting. Default value is 20. Maximum value is 200.
+ * Optional shooting parameters
+ *   - Set the parameter in dictionary format to customize shooting action.
+ *     - #OLYCameraStartTakingPictureOptionLimitShootingsKey ... The maximum number of pictures taken by one continuous shooting. Range is 1 to 200, and default is 20.
  *
  * Argument of progressHandler
  *   - progress ... Progress of the photographing operation.
@@ -670,8 +674,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * Application can convert rectangular coordinates in live view image using
  * coordinate conversion utility #OLYCameraConvertRectOnViewfinderIntoLiveImage.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::startTakingPicture:progressHandler:completionHandler:errorHandler:
@@ -695,8 +699,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * Argument of errorHandler
  *   - error ... Error details are set when operation is abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::stopRecordingVideo:errorHandler:
@@ -716,8 +720,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param completionHandler Callback used when end of recording is complete.
  * @param errorHandler Callback used when end of recording is aborted.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::startRecordingVideo:completionHandler:errorHandler:
@@ -753,8 +757,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * The application can convert rectangular coordinates in live view image using
  * the coordinate conversion utility #OLYCameraConvertRectOnViewfinderIntoLiveImage.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::setAutoFocusPoint:error:
@@ -772,8 +776,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::lockAutoFocus:errorHandler:
@@ -788,18 +792,18 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  *
  * Prior to locking focus,
  * the application sets the coordinates to focus with this method.
- * The application will get an error if value exceed the valid range of focus coordinates.
+ * The application will get an error if value exceeds the valid range of focus coordinates.
  *
  * @param point Coordinates where to focus.
- * Coordiantes are in viewfinder coordinate system.
+ * Coordinates are in viewfinder coordinate system.
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
  * The application can convert the focusing coordinates from coordinates in live view image
  * using the coordinate conversion utility #OLYCameraConvertPointOnLiveImageIntoViewfinder.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::lockAutoFocus:errorHandler:
@@ -817,8 +821,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::setAutoFocusPoint:error:
@@ -834,8 +838,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::unlockAutoExposure:
@@ -851,8 +855,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::lockAutoExposure:
@@ -867,9 +871,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  *
  * Application must set coordinates with this method prior
  * to locking automatic exposure control.
- * Application will get an error if value exceeds the valid range of target coordinate.
+ * Application will get an error if value exceeds the valid range of target coordinates.
  *
- * It is necessary beforehand to set the metering method of the camera property to spot metering mode.
+ * Set camera property "AE" to "AE_PINPOINT" before calling this method.
  *
  * @param point Target coordinates.
  * Coordinates are in viewfinder coordinate system.
@@ -879,8 +883,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * Application can convert the focusing coordinates from the coordinates in live view image
  * using the coordinate conversion utility #OLYCameraConvertPointOnLiveImageIntoViewfinder.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::clearAutoExposurePoint:
@@ -894,13 +898,13 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * 
  * Release specified coordinates of reference exposure for automatic exposure control.
  *
- * It is necessary beforehand to set the metering method of the camera property to spot metering mode.
+ * Set camera property "AE" to "AE_PINPOINT" before calling this method.
  *
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::setAutoExposurePoint:error:
@@ -920,8 +924,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * The application can convert to rectangular coordinates from live view image in the rectangular coordinates
  * indicating the range using the coordinate conversion utility #OLYCameraConvertRectOnViewfinderIntoLiveImage.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::setAutoFocusPoint:error:
@@ -941,8 +945,8 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * The application can convert to rectangular coordinates for live view image on the rectangular coordinates
  * indicating the range using the coordinate conversion utility #OLYCameraConvertRectOnViewfinderIntoLiveImage.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::setAutoExposurePoint:error:
@@ -969,7 +973,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * 
  * Notify that image for live view is updated.
  *
- * The application can be updated in real time live view by using an image that has been attached to this notice.
+ * The application's live view can be updated in real time by using an image that has been attached to this notice.
  *
  * @param camera Instance that detects change in live view.
  * @param data Image of the new live view.
@@ -987,7 +991,7 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
 /**
  * 
  * Delegate to notify camera state when it changes. 
- * The camera state is regarding capturing operation which affects still image or movie.
+ * The camera state relates to capturing operation which affects still image or movie.
  *
  * 
  */

@@ -37,7 +37,8 @@ enum OLYCameraResizeVideoQuality {
     /**
      * 
 	 * High quality video.
-	 *
+     * File size is bigger than that of normal quality video.
+     *
      * 
      */
     OLYCameraResizeVideoQualityFine,	
@@ -99,7 +100,7 @@ extern const OLYCameraImageResize OLYCameraImageResize1600;
 extern const OLYCameraImageResize OLYCameraImageResize1920;	
 
 /**
- * Resize long side of image to 2048 pixels.
+ * Resize long side of the image to 2048 pixels.
  * 
  */
 extern const OLYCameraImageResize OLYCameraImageResize2048;	
@@ -182,7 +183,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * 
  * Download list of all supported media (still image and video) in the camera.
  *
- * Download list of files in memory card that is mounted in the camera in /DCIM directory.
+ * Download list of files in /DCIM directory of memory card that is inserted in the camera.
  * List contains all still image and movie files in supported format.  
  * Application should distinguish unsupported files using file extension and eliminate them from the list before use.
 
@@ -192,13 +193,13 @@ extern NSString *const OLYCameraContentListExtensionKey;
  *   - list ... List of all supported media stored in memory card in array format.
  *   - error ... Error details are set when the operation is abnormally terminated.
  *
- * Each element of the list is dictionary format.
+ * Each element of the list is in dictionary format.
  * Dictionary key is defined to access the element.
  *   - #OLYCameraContentListDirectoryKey ... Directory path.
  *   - #OLYCameraContentListFilenameKey ... File name.
  *   - #OLYCameraContentListFilesizeKey ... File size.
  *   - #OLYCameraContentListFiletypeKey ... File type.
- *     The following are the file type.
+ *     The following are the file types.
  *     - "directory" ... Directory.
  *     - "file" ... File.
  *   - #OLYCameraContentListAttributesKey ... Array of file attributes. Array is normally set to empty.
@@ -210,7 +211,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  *
  * Please refer to the related documentation for more information on extended information.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
@@ -223,7 +224,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * Download thumbnail of media (still image and movie) stored in memory card.
  *
  * File path must be string which combines the directory path and file name 
- * obtained from list of all supported media and otherwise causes an error.
+ * obtained from list of all supported media. Otherwise an error occurs.
  *
  * @param path File path to the still image or movie.
  * @param progressHandler Callback used when the download progress changes.
@@ -232,7 +233,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  *
  * Argument of progressHandler
  *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
- *   - stop ... If true, download is canceled and errorHandler is invoked.
+ *   - stop ... If true, download is canceled, and errorHandler is invoked.
  * 
  * Argument of completionHandler
  *   - image ... Binary data of thumbnail.
@@ -247,7 +248,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * Argument of errorHandler
  *   - error ... Error details are set when operation is abnormally terminated.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
@@ -261,7 +262,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * Download reduced image of media (still image and movie) stored in memory card.
  *
  * File path must be string which combines the directory path and file name 
- * obtained from list of all supported media and otherwise causes an error.
+ * obtained from list of all supported media. Otherwise an error occurs.
  *
  * @param path File path to the still image or movie.
  * @param progressHandler Callback used when the download progress changes.
@@ -270,15 +271,15 @@ extern NSString *const OLYCameraContentListExtensionKey;
  *
  * Argument of progressHandler
  *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
- *   - stop ... If true, download is cancelled and errorHandler is invoked.
+ *   - stop ... If true, download is canceled, and errorHandler is invoked.
  *
  * Argument of completionHandler
- *   - data ... Binary data of the thumbnail.
+ *   - data ... Binary data of the reduced image.
  *
  * Argument of errorHandler
  *   - error ... Error details are set when operation is abnormally terminated.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
@@ -291,25 +292,25 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * Download a resized still image.
  *
  * File path must be string which combines the directory path and file name 
- * obtained from list of all supported media and otherwise causes an error.
+ * obtained from list of all supported media. Otherwise an error occurs.
  *
  * @param path File path to the still image.
  * @param resize Size in number of pixels after resizing.
- * @param progressHandler Callback used when the progress of the download changes.
+ * @param progressHandler Callback used when the download progress changes.
  * @param completionHandler Callback used when download is complete.
- * @param errorHandler Callback used when the download was aborted.
+ * @param errorHandler Callback used when download is aborted.
  *
  * Argument of progressHandler
  *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
- *   - stop ... If true, download is canceled and errorHandler is invoked.
+ *   - stop ... If true, download is canceled, and errorHandler is invoked.
  *
  * Argument of completionHandler
- *   - data ... Binary data of the thumbnail.
+ *   - data ... Binary data of the image.
  *
  * Argument of errorHandler
  *   - error ... Error details are set when operation is abnormally terminated.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
@@ -322,30 +323,58 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * Download media (still image and movie) stored in memory card.
  *
  * File path must be string which combines the directory path and file name 
- * obtained from list of all supported media and otherwise causes an error.
+ * obtained from list of all supported media. Otherwise an error occurs.
  *
  * @param path File path to the still image or movie.
- * @param progressHandler Callback used when the progress of the download changes.
+ * @param progressHandler Callback used when the download progress changes.
  * @param completionHandler Callback used when download is complete.
- * @param errorHandler Callback used when the download was aborted.
+ * @param errorHandler Callback used when download is aborted.
  *
  * Argument of progressHandler
  *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
- *   - stop ... If true, download is canceled and errorHandler is invoked.
+ *   - stop ... If true, download is canceled, and errorHandler is invoked.
  *
  * Argument of completionHandler
- *   - data ... Binary data of the thumbnail.
+ *   - data ... Binary data of the media.
  *
  * Argument of errorHandler
  *   - error ... Error details are set when operation is abnormally terminated.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
  * 
  */
 - (void)downloadContent:(NSString *)path progressHandler:(void (^)(float progress, BOOL *stop))progressHandler completionHandler:(void (^)(NSData *data))completionHandler errorHandler:(void (^)(NSError *error))errorHandler;	
+
+/**
+ * 
+ * Split large media (still image or movie) into smaller parts and download each part.
+ *
+ * File path must be string which combines the directory path and file name
+ * obtained from list of all supported media. Otherwise an error occurs.
+ *
+ * @param path File path to the still image or movie.
+ * @param progressHandler Callback used when the part is downloaded.
+ * @param completionHandler Callback used when download is complete.
+ * @param errorHandler Callback used when download is aborted.
+ *
+ * Argument of progressHandler
+ *   - data ... Received binary data of the part.
+ *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
+ *   - stop ... If true, download is canceled, and errorHandler is invoked.
+ *
+ * Argument of errorHandler
+ *   - error ... Error details are set when operation is abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
+ *   - #OLYCameraRunModePlayback
+ *
+ * 
+ */
+- (void)downloadLargeContent:(NSString *)path progressHandler:(void (^)(NSData *data, float progress, BOOL *stop))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *error))errorHandler;	
 
 /**
  * 
@@ -358,7 +387,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * If the application wants to know the exact number of media, 
  * the application should check that error details are not set.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
@@ -371,7 +400,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * Get information of media (still image and movie) stored in memory card.
  *
  * File path must be string which combines the directory path and file name 
- * obtained from list of all supported media and otherwise causes an error.
+ * obtained from list of all supported media. Otherwise an error occurs.
  *
  * @param path File path to the still image or movie.
  * @param error Error details are set when the operation is abnormally terminated.
@@ -386,7 +415,7 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * 	 - "moviesize" ... Pixel size of the movie frame. The format is "[height]x[width]". For example "1920x1080"
  * 	 - "shootingdatetime" ... Date and time taken. Format is "[YYYYMMDD]T[hhmm]". For example "20141124T1234"
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
@@ -402,29 +431,28 @@ extern NSString *const OLYCameraContentListExtensionKey;
 
 /**
  * 
- * Resizes each frame of the video content, and save it as a new content into the camera.
+ * Resize each frame of the video, and save it as a new file in the camera's memory card.
  *
- * The application can also add the image effect to the scene when editing and merging videos.
- * Video content that the application specifies must be a short movie format.
- * If the application specifies a non-video content, the application will get an error.
+ * String that the application specifies in the file path of the content.  String must
+ * combine the directory path and file name obtained from the downloaded contents list.
+ * If the application specifies a non-video file, the application will get an error.
  *
- * @param path File path of the video content.
- * @param resize Pixel size of each frame after resizing process.
- * @param quality Quality of video after resizing process.
- * @param progressHandler Callback that will be called every time the progress of the resizing process changes.
- * @param completionHandler Callback that is called when the resize processing is complete.
- * @param errorHandler Callback that is called when the resize processing is abnormally terminated.
+ * @param path File path to the video content.
+ * @param resize Frame size in number of pixels after resizing. (only 1280 is valid in current version)
+ * @param quality Quality of video after resizing.
+ * @param progressHandler Callback used when the resizing progress changes.
+ * @param completionHandler Callback used when resizing is complete.
+ * @param errorHandler Callback used when resizing is abnormally terminated.
  *
  * Argument of progress callback
- *   - progress ... Progress rate is set. 0.0 immediately after the start, 1.0 is complete.
- *   - stop ... If set to true, abnormal termination callback is invoked resize processing is canceled.
+ *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
+ *   - stop ... If set to true, abnormal termination callback is invoked and resizing is canceled.
  *
  * Argument of abnormal termination callback
- *   - error ... Error details will be set when the operation is abnormally terminated.
+ *   - error ... Error details are set when the operation is abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in run mode the following.
- * The application will get an error when called in run mode other than these.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
  * 

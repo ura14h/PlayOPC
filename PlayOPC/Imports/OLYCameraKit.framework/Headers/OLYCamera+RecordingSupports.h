@@ -80,34 +80,64 @@ enum OLYCameraDrivingZoomLensSpeed {
 };
 typedef enum OLYCameraDrivingZoomLensSpeed OLYCameraDrivingZoomLensSpeed;
 
-// This is reserved for vendors. Please do not use.
+/**
+ * Magnification of live view.
+ * 
+ */
 enum OLYCameraMagnifyingLiveViewScale {	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * 5x magnification.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScaleX5,	
 	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * 7x magnification.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScaleX7,	
 	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * 10x magnification.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScaleX10,	
 	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * 14x magnification.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScaleX14,	
 };
 typedef enum OLYCameraMagnifyingLiveViewScale OLYCameraMagnifyingLiveViewScale;
 
-// This is reserved for vendors. Please do not use.
+/**
+ * Scroll direction in magnified live view.
+ * 
+ */
 enum OLYCameraMagnifyingLiveViewScrollDirection {	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * Scroll up.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScrollDirectionUp,	
 	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * Scroll left.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScrollDirectionLeft,	
 	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * Scroll right.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScrollDirectionRight,	
 	
-    // This is reserved for vendors. Please do not use.
+    /**
+     * Scroll down.
+     * 
+     */
     OLYCameraMagnifyingLiveViewScrollDirectionDown,	
 };
 typedef enum OLYCameraMagnifyingLiveViewScrollDirection OLYCameraMagnifyingLiveViewScrollDirection;
@@ -159,9 +189,10 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMinimumKey;
  */
 extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;	
 
-// ;-)
-
-// ;-)
+/**
+ * Dictionary key for accessing 'Display area' elements of the magnified live view information.
+ */
+extern NSString *const OLYCameraMagnifyingLiveViewAreaRectKey;	
 
 /** @} */
 /** @} */
@@ -184,7 +215,7 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
 /**
  * 
  * Delegate object to notify camera state when it changes. 
- * The camera state is regarding capturing operation which affects still image or movie.
+ * The camera state relates to capturing operation which affects still image or movie.
  *
  * 
  */
@@ -203,7 +234,16 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  */
 @property (assign, nonatomic, readonly) BOOL drivingZoomLens;	
 
-// This is reserved for vendors. Please do not use.
+/**
+ * 
+ * Indicate that live view is magnified.
+ *
+ * @see OLYCamera::startMagnifyingLiveView:error:
+ * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
+ * @see OLYCamera::stopMagnifyingLiveView:
+ *
+ * 
+ */
 @property (assign, nonatomic, readonly) BOOL magnifyingLiveView;	
 
 /**
@@ -229,7 +269,7 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  *   - #OLYCameraLevelGaugePitchingKey ... Pitch angle in degrees of the camera body relative to horizontal.
  *     If the angle cannot be determined, NaN is returned.
  *
- * This property is not set if the following conditions are not met.
+ * This property is set only if the following conditions are met.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
  *
@@ -241,11 +281,11 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * 
  * Face recognition results.
  *
- * Coordinate information of face detected by the camera is stored in a dictionary format.
+ * Coordinate information of face detected by the camera is stored in dictionary format.
  * The dictionary key is a string that represents the identification number.
  * It is not possible to track the coordinates of a recognized face by relying on a specific identification number.
  *
- * This property is not set if the following conditions are not met.
+ * This property is set only if the following conditions are met.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
  *
@@ -265,7 +305,8 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * @param error Error details are set when the operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::lensMountStatus
@@ -287,8 +328,8 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::lensMountStatus
@@ -304,13 +345,13 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * Stop driving optical zoom.
  *
  * Lens attached to the camera must support electric zoom.
- * If the optical zoom already being driven, application will get an error.
+ * If the optical zoom is already being driven, application will get an error.
  *
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error. 
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::lensMountStatus
@@ -331,8 +372,8 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  *  - #OLYCameraDigitalZoomScaleRangeMinimumKey ... Minimum magnification.
  *  - #OLYCameraDigitalZoomScaleRangeMaximumKey ... Maximum magnification.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::changeDigitalZoomScale:error:
@@ -353,8 +394,8 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * @param error Error details are set when the operation is abnormally terminated.
  * @return If true, operation was successful. If false, operation was abnormally terminated.
  *
- * @par Supported run modes
- * This method call is allowed only in following run modes and otherwise causes an error.
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
  * @see OLYCamera::digitalZoomScaleRange:
@@ -363,15 +404,119 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  */
 - (BOOL)changeDigitalZoomScale:(float)scale error:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Start magnifying live view.
+ *
+ * If live view is already magnified, an error occurs.
+ *
+ * @param scale Magnification of live view.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, operation was successful. If false, operation was abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
+ *   - #OLYCameraRunModeRecording
+ *
+ * @see OLYCamera::magnifyingLiveView
+ * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
+ * @see OLYCamera::stopMagnifyingLiveView:
+ *
+ * 
+ */
+- (BOOL)startMagnifyingLiveView:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Start magnifying live view with center coordinate of magnification.
+ *
+ * If live view is already magnified, an error occurs.
+ *
+ * @param point Center coordinate of the magnified display in viewfinder coordinate system.
+ * The viewfinder coordinate system is explained in coordinate conversion utilities section of functions menu.
+ * @param scale Magnification of live view.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, operation was successful. If false, operation was abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
+ *   - #OLYCameraRunModeRecording
+ *
+ * @see OLYCamera::magnifyingLiveView
+ * @see OLYCamera::startMagnifyingLiveView:error:
+ * @see OLYCamera::stopMagnifyingLiveView:
+ *
+ * 
+ */
+- (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point scale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Stop magnifying live view.
+ *
+ * If live view is not magnified, an error occurs.
+ *
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, operation was successful. If false, operation was abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
+ *   - #OLYCameraRunModeRecording
+ *
+ * @see OLYCamera::magnifyingLiveView
+ * @see OLYCamera::startMagnifyingLiveView:error:
+ * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
+ *
+ * 
+ */
+- (BOOL)stopMagnifyingLiveView:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Change magnification of live view.
+ *
+ * If live view is not magnified, an error occurs.
+ *
+ * @param scale Magnification of live view.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, operation was successful. If false, operation was abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
+ *   - #OLYCameraRunModeRecording
+ *
+ * @see OLYCamera::magnifyingLiveView
+ * @see OLYCamera::startMagnifyingLiveView:error:
+ * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
+ * @see OLYCamera::stopMagnifyingLiveView:
+ *
+ * 
+ */
+- (BOOL)changeMagnifyingLiveViewScale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Move display area in magnified live view.
+ *
+ * If live view is not magnified, an error occurs.
+ *
+ * @param direction Scrolling direction of the display area.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, operation was successful. If false, operation was abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
+ *   - #OLYCameraRunModeRecording
+ *
+ * @see OLYCamera::magnifyingLiveView
+ * @see OLYCamera::startMagnifyingLiveView:error:
+ * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
+ * @see OLYCamera::stopMagnifyingLiveView:
+ * @see OLYCamera::magnifyingLiveViewArea:
+ *
+ * 
+ */
+- (BOOL)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction error:(NSError **)error;	
 
 // ;-)
 
@@ -385,7 +530,7 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
 /**
  * 
  * Delegate to notify camera state when it changes. 
- * The camera state is regarding capturing operation which do not affect still image or movie.
+ * The camera state relates to capturing operation which do not affect still image or movie.
  *
  * 
  */
@@ -434,9 +579,9 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
 
 /**
  * 
- * Notify that SDK failes to receive preview image.
+ * Notify that SDK fails to receive preview image.
  *
- * @param camera Instance that failes to receive the image.
+ * @param camera Instance that fails to receive the preview image.
  * @param error Error details.
  *
  * 
@@ -450,7 +595,7 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * This is notified at the end of the shot if camera property "DESTINATION_FILE" is set to "DESTINATION_FILE_WIFI".
  * Please refer to the documentation of the list of camera properties for more information.
  *
- * @param camera Instance that receives image data.
+ * @param camera Instance that receives the image data.
  *
  * 
  */
@@ -463,7 +608,7 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
  * This is notified at the end of the shot if camera property "DESTINATION_FILE" is set to "DESTINATION_FILE_WIFI".
  * Please refer to the documentation of the list of camera properties for more information.
  *
- * @param camera Instance that receives image data.
+ * @param camera Instance that receives the image data.
  * @param data Captured image for storage.
  *
  * 
@@ -472,9 +617,9 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;
 
 /**
  * 
- * Notify that SDK failes to receive original size image after shooting.
+ * Notify that SDK will not receive original size image after shooting.
  *
- * @param camera Instance that failes to receive the image.
+ * @param camera Instance that fails to receive the image.
  * @param error Error details.
  *
  * 

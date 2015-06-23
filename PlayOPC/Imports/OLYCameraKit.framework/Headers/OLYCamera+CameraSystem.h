@@ -46,7 +46,7 @@ enum OLYCameraRunMode {
 	
 	/**
      * 
-	 * Standaalone mode.
+	 * Standalone mode.
 	 *
 	 * The run mode is this value immediately after connected to the camera.
 	 *
@@ -182,10 +182,10 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * 
  * This is a camera system category of Olympus camera class.
  *
- * This category gets or sets the camera settings (Camera property) and changes the run mode.
+ * This category gets or sets the camera settings (camera property) and changes the run mode.
  *
  * For example, the application can get or set the following camera properties:
- *   - Basic settings (F value, shutter speed, and exposure mode, etc.)
+ *   - Basic settings (F value, shutter speed, exposure mode, etc.)
  *   - Color tone and finish settings (white balance, art filter, etc.)
  *   - Focus settings (focus mode, such as focus lock)
  *   - Image quality and saving settings (image size, compression ratio, image quality mode, etc.)
@@ -237,7 +237,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * Indicate if inside of the camera is in high-temperature condition.
  *
  * You can also check using the lighting state of the LED on the camera body.
- * If the inside of the camera is a high-temperature state, please stop using the camera immediately,
+ * If the inside of the camera has reached a high temperature, please stop using the camera immediately,
  * and wait for the camera to return to normal temperature.
  *
  * 
@@ -256,7 +256,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  *     - "+macro" ... The lens is equipped with a macro mode.
  *   - "down" ... The lens is mounted. However retractable lens is not extended.
  *   - "nolens" ... Disabled because no lens is mounted.
- *   - "cantshoot" ... Disabled by other reason.
+ *   - "cantshoot" ... Disabled because of other reason.
  *
  *
  * 
@@ -270,10 +270,10 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * Status of media mount:
  *   - (nil) ... It is not connected to the camera, or the state is unknown.
  *   - "normal" ... Available in the media already mounted.
- *   - "readonly" ... The media is already mounted. But cannot write for that the media is read-only.
- *   - "cardfull" ... The media is already mounted. But cannot write for that the media is no free space.
- *   - "unmount" ... Disabled by the media is not mounted.
- *   - "error" ... Disabled by a media mount error.
+ *   - "readonly" ... The media is already mounted. But cannot write because the media is read-only.
+ *   - "cardfull" ... The media is already mounted. But cannot write because the media is no free space.
+ *   - "unmount" ... Disabled because the media is not mounted.
+ *   - "error" ... Disabled because of a media mount error.
  *
  * 
  */
@@ -284,7 +284,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * Indicate whether the camera is writing to the media (memory card).
  *
  * You can also check in the lighting state of the LED on the camera body.
- * While the camera is writing to the media, you will see a response API is slow.
+ * While the camera is writing to the media, you will see API response is slow.
  *
  * @see OLYCamera::startTakingPicture:progressHandler:completionHandler:errorHandler:
  * @see OLYCamera::stopTakingPicture:completionHandler:errorHandler:
@@ -298,10 +298,10 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
 
 /**
  * 
- * Indicate whether the media (memory card) I/O error is occurred.
+ * Indicate whether the media (memory card) I/O error has occurred.
  *
  * There is a possibility that the media is broken.
- * Please replace the new media if it occurs frequently.
+ * Please replace with a new media if it occurs frequently.
  *
  * 
  */
@@ -317,9 +317,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
 
 /**
  * 
- * The maximum number of capturing images that can be stored in the media (memory card).
+ * The maximum number of images that can be stored in the media (memory card).
  *
- * This value does not indicate the exact value depends on the data for the compression ratio of the captured image.
+ * The exact value depends on the data for the compression ratio of the captured image.
  * Sometimes the value does not change after capturing.
  *
  * @see OLYCamera::startTakingPicture:progressHandler:completionHandler:errorHandler:
@@ -332,9 +332,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
 
 /**
  * 
- * The maximum number of seconds of recording a movie that can be stored in the media (memory card).
+ * The maximum number of seconds a movie that can be stored in the media (memory card).
  *
- * This value does not indicate the exact value depends on the data for the compression ratio of the captured video.
+ * The exact value depends on the data for the compression ratio of the captured video.
  *
  * @see OLYCamera::startRecordingVideo:completionHandler:errorHandler:
  * @see OLYCamera::stopRecordingVideo:errorHandler:
@@ -350,7 +350,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * @param error Error details will be set when the operation is abnormally terminated.
  * @return The hardware information of the camera.
  *
- * Hardware information is dictionary format.
+ * Hardware information is in dictionary format.
  * The following keys are defined in order to access each element.
  *   - #OLYCameraHardwareInformationCameraModelNameKey ... Camera model name.
  *   - #OLYCameraHardwareInformationCameraFirmwareVersionKey ... Camera firmware version.
@@ -377,7 +377,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * Please refer to the documentation of the camera list of properties for more information.
  *
  * @param name The camera property name. (e.g. "APERTURE", "SHUTTER", "ISO", "WB")
- * @return The title on Human readable format. (e.g. "Aperture", "Shutter Speed", "ISO Sensitivity", "White Balance")
+ * @return Display name for camera property. (e.g. "Aperture", "Shutter Speed", "ISO Sensitivity", "White Balance")
  *
  * @see OLYCamera::cameraPropertyNames
  *
@@ -395,11 +395,12 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * there are times when the contents of the list changes.
  * Please refer to the documentation of the camera list of properties for more information.
  *
- * Each value included in the list is a string formatted in "<Property Name/Property Value>" form.
+ * Each value in the list is a string in the form of "<Property Name/Property Value>."
  *
  * @param name The camera property name. (e.g. "APERTURE", "SHUTTER", "ISO")
  * @param error Error details will be set when the operation is abnormally terminated.
- * @return The list of the camera propery values that can be set.
+ * @return The list of the camera property values that can be set.
+ *
  *
  * @see OLYCamera::cameraPropertyNames
  * @see OLYCamera::cameraPropertyValue:error:
@@ -418,11 +419,12 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * several properties are read-only access or prohibited.
  * Please refer to the documentation of the camera list of properties for more information.
  *
- * The return value is a string formatted in "<Property Name/Property Value>" form.
+ * The return value is a string in the form of "<Property Name/Property Value>."
  *
  * @param name The camera property name. (e.g. "APERTURE", "SHUTTER", "ISO")
  * @param error Error details will be set when operation is abnormally terminated.
- * @return The value set in the camera properties. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>")
+ * @return Pair of property name and property value set in the property. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>")
+ *
  *
  * @see OLYCamera::cameraPropertyNames
  * @see OLYCamera::canSetCameraProperty:
@@ -467,10 +469,10 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * several properties are read-only access or prohibited.
  * Please refer to the documentation of the camera list of properties for more information.
  *
- * The value set to the camera properties is a string formatted in "<Property Name/Property Value>" form.
+ * The argument for parameter "value" is a string in the form of "<Property Name/Property Value>."
  *
- * @param value The value set to the camera properties. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>", "<WB/WB_AUTO>")
- * @return The title on Human readable format. (e.g. "3.5", "250", "Auto", "WB Auto")
+ * @param value Pair of property name and property value set in the property. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>", "<WB/WB_AUTO>")
+ * @return Display name for camera property value. (e.g. "3.5", "250", "Auto", "WB Auto")
  *
  * @see OLYCamera::cameraPropertyNames
  * @see OLYCamera::cameraPropertyValue:error:
@@ -505,18 +507,18 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  *
  * If the application specifies a value that does not exist in the list of camera properties currently available,
  * the application will get an error.
- * Depending on the setting value of the shooting mode and connection type and etc.,
- * there are several properties that is read-only access or prohibited.
+ * Depending on the setting value of the shooting mode and connection type etc.,
+ * there are several properties that are read-only access or prohibited.
  * Please refer to the documentation of the camera list of properties for more information.
  *
- * @param name The camera property name. (e.g. "APERTURE", "SHUTTER", "ISO", "WB")
- * @param value The value set in the camera properties. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>", "<WB/WB_AUTO>")
+ * The argument for parameter "value" is a string in the form of "<Property Name/Property Value>."
+ * @param name The camera property name (e.g. "APERTURE", "SHUTTER", "ISO", "WB"). 
+ * @param value Pair of property name and property value set in the property. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>", "<WB/WB_AUTO>")
  * @param error Error details will be set when operation is abnormally terminated.
  * @return If true, the operation was successful. If false, the operation was abnormally terminated.
  *
- * The value set to the camera properties is a string formatted in "<Property Name/Property Value>" form.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
  *   - #OLYCameraRunModeMaintenance
@@ -533,9 +535,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * 
  * Set values to camera properties.
  *
- * Specifing a value that does not exist in the list of camera properties currently available,
+ * Specifying a value that does not exist in the list of camera properties currently available,
  * will give an error.
- * Depending on the setting value of the shooting mode,connection type, etc.,
+ * Depending on the setting value of the shooting mode, connection type, etc.,
  * several properties are read-only access or prohibited.
  * Please refer to the documentation of the camera list of properties for more information.
  *
@@ -547,7 +549,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * The application must specify the camera property name in the dictionary key
  * and store the value associated with that key in the camera properties.
  *
- * @par Supported run modes
+ * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
  *   - #OLYCameraRunModeMaintenance
@@ -570,7 +572,7 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * Please refer to the related documentation for more information on relationship between
  * run mode and available camera features.
  *
- * Response of this API may become slow when shooting or writing memory card.
+ * Response of this API may become slow when shooting or writing to memory card.
  *
  * @param mode Run mode of the camera.
  * @param error Error details will be set when the operation is abnormally terminated.
@@ -582,7 +584,30 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  */
 - (BOOL)changeRunMode:(OLYCameraRunMode)mode error:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Change date and time of camera.
+ *
+ * When capturing without specifying date and time in the camera,
+ * a wrong value is set to metadata of media (still image and movie) and time stamp of media file.
+ *
+ * Date and time must be specified in Greenwich Mean Time (GMT), with time zone set in the mobile device.
+ * OS standard API returns date and time in GMT format, 
+ * and this method can use the returned value without changing the format. 
+ * 
+ * @param date Date and time.
+ * @param error Error details will be set when the operation is abnormally terminated.
+ * @return If true, the operation was successful. If false, the operation was abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run modes and otherwise causes an error.
+ *   - #OLYCameraRunModeStandalone
+ *   - #OLYCameraRunModePlayback
+ *   - #OLYCameraRunModePlaymaintenance
+ *
+ * 
+ */
+- (BOOL)changeTime:(NSDate *)date error:(NSError **)error;	
 
 /**
  * 

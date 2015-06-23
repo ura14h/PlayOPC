@@ -44,7 +44,7 @@
  * 
  * Maintenance category of Olympus camera class.
  *
- * This category provides no function and is reserved for future expansion.
+ * This category provides no functions and is reserved for future expansion.
  *
  * 
  * @category OLYCamera(Maintenance)

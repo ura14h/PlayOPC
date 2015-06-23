@@ -1,7 +1,7 @@
-/**
+﻿/**
  * @mainpage
  *
- * 
+ * @~english
  *
  * @par Summary
  *
@@ -20,14 +20,14 @@
  *   - @ref OLYCameraRecordingDelegate ... Notify camera state when it changes. The camera state is regarding capturing operation which affects still image or movie.
  *   - @ref OLYCameraRecordingSupportsDelegate ... Notify camera state when it changes. The camera state is regarding capturing operation which do not affect still image or movie.
  * - The class to output error code and log is available for debugging your application.
- * - The following classes are available to cooperate with Olympus applications.
- *   - @ref OACentralConfiguration ... The setting of BLE connection is provided in cooperation with OA.Central.
- *
+ * - The following class is available to support a Bluetooth Smart connection
+ *   - @ref OACentralConfiguration ... Receive setting information of Bluetooth Smart connection from Olympus official app, OA.Central.
+ * 
  * @par How to use
  *
  * Establish Wi-Fi connection between camera and mobile device in setting screen of the mobile device.
  * Connect to the camera with the SDK after checking settings for communication with the camera.
- * There is no need to change the communication settings usually.
+ * There is usually no need to change the communication settings.
  *
  * The camera has several run modes. Available functions are different in each mode.
  * The camera is set to standalone mode after the connection is established between camera and mobile device.
@@ -42,7 +42,42 @@
  * and connects to the camera again when entering foreground mode.
  * This allows other applications to use the camera when the application does not use the camera.
  *
- * 
+ * @~japanese
+ *
+ * @par 概要
+ *
+ * OLYCameraKitは、オリンパスの無線カメラ(以下カメラ)向けソフトウェア開発キット(SDK)です。
+ *
+ * OLYCameraKitを使えば、カメラを無線でコントロールするアプリケーションを簡単につくることができます。
+ *
+ * @par 構成
+ *
+ * - カメラと接続し、様々な操作や情報の取得を行うクラスが用意されています。
+ *   - @ref OLYCamera
+ * - カメラや通信ネットワークの状態が変化したことを通知するために以下のプロトコルが用意されています。
+ *   - @ref OLYCameraConnectionDelegate ... カメラとの通信路に関する状態が変化した時に通知されます。
+ *   - @ref OLYCameraLiveViewDelegate ... ライブビュー用画像に関する状態が変化した時に通知されます。
+ *   - @ref OLYCameraPropertyDelegate ... プロパティ値またはプロパティ値リストに関する状態が変化した時に通知されます。
+ *   - @ref OLYCameraRecordingDelegate ... 撮影している静止画や動画に影響する変化が生じた時に通知されます。
+ *   - @ref OLYCameraRecordingSupportsDelegate ... 撮影に関するカメラなどの状態が変化した時に通知されます。
+ * - アプリケーションのデバッグをサポートするために、エラーコードやログ出力のクラスが用意されています。
+ * - オリンパス製アプリとの連携を支援するクラスが用意されています。
+ *   - @ref OACentralConfiguration ... OA.Centralと連携してカメラとBLE接続するための設定情報を提供します。
+ *
+ * @par 使い方
+ *
+ * 最初にOLYCameraにカメラとの通信に関する設定を行ってから(通常は設定を変更する必要はありません)、SDKとしてカメラに接続しなければなりません。
+ * この手続きを呼び出す前に、ユーザーもしくはアプリケーションはWi-Fi経由でスマホとカメラとの接続を確立しておく必要があります。
+ *
+ * カメラにはいくつかの実行モードがあり、それぞれのモードでは操作できる機能が異なります。カメラに接続した直後はスタンドアロンモードに設定されます。
+ * 写真撮影または動画撮影するためには、カメラに接続してから撮影モードに移行させ撮影モードとドライブモードを設定した後で撮影開始～撮影終了を呼び出します。
+ *
+ * カメラの使用を終える時は、明示的にSDKとカメラの接続を切断する必要があります。
+ * アプリケーションがマルチタスキングをサポートする場合は、他のアプリケーションでもカメラが使えるように、
+ * バックグラウンドモードに移行する時に一時的にSDKとカメラの接続を切断し、
+ * フォアグラウンドモードに移行する時に再び接続するような仕組みにしてください。
+ *
+ * @~
  */
 /**
  * 
@@ -132,8 +167,8 @@ extern NSString *const OLYCameraKitBuildNumber;
  * - @ref OLYCamera(CameraSystem)
  *    - This is camera system category of Olympus camera class.
  *      This category enables one to get or set the camera settings (Camera property) and change run mode.
- *    - For example, The application can get or set the following camera properties:
- *      - Basic settings (aperture value, shutter speed, and exposure mode, etc.)
+ *    - The application can get or set the following camera properties:
+ *      - Basic settings (aperture value, shutter speed, exposure mode, etc.)
  *      - Color tone and finish setting (white balance, art filter, etc.)
  *      - Focus settings (focus mode, such as focus lock)
  *      - Image quality and saving settings (image size, compression ratio, image quality mode, etc.)
@@ -148,7 +183,7 @@ extern NSString *const OLYCameraKitBuildNumber;
  *    - This category can download and edit video and still images saved in the camera.
  * - @ref OLYCamera(PlaybackMaintenance)
  *    - This is playback auxiliary category of Olympus camera class.
- * 	  - This category provides no function and is reserved for future expansion.
+ *      This category can erase video and still image and movie saved in the camera.
  * - @ref OLYCamera(Recording)
  *    - This is recording category of Olympus camera class.
  *      This category takes still pictures and records video, exposure control, and focus control.

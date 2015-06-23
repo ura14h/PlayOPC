@@ -1,9 +1,13 @@
-/**
- * 
+﻿/**
+ * @~english
  * @file	OLYCamera+CameraConnection.h
  * @brief	OLYCamera(CameraConnection) class interface file.
  *
- * 
+ * @~japanese
+ * @file	OLYCamera+CameraConnection.h
+ * @brief	OLYCamera(CameraConnection) クラスインターフェースファイル
+ *
+ * @~
  */
 /*
  * Copyright (c) Olympus Imaging Corporation. All rights reserved.
@@ -45,7 +49,7 @@ enum OLYCameraConnectionType {
     OLYCameraConnectionTypeWiFi,	
 	
     /**
-     * BLE (Bluetooth Low Energy).
+     * Bluetooth Smart.
      * 
      */
     OLYCameraConnectionTypeBluetoothLE,	
@@ -87,8 +91,8 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  * 
  * Bluetooth peripheral.
  *
- * The value is used when you connect the camera via BLE.
- * Before connecting to the camera via BLE, it must have been configured.
+ * The value is used when you connect via Bluetooth Smart to the camera.
+ * Configure this value before starting connection via Bluetooth Smart.
  *
  * 
  */
@@ -96,21 +100,22 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
 
 /**
  * 
- * The password to connect to the camera via Bluetooth.
+ * Password to connect via Bluetooth Smart to the camera.
  *
- * This may be used when connecting to the camera via BLE.
- * If this is the case, the value must have been configured before connecting to the camera.
+ * The value may be used when you connect via Bluetooth Smart to the camera.
+ * Configure this value before starting connection via Bluetooth Smart.
  *
  * 
  */
-@property (strong, nonatomic, readwrite) NSString *bluetoothPassword;	
+
+@property (strong, nonatomic, readwrite) NSString *bluetoothPassword;	// __OLY_API_USER_V1__
 
 /**
  * 
- * If true, the camera starts recording setup after power-on via BLE.
+ * If true, the camera starts recording setup after power on via Bluetooth Smart
  *
- * This may be used when connecting to the camera via BLE.
- * If this is the case, the value must have been configured before connecting to the camera.
+ * The value may be used when you connect via Bluetooth Smart to the camera.
+ * Configure this value before starting connection via Bluetooth Smart.
  *
  * 
  */
@@ -152,10 +157,10 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
 
 /**
  * 
- * Indicate whether the application needs to set a password property when connecting via BLE to the camera.
+ * Indicate if camera requires a password for Bluetooth Smart connection.
  *
  * @param error Error details will be set when operation is abnormally terminated.
- * @return If true, must set a BLE password. If false, no need.
+ * @return If true, password is required.
  *
  * 
  */
@@ -163,9 +168,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
 
 /**
  * 
- * Wake up the camera via BLE.
+ * Wake up the camera via Bluetooth Smart.
  *
- * After the power supply on of the camera succeeds, the application can connect to the camera.
+ * After the camera turns on, the application can connect to the camera.
  * If the application is connected to the camera, the application will get an error.
  *
  * @param error Error details will be set when operation is abnormally terminated.
@@ -214,7 +219,7 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  * Disconnect from the camera.
  *
  * You can also power off the camera when you disconnect from the camera.
- * Disconnect is successful, the value of the property and state of the camera will be cleared.
+ * If disconnect is successful, the value of the property and state of the camera will be cleared.
  * (Communication settings of the camera connection are not cleared.)
  *
  * @param powerOff If true, the camera will be powered off with disconnection from the camera.

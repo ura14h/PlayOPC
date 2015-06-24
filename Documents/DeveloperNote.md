@@ -29,7 +29,7 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 
 ## カメラシステムカテゴリ
 
-* 実行モードがスタンドアロンモードにある時にしばらく放置してその間にカメラがスリープに入ってしまうと(レンズが沈胴してカメラ本体のLEDが緑色でゆっくり点滅している状態)、そこから撮影モードに入ろうとした場合にカメラのスリープが解除されずにハングアップしてしまいます。(正確には実行モード変更(changeRunMode:error:)を呼んでから3分ぐらい待つと通信がタイムアウトしてエラーになります) #reported-sdk-1.0.1
+* 実行モードがスタンドアロンモードにある時にしばらく放置してその間にカメラがスリープに入ってしまうと(レンズが沈胴してカメラ本体のLEDが緑色でゆっくり点滅している状態)、そこから撮影モードに入ろうとした場合にカメラのスリープが解除されずにハングアップしてしまいます。(正確には実行モード変更(changeRunMode:error:)を呼んでから3分ぐらい待つと通信がタイムアウトしてエラーになります) #reported-sdk-1.0.1 #avoided-app-1.0.1589
 * AC電源供給されているUSBケーブルをカメラに抜き差ししても、カメラプロパティのバッテリー残量(BATTERY\_LEVEL)が変化したことがデリゲート(camera:didChangeCameraProperty:)で通知されないようです。
 * カメラに16GBのマイクロSDカードを挿していてもメディア空き容量プロパティ(remainingMediaCapacity)の戻り値が2GB止まりになっているようです。4GB止まりかも。
 * カメラプロパティ一括取得メソッド(cameraPropertyValues:error:)で得た全てのカメラプロパティ値を、カメラプロパティ一括設定メソッド(setCameraPropertyValues:error:)で復元しようとするとタイムアウトエラーが発生してその後にカメラ接続が解除されてしまいます。カメラの挙動を見る限りファームウェアのリセットがかかっているようです。#reported-sdk-1.0.1 #avoided-app-1.0.1589
@@ -50,7 +50,7 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 
 ### ステータスと設定保存
 
-* 水準器プロパティ(levelGauge)から得られる辞書の本体の向きもしくは傾き(OLYCameraLevelGaugeOrientationKey)で、本体仰向けの時に"facedown"が、本体うつ伏せの時に"faceup"が設定されるようです。 #reported-sdk-1.0.1
+* 水準器プロパティ(levelGauge)から得られる辞書の本体の向きもしくは傾き(OLYCameraLevelGaugeOrientationKey)で、本体仰向けの時に"facedown"が、本体うつ伏せの時に"faceup"が設定されるようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 水準器プロパティ(levelGauge)のロール量とピッチ量の精度は0.1度単位のようで値は頻繁に変更され、カメラを傾けていくとロール量かピッチ量が±48度から±50度前後のところで本体の向きもしくは傾きが変化するようです。 
 * Bluetooth経由で接続している場合だと、水準器プロパティ(levelGauge)がnilのままで変化しないようです。 #reported-sdk-1.0.1
 * 顔認識情報プロパティ(detectedHumanFaces)の要素は、顔の数が少ない時は期待通りにそのオブジェクトを追跡しますが、顔の数が多い場合の挙動を観察して見る限り、一度認識した顔を追跡する(インデックスが変化しない)わけではなく、ライブビュー画像ごとに認識しなおしている(同じオブジェクトでも違うインデックスが割当られている)ように思えます。
@@ -59,9 +59,9 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 ### 露出と撮影操作
 
 * カメラプロパティのタイトルを取得(cameraPropertyTitle:)で違うカメラプロパティ名を渡しても同じタイトルが返ってくるものがあります。例えば、フォーカスモード静止画用(FOCUS\_STILL)とフォーカスモード動画用(FOCUS\_MOVIE)は同じ"Focus Mode"という値が返ってきます。
-* カメラプロパティの動画撮影モード(EXPOSE\_MOVIE\_SELECT)のタイトルを取得(cameraPropertyTitle:)するとドライブモード(TAKE\_DRIVE)と同じ"Drive Mode"というタイトルが返ってきます。 #reported-sdk-1.0.1
-* カメラプロパティの撮影モード(TAKEMODE)が"iAuto"に設定されていると、カメラプロパティの露出補正値(EXPREV)の値がnilとなり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。 #reported-sdk-1.0.1
-* カメラプロパティの撮影モード(TAKEMODE)が"movie"に設定されていると、カメラプロパティの絞り値(APERTURE)、シャッター速度(SHUTTER)、ISO感度(ISO)の値がnilになり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。 #reported-sdk-1.0.1
+* カメラプロパティの動画撮影モード(EXPOSE\_MOVIE\_SELECT)のタイトルを取得(cameraPropertyTitle:)するとドライブモード(TAKE\_DRIVE)と同じ"Drive Mode"というタイトルが返ってきます。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* カメラプロパティの撮影モード(TAKEMODE)が"iAuto"に設定されていると、カメラプロパティの露出補正値(EXPREV)の値がnilとなり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* カメラプロパティの撮影モード(TAKEMODE)が"movie"に設定されていると、カメラプロパティの絞り値(APERTURE)、シャッター速度(SHUTTER)、ISO感度(ISO)の値がnilになり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)の値を変更すると、その他の複数のカメラプロパティの設定可不可(canSetCameraProperty:)が影響を受けるようです。
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)の値を変更すると、その他の複数のカメラプロパティの値が勝手に変更される場合があるようです。
   * TAKEMODEをPからMに変更するとISO感度(ISO)の値リストからAutoが消えます。
@@ -82,14 +82,14 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 ### ズーム
 
 * カメラに装着されたレンズの現在の焦点距離プロパティ(actualFocalLength)は1mm単位のようです。 
-* Bluetooth経由で接続している場合だと、カメラに装着されたレンズの現在の焦点距離プロパティ(actualFocalLength)が1のままで変化しないようです。 #reported-sdk-1.0.1
+* Bluetooth経由で接続している場合だと、カメラに装着されたレンズの現在の焦点距離プロパティ(actualFocalLength)が1のままで変化しないようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 光学ズームの焦点距離指定(startDrivingZoomLensToFocalLength:error:)のズーム速度は、方向速度指定(startDrivingZoomLensForDirection:speed:error:)の時に指定できるOLYCameraDrivingZoomLensSpeedBurstと同じ速度のようです。
 
 ## 再生操作カテゴリ
 
 * デバイス用画像のダウンロード(downloadContentScreennail:progressHandler:completionHandler:errorHandler:)で得た画像にはメタデータに回転情報が入っていないらしく、UIImageViewを使って表示した時に撮影時のカメラ本体の向きが再現されないようです。 #reported-sdk-1.0.1
-* 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)のresizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになったり1920や1280が指定されたものとして扱われるようです。 #reported-sdk-1.0.1
+* 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)のresizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになったり1920や1280が指定されたものとして扱われるようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)で作成された動画ファイルをさらに動画リサイズすることはできないようです。
-* デバイスのメインメモリに収まりきらないようなサイズの大きい画像や動画をダウンロードすることはできないようです。 #reported-sdk-1.0.1
+* デバイスのメインメモリに収まりきらないようなサイズの大きい画像や動画をダウンロードすることはできないようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 
 以上

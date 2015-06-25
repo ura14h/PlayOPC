@@ -66,12 +66,12 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)の値を変更すると、その他の複数のカメラプロパティの値が勝手に変更される場合があるようです。
   * TAKEMODEをPからMに変更するとISO感度(ISO)の値リストからAutoが消えます。
   * TAKEMODEをP,A,S,Mからmovieに変更すると露出補正値(EXPREV)の値リストが+5.0〜-5.0から+3.0〜-3.0に狭まります。
-* カメラプロパティの撮影モード(TAKEMODE)をmovieにして動画撮影モード(EXPOSE\_MOVIE\_SELECT)を変更すると、その時の露光パラメータ(APERTURE, SHUTTER, EXPREV, ISO)の設定可不可メソッド(canSetCameraProperty:)が返す値がおかしい時があります。 #reported-sdk-1.0.1
+* カメラプロパティの撮影モード(TAKEMODE)をmovieにして動画撮影モード(EXPOSE\_MOVIE\_SELECT)を変更すると、その時の露光パラメータ(APERTURE, SHUTTER, EXPREV, ISO)の設定可不可メソッド(canSetCameraProperty:)が返す値がおかしい時があります。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)をmovieに変更すると、そのモードでは設定できない露出パラメータ(actualApertureValue, actualShutterSpeed, actualExposureCompensation, actualIsoSensitivity)の現在値がNANになるようです。
 
 ### 色と効果
 
-* 撮影モード(TAKEMODE)をmovie、動画撮影モード(EXPOSE\_MOVIE\_SELECT)をPに変更してから、アートフィルター種別(RECENTLY\_ART\_FILTER)を変更すると、撮影モードが勝手にARTになってしまうようです。
+* 撮影モード(TAKEMODE)をmovie、動画撮影モード(EXPOSE\_MOVIE\_SELECT)をPに変更してから、アートフィルター種別(RECENTLY\_ART\_FILTER)を変更すると、撮影モードが勝手にARTになってしまうようです。 #fixed-sdk-1.1.0
 
 ### オートフォーカスと自動測光
 

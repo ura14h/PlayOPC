@@ -231,9 +231,7 @@
 
 /// カメラプロパティの値に変更があった時に呼び出されます。
 - (void)camera:(OLYCamera *)camera didChangeCameraProperty:(NSString *)name {
-	// !!!: 特定のカメラプロパティ値がカメラプロパティの撮影モードに依存してnilとなりプロパティ値変更通知のデリゲートがライブビュー画像の更新と同じ間隔で呼び出され続けます。
-	// !!!: ログの出力が煩わしいのであえてDEBUG_LOGをDEBUG_DETAIL_LOGに変更しています。
-	DEBUG_DETAIL_LOG(@"name=%@", name);
+	DEBUG_LOG(@"name=%@", name);
 	
 	// すでに活動停止している場合や何かの誤りでセレクタが取得できない場合は何もしません。
 	if (!self.startingActivity) {

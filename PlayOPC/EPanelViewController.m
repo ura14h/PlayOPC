@@ -396,6 +396,17 @@
 	
 	// 画面表示を更新します。
 	[self updateShowExposeMovieSelectCell];
+
+	// カメラプロパティの動画撮影モード(EXPOSE_MOVIE_SELECT)が変更されると、その他大勢のカメラプロパティの設定可不可状態が変化するため、
+	// 最新のカメラプロパティ値設定可不可を元にそれぞれのセルの有効無効を設定し直します。
+	AppCamera *camera = GetAppCamera();
+	[self tableViewCell:self.showApertureCell enabled:[camera canSetCameraProperty:CameraPropertyAperture]];
+	[self tableViewCell:self.showShutterCell enabled:[camera canSetCameraProperty:CameraPropertyShutter]];
+	[self tableViewCell:self.showExprevCell enabled:[camera canSetCameraProperty:CameraPropertyExprev]];
+	[self tableViewCell:self.showIsoCell enabled:[camera canSetCameraProperty:CameraPropertyIso]];
+	[self tableViewCell:self.showTakemodeCell enabled:[camera canSetCameraProperty:CameraPropertyTakemode]];
+	[self tableViewCell:self.showTakeDriveCell enabled:[camera canSetCameraProperty:CameraPropertyTakeDrive]];
+	[self tableViewCell:self.showContinuousShootingVelocityCell enabled:[camera canSetCameraProperty:CameraPropertyContinuousShootingVelocity]];
 }
 
 /// ドライブモードの値が変わった時に呼び出されます。

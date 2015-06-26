@@ -272,22 +272,62 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	[patchedValues removeObjectForKey:@"TOUCH_EFFECTIVE_AREA_LOWER_RIGHT"];
 	[patchedValues removeObjectForKey:@"TOUCH_AE_EFFECTIVE_AREA_UPPER_LEFT"];
 	[patchedValues removeObjectForKey:@"TOUCH_AE_EFFECTIVE_AREA_LOWER_RIGHT"];
+
+	// ???: カメラかライブラリ内部で、カメラプロパティの設定同士が干渉しあって正しい状態を復元できないようです。
+	//
+	// 少なくとも、
+	//  - 撮影モード(TAKEMODE)
+	//  - 動画撮影モード(EXPOSE_MOVIE_SELECT)
+	//  - アートフィルター種別(RECENTLY_ART_FILTER)
+	// は互いに密接が関連があるようで、どれかの設定を変更すると他のどれかの値が勝手に変わってしまうようです。
+	// このため、プロパティ一括設定を1回だけを使って全てのカメラプロパティ値を設定できないので、
+	// 干渉し合うカメラプロパティ値の設定を保存しておいて、一括設定が終わった後に、一つづつ設定し直します。
+	//
+	// ???: この実装で完全かどうかは確認できていません。
+	// 少なくとも上述している4つのカメラプロパティの間の干渉はこの実装で回避できています。
+	//
+	NSString *takemode = values[CameraPropertyTakemode];
+	NSString *exposeMovieSelect = values[CameraPropertyExposeMovieSelect];
+	NSString *recentlyArtFilter = values[CameraPropertyRecentlyArtFilter];
+	if (!takemode) {
+		// 撮影モードに設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
+		takemode = [super cameraPropertyValue:CameraPropertyTakemode error:error];
+		return NO;
+	}
+	if (!exposeMovieSelect) {
+		// 動画撮影モードに設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
+		exposeMovieSelect = [super cameraPropertyValue:CameraPropertyExposeMovieSelect error:error];
+		return NO;
+	}
+	if (!recentlyArtFilter) {
+		// アートフィルター種別に設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
+		recentlyArtFilter = [super cameraPropertyValue:CameraPropertyRecentlyArtFilter error:error];
+		return NO;
+	}
 	
-	// ???: 一度にたくさんの設定をしようとするとカメラが接続解除してしまうようです。
-	NSArray *properties = [patchedValues allKeys];
-	NSInteger count = 30; // ???: この数値は、エラーにならないように様子を見つつ決めた根拠のない値です。
-	for (NSInteger offset = 0; offset < properties.count; offset += count) {
-		NSMutableDictionary *dividedValues = [[NSMutableDictionary alloc] initWithCapacity:count];
-		for (NSInteger index = 0; index < count; index++) {
-			if (offset + index < properties.count) {
-				NSString *property = properties[offset + index];
-				NSString *propertyValue = patchedValues[property];
-				[dividedValues setObject:propertyValue forKey:property];
-			}
-		}
-		if (![super setCameraPropertyValues:dividedValues error:error]) {
-			return NO;
-		}
+	// 読み取り専用のカメラプロパティを取り除いた設定値リストをカメラに渡します。
+	if (![super setCameraPropertyValues:patchedValues error:error]) {
+		return NO;
+	}
+	
+	// 干渉し合うカメラプロパティ値を手順に従って設定し直します。
+	// 動画撮影モードを設定します。
+	if (![super setCameraPropertyValue:CameraPropertyTakemode value:@"<TAKEMODE/movie>" error:error]) {
+		return NO;
+	}
+	if (![super setCameraPropertyValue:CameraPropertyExposeMovieSelect value:exposeMovieSelect error:error]) {
+		return NO;
+	}
+	// アートフィルター種別を設定します。
+	if (![super setCameraPropertyValue:CameraPropertyTakemode value:@"<TAKEMODE/ART>" error:error]) {
+		return NO;
+	}
+	if (![super setCameraPropertyValue:CameraPropertyRecentlyArtFilter value:recentlyArtFilter error:error]) {
+		return NO;
+	}
+	// 最後に、撮影モードを設定します。
+	if (![super setCameraPropertyValue:CameraPropertyTakemode value:takemode error:error]) {
+		return NO;
 	}
 	
 	return YES;

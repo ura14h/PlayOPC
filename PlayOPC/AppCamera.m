@@ -292,17 +292,23 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	if (!takemode) {
 		// 撮影モードに設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
 		takemode = [super cameraPropertyValue:CameraPropertyTakemode error:error];
-		return NO;
+		if (!takemode) {
+			return NO;
+		}
 	}
 	if (!exposeMovieSelect) {
 		// 動画撮影モードに設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
 		exposeMovieSelect = [super cameraPropertyValue:CameraPropertyExposeMovieSelect error:error];
-		return NO;
+		if (!exposeMovieSelect) {
+			return NO;
+		}
 	}
 	if (!recentlyArtFilter) {
 		// アートフィルター種別に設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
 		recentlyArtFilter = [super cameraPropertyValue:CameraPropertyRecentlyArtFilter error:error];
-		return NO;
+		if (recentlyArtFilter) {
+			return NO;
+		}
 	}
 	
 	// 読み取り専用のカメラプロパティを取り除いた設定値リストをカメラに渡します。

@@ -225,16 +225,12 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 #if !(TARGET_IPHONE_SIMULATOR)
 	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
 	if (networkStatus == ReachableViaWiFi) {
-		CFArrayRef supportedInterfaces = CNCopySupportedInterfaces();
-		if (supportedInterfaces) {
-			// FIXME: このブロックの潜在的メモリーリークに関する警告をどうやって解消するのか分かりませんでした...
-			CFStringRef interfaceName = CFArrayGetValueAtIndex(supportedInterfaces, 0);
-			if (interfaceName) {
-				CFDictionaryRef currentNetworkInfo = CNCopyCurrentNetworkInfo(interfaceName);
-				if (currentNetworkInfo) {
-					currentSSID = CFDictionaryGetValue(currentNetworkInfo, kCNNetworkInfoKeySSID);
-					currentBSSID = CFDictionaryGetValue(currentNetworkInfo, kCNNetworkInfoKeyBSSID);
-				}
+		NSArray* supportedInterfaces = (__bridge_transfer id)CNCopySupportedInterfaces();
+		for (NSString *interfaceName in supportedInterfaces) {
+			NSDictionary *currentNetworkInfo = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)interfaceName);
+			if (currentNetworkInfo) {
+				currentSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeySSID];
+				currentBSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeyBSSID];
 			}
 		}
 	}

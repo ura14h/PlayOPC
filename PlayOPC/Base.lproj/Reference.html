@@ -5,10 +5,10 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
-			body {
-				font-size: 9pt;
-				-webkit-text-size-adjust: none;
-			}
+		body {
+			font-size: 9pt;
+			-webkit-text-size-adjust: none;
+		}
 		h1 {
 			font-family: sans-serif;
 			margin-top: 0;
@@ -16,40 +16,31 @@
 			padding-left: 4pt;
 			color: #ffffff;
 			background-color: #00c375;
-			-webkit-user-select: none;
 		}
 		h2 {
+			font-family: sans-serif;
+			border-bottom: 1px solid lightgrey;
+		}
+		h3 {
 			font-family: sans-serif;
 		}
 		ul {
 			-webkit-padding-start: 20pt;
+		}
+		h1 a.jump {
+			float: right;
+			text-decoration: none;
+			color: #00ff99;
 		}
 		div.section {
 			margin-left: 4pt;
 			margin-bottom: 18pt;
 		}
 		</style>
-		<script language="javascript" type="text/javascript">
-			function showSection(id) {
-				var sections = document.getElementsByClassName("section");
-				for (var index = 0; index < sections.length; index++) {
-					var section = sections[index];
-					if (section.id == id) {
-						if (section.style.display == "block") {
-							section.style.display = "none";
-						} else {
-							section.style.display = "block";
-						}
-					} else {
-						section.style.display = "none";
-					}
-				}
-			}
-		</script>
 	</head>
 	<body>
-		<h1 onclick="showSection('section1')">Introduction</h1>
-		<div id="section1" class="section" style="display:block;">
+		<h1><a name="Introduction">Introduction</a><a href="#Operations" class="jump">&darr;</a></h1>
+		<div class="section">
 			
 			<h2>Play OPC!</h2>
 			<h3>About This Application</h3>
@@ -89,16 +80,52 @@
 				<li>The app cannot set the time at the camera and change the network setting of the camera.</li>
 			</ul>
 			<h3>Other Information</h3>
-			<p>
-			If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. (http://olympus-imaging.jp/product/opc/a01/)<br/>
-			If you have an interest in camera functions and camera parameters, please read SDK document in "OPC Hack &amp; Make Project" site. (https://opc.olympus-imaging.com/sdkdocs)
-			</p>
+			<ul>
+				<li>If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. (<a href="http://olympus-imaging.jp/product/opc/a01/">http://olympus-imaging.jp/product/opc/a01/</a>)</li>
+				<li>If you have an interest in camera functions and camera parameters, please read SDK document in "OPC Hack &amp; Make Project" site. (<a href="https://opc.olympus-imaging.com/sdkdocs">https://opc.olympus-imaging.com/sdkdocs</a>)</li>
+				<li>This application is Open Source. If you want to know what the application does inside, you are able to find almost source codes in GitHub. (<a href="https://github.com/ura14h/PlayOPC">https://github.com/ura14h/PlayOPC</a>)</li>
+			</ul>
 			
 		</div>
-		<h1 onclick="showSection('section2')">Operations</h1>
-		<div id="section2" class="section" style="display:block;">
+		<h1><a name="Operations">Operations</a><a href="#Introduction" class="jump">&uarr;</a></h1>
+		<div class="section">
 			
-			<h2>Recording</h2>
+			<h2>Top Menu</h2>
+			<h3>Camera Access Method</h3>
+			<ul>
+				<li>Bluetooth ... You can change a device to others.</li>
+				<li>Wi-Fi</li>
+			</ul>
+			<h3>Camera Connection</h3>
+			<ul>
+				<li>Connect with using Bluetooth ... The camera is automatically woken up.</li>
+				<li>Connect with using Wi-Fi ... The camera is automatically woken up.</li>
+				<li>Disconnect ... The Wi-Fi connection is maintained.</li>
+				<li>Disconnect and Sleep</li>
+			</ul>
+			<h3>Camera Operation</h3>
+			<ul>
+				<li>Recording ... <a href="#Recording">more detail</a></li>
+				<li>Playback ... <a href="#Playback">more detail</a></li>
+				<li>System ... <a href="#System">more detail</a></li>
+			</ul>
+			<h3>Camera Information</h3>
+			<ul>
+				<li>Camera Kit Log</li>
+				<li>Camera Kit Version ... Version number of linked SDK</li>
+			</ul>
+			<h3>App References</h3>
+			<ul>
+				<li>Keep Last Camera Setting ... Changing to recording mode may take time when the switch is on.</li>
+				<li>Clear Remembered Camera Setting</li>
+			</ul>
+			<h3>App Information</h3>
+			<ul>
+				<li>Application Version</li>
+				<li>Application Reference</li>
+				<li>Acknowledgement</li>
+			</ul>
+			<h2><a name="Recording">Recording</a></h2>
 			<h3>Live-View</h3>
 			<ul>
 				<li>Tapping
@@ -307,7 +334,7 @@
 					</ul>
 				</li>
 			</ul>
-			<h2>Playback</h2>
+			<h2><a name="Playback">Playback</a></h2>
 			<h3>Content List</h3>
 			<ul>
 				<li>Latest ... Scrolling to the latest content.</li>
@@ -333,7 +360,7 @@
 					</ul>
 				</li>
 			</ul>
-			<h2>System</h2>
+			<h2><a name="System">System</a></h2>
 			<ul>
 				<li>Camera Status
 					<ul>

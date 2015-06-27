@@ -5,51 +5,42 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
-			body {
-				font-size: 9pt;
-				-webkit-text-size-adjust: none;
-			}
-			h1 {
-				font-family: sans-serif;
-				margin-top: 0;
-				margin-bottom: 1pt;
-				padding-left: 4pt;
-				color: #ffffff;
-				background-color: #00c375;
-				-webkit-user-select: none;
-			}
-			h2 {
-				font-family: sans-serif;
-			}
-			ul {
-				-webkit-padding-start: 20pt;
-			}
-			div.section {
-				margin-left: 4pt;
-				margin-bottom: 18pt;
-			}
+		body {
+			font-size: 9pt;
+			-webkit-text-size-adjust: none;
+		}
+		h1 {
+			font-family: sans-serif;
+			margin-top: 0;
+			margin-bottom: 1pt;
+			padding-left: 4pt;
+			color: #ffffff;
+			background-color: #00c375;
+		}
+		h2 {
+			font-family: sans-serif;
+			border-bottom: 1px solid lightgrey;
+		}
+		h3 {
+			font-family: sans-serif;
+		}
+		ul {
+			-webkit-padding-start: 20pt;
+		}
+		h1 a.jump {
+			float: right;
+			text-decoration: none;
+			color: #00ff99;
+		}
+		div.section {
+			margin-left: 4pt;
+			margin-bottom: 18pt;
+		}
 		</style>
-		<script language="javascript" type="text/javascript">
-			function showSection(id) {
-				var sections = document.getElementsByClassName("section");
-				for (var index = 0; index < sections.length; index++) {
-					var section = sections[index];
-					if (section.id == id) {
-						if (section.style.display == "block") {
-							section.style.display = "none";
-						} else {
-							section.style.display = "block";
-						}
-					} else {
-						section.style.display = "none";
-					}
-				}
-			}
-		</script>
 	</head>
 	<body>
-		<h1 onclick="showSection('section1')">アプリの紹介</h1>
-		<div id="section1" class="section" style="display:block;">
+		<h1><a name="Introduction">アプリの紹介</a><a href="#Operations" class="jump">&darr;</a></h1>
+		<div class="section">
 			
 			<h2>OPCで遊ぼう!</h2>
 			<h3>このアプリについて</h3>
@@ -87,16 +78,52 @@
 				<li>カメラに時刻を設定したりカメラのネットワーク設定を変更したりなどはできません。</li>
 			</ul>
 			<h3>その他</h3>
-			<p>
-			OLYMPUS AIR A01に興味のある方はオリンパス社の製品情報にてご確認ください。(http://olympus-imaging.jp/product/opc/a01/)<br/>
-			カメラ機能や設定値の詳細に興味のある方は OPC Hack &amp; Make Project で公開されているSDKドキュメントにてご確認ください。(https://opc.olympus-imaging.com/sdkdocs/)<br/>
-			</p>
+			<ul>
+				<li>OLYMPUS AIR A01に興味のある方はオリンパス社の製品情報にてご確認ください。(<a href="http://olympus-imaging.jp/product/opc/a01/">http://olympus-imaging.jp/product/opc/a01/</a>)</li>
+				<li>カメラ機能や設定値の詳細に興味のある方は OPC Hack &amp; Make Project で公開されているSDKドキュメントにてご確認ください。(<a href="https://opc.olympus-imaging.com/sdkdocs">https://opc.olympus-imaging.com/sdkdocs</a>)</li>
+				<li>このアプリケーションはオープンソースです。アプリが中で何をやっているのかを知りたい方は、GitHubからソースコードを入手できます。 (<a href="https://github.com/ura14h/PlayOPC">https://github.com/ura14h/PlayOPC</a>)</li>
+			</ul>
 		
 		</div>
-		<h1 onclick="showSection('section2')">操作できる項目</h1>
-		<div id="section2" class="section" style="display:block;">
+		<h1><a name="Operations">操作できる項目</a><a href="#Introduction" class="jump">&uarr;</a></h1>
+		<div class="section">
 			
-			<h2>撮影モード</h2>
+			<h2>トップメニュー</h2>
+			<h3>カメラ接続方法</h3>
+			<ul>
+				<li>Bluetooth接続先 表示 ... 接続先デバイスを変更できます</li>
+				<li>Wi-Fi接続先 表示</li>
+			</ul>
+			<h3>カメラ接続</h3>
+			<ul>
+				<li>Bluetooth経由で接続 ... カメラの電源は自動で入ります</li>
+				<li>Wi-Fi経由で接続 ... カメラの電源は自動で入ります</li>
+				<li>接続解除 ... Wi-Fi接続は維持されます</li>
+				<li>接続解除と電源オフ</li>
+			</ul>
+			<h3>カメラ操作</h3>
+			<ul>
+				<li>撮影モード ... <a href="#Recording">詳細</a></li>
+				<li>再生モード ... <a href="#Playback">詳細</a></li>
+				<li>システムモード ... <a href="#System">詳細</a></li>
+			</ul>
+			<h3>カメラ情報</h3>
+			<ul>
+				<li>Camera Kit 動作ログ</li>
+				<li>Camera Kit バージョン表示 ... 使用しているSDKのバージョン</li>
+			</ul>
+			<h3>アプリ設定</h3>
+			<ul>
+				<li>最後のカメラ設定を維持 ... 有効にすると撮影モードへの切り替えに時間がかかる場合があります</li>
+				<li>維持しているカメラ設定をクリア</li>
+			</ul>
+			<h3>アプリ情報</h3>
+			<ul>
+				<li>アプリケーション バージョン表示</li>
+				<li>アプリケーション 取扱説明書</li>
+				<li>謝辞</li>
+			</ul>
+			<h2><a name="Recording">撮影モード</a></h2>
 			<h3>ライブビュー</h3>
 			<ul>
 				<li>タップ
@@ -305,7 +332,7 @@
 					</ul>
 				</li>
 			</ul>
-			<h2>再生モード</h2>
+			<h2><a name="Playback">再生モード</a></h2>
 			<h3>コンテンツ一覧</h3>
 			<ul>
 				<li>最新 ... 最新のコンテンツへスクロールします</li>
@@ -331,7 +358,7 @@
 					</ul>
 				</li>
 			</ul>
-			<h2>システムモード</h2>
+			<h2><a name="System">システムモード</a></h2>
 			<ul>
 				<li>ステータス表示
 					<ul>

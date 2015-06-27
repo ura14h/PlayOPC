@@ -295,7 +295,7 @@
 		} completion:^(BOOL finished) {
 			weakSelf.imageView.image = self.image;
 			// スクロールビューの表示を調節します。
-			// ???: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
+			// MARK: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.scrollView.zoomScale = 0; // 絶対に全体表示
 				[weakSelf.scrollView setNeedsUpdateConstraints];
@@ -309,7 +309,7 @@
 		weakSelf.imageView.image = self.image;
 		
 		// スクロールビューの表示を調節します。
-		// ???: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
+		// MARK: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
 		weakSelf.imageView.alpha = 0.0; // レイアウトの乱れを隠すため処理が完了するまで透明にしておきます。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			weakSelf.scrollView.zoomScale = 0; // 絶対に全体表示

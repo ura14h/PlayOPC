@@ -101,7 +101,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 @property (assign, nonatomic, readwrite) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readwrite) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
 
-// !!!: このプロパティ群は複数スレッドが参照するのでatomicにしておかないとタイミングによってはクラッシュしてしまいます。
+// MARK: このプロパティ群は複数スレッドが参照するのでatomicにしておかないとタイミングによってはクラッシュしてしまいます。
 @property (strong, atomic) NSHashTable *connectionDelegates; ///< connectionDelegateの集合
 @property (strong, atomic) NSHashTable *cameraPropertyDelegates; ///< cameraPropertyDelegateの集合
 @property (strong, atomic) NSHashTable *playbackDelegates; ///< playbackDelegateの集合
@@ -263,7 +263,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 - (BOOL)setCameraPropertyValues:(NSDictionary *)values error:(NSError *__autoreleasing *)error {
 	DEBUG_LOG(@"values.count=%ld", (long)values.count);
 	
-	// ???: 読み取り専用のカメラプロパティに設定しようとするとカメラが再起動してしまうようです。
+	// MARK: 読み取り専用のカメラプロパティに設定しようとするとカメラが再起動してしまうようです。
 	NSMutableDictionary *patchedValues = [values mutableCopy];
 	[patchedValues removeObjectForKey:@"AE_LOCK_STATE"];
 	[patchedValues removeObjectForKey:@"AF_LOCK_STATE"];
@@ -273,7 +273,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	[patchedValues removeObjectForKey:@"TOUCH_AE_EFFECTIVE_AREA_UPPER_LEFT"];
 	[patchedValues removeObjectForKey:@"TOUCH_AE_EFFECTIVE_AREA_LOWER_RIGHT"];
 
-	// ???: カメラかライブラリ内部で、カメラプロパティの設定同士が干渉しあって正しい状態を復元できないようです。
+	// MARK: カメラかライブラリ内部で、カメラプロパティの設定同士が干渉しあって正しい状態を復元できないようです。
 	//
 	// 少なくとも、
 	//  - 撮影モード(TAKEMODE)
@@ -283,7 +283,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	// このため、プロパティ一括設定を1回だけを使って全てのカメラプロパティ値を設定できないので、
 	// 干渉し合うカメラプロパティ値の設定を保存しておいて、一括設定が終わった後に、一つづつ設定し直します。
 	//
-	// ???: この実装で完全かどうかは確認できていません。
+	// MARK: この実装で完全かどうかは確認できていません。
 	// 少なくとも上述している4つのカメラプロパティの間の干渉はこの実装で回避できています。
 	//
 	NSString *takemode = values[CameraPropertyTakemode];
@@ -366,7 +366,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 - (void)camera:(OLYCamera *)camera didChangeCameraProperty:(NSString *)name {
 	DEBUG_LOG(@"name=%@", name);
 
-	// !!!: AFロック実行中に呼び出された場合は無視します。
+	// MARK: AFロック実行中に呼び出された場合は無視します。
 	// AFロック済みの状態でさらにAFロックするとカメラ内部的に一度ロック解除が行われ、
 	// その影響でカメラプロパティのフォーカス固定(AFロック)の値が変化した通知が届きます。
 	// ここでは、AFロック実行中に届いた不要な通知をすべて無視します。
@@ -375,7 +375,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 		return;
 	}
 
-	// !!!: AEロック実行中に呼び出された場合は無視します。
+	// MARK: AEロック実行中に呼び出された場合は無視します。
 	// AEロック済みの状態でさらにAEロックするとカメラ内部的に一度ロック解除が行われ、
 	// その影響でカメラプロパティの露出固定(AEロック)の値が変化した通知が届きます。
 	// ここでは、AEロック実行中に届いた不要な通知をすべて無視します。
@@ -919,7 +919,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 - (double)convertCLLocationDegreesToNmea:(CLLocationDegrees)degrees {
 	DEBUG_DETAIL_LOG(@"degrees=%lf", degrees);
 	
-	// !!!: 単位を度分(度分秒ではない)にします。
+	// MARK: 単位を度分(度分秒ではない)にします。
 	double degreeSign = ((degrees > 0.0) ? +1 : ((degrees < 0.0) ? -1 : 0));
 	double degree = ABS(degrees);
 	double degreeDecimal = floor(degree);
@@ -935,7 +935,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	DEBUG_LOG(@"");
 
 	// 現在のカメラプロパティの設定値を全て取得します。
-	// !!!: プロパティの一覧がNSArrayで取得できてプロパティ値の取得はNSSetで指定しなければならない仕様になっています。
+	// MARK: プロパティの一覧がNSArrayで取得できてプロパティ値の取得はNSSetで指定しなければならない仕様になっています。
 	NSError *internalError = nil;
 	NSSet *properties = [NSSet setWithArray:[self cameraPropertyNames]];
 	NSDictionary *propertyValues = [self cameraPropertyValues:properties error:&internalError];

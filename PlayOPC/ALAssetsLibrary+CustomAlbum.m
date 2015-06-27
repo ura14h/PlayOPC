@@ -17,7 +17,7 @@
 	DEBUG_LOG(@"imageData.length=%ld, metadata=%@, group=%@", (long)imageData.length, metadata, groupName);
 	
 	// 写真グループに画像を保存します。
-	// !!!: weakなselfを使うとenumerateGroupsWithTypes:usingBlock:failureBlock:より内側の処理に到達する前に解放されてしまいます。
+	// MARK: weakなselfを使うとenumerateGroupsWithTypes:usingBlock:failureBlock:より内側の処理に到達する前に解放されてしまいます。
 	__block ALAssetsLibrary *weakSelf = self;
 	[weakSelf writeImageDataToSavedPhotosAlbum:imageData metadata:metadata completionBlock:^(NSURL *assetURL, NSError *error) {
 		if (error) {
@@ -52,8 +52,8 @@
 				// 写真アルバムにカスタムグループが見つからなかった場合はグループを新規作成して画像を登録します。
 				DEBUG_LOG(@"Create the new album: groupName=%@", groupName);
 				[weakSelf addAssetsGroupAlbumWithName:groupName resultBlock:^(ALAssetsGroup *group) {
-					// FIXME: iOS 8.xでは引数のgroupがnilで渡されるようです。したがってこの先の登録処理は正しく動作しません。
-					// ???: これは暗にPhotos Frameworkを使えと言っているようです...
+					// MARK: iOS 8.xでは引数のgroupがnilで渡されるようです。したがってこの先の登録処理は正しく動作しません。
+					// FIXME: これは暗にPhotos Frameworkを使えと言っているようです...
 					if (!group) {
 						if (completionBlock) {
 							NSLog(@"The captured image was saved into the standard album but could not create a new custom album and add the image.");

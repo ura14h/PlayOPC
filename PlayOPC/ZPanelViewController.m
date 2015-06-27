@@ -19,7 +19,7 @@
 
 @interface ZPanelViewController () <OLYCameraRecordingSupportsDelegate, ItemSelectionViewControllerDelegate>
 
-// !!!: スライダーの右側マージンの制約は、横置き画面でパラメータパネルを右側に収納する時にAuto Layoutから警告を受けないようにするため、他の制約より優先度を下げてあります。
+// MARK: スライダーの右側マージンの制約は、横置き画面でパラメータパネルを右側に収納する時にAuto Layoutから警告を受けないようにするため、他の制約より優先度を下げてあります。
 @property (weak, nonatomic) IBOutlet UITableViewCell *opticalZoomingMinimumFocalLengthCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *opticalZoomingMaximumFocalLengthCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *opticalZoomingCurrentFocalLengthCell;
@@ -122,7 +122,7 @@
 	DEBUG_LOG(@"");
 	[super viewWillAppear:animated];
 	
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];

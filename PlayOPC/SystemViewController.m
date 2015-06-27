@@ -91,7 +91,7 @@
 	// ツールバーを非表示にします。
 	[self.navigationController setToolbarHidden:YES animated:animated];
 
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];
@@ -168,7 +168,7 @@
 	}
 	
 	// 画面操作の後始末を開始します。
-	// !!!: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
+	// MARK: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
 	__block SystemViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
@@ -309,7 +309,7 @@
 	NSString *lensMountStatus = titles[lensMountStatusRawValue];
 	if (!lensMountStatus) {
 		if ([lensMountStatusRawValue hasPrefix:@"normal"]) {
-			// !!!: 装着状態が"normal"では詳細情報が付随している場合があります。
+			// MARK: 装着状態が"normal"では詳細情報が付随している場合があります。
 			// "normal+electriczoom"なら、電動ズームレンズを装着
 			// "normal+macro"なら、マクロレンズを装着
 			// "normal+electriczoom+macro"なら、マクロ機能付の電動ズームレンズを装着
@@ -380,7 +380,7 @@
 		if ([cameraFirmwareVersion isEqualToString:@"----"]) {
 			cameraFirmwareVersion = NSLocalizedString(@"Unknown", nil);
 		} else if (![cameraFirmwareVersion isEqualToString:@"----"] && cameraFirmwareVersion.length == 4) {
-			// !!!: カメラファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
+			// MARK: カメラファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
 			// "xyzz"を"x.y.zz"に変換します。
 			NSString *majorVersion = [cameraFirmwareVersion substringWithRange:NSMakeRange(0, 1)];
 			NSString *minorVersion = [cameraFirmwareVersion substringWithRange:NSMakeRange(1, 1)];
@@ -396,7 +396,7 @@
 		if ([lensModelId isEqualToString:@"----"]) {
 			lensModelId = NSLocalizedString(@"Unknown", nil);
 		} else if ([lensModelId integerValue] > 0) {
-			// ???:レンズIDって何だろう。勝手にレンズの製品型式と解釈しました。
+			// MARK: レンズIDって何だろう。勝手にレンズの製品型式と解釈しました。
 			lensModelId = lensModelId;
 		} else {
 			lensModelId = NSLocalizedString(@"Unknown", nil);
@@ -405,7 +405,7 @@
 		if ([lensFirmwareVersion isEqualToString:@"----"]) {
 			lensFirmwareVersion = NSLocalizedString(@"Unknown", nil);
 		} else if (![lensFirmwareVersion isEqualToString:@"----"] && lensFirmwareVersion.length == 4) {
-			// !!!: レンズファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
+			// MARK: レンズファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
 			// "xyzz"を"x.y.zz"に変換します。
 			NSString *majorVersion = [lensFirmwareVersion substringWithRange:NSMakeRange(0, 1)];
 			NSString *minorVersion = [lensFirmwareVersion substringWithRange:NSMakeRange(1, 1)];

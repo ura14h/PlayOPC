@@ -92,7 +92,7 @@
 		return;
 	}
 	
-	// !!!: 初期表示用の画像をダウンロードします。
+	// 初期表示用の画像をダウンロードします。
 	[self downloadScreennail];
 	
 	// ビューコントローラーが活動を開始しました。
@@ -177,7 +177,7 @@
 	
 	// サイズの大きすぎる動画はメモリが足りないので処理できません。
 	long long filesize = [self.content[OLYCameraContentListFilesizeKey] longLongValue];
-	long long maximumFilesize = 32 * 1024 * 1024; // !!!: これはメインメモリに収まるだろうと選んだ根拠のない値です。
+	long long maximumFilesize = 32 * 1024 * 1024; // FIXME: これはメインメモリに収まるだろうと選んだ根拠のない値です。
 	if (filesize > maximumFilesize) {
 		NSString *title = NSLocalizedString(@"Cannot share the video.", nil);
 		NSString *messageFormat = NSLocalizedString(@"This video size is too large for sharing it. The maximum size is %ld MB.", nil);
@@ -245,7 +245,7 @@
 		CGFloat frameWidth = 0;
 		CGFloat frameHeight = 0;
 		NSString *moviesize = information[@"moviesize"];
-		NSString *regexPattern = @"^([ 0-9]+)x([ 0-9]+)$";  // !!!: 途中に空白が入る場合があるらしい。
+		NSString *regexPattern = @"^([ 0-9]+)x([ 0-9]+)$";  // MARK: 途中に空白が入る場合があるらしい。
 		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
 		NSTextCheckingResult *matches = [regex firstMatchInString:moviesize options:0 range:NSMakeRange(0, moviesize.length)];
 		if (matches.numberOfRanges == 3) {
@@ -339,7 +339,7 @@
 		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
 		
 		// 動画をリサイズします。
-		// !!!: resizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになったり1920や1280が指定されたものとして扱われるようです。
+		// MARK: resizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになるようです。
 		AppCamera *camera = GetAppCamera();
 		__block BOOL resizeCompleted = NO;
 		__block BOOL resizeFailed = NO;

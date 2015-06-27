@@ -92,7 +92,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 		return NO;
 	}
-	// !!!:セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
+	// MARK: セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
 	NSDate *managerStartTime = [NSDate date];
 	while (self.centralManager.state != CBCentralManagerStatePoweredOn && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
 		[NSThread sleepForTimeInterval:0.1];
@@ -161,7 +161,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 		return NO;
 	}
-	// !!!:セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
+	// MARK: セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
 	NSDate *managerStartTime = [NSDate date];
 	while (self.centralManager.state != CBCentralManagerStatePoweredOn && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
 		[NSThread sleepForTimeInterval:0.1];

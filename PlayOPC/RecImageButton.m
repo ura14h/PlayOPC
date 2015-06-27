@@ -67,7 +67,7 @@
 	DEBUG_LOG(@"image=%@", image);
 	
 	// フェードアニメーションを設定します。
-	// ???: 一度削除してから再び設定しているがこの方法で良いのかよく分からない。
+	// FIXME: 一度削除してから再び設定しているがこの方法で良いのかよく分からない。
 	[self.layer removeAllAnimations];
 	CATransition *transision = [CATransition animation];
 	transision.duration = 0.25;

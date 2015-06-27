@@ -163,8 +163,8 @@
 - (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_DETAIL_LOG(@"indexPath.row=%ld", (long)indexPath.row);
 	
-	// !!!: 最終行へのスクロールした時に座標がずれるので、1行の高さを可能な限り正確な見積もります。
-	// !!!: Storyboardエディタでセル配置の座標値を見ながらのハードコーディングです。
+	// MARK: 最終行へのスクロールした時に座標がずれるので、1行の高さを可能な限り正確な見積もります。
+	// MARK: Storyboardエディタでセル配置の座標値を見ながらのハードコーディングです。
 	NSString *message = self.messages[indexPath.row];
 	CGSize messageMaximumSize = CGSizeMake(self.tableView.bounds.size.width - 2, CGFLOAT_MAX);
 	UIFont *messageFont = [UIFont systemFontOfSize:11.0];

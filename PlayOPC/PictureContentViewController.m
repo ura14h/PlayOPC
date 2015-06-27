@@ -101,7 +101,7 @@
 		return;
 	}
 
-	// !!!: 初期表示用の画像をダウンロードします。
+	// MARK: 初期表示用の画像をダウンロードします。
 	// デバイス用画像のダウンロード(downloadContentScreennail:progressHandler:completionHandler:errorHandler:)で
 	// 得た画像にはメタデータに回転情報が入っていないらしく、UIImageViewを使って表示した時に撮影時のカメラ本体の向きが再現されないようです。
 	// 通信速度が遅くなりますがここでは表示の正確性を求めたいので、
@@ -359,8 +359,8 @@
 		
 		// リサイズ画像をダウンロードします。
 		// オリジナルサイズ画像は大きすぎてかつダウンロードに時間がかかりすぎるので初期表示には適さないと思います。
-		// !!!: Appleのドキュメントによると、1024*1024より大きいUIImageの表示は推奨できないらしい。
-		// ???: iPhone 4Sで動かしてみた限りでは、オリジナル画像のサイズ(OLYCameraImageResizeNone)でも表示は問題なくできるようです。
+		// MARK: Appleのドキュメントによると、1024*1024より大きいUIImageの表示は推奨できないらしい。
+		// MARK: iPhone 4Sで動かしてみた限りでは、オリジナル画像のサイズ(OLYCameraImageResizeNone)でも表示は問題なくできるようです。
 		AppCamera *camera = GetAppCamera();
 		__block UIImage *image = nil;
 		__block BOOL downloadCompleted = NO;
@@ -406,7 +406,7 @@
 			} completion:^(BOOL finished) {
 				weakSelf.imageView.image = image;
 				// スクロールビューの表示を調節します。
-				// ???: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
+				// MARK: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
 				[weakSelf executeAsynchronousBlockOnMainThread:^{
 					weakSelf.scrollView.zoomScale = 0; // 絶対に全体表示
 					[weakSelf.scrollView setNeedsUpdateConstraints];

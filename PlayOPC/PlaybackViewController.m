@@ -76,7 +76,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	// ツールバーを表示します。
 	[self.navigationController setToolbarHidden:NO animated:animated];
 	
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];
@@ -167,7 +167,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	[self.contentThumbnailCache removeAllObjects];
 	
 	// 再生モードを終了します。
-	// !!!: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
+	// MARK: weakなselfを使うとshowProgress:whileExecutingBlock:のブロックに到達する前に解放されてしまいます。
 	__block PlaybackViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);

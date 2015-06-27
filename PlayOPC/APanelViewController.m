@@ -99,7 +99,7 @@
 	DEBUG_LOG(@"");
 	[super viewWillAppear:animated];
 	
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];
@@ -327,7 +327,7 @@
 		}
 
 		// 画面表示を更新しなくても、
-		// !!!: AFロックを解除するとフォーカス固定(AFロック)のプロパティ値変更の通知が発生するようです。
+		// MARK: AFロックを解除するとフォーカス固定(AFロック)のプロパティ値変更の通知が発生するようです。
 		
 		// AFロックの解除が完了しました。
 		DEBUG_LOG(@"");
@@ -357,7 +357,7 @@
 		}
 
 		// 画面表示を更新しなくても、
-		// !!!: AEロックを解除すると露出固定(AEロック)のプロパティ値変更の通知が発生するようです。
+		// MARK: AEロックを解除すると露出固定(AEロック)のプロパティ値変更の通知が発生するようです。
 		
 		// AEロックの解除が完了しました。
 		DEBUG_LOG(@"");

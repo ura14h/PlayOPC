@@ -115,7 +115,7 @@
 	DEBUG_LOG(@"");
 	[super viewWillAppear:animated];
 	
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];

@@ -61,7 +61,7 @@
 		XCTAssertTrue([camera setCameraPropertyValues:properties2 error:&error], @"%@", error);
 		NSString *takemode = [camera cameraPropertyValue:@"TAKEMODE" error:&error];
 		XCTAssertNotNil(takemode, @"%@", error);
-		XCTAssertEqualObjects(takemode, @"<TAKEMODE/A>", @"%@", takemode); // !!!:失敗する (@"<TAKEMODE/ART>"になってしまう)
+		XCTAssertEqualObjects(takemode, @"<TAKEMODE/A>", @"%@", takemode); // FIXME: 失敗する (@"<TAKEMODE/ART>"になってしまう)
 		XCTAssertTrue([camera disconnectWithPowerOff:FALSE error:&error], @"%@", error);
 	}
 	// 分割して渡す(COLORTONEを触る)
@@ -93,7 +93,7 @@
 		XCTAssertTrue([camera setCameraPropertyValues:properties3 error:&error], @"%@", error);
 		NSString *takemode = [camera cameraPropertyValue:@"TAKEMODE" error:&error];
 		XCTAssertNotNil(takemode, @"%@", error);
-		XCTAssertEqualObjects(takemode, @"<TAKEMODE/A>", @"%@", takemode); // !!!:失敗する (@"<TAKEMODE/ART>"になってしまう)
+		XCTAssertEqualObjects(takemode, @"<TAKEMODE/A>", @"%@", takemode); // FIXME: 失敗する (@"<TAKEMODE/ART>"になってしまう)
 		XCTAssertTrue([camera disconnectWithPowerOff:FALSE error:&error], @"%@", error);
 	}
 

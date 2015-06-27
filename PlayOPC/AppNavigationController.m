@@ -29,7 +29,7 @@
 	DEBUG_LOG(@"");
     [super viewDidLoad];
 	
-	// !!!: iPad用に縦置きと横置きでSize Classが変わるようにします。
+	// MARK: iPad用に縦置きと横置きでSize Classが変わるようにします。
 	// StoryboardでデザインしただけだとiPadで実行した時に横置きにしても縦置きにしてもSize ClassがwAny*hAnyのまま変わらないので、
 	// Storyboardで定義してある縦置き用と横置き用の制約が使われるようなTrait CollectionをiPad用に用意します。
 	self.currentTrait = nil;

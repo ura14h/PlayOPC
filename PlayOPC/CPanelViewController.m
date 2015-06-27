@@ -104,7 +104,7 @@
 	DEBUG_LOG(@"");
 	[super viewWillAppear:animated];
 	
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];
@@ -204,7 +204,7 @@
 		viewController.property = CameraPropertyColorPhase;
 		viewController.itemSelectionDeleage = self;
 	} else if ([segueIdentifier isEqualToString:@"ShowArtFilterAutoBracket"]) {
-		// TODO:
+		// 専用のビューコントローラで処理されるのでここで行う初期化はありません。
 	} else {
 		// 何もしません。
 	}

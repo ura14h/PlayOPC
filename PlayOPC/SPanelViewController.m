@@ -118,7 +118,7 @@ static NSString *const CameraSettingsFilePath = @"CameraSettings.plist"; ///< �
 	DEBUG_LOG(@"");
 	[super viewWillAppear:animated];
 	
-	// ???: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
+	// MARK: セグエで遷移して戻ってくるとたまに自動で行選択が解除されないようです。
 	NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
 	if (indexPath) {
 		[self.tableView deselectRowAtIndexPath:indexPath animated:animated];
@@ -560,7 +560,7 @@ static NSString *const CameraSettingsFilePath = @"CameraSettings.plist"; ///< �
 - (void)updateLevelGaugeCell {
 	DEBUG_LOG(@"");
 	
-	// !!!: カメラの水準器情報の内容を一時変数の水準器情報にコピーします。
+	// MARK: カメラの水準器情報の内容を一時変数の水準器情報にコピーします。
 	// カメラプロパティのlevelGaugeを取得してからその中を参照するようにしないと、水準器情報に変化が
 	// あるたびにメインスレッド以外のところでlevelGaugeのオブジェクトツリーが丸ごと入れ替わらしく、
 	// camra.levelGaugeの要素を直に参照したらメモリ違反で異常終了したりする場合があります。
@@ -569,7 +569,6 @@ static NSString *const CameraSettingsFilePath = @"CameraSettings.plist"; ///< �
 	// プロパティの値を表示用の文言に変換します。
 	NSString *levelGuageOrientation = NSLocalizedString(@"Unknown", nil);
 	if (levelGuageDictionary[OLYCameraLevelGaugeOrientationKey]) {
-		// !!!: faceup(仰向け?)とfacedown(うつ伏せ?)が逆になっているようです。
 		NSString *levelGuageOrientationValue = levelGuageDictionary[OLYCameraLevelGaugeOrientationKey];
 		NSDictionary *levelGuageOrientationTitles = @{
 			@"landscape": NSLocalizedString(@"Landscape", nil),

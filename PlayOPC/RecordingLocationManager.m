@@ -110,7 +110,7 @@
 	self.running = YES;
 	
 	// 現在位置の取得を準備を開始します。
-	// !!!: 位置情報マネージャのセットアップはメインスレッドで実行しないとデリゲートが呼び出されないらしいです。
+	// MARK: 位置情報マネージャのセットアップはメインスレッドで実行しないとデリゲートが呼び出されないらしいです。
 	__weak RecordingLocationManager *weakSelf = self;
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		DEBUG_DETAIL_LOG(@"");

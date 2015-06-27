@@ -70,7 +70,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 			if (self.SSID && self.BSSID) {
 				return WifiConnectionStatusConnected;
 			} else {
-				// ???: アプリ起動直後にこの状態になることがある。(原因は追求していない)
+				// FIXME: アプリ起動直後にこの状態になることがある。(原因は追求していない)
 				return WifiConnectionStatusUnknown;
 			}
 		case NotReachable:

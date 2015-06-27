@@ -20,12 +20,6 @@
 #import "UIViewController+Threading.h"
 #import "UITableViewController+Cell.h"
 
-/// カメラの電源を入れる時にレンズが繰り出されるようにするかしないかをビルド時に設定できます。
-/// YESにしておくとカメラの電源が入るとレンズが繰り出します。
-/// NOにしておくとカメラの電源が入ってもレンズは繰り出しません。
-/// ???: NOにした場合は最初はレンズが繰り出しませんが、初回のスタンドアロンモードから再生モードや保守モードに行って再びスタンドアロンモードに帰ってくると、レンズが繰り出してしまうようです。
-static BOOL ReadyLensWhenPowerOn = YES;
-
 @interface ConnectionViewController () <OLYCameraConnectionDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *showBluetoothSettingCell;
@@ -252,14 +246,14 @@ static BOOL ReadyLensWhenPowerOn = YES;
 - (void)applicationDidEnterBackground:(NSNotification *)notification {
 	DEBUG_LOG(@"");
 	
-	// ???: このタイミングはカメラ接続を一時停止するために研究の余地があります。
+	// TODO: このタイミングはカメラ接続を一時停止するために研究の余地があります。
 }
 
 /// アプリケーションがフォアグラウンドに入る時に呼び出されます。
 - (void)applicationWillEnterForeground:(NSNotification *)notification {
 	DEBUG_LOG(@"");
 	
-	// ???: このタイミングはカメラ接続を復旧するために研究の余地があります。
+	// TODO: このタイミングはカメラ接続を復旧するために研究の余地があります。
 }
 
 #pragma mark -
@@ -392,7 +386,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		return;
 	}
 
-	// !!!: カメラキットはBluetoothの切断を検知しないのでアプリが自主的にカメラとの接続を解除しなければならない。
+	// MARK: カメラキットはBluetoothの切断を検知しないのでアプリが自主的にカメラとの接続を解除しなければならない。
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
 		BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.currentConnectionStatus;
@@ -502,7 +496,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 		AppCamera *camera = GetAppCamera();
 		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 		camera.bluetoothPassword = bluetoothPasscode;
-		camera.bluetoothPrepareForRecordingWhenPowerOn = ReadyLensWhenPowerOn;
+		camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
 		if (![camera connect:OLYCameraConnectionTypeBluetoothLE error:&error]) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
@@ -518,7 +512,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			return;
 		}
 
-		// !!!: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
+		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
 			// 実行モードを変更できませんでした。
@@ -607,14 +601,14 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			}
 			
 			// カメラの電源を入れます。
-			// !!!: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
+			// MARK: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
-			// ???: カメラがUSB経由で給電中だと、wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
+			// MARK: カメラがUSB経由で給電中だと、wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
 			[weakSelf reportBlockWakingUp:progressView];
 			AppCamera *camera = GetAppCamera();
 			camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 			camera.bluetoothPassword = bluetoothPasscode;
-			camera.bluetoothPrepareForRecordingWhenPowerOn = ReadyLensWhenPowerOn;
+			camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
 			BOOL wokenUp = [camera wakeup:&error];
 			if (!wokenUp) {
 				// カメラの電源を入れるのに失敗しました。
@@ -624,7 +618,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			camera.bluetoothPassword = nil;
 			
 			// カメラとのBluetooth接続を解除します。
-			// ???: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
+			// MARK: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
 			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
 				// カメラとのBluetooth接続解除に失敗しました。
 				// エラーを無視して続行します。
@@ -638,7 +632,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			}
 			
 			// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
-			// !!!: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
+			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			[weakSelf reportBlockConnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -669,7 +663,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 			return;
 		}
 
-		// !!!: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
+		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
 			// 実行モードを変更できませんでした。
@@ -780,7 +774,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 
 		// カメラの電源を切った後にWi-Fi接続が無効(もしくは他SSIDへ再接続)になるまで待ちます。
 		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
-			// !!!: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
+			// MARK: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			[weakSelf reportBlockDisconnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -819,7 +813,7 @@ static BOOL ReadyLensWhenPowerOn = YES;
 	DEBUG_LOG(@"");
 
 	// 記憶している前回のカメラ設定をクリアします。
-	// !!!: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
+	// MARK: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setObject:nil forKey:UserDefaultsLatestSnapshotOfCameraSettings];
 }

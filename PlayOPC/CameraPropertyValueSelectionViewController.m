@@ -135,13 +135,6 @@
 
 			// カメラプロパティ値のリストが一つもない場合はここで終了します。
 			if (weakSelf.items.count == 0) {
-				// ???: 1.0.1582のクラッシュ原因を解析したところ、以下のパターンでここに到達してしまいます。
-				//   Recording -> Exposure & Action -> Shooting Mode -> S -> Back, Shutter Speed -> 4" -> Back, Playback
-				//     -> Recording -> Exposure & Action -> Exposure Compensation
-				//   2回目のExposure & Actionの表示で、EPanelViewControllerのupdateCameraPropertyCellで
-				//   APIのcanSetCameraPropertyが意図しない値を返していて?、それで先の画面に行けてしまうのが間接的な原因か。
-				//   ちなみに、2回目のShutter Speedの選択範囲がすでにおかしくなっている気がします。(4"まで現れずに上限が8とかになっている)
-				// ???: この部分で水際のチェックするよりも前段のitemsを取得した時に空リストはエラーとした方が良いか、検討の余地ありです。
 				return;
 			}
 			
@@ -155,9 +148,8 @@
 			// 選択されているカメラプロパティ値を表示領域の中央になるようにスクロールします。
 			NSUInteger row = weakSelf.selectedItemIndex;
 			if (weakSelf.navigationController.navigationController) {
-				// ???: ナビゲーションコントローラーが入れ子になっているレイアウトでは、
-				// ???: UITableViewScrollPositionMiddleでを指定してスクロールすると表示領域の計算に間違うようです。
-				// ???: 使いにくいので、暫定処置として特殊なレイアウトの時は1つ上の行を指定してスクロールします。
+				// MARK: ナビゲーションコントローラーが入れ子になっているレイアウトでは、UITableViewScrollPositionMiddleでを指定してスクロールすると表示領域の計算に間違うようです。
+				// FIXME: 使いにくいので、暫定処置として特殊なレイアウトの時は1つ上の行を指定してスクロールします。
 				if (row > 0) {
 					row--;
 				}

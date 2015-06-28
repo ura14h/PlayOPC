@@ -54,6 +54,8 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	self.contentThumbnailCache = [[NSCache alloc] init];
 	
 	// 画面表示を初期表示します。
+	self.navigationItem.rightBarButtonItem = [self editButtonItem];
+	self.editing = NO;
 	self.tableviewFooterLabel.text = @"";
 }
 
@@ -370,6 +372,81 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	}
 }
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+	DEBUG_DETAIL_LOG(@"indexPath.row=%ld", (long)indexPath.row);
+	
+	// 読み取り専用は編集禁止です。
+	NSDictionary *content = self.contentList[indexPath.row];
+	NSArray *attributes = content[OLYCameraContentListAttributesKey];
+	if ([attributes containsObject:@"protected"]) {
+		return NO;
+	}
+	return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	DEBUG_LOG(@"indexPath.row=%ld", (long)indexPath.row);
+	
+	// 削除操作以外は無視します。
+	if (editingStyle != UITableViewCellEditingStyleDelete) {
+		return;
+	}
+	
+	// コンテンツ一覧から指定されたコンテンツを削除します。
+	__weak PlaybackViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// コンテンツの絶対パスを作成します。
+		NSDictionary *content = self.contentList[indexPath.row];
+		NSString *dirname = content[OLYCameraContentListDirectoryKey];
+		NSString *filename = content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+
+		// MARK: コンテンツ削除は再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 指定されたコンテンツを削除します。
+		NSError *error = nil;
+		BOOL erased = [camera eraseContent:filepath error:&error];
+		if (erased) {
+			[weakSelf.contentList removeObjectAtIndex:indexPath.row];
+		}
+
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+
+		// 正しく削除できたかを確認します。
+		if (!erased) {
+			// 削除に失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
+			return;
+		}
+
+		// コンテンツ一覧の概要も更新します。
+		NSInteger numberOfContents = [camera countNumberOfContents:&error];
+		NSInteger numberOfFiles = weakSelf.contentList.count;
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// フッターを更新します。
+			NSString *footerLabelTextFormat = NSLocalizedString(@"%ld contents (%ld files)", nil);
+			NSString *footerLabelText = [NSString stringWithFormat:footerLabelTextFormat, (long)numberOfContents, (long)numberOfFiles];
+			weakSelf.tableviewFooterLabel.text = footerLabelText;
+			
+			// 表示行を削除します。
+			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+		}];
+	}];
+}
+
 - (void)videoContentViewControllerDidAddNewVideoContent:(VideoContentViewController *)controller {
 	DEBUG_LOG(@"");
 
@@ -466,10 +543,13 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	
 	// 画面表示を更新します。
 	[weakSelf executeAsynchronousBlockOnMainThread:^{
-		[weakSelf.tableView reloadData];
+		// フッターを更新します。
 		NSString *footerLabelTextFormat = NSLocalizedString(@"%ld contents (%ld files)", nil);
 		NSString *footerLabelText = [NSString stringWithFormat:footerLabelTextFormat, (long)numberOfContents, (long)numberOfFiles];
 		weakSelf.tableviewFooterLabel.text = footerLabelText;
+
+		// 一覧を更新します。
+		[weakSelf.tableView reloadData];
 		
 		// 完了ハンドラを呼び出します。
 		if (completion) {

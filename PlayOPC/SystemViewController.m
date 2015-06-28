@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *cameraFirmwareVersionCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensModelIdCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensFirmwareVersionCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showWifiChCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
@@ -60,6 +61,8 @@
 	// 画面表示を初期表示します。
 	NSString *batteryLevelTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyBatteryLevel];
 	self.batteryLevelCell.textLabel.text = batteryLevelTitle;
+	NSString *showWifiChTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyWifiCh];
+	self.showWifiChCell.textLabel.text = showWifiChTitle;
 	NSString *emptyDetailTextLabel = @" "; // テーブルセルのラベルを空欄にしょうとしてnilとか@""とかを設定するとなぜか不具合が起きます。
 	self.batteryLevelCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensMountStatusCell.detailTextLabel.text = emptyDetailTextLabel;
@@ -68,6 +71,7 @@
 	self.cameraFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensModelIdCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showWifiChCell.detailTextLabel.text = emptyDetailTextLabel;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -148,6 +152,7 @@
 			[weakSelf updateLensMountStatusCell];
 			[weakSelf updateMediaMountStatusCell];
 			[weakSelf updateHardwareInformationCells];
+			[weakSelf updateShowWifiChCell];
 		}];
 		
 		// 画面表示の準備が完了しました。
@@ -191,6 +196,37 @@
 }
 
 #pragma mark -
+
+/// セグエを準備する(画面が遷移する)時に呼び出されます。
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"ShowWifiCh"]) {
+		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+		viewController.property = CameraPropertyWifiCh;
+		viewController.itemSelectionDeleage = self;
+	} else {
+		// 何もしません。
+	}
+}
+
+/// カメラプロパティ値選択ビューコントローラで値が選択されると呼び出されます。
+- (void)itemSelectionViewController:(ItemSelectionViewController *)controller didSelectedItemIndex:(NSUInteger)index {
+	DEBUG_LOG(@"index=%ld", (long)index);
+	
+	// カメラプロパティに応じた処理を呼び出します。
+	if ([controller isMemberOfClass:[ItemSelectionViewController class]]) {
+	} else if ([controller isMemberOfClass:[CameraPropertyValueSelectionViewController class]]) {
+		NSString *property = ((CameraPropertyValueSelectionViewController *)controller).property;
+		if ([property isEqualToString:CameraPropertyWifiCh]) {
+			[self didChangeWifiCh];
+		} else {
+			DEBUG_LOG(@"Unknown property: %@", property);
+		}
+	}
+}
 
 /// キー値監視機構によって呼び出されます。
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context {
@@ -242,6 +278,8 @@
 	}
 }
 
+#pragma mark -
+
 /// バッテリー残量の値が変わった時に呼び出されます。
 - (void)didChangeBatteryLevel {
 	DEBUG_LOG(@"");
@@ -257,6 +295,17 @@
 	// 画面表示を更新します。
 	// レンズファームウェアのバージョンも表示更新するべきですが、ここは手を抜いています。
 	[self updateLensMountStatusCell];
+}
+
+/// Wi-Fiチャンネルの値が変わった時に呼び出されます。
+- (void)didChangeWifiCh {
+	DEBUG_LOG(@"");
+
+	// MARK: Wi-Fiチャンネルの変更は次回のカメラ電源投入から有効です。
+	[self showAlertMessage:NSLocalizedString(@"The new setting will be applied by the next waking-up.", nil) title:NSLocalizedString(@"Delayed New Setting", nil)];
+	
+	// 画面表示を更新します。
+	[self updateShowWifiChCell];
 }
 
 #pragma mark -
@@ -423,6 +472,61 @@
 			weakSelf.cameraFirmwareVersionCell.detailTextLabel.text = cameraFirmwareVersion;
 			weakSelf.lensModelIdCell.detailTextLabel.text = lensModelId;
 			weakSelf.lensFirmwareVersionCell.detailTextLabel.text = lensFirmwareVersion;
+		}];
+	}];
+}
+
+/// Wi-Fiチャンネルを表示します。
+- (void)updateShowWifiChCell {
+	DEBUG_LOG(@"");
+
+	// MARK: Wi-Fiチャンネルの変更はBluetooth接続の場合は使用不能のようです。
+	[self updateCameraPropertyCell:self.showWifiChCell name:CameraPropertyWifiCh completion:^(NSString *value) {
+		[self tableViewCell:self.showWifiChCell enabled:(value != nil)];
+	}];
+}
+
+/// カメラプロパティ値を表示します。
+- (void)updateCameraPropertyCell:(UITableViewCell *)cell name:(NSString *)name completion:(void (^)(NSString *value))completion {
+	DEBUG_LOG(@"name=%@", name);
+	
+	__weak UITableViewCell *weakCell = cell;
+	__weak SystemViewController *weakSelf = self;
+	BOOL userInteractionEnabled = weakCell.userInteractionEnabled;
+	weakCell.userInteractionEnabled = NO; // 表示内容が確定するまでは操作禁止にします。
+	[weakSelf executeAsynchronousBlock:^{
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// カメラプロパティを取得します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		NSString *propertyValue = [camera cameraPropertyValue:name error:&error];
+		if (!propertyValue) {
+			// カメラプロパティが取得できませんでした。
+			// エラーを無視します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakCell.userInteractionEnabled = userInteractionEnabled;
+				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				if (completion) {
+					completion(propertyValue);
+				}
+			}];
+			return;
+		}
+		DEBUG_LOG(@"propertyValue=%@", propertyValue);
+		// 取得した値を表示用の文言に変換します。
+		NSString *propertyValueTitle = [camera cameraPropertyValueLocalizedTitle:propertyValue];
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			weakCell.userInteractionEnabled = userInteractionEnabled;
+			weakCell.detailTextLabel.text = propertyValueTitle;
+			if (weakCell.accessoryType != UITableViewCellAccessoryNone) {
+				[weakSelf tableViewCell:weakCell enabled:[camera canSetCameraProperty:name]];
+			}
+			if (completion) {
+				completion(propertyValue);
+			}
 		}];
 	}];
 }

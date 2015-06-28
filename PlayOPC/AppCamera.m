@@ -62,6 +62,7 @@ NSString *const CameraPropertyFaceScan = @"FACE_SCAN";
 NSString *const CameraPropertyRecview = @"RECVIEW";
 NSString *const CameraPropertySoundVolumeLevel = @"SOUND_VOLUME_LEVEL";
 NSString *const CameraPropertyGps = @"GPS";
+NSString *const CameraPropertyWifiCh = @"WIFI_CH";
 
 NSString *const CameraPropertyHighTemperatureWarning = @"highTemperatureWarning";
 NSString *const CameraPropertyLensMountStatus = @"lensMountStatus";

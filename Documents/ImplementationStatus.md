@@ -205,7 +205,7 @@
 * BATTERY\_LEVEL - バッテリーレベル
 * SOUND\_VOLUME\_LEVEL - 音量レベル
 * GPS - Exif位置付与設定
-* *WIFI\_CH - Wi-Fiチャンネル (1.1.0)*
+* WIFI\_CH - Wi-Fiチャンネル (1.1.0)
 
 ### アートフィルター
 

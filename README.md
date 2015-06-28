@@ -22,16 +22,17 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Changing a quality of picture  to store at the camera
 * Changing sound volume
 * Registering the current geolocation as the photography place
-* Watching and sharing a picture or a video
+* Watching and sharing a picture or a video which stored in the camera
+* Deleting pictures and videos which stored in the camera
+* Setting the current time at the camera automatically
+* Changing Wi-Fi channel of the camera
 * Switching off the camera
 
 ## Known Issue
 
 * If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.
 * The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.
-* The app cannot delete pictures and videos which stored in the camera.
 * The app cannot initialize media cards in the camera.
-* The app cannot set the time at the camera and change the network setting of the camera.
 
 ## Runs Immediately
 

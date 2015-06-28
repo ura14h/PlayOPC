@@ -512,6 +512,14 @@
 			return;
 		}
 
+		// スマホの現在時刻をカメラに設定します。
+		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
+		if (![camera changeTime:[NSDate date] error:&error]) {
+			// 時刻が設定できませんでした。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+		
 		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
@@ -663,6 +671,14 @@
 			return;
 		}
 
+		// スマホの現在時刻をカメラに設定します。
+		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
+		if (![camera changeTime:[NSDate date] error:&error]) {
+			// 時刻が設定できませんでした。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			return;
+		}
+		
 		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {

@@ -33,7 +33,7 @@
 * cameraPropertyValueTitle:
 * canSetCameraProperty:
 * changeRunMode:error:
-* *changeTime:error: (1.1.0)*
+* changeTime:error: (1.1.0)
 * clearGeolocation:
 * inquireHardwareInformation:
 * setCameraPropertyValue:value:error:

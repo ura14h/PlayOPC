@@ -193,6 +193,19 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 
 #pragma mark -
 
+/// このビューコントローラーの画面に戻る時に呼び出されます。
+- (IBAction)exitToPlaybackViewController:(UIStoryboardSegue *)segue {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"DonePictureContent"]) {
+	} else if ([segueIdentifier isEqualToString:@"DoneVideoContent"]) {
+	} else {
+		// 何もしません。
+	}
+}
+
 /// セグエを準備する(画面が遷移する)時に呼び出されます。
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	DEBUG_LOG(@"segue=%@", segue);
@@ -447,10 +460,27 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	}];
 }
 
+- (void)pictureContentViewControllerDidErasePictureContent:(PictureContentViewController *)controller {
+	DEBUG_LOG(@"");
+	
+	// 次の画面表示開始の時にコンテンツ一覧の読み込み直しが行われます。
+	// FIXME: 削除された行のみ表示更新した方が良いが、一覧画面と詳細画面の間のインターフェース設計が不出来なため、一覧表示を全てやり直す方法でお茶を濁しています。
+	self.needsDownloadContentList = YES;
+}
+
 - (void)videoContentViewControllerDidAddNewVideoContent:(VideoContentViewController *)controller {
 	DEBUG_LOG(@"");
 
 	// 次の画面表示開始の時にコンテンツ一覧の読み込み直しが行われます。
+	// FIXME: 追加された行のみ表示更新した方が良いが、一覧画面と詳細画面の間のインターフェース設計が不出来なため、一覧表示を全てやり直す方法でお茶を濁しています。
+	self.needsDownloadContentList = YES;
+}
+
+- (void)videoContentViewControllerDidEraseVideoContent:(VideoContentViewController *)controller {
+	DEBUG_LOG(@"");
+	
+	// 次の画面表示開始の時にコンテンツ一覧の読み込み直しが行われます。
+	// FIXME: 削除された行のみ表示更新した方が良いが、一覧画面と詳細画面の間のインターフェース設計が不出来なため、一覧表示を全てやり直す方法でお茶を濁しています。
 	self.needsDownloadContentList = YES;
 }
 

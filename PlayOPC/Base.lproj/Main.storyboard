@@ -849,6 +849,12 @@
                                 <action selector="didTapResizeButton:" destination="1id-jg-7ng" id="tsh-1z-TeH"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="AtZ-j0-C1r"/>
+                        <barButtonItem systemItem="trash" id="w4O-uc-QOd">
+                            <connections>
+                                <action selector="didTapEraseButton:" destination="1id-jg-7ng" id="9aI-3h-DWI"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Picture Content" id="WVD-xc-HaF">
                         <barButtonItem key="backBarButtonItem" title="Back" id="CeT-MK-x1D"/>
@@ -858,9 +864,11 @@
                         <outlet property="resizeButton" destination="qC6-d9-fTV" id="Jm4-SJ-Hhu"/>
                         <outlet property="scrollView" destination="6GD-gB-KPG" id="RX3-Rt-2X4"/>
                         <outlet property="shareButton" destination="Mq2-ko-Klt" id="yyk-dm-D9M"/>
+                        <segue destination="GvI-aJ-ZNr" kind="unwind" identifier="DonePictureContent" unwindAction="exitToPlaybackViewController:" id="9mZ-E1-0AP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hHf-MR-5wd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="GvI-aJ-ZNr" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="whs-Fz-Ryt">
                     <connections>
                         <action selector="didTapScrollView:" destination="1id-jg-7ng" id="K9U-yr-Zi3"/>
@@ -2962,6 +2970,12 @@
                                 <action selector="didTapResizeButton:" destination="JDn-Ab-rR9" id="Vn8-tY-7DG"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="GLY-bs-fdD"/>
+                        <barButtonItem systemItem="trash" id="cSa-nD-qU0">
+                            <connections>
+                                <action selector="didTapEraseButton:" destination="JDn-Ab-rR9" id="hT2-Uw-tll"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Video Content" id="2GU-oX-8V1"/>
                     <connections>
@@ -2969,9 +2983,11 @@
                         <outlet property="imageView" destination="8KU-vD-ebk" id="fVJ-ki-IQq"/>
                         <outlet property="resizeButton" destination="Vuz-b5-wlp" id="3k9-oN-6Tu"/>
                         <outlet property="shareButton" destination="o2l-pX-4oR" id="DPQ-7m-nLm"/>
+                        <segue destination="IIi-44-Weo" kind="unwind" identifier="DoneVideoContent" unwindAction="exitToPlaybackViewController:" id="JFK-Hp-B81"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2GC-PS-3cq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="IIi-44-Weo" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="2778" y="2891"/>
         </scene>

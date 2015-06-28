@@ -274,6 +274,55 @@
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
+/// 削除ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapEraseButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	__weak PictureContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// MARK: コンテンツ削除は再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+
+		// 指定されたコンテンツを削除します。
+		NSError *error = nil;
+		BOOL erased = [camera eraseContent:filepath error:&error];
+
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 正しく削除できたかを確認します。
+		if (!erased) {
+			// 削除に失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
+			return;
+		}
+
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			if (weakSelf.delegate) {
+				[weakSelf.delegate pictureContentViewControllerDidErasePictureContent:weakSelf];
+			}
+
+			// 前の画面に戻ります。
+			[weakSelf performSegueWithIdentifier:@"DonePictureContent" sender:self];
+		}];
+	}];
+}
+
 #pragma mark -
 
 - (void)adjustScrollViewZoomScale:(BOOL)animated {

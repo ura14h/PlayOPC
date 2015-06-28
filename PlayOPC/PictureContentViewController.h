@@ -25,4 +25,7 @@
 @protocol PictureContentViewControllerDelegate <NSObject>
 @optional
 
+/// 写真コンテンツをカメラ内から削除しました。
+- (void)pictureContentViewControllerDidErasePictureContent:(PictureContentViewController *)controller;
+
 @end

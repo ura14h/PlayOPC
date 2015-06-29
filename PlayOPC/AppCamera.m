@@ -11,6 +11,10 @@
 
 #import "AppCamera.h"
 
+// このクラス用の表示文言ローカライズ ... ローカライズされた表示文言はAppCamera.stringsに格納されます。
+#define AppCameraLocalizedString(key) \
+	[[NSBundle mainBundle] localizedStringForKey:(key) value:@"" table:@"AppCamera"]
+
 NSString *const CameraPropertyAperture = @"APERTURE";
 NSString *const CameraPropertyAe = @"AE";
 NSString *const CameraPropertyTakemode = @"TAKEMODE";
@@ -811,10 +815,10 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	// プロパティ名が直接ローカライズできるならそれを用います。
 	// 直接ローカライズできないなら表示用文言を取得してそれをローカライズします。
 	NSString *nameKey = [NSString stringWithFormat:@"<%@>", name];
-	NSString *localizedTitle = NSLocalizedString(nameKey, nil);
+	NSString *localizedTitle = AppCameraLocalizedString(nameKey);
 	if ([localizedTitle isEqualToString:nameKey]) {
 		NSString *title = [super cameraPropertyTitle:name];
-		localizedTitle = NSLocalizedString(title, nil);
+		localizedTitle = AppCameraLocalizedString(title);
 	}
 	return localizedTitle;
 }
@@ -824,10 +828,10 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	
 	// プロパティ値が直接ローカライズできるならそれを用います。
 	// 直接ローカライズできないなら表示用文言を取得してそれをローカライズします。
-	NSString *localizedTitle = NSLocalizedString(value, nil);
+	NSString *localizedTitle = AppCameraLocalizedString(value);
 	if ([localizedTitle isEqualToString:value]) {
 		NSString *title = [super cameraPropertyValueTitle:value];
-		localizedTitle = NSLocalizedString(title, nil);
+		localizedTitle = AppCameraLocalizedString(title);
 	}
 	return localizedTitle;
 }

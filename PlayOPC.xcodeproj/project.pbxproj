@@ -38,8 +38,8 @@
 		31392FD11B14BEC40097FF1B /* Reference.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD31B14BEC40097FF1B /* Reference.html */; };
 		31392FD41B14BECE0097FF1B /* Acknowledgement.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD71B14BECE0097FF1B /* Acknowledgement.html */; };
 		31392FD51B14BECE0097FF1B /* Acknowledgement.html in Resources */ = {isa = PBXBuildFile; fileRef = 31392FD71B14BECE0097FF1B /* Acknowledgement.html */; };
-		31392FD81B14BED40097FF1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDB1B14BED40097FF1B /* Localizable.strings */; };
-		31392FD91B14BED40097FF1B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDB1B14BED40097FF1B /* Localizable.strings */; };
+		31392FD81B14BED40097FF1B /* AppCamera.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDB1B14BED40097FF1B /* AppCamera.strings */; };
+		31392FD91B14BED40097FF1B /* AppCamera.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDB1B14BED40097FF1B /* AppCamera.strings */; };
 		31392FDC1B14BEDA0097FF1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */; };
 		31392FDD1B14BEDA0097FF1B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */; };
 		313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */; };
@@ -196,7 +196,7 @@
 		31392FCA1B14B69D0097FF1B /* ReferenceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReferenceViewController.m; sourceTree = "<group>"; };
 		31392FD21B14BEC40097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Reference.html; sourceTree = "<group>"; };
 		31392FD61B14BECE0097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = Base; path = Base.lproj/Acknowledgement.html; sourceTree = "<group>"; };
-		31392FDA1B14BED40097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		31392FDA1B14BED40097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AppCamera.strings; sourceTree = "<group>"; };
 		31392FDE1B14BEDA0097FF1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		31392FE01B14BF320097FF1B /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ja; path = ja.lproj/Reference.html; sourceTree = "<group>"; };
 		313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPanelViewController.h; sourceTree = "<group>"; };
@@ -497,7 +497,7 @@
 			children = (
 				311B75BC1ABC287C00A7D38C /* Info.plist */,
 				31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */,
-				31392FDB1B14BED40097FF1B /* Localizable.strings */,
+				31392FDB1B14BED40097FF1B /* AppCamera.strings */,
 				311B75BD1ABC287C00A7D38C /* main.m */,
 				314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */,
 				3190B3451B34F61C006B0A16 /* UserDefaults.plist */,
@@ -695,7 +695,7 @@
 				31C71DCA1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png in Resources */,
 				31C71DC61AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png in Resources */,
 				31C71DC21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png in Resources */,
-				31392FD81B14BED40097FF1B /* Localizable.strings in Resources */,
+				31392FD81B14BED40097FF1B /* AppCamera.strings in Resources */,
 				31C71DAA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png in Resources */,
 				31C71DD11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png in Resources */,
 				31C71DCF1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png in Resources */,
@@ -756,7 +756,7 @@
 				3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */,
 				31392FD51B14BECE0097FF1B /* Acknowledgement.html in Resources */,
 				31392FDD1B14BEDA0097FF1B /* InfoPlist.strings in Resources */,
-				31392FD91B14BED40097FF1B /* Localizable.strings in Resources */,
+				31392FD91B14BED40097FF1B /* AppCamera.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -914,12 +914,12 @@
 			name = Acknowledgement.html;
 			sourceTree = "<group>";
 		};
-		31392FDB1B14BED40097FF1B /* Localizable.strings */ = {
+		31392FDB1B14BED40097FF1B /* AppCamera.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
 				31392FDA1B14BED40097FF1B /* Base */,
 			);
-			name = Localizable.strings;
+			name = AppCamera.strings;
 			sourceTree = "<group>";
 		};
 		31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */ = {

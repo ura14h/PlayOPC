@@ -124,9 +124,9 @@
 
 ### OLYCamera(PlaybackMaintenance)
 
-* *protectContent:error: (1.1.0)*
-* *unprotectContent:error: (1.1.0)*
-* *unprotectAllContents:completionHandler:errorHandler: (1.1.0)*
+* protectContent:error: (1.1.0)
+* unprotectContent:error: (1.1.0)
+* unprotectAllContents:completionHandler:errorHandler: (1.1.0)
 * eraseContent:error: (1.1.0)
 
 ### OLYCameraConnectionDelegate

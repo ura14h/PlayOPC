@@ -23,6 +23,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Changing sound volume
 * Registering the current geolocation as the photography place
 * Watching and sharing a picture or a video which stored in the camera
+* Protecting or unprotecting pictures and videos which stored in the camera
 * Deleting pictures and videos which stored in the camera
 * Setting the current time at the camera automatically
 * Changing Wi-Fi channel of the camera

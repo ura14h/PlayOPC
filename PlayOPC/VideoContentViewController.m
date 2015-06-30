@@ -17,12 +17,29 @@
 
 @interface VideoContentViewController ()
 
+// ツールバーの構成に関する設計メモ:
+//
+// ツールバーは初期状態、プロテクト解除状態(コンテンツが削除できる状態)、プロテクト状態(コンテンツが削除できない状態)でそれぞれ異なるボタンを表示します。
+// 初期状態:
+//     何もなし
+// プロテクト解除状態:
+//     [シェアボタン][-][リサイズボタン][-][プロテクトボタン][-][削除ボタン(有効)]
+// プロテクト状態:
+//     [シェアボタン][-][リサイズボタン][-][プロテクト解除ボタン][-][削除ボタン(無効)]
+// Storyboard上のデザインではこれらを一つにまとめて配置してあります。
+//     [シェアボタン][-][リサイズボタン][-][プロテクトボタン][プロテクト解除ボタン][-][削除ボタン(無効)]
+// ビューがロードされたときにそれぞれの状態用のツールバーボタンセットを構築します。
+
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (weak, nonatomic) IBOutlet UILabel *contentInformationLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *eraseButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
+@property (assign, nonatomic) BOOL protected; ///< コンテンツはプロテクトされているか否か
+@property (strong, nonatomic) NSArray *unprotectedContentToolbarItems; ///< プロテクト解除状態のコンテンツを表示するときのツールバーボタンセット
+@property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
 @property (assign, nonatomic) NSTimeInterval estimatedPlaybackTime; ///< コンテンツの再生時間
 
 @end
@@ -39,6 +56,28 @@
 	
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
+
+	// ツールバーボタンセットを初期設定します。
+	NSArray *designedToolbarItems = self.toolbarItems;
+	self.unprotectedContentToolbarItems = @[
+		designedToolbarItems[0], // シェアボタン
+		designedToolbarItems[1], // スペーサー
+		designedToolbarItems[2], // リサイズボタン
+		designedToolbarItems[3], // スペーサー
+		designedToolbarItems[4], // プロテクトボタン
+		designedToolbarItems[6], // スペーサー
+		designedToolbarItems[7], // 削除ボタン
+	];
+	self.protectedContentToolbarItems = @[
+		designedToolbarItems[0], // シェアボタン
+		designedToolbarItems[1], // スペーサー
+		designedToolbarItems[2], // リサイズボタン
+		designedToolbarItems[3], // スペーサー
+		designedToolbarItems[5], // プロテクト解除ボタン
+		designedToolbarItems[6], // スペーサー
+		designedToolbarItems[7], // 削除ボタン
+	];
+	self.toolbarItems = @[];
 
 	// 画面表示を初期表示します。
 	NSString *emptyTextLabel = @" ";
@@ -92,8 +131,15 @@
 		return;
 	}
 	
+	// 現在のプロテクト状態をコンテンツ情報を元に初期化します。
+	NSArray *attributes = self.content[OLYCameraContentListAttributesKey];
+	self.protected = [attributes containsObject:@"protected"];
+	
 	// 初期表示用の画像をダウンロードします。
 	[self downloadScreennail];
+	
+	// ツールバーの表示を初期化します。
+	[self updateToolbarItems:YES];
 	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -259,6 +305,104 @@
 			
 			// 前の画面に戻ります。
 			[weakSelf performSegueWithIdentifier:@"DoneVideoContent" sender:self];
+		}];
+	}];
+}
+
+/// プロテクトボタンがタップされた時に呼び出されます。
+- (IBAction)didTapProtectButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	__weak VideoContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// MARK: コンテンツのプロテクトは再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 指定されたコンテンツをプロテクトします。
+		NSError *error = nil;
+		BOOL protected = [camera protectContent:filepath error:&error];
+		
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 正しくプロテクトできたかを確認します。
+		if (!protected) {
+			// プロテクトに失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not protect content", nil)];
+			return;
+		}
+		weakSelf.protected = YES;
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf updateToolbarItems:YES];
+
+			if (weakSelf.delegate) {
+				[weakSelf.delegate videoContentViewControllerDidUpdatedVideoContent:weakSelf];
+			}
+		}];
+	}];
+}
+
+/// 解除ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapUnprotectButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	__weak VideoContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// MARK: コンテンツのプロテクト解除は再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 指定されたコンテンツをプロテクト解除します。
+		NSError *error = nil;
+		BOOL unprotected = [camera unprotectContent:filepath error:&error];
+		
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 正しくプロテクト解除できたかを確認します。
+		if (!unprotected) {
+			// プロテクト解除に失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect content", nil)];
+			return;
+		}
+		weakSelf.protected = NO;
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf updateToolbarItems:YES];
+
+			if (weakSelf.delegate) {
+				[weakSelf.delegate videoContentViewControllerDidUpdatedVideoContent:weakSelf];
+			}
 		}];
 	}];
 }
@@ -545,6 +689,21 @@
 	progress.customView = progressImageView;
 	progress.mode = MBProgressHUDModeCustomView;
 	[NSThread sleepForTimeInterval:0.5];
+}
+
+// ツールバーの表示を更新します。
+- (void)updateToolbarItems:(BOOL)animated {
+	DEBUG_LOG(@"");
+	
+	if (self.protected) {
+		// プロテクト状態のツールバーを表示します。(削除できません)
+		self.eraseButton.enabled = NO;
+		[self setToolbarItems:self.protectedContentToolbarItems animated:animated];
+	} else {
+		// プロテクト解除状態のツールバーを表示します。(削除できます)
+		self.eraseButton.enabled = YES;
+		[self setToolbarItems:self.unprotectedContentToolbarItems animated:animated];
+	}
 }
 
 @end

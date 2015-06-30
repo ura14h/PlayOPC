@@ -25,6 +25,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 @interface PlaybackViewController () <PictureContentViewControllerDelegate, VideoContentViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *tableviewFooterLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *unprotectedButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
@@ -57,6 +58,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	self.navigationItem.rightBarButtonItem = [self editButtonItem];
 	self.editing = NO;
 	self.tableviewFooterLabel.text = @"";
+	self.unprotectedButton.enabled = false;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -460,6 +462,14 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	}];
 }
 
+- (void)pictureContentViewControllerDidUpdatedPictureContent:(PictureContentViewController *)controller {
+	DEBUG_LOG(@"");
+	
+	// 次の画面表示開始の時にコンテンツ一覧の読み込み直しが行われます。
+	// FIXME: 削除された行のみ表示更新した方が良いが、一覧画面と詳細画面の間のインターフェース設計が不出来なため、一覧表示を全てやり直す方法でお茶を濁しています。
+	self.needsDownloadContentList = YES;
+}
+
 - (void)pictureContentViewControllerDidErasePictureContent:(PictureContentViewController *)controller {
 	DEBUG_LOG(@"");
 	
@@ -471,6 +481,14 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 - (void)videoContentViewControllerDidAddNewVideoContent:(VideoContentViewController *)controller {
 	DEBUG_LOG(@"");
 
+	// 次の画面表示開始の時にコンテンツ一覧の読み込み直しが行われます。
+	// FIXME: 追加された行のみ表示更新した方が良いが、一覧画面と詳細画面の間のインターフェース設計が不出来なため、一覧表示を全てやり直す方法でお茶を濁しています。
+	self.needsDownloadContentList = YES;
+}
+
+- (void)videoContentViewControllerDidUpdatedVideoContent:(VideoContentViewController *)controller {
+	DEBUG_LOG(@"");
+	
 	// 次の画面表示開始の時にコンテンツ一覧の読み込み直しが行われます。
 	// FIXME: 追加された行のみ表示更新した方が良いが、一覧画面と詳細画面の間のインターフェース設計が不出来なため、一覧表示を全てやり直す方法でお茶を濁しています。
 	self.needsDownloadContentList = YES;
@@ -493,6 +511,61 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.contentList.count - 1 inSection:0];
 		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 	}
+}
+
+/// 解除ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapUnprotectButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	__weak PlaybackViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// MARK: コンテンツのプロテクト解除は再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 全てのコンテンツのプロテクト解除します。
+		__block BOOL unprotectCompleted = NO;
+		__block BOOL unprotectFailed = NO;
+		[camera unprotectAllContents:^(float progress) {
+			// 進捗率表示モードに変更します。
+			if (progressView.mode == MBProgressHUDModeIndeterminate) {
+				progressView.mode = MBProgressHUDModeAnnularDeterminate;
+			}
+			// 進捗率の表示を更新します。
+			progressView.progress = progress;
+		} completionHandler:^{
+			unprotectCompleted = YES;
+		} errorHandler:^(NSError *error) {
+			DEBUG_LOG(@"error=%p", error);
+			unprotectFailed = YES; // 下の方で待っている人がいるので、すぐにプロテクト解除が終わったことにします。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect contents", nil)];
+		}];
+
+		// コンテンツのプロテクト解除が完了するのを待ちます。
+		while (!unprotectCompleted && !unprotectFailed) {
+			[NSThread sleepForTimeInterval:0.1];
+		}
+		progressView.mode = MBProgressHUDModeIndeterminate;
+		
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		if (unprotectFailed) {
+			// プロテクト解除に失敗したようです。
+			return;
+		}
+		
+		// コンテンツ一覧をダウンロードします。
+		[weakSelf downloadContentList:nil];
+	}];
 }
 
 #pragma mark -
@@ -554,13 +627,16 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	}];
 	
 	// コンテンツ一覧を更新します。
+	BOOL unprotectEnabled = NO;
 	NSMutableArray *contentList = [[NSMutableArray alloc] init];
 	for (NSDictionary *content in downloadedList) {
 		if ([content[OLYCameraContentListAttributesKey] containsObject:@"hidden"]) {
 			// コンテンツは非表示です。
+			// MARK: ここには到達しないようです。(非表示コンテンツはカメラが一覧に乗せてこない)
 		}
 		if ([content[OLYCameraContentListAttributesKey] containsObject:@"protected"]) {
-			// コンテンツは削除から保護されています。
+			// コンテンツはプロテクトされています。
+			unprotectEnabled = YES;
 		}
 		[contentList addObject:content];
 	}
@@ -573,6 +649,9 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	
 	// 画面表示を更新します。
 	[weakSelf executeAsynchronousBlockOnMainThread:^{
+		// プロテクト解除ボタンを更新します。
+		weakSelf.unprotectedButton.enabled = unprotectEnabled;
+		
 		// フッターを更新します。
 		NSString *footerLabelTextFormat = NSLocalizedString(@"%ld contents (%ld files)", nil);
 		NSString *footerLabelText = [NSString stringWithFormat:footerLabelTextFormat, (long)numberOfContents, (long)numberOfFiles];

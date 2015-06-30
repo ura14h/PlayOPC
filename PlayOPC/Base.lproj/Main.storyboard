@@ -774,6 +774,7 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
+                        <barButtonItem width="80" style="plain" systemItem="fixedSpace" id="QHz-yQ-CzP"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="uYF-y6-wY1"/>
                         <barButtonItem title="Latest" id="zpM-Ak-dYO">
                             <connections>
@@ -781,6 +782,11 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="9oJ-pO-2aX"/>
+                        <barButtonItem title="Unprotect" id="Z6i-KW-uz3">
+                            <connections>
+                                <action selector="didTapUnprotectButton:" destination="Pje-zS-uDr" id="YQE-tW-VZq"/>
+                            </connections>
+                        </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Playback" id="XiZ-lJ-BBa">
                         <barButtonItem key="backBarButtonItem" title="Back" id="YCu-qw-Qx8"/>
@@ -789,6 +795,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableviewFooterLabel" destination="yVY-Ub-XSc" id="hmE-fn-f3D"/>
+                        <outlet property="unprotectedButton" destination="Z6i-KW-uz3" id="yNV-Z5-16j"/>
                         <segue destination="1id-jg-7ng" kind="show" identifier="ShowPictureContent" id="Lp0-Gh-Tnt"/>
                         <segue destination="JDn-Ab-rR9" kind="show" identifier="ShowVideoContent" id="IMd-fg-NbK"/>
                     </connections>
@@ -850,6 +857,17 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="AtZ-j0-C1r"/>
+                        <barButtonItem title="Protect" id="U2a-qC-ibT">
+                            <connections>
+                                <action selector="didTapProtectButton:" destination="1id-jg-7ng" id="Wst-OA-W79"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Unprotect" id="4FB-Lu-jsL">
+                            <connections>
+                                <action selector="didTapUnprotectButton:" destination="1id-jg-7ng" id="kp2-C4-UIu"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="wTE-Rf-NaE"/>
                         <barButtonItem systemItem="trash" id="w4O-uc-QOd">
                             <connections>
                                 <action selector="didTapEraseButton:" destination="1id-jg-7ng" id="9aI-3h-DWI"/>
@@ -860,6 +878,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="CeT-MK-x1D"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="eraseButton" destination="w4O-uc-QOd" id="elS-uA-v2W"/>
                         <outlet property="imageView" destination="kIc-Cx-7jK" id="BRN-c6-75X"/>
                         <outlet property="resizeButton" destination="qC6-d9-fTV" id="Jm4-SJ-Hhu"/>
                         <outlet property="scrollView" destination="6GD-gB-KPG" id="RX3-Rt-2X4"/>
@@ -2971,6 +2990,17 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="GLY-bs-fdD"/>
+                        <barButtonItem title="Protect" id="LaJ-e3-qDr">
+                            <connections>
+                                <action selector="didTapProtectButton:" destination="JDn-Ab-rR9" id="W1f-ho-5Dv"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem title="Unprotect" id="xax-Y1-4XE">
+                            <connections>
+                                <action selector="didTapUnprotectButton:" destination="JDn-Ab-rR9" id="Eik-CO-jzG"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="YoN-h6-sAe"/>
                         <barButtonItem systemItem="trash" id="cSa-nD-qU0">
                             <connections>
                                 <action selector="didTapEraseButton:" destination="JDn-Ab-rR9" id="hT2-Uw-tll"/>
@@ -2980,6 +3010,7 @@
                     <navigationItem key="navigationItem" title="Video Content" id="2GU-oX-8V1"/>
                     <connections>
                         <outlet property="contentInformationLabel" destination="dzV-cP-l2l" id="8Qo-en-2tp"/>
+                        <outlet property="eraseButton" destination="cSa-nD-qU0" id="4aG-qm-SAv"/>
                         <outlet property="imageView" destination="8KU-vD-ebk" id="fVJ-ki-IQq"/>
                         <outlet property="resizeButton" destination="Vuz-b5-wlp" id="3k9-oN-6Tu"/>
                         <outlet property="shareButton" destination="o2l-pX-4oR" id="DPQ-7m-nLm"/>

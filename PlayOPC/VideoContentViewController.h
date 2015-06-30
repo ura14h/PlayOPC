@@ -28,6 +28,9 @@
 /// 新しい動画コンテンツをカメラ内に追加しました。
 - (void)videoContentViewControllerDidAddNewVideoContent:(VideoContentViewController *)controller;
 
+/// 動画コンテンツを更新しました。
+- (void)videoContentViewControllerDidUpdatedVideoContent:(VideoContentViewController *)controller;
+
 /// 動画コンテンツをカメラ内から削除しました。
 - (void)videoContentViewControllerDidEraseVideoContent:(VideoContentViewController *)controller;
 

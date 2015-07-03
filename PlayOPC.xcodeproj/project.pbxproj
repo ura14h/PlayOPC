@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3103FEA21B23F29E008244C9 /* RecImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3103FEA11B23F29E008244C9 /* RecImageButton.m */; };
 		3103FEA31B23F29E008244C9 /* RecImageButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3103FEA11B23F29E008244C9 /* RecImageButton.m */; };
+		310639301B46B16800BE8597 /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3106392F1B46B16800BE8597 /* UIImageView+Animation.m */; };
+		310639311B46B16800BE8597 /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3106392F1B46B16800BE8597 /* UIImageView+Animation.m */; };
 		310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A8097B1AD04DE400186E4D /* SystemViewController.m */; };
 		311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
 		311199B61B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
@@ -165,6 +167,8 @@
 /* Begin PBXFileReference section */
 		3103FEA01B23F29E008244C9 /* RecImageButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecImageButton.h; sourceTree = "<group>"; };
 		3103FEA11B23F29E008244C9 /* RecImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecImageButton.m; sourceTree = "<group>"; };
+		3106392E1B46B16800BE8597 /* UIImageView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Animation.h"; sourceTree = "<group>"; };
+		3106392F1B46B16800BE8597 /* UIImageView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Animation.m"; sourceTree = "<group>"; };
 		311199B41B086F4800538FA0 /* OLYCameraKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OLYCameraKit.framework; path = PlayOPC/Imports/OLYCameraKit.framework; sourceTree = "<group>"; };
 		311199B81B086FB200538FA0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = Imports/MBProgressHUD.h; sourceTree = "<group>"; };
 		311199B91B086FB200538FA0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Imports/MBProgressHUD.m; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 				319284371AD914D3003BC78F /* UIViewController+Threading.m */,
 				3154BA611ADFDAA000D96EBE /* UITableViewController+Cell.h */,
 				3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */,
+				3106392E1B46B16800BE8597 /* UIImageView+Animation.h */,
+				3106392F1B46B16800BE8597 /* UIImageView+Animation.m */,
 				31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */,
 				31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */,
 			);
@@ -817,6 +823,7 @@
 				31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */,
 				311199BE1B086FB200538FA0 /* Reachability.m in Sources */,
 				3154BA631ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
+				310639301B46B16800BE8597 /* UIImageView+Animation.m in Sources */,
 				319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
 				3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
 				3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
@@ -845,6 +852,7 @@
 				314D7A491ACF87AE004C2644 /* WifiConnector.m in Sources */,
 				319284351AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
 				31392FCC1B14B69D0097FF1B /* ReferenceViewController.m in Sources */,
+				310639311B46B16800BE8597 /* UIImageView+Animation.m in Sources */,
 				311268FD1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
 				31731EBE1AEB886A0094193A /* APanelViewController.m in Sources */,
 				313D44B91B0CCF0700D6EEAC /* CPanelViewController.m in Sources */,

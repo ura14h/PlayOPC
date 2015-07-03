@@ -19,6 +19,7 @@
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
 #import "UITableViewController+Cell.h"
+#import "UIImageView+Animation.h"
 
 @interface ConnectionViewController () <OLYCameraConnectionDelegate, CLLocationManagerDelegate>
 
@@ -1040,14 +1041,23 @@
 
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		NSArray *images = @[
-			[UIImage imageNamed:@"Progress-Power-25"],
+			[UIImage imageNamed:@"Progress-Power-10"],
+			[UIImage imageNamed:@"Progress-Power-20"],
+			[UIImage imageNamed:@"Progress-Power-30"],
+			[UIImage imageNamed:@"Progress-Power-40"],
 			[UIImage imageNamed:@"Progress-Power-50"],
-			[UIImage imageNamed:@"Progress-Power-75"],
+			[UIImage imageNamed:@"Progress-Power-60"],
+			[UIImage imageNamed:@"Progress-Power-70"],
+			[UIImage imageNamed:@"Progress-Power-80"],
+			[UIImage imageNamed:@"Progress-Power-90"],
 			[UIImage imageNamed:@"Progress-Power-100"],
+			[UIImage imageNamed:@"Progress-Power-70"],
+			[UIImage imageNamed:@"Progress-Power-40"],
 		];
 		UIImageView *progressImageView;
 		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
-		progressImageView.animationImages = images;
+		progressImageView.tintColor = [UIColor whiteColor];
+		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
 
@@ -1071,7 +1081,8 @@
 		];
 		UIImageView *progressImageView;
 		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
-		progressImageView.animationImages = images;
+		progressImageView.tintColor = [UIColor whiteColor];
+		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
 		
@@ -1095,7 +1106,8 @@
 		];
 		UIImageView *progressImageView;
 		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
-		progressImageView.animationImages = images;
+		progressImageView.tintColor = [UIColor whiteColor];
+		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
 		
@@ -1114,6 +1126,7 @@
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
+		progressImageView.tintColor = [UIColor whiteColor];
 	});
 	progress.customView = progressImageView;
 	progress.mode = MBProgressHUDModeCustomView;

@@ -774,7 +774,6 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
-                        <barButtonItem width="70" style="plain" systemItem="fixedSpace" id="QHz-yQ-CzP"/>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="uYF-y6-wY1"/>
                         <barButtonItem image="LatestBarButton" id="zpM-Ak-dYO">
                             <connections>
@@ -782,7 +781,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="9oJ-pO-2aX"/>
-                        <barButtonItem title="Unprotect" width="70" id="Z6i-KW-uz3">
+                        <barButtonItem image="UnprotectBarButton" id="Z6i-KW-uz3">
                             <connections>
                                 <action selector="didTapUnprotectButton:" destination="Pje-zS-uDr" id="YQE-tW-VZq"/>
                             </connections>
@@ -857,12 +856,12 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="AtZ-j0-C1r"/>
-                        <barButtonItem title="Protect" id="U2a-qC-ibT">
+                        <barButtonItem image="ProtectBarButton" id="U2a-qC-ibT">
                             <connections>
                                 <action selector="didTapProtectButton:" destination="1id-jg-7ng" id="Wst-OA-W79"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Unprotect" id="4FB-Lu-jsL">
+                        <barButtonItem image="UnprotectBarButton" id="4FB-Lu-jsL">
                             <connections>
                                 <action selector="didTapUnprotectButton:" destination="1id-jg-7ng" id="kp2-C4-UIu"/>
                             </connections>
@@ -2990,12 +2989,12 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="GLY-bs-fdD"/>
-                        <barButtonItem title="Protect" id="LaJ-e3-qDr">
+                        <barButtonItem image="ProtectBarButton" id="LaJ-e3-qDr">
                             <connections>
                                 <action selector="didTapProtectButton:" destination="JDn-Ab-rR9" id="W1f-ho-5Dv"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem title="Unprotect" id="xax-Y1-4XE">
+                        <barButtonItem image="UnprotectBarButton" id="xax-Y1-4XE">
                             <connections>
                                 <action selector="didTapUnprotectButton:" destination="JDn-Ab-rR9" id="Eik-CO-jzG"/>
                             </connections>
@@ -3951,10 +3950,12 @@
     </scenes>
     <resources>
         <image name="LatestBarButton" width="21" height="24"/>
+        <image name="ProtectBarButton" width="21" height="22"/>
         <image name="TakeButtonDefault" width="52" height="52"/>
         <image name="TakeButtonDisabled" width="52" height="52"/>
         <image name="TakeButtonHighlighted" width="52" height="52"/>
         <image name="TakeButtonSelected" width="52" height="52"/>
+        <image name="UnprotectBarButton" width="21" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="VFQ-3D-Dzy"/>

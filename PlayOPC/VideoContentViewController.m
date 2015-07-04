@@ -165,20 +165,24 @@
 /// 共有ボタンがタップされた時に呼び出されます。
 - (IBAction)didTapShareButton:(id)sender {
 	DEBUG_LOG(@"");
-	
-	// サイズの大きすぎる動画はメモリが足りないので処理できません。
+
+	// 動画がダウンロードにとても時間がかかりそうかを判定します。
+	BOOL isLargeContent = NO;
 	long long filesize = [self.content[OLYCameraContentListFilesizeKey] longLongValue];
 	long long maximumFilesize = 32 * 1024 * 1024; // FIXME: これはメインメモリに収まるだろうと選んだ根拠のない値です。
 	if (filesize > maximumFilesize) {
-		NSString *title = NSLocalizedString(@"Cannot share the video.", nil);
-		NSString *messageFormat = NSLocalizedString(@"This video size is too large for sharing it. The maximum size is %ld MB.", nil);
-		[self showAlertMessage:[NSString stringWithFormat:messageFormat, (long)(maximumFilesize / 1024 / 1024)] title:title];
-		return;
+		isLargeContent = YES;
 	}
 	
 	// 実行するかを確認します。
 	NSString *title = NSLocalizedString(@"Share the video", nil);
-	NSString *message = NSLocalizedString(@"The app downloads this video before sharing it. The handling takes a little bit of time.", nil);
+	NSString *message;
+	if (isLargeContent) {
+		// サイズの大きすぎる動画はダウンロードにとても時間がかかるのでその旨を警告します。
+		message = NSLocalizedString(@"The app downloads this long video before sharing it. The handling may take more than several minutes.", nil);
+	} else {
+		message = NSLocalizedString(@"The app downloads this video before sharing it. The handling takes a little bit of time.", nil);
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -479,6 +483,7 @@
 		DEBUG_LOG(@"videoUrl=%@", videoUrl);
 		
 		// 動画ファイルを準備します。
+		NSError *error = nil;
 		NSFileManager *manager = [[NSFileManager alloc] init];
 		if ([manager fileExistsAtPath:videoUrl.path]) {
 			NSError *error = nil;
@@ -487,12 +492,21 @@
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
 		}
+		if (![manager createFileAtPath:videoUrl.path contents:nil attributes:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		__block NSFileHandle *videoFileHandle = [NSFileHandle fileHandleForWritingToURL:videoUrl error:&error];
+		if (!videoFileHandle) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download video", nil)];
+			return;
+		}
 
 		// 動画をダウンロードします。
 		AppCamera *camera = GetAppCamera();
 		__block BOOL downloadCompleted = NO;
 		__block BOOL downloadFailed = NO;
-		[camera downloadContent:filepath progressHandler:^(float progress, BOOL *stop) {
+		[camera downloadLargeContent:filepath progressHandler:^(NSData *data, float progress, BOOL *stop) {
 			// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
 			if (!weakSelf.startingActivity) {
 				*stop = YES;
@@ -505,10 +519,19 @@
 			}
 			// 進捗率の表示を更新します。
 			progressView.progress = progress;
-		} completionHandler:^(NSData *data) {
-			DEBUG_LOG(@"data=%p", data);
 			// ファイルに保存します。
-			[data writeToURL:videoUrl atomically:YES];
+			@try {
+				[videoFileHandle writeData:data];
+			}
+			@catch (NSException *exception) {
+				// FIXME: 書き込みエラーの原因を握りつぶしてしまっている...
+				*stop = YES;
+				downloadFailed = YES;
+			}
+			@finally {
+			}
+		} completionHandler:^{
+			DEBUG_LOG(@"");
 			downloadCompleted = YES;
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
@@ -520,6 +543,10 @@
 		while (!downloadCompleted && !downloadFailed) {
 			[NSThread sleepForTimeInterval:0.1];
 		}
+		
+		// ファイルへの保存を終了します。
+		[videoFileHandle closeFile];
+		videoFileHandle = nil;
 		if (downloadFailed) {
 			// ダウンロードに失敗したようです。
 			NSError *error = nil;

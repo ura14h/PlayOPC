@@ -92,5 +92,7 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)のresizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになったり1920や1280が指定されたものとして扱われるようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)で作成された動画ファイルをさらに動画リサイズすることはできないようです。
 * デバイスのメインメモリに収まりきらないようなサイズの大きい画像や動画をダウンロードすることはできないようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* コンテンツ削除禁止設定(protectContent:error:)、コンテンツ削除禁止許可(unprotectContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方に反映されるようです。
+* コンテンツ削除(eraseContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方削除されるようです。
 
 以上

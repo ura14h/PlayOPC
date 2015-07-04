@@ -12,6 +12,7 @@
 #import "VideoContentViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
+#import "ContentDetailViewController.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
 
@@ -31,7 +32,6 @@
 // ビューがロードされたときにそれぞれの状態用のツールバーボタンセットを構築します。
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UILabel *contentInformationLabel;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *protectButton;
@@ -42,7 +42,7 @@
 @property (assign, nonatomic) BOOL protected; ///< コンテンツはプロテクトされているか否か
 @property (strong, nonatomic) NSArray *unprotectedContentToolbarItems; ///< プロテクト解除状態のコンテンツを表示するときのツールバーボタンセット
 @property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
-@property (assign, nonatomic) NSTimeInterval estimatedPlaybackTime; ///< コンテンツの再生時間
+@property (assign, nonatomic) NSTimeInterval estimatedPlaybackTime; ///< コンテンツの再生時間(リサイズ処理の見積り時間表示に使用します)
 
 @end
 
@@ -80,10 +80,6 @@
 		designedToolbarItems[7], // 削除ボタン
 	];
 	self.toolbarItems = @[];
-
-	// 画面表示を初期表示します。
-	NSString *emptyTextLabel = @" ";
-	self.contentInformationLabel.text = emptyTextLabel;
 }
 
 - (void)dealloc {
@@ -162,6 +158,20 @@
 
 #pragma mark -
 
+/// セグエを準備する(画面が遷移する)時に呼び出されます。
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"ShowVideoContentDetail"]) {
+		ContentDetailViewController *viewController = segue.destinationViewController;
+		viewController.content = self.content;
+	} else {
+		// 何もしません。
+	}
+}
+
 /// 共有ボタンがタップされた時に呼び出されます。
 - (IBAction)didTapShareButton:(id)sender {
 	DEBUG_LOG(@"");
@@ -213,6 +223,7 @@
 - (IBAction)didTapResizeButton:(id)sender {
 	DEBUG_LOG(@"");
 
+	// メッセージにはリサイズ処理の見積り時間も表示します。
 	NSString *title = NSLocalizedString(@"Resize the video", nil);
 	NSString *messageFormat = NSLocalizedString(@"A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least.", nil);
 	NSString *message = [NSString stringWithFormat:messageFormat, self.estimatedPlaybackTime];
@@ -372,37 +383,16 @@
 		NSString *filename = self.content[OLYCameraContentListFilenameKey];
 		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
 		
-		// コンテンツの情報を取得します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
+
+		// コンテンツの再生時間を取得します。
 		NSDictionary *information = [camera inquireContentInformation:filepath error:&error];
 		if (!information) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
 			return;
 		}
 		NSTimeInterval playbackTime = [information[@"playtime"] doubleValue];
-		CGFloat frameWidth = 0;
-		CGFloat frameHeight = 0;
-		NSString *moviesize = information[@"moviesize"];
-		NSString *regexPattern = @"^([ 0-9]+)x([ 0-9]+)$";  // MARK: 途中に空白が入る場合があるらしい。
-		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:regexPattern options:0 error:nil];
-		NSTextCheckingResult *matches = [regex firstMatchInString:moviesize options:0 range:NSMakeRange(0, moviesize.length)];
-		if (matches.numberOfRanges == 3) {
-			frameWidth = [[moviesize substringWithRange:[matches rangeAtIndex:1]] doubleValue];
-			frameHeight = [[moviesize substringWithRange:[matches rangeAtIndex:2]] doubleValue];
-		}
-		NSMutableString *contentInformation = [[NSMutableString alloc] init];
-		if (frameWidth > 0 && frameHeight > 0) {
-			[contentInformation appendFormat:NSLocalizedString(@"%ld x %ld", nil), (long)frameWidth, (long)frameHeight];
-		}
-		if (frameWidth > 0 && frameHeight > 0 && playbackTime > 0) {
-			[contentInformation appendString:@", "];
-		}
-		if (playbackTime > 0) {
-			NSInteger playbackTimeHours = (NSInteger)playbackTime / 60;
-			NSInteger playbackTimeMinutes = (NSInteger)playbackTime % 60;
-			[contentInformation appendFormat:NSLocalizedString(@"%ld:%02ld", nil), (long)playbackTimeHours, (long)playbackTimeMinutes];
-		}
 		
 		// デバイス用画像をダウンロードします。
 		__block UIImage *image = nil;
@@ -447,7 +437,6 @@
 			weakSelf.imageView.alpha = 0.0; // 演出のため処理が完了するまで透明にしておきます。
 			weakSelf.imageView.image = image;
 			weakSelf.estimatedPlaybackTime = playbackTime;
-			weakSelf.contentInformationLabel.text = contentInformation;
 			renderingComplete = YES;
 		}];
 		

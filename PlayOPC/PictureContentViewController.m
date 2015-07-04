@@ -12,6 +12,7 @@
 #import "PictureContentViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
+#import "ContentDetailViewController.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
 
@@ -174,6 +175,20 @@
 }
 
 #pragma mark -
+
+/// セグエを準備する(画面が遷移する)時に呼び出されます。
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"ShowPictureContentDetail"]) {
+		ContentDetailViewController *viewController = segue.destinationViewController;
+		viewController.content = self.content;
+	} else {
+		// 何もしません。
+	}
+}
 
 /// スワイプジェスチャーで前の画面に戻ろうとした時に呼び出されます。(iOS7はここに到達しないがiOS8ではここに来てしまうらしい)
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {

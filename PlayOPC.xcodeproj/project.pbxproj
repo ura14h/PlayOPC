@@ -96,6 +96,7 @@
 		31BD00021B3C3D7200F555A7 /* AppCameraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD00011B3C3D7200F555A7 /* AppCameraTests.m */; };
 		31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD645F1B0865FD00934C3B /* VideoContentViewController.m */; };
 		31BD64611B0865FD00934C3B /* VideoContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD645F1B0865FD00934C3B /* VideoContentViewController.m */; };
+		31C3683D1B47BEB00057A390 /* ContentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */; };
 		31C71DA41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D741AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png */; };
 		31C71DA51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D751AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png */; };
 		31C71DA61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71D761AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png */; };
@@ -254,6 +255,8 @@
 		31BD00011B3C3D7200F555A7 /* AppCameraTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCameraTests.m; sourceTree = "<group>"; };
 		31BD645E1B0865FD00934C3B /* VideoContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoContentViewController.h; sourceTree = "<group>"; };
 		31BD645F1B0865FD00934C3B /* VideoContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoContentViewController.m; sourceTree = "<group>"; };
+		31C3683B1B47BEB00057A390 /* ContentDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentDetailViewController.h; sourceTree = "<group>"; };
+		31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentDetailViewController.m; sourceTree = "<group>"; };
 		31C71D741AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-1.png"; sourceTree = "<group>"; };
 		31C71D751AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-10.png"; sourceTree = "<group>"; };
 		31C71D761AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-11.png"; sourceTree = "<group>"; };
@@ -420,6 +423,8 @@
 				319396931B04CD4B00EAAE35 /* PictureContentViewController.m */,
 				31BD645E1B0865FD00934C3B /* VideoContentViewController.h */,
 				31BD645F1B0865FD00934C3B /* VideoContentViewController.m */,
+				31C3683B1B47BEB00057A390 /* ContentDetailViewController.h */,
+				31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */,
 			);
 			name = "Playback Section";
 			sourceTree = "<group>";
@@ -826,6 +831,7 @@
 				310639301B46B16800BE8597 /* UIImageView+Animation.m in Sources */,
 				319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
 				3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
+				31C3683D1B47BEB00057A390 /* ContentDetailViewController.m in Sources */,
 				3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
 				31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
 			);

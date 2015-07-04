@@ -32,8 +32,10 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *resizeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *protectButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *unprotectButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *eraseButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
@@ -223,6 +225,39 @@
 	}
 }
 
+/// 共有ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapShareButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// 実行するかを確認します。
+	NSString *title = NSLocalizedString(@"Share the picture", nil);
+	NSString *message = NSLocalizedString(@"The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.", nil);
+	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = self.shareButton;
+	
+	__weak PictureContentViewController *weakSelf = self;
+	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
+	{
+		NSString *title = NSLocalizedString(@"OK", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+			// 写真を共有します。
+			[weakSelf sharePicture];
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		[alertController addAction:action];
+	}
+	{
+		NSString *title = NSLocalizedString(@"Cancel", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
+		[alertController addAction:action];
+	}
+	[self presentViewController:alertController animated:YES completion:nil];
+}
+
 /// リサイズボタンがタップされた時に呼び出されます。
 - (IBAction)didTapResizeButton:(id)sender {
 	DEBUG_LOG(@"");
@@ -287,27 +322,22 @@
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
-/// 共有ボタンがタップされた時に呼び出されます。
-- (IBAction)didTapShareButton:(id)sender {
+/// プロテクトボタンがタップされた時に呼び出されます。
+- (IBAction)didTapProtectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	// 実行するかを確認します。
-	NSString *title = NSLocalizedString(@"Share the picture", nil);
-	NSString *message = NSLocalizedString(@"The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.", nil);
-	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
-	alertController.popoverPresentationController.barButtonItem = self.shareButton;
+	alertController.popoverPresentationController.barButtonItem = self.protectButton;
 	
 	__weak PictureContentViewController *weakSelf = self;
-	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
 	{
-		NSString *title = NSLocalizedString(@"OK", nil);
+		NSString *title = NSLocalizedString(@"Protect the picture", nil);
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
-			// 写真を共有します。
-			[weakSelf sharePicture];
+			[weakSelf protectPicture];
 		};
-		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:handler];
 		[alertController addAction:action];
 	}
 	{
@@ -317,6 +347,36 @@
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
 		[alertController addAction:action];
 	}
+	
+	[self presentViewController:alertController animated:YES completion:nil];
+}
+
+/// 解除ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapUnprotectButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = self.unprotectButton;
+	
+	__weak PictureContentViewController *weakSelf = self;
+	{
+		NSString *title = NSLocalizedString(@"Unprotect the picture", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+			[weakSelf unprotectPicture];
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDefault handler:handler];
+		[alertController addAction:action];
+	}
+	{
+		NSString *title = NSLocalizedString(@"Cancel", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
+		[alertController addAction:action];
+	}
+	
 	[self presentViewController:alertController animated:YES completion:nil];
 }
 
@@ -324,147 +384,29 @@
 - (IBAction)didTapEraseButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	__weak PictureContentViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-
-		// コンテンツの絶対パスを作成します。
-		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
-		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
-		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
-		
-		// MARK: コンテンツ削除は再生モードで実行できません。カメラを再生保守モードに移行します。
-		AppCamera *camera = GetAppCamera();
-		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-
-		// 指定されたコンテンツを削除します。
-		NSError *error = nil;
-		BOOL erased = [camera eraseContent:filepath error:&error];
-
-		// カメラを再生モードに戻します。
-		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// 正しく削除できたかを確認します。
-		if (!erased) {
-			// 削除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
-			return;
-		}
-
-		// 表示を更新します。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			if (weakSelf.delegate) {
-				[weakSelf.delegate pictureContentViewControllerDidErasePictureContent:weakSelf];
-			}
-
-			// 前の画面に戻ります。
-			[weakSelf performSegueWithIdentifier:@"DonePictureContent" sender:self];
-		}];
-	}];
-}
-
-/// プロテクトボタンがタップされた時に呼び出されます。
-- (IBAction)didTapProtectButton:(id)sender {
-	DEBUG_LOG(@"");
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = self.eraseButton;
 	
 	__weak PictureContentViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-
-		// コンテンツの絶対パスを作成します。
-		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
-		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
-		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
-		
-		// MARK: コンテンツのプロテクトは再生モードで実行できません。カメラを再生保守モードに移行します。
-		AppCamera *camera = GetAppCamera();
-		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// 指定されたコンテンツをプロテクトします。
-		NSError *error = nil;
-		BOOL protected = [camera protectContent:filepath error:&error];
-		
-		// カメラを再生モードに戻します。
-		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// 正しくプロテクトできたかを確認します。
-		if (!protected) {
-			// プロテクトに失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not protect content", nil)];
-			return;
-		}
-		weakSelf.protected = YES;
-
-		// 表示を更新します。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[weakSelf updateToolbarItems:YES];
-
-			if (weakSelf.delegate) {
-				[weakSelf.delegate pictureContentViewControllerDidUpdatedPictureContent:weakSelf];
-			}
-		}];
-	}];
-}
-
-/// 解除ボタンがタップされた時に呼び出されます。
-- (IBAction)didTapUnprotectButton:(id)sender {
-	DEBUG_LOG(@"");
+	{
+		NSString *title = NSLocalizedString(@"Erase the picture", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+			[weakSelf erasePicture];
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:handler];
+		[alertController addAction:action];
+	}
+	{
+		NSString *title = NSLocalizedString(@"Cancel", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
+		[alertController addAction:action];
+	}
 	
-	__weak PictureContentViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// コンテンツの絶対パスを作成します。
-		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
-		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
-		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
-		
-		// MARK: コンテンツのプロテクト解除は再生モードで実行できません。カメラを再生保守モードに移行します。
-		AppCamera *camera = GetAppCamera();
-		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// 指定されたコンテンツをプロテクト解除します。
-		NSError *error = nil;
-		BOOL unprotected = [camera unprotectContent:filepath error:&error];
-		
-		// カメラを再生モードに戻します。
-		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// 正しくプロテクト解除できたかを確認します。
-		if (!unprotected) {
-			// プロテクト解除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect content", nil)];
-			return;
-		}
-		weakSelf.protected = NO;
-		
-		// 表示を更新します。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[weakSelf updateToolbarItems:YES];
-
-			if (weakSelf.delegate) {
-				[weakSelf.delegate pictureContentViewControllerDidUpdatedPictureContent:weakSelf];
-			}
-		}];
-	}];
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark -
@@ -534,90 +476,6 @@
 	} else {
 		self.scrollView.contentInset = insets;
 	}
-}
-
-/// リサイズ画像をダウンロードします。
-- (void)downloadResizedImage:(OLYCameraImageResize)size {
-	DEBUG_LOG(@"size=%f", size);
-	
-	// リサイズ画像のダウンロードを開始します。
-	__weak PictureContentViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// コンテンツの絶対パスを作成します。
-		NSString *dirname = self.content[OLYCameraContentListDirectoryKey];
-		NSString *filename = self.content[OLYCameraContentListFilenameKey];
-		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
-		
-		// リサイズ画像をダウンロードします。
-		// オリジナルサイズ画像は大きすぎてかつダウンロードに時間がかかりすぎるので初期表示には適さないと思います。
-		// MARK: Appleのドキュメントによると、1024*1024より大きいUIImageの表示は推奨できないらしい。
-		// MARK: iPhone 4Sで動かしてみた限りでは、オリジナル画像のサイズ(OLYCameraImageResizeNone)でも表示は問題なくできるようです。
-		AppCamera *camera = GetAppCamera();
-		__block UIImage *image = nil;
-		__block BOOL downloadCompleted = NO;
-		__block BOOL downloadFailed = NO;
-		[camera downloadImage:filepath withResize:size progressHandler:^(float progress, BOOL *stop) {
-			// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
-			if (!weakSelf.startingActivity) {
-				*stop = YES;
-				downloadCompleted = YES;
-				return;
-			}
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
-		} completionHandler:^(NSData *data) {
-			DEBUG_LOG(@"data=%p", data);
-			image = [UIImage imageWithData:data];
-			downloadCompleted = YES;
-		} errorHandler:^(NSError *error) {
-			DEBUG_LOG(@"error=%p", error);
-			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
-		}];
-		
-		// リサイズ画像のダウンロードが完了するのを待ちます。
-		while (!downloadCompleted && !downloadFailed) {
-			[NSThread sleepForTimeInterval:0.1];
-		}
-		if (downloadFailed) {
-			// ダウンロードに失敗したようです。
-			return;
-		}
-		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
-		
-		// ダウンロードしたリサイズ画像を表示します。
-		__block BOOL renderingComplete = NO;
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[UIView animateWithDuration:0.25 delay:0.0 options:0 animations:^{
-				weakSelf.imageView.alpha = 0.0; // レイアウトの乱れを隠すため処理が完了するまで透明にしておきます。
-			} completion:^(BOOL finished) {
-				weakSelf.imageView.image = image;
-				// スクロールビューの表示を調節します。
-				// MARK: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
-				[weakSelf executeAsynchronousBlockOnMainThread:^{
-					weakSelf.scrollView.zoomScale = 0; // 絶対に全体表示
-					[weakSelf.scrollView setNeedsUpdateConstraints];
-					renderingComplete = YES;
-				}];
-			}];
-		}];
-		
-		// リサイズ画像の表示が完了するのを待ちます。
-		while (!renderingComplete) {
-			[NSThread sleepForTimeInterval:0.1];
-		}
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[UIView animateWithDuration:0.25 animations:^{
-				weakSelf.imageView.alpha = 1.0;
-			}];
-		}];
-	}];
 }
 
 /// 写真を共有します。
@@ -711,6 +569,237 @@
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf presentViewController:shareController animated:YES completion:nil];
+		}];
+	}];
+}
+
+/// リサイズ画像をダウンロードします。
+- (void)downloadResizedImage:(OLYCameraImageResize)size {
+	DEBUG_LOG(@"size=%f", size);
+	
+	// リサイズ画像のダウンロードを開始します。
+	__weak PictureContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = self.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = self.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// リサイズ画像をダウンロードします。
+		// オリジナルサイズ画像は大きすぎてかつダウンロードに時間がかかりすぎるので初期表示には適さないと思います。
+		// MARK: Appleのドキュメントによると、1024*1024より大きいUIImageの表示は推奨できないらしい。
+		// MARK: iPhone 4Sで動かしてみた限りでは、オリジナル画像のサイズ(OLYCameraImageResizeNone)でも表示は問題なくできるようです。
+		AppCamera *camera = GetAppCamera();
+		__block UIImage *image = nil;
+		__block BOOL downloadCompleted = NO;
+		__block BOOL downloadFailed = NO;
+		[camera downloadImage:filepath withResize:size progressHandler:^(float progress, BOOL *stop) {
+			// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
+			if (!weakSelf.startingActivity) {
+				*stop = YES;
+				downloadCompleted = YES;
+				return;
+			}
+			// 進捗率表示モードに変更します。
+			if (progressView.mode == MBProgressHUDModeIndeterminate) {
+				progressView.mode = MBProgressHUDModeAnnularDeterminate;
+			}
+			// 進捗率の表示を更新します。
+			progressView.progress = progress;
+		} completionHandler:^(NSData *data) {
+			DEBUG_LOG(@"data=%p", data);
+			image = [UIImage imageWithData:data];
+			downloadCompleted = YES;
+		} errorHandler:^(NSError *error) {
+			DEBUG_LOG(@"error=%p", error);
+			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
+		}];
+		
+		// リサイズ画像のダウンロードが完了するのを待ちます。
+		while (!downloadCompleted && !downloadFailed) {
+			[NSThread sleepForTimeInterval:0.1];
+		}
+		if (downloadFailed) {
+			// ダウンロードに失敗したようです。
+			return;
+		}
+		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
+		
+		// ダウンロードしたリサイズ画像を表示します。
+		__block BOOL renderingComplete = NO;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[UIView animateWithDuration:0.25 delay:0.0 options:0 animations:^{
+				weakSelf.imageView.alpha = 0.0; // レイアウトの乱れを隠すため処理が完了するまで透明にしておきます。
+			} completion:^(BOOL finished) {
+				weakSelf.imageView.image = image;
+				// スクロールビューの表示を調節します。
+				// MARK: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
+				[weakSelf executeAsynchronousBlockOnMainThread:^{
+					weakSelf.scrollView.zoomScale = 0; // 絶対に全体表示
+					[weakSelf.scrollView setNeedsUpdateConstraints];
+					renderingComplete = YES;
+				}];
+			}];
+		}];
+		
+		// リサイズ画像の表示が完了するのを待ちます。
+		while (!renderingComplete) {
+			[NSThread sleepForTimeInterval:0.1];
+		}
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[UIView animateWithDuration:0.25 animations:^{
+				weakSelf.imageView.alpha = 1.0;
+			}];
+		}];
+	}];
+}
+
+/// 写真をプロテクトします。
+- (void)protectPicture {
+	DEBUG_LOG(@"");
+	
+	__weak PictureContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// MARK: コンテンツのプロテクトは再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 指定されたコンテンツをプロテクトします。
+		NSError *error = nil;
+		BOOL protected = [camera protectContent:filepath error:&error];
+		
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 正しくプロテクトできたかを確認します。
+		if (!protected) {
+			// プロテクトに失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not protect content", nil)];
+			return;
+		}
+		weakSelf.protected = YES;
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf updateToolbarItems:YES];
+			
+			if (weakSelf.delegate) {
+				[weakSelf.delegate pictureContentViewControllerDidUpdatedPictureContent:weakSelf];
+			}
+		}];
+	}];
+}
+
+/// 写真をプロテクト解除します。
+- (void)unprotectPicture {
+	DEBUG_LOG(@"");
+	
+	__weak PictureContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// MARK: コンテンツのプロテクト解除は再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 指定されたコンテンツをプロテクト解除します。
+		NSError *error = nil;
+		BOOL unprotected = [camera unprotectContent:filepath error:&error];
+		
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 正しくプロテクト解除できたかを確認します。
+		if (!unprotected) {
+			// プロテクト解除に失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect content", nil)];
+			return;
+		}
+		weakSelf.protected = NO;
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf updateToolbarItems:YES];
+			
+			if (weakSelf.delegate) {
+				[weakSelf.delegate pictureContentViewControllerDidUpdatedPictureContent:weakSelf];
+			}
+		}];
+	}];
+}
+
+/// 写真を削除します。
+- (void)erasePicture {
+	DEBUG_LOG(@"");
+	
+	__weak PictureContentViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// コンテンツの絶対パスを作成します。
+		NSString *dirname = weakSelf.content[OLYCameraContentListDirectoryKey];
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
+		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
+		
+		// MARK: コンテンツ削除は再生モードで実行できません。カメラを再生保守モードに移行します。
+		AppCamera *camera = GetAppCamera();
+		if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 指定されたコンテンツを削除します。
+		NSError *error = nil;
+		BOOL erased = [camera eraseContent:filepath error:&error];
+		
+		// カメラを再生モードに戻します。
+		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
+			// エラーを無視して続行します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 正しく削除できたかを確認します。
+		if (!erased) {
+			// 削除に失敗しました。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
+			return;
+		}
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			if (weakSelf.delegate) {
+				[weakSelf.delegate pictureContentViewControllerDidErasePictureContent:weakSelf];
+			}
+			
+			// 前の画面に戻ります。
+			[weakSelf performSegueWithIdentifier:@"DonePictureContent" sender:self];
 		}];
 	}];
 }

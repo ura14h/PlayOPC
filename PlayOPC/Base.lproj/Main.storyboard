@@ -794,7 +794,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="tableviewFooterLabel" destination="yVY-Ub-XSc" id="hmE-fn-f3D"/>
-                        <outlet property="unprotectedButton" destination="Z6i-KW-uz3" id="yNV-Z5-16j"/>
+                        <outlet property="unprotectButton" destination="Z6i-KW-uz3" id="cnV-aP-1vV"/>
                         <segue destination="1id-jg-7ng" kind="show" identifier="ShowPictureContent" id="Lp0-Gh-Tnt"/>
                         <segue destination="JDn-Ab-rR9" kind="show" identifier="ShowVideoContent" id="IMd-fg-NbK"/>
                     </connections>
@@ -879,9 +879,11 @@
                     <connections>
                         <outlet property="eraseButton" destination="w4O-uc-QOd" id="elS-uA-v2W"/>
                         <outlet property="imageView" destination="kIc-Cx-7jK" id="BRN-c6-75X"/>
+                        <outlet property="protectButton" destination="U2a-qC-ibT" id="DNt-ZL-X67"/>
                         <outlet property="resizeButton" destination="qC6-d9-fTV" id="Jm4-SJ-Hhu"/>
                         <outlet property="scrollView" destination="6GD-gB-KPG" id="RX3-Rt-2X4"/>
                         <outlet property="shareButton" destination="Mq2-ko-Klt" id="yyk-dm-D9M"/>
+                        <outlet property="unprotectButton" destination="4FB-Lu-jsL" id="19c-BX-lKR"/>
                         <segue destination="GvI-aJ-ZNr" kind="unwind" identifier="DonePictureContent" unwindAction="exitToPlaybackViewController:" id="9mZ-E1-0AP"/>
                     </connections>
                 </viewController>
@@ -3011,8 +3013,10 @@
                         <outlet property="contentInformationLabel" destination="dzV-cP-l2l" id="8Qo-en-2tp"/>
                         <outlet property="eraseButton" destination="cSa-nD-qU0" id="4aG-qm-SAv"/>
                         <outlet property="imageView" destination="8KU-vD-ebk" id="fVJ-ki-IQq"/>
+                        <outlet property="protectButton" destination="LaJ-e3-qDr" id="Ga3-LL-3c0"/>
                         <outlet property="resizeButton" destination="Vuz-b5-wlp" id="3k9-oN-6Tu"/>
                         <outlet property="shareButton" destination="o2l-pX-4oR" id="DPQ-7m-nLm"/>
+                        <outlet property="unprotectButton" destination="xax-Y1-4XE" id="QVS-Ud-cO2"/>
                         <segue destination="IIi-44-Weo" kind="unwind" identifier="DoneVideoContent" unwindAction="exitToPlaybackViewController:" id="JFK-Hp-B81"/>
                     </connections>
                 </viewController>

@@ -19,6 +19,7 @@
 @interface CameraLogViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *clearButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSArray *messages; ///< ログ履歴
@@ -184,37 +185,6 @@
 	[self reloadLog:YES];
 }
 
-/// 最新ボタンがタップされた時に呼び出されます。
-- (IBAction)didTapLatestButton:(id)sender {
-	DEBUG_LOG(@"");
-
-	// 最下端にスクロールします。
-	if (self.messages.count > 0) {
-		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
-		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
-	}
-}
-
-/// クリアボタンがタップされた時に呼び出されます。
-- (IBAction)didTapClearButton:(id)sender {
-	DEBUG_LOG(@"");
-
-	__weak CameraLogViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// ログをクリアします。
-		AppCameraLog *cameraLog = GetAppCameraLog();
-		[cameraLog clearMessages];
-		weakSelf.messages = cameraLog.messages;
-		
-		// 画面表示を更新します。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[weakSelf.tableView reloadData];
-		}];
-	}];
-}
-
 /// 共有ボタンがタップされた時に呼び出されます。
 - (IBAction)didTapShareButton:(id)sender {
 	DEBUG_LOG(@"");
@@ -244,6 +214,46 @@
 	}];
 }
 
+/// 最新ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapLatestButton:(id)sender {
+	DEBUG_LOG(@"");
+
+	// 最下端にスクロールします。
+	if (self.messages.count > 0) {
+		NSIndexPath *indexPath = [NSIndexPath indexPathForRow:self.messages.count - 1 inSection:0];
+		[self.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:YES];
+	}
+}
+
+/// クリアボタンがタップされた時に呼び出されます。
+- (IBAction)didTapClearButton:(id)sender {
+	DEBUG_LOG(@"");
+
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.barButtonItem = self.clearButton;
+	
+	__weak CameraLogViewController *weakSelf = self;
+	{
+		NSString *title = NSLocalizedString(@"Clear log", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+			[weakSelf clearLog];
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:handler];
+		[alertController addAction:action];
+	}
+	{
+		NSString *title = NSLocalizedString(@"Cancel", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
+		[alertController addAction:action];
+	}
+	
+	[self presentViewController:alertController animated:YES completion:nil];
+}
+
 #pragma mark -
 
 /// ログを読み込みます。
@@ -267,6 +277,26 @@
 				NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.messages.count - 1 inSection:0];
 				[weakSelf.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 			}
+		}];
+	}];
+}
+
+/// ログをクリアします。
+- (void)clearLog {
+	DEBUG_LOG(@"");
+	
+	__weak CameraLogViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// ログをクリアします。
+		AppCameraLog *cameraLog = GetAppCameraLog();
+		[cameraLog clearMessages];
+		weakSelf.messages = cameraLog.messages;
+		
+		// 画面表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf.tableView reloadData];
 		}];
 	}];
 }

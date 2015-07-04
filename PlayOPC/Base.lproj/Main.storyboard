@@ -445,6 +445,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="clearButton" destination="Hd2-fZ-BFd" id="i7i-8P-oMe"/>
                         <outlet property="shareButton" destination="kuu-qp-pLI" id="cY8-5q-buU"/>
                     </connections>
                 </tableViewController>

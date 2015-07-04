@@ -850,7 +850,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="MEt-lL-pRF"/>
-                        <barButtonItem title="Resize" id="qC6-d9-fTV">
+                        <barButtonItem image="ResizeBarButton" id="qC6-d9-fTV">
                             <connections>
                                 <action selector="didTapResizeButton:" destination="1id-jg-7ng" id="tsh-1z-TeH"/>
                             </connections>
@@ -2983,7 +2983,7 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="QGr-wN-fZd"/>
-                        <barButtonItem title="Resize" id="Vuz-b5-wlp">
+                        <barButtonItem image="ResizeBarButton" id="Vuz-b5-wlp">
                             <connections>
                                 <action selector="didTapResizeButton:" destination="JDn-Ab-rR9" id="Vn8-tY-7DG"/>
                             </connections>
@@ -3951,6 +3951,7 @@
     <resources>
         <image name="LatestBarButton" width="21" height="24"/>
         <image name="ProtectBarButton" width="21" height="22"/>
+        <image name="ResizeBarButton" width="29" height="22"/>
         <image name="TakeButtonDefault" width="52" height="52"/>
         <image name="TakeButtonDisabled" width="52" height="52"/>
         <image name="TakeButtonHighlighted" width="52" height="52"/>

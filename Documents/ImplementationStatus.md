@@ -118,7 +118,7 @@
 * downloadContentThumbnail:progressHandler:completionHandler:errorHandler:
 * downloadImage:withResize:progressHandler:completionHandler:errorHandler:
 * inquireContentInformation:error:
-* *downloadLargeContent:progressHandler:completionHandler:errorHandler: (1.1.0)*
+* downloadLargeContent:progressHandler:completionHandler:errorHandler: (1.1.0)
 * resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:
 * playbackDelegate
 

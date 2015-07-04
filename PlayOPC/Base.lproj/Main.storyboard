@@ -446,6 +446,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="clearButton" destination="Hd2-fZ-BFd" id="i7i-8P-oMe"/>
+                        <outlet property="latestButton" destination="sfG-Ec-7mD" id="9Sy-Qy-Wry"/>
                         <outlet property="shareButton" destination="kuu-qp-pLI" id="cY8-5q-buU"/>
                     </connections>
                 </tableViewController>

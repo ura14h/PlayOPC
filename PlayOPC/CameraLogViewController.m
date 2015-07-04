@@ -19,6 +19,7 @@
 @interface CameraLogViewController ()
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *latestButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *clearButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
@@ -47,6 +48,10 @@
 	// 画面表示を初期表示します。
 	self.tableView.estimatedRowHeight = self.tableView.rowHeight;
 	self.tableView.rowHeight = UITableViewAutomaticDimension;
+	self.shareButton.enabled = NO;
+	self.latestButton.enabled = NO;
+	self.clearButton.enabled = NO;
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -272,8 +277,14 @@
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView reloadData];
 			
+			// ログメッセージがある場合はボタンを有効にします。
+			BOOL hasMessages = weakSelf.messages.count > 0;
+			weakSelf.shareButton.enabled = hasMessages;
+			weakSelf.latestButton.enabled = hasMessages;
+			weakSelf.clearButton.enabled = hasMessages;
+			
 			// 最下端にスクロールします。
-			if (weakSelf.messages.count > 0) {
+			if (hasMessages) {
 				NSIndexPath *indexPath = [NSIndexPath indexPathForRow:weakSelf.messages.count - 1 inSection:0];
 				[weakSelf.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionBottom animated:NO];
 			}
@@ -296,7 +307,8 @@
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			[weakSelf.tableView reloadData];
+			// ログを読み込みます。
+			[weakSelf reloadLog:YES];
 		}];
 	}];
 }

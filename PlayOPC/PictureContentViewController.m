@@ -326,8 +326,9 @@
 - (IBAction)didTapProtectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
+	NSString *message = NSLocalizedString(@"ORF file related to the picture will be protected at the same time.", nil);
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.barButtonItem = self.protectButton;
 	
@@ -355,8 +356,9 @@
 - (IBAction)didTapUnprotectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
+	NSString *message = NSLocalizedString(@"ORF file related to the picture will be unprotected at the same time.", nil);
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.barButtonItem = self.unprotectButton;
 	
@@ -384,8 +386,9 @@
 - (IBAction)didTapEraseButton:(id)sender {
 	DEBUG_LOG(@"");
 	
+	NSString *message = NSLocalizedString(@"ORF file related to the picture will be erased at the same time.", nil);
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.barButtonItem = self.eraseButton;
 	

@@ -828,11 +828,32 @@
 /// 'Clear Remembered Camera Setting'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtClearRememberedCameraSettingCell {
 	DEBUG_LOG(@"");
-
-	// 記憶している前回のカメラ設定をクリアします。
-	// MARK: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[userDefaults setObject:nil forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+	
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.sourceView = self.clearRememberedCameraSettingCell;
+	
+	{
+		NSString *title = NSLocalizedString(@"Clear camera setting", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+			// 記憶している前回のカメラ設定をクリアします。
+			// MARK: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
+			NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+			[userDefaults setObject:nil forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:handler];
+		[alertController addAction:action];
+	}
+	{
+		NSString *title = NSLocalizedString(@"Cancel", nil);
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
+		[alertController addAction:action];
+	}
+	
+	[self presentViewController:alertController animated:YES completion:nil];
 }
 
 #pragma mark -

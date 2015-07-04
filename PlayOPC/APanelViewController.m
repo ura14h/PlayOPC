@@ -27,6 +27,8 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *showFocusStillCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showFocusMovieCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showAntiShakeMovieCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showAntiShakeFocalLengthCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
@@ -55,6 +57,8 @@
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeFocusStill)) forKey:CameraPropertyFocusStill];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeFocusMovie)) forKey:CameraPropertyFocusMovie];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAe)) forKey:CameraPropertyAe];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAntiShakeMovie)) forKey:CameraPropertyAntiShakeMovie];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAntiShakeFocalLength)) forKey:CameraPropertyAntiShakeFocalLength];
 	self.cameraPropertyObserver = cameraPropertyObserver;
 	// カメラプロパティ、カメラのプロパティを監視開始します。
 	AppCamera *camera = GetAppCamera();
@@ -67,12 +71,16 @@
 	NSString *focusStillTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyFocusStill];
 	NSString *focusMovieTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyFocusMovie];
 	NSString *aeTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAe];
+	NSString *antiShakeMovieTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAntiShakeMovie];
+	NSString *antiShakeFocalLengthTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAntiShakeFocalLength];
 	self.afLockStateCell.textLabel.text = afLockStateTitle;
 	self.aeLockStateCell.textLabel.text = aeLockStateTitle;
 	self.showFullTimeAfCell.textLabel.text = fullTimeAf;
 	self.showFocusStillCell.textLabel.text = focusStillTitle;
 	self.showFocusMovieCell.textLabel.text = focusMovieTitle;
 	self.showAeCell.textLabel.text = aeTitle;
+	self.showAntiShakeMovieCell.textLabel.text = antiShakeMovieTitle;
+	self.showAntiShakeFocalLengthCell.textLabel.text = antiShakeFocalLengthTitle;
 	NSString *emptyDetailTextLabel = @" "; // テーブルセルのラベルを空欄にしょうとしてnilとか@""とかを設定するとなぜか不具合が起きます。
 	self.afLockStateCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.aeLockStateCell.detailTextLabel.text = emptyDetailTextLabel;
@@ -80,6 +88,8 @@
 	self.showFocusStillCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showFocusMovieCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAeCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showAntiShakeMovieCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showAntiShakeFocalLengthCell.detailTextLabel.text = emptyDetailTextLabel;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -142,6 +152,8 @@
 	[self updateShowFocusStillCell];
 	[self updateShowFocusMovieCell];
 	[self updateShowAeCell];
+	[self updateShowAntiShakeMovieCell];
+	[self updateShowAntiShakeFocalLengthCell];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -184,6 +196,14 @@
 		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
 		viewController.property = CameraPropertyAe;
 		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowAntiShakeMovie"]) {
+		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+		viewController.property = CameraPropertyAntiShakeMovie;
+		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowAntiShakeFocalLength"]) {
+		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+		viewController.property = CameraPropertyAntiShakeFocalLength;
+		viewController.itemSelectionDeleage = self;
 	} else {
 		// 何もしません。
 	}
@@ -224,6 +244,10 @@
 		[self didChangeFocusMovie];
 	} else if ([property isEqualToString:CameraPropertyAe]) {
 		[self didChangeAe];
+	} else if ([property isEqualToString:CameraPropertyAntiShakeMovie]) {
+		[self didChangeAntiShakeMovie];
+	} else if ([property isEqualToString:CameraPropertyAntiShakeFocalLength]) {
+		[self didChangeAntiShakeFocalLength];
 	} else {
 		DEBUG_LOG(@"Unknown property: %@", property);
 	}
@@ -302,6 +326,22 @@
 	
 	// 画面表示を更新します。
 	[self updateShowAeCell];
+}
+
+/// 動画手ぶれ補正の値が変わった時に呼び出されます。
+- (void)didChangeAntiShakeMovie {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateShowAntiShakeMovieCell];
+}
+
+/// IS焦点距離の値が変わった時に呼び出されます。
+- (void)didChangeAntiShakeFocalLength {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateShowAntiShakeFocalLengthCell];
 }
 
 /// 'Unlock AF'のセルが選択されたときに呼び出されます。
@@ -416,6 +456,20 @@
 	DEBUG_LOG(@"");
 	
 	[self updateCameraPropertyCell:self.showAeCell name:CameraPropertyAe completion:nil];
+}
+
+/// 動画手ぶれ補正を表示します。
+- (void)updateShowAntiShakeMovieCell {
+	DEBUG_LOG(@"");
+	
+	[self updateCameraPropertyCell:self.showAeCell name:CameraPropertyAntiShakeMovie completion:nil];
+}
+
+/// IS焦点距離を表示します。
+- (void)updateShowAntiShakeFocalLengthCell {
+	DEBUG_LOG(@"");
+	
+	[self updateCameraPropertyCell:self.showAeCell name:CameraPropertyAntiShakeFocalLength completion:nil];
 }
 
 /// カメラプロパティ値を表示します。

@@ -61,10 +61,13 @@ extern NSString *const CameraPropertyBracketPictVintage;
 extern NSString *const CameraPropertyBracketPictPartcolor;
 extern NSString *const CameraPropertyBatteryLevel;
 extern NSString *const CameraPropertyFaceScan;
+extern NSString *const CameraPropertyAntiShakeFocalLength;
 extern NSString *const CameraPropertyRecview;
+extern NSString *const CameraPropertyAntiShakeMovie;
 extern NSString *const CameraPropertySoundVolumeLevel;
 extern NSString *const CameraPropertyGps;
 extern NSString *const CameraPropertyWifiCh;
+
 
 // 正式なカメラプロパティではない、アプリで便宜上用意した仮想カメラプロパティ
 extern NSString *const CameraPropertyHighTemperatureWarning;

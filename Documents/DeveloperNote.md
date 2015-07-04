@@ -74,11 +74,12 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 
 * 撮影モード(TAKEMODE)をmovie、動画撮影モード(EXPOSE\_MOVIE\_SELECT)をPに変更してから、アートフィルター種別(RECENTLY\_ART\_FILTER)を変更すると、撮影モードが勝手にARTになってしまうようです。 #fixed-sdk-1.1.0
 
-### オートフォーカスと自動測光
+### オートフォーカスと自動測光と手ぶれ補正
 
 * オートフォーカスをロック(setAutoFocusPoint:とlockAutoFocus:)するとフォーカス枠は正方形ですが、ロック解除の状態で撮影(takePicture:progressHandler:completionHandler:errorHandler:)した時のフォーカス終了イベント(OLYCameraTakingProgressEndFocusing)のコールバックに渡されるフォーカス枠(OLYCameraTakingPictureProgressInfoFocusRectKey)は長方形になっているようです。
 * 予めオートフォーカスをロック(setAutoFocusPoint:とlockAutoFocus:)してから撮影する(takePicture:progressHandler:completionHandler:errorHandler)と、その進捗ハンドラのオートフォーカス終了ステージ(OLYCameraTakingProgressEndFocusing)で渡される合焦結果(OLYCameraTakingPictureProgressInfoFocusResultKey)には、AFが機能しなかったことを示す"none"が設定されています。従って、装着しているレンズがAF非対応か否かをこの合焦結果だけを頼りに判定するのは安全とは言えません。
 * オートフォーカス動作をロック(lockAutoFocus:errorHandler:)する時にはカメラプロパティのフォーカス固定(AF\_LOCK\_STATE)が変化したことがデリゲート(camera:didChangeCameraProperty:)で通知されませんが、ロック解除する時には通知されるようです。自動露光制御の動作をロック(lockAutoExposure:)した時の露出固定(AE\_LOCK\_STATE)も同様のようです。オートフォーカス動作をすでにロックしている状態でさらにロックすると、カメラ内部で一旦ロック解除が行われているのか、この場合はフォーカス固定が変化したことがデリゲートで通知されるようです。
+* カメラプロパティの動画手ぶれ補正(ANTI\_SHAKE\_MOVIE)のプロパティ値タイトルを取得(cameraPropertyValueTitle:)すると、OFFとONの表示文言がそれぞれ"M-I.S. On"と"M-I.S. Off"となっていて、実際の動作とは逆の内容で返ってきます。
 
 ### ズーム
 

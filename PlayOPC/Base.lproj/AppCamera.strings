@@ -25,3 +25,7 @@
 "<FACE_SCAN>" = "Face Detect";
 "<IMAGESIZE>" = "Image Size";
 "<QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME>" = "Video Clip Time";
+"<ANTI_SHAKE_MOVIE>" = "Image Stabilization for Video";
+"<ANTI_SHAKE_MOVIE/OFF>" = "Off";
+"<ANTI_SHAKE_MOVIE/ON>" = "On";
+"<ANTI_SHAKE_FOCAL_LENGTH>" = "Focal Length of FT Lens";

@@ -192,13 +192,13 @@
 ### 撮影補助
 
 * FACE\_SCAN - 顔検出
-* *ANTI\_SHAKE\_FOCAL\_LENGTH - IS焦点距離 (1.1.0)*
+* ANTI\_SHAKE\_FOCAL\_LENGTH - IS焦点距離 (1.1.0)
 * ~~TOUCH\_EFFECTIVE\_AREA\_UPPER\_LEFT - タッチAF可能範囲（左上座標）~~
 * ~~TOUCH\_EFFECTIVE\_AREA\_LOWER\_RIGHT - タッチAF可能範囲（右下座標）~~
 * RECVIEW - 撮影結果確認用画像
 * ~~TOUCH\_AE\_EFFECTIVE\_AREA\_UPPER\_LEFT - タッチAE可能範囲（左上座標）~~
 * ~~TOUCH\_AE_EFFECTIVE\_AREA\_LOWER\_RIGHT - タッチAE可能範囲（右下座標）~~
-* *ANTI\_SHAKE\_MOVIE - 動画手ぶれ補正 (1.1.0)*
+* ANTI\_SHAKE\_MOVIE - 動画手ぶれ補正 (1.1.0)
 
 ### そのほか
 

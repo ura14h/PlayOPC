@@ -94,5 +94,7 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * デバイスのメインメモリに収まりきらないようなサイズの大きい画像や動画をダウンロードすることはできないようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * コンテンツ削除禁止設定(protectContent:error:)、コンテンツ削除禁止許可(unprotectContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方に反映されるようです。
 * コンテンツ削除(eraseContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方削除されるようです。
+* コンテンツ情報取得(inquireContentInformation:error:)に静止画を指定した場合に得られる情報の詳細は、オープンプラットフォームカメラ通信仕様書の静止画ファイル情報取得(get_imageinfo.cgi)の静止画情報パラメータリストフォーマットに記載されているようです。
+* コンテンツ情報取得(inquireContentInformation:error:)に動画を指定した場合に得られる情報の詳細は、オープンプラットフォームカメラ通信仕様書の動画ファイル情報取得(get_movfileinfo.cgi)のHTTPレスポンスに記載されているようです。
 
 以上

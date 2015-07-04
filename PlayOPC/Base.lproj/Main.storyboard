@@ -795,6 +795,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
+                        <outlet property="latestButton" destination="zpM-Ak-dYO" id="hcQ-mc-9n9"/>
                         <outlet property="tableviewFooterLabel" destination="yVY-Ub-XSc" id="hmE-fn-f3D"/>
                         <outlet property="unprotectButton" destination="Z6i-KW-uz3" id="cnV-aP-1vV"/>
                         <segue destination="1id-jg-7ng" kind="show" identifier="ShowPictureContent" id="Lp0-Gh-Tnt"/>

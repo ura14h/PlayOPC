@@ -25,6 +25,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 @interface PlaybackViewController () <PictureContentViewControllerDelegate, VideoContentViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *tableviewFooterLabel;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *latestButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *unprotectButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
@@ -58,6 +59,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	self.navigationItem.rightBarButtonItem = [self editButtonItem];
 	self.editing = NO;
 	self.tableviewFooterLabel.text = @"";
+	self.latestButton.enabled = false;
 	self.unprotectButton.enabled = false;
 }
 
@@ -623,7 +625,8 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	
 	// 画面表示を更新します。
 	[weakSelf executeAsynchronousBlockOnMainThread:^{
-		// プロテクト解除ボタンを更新します。
+		// ボタンを更新します。
+		weakSelf.latestButton.enabled = (numberOfContents > 0);
 		weakSelf.unprotectButton.enabled = unprotectEnabled;
 		
 		// フッターを更新します。

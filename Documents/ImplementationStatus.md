@@ -291,21 +291,21 @@
 
 * WB - ホワイトバランス
 * CUSTOM\_WB\_KELVIN\_1 - カスタムWB K指定
-* *WB\_REV_3000K - 電球 WB補正A (1.1.0)*
-* *WB\_REV_G_3000K - 電球 WB補正G (1.1.0)*
-* *WB\_REV_4000K - 蛍光灯 WB補正A (1.1.0)*
-* *WB\_REV_G_4000K - 蛍光灯 WB補正G (1.1.0)*
-* *WB\_REV_5300K - 晴天 WB補正A (1.1.0)*
-* *WB\_REV_G_5300K - 晴天 WB補正G (1.1.0)*
-* *WB\_REV_6000K - 雲天 WB補正A (1.1.0)*
-* *WB\_REV_G_6000K - 雲天 WB補正G (1.1.0)*
-* *WB\_REV_7500K - 日陰 WB補正A (1.1.0)*
-* *WB\_REV_G_7500K - 日陰 WB補正G (1.1.0)*
-* *WB\_REV_ AUTO - Auto WB補正A (1.1.0)*
-* *WB\_REV_G_AUTO - Auto WB補正G (1.1.0)*
-* *WB\_REV_AUTO_UNDER_WATER - 水中 WB補正A (1.1.0)*
-* *WB\_REV_G_AUTO_UNDER_WATER - 水中 WB補正G (1.1.0)*
-* *AUTO\_WB\_DENKYU\_COLORED\_LEAVING - WBオート 電球色残し (1.1.0)*
+* WB\_REV_3000K - 電球 WB補正A (1.1.0)
+* WB\_REV_G_3000K - 電球 WB補正G (1.1.0)
+* WB\_REV_4000K - 蛍光灯 WB補正A (1.1.0)
+* WB\_REV_G_4000K - 蛍光灯 WB補正G (1.1.0)
+* WB\_REV_5300K - 晴天 WB補正A (1.1.0)
+* WB\_REV_G_5300K - 晴天 WB補正G (1.1.0)
+* WB\_REV_6000K - 雲天 WB補正A (1.1.0)
+* WB\_REV_G_6000K - 雲天 WB補正G (1.1.0)
+* WB\_REV_7500K - 日陰 WB補正A (1.1.0)
+* WB\_REV_G_7500K - 日陰 WB補正G (1.1.0)
+* WB\_REV_ AUTO - Auto WB補正A (1.1.0)
+* WB\_REV_G_AUTO - Auto WB補正G (1.1.0)
+* WB\_REV_AUTO_UNDER_WATER - 水中 WB補正A (1.1.0)
+* WB\_REV_G_AUTO_UNDER_WATER - 水中 WB補正G (1.1.0)
+* AUTO\_WB\_DENKYU\_COLORED\_LEAVING - WBオート 電球色残し (1.1.0)
 
 ## 凡例
 

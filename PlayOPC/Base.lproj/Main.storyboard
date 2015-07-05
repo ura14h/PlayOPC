@@ -1662,7 +1662,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="RecordingEPaneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zZU-7k-RP2" customClass="EPanelViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rHR-Ap-puN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.94509803920000002" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -1868,7 +1868,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="MCq-K1-x7V"/>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="800"/>
+                    <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="showApertureCell" destination="vE5-l6-9SM" id="ei3-F6-nrD"/>
                         <outlet property="showContinuousShootingVelocityCell" destination="qcO-L3-Gbr" id="Bx3-hN-gWG"/>
@@ -1882,7 +1882,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ts8-i1-FIi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1888" y="174"/>
+            <point key="canvasLocation" x="1888" y="274"/>
         </scene>
         <!--Bluetooth-->
         <scene sceneID="1E7-kd-u2E">
@@ -2348,7 +2348,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="RecordingZPaneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CjU-n5-pzc" customClass="ZPanelViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="hvu-EA-Hm7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.94509803920000002" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -2579,7 +2579,7 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="eg4-wE-x1X"/>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="800"/>
+                    <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="digitalZoomingCurrentScaleCell" destination="iie-KW-g3C" id="W8k-Pf-Y4Q"/>
                         <outlet property="digitalZoomingMaximumScaleCell" destination="ejr-Dv-ukQ" id="aDc-pN-bxP"/>
@@ -2596,7 +2596,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DwX-h4-oFh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3908" y="174"/>
+            <point key="canvasLocation" x="3908" y="274"/>
         </scene>
         <!--Item Selection View Controller-->
         <scene sceneID="cxz-Ib-Zxg">
@@ -3675,7 +3675,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="RecordingCPaneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HiK-ue-Ny8" customClass="CPanelViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="TN1-pn-Ge5">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="800"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.94509803920000002" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -3725,6 +3725,75 @@
                                         </tableViewCellContentView>
                                         <connections>
                                             <segue destination="abF-TV-RYX" kind="show" identifier="ShowCustomWbKelvin1" id="UC4-nb-yie"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowWbRev" textLabel="7II-IY-HXT" detailTextLabel="Yca-EI-Y8a" style="IBUITableViewCellStyleValue1" id="kI1-NL-DI5">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kI1-NL-DI5" id="zsX-Cw-XAg">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="&lt;WB_REV&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7II-IY-HXT">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$wbRev" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yca-EI-Y8a">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="abF-TV-RYX" kind="show" identifier="ShowWbRev" id="zlf-Vs-gHL"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowWbRevG" textLabel="Csc-s9-iOI" detailTextLabel="B3a-yM-wG6" style="IBUITableViewCellStyleValue1" id="9Fe-RM-f1g">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9Fe-RM-f1g" id="Nd6-Zm-zzE">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="&lt;WB_REV_G&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Csc-s9-iOI">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$wbRevG" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B3a-yM-wG6">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="abF-TV-RYX" kind="show" identifier="ShowWbRevG" id="p29-OG-9O5"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAutoWbDenkyuColoredLeaving" textLabel="PpQ-OJ-mVZ" detailTextLabel="dJe-T2-Ksj" style="IBUITableViewCellStyleValue1" id="sGH-Pu-HhM">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sGH-Pu-HhM" id="ak6-IE-gXq">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="&lt;AUTO_WB_DENKYU_COLORED_LEAVING&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PpQ-OJ-mVZ">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$autoWbDenkyuColoredLeaving" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dJe-T2-Ksj">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="abF-TV-RYX" kind="show" identifier="ShowAutoWbDenkyuColoredLeaving" id="TUu-xE-1oK"/>
                                         </connections>
                                     </tableViewCell>
                                 </cells>
@@ -3881,9 +3950,10 @@
                         <barButtonItem key="backBarButtonItem" title="Back" id="Etz-b8-jSF"/>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="800"/>
+                    <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="showArtFilterAutoBracketCell" destination="t5F-Vk-IMX" id="aOF-qm-0KY"/>
+                        <outlet property="showAutoWbDenkyuColoredLeavingCell" destination="sGH-Pu-HhM" id="ndQ-L2-0jN"/>
                         <outlet property="showColorCreatorColorCell" destination="tCm-0K-PPn" id="BW5-5q-QrS"/>
                         <outlet property="showColorCreatorVividCell" destination="pff-72-UMU" id="jNV-dV-Xqf"/>
                         <outlet property="showColorPhaseCell" destination="9vw-et-4re" id="xN1-3G-rvG"/>
@@ -3891,11 +3961,13 @@
                         <outlet property="showCustomWbKelvin1Cell" destination="UaP-oh-8zT" id="8gM-9Y-tb6"/>
                         <outlet property="showRecentlyArtFilterCell" destination="nSZ-t9-4Gv" id="Ziu-92-fmo"/>
                         <outlet property="showWbCell" destination="QOU-nh-59B" id="sY5-Af-0ee"/>
+                        <outlet property="showWbRevCell" destination="kI1-NL-DI5" id="9Cm-p5-Hg7"/>
+                        <outlet property="showWbRevGCell" destination="9Fe-RM-f1g" id="AhO-2H-UgD"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TPo-uF-EJp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2396" y="174"/>
+            <point key="canvasLocation" x="2396" y="274"/>
         </scene>
         <!--Camera Property Value Selection View Controller-->
         <scene sceneID="2tZ-5C-9zg">
@@ -4076,9 +4148,9 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="OYt-iH-Djh"/>
-        <segue reference="oDj-m6-VAI"/>
         <segue reference="l0j-bJ-9rf"/>
-        <segue reference="VFQ-3D-Dzy"/>
         <segue reference="kyc-jM-yxm"/>
+        <segue reference="oDj-m6-VAI"/>
+        <segue reference="zlf-Vs-gHL"/>
     </inferredMetricsTieBreakers>
 </document>

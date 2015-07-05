@@ -17,10 +17,16 @@
 #import "UIViewController+Threading.h"
 #import "UITableViewController+Cell.h"
 
+static NSString *const WhiteBalanceMapWbRevKey = @"WhiteBalanceMapWbRevKey"; ///< WB補正Aのカメラプロパティ名
+static NSString *const WhiteBalanceMapWbRevGKey = @"WhiteBalanceMapWbRevGKey"; ///< WB補正Gのカメラプロパティ名
+
 @interface CPanelViewController () <OLYCameraPropertyDelegate, ItemSelectionViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWbCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showCustomWbKelvin1Cell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showWbRevCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showWbRevGCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showAutoWbDenkyuColoredLeavingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showColortoneCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showColorCreatorColorCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showColorCreatorVividCell;
@@ -30,6 +36,10 @@
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
+@property (strong, nonatomic) NSDictionary *whiteBalanceAdjustMap; ///< ホワイトバランスのプロパティ値とホワイトバランス補正のプロパティ名を対応付けする辞書
+@property (strong, nonatomic) NSString *currentWhiteBalance; ///< 現在選択されているホワイトバランスのプロパティ値
+@property (strong, nonatomic) NSString *showWbRevCellTitle; ///< WB補正Aの暫定表示名称
+@property (strong, nonatomic) NSString *showWbRevGCellTitle; ///< WB補正Gの暫定表示名称
 
 @end
 
@@ -45,12 +55,66 @@
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
+	
+	// ホワイトバランスのプロパティ値とホワイトバランス補正のプロパティ名を対応付けする辞書をセットアップします。
+	NSMutableDictionary *whiteBalanceAdjustMap = [[NSMutableDictionary alloc] init];
+	NSDictionary *wbRevAuto = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRevAuto,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevGAuto,
+	};
+	NSDictionary *wbRev5300k = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRev5300k,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevG5300k,
+	};
+	NSDictionary *wbRev7500k = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRev7500k,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevG7500k,
+	};
+	NSDictionary *wbRev6000k = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRev6000k,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevG6000k,
+	};
+	NSDictionary *wbRev3000k = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRev3000k,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevG3000k,
+	};
+	NSDictionary *wbRev4000k = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRev4000k,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevG4000k,
+	};
+	NSDictionary *wbRevAutoUnderWater = @{
+		WhiteBalanceMapWbRevKey: CameraPropertyWbRevAutoUnderWater,
+		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevGAutoUnderWater,
+	};
+	[whiteBalanceAdjustMap setObject:wbRevAuto forKey:CameraPropertyWbWbAuto];
+	[whiteBalanceAdjustMap setObject:wbRev5300k forKey:CameraPropertyWbMwbFine];
+	[whiteBalanceAdjustMap setObject:wbRev7500k forKey:CameraPropertyWbMwbShade];
+	[whiteBalanceAdjustMap setObject:wbRev6000k forKey:CameraPropertyWbMwbCloud];
+	[whiteBalanceAdjustMap setObject:wbRev3000k forKey:CameraPropertyWbMwbLamp];
+	[whiteBalanceAdjustMap setObject:wbRev4000k forKey:CameraPropertyWbMwbFluorescence1];
+	[whiteBalanceAdjustMap setObject:wbRevAutoUnderWater forKey:CameraPropertyWbMwbWater1];
+	self.whiteBalanceAdjustMap = whiteBalanceAdjustMap;
+	self.currentWhiteBalance = nil;
 
 	// 監視するカメラプロパティ名とそれに紐づいた対応処理(メソッド名)を対とする辞書を用意して、
 	// Objective-CのKVOチックに、カメラプロパティに変化があったらその個別処理を呼び出せるようにしてみます。
 	NSMutableDictionary *cameraPropertyObserver = [[NSMutableDictionary alloc] init];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWb)) forKey:CameraPropertyWb];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeCustomWbKelvin1)) forKey:CameraPropertyCustomWbKelvin1];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRev3000k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRev4000k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRev5300k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRev6000k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRev7500k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRevAuto];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRev)) forKey:CameraPropertyWbRevAutoUnderWater];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevG3000k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevG4000k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevG5300k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevG6000k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevG7500k];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevGAuto];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeWbRevG)) forKey:CameraPropertyWbRevGAutoUnderWater];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeColortone)) forKey:CameraPropertyColortone];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeColorCreatorColor)) forKey:CameraPropertyColorCreatorColor];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeColorCreatorVivid)) forKey:CameraPropertyColorCreatorVivid];
@@ -64,6 +128,9 @@
 	// 画面表示を初期表示します。
 	NSString *wbTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyWb];
 	NSString *customWbKelvin1Title = [camera cameraPropertyLocalizedTitle:CameraPropertyCustomWbKelvin1];
+	self.showWbRevCellTitle = NSLocalizedString(@"WB Compensation (A-B)", nil);
+	self.showWbRevGCellTitle = NSLocalizedString(@"WB Compensation (G-M)", nil);
+	NSString *AutoWbDenkyuColoredLeavingTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAutoWbDenkyuColoredLeaving];
 	NSString *colortoneTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyColortone];
 	NSString *colorCreatorColorTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyColorCreatorColor];
 	NSString *colorCreatorVividTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyColorCreatorVivid];
@@ -71,6 +138,9 @@
 	NSString *colorPhaseTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyColorPhase];
 	self.showWbCell.textLabel.text = wbTitle;
 	self.showCustomWbKelvin1Cell.textLabel.text = customWbKelvin1Title;
+	self.showWbRevCell.textLabel.text = self.showWbRevCellTitle;
+	self.showWbRevGCell.textLabel.text = self.showWbRevGCellTitle;
+	self.showAutoWbDenkyuColoredLeavingCell.textLabel.text = AutoWbDenkyuColoredLeavingTitle;
 	self.showColortoneCell.textLabel.text = colortoneTitle;
 	self.showColorCreatorColorCell.textLabel.text = colorCreatorColorTitle;
 	self.showColorCreatorVividCell.textLabel.text = colorCreatorVividTitle;
@@ -79,6 +149,9 @@
 	NSString *emptyDetailTextLabel = @" "; // テーブルセルのラベルを空欄にしょうとしてnilとか@""とかを設定するとなぜか不具合が起きます。
 	self.showWbCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showCustomWbKelvin1Cell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showWbRevCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showWbRevGCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showAutoWbDenkyuColoredLeavingCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showColortoneCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showColorCreatorColorCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showColorCreatorVividCell.detailTextLabel.text = emptyDetailTextLabel;
@@ -143,6 +216,7 @@
 	// 表示を更新します。
 	[self updateShowWbCell];
 	[self updateShowCustomWbKelvin1Cell];
+	[self updateShowAutoWbDenkyuColoredLeavingCell];
 	[self updateShowColortoneCell];
 	[self updateShowColorCreatorColorCell];
 	[self updateShowColorCreatorVividCell];
@@ -183,6 +257,26 @@
 		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
 		viewController.property = CameraPropertyCustomWbKelvin1;
 		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowWbRev"]) {
+		if (self.currentWhiteBalance) {
+			// ホワイトバランスに対応するホワイトバランス補正値(A)を表示します。
+			CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+			NSDictionary *whiteBalanceAdjust = self.whiteBalanceAdjustMap[self.currentWhiteBalance];
+			viewController.property = whiteBalanceAdjust[WhiteBalanceMapWbRevKey];
+			viewController.itemSelectionDeleage = self;
+		}
+	} else if ([segueIdentifier isEqualToString:@"ShowWbRevG"]) {
+		if (self.currentWhiteBalance) {
+			// ホワイトバランスに対応するホワイトバランス補正値(G)を表示します。
+			CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+			NSDictionary *whiteBalanceAdjust = self.whiteBalanceAdjustMap[self.currentWhiteBalance];
+			viewController.property = whiteBalanceAdjust[WhiteBalanceMapWbRevGKey];
+			viewController.itemSelectionDeleage = self;
+		}
+	} else if ([segueIdentifier isEqualToString:@"ShowAutoWbDenkyuColoredLeaving"]) {
+		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+		viewController.property = CameraPropertyAutoWbDenkyuColoredLeaving;
+		viewController.itemSelectionDeleage = self;
 	} else if ([segueIdentifier isEqualToString:@"ShowColortone"]) {
 		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
 		viewController.property = CameraPropertyColortone;
@@ -220,6 +314,24 @@
 		[self didChangeWb];
 	} else if ([property isEqualToString:CameraPropertyCustomWbKelvin1]) {
 		[self didChangeCustomWbKelvin1];
+	} else if ([property isEqualToString:CameraPropertyWbRevG3000k] ||
+			   [property isEqualToString:CameraPropertyWbRevG4000k] ||
+			   [property isEqualToString:CameraPropertyWbRevG5300k] ||
+			   [property isEqualToString:CameraPropertyWbRevG6000k] ||
+			   [property isEqualToString:CameraPropertyWbRevG7500k] ||
+			   [property isEqualToString:CameraPropertyWbRevGAuto] ||
+			   [property isEqualToString:CameraPropertyWbRevGAutoUnderWater]) {
+		[self didChangeWbRev];
+	} else if ([property isEqualToString:CameraPropertyWbRev3000k] ||
+			   [property isEqualToString:CameraPropertyWbRev4000k] ||
+			   [property isEqualToString:CameraPropertyWbRev5300k] ||
+			   [property isEqualToString:CameraPropertyWbRev6000k] ||
+			   [property isEqualToString:CameraPropertyWbRev7500k] ||
+			   [property isEqualToString:CameraPropertyWbRevAuto] ||
+			   [property isEqualToString:CameraPropertyWbRevAutoUnderWater]) {
+		[self didChangeWbRevG];
+	} else if ([property isEqualToString:CameraPropertyAutoWbDenkyuColoredLeaving]) {
+		[self didChangeAutoWbDenkyuColoredLeaving];
 	} else if ([property isEqualToString:CameraPropertyColortone]) {
 		[self didChangeColortone];
 	} else if ([property isEqualToString:CameraPropertyColorCreatorColor]) {
@@ -278,6 +390,30 @@
 	[self updateShowCustomWbKelvin1Cell];
 }
 
+/// WB補正Aの値が変わった時に呼び出されます。
+- (void)didChangeWbRev {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateShowWbRevCell];
+}
+
+/// WB補正Gの値が変わった時に呼び出されます。
+- (void)didChangeWbRevG {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateShowWbRevGCell];
+}
+
+/// WBオート電球色残しの値が変わった時に呼び出されます。
+- (void)didChangeAutoWbDenkyuColoredLeaving {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateShowAutoWbDenkyuColoredLeavingCell];
+}
+
 /// 仕上がりピクチャーモードの値が変わった時に呼び出されます。
 - (void)didChangeColortone {
 	DEBUG_LOG(@"");
@@ -324,7 +460,13 @@
 - (void)updateShowWbCell {
 	DEBUG_LOG(@"");
 	
-	[self updateCameraPropertyCell:self.showWbCell name:CameraPropertyWb completion:nil];
+	__weak CPanelViewController *weakSelf = self;
+	[self updateCameraPropertyCell:self.showWbCell name:CameraPropertyWb completion:^(NSString *value) {
+		// ホワイトバランスを表示する場合はホワイトバランス補正値も表示します。
+		weakSelf.currentWhiteBalance = value;
+		[weakSelf updateShowWbRevCell];
+		[weakSelf updateShowWbRevGCell];
+	}];
 }
 
 /// カスタムWBを表示します。
@@ -332,6 +474,59 @@
 	DEBUG_LOG(@"");
 	
 	[self updateCameraPropertyCell:self.showCustomWbKelvin1Cell name:CameraPropertyCustomWbKelvin1 completion:nil];
+}
+
+/// WB補正Aを表示します。
+- (void)updateShowWbRevCell {
+	DEBUG_LOG(@"");
+	
+	if (!self.currentWhiteBalance) {
+		// 現在のホワイトバランスが決定していない場合はホワイトバランス補正値(A)も決められません。
+		self.showWbRevCell.textLabel.text = self.showWbRevCellTitle;
+		self.showWbRevCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		[self tableViewCell:self.showWbRevCell enabled:NO];
+		return;
+	}
+	
+	// ホワイトバランスに対応するホワイトバランス補正値(A)の名称を表示します。
+	AppCamera *camera = GetAppCamera();
+	NSDictionary *whiteBalanceAdjust = self.whiteBalanceAdjustMap[self.currentWhiteBalance];
+	NSString *property = whiteBalanceAdjust[WhiteBalanceMapWbRevKey];
+	NSString *propertyTitle = [camera cameraPropertyLocalizedTitle:property];
+	self.showWbRevCell.textLabel.text = propertyTitle;
+	
+	// ホワイトバランスに対応するホワイトバランス補正値(A)を表示します。
+	[self updateCameraPropertyCell:self.showWbRevCell name:property completion:nil];
+}
+
+/// WB補正Gを表示します。
+- (void)updateShowWbRevGCell {
+	DEBUG_LOG(@"");
+	
+	if (!self.currentWhiteBalance) {
+		// 現在のホワイトバランスが決定していない場合はホワイトバランス補正値(G)も決められません。
+		self.showWbRevGCell.textLabel.text = self.showWbRevGCellTitle;
+		self.showWbRevGCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		[self tableViewCell:self.showWbRevGCell enabled:NO];
+		return;
+	}
+	
+	// ホワイトバランスに対応するホワイトバランス補正値(G)の名称を表示します。
+	AppCamera *camera = GetAppCamera();
+	NSDictionary *whiteBalanceAdjust = self.whiteBalanceAdjustMap[self.currentWhiteBalance];
+	NSString *property = whiteBalanceAdjust[WhiteBalanceMapWbRevGKey];
+	NSString *propertyTitle = [camera cameraPropertyLocalizedTitle:property];
+	self.showWbRevGCell.textLabel.text = propertyTitle;
+
+	// ホワイトバランスに対応するホワイトバランス補正値(G)を表示します。
+	[self updateCameraPropertyCell:self.showWbRevGCell name:property completion:nil];
+}
+
+/// WBオート電球色残しを表示します。
+- (void)updateShowAutoWbDenkyuColoredLeavingCell {
+	DEBUG_LOG(@"");
+	
+	[self updateCameraPropertyCell:self.showAutoWbDenkyuColoredLeavingCell name:CameraPropertyAutoWbDenkyuColoredLeaving completion:nil];
 }
 
 /// 仕上がりピクチャーモードを表示します。

@@ -240,13 +240,11 @@
 - (void)itemSelectionViewController:(ItemSelectionViewController *)controller didSelectedItemIndex:(NSUInteger)index {
 	DEBUG_LOG(@"index=%ld", (long)index);
 	
-	if ([controller isMemberOfClass:[ItemSelectionViewController class]]) {
-		NSUInteger hash = controller.tag;
-		if (hash == [CameraPropertyOpticalZoomingSpeed hash]) {
-			[self didSelectZoomingSpeedItem:index];
-		} else {
-			DEBUG_LOG(@"Unknown hash: %lu", (unsigned long)hash);
-		}
+	NSUInteger hash = controller.tag;
+	if (hash == [CameraPropertyOpticalZoomingSpeed hash]) {
+		[self didSelectZoomingSpeedItem:index];
+	} else {
+		DEBUG_LOG(@"Unknown hash: %lu", (unsigned long)hash);
 	}
 }
 

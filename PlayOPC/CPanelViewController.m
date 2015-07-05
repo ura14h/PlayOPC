@@ -216,10 +216,7 @@
 	
 	// カメラプロパティに応じた処理を呼び出します。
 	NSString *property = ((CameraPropertyValueSelectionViewController *)controller).property;
-	if ([controller isMemberOfClass:[ItemSelectionViewController class]]) {
-	} else if ([controller isMemberOfClass:[CameraPropertyValueSelectionViewController class]]) {
-		
-	} else if ([property isEqualToString:CameraPropertyWb]) {
+	if ([property isEqualToString:CameraPropertyWb]) {
 		[self didChangeWb];
 	} else if ([property isEqualToString:CameraPropertyCustomWbKelvin1]) {
 		[self didChangeCustomWbKelvin1];

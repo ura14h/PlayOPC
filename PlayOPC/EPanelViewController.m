@@ -228,28 +228,25 @@
 	DEBUG_LOG(@"index=%ld", (long)index);
 	
 	// カメラプロパティに応じた処理を呼び出します。
-	if ([controller isMemberOfClass:[ItemSelectionViewController class]]) {
-	} else if ([controller isMemberOfClass:[CameraPropertyValueSelectionViewController class]]) {
-		NSString *property = ((CameraPropertyValueSelectionViewController *)controller).property;
-		if ([property isEqualToString:CameraPropertyAperture]) {
-			[self didChangeAperture];
-		} else if ([property isEqualToString:CameraPropertyShutter]) {
-			[self didChangeShutter];
-		} else if ([property isEqualToString:CameraPropertyExprev]) {
-			[self didChangeExprev];
-		} else if ([property isEqualToString:CameraPropertyIso]) {
-			[self didChangeIso];
-		} else if ([property isEqualToString:CameraPropertyTakemode]) {
-			[self didChangeTakemode];
-		} else if ([property isEqualToString:CameraPropertyExposeMovieSelect]) {
-			[self didChangeExposeMovieSelect];
-		} else if ([property isEqualToString:CameraPropertyTakeDrive]) {
-			[self didChangeTakeDrive];
-		} else if ([property isEqualToString:CameraPropertyContinuousShootingVelocity]) {
-			[self didChangeContinuousShootingVelocity];
-		} else {
-			DEBUG_LOG(@"Unknown property: %@", property);
-		}
+	NSString *property = ((CameraPropertyValueSelectionViewController *)controller).property;
+	if ([property isEqualToString:CameraPropertyAperture]) {
+		[self didChangeAperture];
+	} else if ([property isEqualToString:CameraPropertyShutter]) {
+		[self didChangeShutter];
+	} else if ([property isEqualToString:CameraPropertyExprev]) {
+		[self didChangeExprev];
+	} else if ([property isEqualToString:CameraPropertyIso]) {
+		[self didChangeIso];
+	} else if ([property isEqualToString:CameraPropertyTakemode]) {
+		[self didChangeTakemode];
+	} else if ([property isEqualToString:CameraPropertyExposeMovieSelect]) {
+		[self didChangeExposeMovieSelect];
+	} else if ([property isEqualToString:CameraPropertyTakeDrive]) {
+		[self didChangeTakeDrive];
+	} else if ([property isEqualToString:CameraPropertyContinuousShootingVelocity]) {
+		[self didChangeContinuousShootingVelocity];
+	} else {
+		DEBUG_LOG(@"Unknown property: %@", property);
 	}
 }
 

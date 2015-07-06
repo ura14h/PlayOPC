@@ -29,3 +29,17 @@
 "<ANTI_SHAKE_MOVIE/OFF>" = "Off";
 "<ANTI_SHAKE_MOVIE/ON>" = "On";
 "<ANTI_SHAKE_FOCAL_LENGTH>" = "Focal Length of FT Lens";
+"<ART_EFFECT_TYPE>" = "Filter Type";
+"<ART_EFFECT_HYBRID>" = "Add Effects";
+"<CONTRAST>" = "Contrast";
+"<SHARP>" = "Sharpness";
+"<SATURATION_LEVEL>" = "Saturation";
+"<TONE>" = "Gradation";
+"<EFFECT_LEVEL>" = "Effect";
+"<TONE_CONTROL_LOW>" = "Tone Control (Low)";
+"<TONE_CONTROL_MIDDLE>" = "Tone Control (Middle)";
+"<TONE_CONTROL_HIGH>" = "Tone Control (High)";
+"<MONOTONECOLOR>" = "B&W Filter";
+"<MONOTONEFILTER>" = "Pict. Tone";
+"<WB_REV>" = "WB Compensation (A-B)";
+"<WB_REV_G>" = "WB Compensation (G-M)";

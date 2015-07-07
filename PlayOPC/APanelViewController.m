@@ -462,14 +462,14 @@
 - (void)updateShowAntiShakeMovieCell {
 	DEBUG_LOG(@"");
 	
-	[self updateCameraPropertyCell:self.showAeCell name:CameraPropertyAntiShakeMovie completion:nil];
+	[self updateCameraPropertyCell:self.showAntiShakeMovieCell name:CameraPropertyAntiShakeMovie completion:nil];
 }
 
 /// IS焦点距離を表示します。
 - (void)updateShowAntiShakeFocalLengthCell {
 	DEBUG_LOG(@"");
 	
-	[self updateCameraPropertyCell:self.showAeCell name:CameraPropertyAntiShakeFocalLength completion:nil];
+	[self updateCameraPropertyCell:self.showAntiShakeFocalLengthCell name:CameraPropertyAntiShakeFocalLength completion:nil];
 }
 
 /// カメラプロパティ値を表示します。

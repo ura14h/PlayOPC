@@ -32,8 +32,8 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * 実行モードがスタンドアロンモードにある時にしばらく放置してその間にカメラがスリープに入ってしまうと(レンズが沈胴してカメラ本体のLEDが緑色でゆっくり点滅している状態)、そこから撮影モードに入ろうとした場合にカメラのスリープが解除されずにハングアップしてしまいます。(正確には実行モード変更(changeRunMode:error:)を呼んでから3分ぐらい待つと通信がタイムアウトしてエラーになります) #reported-sdk-1.0.1 #avoided-app-1.0.1589
 * AC電源供給されているUSBケーブルをカメラに抜き差ししても、カメラプロパティのバッテリー残量(BATTERY\_LEVEL)が変化したことがデリゲート(camera:didChangeCameraProperty:)で通知されないようです。
 * カメラに16GBのマイクロSDカードを挿していてもメディア空き容量プロパティ(remainingMediaCapacity)の戻り値が2GB止まりになっているようです。4GB止まりかも。
-* カメラプロパティ一括取得メソッド(cameraPropertyValues:error:)で得た全てのカメラプロパティ値を、カメラプロパティ一括設定メソッド(setCameraPropertyValues:error:)で復元しようとするとタイムアウトエラーが発生してその後にカメラ接続が解除されてしまいます。カメラの挙動を見る限りファームウェアのリセットがかかっているようです。#reported-sdk-1.0.1 #avoided-app-1.0.1589
-* 現在位置(CLLocationオブジェクト)を位置情報設定メソッド(setGeolocation:)に指定するNMEA0183形式の文字列に変換する方法が分かりません。 (OPCサポートの方からスタック・オーバーフローで情報をもらって無事に解決しました! 感謝! 2015-05-08) #fixed-app-1.0.1589
+* ~~カメラプロパティ一括取得メソッド(cameraPropertyValues:error:)で得た全てのカメラプロパティ値を、カメラプロパティ一括設定メソッド(setCameraPropertyValues:error:)で復元しようとするとタイムアウトエラーが発生してその後にカメラ接続が解除されてしまいます。カメラの挙動を見る限りファームウェアのリセットがかかっているようです。~~ #reported-sdk-1.0.1 #avoided-app-1.0.1589 #fixed-sdk-1.1.0
+* ~~現在位置(CLLocationオブジェクト)を位置情報設定メソッド(setGeolocation:)に指定するNMEA0183形式の文字列に変換する方法が分かりません。~~ (OPCサポートの方からスタック・オーバーフローで情報をもらって無事に解決しました! 感謝! 2015-05-08) #fixed-app-1.0.1589
 
 ## 撮影操作カテゴリ
 
@@ -50,49 +50,49 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 
 ### ステータスと設定保存
 
-* 水準器プロパティ(levelGauge)から得られる辞書の本体の向きもしくは傾き(OLYCameraLevelGaugeOrientationKey)で、本体仰向けの時に"facedown"が、本体うつ伏せの時に"faceup"が設定されるようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~水準器プロパティ(levelGauge)から得られる辞書の本体の向きもしくは傾き(OLYCameraLevelGaugeOrientationKey)で、本体仰向けの時に"facedown"が、本体うつ伏せの時に"faceup"が設定されるようです。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 水準器プロパティ(levelGauge)のロール量とピッチ量の精度は0.1度単位のようで値は頻繁に変更され、カメラを傾けていくとロール量かピッチ量が±48度から±50度前後のところで本体の向きもしくは傾きが変化するようです。 
 * Bluetooth経由で接続している場合だと、水準器プロパティ(levelGauge)がnilのままで変化しないようです。 #reported-sdk-1.0.1
 * 顔認識情報プロパティ(detectedHumanFaces)の要素は、顔の数が少ない時は期待通りにそのオブジェクトを追跡しますが、顔の数が多い場合の挙動を観察して見る限り、一度認識した顔を追跡する(インデックスが変化しない)わけではなく、ライブビュー画像ごとに認識しなおしている(同じオブジェクトでも違うインデックスが割当られている)ように思えます。
 * 撮影モードで設定したカメラプロパティの値はスタンドアロンモードに遷移するとほとんど忘れてしまうようです。いくつかは保持されるているようですが、実際にどのカメラプロパティが保持されているのか未精査です。これは、カメラプロパティ一括取得メソッド(cameraPropertyValues:error:)とカメラプロパティ一括設定メソッド(setCameraPropertyValues:error:)を使った操作をデザインする際に影響がありそうです。
-* カメラプロパティ一括取得メソッド(cameraPropertyValues:error:)で得た設定値をそのままカメラプロパティ一括設定メソッド(setCameraPropertyValues:error:)で設定し直しても、カメラかもしくはライブラリの内部で、撮影モード(TAKEMODE)、動画撮影モード(EXPOSE\_MOVIE\_SELECT)、アートフィルター種別(RECENTLY\_ART\_FILTER)の値と設定の順番が干渉してしまうらしく、以前の状態には戻らないようです。 #avoided-app-1.2.1730
+* カメラプロパティ一括取得メソッド(cameraPropertyValues:error:)で得た設定値をそのままカメラプロパティ一括設定メソッド(setCameraPropertyValues:error:)で設定し直しても、カメラかもしくはライブラリの内部で、撮影モード(TAKEMODE)、動画撮影モード(EXPOSE\_MOVIE\_SELECT)、アートフィルター種別(RECENTLY\_ART\_FILTER)の値と設定の順番が干渉してしまうらしく、以前の状態には戻らないようです。 #reported-sdk-1.1.0 #avoided-app-1.2.1730
 
 ### 露出と撮影操作
 
 * カメラプロパティのタイトルを取得(cameraPropertyTitle:)で違うカメラプロパティ名を渡しても同じタイトルが返ってくるものがあります。例えば、フォーカスモード静止画用(FOCUS\_STILL)とフォーカスモード動画用(FOCUS\_MOVIE)は同じ"Focus Mode"という値が返ってきます。
-* カメラプロパティの動画撮影モード(EXPOSE\_MOVIE\_SELECT)のタイトルを取得(cameraPropertyTitle:)するとドライブモード(TAKE\_DRIVE)と同じ"Drive Mode"というタイトルが返ってきます。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
-* カメラプロパティの撮影モード(TAKEMODE)が"iAuto"に設定されていると、カメラプロパティの露出補正値(EXPREV)の値がnilとなり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
-* カメラプロパティの撮影モード(TAKEMODE)が"movie"に設定されていると、カメラプロパティの絞り値(APERTURE)、シャッター速度(SHUTTER)、ISO感度(ISO)の値がnilになり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~カメラプロパティの動画撮影モード(EXPOSE\_MOVIE\_SELECT)のタイトルを取得(cameraPropertyTitle:)するとドライブモード(TAKE\_DRIVE)と同じ"Drive Mode"というタイトルが返ってきます。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~カメラプロパティの撮影モード(TAKEMODE)が"iAuto"に設定されていると、カメラプロパティの露出補正値(EXPREV)の値がnilとなり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~カメラプロパティの撮影モード(TAKEMODE)が"movie"に設定されていると、カメラプロパティの絞り値(APERTURE)、シャッター速度(SHUTTER)、ISO感度(ISO)の値がnilになり、しかもプロパティ値変更通知のデリゲート(camera:didChangeCameraProperty:)がライブビュー画像の更新と同じ間隔で呼び出され続けます。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)の値を変更すると、その他の複数のカメラプロパティの設定可不可(canSetCameraProperty:)が影響を受けるようです。
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)の値を変更すると、その他の複数のカメラプロパティの値が勝手に変更される場合があるようです。
   * TAKEMODEをPからMに変更するとISO感度(ISO)の値リストからAutoが消えます。
   * TAKEMODEをP,A,S,Mからmovieに変更すると露出補正値(EXPREV)の値リストが+5.0〜-5.0から+3.0〜-3.0に狭まります。
-* カメラプロパティの撮影モード(TAKEMODE)をmovieにして動画撮影モード(EXPOSE\_MOVIE\_SELECT)を変更すると、その時の露光パラメータ(APERTURE, SHUTTER, EXPREV, ISO)の設定可不可メソッド(canSetCameraProperty:)が返す値がおかしい時があります。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~カメラプロパティの撮影モード(TAKEMODE)をmovieにして動画撮影モード(EXPOSE\_MOVIE\_SELECT)を変更すると、その時の露光パラメータ(APERTURE, SHUTTER, EXPREV, ISO)の設定可不可メソッド(canSetCameraProperty:)が返す値がおかしい時があります。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)をmovieに変更すると、そのモードでは設定できない露出パラメータ(actualApertureValue, actualShutterSpeed, actualExposureCompensation, actualIsoSensitivity)の現在値がNANになるようです。
 
 ### 色と効果
 
-* 撮影モード(TAKEMODE)をmovie、動画撮影モード(EXPOSE\_MOVIE\_SELECT)をPに変更してから、アートフィルター種別(RECENTLY\_ART\_FILTER)を変更すると、撮影モードが勝手にARTになってしまうようです。 #fixed-sdk-1.1.0
+* ~~撮影モード(TAKEMODE)をmovie、動画撮影モード(EXPOSE\_MOVIE\_SELECT)をPに変更してから、アートフィルター種別(RECENTLY\_ART\_FILTER)を変更すると、撮影モードが勝手にARTになってしまうようです。~~ #fixed-sdk-1.1.0
 
 ### オートフォーカスと自動測光と手ぶれ補正
 
 * オートフォーカスをロック(setAutoFocusPoint:とlockAutoFocus:)するとフォーカス枠は正方形ですが、ロック解除の状態で撮影(takePicture:progressHandler:completionHandler:errorHandler:)した時のフォーカス終了イベント(OLYCameraTakingProgressEndFocusing)のコールバックに渡されるフォーカス枠(OLYCameraTakingPictureProgressInfoFocusRectKey)は長方形になっているようです。
 * 予めオートフォーカスをロック(setAutoFocusPoint:とlockAutoFocus:)してから撮影する(takePicture:progressHandler:completionHandler:errorHandler)と、その進捗ハンドラのオートフォーカス終了ステージ(OLYCameraTakingProgressEndFocusing)で渡される合焦結果(OLYCameraTakingPictureProgressInfoFocusResultKey)には、AFが機能しなかったことを示す"none"が設定されています。従って、装着しているレンズがAF非対応か否かをこの合焦結果だけを頼りに判定するのは安全とは言えません。
 * オートフォーカス動作をロック(lockAutoFocus:errorHandler:)する時にはカメラプロパティのフォーカス固定(AF\_LOCK\_STATE)が変化したことがデリゲート(camera:didChangeCameraProperty:)で通知されませんが、ロック解除する時には通知されるようです。自動露光制御の動作をロック(lockAutoExposure:)した時の露出固定(AE\_LOCK\_STATE)も同様のようです。オートフォーカス動作をすでにロックしている状態でさらにロックすると、カメラ内部で一旦ロック解除が行われているのか、この場合はフォーカス固定が変化したことがデリゲートで通知されるようです。
-* カメラプロパティの動画手ぶれ補正(ANTI\_SHAKE\_MOVIE)のプロパティ値タイトルを取得(cameraPropertyValueTitle:)すると、OFFとONの表示文言がそれぞれ"M-I.S. On"と"M-I.S. Off"となっていて、実際の動作とは逆の内容で返ってきます。
+* カメラプロパティの動画手ぶれ補正(ANTI\_SHAKE\_MOVIE)のプロパティ値タイトルを取得(cameraPropertyValueTitle:)すると、OFFとONの表示文言がそれぞれ"M-I.S. On"と"M-I.S. Off"となっていて、実際の動作とは逆の内容で返ってきます。 #reported-sdk-1.1.0
 
 ### ズーム
 
 * カメラに装着されたレンズの現在の焦点距離プロパティ(actualFocalLength)は1mm単位のようです。 
-* Bluetooth経由で接続している場合だと、カメラに装着されたレンズの現在の焦点距離プロパティ(actualFocalLength)が1のままで変化しないようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~Bluetooth経由で接続している場合だと、カメラに装着されたレンズの現在の焦点距離プロパティ(actualFocalLength)が1のままで変化しないようです。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 光学ズームの焦点距離指定(startDrivingZoomLensToFocalLength:error:)のズーム速度は、方向速度指定(startDrivingZoomLensForDirection:speed:error:)の時に指定できるOLYCameraDrivingZoomLensSpeedBurstと同じ速度のようです。
 
 ## 再生操作カテゴリ
 
 * デバイス用画像のダウンロード(downloadContentScreennail:progressHandler:completionHandler:errorHandler:)で得た画像にはメタデータに回転情報が入っていないらしく、UIImageViewを使って表示した時に撮影時のカメラ本体の向きが再現されないようです。 #reported-sdk-1.0.1
-* 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)のresizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになったり1920や1280が指定されたものとして扱われるようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)のresizeパラメータは1920もしくは1280しか受け付けないようです。その他の値を指定するとエラーになったり1920や1280が指定されたものとして扱われるようです。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * 動画リサイズ(resizeVideoFrame:size:quality:progressHandler:completionHandler:errorHandler:)で作成された動画ファイルをさらに動画リサイズすることはできないようです。
-* デバイスのメインメモリに収まりきらないようなサイズの大きい画像や動画をダウンロードすることはできないようです。 #reported-sdk-1.0.1 #fixed-sdk-1.1.0
+* ~~デバイスのメインメモリに収まりきらないようなサイズの大きい画像や動画をダウンロードすることはできないようです。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * コンテンツ削除禁止設定(protectContent:error:)、コンテンツ削除禁止許可(unprotectContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方に反映されるようです。
 * コンテンツ削除(eraseContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方削除されるようです。
 * コンテンツ情報取得(inquireContentInformation:error:)に静止画を指定した場合に得られる情報の詳細は、オープンプラットフォームカメラ通信仕様書の静止画ファイル情報取得(get_imageinfo.cgi)の静止画情報パラメータリストフォーマットに記載されているようです。

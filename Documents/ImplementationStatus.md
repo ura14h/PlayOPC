@@ -211,31 +211,31 @@
 
 * RECENTLY\_ART\_FILTER - アートフィルター種別
 * COLOR\_PHASE - パートカラー用　色相
-* *ART\_EFFECT\_TYPE\_POPART - アートフィルターバリエーション ポップアート (1.1.0)*
-* *ART\_EFFECT\_TYPE\_DAYDREAM - アートフィルターバリエーション デイドリーム (1.1.0)*
-* *ART\_EFFECT\_TYPE\_ROUGH\_MONOCHROME - アートフィルターバリエーション ラフモノクローム (1.1.0)*
-* *ART\_EFFECT\_TYPE\_TOY\_PHOTO - アートフィルターバリエーション トイフォト (1.1.0)*
-* *ART\_EFFECT\_TYPE\_MINIATURE - アートフィルターバリエーション ジオラマ (1.1.0)*
-* *ART\_EFFECT\_TYPE\_CROSS\_PROCESS - アートフィルターバリエーション クロスプロセス (1.1.0)*
-* *ART\_EFFECT\_TYPE\_DRAMATIC\_TONE - アートフィルターバリエーション ドラマチックトーン (1.1.0)*
-* *ART\_EFFECT\_TYPE\_LIGNE\_CLAIR - アートフィルターバリエーション リーニュクレール (1.1.0)*
-* *ART\_EFFECT\_TYPE\_PASTEL - アートフィルターバリエーション ウォーターカラー (1.1.0)*
-* *ART\_EFFECT\_TYPE\_VINTAGE - アートフィルターバリエーション ヴィンテージ (1.1.0)*
-* *ART\_EFFECT\_TYPE\_PARTCOLOR - アートフィルターバリエーション パートカラー (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_POPART - アートエフェクト ポップアート (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_FANTASIC_FOCUS - アートエフェクト ファンタジックフォーカス (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_DAYDREAM - アートエフェクト デイドリーム (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_LIGHT\_TONE - アートエフェクト ライトトーン (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_ROUGH\_MONOCHROME - アートエフェクト ラフモノクローム (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_TOY\_PHOTO - アートエフェクト トイフォト (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_MINIATURE - アートエフェクト ジオラマ (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_CROSS\_PROCESS - アートエフェクト クロスプロセス (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_GENTLE\_SEPIA - アートエフェクト ジェントルセピア (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_DRAMATIC\_TONE - アートエフェクト ドラマチックトーン (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_LIGNE\_CLAIR - アートエフェクト リーニュクレール (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_PASTEL - アートエフェクト ウォーターカラー (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_VINTAGE - アートエフェクト ヴィンテージ (1.1.0)*
-* *ART\_EFFECT\_HYBRID\_PARTCOLOR - アートエフェクト パートカラー (1.1.0)*
+* ART\_EFFECT\_TYPE\_POPART - アートフィルターバリエーション ポップアート (1.1.0)
+* ART\_EFFECT\_TYPE\_DAYDREAM - アートフィルターバリエーション デイドリーム (1.1.0)
+* ART\_EFFECT\_TYPE\_ROUGH\_MONOCHROME - アートフィルターバリエーション ラフモノクローム (1.1.0)
+* ART\_EFFECT\_TYPE\_TOY\_PHOTO - アートフィルターバリエーション トイフォト (1.1.0)
+* ART\_EFFECT\_TYPE\_MINIATURE - アートフィルターバリエーション ジオラマ (1.1.0)
+* ART\_EFFECT\_TYPE\_CROSS\_PROCESS - アートフィルターバリエーション クロスプロセス (1.1.0)
+* ART\_EFFECT\_TYPE\_DRAMATIC\_TONE - アートフィルターバリエーション ドラマチックトーン (1.1.0)
+* ART\_EFFECT\_TYPE\_LIGNE\_CLAIR - アートフィルターバリエーション リーニュクレール (1.1.0)
+* ART\_EFFECT\_TYPE\_PASTEL - アートフィルターバリエーション ウォーターカラー (1.1.0)
+* ART\_EFFECT\_TYPE\_VINTAGE - アートフィルターバリエーション ヴィンテージ (1.1.0)
+* ART\_EFFECT\_TYPE\_PARTCOLOR - アートフィルターバリエーション パートカラー (1.1.0)
+* ART\_EFFECT\_HYBRID\_POPART - アートエフェクト ポップアート (1.1.0)
+* ART\_EFFECT\_HYBRID\_FANTASIC_FOCUS - アートエフェクト ファンタジックフォーカス (1.1.0)
+* ART\_EFFECT\_HYBRID\_DAYDREAM - アートエフェクト デイドリーム (1.1.0)
+* ART\_EFFECT\_HYBRID\_LIGHT\_TONE - アートエフェクト ライトトーン (1.1.0)
+* ART\_EFFECT\_HYBRID\_ROUGH\_MONOCHROME - アートエフェクト ラフモノクローム (1.1.0)
+* ART\_EFFECT\_HYBRID\_TOY\_PHOTO - アートエフェクト トイフォト (1.1.0)
+* ART\_EFFECT\_HYBRID\_MINIATURE - アートエフェクト ジオラマ (1.1.0)
+* ART\_EFFECT\_HYBRID\_CROSS\_PROCESS - アートエフェクト クロスプロセス (1.1.0)
+* ART\_EFFECT\_HYBRID\_GENTLE\_SEPIA - アートエフェクト ジェントルセピア (1.1.0)
+* ART\_EFFECT\_HYBRID\_DRAMATIC\_TONE - アートエフェクト ドラマチックトーン (1.1.0)
+* ART\_EFFECT\_HYBRID\_LIGNE\_CLAIR - アートエフェクト リーニュクレール (1.1.0)
+* ART\_EFFECT\_HYBRID\_PASTEL - アートエフェクト ウォーターカラー (1.1.0)
+* ART\_EFFECT\_HYBRID\_VINTAGE - アートエフェクト ヴィンテージ (1.1.0)
+* ART\_EFFECT\_HYBRID\_PARTCOLOR - アートエフェクト パートカラー (1.1.0)
 * BRACKET\_PICT\_POPART - ART-BKT ポップアート
 * BRACKET\_PICT\_FANTASIC\_FOCUS - ART-BKT ファンタジックフォーカス
 * BRACKET\_PICT\_DAYDREAM - ART-BKT デイドリーム
@@ -251,39 +251,39 @@
 * BRACKET\_PICT\_VINTAGE - ART-BKT ヴィンテージ
 * BRACKET\_PICT\_PARTCOLOR - ART-BKT パートカラー
 * COLORTONE\_I\_FINISH - 仕上がり・ピクチャーモード
-* *CONTRAST\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish コントラスト (1.1.0)*
-* *SHARP\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish シャープネス (1.1.0)*
-* *SATURATION\_LEVEL\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish 彩度 (1.1.0)*
-* *TONE\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish 階調 (1.1.0)*
-* *EFFECT\_LEVEL\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish 効果強弱 (1.1.0)*
-* *CONTRAST\_VIVID - ピクチャーモードの仕上がり設定 Vivid コントラスト (1.1.0)*
-* *SHARP\_VIVID - ピクチャーモードの仕上がり設定 Vivid シャープネス (1.1.0)*
-* *SATURATION\_LEVEL\_VIVID - ピクチャーモードの仕上がり設定 Vivid 彩度 (1.1.0)*
-* *TONE\_VIVID - ピクチャーモードの仕上がり設定 Vivid 階調 (1.1.0)*
-* *CONTRAST\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL コントラスト (1.1.0)*
-* *SHARP\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL シャープネス (1.1.0)*
-* *SATURATION\_LEVEL\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL 彩度 (1.1.0)*
-* *TONE\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL 階調 (1.1.0)*
-* *CONTRAST\_FLAT - ピクチャーモードの仕上がり設定 FLAT コントラスト (1.1.0)*
-* *SHARP\_FLAT - ピクチャーモードの仕上がり設定 FLAT シャープネス (1.1.0)*
-* *SATURATION\_LEVEL\_FLAT - ピクチャーモードの仕上がり設定 FLAT 彩度 (1.1.0)*
-* *TONE\_FLAT - ピクチャーモードの仕上がり設定 FLAT 階調 (1.1.0)*
-* *CONTRAST\_SOFT - ピクチャーモードの仕上がり設定 SOFT コントラスト (1.1.0)*
-* *SHARP\_SOFT - ピクチャーモードの仕上がり設定 SOFT シャープネス (1.1.0)*
-* *SATURATION\_LEVEL\_SOFT - ピクチャーモードの仕上がり設定 SOFT 彩度 (1.1.0)*
-* *TONE\_SOFT - ピクチャーモードの仕上がり設定 SOFT 階調 (1.1.0)*
-* *CONTRAST\_ MONOCHROME- ピクチャーモードの仕上がり設定 モノトーン コントラスト (1.1.0)*
-* *SHARP\_MONOCHROME - ピクチャーモードの仕上がり設定 モノトーン シャープネス (1.1.0)*
-* *TONE\_MONOCHROME - ピクチャーモードの仕上がり設定 モノトーン 階調 (1.1.0)*
-* *TONE\_CONTROL\_LOW - トーンコントロール シャドー部 (1.1.0)*
-* *TONE\_CONTROL\_MIDDLE - トーンコントロール 中間部 (1.1.0)*
-* *TONE\_CONTROL\_HIGH - トーンコントロール ハイライト部 (1.1.0)*
-* *MONOTONEFILTER\_MONOCHROME - モノクロフィルター効果 ピクチャーモード モノトーン (1.1.0)*
-* *MONOTONEFILTER\_ROUGH\_MONOCHROME - モノクロフィルター効果 アートフィルター ラフモノクローム (1.1.0)*
-* *MONOTONEFILTER\_DRAMATIC\_TONE - モノクロフィルター効果 アートフィルター ドラマチックトーン (1.1.0)*
-* *MONOTONECOLOR\_MONOCHROME - 調色効果 ピクチャーモード モノトーン (1.1.0)*
-* *MONOTONECOLOR\_ROUGH\_MONOCHROME - 調色効果 アートフィルター ラフモノクローム (1.1.0)*
-* *MONOTONECOLOR\_DRAMATIC\_TONE - 調色効果 アートフィルター ドラマチックトーン (1.1.0)*
+* CONTRAST\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish コントラスト (1.1.0)
+* SHARP\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish シャープネス (1.1.0)
+* SATURATION\_LEVEL\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish 彩度 (1.1.0)
+* TONE\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish 階調 (1.1.0)
+* EFFECT\_LEVEL\_I\_FINISH - ピクチャーモードの仕上がり設定 i-Finish 効果強弱 (1.1.0)
+* CONTRAST\_VIVID - ピクチャーモードの仕上がり設定 Vivid コントラスト (1.1.0)
+* SHARP\_VIVID - ピクチャーモードの仕上がり設定 Vivid シャープネス (1.1.0)
+* SATURATION\_LEVEL\_VIVID - ピクチャーモードの仕上がり設定 Vivid 彩度 (1.1.0)
+* TONE\_VIVID - ピクチャーモードの仕上がり設定 Vivid 階調 (1.1.0)
+* CONTRAST\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL コントラスト (1.1.0)
+* SHARP\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL シャープネス (1.1.0)
+* SATURATION\_LEVEL\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL 彩度 (1.1.0)
+* TONE\_NATURAL - ピクチャーモードの仕上がり設定 NATURAL 階調 (1.1.0)
+* CONTRAST\_FLAT - ピクチャーモードの仕上がり設定 FLAT コントラスト (1.1.0)
+* SHARP\_FLAT - ピクチャーモードの仕上がり設定 FLAT シャープネス (1.1.0)
+* SATURATION\_LEVEL\_FLAT - ピクチャーモードの仕上がり設定 FLAT 彩度 (1.1.0)
+* TONE\_FLAT - ピクチャーモードの仕上がり設定 FLAT 階調 (1.1.0)
+* CONTRAST\_SOFT - ピクチャーモードの仕上がり設定 SOFT コントラスト (1.1.0)
+* SHARP\_SOFT - ピクチャーモードの仕上がり設定 SOFT シャープネス (1.1.0)
+* SATURATION\_LEVEL\_SOFT - ピクチャーモードの仕上がり設定 SOFT 彩度 (1.1.0)
+* TONE\_SOFT - ピクチャーモードの仕上がり設定 SOFT 階調 (1.1.0)
+* CONTRAST\_ MONOCHROME- ピクチャーモードの仕上がり設定 モノトーン コントラスト (1.1.0)
+* SHARP\_MONOCHROME - ピクチャーモードの仕上がり設定 モノトーン シャープネス (1.1.0)
+* TONE\_MONOCHROME - ピクチャーモードの仕上がり設定 モノトーン 階調 (1.1.0)
+* TONE\_CONTROL\_LOW - トーンコントロール シャドー部 (1.1.0)
+* TONE\_CONTROL\_MIDDLE - トーンコントロール 中間部 (1.1.0)
+* TONE\_CONTROL\_HIGH - トーンコントロール ハイライト部 (1.1.0)
+* MONOTONEFILTER\_MONOCHROME - モノクロフィルター効果 ピクチャーモード モノトーン (1.1.0)
+* MONOTONEFILTER\_ROUGH\_MONOCHROME - モノクロフィルター効果 アートフィルター ラフモノクローム (1.1.0)
+* MONOTONEFILTER\_DRAMATIC\_TONE - モノクロフィルター効果 アートフィルター ドラマチックトーン (1.1.0)
+* MONOTONECOLOR\_MONOCHROME - 調色効果 ピクチャーモード モノトーン (1.1.0)
+* MONOTONECOLOR\_ROUGH\_MONOCHROME - 調色効果 アートフィルター ラフモノクローム (1.1.0)
+* MONOTONECOLOR\_DRAMATIC\_TONE - 調色効果 アートフィルター ドラマチックトーン (1.1.0)
 * COLOR\_CREATOR\_COLOR - カラークリエーター用　色相
 * COLOR\_CREATOR\_VIVID - カラークリエーター用　彩度
 

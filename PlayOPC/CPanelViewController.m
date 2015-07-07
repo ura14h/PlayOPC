@@ -31,6 +31,13 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 @interface CPanelViewController () <OLYCameraPropertyDelegate, ItemSelectionViewControllerDelegate>
 
+// アートフィルターパラメータ操作のUIに関する設計メモ:
+//
+// アートフィルター種別と仕上がりピクチャーモードはほとんど排他的に動作するようなのと、フィルターパラメータ
+// (コントラストからアートエフェクトまで)の数が多すぎてそのままUIとすると操作が煩雑になるため、現在選択されている
+// アートフィルター(アートフィルター種別かもしくは仕上がりピクチャーモード)に応じて操作とするフィルターパラメータを
+// 同じ表示位置で切り替えるようにしました。
+
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWbCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showCustomWbKelvin1Cell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWbRevCell;
@@ -61,7 +68,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 @property (strong, nonatomic) NSString *currentWhiteBalance; ///< 現在選択されているホワイトバランスのプロパティ値
 @property (strong, nonatomic) NSString *showWbRevCellTitle; ///< WB補正Aの暫定表示名称
 @property (strong, nonatomic) NSString *showWbRevGCellTitle; ///< WB補正Gの暫定表示名称
-@property (strong, nonatomic) NSDictionary *artFilterMap; ///< アートフィルター・仕上がり・ピクチャーモードのプロパティ値と関連プロパティ名を対応付けする辞書
+@property (strong, nonatomic) NSDictionary *artFilterMap; ///< アートフィルターに関連するフィルターパラメータのプロパティ名を対応付けする辞書
 @property (strong, nonatomic) NSString *currentArtFilter; ///< 現在選択されているアートフィルター
 @property (strong, nonatomic) NSString *showContrastCellTitle; ///< コントラストの暫定表示名称
 @property (strong, nonatomic) NSString *showSharpCellTitle; ///< シャープネスの暫定表示名称
@@ -130,7 +137,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	// 現在選択されているホワイトバランスのプロパティ値を初期化します。
 	self.currentWhiteBalance = nil;
 
-	// アートフィルター・仕上がり・ピクチャーモードのプロパティ値と関連プロパティ名を対応付けする辞書をセットアップします。
+	// アートフィルターに関連するフィルターパラメータのプロパティ名を対応付けする辞書をセットアップします。
 	NSMutableDictionary *artFilterMap = [[NSMutableDictionary alloc] init];
 	NSDictionary *filterFlat = @{
 		ArtFilterContrastKey: CameraPropertyContrastFlat,
@@ -505,8 +512,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	// updateShowWbRevGCellはupdateShowWbCellから呼ばれます。
 	[self updateShowCustomWbKelvin1Cell];
 	[self updateShowAutoWbDenkyuColoredLeavingCell];
-	[self updateShowColortoneCell];
-	[self updateShowRecentlyArtFilterCell];
+	[self updateShowColortoneCellAndShowRecentlyArtFilterCell];
 	[self updateShowArtFilterAutoBracketCell];
 	// updateShowContrastCellは、updateShowColortoneCellもしくはupdateShowRecentlyArtFilterCellから呼ばれます。
 	// updateShowSharpCellは、updateShowColortoneCellもしくはupdateShowRecentlyArtFilterCellから呼ばれます。
@@ -886,7 +892,8 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	DEBUG_LOG(@"");
 	
 	// 画面表示を更新します。
-	[self updateShowColortoneCell];
+	// MARK: アートフィルター種別と仕上がりピクチャーモードの値が同時に変わった時は処理効率が悪くなります。
+	[self updateShowColortoneCellAndShowRecentlyArtFilterCell];
 }
 
 /// アートフィルター種別の値が変わった時に呼び出されます。
@@ -894,7 +901,8 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	DEBUG_LOG(@"");
 	
 	// 画面表示を更新します。
-	[self updateShowRecentlyArtFilterCell];
+	// MARK: アートフィルター種別と仕上がりピクチャーモードの値が同時に変わった時は処理効率が悪くなります。
+	[self updateShowColortoneCellAndShowRecentlyArtFilterCell];
 }
 
 /// コントラストの値が変わった時に呼び出されます。
@@ -1098,49 +1106,44 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	[self updateCameraPropertyCell:self.showAutoWbDenkyuColoredLeavingCell name:CameraPropertyAutoWbDenkyuColoredLeaving completion:nil];
 }
 
-/// 仕上がりピクチャーモードを表示します。
-- (void)updateShowColortoneCell {
+/// 仕上がりピクチャーモードとアートフィルター種別を表示します。
+- (void)updateShowColortoneCellAndShowRecentlyArtFilterCell {
 	DEBUG_LOG(@"");
-	
-	__weak CPanelViewController *weakSelf = self;
-	[self updateCameraPropertyCell:self.showColortoneCell name:CameraPropertyColortone completion:^(NSString *value) {
-		// 仕上がりピクチャーモードを表示する場合はコントラスト〜アートエフェクトも表示します。
-		AppCamera *camera = GetAppCamera();
-		if ([camera canSetCameraProperty:CameraPropertyColortone]) {
-			weakSelf.currentArtFilter = value;
-			[weakSelf updateShowContrastCell];
-			[weakSelf updateShowSharpCell];
-			[weakSelf updateShowSaturationLevelCell];
-			[weakSelf updateShowToneCell];
-			[weakSelf updateShowEffectLevelCell];
-			[weakSelf updateShowMonotonefilterCell];
-			[weakSelf updateShowMonotonecolorCell];
-			[weakSelf updateShowArtEffectTypeCell];
-			[weakSelf updateShowArtEffectHybridCell];
-		}
-	}];
-}
 
-/// アートフィルター種別を表示します。
-- (void)updateShowRecentlyArtFilterCell {
-	DEBUG_LOG(@"");
-	
 	__weak CPanelViewController *weakSelf = self;
-	[self updateCameraPropertyCell:self.showRecentlyArtFilterCell name:CameraPropertyRecentlyArtFilter completion:^(NSString *value) {
-		//アートフィルター種別を表示する場合はコントラスト〜アートエフェクトも表示します。
-		AppCamera *camera = GetAppCamera();
-		if ([camera canSetCameraProperty:CameraPropertyRecentlyArtFilter]) {
-			weakSelf.currentArtFilter = value;
-			[weakSelf updateShowContrastCell];
-			[weakSelf updateShowSharpCell];
-			[weakSelf updateShowSaturationLevelCell];
-			[weakSelf updateShowToneCell];
-			[weakSelf updateShowEffectLevelCell];
-			[weakSelf updateShowMonotonefilterCell];
-			[weakSelf updateShowMonotonecolorCell];
-			[weakSelf updateShowArtEffectTypeCell];
-			[weakSelf updateShowArtEffectHybridCell];
-		}
+	__block NSString *colortoneValue = nil;
+	__block NSString *recentlyArtFilterValue = nil;
+	[self updateCameraPropertyCell:weakSelf.showColortoneCell name:CameraPropertyColortone completion:^(NSString *value) {
+		colortoneValue = value;
+		[self updateCameraPropertyCell:weakSelf.showRecentlyArtFilterCell name:CameraPropertyRecentlyArtFilter completion:^(NSString *value) {
+			recentlyArtFilterValue = value;
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				AppCamera *camera = GetAppCamera();
+				// アートフィルター種別と仕上がりピクチャーモードのどちらの設定モードが有効かを判定します。
+				// 有効な方を現在選択しているアートフィルターとします。
+				if (![camera canSetCameraProperty:CameraPropertyColortone] &&
+					![camera canSetCameraProperty:CameraPropertyRecentlyArtFilter]) {
+					weakSelf.currentArtFilter = nil;
+				} else if ([camera canSetCameraProperty:CameraPropertyColortone]) {
+					weakSelf.currentArtFilter = colortoneValue;
+				} else if ([camera canSetCameraProperty:CameraPropertyRecentlyArtFilter]) {
+					weakSelf.currentArtFilter = recentlyArtFilterValue;
+				} else {
+					DEBUG_LOG(@"Program Error !");
+					weakSelf.currentArtFilter = nil;
+				}
+				// アートフィルター種別と仕上がりピクチャーモードに影響を受けるフィルターパラメータを表示します。
+				[weakSelf updateShowContrastCell];
+				[weakSelf updateShowSharpCell];
+				[weakSelf updateShowSaturationLevelCell];
+				[weakSelf updateShowToneCell];
+				[weakSelf updateShowEffectLevelCell];
+				[weakSelf updateShowMonotonefilterCell];
+				[weakSelf updateShowMonotonecolorCell];
+				[weakSelf updateShowArtEffectTypeCell];
+				[weakSelf updateShowArtEffectHybridCell];
+			}];
+		}];
 	}];
 }
 

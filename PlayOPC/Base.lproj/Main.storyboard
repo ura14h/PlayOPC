@@ -3113,7 +3113,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$contentDetailTitle" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bgc-iP-htl">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$contentDetailValue" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="bsv-jI-GCg">
@@ -4127,7 +4127,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="abF-TV-RYX" kind="show" id="be3-Rq-0v2"/>
+                                            <segue destination="abF-TV-RYX" kind="show" identifier="ShowColorCreatorVivid" id="be3-Rq-0v2"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowColorCreatorColor" textLabel="aKK-fY-Qnc" detailTextLabel="DkD-Ou-ZE6" style="IBUITableViewCellStyleValue1" id="tCm-0K-PPn">
@@ -4447,10 +4447,10 @@
         <image name="UnprotectBarButton" width="21" height="22"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="OYt-iH-Djh"/>
-        <segue reference="6fb-GS-WAc"/>
+        <segue reference="be3-Rq-0v2"/>
         <segue reference="kyc-jM-yxm"/>
+        <segue reference="6fb-GS-WAc"/>
         <segue reference="l0j-bJ-9rf"/>
-        <segue reference="TUu-xE-1oK"/>
+        <segue reference="OYt-iH-Djh"/>
     </inferredMetricsTieBreakers>
 </document>

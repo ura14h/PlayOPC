@@ -2343,7 +2343,7 @@
             </objects>
             <point key="canvasLocation" x="3908" y="-516"/>
         </scene>
-        <!--Zooming-->
+        <!--Zooming & Magnifying-->
         <scene sceneID="cHn-D5-SJQ">
             <objects>
                 <tableViewController storyboardIdentifier="RecordingZPaneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CjU-n5-pzc" customClass="ZPanelViewController" sceneMemberID="viewController">
@@ -2569,13 +2569,68 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Live View Magnifying" id="2fU-Xa-ydD">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StartMagnifyingLiveView" textLabel="wjs-bX-rGU" style="IBUITableViewCellStyleDefault" id="4Mg-ij-aJR">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4Mg-ij-aJR" id="IXj-tY-eEZ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Start Magnifying" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wjs-bX-rGU">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="StopMagnifyingLiveView" textLabel="08b-hE-Eee" style="IBUITableViewCellStyleDefault" id="dFO-9O-6G0">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dFO-9O-6G0" id="3re-LP-mGX">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Stop Magnifying" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="08b-hE-Eee">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowMagnifyingLiveViewScale" textLabel="wQZ-qK-vXe" detailTextLabel="wdZ-oa-9RA" style="IBUITableViewCellStyleValue1" id="4gP-YX-d2b">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4gP-YX-d2b" id="sHp-qU-czL">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Scale" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wQZ-qK-vXe">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$magnifyingLiveViewScale" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wdZ-oa-9RA">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="EUn-m0-r7x" kind="show" identifier="ShowMagnifyingLiveViewScale" id="LHa-ox-X6r"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="CjU-n5-pzc" id="qW9-PG-aMN"/>
                             <outlet property="delegate" destination="CjU-n5-pzc" id="xVq-r7-KE9"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Zooming" id="B6p-Qx-ngH">
+                    <navigationItem key="navigationItem" title="Zooming &amp; Magnifying" id="B6p-Qx-ngH">
                         <barButtonItem key="backBarButtonItem" title="Back" id="eg4-wE-x1X"/>
                     </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -2589,7 +2644,10 @@
                         <outlet property="opticalZoomingMaximumFocalLengthCell" destination="ZaT-7j-ELP" id="z6l-KA-GLs"/>
                         <outlet property="opticalZoomingMinimumFocalLengthCell" destination="FYb-Zd-imk" id="CSb-N7-haU"/>
                         <outlet property="opticalZoomingSlider" destination="1pC-3O-bdM" id="Tua-yg-faf"/>
+                        <outlet property="showMagnifyingLiveViewScaleCell" destination="4gP-YX-d2b" id="8PH-MV-PRk"/>
                         <outlet property="showZoomingSpeedCell" destination="MUq-Ll-uVI" id="Pvb-FY-Be4"/>
+                        <outlet property="startMagnifyingLiveViewCell" destination="4Mg-ij-aJR" id="JSr-S0-v7E"/>
+                        <outlet property="stopMagnifyingLiveViewCell" destination="dFO-9O-6G0" id="Kiq-NY-l9R"/>
                         <outlet property="zoomTowardTeleEndCell" destination="Ku7-uu-PtW" id="SnI-bN-fa1"/>
                         <outlet property="zoomTowardWideEndCell" destination="Bh4-v9-AsR" id="4Vc-UB-TUf"/>
                     </connections>
@@ -4449,6 +4507,7 @@
     <inferredMetricsTieBreakers>
         <segue reference="be3-Rq-0v2"/>
         <segue reference="kyc-jM-yxm"/>
+        <segue reference="LHa-ox-X6r"/>
         <segue reference="6fb-GS-WAc"/>
         <segue reference="l0j-bJ-9rf"/>
         <segue reference="OYt-iH-Djh"/>

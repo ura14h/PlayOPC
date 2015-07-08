@@ -31,11 +31,15 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *digitalZoomingMaximumScaleCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *digitalZoomingCurrentScaleCell;
 @property (weak, nonatomic) IBOutlet UISlider *digitalZoomingSlider;
+@property (weak, nonatomic) IBOutlet UITableViewCell *startMagnifyingLiveViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *stopMagnifyingLiveViewCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showMagnifyingLiveViewScaleCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSArray *opticalZoomingSpeeds; ///< 光学ズームの駆動速度の選択肢
 @property (assign, nonatomic) NSInteger opticalZoomingSpeed; ///< 光学ズームを駆動させる速度
 @property (assign, nonatomic) BOOL opticalZoomingBySlider; ///< 光学ズームの焦点距離をスライダーで指定したか否か
+@property (strong, nonatomic) NSArray *magnifyingLiveViewScales; ///< ライブビュー拡大の選択肢
 
 @end
 
@@ -77,6 +81,31 @@
 	self.opticalZoomingSpeeds = opticalZoomingSpeeds;
 	self.opticalZoomingSpeed = 1;
 
+	// ライブビュー拡大の選択肢を構築します。
+	// TODO: implement!
+	NSMutableArray *magnifyingLiveViewScales = [[NSMutableArray alloc] init];
+	NSDictionary *scaleX5 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"5times", nil),
+		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX5)
+	};
+	NSDictionary *scaleX7 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"7times", nil),
+		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX7)
+	};
+	NSDictionary *scaleX10 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"10times", nil),
+		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX10)
+	};
+	NSDictionary *scaleX14 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"14times", nil),
+		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX14)
+	};
+	[magnifyingLiveViewScales addObject:scaleX5];
+	[magnifyingLiveViewScales addObject:scaleX7];
+	[magnifyingLiveViewScales addObject:scaleX10];
+	[magnifyingLiveViewScales addObject:scaleX14];
+	self.magnifyingLiveViewScales = magnifyingLiveViewScales;
+	
 	// カメラの光学ズームの駆動、カメラのプロパティを監視開始します。
 	AppCamera *camera = GetAppCamera();
 	[camera addRecordingSupportsDelegate:self];
@@ -96,6 +125,7 @@
 	self.digitalZoomingMinimumScaleCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.digitalZoomingMaximumScaleCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.digitalZoomingCurrentScaleCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showMagnifyingLiveViewScaleCell.detailTextLabel.text = emptyDetailTextLabel;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -116,6 +146,7 @@
 	[camera removeObserver:self forKeyPath:CameraPropertyCurrentDigitalZoomScale];
 	[camera removeRecordingSupportsDelegate:self];
 	_opticalZoomingSpeeds = nil;
+	_magnifyingLiveViewScales = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -166,17 +197,23 @@
 	[self updateDigitalZoomingMinimumScaleCell];
 	[self updateDigitalZoomingMaximumScaleCell];
 	[self updateDigitalZoomingCurrentScaleCell];
+	[self updateShowMagnifyingLiveViewScaleCell];
 	
 	// 光学ズーム操作の有効無効をズームの駆動状態に従って設定します。
 	AppCamera *camera = GetAppCamera();
 	self.opticalZoomingBySlider = NO;
-	BOOL enable = !camera.drivingZoomLens;
-	[self updateOpticalZoomingSliderEnabled:enable];
-	[self tableViewCell:self.zoomTowardWideEndCell enabled:enable];
-	[self tableViewCell:self.zoomTowardTeleEndCell enabled:enable];
+	BOOL enableOpticalZooming = !camera.drivingZoomLens;
+	[self updateOpticalZoomingSliderEnabled:enableOpticalZooming];
+	[self tableViewCell:self.zoomTowardWideEndCell enabled:enableOpticalZooming];
+	[self tableViewCell:self.zoomTowardTeleEndCell enabled:enableOpticalZooming];
 	
 	// デジタルズーム操作の有効無効を設定します。
 	[self updateDigitalZoomingSliderEnabled:YES];
+
+	// ライブビュー拡大の有効無効に従って設定します。
+	BOOL enableMagnifying = camera.magnifyingLiveView;
+	[self tableViewCell:self.startMagnifyingLiveViewCell enabled:!enableMagnifying];
+	[self tableViewCell:self.stopMagnifyingLiveViewCell enabled:enableMagnifying];
 	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -210,6 +247,21 @@
 		viewController.selectedItemIndex = self.opticalZoomingSpeed;
 		viewController.itemCellIdentifier = @"ItemCell";
 		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowMagnifyingLiveViewScale"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.tag = [CameraPropertyMagnifyingLiveViewScale hash];
+		viewController.items = self.magnifyingLiveViewScales;
+		viewController.selectedItemIndex = NSNotFound;
+		AppCamera *camera = GetAppCamera();
+		[self.magnifyingLiveViewScales enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+			OLYCameraMagnifyingLiveViewScale scale = [item[ItemSelectionViewItemValueKey] integerValue];
+			if (camera.magnifyingLiveViewScale == scale) {
+				viewController.selectedItemIndex = index;
+				*stop = YES;
+			}
+		}];
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
 	} else {
 		// 何もしません。
 	}
@@ -228,6 +280,10 @@
 		[self didSelectRowAtZoomTowardWideEnd];
 	} else if ([cellReuseIdentifier isEqualToString:@"ZoomTowardTeleEnd"]) {
 		[self didSelectRowAtZoomTowardTeleEnd];
+	} else if ([cellReuseIdentifier isEqualToString:@"StartMagnifyingLiveView"]) {
+		[self didSelectRowAtStartMagnifyingLiveView];
+	} else if ([cellReuseIdentifier isEqualToString:@"StopMagnifyingLiveView"]) {
+		[self didSelectRowAtStopMagnifyingLiveView];
 	} else {
 		// 何もしません。
 	}
@@ -243,6 +299,8 @@
 	NSUInteger hash = controller.tag;
 	if (hash == [CameraPropertyOpticalZoomingSpeed hash]) {
 		[self didSelectZoomingSpeedItem:index];
+	} else if (hash == [CameraPropertyMagnifyingLiveViewScale hash]) {
+		[self didSelectMagnifyingLiveViewScaleItem:index];
 	} else {
 		DEBUG_LOG(@"Unknown hash: %lu", (unsigned long)hash);
 	}
@@ -486,6 +544,92 @@
 	}];
 }
 
+/// 'Start Magnifying'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtStartMagnifyingLiveView {
+	DEBUG_LOG(@"");
+
+	// ライブビュー拡大開始を開始します。
+	__weak ZPanelViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// ライブビュー拡大を開始します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		if (![camera startMagnifyingLiveView:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start magnifying", nil)];
+			return;
+		}
+		
+		// ライブビュー拡大開始が完了しました。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			BOOL enableMagnifying = camera.magnifyingLiveView;
+			[weakSelf tableViewCell:weakSelf.startMagnifyingLiveViewCell enabled:!enableMagnifying];
+			[weakSelf tableViewCell:weakSelf.stopMagnifyingLiveViewCell enabled:enableMagnifying];
+
+			// MARK: ライブビュー拡大を開始するとデジタルズームの倍率変更に影響するようなので表示を更新します。
+			[weakSelf updateDigitalZoomingSliderEnabled:YES];
+		}];
+	}];
+}
+
+/// 'Stop Magnifying'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtStopMagnifyingLiveView {
+	DEBUG_LOG(@"");
+	
+	// ライブビュー拡大終了を開始します。
+	__weak ZPanelViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// ライブビュー拡大を終了します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		if (![camera stopMagnifyingLiveView:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not stop magnifying", nil)];
+			return;
+		}
+		
+		// ライブビュー拡大終了が完了しました。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			BOOL enableMagnifying = camera.magnifyingLiveView;
+			[weakSelf tableViewCell:weakSelf.startMagnifyingLiveViewCell enabled:!enableMagnifying];
+			[weakSelf tableViewCell:weakSelf.stopMagnifyingLiveViewCell enabled:enableMagnifying];
+
+			// MARK: ライブビュー拡大を開始するとデジタルズームの倍率変更に影響するようなので表示を更新します。
+			[weakSelf updateDigitalZoomingSliderEnabled:YES];
+		}];
+	}];
+}
+
+/// ライブビュー拡大の倍率の選択肢が選択された時に呼び出されます。
+- (void)didSelectMagnifyingLiveViewScaleItem:(NSInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// ライブビュー拡大倍率の変更を開始します。
+	__weak ZPanelViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// 選択された倍率を取得します。
+		NSDictionary *item = weakSelf.magnifyingLiveViewScales[itemIndex];
+		OLYCameraMagnifyingLiveViewScale scale = [item[ItemSelectionViewItemValueKey] integerValue];
+		
+		// ライブビュー拡大倍率を変更します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		if (![camera changeMagnifyingLiveViewScale:scale error:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not change scale", nil)];
+			return;
+		}
+
+		// 画面表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf updateShowMagnifyingLiveViewScaleCell];
+		}];
+	}];
+}
+
 #pragma mark -
 
 /// カメラに装着されたズームレンズのワイド端での焦点距離の状態を表示します。
@@ -664,10 +808,33 @@
 	if (!isnan(camera.minimumDigitalZoomScale) &&
 		!isnan(camera.maximumDigitalZoomScale) &&
 		!isnan(camera.currentDigitalZoomScale)) {
-		self.digitalZoomingSlider.enabled = enabled;
+		if (!camera.magnifyingLiveView) {
+			self.digitalZoomingSlider.enabled = enabled;
+		} else {
+			// MARK: ライブビュー拡大しているとデジタルズームの倍率変更は禁止になるようです。
+			self.digitalZoomingSlider.enabled = NO;
+		}
 	} else {
 		self.digitalZoomingSlider.enabled = NO;
 	}
+}
+
+/// ライブビュー拡大の倍率を表示します。
+- (void)updateShowMagnifyingLiveViewScaleCell {
+	DEBUG_LOG(@"");
+
+	// 倍率の値を表示用の文言に変換します。
+	__block NSString *magnifyingLiveViewScale = NSLocalizedString(@"Unknown", nil);
+	AppCamera *camera = GetAppCamera();
+	[self.magnifyingLiveViewScales enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		OLYCameraMagnifyingLiveViewScale scale = [item[ItemSelectionViewItemValueKey] integerValue];
+		if (camera.magnifyingLiveViewScale == scale) {
+			magnifyingLiveViewScale = item[ItemSelectionViewItemTitleKey];
+			*stop = YES;
+		}
+	}];
+	// 表示を更新します。
+	self.showMagnifyingLiveViewScaleCell.detailTextLabel.text = magnifyingLiveViewScale;
 }
 
 @end

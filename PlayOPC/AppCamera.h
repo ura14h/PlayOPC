@@ -211,6 +211,7 @@ extern NSString *const CameraPropertyMinimumDigitalZoomScale;
 extern NSString *const CameraPropertyMaximumDigitalZoomScale;
 extern NSString *const CameraPropertyCurrentDigitalZoomScale;
 extern NSString *const CameraPropertyOpticalZoomingSpeed;
+extern NSString *const CameraPropertyMagnifyingLiveViewScale;
 extern NSString *const CameraPropertyArtEffectType;
 extern NSString *const CameraPropertyArtEffectHybrid;
 extern NSString *const CameraPropertyArtFilterAutoBracket;
@@ -231,6 +232,7 @@ extern NSString *const CameraPropertyWbRevG;
 @property (assign, nonatomic, readonly) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
 @property (assign, nonatomic, readonly) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readonly) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
+@property (assign, nonatomic, readonly) OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale;	///< 現在のライブビュー拡大の倍率
 
 /// connectionDelegateのリストに登録します。
 /// connectionDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
@@ -294,5 +296,8 @@ extern NSString *const CameraPropertyWbRevG;
 
 /// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
 - (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error;
+
+/// 現在設定されている倍率でライブビュー拡大を開始します。
+- (BOOL)startMagnifyingLiveView:(NSError *__autoreleasing *)error;
 
 @end

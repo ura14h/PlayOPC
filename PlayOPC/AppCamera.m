@@ -212,6 +212,7 @@ NSString *const CameraPropertyMinimumDigitalZoomScale = @"minimumDigitalZoomScal
 NSString *const CameraPropertyMaximumDigitalZoomScale = @"maximumDigitalZoomScale";
 NSString *const CameraPropertyCurrentDigitalZoomScale = @"currentDigitalZoomScale";
 NSString *const CameraPropertyOpticalZoomingSpeed = @"opticalZoomingSpeed";
+NSString *const CameraPropertyMagnifyingLiveViewScale = @"magnifyingLiveViewScale";
 NSString *const CameraPropertyArtEffectType = @"ART_EFFECT_TYPE";
 NSString *const CameraPropertyArtEffectHybrid = @"ART_EFFECT_HYBRID";
 NSString *const CameraPropertyArtFilterAutoBracket = @"BRACKET_PICT_POPART";
@@ -229,12 +230,14 @@ static NSString *const CameraSettingsSnapshotFormatVersion = @"1.0"; ///< ファ
 static NSString *const CameraSettingsSnapshotFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
 static NSString *const CameraSettingsSnapshotPropertyValuesKey = @"PropertyValues"; ///< ファイルのカメラプロパティ値の辞書キー
 static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; ///< ファイルのライブビューサイズ設定の辞書キー
+static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"MagnifyingLiveViewScale"; ///< ライブビュー拡大倍率の辞書キー
 
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
 
 @property (assign, nonatomic, readwrite) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
 @property (assign, nonatomic, readwrite) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readwrite) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
+@property (assign, nonatomic, readwrite) OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale;	///< 現在のライブビュー拡大の倍率
 
 // MARK: このプロパティ群は複数スレッドが参照するのでatomicにしておかないとタイミングによってはクラッシュしてしまいます。
 @property (strong, atomic) NSHashTable *connectionDelegates; ///< connectionDelegateの集合
@@ -266,6 +269,7 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	_minimumDigitalZoomScale = NAN;
 	_maximumDigitalZoomScale = NAN;
 	_currentDigitalZoomScale = NAN;
+	_magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
 	
 	// 弱い参照を格納できる集合を生成します。
 	_connectionDelegates = [NSHashTable weakObjectsHashTable];
@@ -472,6 +476,45 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	}
 	
 	return YES;
+}
+
+- (BOOL)startMagnifyingLiveView:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"scale=%ld", (long)scale);
+	
+	// ライブビュー拡大が成功したらその時の倍率を保持しておきます。
+	BOOL result = [super startMagnifyingLiveView:scale error:error];
+	if (result) {
+		self.magnifyingLiveViewScale = scale;
+	}
+	return result;
+}
+
+- (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point scale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"scale=%ld", (long)scale);
+
+	// ライブビュー拡大が成功したらその時の倍率を保持しておきます。
+	BOOL result = [super startMagnifyingLiveViewAtPoint:point scale:scale error:error];
+	if (result) {
+		self.magnifyingLiveViewScale = scale;
+	}
+	return result;
+}
+
+- (BOOL)changeMagnifyingLiveViewScale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"scale=%ld", (long)scale);
+
+	// ライブビュー拡大を開始していない場合は変更されたことにします。
+	if (!self.magnifyingLiveView) {
+		self.magnifyingLiveViewScale = scale;
+		return YES;
+	}
+	
+	// ライブビュー拡大の倍率変更が成功したらその時の倍率を保持しておきます。
+	BOOL result = [super changeMagnifyingLiveViewScale:scale error:error];
+	if (result) {
+		self.magnifyingLiveViewScale = scale;
+	}
+	return result;
 }
 
 #pragma mark -
@@ -1050,22 +1093,6 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	return [self setGeolocation:nmea0183 error:error];
 }
 
-/// CoreLocationで用いられる10進数の緯度経度を、NMEA0183形式で用いられる60進数の緯度経度に変換します。
-- (double)convertCLLocationDegreesToNmea:(CLLocationDegrees)degrees {
-	DEBUG_DETAIL_LOG(@"degrees=%lf", degrees);
-	
-	// MARK: 単位を度分(度分秒ではない)にします。
-	double degreeSign = ((degrees > 0.0) ? +1 : ((degrees < 0.0) ? -1 : 0));
-	double degree = ABS(degrees);
-	double degreeDecimal = floor(degree);
-	double degreeFraction = degree - degreeDecimal;
-	double minutes = degreeFraction * 60.0;
-	double nmea = degreeSign * (degreeDecimal * 100.0 + minutes);
-	
-	DEBUG_DETAIL_LOG(@"nmea=%lf", nmea);
-	return nmea;
-}
-
 - (NSDictionary *)createSnapshotOfSettings:(NSError **)error {
 	DEBUG_LOG(@"");
 
@@ -1086,11 +1113,16 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	NSString *liveViewSize = NSStringFromCGSize(self.liveViewSize);
 	DEBUG_LOG(@"liveViewSize=%@", liveViewSize);
 
+	// 現在設定されているライブビュー拡大倍率を取得します。
+	NSNumber *magnifyingLiveViewScale = @(self.magnifyingLiveViewScale);
+	DEBUG_LOG(@"magnifyingLiveViewScale=%@", magnifyingLiveViewScale);
+	
 	// スナップショットにする情報を集約します。
 	NSDictionary *snapshot = @{
 		CameraSettingsSnapshotFormatVersionKey: CameraSettingsSnapshotFormatVersion,
 		CameraSettingsSnapshotPropertyValuesKey: propertyValues,
 		CameraSettingsSnapshotLiveViewSizeKey: liveViewSize,
+		CameraSettingsSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
 	};
 	
 	return snapshot;
@@ -1109,8 +1141,6 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 		}
 		return NO;
 	}
-	NSDictionary *propertyValues = snapshot[CameraSettingsSnapshotPropertyValuesKey];
-	OLYCameraLiveViewSize liveViewSize = CGSizeFromString(snapshot[CameraSettingsSnapshotLiveViewSizeKey]);
 	
 	// 一時的にライブビューを止めて表示のチラツキを食い止めます。
 	BOOL needToStartLiveView = self.liveViewEnabled;
@@ -1121,14 +1151,26 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	}
 	
 	// 読み込んだカメラプロパティの設定値をカメラに反映します。
+	NSDictionary *propertyValues = snapshot[CameraSettingsSnapshotPropertyValuesKey];
 	if (![self setCameraPropertyValues:propertyValues error:error]) {
 		return NO;
 	}
 	
 	// 読み込んだライブビューサイズの設定値をカメラに反映します。
+	OLYCameraLiveViewSize liveViewSize = OLYCameraLiveViewSizeQVGA;
+	if (snapshot[CameraSettingsSnapshotLiveViewSizeKey]) {
+		liveViewSize = CGSizeFromString(snapshot[CameraSettingsSnapshotLiveViewSizeKey]);
+	}
 	if (![self changeLiveViewSize:liveViewSize error:error]) {
 		return NO;
 	}
+	
+	// 読み込んだライブビュー拡大倍率を設定します。
+	OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
+	if (snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey]) {
+		magnifyingLiveViewScale = [snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey] integerValue];
+	}
+	self.magnifyingLiveViewScale = magnifyingLiveViewScale;
 	
 	// ライブビューを再開します。
 	if (needToStartLiveView) {
@@ -1139,6 +1181,30 @@ static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; 
 	
 	// 復元完了しました。
 	return YES;
+}
+
+- (BOOL)startMagnifyingLiveView:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"");
+	
+	return [self startMagnifyingLiveView:self.magnifyingLiveViewScale error:error];
+}
+
+#pragma mark -
+
+/// CoreLocationで用いられる10進数の緯度経度を、NMEA0183形式で用いられる60進数の緯度経度に変換します。
+- (double)convertCLLocationDegreesToNmea:(CLLocationDegrees)degrees {
+	DEBUG_DETAIL_LOG(@"degrees=%lf", degrees);
+	
+	// MARK: 単位を度分(度分秒ではない)にします。
+	double degreeSign = ((degrees > 0.0) ? +1 : ((degrees < 0.0) ? -1 : 0));
+	double degree = ABS(degrees);
+	double degreeDecimal = floor(degree);
+	double degreeFraction = degree - degreeDecimal;
+	double minutes = degreeFraction * 60.0;
+	double nmea = degreeSign * (degreeDecimal * 100.0 + minutes);
+	
+	DEBUG_DETAIL_LOG(@"nmea=%lf", nmea);
+	return nmea;
 }
 
 @end

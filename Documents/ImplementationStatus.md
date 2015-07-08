@@ -94,19 +94,19 @@
 ### OLYCamera(RecordingSupports)
 
 * changeDigitalZoomScale:error:
-* *changeMagnifyingLiveViewScale:error: (1.1.0)*
+* changeMagnifyingLiveViewScale:error: (1.1.0)
 * *changeMagnifyingLiveViewArea:error: (1.1.0)*
 * digitalZoomScaleRange:
 * startDrivingZoomLensForDirection:speed:error:
 * startDrivingZoomLensToFocalLength:error:
-* *startMagnifyingLiveView:error: (1.1.0)*
+* startMagnifyingLiveView:error: (1.1.0)
 * *startMagnifyingLiveViewAtPoint:scale:error: (1.1.0)*
-* *stopMagnifyingLiveView: (1.1.0)*
+* stopMagnifyingLiveView: (1.1.0)
 * stopDrivingZoomLens:
 * detectedHumanFaces
 * drivingZoomLens
 * levelGauge
-* *magnifyingLiveView (1.1.0)*
+* magnifyingLiveView (1.1.0)
 * recordingSupportsDelegate
 
 ### OLYCamera(Playback)

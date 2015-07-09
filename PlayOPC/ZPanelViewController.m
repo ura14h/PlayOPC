@@ -254,7 +254,8 @@
 		viewController.selectedItemIndex = NSNotFound;
 		AppCamera *camera = GetAppCamera();
 		[self.magnifyingLiveViewScales enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
-			OLYCameraMagnifyingLiveViewScale scale = [item[ItemSelectionViewItemValueKey] integerValue];
+			NSInteger scaleValue = [item[ItemSelectionViewItemValueKey] integerValue];
+			OLYCameraMagnifyingLiveViewScale scale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
 			if (camera.magnifyingLiveViewScale == scale) {
 				viewController.selectedItemIndex = index;
 				*stop = YES;
@@ -613,7 +614,8 @@
 
 		// 選択された倍率を取得します。
 		NSDictionary *item = weakSelf.magnifyingLiveViewScales[itemIndex];
-		OLYCameraMagnifyingLiveViewScale scale = [item[ItemSelectionViewItemValueKey] integerValue];
+		NSInteger scaleValue = [item[ItemSelectionViewItemValueKey] integerValue];
+		OLYCameraMagnifyingLiveViewScale scale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
 		
 		// ライブビュー拡大倍率を変更します。
 		AppCamera *camera = GetAppCamera();
@@ -827,7 +829,8 @@
 	__block NSString *magnifyingLiveViewScale = NSLocalizedString(@"Unknown", nil);
 	AppCamera *camera = GetAppCamera();
 	[self.magnifyingLiveViewScales enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
-		OLYCameraMagnifyingLiveViewScale scale = [item[ItemSelectionViewItemValueKey] integerValue];
+		NSInteger scaleValue = [item[ItemSelectionViewItemValueKey] integerValue];
+		OLYCameraMagnifyingLiveViewScale scale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
 		if (camera.magnifyingLiveViewScale == scale) {
 			magnifyingLiveViewScale = item[ItemSelectionViewItemTitleKey];
 			*stop = YES;

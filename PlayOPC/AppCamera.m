@@ -1168,7 +1168,8 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	// 読み込んだライブビュー拡大倍率を設定します。
 	OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
 	if (snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey]) {
-		magnifyingLiveViewScale = [snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey] integerValue];
+		NSInteger scaleValue = [snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey] integerValue];
+		magnifyingLiveViewScale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
 	}
 	self.magnifyingLiveViewScale = magnifyingLiveViewScale;
 	

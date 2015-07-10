@@ -13,6 +13,7 @@
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
+#import "AppSetting.h"
 #import "AppCamera.h"
 #import "BluetoothConnector.h"
 #import "WifiConnector.h"
@@ -71,15 +72,15 @@
 	[notificationCenter addObserver:self selector:@selector(applicationDidEnterBackground:) name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter addObserver:self selector:@selector(applicationWillEnterForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
 	
+	// アプリケーション設定の変更を監視準備します。
+	[notificationCenter addObserver:self selector:@selector(didChangedAppSetting:) name:AppSettingChangedNotification object:nil];
+	
 	// BluetoothとWi-Fiの接続状態を監視準備します。
 	self.bluetoothConnector = [[BluetoothConnector alloc] init];
 	[notificationCenter addObserver:self selector:@selector(didChangeBluetoothConnection:) name:BluetoothConnectionChangedNotification object:nil];
 	self.wifiConnector = [[WifiConnector alloc] init];
 	[notificationCenter addObserver:self selector:@selector(didChangeWifiConnection:) name:WifiConnectionChangedNotification object:nil];
 
-	// ユーザー設定の値変更を監視開始します。
-	[notificationCenter addObserver:self selector:@selector(userDefaultsValueChanged:) name:NSUserDefaultsDidChangeNotification object:nil];
-	
 	// カメラの接続状態を監視開始します。
 	AppCamera *camera = GetAppCamera();
 	[camera addConnectionDelegate:self];
@@ -131,7 +132,7 @@
 	[camera removeConnectionDelegate:self];
 	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter removeObserver:self name:NSUserDefaultsDidChangeNotification object:nil];
+	[notificationCenter removeObserver:self name:AppSettingChangedNotification object:nil];
 	[notificationCenter removeObserver:self name:BluetoothConnectionChangedNotification object:nil];
 	[notificationCenter removeObserver:self name:WifiConnectionChangedNotification object:nil];
 	_bluetoothConnector = nil;
@@ -310,14 +311,6 @@
 	}
 }
 
-/// ユーザー設定の値が変化した時に呼び出されます。
-- (void)userDefaultsValueChanged:(NSNotification *)notification {
-	DEBUG_LOG(@"");
-
-	// 画面表示を更新します。
-	[self updateClearRememberedCameraSettingCell];
-}
-
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_LOG(@"indexPath=%@", indexPath);
@@ -372,6 +365,14 @@
 }
 
 #pragma mark -
+
+/// アプリケーション設定が変化した時に呼び出されます。
+- (void)didChangedAppSetting:(NSNotification *)notification {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateClearRememberedCameraSettingCell];
+}
 
 /// Bluetooth接続の状態が変化した時に呼び出されます。
 - (void)didChangeBluetoothConnection:(NSNotification *)notification {
@@ -457,9 +458,9 @@
 	DEBUG_LOG(@"");
 
 	// Bluetoothデバイスの設定を確認します。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *bluetoothLocalName = [userDefaults objectForKey:UserDefaultsBluetoothLocalName];
-	NSString *bluetoothPasscode = [userDefaults objectForKey:UserDefaultsBluetoothPasscode];
+	AppSetting *setting = GetAppSetting();
+	NSString *bluetoothLocalName = setting.bluetoothLocalName;
+	NSString *bluetoothPasscode = setting.bluetoothPasscode;
 	if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
 		// Bluetoothデバイスの設定が不完全です。
 		[self showAlertMessage:NSLocalizedString(@"Bluetooth local name is empty. Please configure Bluetooth setting.", nil) title:NSLocalizedString(@"Could not connect", nil)];
@@ -569,9 +570,9 @@
 	}
 
 	// Bluetoothデバイスの設定を確認します。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	NSString *bluetoothLocalName = [userDefaults objectForKey:UserDefaultsBluetoothLocalName];
-	NSString *bluetoothPasscode = [userDefaults objectForKey:UserDefaultsBluetoothPasscode];
+	AppSetting *setting = GetAppSetting();
+	NSString *bluetoothLocalName = setting.bluetoothLocalName;
+	NSString *bluetoothPasscode = setting.bluetoothPasscode;
 	if (demandToWakeUpWithUsingBluetooth) {
 		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
 			// Bluetoothデバイスの設定が不完全です。
@@ -821,8 +822,8 @@
 	DEBUG_LOG(@"on=%@", self.keepLastCameraSettingSwitch.on ? @"YES" : @"NO");
 	
 	// 現在選択された値を設定値として保存します。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[userDefaults setBool:self.keepLastCameraSettingSwitch.on forKey:UserDefaultsKeepLastCameraSetting];
+	AppSetting *setting = GetAppSetting();
+	setting.keepLastCameraSetting = self.keepLastCameraSettingSwitch.on;
 }
 
 /// 'Clear Remembered Camera Setting'のセルが選択されたときに呼び出されます。
@@ -839,8 +840,8 @@
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			// 記憶している前回のカメラ設定をクリアします。
 			// MARK: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
-			NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-			[userDefaults setObject:nil forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+			AppSetting *setting = GetAppSetting();
+			setting.latestSnapshotOfCameraSettings = nil;
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:handler];
 		[alertController addAction:action];
@@ -929,8 +930,8 @@
 		CBPeripheral *peripheral = self.bluetoothConnector.peripheral;
 		self.showBluetoothSettingCell.detailTextLabel.text = peripheral.name;
 	} else {
-		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-		NSString *bluetoothLocalName = [userDefaults objectForKey:UserDefaultsBluetoothLocalName];
+		AppSetting *setting = GetAppSetting();
+		NSString *bluetoothLocalName = setting.bluetoothLocalName;
 		if (bluetoothLocalName && bluetoothLocalName.length > 0) {
 			// 接続されていない場合は未接続と表示します。
 			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"Not Connected", nil);
@@ -1039,15 +1040,15 @@
 	DEBUG_LOG(@"");
 
 	// 設定値をスイッチの状態に反映します。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	self.keepLastCameraSettingSwitch.on = [userDefaults boolForKey:UserDefaultsKeepLastCameraSetting];
+	AppSetting *setting = GetAppSetting();
+	self.keepLastCameraSettingSwitch.on = setting.keepLastCameraSetting;
 }
 
 - (void)updateClearRememberedCameraSettingCell {
 	DEBUG_LOG(@"");
 	
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	if ([userDefaults objectForKey:UserDefaultsLatestSnapshotOfCameraSettings]) {
+	AppSetting *setting = GetAppSetting();
+	if (setting.latestSnapshotOfCameraSettings) {
 		// 記憶している前回のカメラ設定があります。
 		[self tableViewCell:self.clearRememberedCameraSettingCell enabled:YES];
 	} else {

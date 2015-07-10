@@ -11,19 +11,17 @@
 
 #import "AppDelegate.h"
 #import <OLYCameraKit/OACentralConfiguration.h>
+#import "AppSetting.h"
 #import "AppCamera.h"
 #import "AppCameraLog.h"
 
 NSString *const AppUrlSchemeGetFromOacentral = @"net.homeunix.hio.ipa.PlayOPC.GetFromOacentral";
 NSString *const AppOACentralConfigurationDidGetNotification = @"AppOACentralConfigurationDidGetNotification";
 NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACentralConfigurationDidGetNotificationUserInfo";
-NSString *const UserDefaultsBluetoothLocalName = @"BluetoothLocalName";
-NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
-NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetting";
-NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfCameraSettings";
 
 @interface AppDelegate ()
 
+@property (strong, nonatomic) AppSetting *setting; ///< アプリケーション設定
 @property (strong, nonatomic) AppCamera *camera; ///< カメラ
 @property (strong, nonatomic) AppCameraLog *cameraLog; ///< カメラキットのログ履歴
 
@@ -35,19 +33,6 @@ NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfC
 
 #pragma mark -
 
-+ (void)initialize {
-	DEBUG_LOG(@"");
-	
-	if ([self class] != [AppDelegate class]) {
-		return;
-	}
-
-	// ユーザー設定の工場出荷設定値を読み込んで初期化します。
-	NSString *userDefaultsPath = [[NSBundle mainBundle] pathForResource:@"UserDefaults" ofType:@"plist"];
-	NSDictionary *userDefaultsDictionary = [NSDictionary dictionaryWithContentsOfFile:userDefaultsPath];
-	[[NSUserDefaults standardUserDefaults] registerDefaults:userDefaultsDictionary];
-}
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	DEBUG_LOG(@"launchOptions=%@", launchOptions);
 
@@ -56,6 +41,7 @@ NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfC
 	[UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.6 alpha:1.0];
 	
 	// カメラログインスタンスをカメラインスタンスより先に生成しておかないと、カメラの初期化に関わるログが記録されません。
+	self.setting = [[AppSetting alloc] init];
 	self.cameraLog = [[AppCameraLog alloc] init];
 	self.camera = [[AppCamera alloc] init];
 	
@@ -84,6 +70,7 @@ NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfC
 	DEBUG_LOG(@"");
 	
 	// カメラログインスタンスをカメラインスタンスより後に解放しないと、カメラの終了に関わるログが記録されません。
+	self.setting = nil;
 	self.camera = nil;
 	self.cameraLog = nil;
 }
@@ -119,6 +106,14 @@ AppDelegate *GetApp() {
 		return nil;
 	}
 	return delegate;
+}
+
+AppSetting *GetAppSetting() {
+	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	if (!delegate) {
+		return nil;
+	}
+	return delegate.setting;
 }
 
 AppCamera *GetAppCamera() {

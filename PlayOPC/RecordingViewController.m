@@ -11,6 +11,7 @@
 
 #import "RecordingViewController.h"
 #import "AppDelegate.h"
+#import "AppSetting.h"
 #import "AppCamera.h"
 #import "RecordingLocationManager.h"
 #import "LiveImageView.h"
@@ -247,10 +248,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 		
 		// 最新スナップショットからカメラ設定を復元します。
-		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-		BOOL keepLastCameraSetting = [userDefaults boolForKey:UserDefaultsKeepLastCameraSetting];
-		if (keepLastCameraSetting) {
-			NSDictionary *snapshot = [userDefaults objectForKey:UserDefaultsLatestSnapshotOfCameraSettings];
+		AppSetting *setting = GetAppSetting();
+		if (setting.keepLastCameraSetting) {
+			NSDictionary *snapshot = setting.latestSnapshotOfCameraSettings;
 			if (snapshot) {
 				if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
@@ -339,15 +339,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		
 		// カメラ設定のスナップショットを取ります。
 		// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
-		NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-		BOOL keepLastCameraSetting = [userDefaults boolForKey:UserDefaultsKeepLastCameraSetting];
-		if (keepLastCameraSetting) {
+		AppSetting *setting = GetAppSetting();
+		if (setting.keepLastCameraSetting) {
 			NSDictionary *snapshot = [camera createSnapshotOfSettings:&error];
 			if (snapshot) {
 				// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
 				// (接続画面側の画面更新がとても遅れる)
 				[weakSelf executeAsynchronousBlockOnMainThread:^{
-					[userDefaults setObject:snapshot forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+					setting.latestSnapshotOfCameraSettings = snapshot;
 				}];
 			} else {
 				// エラーを無視して続行します。

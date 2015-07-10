@@ -11,6 +11,7 @@
 
 #import <UIKit/UIKit.h>
 
+@class AppSetting;
 @class AppCamera;
 @class AppCameraLog;
 
@@ -21,14 +22,6 @@ extern NSString *const AppOACentralConfigurationDidGetNotification;
 /// OA.Centralから呼び出されたことをアプリ内に知らせるための通知に付属する情報の辞書キー
 /// (格納されている情報はOACentralConfigurationオブジェクト)
 extern NSString *const AppOACentralConfigurationDidGetNotificationUserInfo;
-/// アプリ設定に保存されているBluetoothペリフェラルのローカルネームの辞書キー
-extern NSString *const UserDefaultsBluetoothLocalName;
-/// アプリ設定に保存されているBluetoothペリフェラルのパスコードの辞書キー
-extern NSString *const UserDefaultsBluetoothPasscode;
-/// アプリ設定に保存されているの最後のカメラ設定を記憶するか否かの辞書キー
-extern NSString *const UserDefaultsKeepLastCameraSetting;
-/// アプリ設定に保存されているの最後のカメラ設定の辞書キー
-extern NSString *const UserDefaultsLatestSnapshotOfCameraSettings;
 
 /// アプリケーションデリゲート
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
@@ -39,6 +32,9 @@ extern NSString *const UserDefaultsLatestSnapshotOfCameraSettings;
 
 /// アプリ内で唯一のアプリケーションデリゲートインスタンスを取得します。
 extern AppDelegate *GetApp();
+
+/// アプリ内で唯一のアプリケーション設定インスタンスを取得します。
+extern AppSetting *GetAppSetting();
 
 /// アプリ内で唯一のカメラインスタンスを取得します。
 extern AppCamera *GetAppCamera();

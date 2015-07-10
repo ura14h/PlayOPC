@@ -12,6 +12,7 @@
 #import "BluetoothSettingViewController.h"
 #import <OLYCameraKit/OACentralConfiguration.h>
 #import "AppDelegate.h"
+#import "AppSetting.h"
 #import "UIViewController+Alert.h"
 
 @interface BluetoothSettingViewController () <UITextFieldDelegate>
@@ -32,9 +33,9 @@
 	[super viewDidLoad];
 
 	// 現在のBluetooth接続の設定値を表示します。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	self.bluetoothLocalNameText.text = [userDefaults objectForKey:UserDefaultsBluetoothLocalName];
-	self.bluetoothPasscodeText.text = [userDefaults objectForKey:UserDefaultsBluetoothPasscode];
+	AppSetting *setting = GetAppSetting();
+	self.bluetoothLocalNameText.text = setting.bluetoothLocalName;
+	self.bluetoothPasscodeText.text = setting.bluetoothPasscode;
 	
 	// OA.Centralから接続設定を取得したかを監視します。
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -117,9 +118,9 @@
 	DEBUG_LOG(@"bluetoothPasscodeText.text=%@", self.bluetoothPasscodeText.text);
 	
 	// 現在入力されている値をBluetooth接続の設定値として保存します。
-	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	[userDefaults setObject:self.bluetoothLocalNameText.text forKey:UserDefaultsBluetoothLocalName];
-	[userDefaults setObject:self.bluetoothPasscodeText.text forKey:UserDefaultsBluetoothPasscode];
+	AppSetting *setting = GetAppSetting();
+	setting.bluetoothLocalName = self.bluetoothLocalNameText.text;
+	setting.bluetoothPasscode = self.bluetoothPasscodeText.text;
 	
 	// 前の画面に戻ります。
 	[self performSegueWithIdentifier:@"DoneBluetoothSetting" sender:self];

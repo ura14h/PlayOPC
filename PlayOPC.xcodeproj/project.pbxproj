@@ -52,6 +52,8 @@
 		3142ACD71B23D44F008B2754 /* RecImageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3142ACD51B23D44F008B2754 /* RecImageViewController.m */; };
 		3147538E1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */; };
 		3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */; };
+		314826911B4FE82C00AB057A /* AppSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 314826901B4FE82C00AB057A /* AppSetting.m */; };
+		314826921B4FE82C00AB057A /* AppSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 314826901B4FE82C00AB057A /* AppSetting.m */; };
 		314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
 		314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
 		314D7A481ACF87AE004C2644 /* WifiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A471ACF87AE004C2644 /* WifiConnector.m */; };
@@ -213,6 +215,8 @@
 		314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PlayOPC-Prefix.pch"; sourceTree = "<group>"; };
 		3147538C1ABD4BE700FF462E /* AcknowledgementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AcknowledgementViewController.h; sourceTree = "<group>"; };
 		3147538D1ABD4BE700FF462E /* AcknowledgementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AcknowledgementViewController.m; sourceTree = "<group>"; };
+		3148268F1B4FE82C00AB057A /* AppSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppSetting.h; sourceTree = "<group>"; };
+		314826901B4FE82C00AB057A /* AppSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSetting.m; sourceTree = "<group>"; };
 		314A4EC81B08B1C1002E4128 /* CameraLogViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraLogViewCell.h; sourceTree = "<group>"; };
 		314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraLogViewCell.m; sourceTree = "<group>"; };
 		314D7A461ACF87AE004C2644 /* WifiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiConnector.h; sourceTree = "<group>"; };
@@ -478,6 +482,8 @@
 				311B75C51ABC287C00A7D38C /* Main.storyboard */,
 				311B75BF1ABC287C00A7D38C /* AppDelegate.h */,
 				311B75C01ABC287C00A7D38C /* AppDelegate.m */,
+				3148268F1B4FE82C00AB057A /* AppSetting.h */,
+				314826901B4FE82C00AB057A /* AppSetting.m */,
 				31F3782C1AE12D23001A7CAD /* AppCamera.h */,
 				31F3782D1AE12D23001A7CAD /* AppCamera.m */,
 				314D7A4E1ACFDA03004C2644 /* AppCameraLog.h */,
@@ -807,6 +813,7 @@
 				314E1DB31B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
 				31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */,
+				314826911B4FE82C00AB057A /* AppSetting.m in Sources */,
 				31A8097C1AD04DE400186E4D /* SystemViewController.m in Sources */,
 				31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */,
 				311268FC1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
@@ -854,6 +861,7 @@
 				314E1DB41B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
 				31BD64611B0865FD00934C3B /* VideoContentViewController.m in Sources */,
+				314826921B4FE82C00AB057A /* AppSetting.m in Sources */,
 				31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */,
 				314D7A491ACF87AE004C2644 /* WifiConnector.m in Sources */,
 				319284351AD8E7E0003BC78F /* RecordingViewController.m in Sources */,

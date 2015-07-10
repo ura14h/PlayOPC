@@ -601,10 +601,24 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 /// ライブビューがタップされた時に呼び出されます。
 - (IBAction)didTapLiveImageView:(UITapGestureRecognizer *)sender {
 	DEBUG_LOG(@"");
-	
-	// タップされた座標にオートフォーカスロックします。
-	CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
-	[self lockAutoFocusPoint:point];
+
+	// ライブビューパネルでタップした時の動作を取得します。
+	AppSetting *setting = GetAppSetting();
+	AppSettingLiveViewTappingAction action = setting.liveViewTappingAction;
+
+	if (action == AppSettingLiveViewTappingActionUnknown) {
+		// 何もしません。
+	} else if (action == AppSettingLiveViewTappingActionAF) {
+		// タップされた座標にオートフォーカスロックします。
+		CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
+		[self lockAutoFocusPoint:point];
+	} else if (action == AppSettingLiveViewTappingActionAE) {
+		// タップされた座標に自動露出ロックします。
+		CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
+		[self lockAutoExposurePoint:point];
+	} else {
+		// 何もしません。
+	}
 }
 
 /// ライブビューがロングタップされた時に呼び出されます。
@@ -616,9 +630,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		return;
 	}
 
-	// タップされた座標に自動露出ロックします。
-	CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
-	[self lockAutoExposurePoint:point];
+	// MARK: 一旦は機能未割り当てとします。
+	// TODO: ライブビュー拡大を割り当てようかと思います。
 }
 
 /// 'TAKE'ボタンがタップされた時に呼び出されます。

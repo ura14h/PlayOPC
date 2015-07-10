@@ -14,6 +14,7 @@ static NSString *const UserDefaultsBluetoothLocalName = @"BluetoothLocalName";
 static NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
 static NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetting";
 static NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfCameraSettings";
+static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingAction";
 
 
 @interface AppSetting ()
@@ -120,11 +121,7 @@ static NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnap
 	
 	// ユーザー設定に保存します。
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	if (enable) {
-		[userDefaults setBool:enable forKey:UserDefaultsKeepLastCameraSetting];
-	} else {
-		[userDefaults removeObjectForKey:UserDefaultsKeepLastCameraSetting];
-	}
+	[userDefaults setBool:enable forKey:UserDefaultsKeepLastCameraSetting];
 	
 	// アプリケーションの設定が変更されたことを通知します。
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -149,6 +146,26 @@ static NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnap
 	} else {
 		[userDefaults removeObjectForKey:UserDefaultsLatestSnapshotOfCameraSettings];
 	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (AppSettingLiveViewTappingAction)liveViewTappingAction {
+	DEBUG_DETAIL_LOG(@"");
+	
+	// ユーザー設定から読み出します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults integerForKey:UserDefaultsLiveViewTappingAction];
+}
+
+- (void)setLiveViewTappingAction:(AppSettingLiveViewTappingAction)action {
+	DEBUG_DETAIL_LOG(@"action=%ld", (long)action);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[userDefaults setInteger:action forKey:UserDefaultsLiveViewTappingAction];
 	
 	// アプリケーションの設定が変更されたことを通知します。
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

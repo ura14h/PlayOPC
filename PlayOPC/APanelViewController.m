@@ -11,6 +11,7 @@
 
 #import "APanelViewController.h"
 #import "AppDelegate.h"
+#import "AppSetting.h"
 #import "AppCamera.h"
 #import "CameraPropertyValueSelectionViewController.h"
 #import "UIViewController+Alert.h"
@@ -19,6 +20,7 @@
 
 @interface APanelViewController () <OLYCameraPropertyDelegate, ItemSelectionViewControllerDelegate>
 
+@property (weak ,nonatomic) IBOutlet UISegmentedControl *liveViewTappingActionSegment;
 @property (weak, nonatomic) IBOutlet UITableViewCell *afLockStateCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *unlockAfCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *aeLockStateCell;
@@ -65,6 +67,7 @@
 	[camera addCameraPropertyDelegate:self];
 	
 	// 画面表示を初期表示します。
+	self.liveViewTappingActionSegment.selectedSegmentIndex = UISegmentedControlNoSegment;
 	NSString *afLockStateTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAfLockState];
 	NSString *aeLockStateTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAeLockState];
 	NSString *fullTimeAf = [camera cameraPropertyLocalizedTitle:CameraPropertyFullTimeAf];
@@ -155,6 +158,21 @@
 	[self updateShowAntiShakeMovieCell];
 	[self updateShowAntiShakeFocalLengthCell];
 
+	// ライブビューパネルタップ時動作の現在設定を表示します。
+	AppSetting *setting = GetAppSetting();
+	AppSettingLiveViewTappingAction action = setting.liveViewTappingAction;
+	switch (action) {
+		case AppSettingLiveViewTappingActionAF:
+			self.liveViewTappingActionSegment.selectedSegmentIndex = 0;
+			break;
+		case AppSettingLiveViewTappingActionAE:
+			self.liveViewTappingActionSegment.selectedSegmentIndex = 1;
+			break;
+		default:
+			self.liveViewTappingActionSegment.selectedSegmentIndex = UISegmentedControlNoSegment;
+			break;
+	}
+	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
 }
@@ -279,6 +297,26 @@
 }
 
 #pragma mark -
+
+/// ライブビューパネルタップ時動作の選択値が変わった時に呼び出されます。
+- (IBAction)didChangeLiveViewTappingActionSegmentValue:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// ライブビューパネルタップ時動作の現在設定を変更します。
+	AppSetting *setting = GetAppSetting();
+	AppSettingLiveViewTappingAction action = AppSettingLiveViewTappingActionUnknown;
+	switch (self.liveViewTappingActionSegment.selectedSegmentIndex) {
+		case 0:
+			action = AppSettingLiveViewTappingActionAF;
+			break;
+		case 1:
+			action = AppSettingLiveViewTappingActionAE;
+			break;
+		default:
+			break;
+	}
+	setting.liveViewTappingAction = action;
+}
 
 /// フォーカス固定(AFロック)の値が変わった時に呼び出されます。
 - (void)didChangeAfLockState {

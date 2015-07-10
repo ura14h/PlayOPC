@@ -3,6 +3,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -2072,7 +2073,47 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.94509803920000002" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
-                            <tableViewSection headerTitle="Auto Focus" footerTitle="By doing a single tap the live-view, it will lock the auto-focus." id="gbP-IX-xSb">
+                            <tableViewSection headerTitle="Action Modes" id="3bg-mT-FjB">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="idR-p7-Lhq">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="idR-p7-Lhq" id="qns-aD-9gF">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tapping Live View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXB-cg-i5u">
+                                                    <rect key="frame" x="15" y="0.0" width="169" height="43"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kne-3f-kN0">
+                                                    <rect key="frame" x="192" y="8" width="120" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="120" id="GCT-fo-ETr"/>
+                                                    </constraints>
+                                                    <segments>
+                                                        <segment title="AF"/>
+                                                        <segment title="AE"/>
+                                                    </segments>
+                                                    <connections>
+                                                        <action selector="didChangeLiveViewTappingActionSegmentValue:" destination="PPm-Ej-s2a" eventType="valueChanged" id="9tJ-Tk-LEz"/>
+                                                    </connections>
+                                                </segmentedControl>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="SXB-cg-i5u" secondAttribute="bottom" id="4vn-SO-fnt"/>
+                                                <constraint firstItem="SXB-cg-i5u" firstAttribute="top" secondItem="qns-aD-9gF" secondAttribute="top" id="6we-yG-Zvc"/>
+                                                <constraint firstItem="SXB-cg-i5u" firstAttribute="leading" secondItem="qns-aD-9gF" secondAttribute="leading" constant="15" id="Egp-62-TUD"/>
+                                                <constraint firstAttribute="trailing" secondItem="Kne-3f-kN0" secondAttribute="trailing" constant="8" id="EwY-gB-dON"/>
+                                                <constraint firstItem="Kne-3f-kN0" firstAttribute="leading" secondItem="SXB-cg-i5u" secondAttribute="trailing" constant="8" id="NiT-q4-3Du"/>
+                                                <constraint firstItem="Kne-3f-kN0" firstAttribute="trailing" secondItem="qns-aD-9gF" secondAttribute="trailingMargin" id="cMS-kS-xTw"/>
+                                                <constraint firstAttribute="centerY" secondItem="Kne-3f-kN0" secondAttribute="centerY" id="nec-Yx-BKz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Auto Focus" id="gbP-IX-xSb">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AfLockState" textLabel="O9h-rD-MNk" detailTextLabel="Se0-Xm-bRZ" style="IBUITableViewCellStyleValue1" id="ykn-rs-Yx2">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -2110,7 +2151,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Auto Exposure" footerTitle="By doing a long press the live-view, it will lock the auto-exposure." id="eRJ-8W-Hx9">
+                            <tableViewSection headerTitle="Auto Exposure" id="eRJ-8W-Hx9">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="AeLockState" textLabel="2xO-7o-Ypp" detailTextLabel="JPR-p9-gK7" style="IBUITableViewCellStyleValue1" id="QGb-lX-1hH">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -2312,6 +2353,7 @@
                     <connections>
                         <outlet property="aeLockStateCell" destination="QGb-lX-1hH" id="1JM-rK-5gI"/>
                         <outlet property="afLockStateCell" destination="ykn-rs-Yx2" id="mJm-Vp-ACF"/>
+                        <outlet property="liveViewTappingActionSegment" destination="Kne-3f-kN0" id="Bub-LA-tss"/>
                         <outlet property="showAeCell" destination="yy7-bs-51T" id="7Si-Bl-uG0"/>
                         <outlet property="showAntiShakeFocalLengthCell" destination="cWf-Jk-pfK" id="7tF-Hb-fK2"/>
                         <outlet property="showAntiShakeMovieCell" destination="yRM-Ya-J8N" id="XBe-9E-04m"/>

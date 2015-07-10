@@ -8,6 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+/// ライブビューパネルでタップした時の動作
+typedef enum : NSInteger {
+	AppSettingLiveViewTappingActionUnknown = 0, ///< 不明
+	AppSettingLiveViewTappingActionAF, ///< AFを実行
+	AppSettingLiveViewTappingActionAE, ///< AEを実行
+} AppSettingLiveViewTappingAction;
+
 extern NSString *const AppSettingChangedNotification; ///< アプリケーションの設定が変化した時の通知名
 
 
@@ -22,5 +29,7 @@ extern NSString *const AppSettingChangedNotification; ///< アプリケーショ
 @property (assign, nonatomic) BOOL keepLastCameraSetting;
 /// アプリ設定に保存されているの最後のカメラ設定
 @property (strong, nonatomic) NSDictionary *latestSnapshotOfCameraSettings;
+/// ライブビューパネルでタップした時の動作
+@property (assign, nonatomic) AppSettingLiveViewTappingAction liveViewTappingAction;
 
 @end

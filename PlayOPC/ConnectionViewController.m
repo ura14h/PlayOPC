@@ -833,7 +833,7 @@
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
-	alertController.popoverPresentationController.sourceView = self.clearRememberedCameraSettingCell;
+	alertController.popoverPresentationController.sourceRect = self.clearRememberedCameraSettingCell.frame;
 	
 	{
 		NSString *title = NSLocalizedString(@"Clear camera setting", nil);

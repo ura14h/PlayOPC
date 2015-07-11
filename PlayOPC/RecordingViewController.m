@@ -1351,6 +1351,70 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		return;
 	}
 	
+	// MARK: ライブビューが回転している方向に合わせて、表示範囲の移動方向も補正する必要があるようです。
+	if (self.liveImageView.image) {
+		UIImageOrientation orientation = self.liveImageView.image.imageOrientation;
+		switch (orientation) {
+			case UIImageOrientationUp:
+				// 移動方向はそのままです。
+				break;
+			case UIImageOrientationDown:
+				// 画像が180度回転しているので、移動方向も180度捻ります。
+				switch (direction) {
+					case OLYCameraMagnifyingLiveViewScrollDirectionUp:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionDown;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionDown:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionUp;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionLeft:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionRight;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionRight:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionLeft;
+						break;
+				}
+				break;
+			case UIImageOrientationLeft:
+				// 画像が時計回りに90度回転しているので、移動方向も90度捻ります。
+				switch (direction) {
+					case OLYCameraMagnifyingLiveViewScrollDirectionUp:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionRight;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionDown:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionLeft;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionLeft:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionUp;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionRight:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionDown;
+						break;
+				}
+				break;
+			case UIImageOrientationRight:
+				// 画像が半時計回りに90度回転しているので、移動方向も90度捻ります。
+				switch (direction) {
+					case OLYCameraMagnifyingLiveViewScrollDirectionUp:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionLeft;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionDown:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionRight;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionLeft:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionDown;
+						break;
+					case OLYCameraMagnifyingLiveViewScrollDirectionRight:
+						direction = OLYCameraMagnifyingLiveViewScrollDirectionUp;
+						break;
+				}
+				break;
+			default:
+				// ありえません。
+				break;
+		}
+	}
+	
 	// 表示範囲を移動します。
 	__weak RecordingViewController *weakSelf = self;
 	[self executeAsynchronousBlock:^{

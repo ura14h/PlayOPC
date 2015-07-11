@@ -1,7 +1,7 @@
 # PLAY OPC
 
 This application can operate Open Platform Camera (OLYMPUS AIR A01) of Olympus.
-You can try most functions of SDK 1.0 provided by Olympus with using this application.
+You can try most functions of SDK 1.1 provided by Olympus with using this application.
 
 OLYMPUS AIR A01 is necessary to use this application.
 (It is OLYMPUS AIR A01 if this description says a camera.)
@@ -9,6 +9,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 ## Features
 
 * Switching on the camera via Bluetooth
+* Displaying real-time preview image by the camera
 * Taking a picture with using the camera
 * Recording a video with using the camera
 * Displaying various states of the camera
@@ -19,7 +20,8 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Adding special effects to an image
 * Locking auto focus and auto exposure
 * Changing an angle of view using optical zoom and digital zoom (The optical zooming requires a motor zoom lens)
-* Changing a quality of picture  to store at the camera
+* Magnifying real-time preview image by the camera
+* Changing a quality of picture to store at the camera
 * Changing sound volume
 * Registering the current geolocation as the photography place
 * Watching and sharing a picture or a video which stored in the camera
@@ -43,9 +45,11 @@ You may find the binary version of application in [iTunes App Store](https://itu
 
 Building this application requires:
 
-* iOS 8.0
-* Mac OS X Yosemite (10.10.3)
-* Xcode 6.3.2
+* iOS 8.0 (Recommended 8.3 and later)
+* Mac OS X Yosemite (Recommended 10.10.3 and later)
+* Xcode 6.4
+
+When the project that you downloaded does not seem to be able to build, please read the trouble-shooting section of [Wiki](https://github.com/ura14h/PlayOPC/wiki).
 
 ## Authors
 

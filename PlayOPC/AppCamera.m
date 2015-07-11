@@ -356,52 +356,18 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return result;
 }
 
-- (BOOL)unlockAutoFocus:(NSError *__autoreleasing *)error {
-	DEBUG_LOG(@"");
-	
-	self.runningLockingAutoFocus = NO;
-	return [super unlockAutoFocus:error];
-}
+- (BOOL)setCameraPropertyValue:(NSString *)name value:(NSString *)value error:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"name=%@, value=%@", name, value);
 
-- (void)lockAutoFocus:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
-	DEBUG_LOG(@"");
-	
-	self.runningLockingAutoFocus = YES;
-	[super lockAutoFocus:^(NSDictionary *info) {
-		DEBUG_LOG(@"info=%p", info);
-		self.runningLockingAutoFocus = NO;
-		if (completionHandler) {
-			completionHandler(info);
-		}
-	}errorHandler:^(NSError *error) {
-		DEBUG_LOG(@"error=%p", error);
-		self.runningLockingAutoFocus = NO;
-		if (errorHandler) {
-			errorHandler(error);
-		}
-	}];
-}
-
-- (BOOL)unlockAutoExposure:(NSError *__autoreleasing *)error {
-	DEBUG_LOG(@"");
-	
-	self.runningLockingAutoExposure = NO;
-	return [super unlockAutoExposure:error];
-}
-
-- (BOOL)changeDigitalZoomScale:(float)scale error:(NSError *__autoreleasing *)error {
-	DEBUG_LOG(@"scale=%f", scale);
-	
-	BOOL result = [super changeDigitalZoomScale:scale error:error];
-	if (result) {
-		// デジタルズームの倍率変更に成功した場合はプロパティの値も変更します。
-		if ((isnan(self.currentDigitalZoomScale) && !isnan(scale)) ||
-			(!isnan(self.currentDigitalZoomScale) && isnan(scale)) ||
-			self.currentDigitalZoomScale != scale) {
-			self.currentDigitalZoomScale = scale;
-		}
+	// MARK: フォーカスモードが変わったらフォーカスロックは解除する必要があるようです。
+	// MARK: MF以外からMFに変更するとレンズのフォーカスリングがロックしたままになっているため。
+	if ([name isEqualToString:CameraPropertyFocusStill] ||
+		[name isEqualToString:CameraPropertyFocusMovie]) {
+		[super unlockAutoFocus:nil];
+		[super clearAutoFocusPoint:nil];
 	}
-	return result;
+	
+	return [super setCameraPropertyValue:name value:value error:error];
 }
 
 - (BOOL)setCameraPropertyValues:(NSDictionary *)values error:(NSError *__autoreleasing *)error {
@@ -481,6 +447,54 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	}
 	
 	return YES;
+}
+
+- (BOOL)unlockAutoFocus:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"");
+	
+	self.runningLockingAutoFocus = NO;
+	return [super unlockAutoFocus:error];
+}
+
+- (void)lockAutoFocus:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+	DEBUG_LOG(@"");
+	
+	self.runningLockingAutoFocus = YES;
+	[super lockAutoFocus:^(NSDictionary *info) {
+		DEBUG_LOG(@"info=%p", info);
+		self.runningLockingAutoFocus = NO;
+		if (completionHandler) {
+			completionHandler(info);
+		}
+	}errorHandler:^(NSError *error) {
+		DEBUG_LOG(@"error=%p", error);
+		self.runningLockingAutoFocus = NO;
+		if (errorHandler) {
+			errorHandler(error);
+		}
+	}];
+}
+
+- (BOOL)unlockAutoExposure:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"");
+	
+	self.runningLockingAutoExposure = NO;
+	return [super unlockAutoExposure:error];
+}
+
+- (BOOL)changeDigitalZoomScale:(float)scale error:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"scale=%f", scale);
+	
+	BOOL result = [super changeDigitalZoomScale:scale error:error];
+	if (result) {
+		// デジタルズームの倍率変更に成功した場合はプロパティの値も変更します。
+		if ((isnan(self.currentDigitalZoomScale) && !isnan(scale)) ||
+			(!isnan(self.currentDigitalZoomScale) && isnan(scale)) ||
+			self.currentDigitalZoomScale != scale) {
+			self.currentDigitalZoomScale = scale;
+		}
+	}
+	return result;
 }
 
 - (BOOL)startMagnifyingLiveView:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {

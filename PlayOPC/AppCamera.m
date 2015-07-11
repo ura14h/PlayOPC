@@ -217,6 +217,7 @@ NSString *const CameraPropertyMinimumDigitalZoomScale = @"minimumDigitalZoomScal
 NSString *const CameraPropertyMaximumDigitalZoomScale = @"maximumDigitalZoomScale";
 NSString *const CameraPropertyCurrentDigitalZoomScale = @"currentDigitalZoomScale";
 NSString *const CameraPropertyOpticalZoomingSpeed = @"opticalZoomingSpeed";
+NSString *const CameraPropertyMagnifyingLiveView = @"magnifyingLiveView";
 NSString *const CameraPropertyMagnifyingLiveViewScale = @"magnifyingLiveViewScale";
 NSString *const CameraPropertyArtEffectType = @"ART_EFFECT_TYPE";
 NSString *const CameraPropertyArtEffectHybrid = @"ART_EFFECT_HYBRID";
@@ -356,7 +357,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return result;
 }
 
-- (BOOL)setCameraPropertyValue:(NSString *)name value:(NSString *)value error:(NSError *__autoreleasing *)error {
+- (BOOL)setCameraPropertyValue:(NSString *)name value:(NSString *)value error:(NSError **)error {
 	DEBUG_LOG(@"name=%@, value=%@", name, value);
 
 	// MARK: フォーカスモードが変わったらフォーカスロックは解除する必要があるようです。
@@ -370,7 +371,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return [super setCameraPropertyValue:name value:value error:error];
 }
 
-- (BOOL)setCameraPropertyValues:(NSDictionary *)values error:(NSError *__autoreleasing *)error {
+- (BOOL)setCameraPropertyValues:(NSDictionary *)values error:(NSError **)error {
 	DEBUG_LOG(@"values.count=%ld", (long)values.count);
 	
 	// MARK: 読み取り専用のカメラプロパティに設定しようとするとカメラが再起動してしまうようです。
@@ -449,7 +450,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return YES;
 }
 
-- (BOOL)unlockAutoFocus:(NSError *__autoreleasing *)error {
+- (BOOL)unlockAutoFocus:(NSError **)error {
 	DEBUG_LOG(@"");
 	
 	self.runningLockingAutoFocus = NO;
@@ -475,14 +476,14 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	}];
 }
 
-- (BOOL)unlockAutoExposure:(NSError *__autoreleasing *)error {
+- (BOOL)unlockAutoExposure:(NSError **)error {
 	DEBUG_LOG(@"");
 	
 	self.runningLockingAutoExposure = NO;
 	return [super unlockAutoExposure:error];
 }
 
-- (BOOL)changeDigitalZoomScale:(float)scale error:(NSError *__autoreleasing *)error {
+- (BOOL)changeDigitalZoomScale:(float)scale error:(NSError **)error {
 	DEBUG_LOG(@"scale=%f", scale);
 	
 	BOOL result = [super changeDigitalZoomScale:scale error:error];
@@ -497,7 +498,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return result;
 }
 
-- (BOOL)startMagnifyingLiveView:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {
+- (BOOL)startMagnifyingLiveView:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error {
 	DEBUG_LOG(@"scale=%ld", (long)scale);
 	
 	// ライブビュー拡大が成功したらその時の倍率を保持しておきます。
@@ -508,7 +509,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return result;
 }
 
-- (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point scale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {
+- (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point scale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error {
 	DEBUG_LOG(@"scale=%ld", (long)scale);
 
 	// ライブビュー拡大が成功したらその時の倍率を保持しておきます。
@@ -519,7 +520,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return result;
 }
 
-- (BOOL)changeMagnifyingLiveViewScale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError *__autoreleasing *)error {
+- (BOOL)changeMagnifyingLiveViewScale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error {
 	DEBUG_LOG(@"scale=%ld", (long)scale);
 
 	// ライブビュー拡大を開始していない場合は変更されたことにします。
@@ -1203,7 +1204,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return YES;
 }
 
-- (AppCameraFocusMode)focusMode:(NSError *__autoreleasing *)error {
+- (AppCameraFocusMode)focusMode:(NSError **)error {
 	DEBUG_LOG(@"");
 
 	// 撮影モード別のフォーカスモードを取得します。
@@ -1238,10 +1239,16 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	}
 }
 
-- (BOOL)startMagnifyingLiveView:(NSError *__autoreleasing *)error {
+- (BOOL)startMagnifyingLiveView:(NSError **)error {
 	DEBUG_LOG(@"");
 	
 	return [self startMagnifyingLiveView:self.magnifyingLiveViewScale error:error];
+}
+
+- (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point error:(NSError **)error {
+	DEBUG_LOG(@"point=%@", NSStringFromCGPoint(point));
+	
+	return [self startMagnifyingLiveViewAtPoint:point scale:self.magnifyingLiveViewScale error:error];
 }
 
 #pragma mark -

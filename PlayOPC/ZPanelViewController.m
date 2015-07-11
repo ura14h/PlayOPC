@@ -115,6 +115,7 @@
 	[camera addObserver:self forKeyPath:CameraPropertyMinimumDigitalZoomScale options:0 context:@selector(didChangeMinimumDigitalZoomScale:)];
 	[camera addObserver:self forKeyPath:CameraPropertyMaximumDigitalZoomScale options:0 context:@selector(didChangeMaximumDigitalZoomScale:)];
 	[camera addObserver:self forKeyPath:CameraPropertyCurrentDigitalZoomScale options:0 context:@selector(didChangeCurrentDigitalZoomScale:)];
+	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveView options:0 context:@selector(didChangeMagnifyingLiveView:)];
 	
 	// 画面表示を初期表示します。
 	NSString *emptyDetailTextLabel = @" "; // テーブルセルのラベルを空欄にしょうとしてnilとか@""とかを設定するとなぜか不具合が起きます。
@@ -144,6 +145,7 @@
 	[camera removeObserver:self forKeyPath:CameraPropertyMinimumDigitalZoomScale];
 	[camera removeObserver:self forKeyPath:CameraPropertyMaximumDigitalZoomScale];
 	[camera removeObserver:self forKeyPath:CameraPropertyCurrentDigitalZoomScale];
+	[camera removeObserver:self forKeyPath:CameraPropertyMagnifyingLiveView];
 	[camera removeRecordingSupportsDelegate:self];
 	_opticalZoomingSpeeds = nil;
 	_magnifyingLiveViewScales = nil;
@@ -545,6 +547,20 @@
 	}];
 }
 
+/// ライブビュー拡大の状態が変わった時に呼び出されます。
+- (void)didChangeMagnifyingLiveView:(NSDictionary *)change {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	AppCamera *camera = GetAppCamera();
+	BOOL enableMagnifying = camera.magnifyingLiveView;
+	[self tableViewCell:self.startMagnifyingLiveViewCell enabled:!enableMagnifying];
+	[self tableViewCell:self.stopMagnifyingLiveViewCell enabled:enableMagnifying];
+	
+	// MARK: ライブビュー拡大を開始するとデジタルズームの倍率変更に影響するようなので表示を更新します。
+	[self updateDigitalZoomingSliderEnabled:YES];
+}
+
 /// 'Start Magnifying'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtStartMagnifyingLiveView {
 	DEBUG_LOG(@"");
@@ -563,14 +579,8 @@
 		}
 		
 		// ライブビュー拡大開始が完了しました。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			BOOL enableMagnifying = camera.magnifyingLiveView;
-			[weakSelf tableViewCell:weakSelf.startMagnifyingLiveViewCell enabled:!enableMagnifying];
-			[weakSelf tableViewCell:weakSelf.stopMagnifyingLiveViewCell enabled:enableMagnifying];
-
-			// MARK: ライブビュー拡大を開始するとデジタルズームの倍率変更に影響するようなので表示を更新します。
-			[weakSelf updateDigitalZoomingSliderEnabled:YES];
-		}];
+		// MARK: 表示の更新はKVO監視している先で行われます。
+		DEBUG_LOG(@"");
 	}];
 }
 
@@ -592,14 +602,8 @@
 		}
 		
 		// ライブビュー拡大終了が完了しました。
-		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			BOOL enableMagnifying = camera.magnifyingLiveView;
-			[weakSelf tableViewCell:weakSelf.startMagnifyingLiveViewCell enabled:!enableMagnifying];
-			[weakSelf tableViewCell:weakSelf.stopMagnifyingLiveViewCell enabled:enableMagnifying];
-
-			// MARK: ライブビュー拡大を開始するとデジタルズームの倍率変更に影響するようなので表示を更新します。
-			[weakSelf updateDigitalZoomingSliderEnabled:YES];
-		}];
+		// MARK: 表示の更新はKVO監視している先で行われます。
+		DEBUG_LOG(@"");
 	}];
 }
 

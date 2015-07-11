@@ -224,6 +224,7 @@ extern NSString *const CameraPropertyMinimumDigitalZoomScale;
 extern NSString *const CameraPropertyMaximumDigitalZoomScale;
 extern NSString *const CameraPropertyCurrentDigitalZoomScale;
 extern NSString *const CameraPropertyOpticalZoomingSpeed;
+extern NSString *const CameraPropertyMagnifyingLiveView;
 extern NSString *const CameraPropertyMagnifyingLiveViewScale;
 extern NSString *const CameraPropertyArtEffectType;
 extern NSString *const CameraPropertyArtEffectHybrid;
@@ -311,9 +312,12 @@ extern NSString *const CameraPropertyWbRevG;
 - (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error;
 
 /// 現在設定されている撮影モードでのフォーカスモードを取得します。
-- (AppCameraFocusMode)focusMode:(NSError *__autoreleasing *)error;
+- (AppCameraFocusMode)focusMode:(NSError **)error;
 
 /// 現在設定されている倍率でライブビュー拡大を開始します。
-- (BOOL)startMagnifyingLiveView:(NSError *__autoreleasing *)error;
+- (BOOL)startMagnifyingLiveView:(NSError **)error;
+
+/// 現在設定されている倍率でライブビュー拡大を位置指定で開始します。
+- (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point error:(NSError **)error;
 
 @end

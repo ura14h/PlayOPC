@@ -653,8 +653,15 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		return;
 	}
 
-	// MARK: 一旦は機能未割り当てとします。
-	// TODO: ライブビュー拡大を割り当てようかと思います。
+	// ライブビュー拡大を開始または終了します。
+	AppCamera *camera = GetAppCamera();
+	if (camera.magnifyingLiveView) {
+		[self stopMagnifyingLiveView];
+	} else {
+		// MARK: ライブビュー拡大開始の座標はオートフォーカスロックや自動露出ロックのような制限範囲がないようです。
+		CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
+		[self startMagnifyingLiveView:point];
+	}
 }
 
 /// 'TAKE'ボタンがタップされた時に呼び出されます。
@@ -958,6 +965,69 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera clearAutoFocusPoint:nil];
 		[camera unlockAutoFocus:nil];
 		[weakSelf.liveImageView showExposureFrame:preExposureFrameRect status:RecordingCameraLiveImageViewStatusFailed duration:1.0 animated:YES];
+	}];
+}
+
+/// ライブビュー拡大を開始します。
+- (void)startMagnifyingLiveView:(CGPoint)point {
+	DEBUG_LOG(@"point=%@", NSStringFromCGPoint(point));
+	
+	// 撮影中の時は何もできません。
+	AppCamera *camera = GetAppCamera();
+	if (camera.takingPicture || camera.recordingVideo) {
+		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+		return;
+	}
+	
+	// ライブビューが表示されていない場合はエラーとします。
+	if (!self.liveImageView || !self.liveImageView.image) {
+		[self showAlertMessage:NSLocalizedString(@"The camera is not sending application any image of the live view. Could not calculate a metering exposure point in the live view.", nil) title:NSLocalizedString(@"Could not get touch point", nil)];
+		return;
+	}
+	
+	// タッチした座標が明らかに領域外の時はエラーとします。
+	if (![self.liveImageView containsPoint:point]) {
+		DEBUG_LOG(@"ignore the point: point=%@", NSStringFromCGPoint(point));
+		return;
+	}
+	
+	// ライブビュー拡大開始を開始します。
+	__weak RecordingViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// ライブビュー拡大を開始します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		if (![camera startMagnifyingLiveViewAtPoint:point error:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start magnifying", nil)];
+			return;
+		}
+		
+		// ライブビュー拡大開始が完了しました。
+		DEBUG_LOG(@"");
+	}];
+}
+
+/// ライブビュー拡大を終了します。
+- (void)stopMagnifyingLiveView {
+	DEBUG_LOG(@"");
+	
+	// ライブビュー拡大終了を開始します。
+	__weak RecordingViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// ライブビュー拡大を終了します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		if (![camera stopMagnifyingLiveView:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not stop magnifying", nil)];
+			return;
+		}
+		
+		// ライブビュー拡大終了が完了しました。
+		DEBUG_LOG(@"");
 	}];
 }
 

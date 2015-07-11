@@ -267,11 +267,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (setting.keepLastCameraSetting) {
 			NSDictionary *snapshot = setting.latestSnapshotOfCameraSettings;
 			if (snapshot) {
+				[weakSelf reportBlockSettingToProgress:progressView];
 				if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
 					// エラーを無視して続行します。
 					DEBUG_LOG(@"An error occurred, but ignores it.");
 				}
+				progressView.mode = MBProgressHUDModeIndeterminate;
 			} else {
 				DEBUG_LOG(@"No snapshots.");
 			}
@@ -1487,6 +1489,31 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[self.view layoutIfNeeded];
 		self.controlPanelView.alpha = controlPanelViewAlpha;
 	}
+}
+
+/// 進捗画面にカメラ設定中を報告します。
+- (void)reportBlockSettingToProgress:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	__block UIImageView *progressImageView;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		UIImage *image = [UIImage imageNamed:@"Progress-Setting"];
+		progressImageView = [[UIImageView alloc] initWithImage:image];
+		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.alpha = 0.75;
+	});
+	progress.customView = progressImageView;
+	progress.mode = MBProgressHUDModeCustomView;
+
+	// 回転アニメーションを付け加えます。
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+	animation.toValue = @(0.0);
+	animation.fromValue = @(M_PI * -2.0);
+	animation.duration = 4.0;
+	animation.repeatCount = HUGE_VALF;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressImageView.layer addAnimation:animation forKey:nil];
+	});
 }
 
 @end

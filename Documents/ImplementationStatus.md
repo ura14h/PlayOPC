@@ -100,7 +100,7 @@
 * startDrivingZoomLensForDirection:speed:error:
 * startDrivingZoomLensToFocalLength:error:
 * startMagnifyingLiveView:error: (1.1.0)
-* *startMagnifyingLiveViewAtPoint:scale:error: (1.1.0)*
+* startMagnifyingLiveViewAtPoint:scale:error: (1.1.0)
 * stopMagnifyingLiveView: (1.1.0)
 * stopDrivingZoomLens:
 * detectedHumanFaces

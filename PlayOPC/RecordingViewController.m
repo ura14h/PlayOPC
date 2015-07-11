@@ -55,7 +55,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 //    |-- finderPanelView
 //    |    |-- cameraPanelView
 //    |    |    |-- liveImageView ... ライブビュー表示
-//    |    |    |-- recImageView ... レックビュー(撮影後確認画像)表示
+//    |    |    |-- moveToUpButton ... ライブビュー拡大表示の上移動
+//    |    |    |-- moveToLeftButton ... ライブビュー拡大表示の左移動
+//    |    |    |-- moveToRightButton ... ライブビュー拡大表示の右移動
+//    |    |    |-- moveToDownButton ... ライブビュー拡大表示の下移動
+//    |    |    |-- recImageButton ... レックビュー(撮影後確認画像)表示
 //    |    |-- controlPanelView
 //    |         |-- SPanelView ... ステータス全般と設定全体の保存と呼び出し
 //    |         |-- EPanelView ... 露出と撮影モード
@@ -76,6 +80,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIView *finderPanelView;
 @property (weak, nonatomic) IBOutlet UIView *cameraPanelView;
 @property (weak, nonatomic) IBOutlet LiveImageView *liveImageView;
+@property (weak, nonatomic) IBOutlet UIButton *moveToUpButton;
+@property (weak, nonatomic) IBOutlet UIButton *moveToLeftButton;
+@property (weak, nonatomic) IBOutlet UIButton *moveToRightButton;
+@property (weak, nonatomic) IBOutlet UIButton *moveToDownButton;
 @property (weak, nonatomic) IBOutlet RecImageButton *recImageButton;
 @property (weak, nonatomic) IBOutlet UIView *controlPanelView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewHeightConstraints;
@@ -133,8 +141,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	AppCamera *camera = GetAppCamera();
 	[camera addCameraPropertyDelegate:self];
 	[camera addObserver:self forKeyPath:CameraPropertyDetectedHumanFaces options:0 context:@selector(didChangeDetectedHumanFaces:)];
+	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveView options:0 context:@selector(didChangeMagnifyingLiveView:)];
 	
 	// 画面表示を初期設定します。
+	BOOL moveButtonAlpha = camera.magnifyingLiveView ? 1.0 : 0.0;
+	self.moveToUpButton.alpha = moveButtonAlpha;
+	self.moveToLeftButton.alpha = moveButtonAlpha;
+	self.moveToRightButton.alpha = moveButtonAlpha;
+	self.moveToDownButton.alpha = moveButtonAlpha;
 	self.controlPanelVisibleStatus = ControlPanelVisibleStatusUnknown;
 	self.toolPanelView.layer.borderWidth = 0.5;
 	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
@@ -150,6 +164,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	AppCamera *camera = GetAppCamera();
 	[camera removeObserver:self forKeyPath:CameraPropertyDetectedHumanFaces];
+	[camera removeObserver:self forKeyPath:CameraPropertyMagnifyingLiveView];
 	[camera removeCameraPropertyDelegate:self];
 	_cameraPropertyObserver = nil;
 	_latestRecImage = nil;
@@ -621,6 +636,27 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self.liveImageView showFaceFrames:detectedHumanFaces animated:YES];
 }
 
+/// ライブビュー拡大の状態が変わった時に呼び出されます。
+- (void)didChangeMagnifyingLiveView:(NSDictionary *)change {
+	DEBUG_LOG(@"");
+
+	BOOL moveButtonAlpha;
+	AppCamera *camera = GetAppCamera();
+	if (camera.magnifyingLiveView) {
+		// ライブビュー拡大表示コントローラを表示します。
+		moveButtonAlpha = 1.0;
+	} else {
+		// ライブビュー拡大表示コントローラを消去します。
+		moveButtonAlpha = 0.0;
+	}
+	[UIView animateWithDuration:0.25 animations:^{
+		self.moveToUpButton.alpha = moveButtonAlpha;
+		self.moveToLeftButton.alpha = moveButtonAlpha;
+		self.moveToRightButton.alpha = moveButtonAlpha;
+		self.moveToDownButton.alpha = moveButtonAlpha;
+	}];
+}
+
 /// ライブビューがタップされた時に呼び出されます。
 - (IBAction)didTapLiveImageView:(UITapGestureRecognizer *)sender {
 	DEBUG_LOG(@"");
@@ -707,6 +743,38 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[self stopTakingPicture];
 		}
 	}
+}
+
+/// 'U'ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapMoveToUpButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// 拡大表示中のライブビューを表示範囲を移動します。
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionUp];
+}
+
+/// 'L'ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapMoveToLeftButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// 拡大表示中のライブビューを表示範囲を移動します。
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionLeft];
+}
+
+/// 'R'ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapMoveToRightButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// 拡大表示中のライブビューを表示範囲を移動します。
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionRight];
+}
+
+/// 'D'ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapMoveToDownButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	// 拡大表示中のライブビューを表示範囲を移動します。
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionDown];
 }
 
 /// 撮影後確認画像ボタンがタップされた時に呼び出されます。
@@ -1262,6 +1330,30 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// 撮影に失敗しました。
 		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not record", nil)];
 	}];
+}
+
+/// 拡大表示中のライブビューを表示範囲を移動します。
+- (void)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction {
+	DEBUG_LOG(@"direction=%ld", (long)direction);
+	
+	// 撮影中の時は何もできません。
+	AppCamera *camera = GetAppCamera();
+	if (camera.takingPicture || camera.recordingVideo) {
+		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+		return;
+	}
+
+	// ライブビューを拡大していな時は何もできません。
+	if (!camera.magnifyingLiveView) {
+		DEBUG_LOG(@"camera.magnifyingLiveView=%ld", (long)camera.magnifyingLiveView);
+		return;
+	}
+	
+	// 表示範囲を移動します。
+	NSError *error = nil;
+	if (![camera changeMagnifyingLiveViewArea:direction error:&error]) {
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not move", nil)];
+	}
 }
 
 #pragma mark -

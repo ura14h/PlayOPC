@@ -1371,14 +1371,62 @@
                                                     <action selector="didTapRecImageButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="00Z-Xb-wjq"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77O-Ii-WQH">
+                                                <rect key="frame" x="145" y="8" width="30" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="U">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapMoveToUpButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="4AP-Av-aaA"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egu-Zq-VuS">
+                                                <rect key="frame" x="8" y="95" width="30" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="L">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapMoveToLeftButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="xvA-KX-1KJ"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-h1-Iap">
+                                                <rect key="frame" x="145" y="182" width="30" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="D">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapMoveToDownButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="R0w-nC-MuF"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oC-LX-B0l">
+                                                <rect key="frame" x="282" y="95" width="30" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <state key="normal" title="R">
+                                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="didTapMoveToRightButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="IQJ-C6-jbb"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="centerX" secondItem="77O-Ii-WQH" secondAttribute="centerX" id="3Df-tK-zXk"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="5bp-ZD-veE"/>
                                             <constraint firstAttribute="trailing" secondItem="AJr-e7-fHh" secondAttribute="trailing" id="EJu-WK-r5s"/>
                                             <constraint firstAttribute="trailing" secondItem="zjO-Vu-jx4" secondAttribute="trailing" constant="8" id="FdD-jn-l1i"/>
+                                            <constraint firstItem="Egu-Zq-VuS" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" constant="8" id="Lld-Jp-l2x"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="MKe-Ce-YFP"/>
+                                            <constraint firstAttribute="trailing" secondItem="9oC-LX-B0l" secondAttribute="trailing" constant="8" id="NLe-qm-2ee"/>
                                             <constraint firstAttribute="bottom" secondItem="AJr-e7-fHh" secondAttribute="bottom" id="Zf8-AQ-zgg"/>
                                             <constraint firstItem="zjO-Vu-jx4" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="dUG-U2-3gu"/>
+                                            <constraint firstAttribute="centerY" secondItem="Egu-Zq-VuS" secondAttribute="centerY" id="ddO-g2-Sf8"/>
+                                            <constraint firstAttribute="centerX" secondItem="a6R-h1-Iap" secondAttribute="centerX" id="fGi-M6-qAU"/>
+                                            <constraint firstAttribute="centerY" secondItem="9oC-LX-B0l" secondAttribute="centerY" id="l3h-kp-WDZ"/>
+                                            <constraint firstItem="77O-Ii-WQH" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="sWS-Of-zAQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="a6R-h1-Iap" secondAttribute="bottom" constant="8" id="xHZ-Fa-lRJ"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-Yr-lpp" userLabel="Control Panel">
@@ -1567,6 +1615,10 @@
                         <outlet property="controlPanelViewWidthConstraints" destination="dV3-Nl-DZ8" id="kau-8v-wwp"/>
                         <outlet property="finderPanelView" destination="mWa-4Q-MUL" id="OfG-N2-RJg"/>
                         <outlet property="liveImageView" destination="AJr-e7-fHh" id="tis-Mh-mcY"/>
+                        <outlet property="moveToDownButton" destination="a6R-h1-Iap" id="CxC-ya-x5k"/>
+                        <outlet property="moveToLeftButton" destination="Egu-Zq-VuS" id="v2O-0V-A7z"/>
+                        <outlet property="moveToRightButton" destination="9oC-LX-B0l" id="itL-xc-6DQ"/>
+                        <outlet property="moveToUpButton" destination="77O-Ii-WQH" id="zIW-xm-UJA"/>
                         <outlet property="recImageButton" destination="zjO-Vu-jx4" id="l4x-3G-UtX"/>
                         <outlet property="showAPanelButton" destination="ZQQ-QB-tBG" id="sYW-rV-4dd"/>
                         <outlet property="showCPanelButton" destination="VqA-pW-FV9" id="qat-Jx-dLu"/>

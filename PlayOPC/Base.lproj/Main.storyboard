@@ -1371,42 +1371,62 @@
                                                     <action selector="didTapRecImageButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="00Z-Xb-wjq"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77O-Ii-WQH">
-                                                <rect key="frame" x="145" y="8" width="30" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77O-Ii-WQH">
+                                                <rect key="frame" x="112" y="8" width="96" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="96" id="J3X-to-oA3"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="U">
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                <state key="normal" image="MoveToUpButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="highlighted" image="MoveToUpButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToUpButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="4AP-Av-aaA"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egu-Zq-VuS">
-                                                <rect key="frame" x="8" y="95" width="30" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egu-Zq-VuS">
+                                                <rect key="frame" x="8" y="62" width="40" height="96"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="96" id="riu-bs-L0m"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="L">
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                                <state key="normal" image="MoveToLeftButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="highlighted" image="MoveToLeftButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToLeftButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="xvA-KX-1KJ"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-h1-Iap">
-                                                <rect key="frame" x="145" y="182" width="30" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-h1-Iap">
+                                                <rect key="frame" x="112" y="172" width="96" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="96" id="80e-O0-Q9S"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="D">
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="MoveToDownButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="highlighted" image="MoveToDownButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToDownButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="R0w-nC-MuF"/>
                                                 </connections>
                                             </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oC-LX-B0l">
-                                                <rect key="frame" x="282" y="95" width="30" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oC-LX-B0l">
+                                                <rect key="frame" x="272" y="62" width="40" height="96"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="96" id="aZ3-hH-WiX"/>
+                                                </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <state key="normal" title="R">
+                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" image="MoveToRightButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="highlighted" image="MoveToRightButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToRightButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="IQJ-C6-jbb"/>
                                                 </connections>
@@ -4590,6 +4610,14 @@
     </scenes>
     <resources>
         <image name="LatestBarButton" width="21" height="24"/>
+        <image name="MoveToDownButtonNormal" width="32" height="32"/>
+        <image name="MoveToDownButtonSelected" width="32" height="32"/>
+        <image name="MoveToLeftButtonNormal" width="32" height="32"/>
+        <image name="MoveToLeftButtonSelected" width="32" height="32"/>
+        <image name="MoveToRightButtonNormal" width="32" height="32"/>
+        <image name="MoveToRightButtonSelected" width="32" height="32"/>
+        <image name="MoveToUpButtonNormal" width="32" height="32"/>
+        <image name="MoveToUpButtonSelected" width="32" height="32"/>
         <image name="ProtectBarButton" width="21" height="22"/>
         <image name="ResizeBarButton" width="29" height="22"/>
         <image name="TakeButtonDefault" width="52" height="52"/>

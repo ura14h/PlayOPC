@@ -493,6 +493,29 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 - (void)camera:(OLYCamera *)camera didChangeAutoFocusResult:(NSDictionary *)result {
 	DEBUG_LOG(@"result=%@", result);
+	
+	AppCamera *appCamera = GetAppCamera();
+	if ([appCamera focusMode:nil] == AppCameraFocusModeCAF) {
+		// オートフォーカスの結果を取得します。
+		NSString *focusResult = result[OLYCameraTakingPictureProgressInfoFocusResultKey];
+		NSValue *focusRectValue = result[OLYCameraTakingPictureProgressInfoFocusRectKey];
+		DEBUG_LOG(@"focusResult=%@, focusRectValue=%@", focusResult, focusRectValue);
+		if ([focusResult isEqualToString:@"ok"] && focusRectValue) {
+			// オートフォーカスとフォーカスロックに成功しました。結果のフォーカス枠を表示します。
+			CGRect postFocusFrameRect = [focusRectValue CGRectValue];
+			[self.liveImageView showFocusFrame:postFocusFrameRect status:RecordingCameraLiveImageViewStatusLocked animated:YES];
+		} else if ([focusResult isEqualToString:@"none"]) {
+			// オートフォーカスできませんでした。
+			// コンティニュアスオートフォーカスなので、結果のフォーカス枠の表示は合焦失敗ではなくフォーカスロック試行中に戻します。
+			[self.liveImageView changeFocusFrameStatus:RecordingCameraLiveImageViewStatusRunning animated:YES];
+		} else {
+			// オートフォーカスできませんでした。
+			// この状況は起きて欲しくないが、念のためフォーカス枠の表示は合焦失敗にしておきます。
+			[self.liveImageView changeFocusFrameStatus:RecordingCameraLiveImageViewStatusFailed animated:YES];
+		}
+	} else {
+		// 他のフォーカスモードはフォーカスロック時に必要な処理を行っているのでここでは無視します。
+	}
 }
 
 - (void)cameraWillReceiveCapturedImagePreview:(OLYCamera *)camera {
@@ -830,9 +853,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		} else {
 			// オートフォーカスできませんでした。
-			[camera clearAutoFocusPoint:nil];
-			[camera unlockAutoFocus:nil];
-			[weakSelf.liveImageView showFocusFrame:preFocusFrameRect status:RecordingCameraLiveImageViewStatusFailed duration:1.0 animated:YES];
+			if ([camera focusMode:nil] == AppCameraFocusModeCAF) {
+				// MARK: コンティニュアスオートフォーカスはこのタイミングで合焦結果を返さないようです。
+				// この後にいつか発生する合焦のデリゲートで残りの表示を行います。
+			} else {
+				[camera clearAutoFocusPoint:nil];
+				[camera unlockAutoFocus:nil];
+				[weakSelf.liveImageView showFocusFrame:preFocusFrameRect status:RecordingCameraLiveImageViewStatusFailed duration:1.0 animated:YES];
+			}
 		}
 		// フォーカスロックを自発的に他のビューコントローラへ通知します。
 		[camera camera:camera notifyDidChangeCameraProperty:CameraPropertyAfLockState sender:weakSelf];

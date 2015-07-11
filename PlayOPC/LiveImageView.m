@@ -398,6 +398,37 @@
 	}
 }
 
+- (void)changeFocusFrameStatus:(RecordingCameraLiveImageViewStatus)status animated:(BOOL)animated {
+	DEBUG_DETAIL_LOG(@"status=%ld", status);
+	
+	if (!self.image) {
+		return;
+	}
+
+	CGColorRef frameColorRef;
+	switch (status) {
+		case RecordingCameraLiveImageViewStatusRunning:
+			frameColorRef = self.focusFrameBorderColorStatusRunning.CGColor;
+			break;
+		case RecordingCameraLiveImageViewStatusLocked:
+			frameColorRef = self.focusFrameBorderColorStatusLocked.CGColor;
+			break;
+		case RecordingCameraLiveImageViewStatusFailed:
+			frameColorRef = self.focusFrameBorderColorStatusFailed.CGColor;
+			break;
+	}
+	if (!animated) {
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	}
+	self.focusFrameLayer.borderColor = frameColorRef;
+	if (!animated) {
+		[CATransaction commit];
+	}
+
+	self.focusFrameStatus = status;
+}
+
 - (void)hideExposureFrame:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
 

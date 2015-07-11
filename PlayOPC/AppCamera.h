@@ -12,6 +12,14 @@
 #import <OLYCameraKit/OLYCamera.h>
 #import <CoreLocation/CoreLocation.h>
 
+/// フォーカスモード
+typedef enum : NSInteger {
+	AppCameraFocusModeUnknown = 0, ///< 不明
+	AppCameraFocusModeMF,  ///< マニュアルフォーカス
+	AppCameraFocusModeSAF, ///< シングルオートフォーカス
+	AppCameraFocusModeCAF, ///< コンティニュアスオートフォーカス
+} AppCameraFocusMode;
+
 // カメラプロパティ
 extern NSString *const CameraPropertyAperture;
 extern NSString *const CameraPropertyAe;
@@ -33,11 +41,16 @@ extern NSString *const CameraPropertyQualityMovie;
 extern NSString *const CameraPropertyDestinationFile;
 extern NSString *const CameraPropertyQualityMovieShortMovieRecordTime;
 extern NSString *const CameraPropertyFocusStill;
+extern NSString *const CameraPropertyFocusStillMf;
+extern NSString *const CameraPropertyFocusStillSaf;
 extern NSString *const CameraPropertyAfLockState;
 extern NSString *const CameraPropertyAfLockStateLock;
 extern NSString *const CameraPropertyAfLockStateUnlock;
 extern NSString *const CameraPropertyFullTimeAf;
 extern NSString *const CameraPropertyFocusMovie;
+extern NSString *const CameraPropertyFocusMovieMf;
+extern NSString *const CameraPropertyFocusMovieSaf;
+extern NSString *const CameraPropertyFocusMovieCaf;
 extern NSString *const CameraPropertyBatteryLevel;
 extern NSString *const CameraPropertyFaceScan;
 extern NSString *const CameraPropertyAntiShakeFocalLength;
@@ -296,6 +309,9 @@ extern NSString *const CameraPropertyWbRevG;
 
 /// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
 - (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error;
+
+/// 現在設定されている撮影モードでのフォーカスモードを取得します。
+- (AppCameraFocusMode)focusMode:(NSError *__autoreleasing *)error;
 
 /// 現在設定されている倍率でライブビュー拡大を開始します。
 - (BOOL)startMagnifyingLiveView:(NSError *__autoreleasing *)error;

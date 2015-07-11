@@ -38,6 +38,9 @@ typedef enum : NSInteger {
 /// 指定時間が0秒の場合は表示し続けます。
 - (void)showFocusFrame:(CGRect)rect status:(RecordingCameraLiveImageViewStatus)status duration:(NSTimeInterval)duration animated:(BOOL)animated;
 
+/// フォーカス枠の枠表示状態を変更します。
+- (void)changeFocusFrameStatus:(RecordingCameraLiveImageViewStatus)status animated:(BOOL)animated;
+
 /// 自動露出枠を非表示にします。
 - (void)hideExposureFrame:(BOOL)animated;
 

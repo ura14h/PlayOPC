@@ -35,10 +35,15 @@ NSString *const CameraPropertyQualityMovie = @"QUALITY_MOVIE";
 NSString *const CameraPropertyDestinationFile = @"DESTINATION_FILE";
 NSString *const CameraPropertyQualityMovieShortMovieRecordTime = @"QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME";
 NSString *const CameraPropertyFocusStill = @"FOCUS_STILL";
+NSString *const CameraPropertyFocusStillMf = @"<FOCUS_STILL/FOCUS_MF>";
+NSString *const CameraPropertyFocusStillSaf = @"<FOCUS_STILL/FOCUS_SAF>";
 NSString *const CameraPropertyAfLockState = @"AF_LOCK_STATE";
 NSString *const CameraPropertyAfLockStateLock = @"<AF_LOCK_STATE/LOCK>";
 NSString *const CameraPropertyAfLockStateUnlock = @"<AF_LOCK_STATE/UNLOCK>";
 NSString *const CameraPropertyFocusMovie = @"FOCUS_MOVIE";
+NSString *const CameraPropertyFocusMovieMf = @"<FOCUS_MOVIE/FOCUS_MF>";
+NSString *const CameraPropertyFocusMovieSaf = @"<FOCUS_MOVIE/FOCUS_SAF>";
+NSString *const CameraPropertyFocusMovieCaf = @"<FOCUS_MOVIE/FOCUS_CAF>";
 NSString *const CameraPropertyFullTimeAf = @"FULL_TIME_AF";
 NSString *const CameraPropertyBatteryLevel = @"BATTERY_LEVEL";
 NSString *const CameraPropertyFaceScan = @"FACE_SCAN";
@@ -1182,6 +1187,41 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	
 	// 復元完了しました。
 	return YES;
+}
+
+- (AppCameraFocusMode)focusMode:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"");
+
+	// 撮影モード別のフォーカスモードを取得します。
+	NSString *focusMode = nil;
+	OLYCameraActionType actionType = [self actionType];
+	switch (actionType) {
+		case OLYCameraActionTypeSingle:
+		case OLYCameraActionTypeSequential:
+			focusMode = [self cameraPropertyValue:CameraPropertyFocusStill error:error];
+			break;
+		case OLYCameraActionTypeMovie:
+			focusMode = [self cameraPropertyValue:CameraPropertyFocusMovie error:error];
+			break;
+		default:
+			break;
+	}
+	
+	// 取得したフォーカスモードから統合的なフォーカスモードに変換します。
+	if (!focusMode) {
+		return AppCameraFocusModeUnknown;
+	} else if ([focusMode isEqualToString:CameraPropertyFocusStillMf] ||
+			   [focusMode isEqualToString:CameraPropertyFocusMovieMf]) {
+		return AppCameraFocusModeMF;
+	} else if ([focusMode isEqualToString:CameraPropertyFocusStillSaf] ||
+			   [focusMode isEqualToString:CameraPropertyFocusMovieSaf]) {
+		return AppCameraFocusModeSAF;
+	} else if ([focusMode isEqualToString:CameraPropertyFocusMovieCaf]) {
+		return AppCameraFocusModeCAF;
+	} else {
+		// ありえません。
+		return AppCameraFocusModeUnknown;
+	}
 }
 
 - (BOOL)startMagnifyingLiveView:(NSError *__autoreleasing *)error {

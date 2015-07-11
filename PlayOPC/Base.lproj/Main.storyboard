@@ -1360,12 +1360,12 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77O-Ii-WQH">
-                                                <rect key="frame" x="112" y="8" width="96" height="40"/>
+                                                <rect key="frame" x="112" y="0.0" width="96" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="96" id="J3X-to-oA3"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="8"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="16"/>
                                                 <state key="normal" image="MoveToUpButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1375,12 +1375,12 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egu-Zq-VuS">
-                                                <rect key="frame" x="8" y="62" width="40" height="96"/>
+                                                <rect key="frame" x="0.0" y="62" width="56" height="96"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="96" id="riu-bs-L0m"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="8" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="16" maxY="0.0"/>
                                                 <state key="normal" image="MoveToLeftButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1390,12 +1390,12 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-h1-Iap">
-                                                <rect key="frame" x="112" y="172" width="96" height="40"/>
+                                                <rect key="frame" x="112" y="164" width="96" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="96" id="80e-O0-Q9S"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="0.0" minY="8" maxX="0.0" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="0.0" minY="16" maxX="0.0" maxY="8"/>
                                                 <state key="normal" image="MoveToDownButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1405,12 +1405,12 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oC-LX-B0l">
-                                                <rect key="frame" x="272" y="62" width="40" height="96"/>
+                                                <rect key="frame" x="264" y="62" width="56" height="96"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="96" id="aZ3-hH-WiX"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                <inset key="contentEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <inset key="contentEdgeInsets" minX="16" minY="0.0" maxX="8" maxY="0.0"/>
                                                 <state key="normal" image="MoveToRightButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
@@ -1425,16 +1425,16 @@
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="5bp-ZD-veE"/>
                                             <constraint firstAttribute="trailing" secondItem="AJr-e7-fHh" secondAttribute="trailing" id="EJu-WK-r5s"/>
                                             <constraint firstAttribute="trailing" secondItem="zjO-Vu-jx4" secondAttribute="trailing" constant="8" id="FdD-jn-l1i"/>
-                                            <constraint firstItem="Egu-Zq-VuS" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" constant="8" id="Lld-Jp-l2x"/>
+                                            <constraint firstItem="Egu-Zq-VuS" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="Lld-Jp-l2x"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="MKe-Ce-YFP"/>
-                                            <constraint firstAttribute="trailing" secondItem="9oC-LX-B0l" secondAttribute="trailing" constant="8" id="NLe-qm-2ee"/>
+                                            <constraint firstAttribute="trailing" secondItem="9oC-LX-B0l" secondAttribute="trailing" id="NLe-qm-2ee"/>
                                             <constraint firstAttribute="bottom" secondItem="AJr-e7-fHh" secondAttribute="bottom" id="Zf8-AQ-zgg"/>
                                             <constraint firstItem="zjO-Vu-jx4" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="dUG-U2-3gu"/>
                                             <constraint firstAttribute="centerY" secondItem="Egu-Zq-VuS" secondAttribute="centerY" id="ddO-g2-Sf8"/>
                                             <constraint firstAttribute="centerX" secondItem="a6R-h1-Iap" secondAttribute="centerX" id="fGi-M6-qAU"/>
                                             <constraint firstAttribute="centerY" secondItem="9oC-LX-B0l" secondAttribute="centerY" id="l3h-kp-WDZ"/>
-                                            <constraint firstItem="77O-Ii-WQH" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="sWS-Of-zAQ"/>
-                                            <constraint firstAttribute="bottom" secondItem="a6R-h1-Iap" secondAttribute="bottom" constant="8" id="xHZ-Fa-lRJ"/>
+                                            <constraint firstItem="77O-Ii-WQH" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="sWS-Of-zAQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="a6R-h1-Iap" secondAttribute="bottom" id="xHZ-Fa-lRJ"/>
                                         </constraints>
                                     </view>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CRA-Yr-lpp" userLabel="Control Panel">

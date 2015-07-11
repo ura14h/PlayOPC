@@ -931,19 +931,17 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W44-R7-ylK">
                                         <rect key="frame" x="0.0" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
-                                                <rect key="frame" x="6" y="15" width="30" height="34"/>
-                                                <state key="normal" title="S">
-                                                    <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
+                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                                <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
+                                                <state key="normal" image="SPanelButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected">
-                                                    <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
+                                                <state key="selected" image="SPanelButtonSelected"/>
+                                                <state key="highlighted" image="SPanelButtonHighlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
@@ -962,19 +960,17 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWW-35-Whv">
                                         <rect key="frame" x="43" y="0.0" width="42" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
-                                                <rect key="frame" x="6" y="15" width="30" height="34"/>
-                                                <state key="normal" title="E">
-                                                    <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
+                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                                <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
+                                                <state key="normal" image="EPanelButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected">
-                                                    <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
+                                                <state key="selected" image="EPanelButtonSelected"/>
+                                                <state key="highlighted" image="EPanelButtonHighlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -990,19 +986,17 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQN-Pl-abN">
                                         <rect key="frame" x="85" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
-                                                <rect key="frame" x="6" y="15" width="30" height="34"/>
-                                                <state key="normal" title="C">
-                                                    <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
+                                                <rect key="frame" x="1" y="14" width="42" height="36"/>
+                                                <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
+                                                <state key="normal" image="CPanelButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected">
-                                                    <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
+                                                <state key="selected" image="CPanelButtonSelected"/>
+                                                <state key="highlighted" image="CPanelButtonHighlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1048,19 +1042,17 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9l-OL-5vM">
                                         <rect key="frame" x="192" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
-                                                <rect key="frame" x="6" y="15" width="30" height="34"/>
-                                                <state key="normal" title="A">
-                                                    <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
+                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                                <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
+                                                <state key="normal" image="APanelButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected">
-                                                    <color key="titleColor" red="1" green="0.40000000596046448" blue="0.40000000596046448" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
+                                                <state key="selected" image="APanelButtonSelected"/>
+                                                <state key="highlighted" image="APanelButtonHighlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1076,19 +1068,17 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwJ-AF-aVt">
                                         <rect key="frame" x="235" y="0.0" width="42" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-qt-gfv">
-                                                <rect key="frame" x="6" y="15" width="30" height="34"/>
-                                                <state key="normal" title="Z">
-                                                    <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-qt-gfv">
+                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                                <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
+                                                <state key="normal" image="ZPanelButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected">
-                                                    <color key="titleColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
+                                                <state key="selected" image="ZPanelButtonSelected"/>
+                                                <state key="highlighted" image="ZPanelButtonHighlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -1104,19 +1094,17 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loJ-QR-bft">
                                         <rect key="frame" x="277" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vso-DW-Pa1">
-                                                <rect key="frame" x="6" y="15" width="30" height="34"/>
-                                                <state key="normal" title="V">
-                                                    <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vso-DW-Pa1">
+                                                <rect key="frame" x="1" y="14" width="42" height="36"/>
+                                                <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
+                                                <state key="normal" image="VPanelButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="disabled">
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <state key="selected">
-                                                    <color key="titleColor" red="1" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <state key="highlighted">
+                                                <state key="selected" image="VPanelButtonSelected"/>
+                                                <state key="highlighted" image="VPanelButtonHighlighted">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <connections>
@@ -4609,6 +4597,15 @@
         </scene>
     </scenes>
     <resources>
+        <image name="APanelButtonHighlighted" width="24" height="24"/>
+        <image name="APanelButtonNormal" width="24" height="24"/>
+        <image name="APanelButtonSelected" width="24" height="24"/>
+        <image name="CPanelButtonHighlighted" width="24" height="24"/>
+        <image name="CPanelButtonNormal" width="24" height="24"/>
+        <image name="CPanelButtonSelected" width="24" height="24"/>
+        <image name="EPanelButtonHighlighted" width="24" height="24"/>
+        <image name="EPanelButtonNormal" width="24" height="24"/>
+        <image name="EPanelButtonSelected" width="24" height="24"/>
         <image name="LatestBarButton" width="21" height="24"/>
         <image name="MoveToDownButtonNormal" width="32" height="32"/>
         <image name="MoveToDownButtonSelected" width="32" height="32"/>
@@ -4620,11 +4617,20 @@
         <image name="MoveToUpButtonSelected" width="32" height="32"/>
         <image name="ProtectBarButton" width="21" height="22"/>
         <image name="ResizeBarButton" width="29" height="22"/>
+        <image name="SPanelButtonHighlighted" width="24" height="24"/>
+        <image name="SPanelButtonNormal" width="24" height="24"/>
+        <image name="SPanelButtonSelected" width="24" height="24"/>
         <image name="TakeButtonDefault" width="52" height="52"/>
         <image name="TakeButtonDisabled" width="52" height="52"/>
         <image name="TakeButtonHighlighted" width="52" height="52"/>
         <image name="TakeButtonSelected" width="52" height="52"/>
         <image name="UnprotectBarButton" width="21" height="22"/>
+        <image name="VPanelButtonHighlighted" width="24" height="24"/>
+        <image name="VPanelButtonNormal" width="24" height="24"/>
+        <image name="VPanelButtonSelected" width="24" height="24"/>
+        <image name="ZPanelButtonHighlighted" width="24" height="24"/>
+        <image name="ZPanelButtonNormal" width="24" height="24"/>
+        <image name="ZPanelButtonSelected" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="be3-Rq-0v2"/>

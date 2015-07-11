@@ -1352,10 +1352,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	}
 	
 	// 表示範囲を移動します。
-	NSError *error = nil;
-	if (![camera changeMagnifyingLiveViewArea:direction error:&error]) {
-		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not move", nil)];
-	}
+	__weak RecordingViewController *weakSelf = self;
+	[self executeAsynchronousBlock:^{
+		NSError *error = nil;
+		if (![camera changeMagnifyingLiveViewArea:direction error:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not move", nil)];
+		}
+	}];
 }
 
 #pragma mark -

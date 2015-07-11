@@ -95,7 +95,7 @@
 
 * changeDigitalZoomScale:error:
 * changeMagnifyingLiveViewScale:error: (1.1.0)
-* *changeMagnifyingLiveViewArea:error: (1.1.0)*
+* changeMagnifyingLiveViewArea:error: (1.1.0)
 * digitalZoomScaleRange:
 * startDrivingZoomLensForDirection:speed:error:
 * startDrivingZoomLensToFocalLength:error:

@@ -80,6 +80,8 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * 予めオートフォーカスをロック(setAutoFocusPoint:とlockAutoFocus:)してから撮影する(takePicture:progressHandler:completionHandler:errorHandler)と、その進捗ハンドラのオートフォーカス終了ステージ(OLYCameraTakingProgressEndFocusing)で渡される合焦結果(OLYCameraTakingPictureProgressInfoFocusResultKey)には、AFが機能しなかったことを示す"none"が設定されています。従って、装着しているレンズがAF非対応か否かをこの合焦結果だけを頼りに判定するのは安全とは言えません。
 * オートフォーカス動作をロック(lockAutoFocus:errorHandler:)する時にはカメラプロパティのフォーカス固定(AF\_LOCK\_STATE)が変化したことがデリゲート(camera:didChangeCameraProperty:)で通知されませんが、ロック解除する時には通知されるようです。自動露光制御の動作をロック(lockAutoExposure:)した時の露出固定(AE\_LOCK\_STATE)も同様のようです。オートフォーカス動作をすでにロックしている状態でさらにロックすると、カメラ内部で一旦ロック解除が行われているのか、この場合はフォーカス固定が変化したことがデリゲートで通知されるようです。
 * カメラプロパティの動画手ぶれ補正(ANTI\_SHAKE\_MOVIE)のプロパティ値タイトルを取得(cameraPropertyValueTitle:)すると、OFFとONの表示文言がそれぞれ"M-I.S. On"と"M-I.S. Off"となっていて、実際の動作とは逆の内容で返ってきます。 #reported-sdk-1.1.0
+* カメラプロパティの動画用フォーカスモード(FOCUS\_MOVIE)をコンティニュアスオートフォーカスに設定している状態でオートフォーカスをロック(lockAutoFocus:)すると、完了コールバックで合焦結果は得られません。その後に呼び出されるデリゲート(camera:didChangeAutoFocusResult:)に合焦結果が入っているようです。さらにその後は、ピントの変更が検出されてフォーカス動作が落ち着くたびに同じデリゲートが呼び出されます。
+* カメラプロパティの静止画用フォーカスモード(FOCUS\_STILL)や動画用フォーカスモード(FOCUS\_MOVIE)をマニュアルフォーカスに変更する前にオートフォーカスをロック解除する必要があるようです。ロック解除せずにマニュアルフォーカスに設定するとレンズのフォーカスリングが機能しません。 #avoided-app-1.2.1975
 
 ### ズーム
 

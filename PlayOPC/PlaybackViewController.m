@@ -270,7 +270,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
 	NSString *filesize = [numberFormatter stringFromNumber:content[OLYCameraContentListFilesizeKey]];
-	cell.filesizeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ bytes", nil), filesize];
+	cell.filesizeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ Bytes", nil), filesize];
 	
 	// コンテンツの属性を表示します。
 	NSString *attributes = @" ";

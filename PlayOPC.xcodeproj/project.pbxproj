@@ -31,6 +31,8 @@
 		311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75D71ABC287C00A7D38C /* PlayOPCTests.m */; };
 		311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
 		311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
+		312689581B56AA0E00183C1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3126895B1B56AA0E00183C1E /* Localizable.strings */; };
+		312689591B56AA0E00183C1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3126895B1B56AA0E00183C1E /* Localizable.strings */; };
 		313870A41AC7D27600B00309 /* BluetoothConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 313870A31AC7D27600B00309 /* BluetoothConnector.m */; };
 		313870A51AC7D27600B00309 /* BluetoothConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 313870A31AC7D27600B00309 /* BluetoothConnector.m */; };
 		313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 313870A61AC7D3B300B00309 /* CoreBluetooth.framework */; };
@@ -196,6 +198,12 @@
 		311B75D71ABC287C00A7D38C /* PlayOPCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayOPCTests.m; sourceTree = "<group>"; };
 		311F081A1ADFEE2F00318028 /* ItemSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemSelectionViewController.h; sourceTree = "<group>"; };
 		311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemSelectionViewController.m; sourceTree = "<group>"; };
+		312689511B56A9B600183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		312689521B56A9BB00183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		312689531B56A9C000183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
+		312689541B56A9C500183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ja; path = ja.lproj/Acknowledgement.html; sourceTree = "<group>"; };
+		3126895A1B56AA0E00183C1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3126895C1B56AA1100183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		313870A21AC7D27600B00309 /* BluetoothConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothConnector.h; sourceTree = "<group>"; };
 		313870A31AC7D27600B00309 /* BluetoothConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothConnector.m; sourceTree = "<group>"; };
 		313870A61AC7D3B300B00309 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
@@ -514,6 +522,7 @@
 			children = (
 				311B75BC1ABC287C00A7D38C /* Info.plist */,
 				31392FDF1B14BEDA0097FF1B /* InfoPlist.strings */,
+				3126895B1B56AA0E00183C1E /* Localizable.strings */,
 				31392FDB1B14BED40097FF1B /* AppCamera.strings */,
 				311B75BD1ABC287C00A7D38C /* main.m */,
 				314753871ABD268E00FF462E /* PlayOPC-Prefix.pch */,
@@ -722,6 +731,7 @@
 				31C71DBD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-6.png in Resources */,
 				31C71DB71AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-27.png in Resources */,
 				31C71DC11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-0.png in Resources */,
+				312689581B56AA0E00183C1E /* Localizable.strings in Resources */,
 				31C71DC31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-10.png in Resources */,
 				31C71DB21AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-22.png in Resources */,
 				31C71DAC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-17.png in Resources */,
@@ -770,6 +780,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31392FD11B14BEC40097FF1B /* Reference.html in Resources */,
+				312689591B56AA0E00183C1E /* Localizable.strings in Resources */,
 				3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */,
 				31392FD51B14BECE0097FF1B /* Acknowledgement.html in Resources */,
 				31392FDD1B14BEDA0097FF1B /* InfoPlist.strings in Resources */,
@@ -907,6 +918,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				311B75C61ABC287C00A7D38C /* Base */,
+				312689511B56A9B600183C1E /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -917,6 +929,15 @@
 				311B75CB1ABC287C00A7D38C /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		3126895B1B56AA0E00183C1E /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3126895A1B56AA0E00183C1E /* Base */,
+				3126895C1B56AA1100183C1E /* ja */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 		31392FD31B14BEC40097FF1B /* Reference.html */ = {
@@ -932,6 +953,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				31392FD61B14BECE0097FF1B /* Base */,
+				312689541B56A9C500183C1E /* ja */,
 			);
 			name = Acknowledgement.html;
 			sourceTree = "<group>";
@@ -940,6 +962,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				31392FDA1B14BED40097FF1B /* Base */,
+				312689531B56A9C000183C1E /* ja */,
 			);
 			name = AppCamera.strings;
 			sourceTree = "<group>";
@@ -948,6 +971,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				31392FDE1B14BEDA0097FF1B /* Base */,
+				312689521B56A9BB00183C1E /* ja */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";

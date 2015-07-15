@@ -1,0 +1,51 @@
+/* 
+  AppCamera.strings
+  PlayOPC
+
+  Created by Hiroki Ishiura on 2015/04/26.
+  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
+*/
+
+"<AE/AE_CENTER>" = "Center Weighted";
+"<EXPOSE_MOVIE_SELECT>" = "Shooting Mode for Video";
+"<EXPOSE_MOVIE_SELECT/P>" = "P";
+"<EXPOSE_MOVIE_SELECT/A>" = "A";
+"<EXPOSE_MOVIE_SELECT/S>" = "S";
+"<EXPOSE_MOVIE_SELECT/M>" = "M";
+"<AE_LOCK_STATE/LOCK>" = "Locking";
+"<AE_LOCK_STATE/UNLOCK>" = "Unlocking";
+"<IMAGESIZE>" = "Image Size";
+"<QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME>" = "Video Clip Time";
+"<FOCUS_STILL>" = "Focus Mode for Picture";
+"<AF_LOCK_STATE/LOCK>" = "Locking";
+"<AF_LOCK_STATE/UNLOCK>" = "Unlocking";
+"<FOCUS_MOVIE>" = "Focus Mode for Video";
+"<FACE_SCAN>" = "Face Detect";
+"<ANTI_SHAKE_MOVIE>" = "Image Stabilization for Video";
+"<ANTI_SHAKE_MOVIE/OFF>" = "Off";
+"<ANTI_SHAKE_MOVIE/ON>" = "On";
+"<ANTI_SHAKE_FOCAL_LENGTH>" = "Focal Length of MF Lens";
+"<RECENTLY_ART_FILTER>" = "Filter for ART";
+"<COLOR_PHASE>" = "Hue for Partcolor";
+"<ART_EFFECT_TYPE>" = "Filter Type";
+"<ART_EFFECT_HYBRID>" = "Add Effects";
+"<CONTRAST>" = "Contrast";
+"<SHARP>" = "Sharpness";
+"<SATURATION_LEVEL>" = "Saturation";
+"<TONE>" = "Gradation";
+"<EFFECT_LEVEL>" = "Effect";
+"<TONE_CONTROL_LOW>" = "Tone Control (Low)";
+"<TONE_CONTROL_MIDDLE>" = "Tone Control (Middle)";
+"<TONE_CONTROL_HIGH>" = "Tone Control (High)";
+"<MONOTONEFILTER>" = "Picture Tone";
+"<MONOTONEFILTER_MONOCHROME>" = "Picture Tone";
+"<MONOTONEFILTER_ROUGH_MONOCHROME>" = "Picture Tone";
+"<MONOTONEFILTER_DRAMATIC_TONE>" = "Picture Tone";
+"<MONOTONECOLOR>" = "Black & White Filter";
+"<MONOTONECOLOR_MONOCHROME>" = "Black & White Filter";
+"<MONOTONECOLOR_ROUGH_MONOCHROME>" = "Black & White Filter";
+"<MONOTONECOLOR_DRAMATIC_TONE>" = "Black & White Filter";
+"<COLOR_CREATOR_COLOR>" = "Hue for Color Creator";
+"<COLOR_CREATOR_VIVID>" = "Chroma for Color Creator";
+"<WB_REV>" = "WB Compensation (A-B)";
+"<WB_REV_G>" = "WB Compensation (G-M)";

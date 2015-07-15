@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  PlayOPC
+
+  Created by Hiroki Ishiura on 2015/04/26.
+  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
+*/
+
+NSLocationUsageDescription = "This application use the current location to set the camera.";
+NSLocationWhenInUseUsageDescription = "This application use the current location to set the camera.";
+NSPhotoLibraryUsageDescription = "This application use the photo library to save a captured image.";

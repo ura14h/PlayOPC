@@ -232,11 +232,11 @@ NSString *const CameraPropertyMonotonefilter = @"MONOTONEFILTER";
 NSString *const CameraPropertyWbRev = @"WB_REV";
 NSString *const CameraPropertyWbRevG = @"WB_REV_G";
 
-static NSString *const CameraSettingsSnapshotFormatVersion = @"1.0"; ///< ファイルのフォーマットバージョン
-static NSString *const CameraSettingsSnapshotFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
-static NSString *const CameraSettingsSnapshotPropertyValuesKey = @"PropertyValues"; ///< ファイルのカメラプロパティ値の辞書キー
-static NSString *const CameraSettingsSnapshotLiveViewSizeKey = @"LiveViewSize"; ///< ファイルのライブビューサイズ設定の辞書キー
-static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"MagnifyingLiveViewScale"; ///< ライブビュー拡大倍率の辞書キー
+static NSString *const CameraSettingSnapshotFormatVersion = @"1.0"; ///< ファイルのフォーマットバージョン
+static NSString *const CameraSettingSnapshotFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
+static NSString *const CameraSettingSnapshotPropertyValuesKey = @"PropertyValues"; ///< ファイルのカメラプロパティ値の辞書キー
+static NSString *const CameraSettingSnapshotLiveViewSizeKey = @"LiveViewSize"; ///< ファイルのライブビューサイズ設定の辞書キー
+static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"MagnifyingLiveViewScale"; ///< ライブビュー拡大倍率の辞書キー
 
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
 
@@ -1113,7 +1113,7 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	return [self setGeolocation:nmea0183 error:error];
 }
 
-- (NSDictionary *)createSnapshotOfSettings:(NSError **)error {
+- (NSDictionary *)createSnapshotOfSetting:(NSError **)error {
 	DEBUG_LOG(@"");
 
 	// 現在のカメラプロパティの設定値を全て取得します。
@@ -1139,21 +1139,21 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	
 	// スナップショットにする情報を集約します。
 	NSDictionary *snapshot = @{
-		CameraSettingsSnapshotFormatVersionKey: CameraSettingsSnapshotFormatVersion,
-		CameraSettingsSnapshotPropertyValuesKey: propertyValues,
-		CameraSettingsSnapshotLiveViewSizeKey: liveViewSize,
-		CameraSettingsSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
+		CameraSettingSnapshotFormatVersionKey: CameraSettingSnapshotFormatVersion,
+		CameraSettingSnapshotPropertyValuesKey: propertyValues,
+		CameraSettingSnapshotLiveViewSizeKey: liveViewSize,
+		CameraSettingSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
 	};
 	
 	return snapshot;
 }
 
-- (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error {
+- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot error:(NSError **)error {
 	DEBUG_LOG(@"");
 
 	// スナップショットから復元する情報を取り出します。
-	if (!snapshot[CameraSettingsSnapshotFormatVersionKey] ||
-		![snapshot[CameraSettingsSnapshotFormatVersionKey] isEqualToString:CameraSettingsSnapshotFormatVersion]) {
+	if (!snapshot[CameraSettingSnapshotFormatVersionKey] ||
+		![snapshot[CameraSettingSnapshotFormatVersionKey] isEqualToString:CameraSettingSnapshotFormatVersion]) {
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unmatched the version of snapshot format." };
 		NSError *internalError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		if (error) {
@@ -1171,15 +1171,15 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	}
 	
 	// 読み込んだカメラプロパティの設定値をカメラに反映します。
-	NSDictionary *propertyValues = snapshot[CameraSettingsSnapshotPropertyValuesKey];
+	NSDictionary *propertyValues = snapshot[CameraSettingSnapshotPropertyValuesKey];
 	if (![self setCameraPropertyValues:propertyValues error:error]) {
 		return NO;
 	}
 	
 	// 読み込んだライブビューサイズの設定値をカメラに反映します。
 	OLYCameraLiveViewSize liveViewSize = OLYCameraLiveViewSizeQVGA;
-	if (snapshot[CameraSettingsSnapshotLiveViewSizeKey]) {
-		liveViewSize = CGSizeFromString(snapshot[CameraSettingsSnapshotLiveViewSizeKey]);
+	if (snapshot[CameraSettingSnapshotLiveViewSizeKey]) {
+		liveViewSize = CGSizeFromString(snapshot[CameraSettingSnapshotLiveViewSizeKey]);
 	}
 	if (![self changeLiveViewSize:liveViewSize error:error]) {
 		return NO;
@@ -1187,8 +1187,8 @@ static NSString *const CameraSettingsSnapshotMagnifyingLiveViewScaleKey = @"Magn
 	
 	// 読み込んだライブビュー拡大倍率を設定します。
 	OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
-	if (snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey]) {
-		NSInteger scaleValue = [snapshot[CameraSettingsSnapshotMagnifyingLiveViewScaleKey] integerValue];
+	if (snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey]) {
+		NSInteger scaleValue = [snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] integerValue];
 		magnifyingLiveViewScale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
 	}
 	self.magnifyingLiveViewScale = magnifyingLiveViewScale;

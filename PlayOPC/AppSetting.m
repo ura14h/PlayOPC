@@ -13,7 +13,7 @@ NSString *const AppSettingChangedNotification = @"AppSettingChangedNotification"
 static NSString *const UserDefaultsBluetoothLocalName = @"BluetoothLocalName";
 static NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
 static NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetting";
-static NSString *const UserDefaultsLatestSnapshotOfCameraSettings = @"LatestSnapshotOfCameraSettings";
+static NSString *const UserDefaultsLatestSnapshotOfCameraSetting = @"LatestSnapshotOfCameraSetting";
 static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingAction";
 
 
@@ -128,23 +128,23 @@ static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingActi
 	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
 }
 
-- (NSDictionary *)latestSnapshotOfCameraSettings {
+- (NSDictionary *)latestSnapshotOfCameraSetting {
 	DEBUG_DETAIL_LOG(@"");
 	
 	// ユーザー設定から読み出します。
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	return [userDefaults objectForKey:UserDefaultsLatestSnapshotOfCameraSettings];
+	return [userDefaults objectForKey:UserDefaultsLatestSnapshotOfCameraSetting];
 }
 
-- (void)setLatestSnapshotOfCameraSettings:(NSDictionary *)settings {
+- (void)setLatestSnapshotOfCameraSetting:(NSDictionary *)setting {
 	DEBUG_DETAIL_LOG(@"");
 	
 	// ユーザー設定に保存します。
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
-	if (settings) {
-		[userDefaults setObject:settings forKey:UserDefaultsLatestSnapshotOfCameraSettings];
+	if (setting) {
+		[userDefaults setObject:setting forKey:UserDefaultsLatestSnapshotOfCameraSetting];
 	} else {
-		[userDefaults removeObjectForKey:UserDefaultsLatestSnapshotOfCameraSettings];
+		[userDefaults removeObjectForKey:UserDefaultsLatestSnapshotOfCameraSetting];
 	}
 	
 	// アプリケーションの設定が変更されたことを通知します。

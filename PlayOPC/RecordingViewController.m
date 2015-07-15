@@ -265,10 +265,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// 最新スナップショットからカメラ設定を復元します。
 		AppSetting *setting = GetAppSetting();
 		if (setting.keepLastCameraSetting) {
-			NSDictionary *snapshot = setting.latestSnapshotOfCameraSettings;
+			NSDictionary *snapshot = setting.latestSnapshotOfCameraSetting;
 			if (snapshot) {
 				[weakSelf reportBlockSettingToProgress:progressView];
-				if (![camera restoreSnapshotOfSettings:snapshot error:&error]) {
+				if (![camera restoreSnapshotOfSetting:snapshot error:&error]) {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
 					// エラーを無視して続行します。
 					DEBUG_LOG(@"An error occurred, but ignores it.");
@@ -358,12 +358,12 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
 		AppSetting *setting = GetAppSetting();
 		if (setting.keepLastCameraSetting) {
-			NSDictionary *snapshot = [camera createSnapshotOfSettings:&error];
+			NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
 			if (snapshot) {
 				// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
 				// (接続画面側の画面更新がとても遅れる)
 				[weakSelf executeAsynchronousBlockOnMainThread:^{
-					setting.latestSnapshotOfCameraSettings = snapshot;
+					setting.latestSnapshotOfCameraSetting = snapshot;
 				}];
 			} else {
 				// エラーを無視して続行します。

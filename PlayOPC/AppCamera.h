@@ -306,10 +306,10 @@ extern NSString *const CameraPropertyWbRevG;
 - (BOOL)setGeolocationWithCoreLocation:(CLLocation *)location error:(NSError **)error;
 
 /// 現在のカメラ設定のスナップショットを作成します。
-- (NSDictionary *)createSnapshotOfSettings:(NSError **)error;
+- (NSDictionary *)createSnapshotOfSetting:(NSError **)error;
 
 /// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
-- (BOOL)restoreSnapshotOfSettings:(NSDictionary *)snapshot error:(NSError **)error;
+- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot error:(NSError **)error;
 
 /// 現在設定されている撮影モードでのフォーカスモードを取得します。
 - (AppCameraFocusMode)focusMode:(NSError **)error;

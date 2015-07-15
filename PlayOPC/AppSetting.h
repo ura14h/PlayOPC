@@ -28,7 +28,7 @@ extern NSString *const AppSettingChangedNotification; ///< アプリケーショ
 /// アプリ設定に保存されているの最後のカメラ設定を記憶するか否か
 @property (assign, nonatomic) BOOL keepLastCameraSetting;
 /// アプリ設定に保存されているの最後のカメラ設定
-@property (strong, nonatomic) NSDictionary *latestSnapshotOfCameraSettings;
+@property (strong, nonatomic) NSDictionary *latestSnapshotOfCameraSetting;
 /// ライブビューパネルでタップした時の動作
 @property (assign, nonatomic) AppSettingLiveViewTappingAction liveViewTappingAction;
 

@@ -841,7 +841,7 @@
 			// 記憶している前回のカメラ設定をクリアします。
 			// MARK: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
 			AppSetting *setting = GetAppSetting();
-			setting.latestSnapshotOfCameraSettings = nil;
+			setting.latestSnapshotOfCameraSetting = nil;
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:handler];
 		[alertController addAction:action];
@@ -1048,7 +1048,7 @@
 	DEBUG_LOG(@"");
 	
 	AppSetting *setting = GetAppSetting();
-	if (setting.latestSnapshotOfCameraSettings) {
+	if (setting.latestSnapshotOfCameraSetting) {
 		// 記憶している前回のカメラ設定があります。
 		[self tableViewCell:self.clearRememberedCameraSettingCell enabled:YES];
 	} else {

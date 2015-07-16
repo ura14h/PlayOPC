@@ -201,8 +201,8 @@
 		312689521B56A9BB00183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		312689531B56A9C000183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
 		312689541B56A9C500183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ja; path = ja.lproj/Acknowledgement.html; sourceTree = "<group>"; };
-		3126895A1B56AA0E00183C1E /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
-		3126895C1B56AA1100183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3126895A1B56AA0E00183C1E /* Base */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3126895C1B56AA1100183C1E /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
 		313870A21AC7D27600B00309 /* BluetoothConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BluetoothConnector.h; sourceTree = "<group>"; };
 		313870A31AC7D27600B00309 /* BluetoothConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BluetoothConnector.m; sourceTree = "<group>"; };
 		313870A61AC7D3B300B00309 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };

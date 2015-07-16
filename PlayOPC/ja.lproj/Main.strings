@@ -800,8 +800,8 @@
 /* Class = "UILabel"; text = "$cameraFirmwareVersion"; ObjectID = "vjR-Uy-zDI"; */
 "vjR-Uy-zDI.text" = "$cameraFirmwareVersion";
 
-/* Class = "UILabel"; text = "Current Scale"; ObjectID = "wQZ-qK-vXe"; */
-"wQZ-qK-vXe.text" = "Current Scale";
+/* Class = "UILabel"; text = "Magnifying Scale"; ObjectID = "wQZ-qK-vXe"; */
+"wQZ-qK-vXe.text" = "Magnifying Scale";
 
 /* Class = "UILabel"; text = "$magnifyingLiveViewScale"; ObjectID = "wdZ-oa-9RA"; */
 "wdZ-oa-9RA.text" = "$magnifyingLiveViewScale";

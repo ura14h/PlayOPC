@@ -1663,7 +1663,7 @@
             </objects>
             <point key="canvasLocation" x="1396" y="-1298"/>
         </scene>
-        <!--Art Filter Auto Bracket-->
+        <!--Filters for ART_BKT-->
         <scene sceneID="tf0-XI-wM9">
             <objects>
                 <tableViewController storyboardIdentifier="ArtbktSelectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="PwD-k6-L7a" customClass="ArtbktPanelViewController" sceneMemberID="viewController">
@@ -1693,7 +1693,7 @@
                             <outlet property="delegate" destination="PwD-k6-L7a" id="ekY-9v-igK"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Art Filter Auto Bracket" id="NZs-rV-Rds"/>
+                    <navigationItem key="navigationItem" title="Filters for ART_BKT" id="NZs-rV-Rds"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="220"/>
                 </tableViewController>

@@ -1,6 +1,6 @@
 
 /* Class = "UILabel"; text = "Stop Magnifying"; ObjectID = "08b-hE-Eee"; */
-"08b-hE-Eee.text" = "Stop Magnifying";
+"08b-hE-Eee.text" = "拡大終了";
 
 /* Class = "UILabel"; text = "<SOUND_VOLUME_LEVEL>"; ObjectID = "0CR-9U-OuC"; */
 "0CR-9U-OuC.text" = "<SOUND_VOLUME_LEVEL>";
@@ -9,13 +9,13 @@
 "0RA-Tv-3w1.text" = "<FOCUS_STILL>";
 
 /* Class = "UILabel"; text = "Playback"; ObjectID = "0pO-an-SDE"; */
-"0pO-an-SDE.text" = "Playback";
+"0pO-an-SDE.text" = "再生モード";
 
 /* Class = "UILabel"; text = "Speed"; ObjectID = "0w0-xP-gLR"; */
-"0w0-xP-gLR.text" = "Speed";
+"0w0-xP-gLR.text" = "光学ズーム速度";
 
 /* Class = "UINavigationItem"; title = "Color & Effect"; ObjectID = "19L-VM-OK2"; */
-"19L-VM-OK2.title" = "Color & Effect";
+"19L-VM-OK2.title" = "色と効果";
 
 /* Class = "UILabel"; text = "$message"; ObjectID = "1Fs-so-3HD"; */
 "1Fs-so-3HD.text" = "$message";
@@ -24,7 +24,7 @@
 "1Y5-Zw-ei2.text" = "$highTemperatureWarning";
 
 /* Class = "UITextField"; placeholder = "Enter Local Name"; ObjectID = "20e-sY-7p1"; */
-"20e-sY-7p1.placeholder" = "Enter Local Name";
+"20e-sY-7p1.placeholder" = "ローカルネームを入れてください";
 
 /* Class = "UITextField"; text = "$bleName"; ObjectID = "20e-sY-7p1"; */
 "20e-sY-7p1.text" = "$bleName";
@@ -36,16 +36,16 @@
 "2Dx-mK-D16.text" = "<COLOR_PHASE>";
 
 /* Class = "UINavigationItem"; title = "Video Content"; ObjectID = "2GU-oX-8V1"; */
-"2GU-oX-8V1.title" = "Video Content";
+"2GU-oX-8V1.title" = "動画";
 
 /* Class = "UILabel"; text = "$qualityMovie"; ObjectID = "2c2-lo-YJa"; */
 "2c2-lo-YJa.text" = "$qualityMovie";
 
 /* Class = "UITableViewSection"; footerTitle = "By doing a long press on a live-view, it will start magnifying the live-view at the pressed point or stop."; ObjectID = "2fU-Xa-ydD"; */
-"2fU-Xa-ydD.footerTitle" = "By doing a long press on a live-view, it will start magnifying the live-view at the pressed point or stop.";
+"2fU-Xa-ydD.footerTitle" = "ライブビューを長押しして、長押しした位置でライブビュー拡大を開始したりまたは終了したりできます。";
 
 /* Class = "UITableViewSection"; headerTitle = "Live View Magnifying"; ObjectID = "2fU-Xa-ydD"; */
-"2fU-Xa-ydD.headerTitle" = "Live View Magnifying";
+"2fU-Xa-ydD.headerTitle" = "ライブビュー拡大";
 
 /* Class = "UILabel"; text = "$compressibilityRatio"; ObjectID = "2pG-O6-FiK"; */
 "2pG-O6-FiK.text" = "$compressibilityRatio";
@@ -54,7 +54,7 @@
 "2xO-7o-Ypp.text" = "<AE_LOCK_STATE>";
 
 /* Class = "UILabel"; text = "Keep Last Camera Setting"; ObjectID = "3A1-dB-th3"; */
-"3A1-dB-th3.text" = "Keep Last Camera Setting";
+"3A1-dB-th3.text" = "最後のカメラ設定を維持";
 
 /* Class = "UILabel"; text = "$bluetoothLocalName"; ObjectID = "3Cc-Fe-reg"; */
 "3Cc-Fe-reg.text" = "$bluetoothLocalName";
@@ -63,7 +63,7 @@
 "3DU-Qu-SqB.text" = "<RAW>";
 
 /* Class = "UITableViewSection"; headerTitle = "Action Modes"; ObjectID = "3bg-mT-FjB"; */
-"3bg-mT-FjB.headerTitle" = "Action Modes";
+"3bg-mT-FjB.headerTitle" = "操作モード";
 
 /* Class = "UILabel"; text = "$tone"; ObjectID = "3p8-2v-rpL"; */
 "3p8-2v-rpL.text" = "$tone";
@@ -72,7 +72,7 @@
 "3sw-Wa-3MI.text" = "$monotonefilter";
 
 /* Class = "UILabel"; text = "Maximum Focal Length"; ObjectID = "4A7-Pi-ct1"; */
-"4A7-Pi-ct1.text" = "Maximum Focal Length";
+"4A7-Pi-ct1.text" = "最大焦点距離";
 
 /* Class = "UILabel"; text = "<RECENTLY_ART_FILTER>"; ObjectID = "4QJ-lN-qUg"; */
 "4QJ-lN-qUg.text" = "<RECENTLY_ART_FILTER>";
@@ -90,19 +90,19 @@
 "5N1-fw-pvM.text" = "<ASPECT_RATIO>";
 
 /* Class = "UILabel"; text = "Lens Firmware Version"; ObjectID = "5Pt-G1-YQE"; */
-"5Pt-G1-YQE.text" = "Lens Firmware Version";
+"5Pt-G1-YQE.text" = "レンズファームウェア";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "5Q9-U3-VeJ"; */
-"5Q9-U3-VeJ.title" = "Back";
+"5Q9-U3-VeJ.title" = "戻る";
 
 /* Class = "UILabel"; text = "Application Version"; ObjectID = "6Wj-7V-u00"; */
-"6Wj-7V-u00.text" = "Application Version";
+"6Wj-7V-u00.text" = "アプリケーションバージョン";
 
 /* Class = "UINavigationItem"; title = "Reference"; ObjectID = "7Cl-Ri-ocM"; */
-"7Cl-Ri-ocM.title" = "Reference";
+"7Cl-Ri-ocM.title" = "取扱説明";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "7Fw-fv-xsW"; */
-"7Fw-fv-xsW.title" = "Back";
+"7Fw-fv-xsW.title" = "戻る";
 
 /* Class = "UILabel"; text = "<WB_REV>"; ObjectID = "7II-IY-HXT"; */
 "7II-IY-HXT.text" = "<WB_REV>";
@@ -111,13 +111,13 @@
 "7Md-8e-wJU.text" = "$qualityMovieShortMovieRecordTime";
 
 /* Class = "UITableViewSection"; headerTitle = "Exposure Status"; ObjectID = "7Yo-QQ-yhb"; */
-"7Yo-QQ-yhb.headerTitle" = "Exposure Status";
+"7Yo-QQ-yhb.headerTitle" = "露出状態";
 
 /* Class = "UILabel"; text = "$mediaBusy"; ObjectID = "7mU-eZ-7BK"; */
 "7mU-eZ-7BK.text" = "$mediaBusy";
 
 /* Class = "UILabel"; text = "Application Reference"; ObjectID = "83B-bF-NL0"; */
-"83B-bF-NL0.text" = "Application Reference";
+"83B-bF-NL0.text" = "アプリケーション取扱説明";
 
 /* Class = "UILabel"; text = "Wi-Fi"; ObjectID = "8Fu-aC-bAl"; */
 "8Fu-aC-bAl.text" = "Wi-Fi";
@@ -144,13 +144,13 @@
 "A1L-2R-WNk.text" = "<WIFI_CH>";
 
 /* Class = "UITableViewSection"; headerTitle = "Camera Operation"; ObjectID = "A7s-4K-E0s"; */
-"A7s-4K-E0s.headerTitle" = "Camera Operation";
+"A7s-4K-E0s.headerTitle" = "カメラ操作";
 
 /* Class = "UITableViewSection"; footerTitle = "© 2015 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
 "ANk-sQ-l0P.footerTitle" = "© 2015 Hiroki Ishiura";
 
 /* Class = "UITableViewSection"; headerTitle = "App Information"; ObjectID = "ANk-sQ-l0P"; */
-"ANk-sQ-l0P.headerTitle" = "App Information";
+"ANk-sQ-l0P.headerTitle" = "アプリ情報";
 
 /* Class = "UILabel"; text = "$exposureMeteringWarning"; ObjectID = "ATH-BD-dsT"; */
 "ATH-BD-dsT.text" = "$exposureMeteringWarning";
@@ -165,25 +165,25 @@
 "B3a-yM-wG6.text" = "$wbRevG";
 
 /* Class = "UINavigationItem"; title = "Zooming & Magnifying"; ObjectID = "B6p-Qx-ngH"; */
-"B6p-Qx-ngH.title" = "Zooming & Magnifying";
+"B6p-Qx-ngH.title" = "ズームと拡大";
 
 /* Class = "UILabel"; text = "$destinationFile"; ObjectID = "BHd-rO-SC3"; */
 "BHd-rO-SC3.text" = "$destinationFile";
 
 /* Class = "UINavigationItem"; title = "Recording"; ObjectID = "Bwv-Qk-bIY"; */
-"Bwv-Qk-bIY.title" = "Recording";
+"Bwv-Qk-bIY.title" = "撮影モード";
 
 /* Class = "UINavigationItem"; title = "Camera Kit Log"; ObjectID = "C5W-Di-j6c"; */
-"C5W-Di-j6c.title" = "Camera Kit Log";
+"C5W-Di-j6c.title" = "動作ログ";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "CeT-MK-x1D"; */
-"CeT-MK-x1D.title" = "Back";
+"CeT-MK-x1D.title" = "戻る";
 
 /* Class = "UILabel"; text = "<WB_REV_G>"; ObjectID = "Csc-s9-iOI"; */
 "Csc-s9-iOI.text" = "<WB_REV_G>";
 
 /* Class = "UINavigationItem"; title = "Exposure & Action"; ObjectID = "DSa-A7-tX7"; */
-"DSa-A7-tX7.title" = "Exposure & Action";
+"DSa-A7-tX7.title" = "露出と撮影操作";
 
 /* Class = "UILabel"; text = "<TONE_CONTROL_LOW>"; ObjectID = "DiH-GK-g9I"; */
 "DiH-GK-g9I.text" = "<TONE_CONTROL_LOW>";
@@ -192,13 +192,13 @@
 "DiR-Tv-gZB.text" = "$saturationLevel";
 
 /* Class = "UITableViewSection"; headerTitle = "View Settings"; ObjectID = "DiU-da-fHW"; */
-"DiU-da-fHW.headerTitle" = "View Settings";
+"DiU-da-fHW.headerTitle" = "表示設定";
 
 /* Class = "UILabel"; text = "$colorCreatorColor"; ObjectID = "DkD-Ou-ZE6"; */
 "DkD-Ou-ZE6.text" = "$colorCreatorColor";
 
 /* Class = "UITableViewSection"; headerTitle = "Optical Zooming"; ObjectID = "E8V-Tq-ayW"; */
-"E8V-Tq-ayW.headerTitle" = "Optical Zooming";
+"E8V-Tq-ayW.headerTitle" = "光学ズーム";
 
 /* Class = "UILabel"; text = "<CONTRAST>"; ObjectID = "EgM-9f-VwU"; */
 "EgM-9f-VwU.text" = "<CONTRAST>";
@@ -210,7 +210,7 @@
 "EtA-yH-TeH.text" = "$shutter";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Etz-b8-jSF"; */
-"Etz-b8-jSF.title" = "Back";
+"Etz-b8-jSF.title" = "戻る";
 
 /* Class = "UILabel"; text = "<CUSTOM_WB_KELVIN_1>"; ObjectID = "FC0-Da-tDq"; */
 "FC0-Da-tDq.text" = "<CUSTOM_WB_KELVIN_1>";
@@ -219,10 +219,10 @@
 "FNe-en-CPe.text" = "$batteryLevel";
 
 /* Class = "UINavigationItem"; title = "Content Detail"; ObjectID = "FiO-Wa-eH8"; */
-"FiO-Wa-eH8.title" = "Content Detail";
+"FiO-Wa-eH8.title" = "コンテンツ詳細";
 
 /* Class = "UILabel"; text = "Connect with using Wi-Fi"; ObjectID = "FnT-T3-hOZ"; */
-"FnT-T3-hOZ.text" = "Connect with using Wi-Fi";
+"FnT-T3-hOZ.text" = "Wi-Fi経由で接続";
 
 /* Class = "UILabel"; text = "<TONE>"; ObjectID = "FwT-KN-CdY"; */
 "FwT-KN-CdY.text" = "<TONE>";
@@ -234,19 +234,19 @@
 "H9u-8g-b78.text" = "$remainingMediaCapacity";
 
 /* Class = "UILabel"; text = "Lens Model ID"; ObjectID = "HoF-5E-0dF"; */
-"HoF-5E-0dF.text" = "Lens Model ID";
+"HoF-5E-0dF.text" = "レンズモデルID";
 
 /* Class = "UILabel"; text = "ISO Sensitivity Warning"; ObjectID = "I04-eO-ByW"; */
-"I04-eO-ByW.text" = "ISO Sensitivity Warning";
+"I04-eO-ByW.text" = "自動ISO警告";
 
 /* Class = "UITableViewSection"; headerTitle = "Color Control"; ObjectID = "IU8-x4-Rat"; */
-"IU8-x4-Rat.headerTitle" = "Color Control";
+"IU8-x4-Rat.headerTitle" = "色彩";
 
 /* Class = "UITableViewSection"; footerTitle = "The current geolocation is set automatically when the app enters in Recording mode. But you can set current geolocation by manual operation again."; ObjectID = "Iwr-3f-fte"; */
-"Iwr-3f-fte.footerTitle" = "The current geolocation is set automatically when the app enters in Recording mode. But you can set current geolocation by manual operation again.";
+"Iwr-3f-fte.footerTitle" = "現在地は撮影モードに入る時に自動的にカメラに設定されます。手動で設定することもできます。";
 
 /* Class = "UITableViewSection"; headerTitle = "Geolocation"; ObjectID = "Iwr-3f-fte"; */
-"Iwr-3f-fte.headerTitle" = "Geolocation";
+"Iwr-3f-fte.headerTitle" = "位置情報";
 
 /* Class = "UILabel"; text = "<FULL_TIME_AF>"; ObjectID = "J0N-SR-8a1"; */
 "J0N-SR-8a1.text" = "<FULL_TIME_AF>";
@@ -255,7 +255,7 @@
 "J3P-uA-fxa.text" = "$cameraModelName";
 
 /* Class = "UILabel"; text = "Exposure Metering Warning"; ObjectID = "JLP-Md-VaC"; */
-"JLP-Md-VaC.text" = "Exposure Metering Warning";
+"JLP-Md-VaC.text" = "測光警告";
 
 /* Class = "UILabel"; text = "$aeLockState"; ObjectID = "JPR-p9-gK7"; */
 "JPR-p9-gK7.text" = "$aeLockState";
@@ -267,7 +267,7 @@
 "JYz-yS-AbP.text" = "$effectLevel";
 
 /* Class = "UITableViewSection"; headerTitle = "Exposure Parameters"; ObjectID = "Jmy-y1-zNn"; */
-"Jmy-y1-zNn.headerTitle" = "Exposure Parameters";
+"Jmy-y1-zNn.headerTitle" = "露出パラメータ";
 
 /* Class = "UILabel"; text = "$colorPhase"; ObjectID = "JnF-sB-Qot"; */
 "JnF-sB-Qot.text" = "$colorPhase";
@@ -276,10 +276,10 @@
 "Jwx-Ek-HQq.text" = "<ART_EFFECT_TYPE>";
 
 /* Class = "UILabel"; text = "Current Scale"; ObjectID = "Jyn-Xg-dds"; */
-"Jyn-Xg-dds.text" = "Current Scale";
+"Jyn-Xg-dds.text" = "現在倍率";
 
 /* Class = "UILabel"; text = "Set Current Geolocation"; ObjectID = "K2Z-at-ajA"; */
-"K2Z-at-ajA.text" = "Set Current Geolocation";
+"K2Z-at-ajA.text" = "現在地設定";
 
 /* Class = "UILabel"; text = "$colortone"; ObjectID = "Kij-gS-z21"; */
 "Kij-gS-z21.text" = "$colortone";
@@ -297,10 +297,10 @@
 "Lox-Pd-ljz.text" = "$focusMovie";
 
 /* Class = "UILabel"; text = "Clear Gelocation"; ObjectID = "Luj-NT-XUW"; */
-"Luj-NT-XUW.text" = "Clear Gelocation";
+"Luj-NT-XUW.text" = "位置消去";
 
 /* Class = "UITextField"; placeholder = "Enter Passcode"; ObjectID = "M37-av-fFz"; */
-"M37-av-fFz.placeholder" = "Enter Passcode";
+"M37-av-fFz.placeholder" = "パスコードを入れてください";
 
 /* Class = "UITextField"; text = "$bleCode"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.text" = "$bleCode";
@@ -309,43 +309,43 @@
 "M8J-pO-wtl.text" = "<FOCUS_MOVIE>";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MCq-K1-x7V"; */
-"MCq-K1-x7V.title" = "Back";
+"MCq-K1-x7V.title" = "戻る";
 
 /* Class = "UILabel"; text = "Get from OA.Central"; ObjectID = "MEY-Jy-aKE"; */
-"MEY-Jy-aKE.text" = "Get from OA.Central";
+"MEY-Jy-aKE.text" = "OA.Centralから設定を引き継ぐ";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MLt-wl-EAM"; */
-"MLt-wl-EAM.title" = "Back";
+"MLt-wl-EAM.title" = "戻る";
 
 /* Class = "UILabel"; text = "<BATTERY_LEVEL>"; ObjectID = "MSE-k3-Bs1"; */
 "MSE-k3-Bs1.text" = "<BATTERY_LEVEL>";
 
 /* Class = "UILabel"; text = "Pitching"; ObjectID = "MsN-mV-E94"; */
-"MsN-mV-E94.text" = "Pitching";
+"MsN-mV-E94.text" = "ピッチ量";
 
 /* Class = "UILabel"; text = "Exposure Warning"; ObjectID = "N7h-6t-xgt"; */
-"N7h-6t-xgt.text" = "Exposure Warning";
+"N7h-6t-xgt.text" = "露出警告";
 
 /* Class = "UILabel"; text = "Filters for ART_BKT"; ObjectID = "NMs-mM-3Y1"; */
-"NMs-mM-3Y1.text" = "Filters for ART_BKT";
+"NMs-mM-3Y1.text" = "ART_BKT対象フィルター";
 
 /* Class = "UILabel"; text = "Minimum Scale"; ObjectID = "NRY-CK-AwW"; */
-"NRY-CK-AwW.text" = "Minimum Scale";
+"NRY-CK-AwW.text" = "最小倍率";
 
 /* Class = "UITableViewSection"; headerTitle = "Camera Status"; ObjectID = "NTq-dK-oAZ"; */
-"NTq-dK-oAZ.headerTitle" = "Camera Status";
+"NTq-dK-oAZ.headerTitle" = "本体状態";
 
 /* Class = "UITableViewSection"; headerTitle = "White Balance"; ObjectID = "NV9-Ma-naR"; */
-"NV9-Ma-naR.headerTitle" = "White Balance";
+"NV9-Ma-naR.headerTitle" = "ホワイトバランス";
 
-/* Class = "UINavigationItem"; title = "Art Filter Auto Bracket"; ObjectID = "NZs-rV-Rds"; */
-"NZs-rV-Rds.title" = "Art Filter Auto Bracket";
+/* Class = "UINavigationItem"; title = "Filters for ART_BKT"; ObjectID = "NZs-rV-Rds"; */
+"NZs-rV-Rds.title" = "ART_BKT対象フィルター";
 
 /* Class = "UITableViewSection"; headerTitle = "Effect Control"; ObjectID = "Naf-78-9Mh"; */
-"Naf-78-9Mh.headerTitle" = "Effect Control";
+"Naf-78-9Mh.headerTitle" = "効果";
 
 /* Class = "UITableViewSection"; headerTitle = "Image Stabilization Settings"; ObjectID = "Nkr-o0-t1M"; */
-"Nkr-o0-t1M.headerTitle" = "Image Stabilization Settings";
+"Nkr-o0-t1M.headerTitle" = "手ぶれ補正設定";
 
 /* Class = "UILabel"; text = "<AF_LOCK_STATE>"; ObjectID = "O9h-rD-MNk"; */
 "O9h-rD-MNk.text" = "<AF_LOCK_STATE>";
@@ -360,10 +360,10 @@
 "PFH-de-Wxc.text" = "<DESTINATION_FILE>";
 
 /* Class = "UILabel"; text = "Live View Size"; ObjectID = "PLg-5A-6fg"; */
-"PLg-5A-6fg.text" = "Live View Size";
+"PLg-5A-6fg.text" = "ライブビューサイズ";
 
 /* Class = "UILabel"; text = "Camera Kit Log"; ObjectID = "PQx-Vh-H1S"; */
-"PQx-Vh-H1S.text" = "Camera Kit Log";
+"PQx-Vh-H1S.text" = "Camera Kit 動作ログ";
 
 /* Class = "UILabel"; text = "<APERTURE>"; ObjectID = "PYz-j8-3BJ"; */
 "PYz-j8-3BJ.text" = "<APERTURE>";
@@ -381,19 +381,19 @@
 "PpQ-OJ-mVZ.text" = "<AUTO_WB_DENKYU_COLORED_LEAVING>";
 
 /* Class = "UINavigationItem"; title = "Acknowledgement"; ObjectID = "Q4I-W6-Ih2"; */
-"Q4I-W6-Ih2.title" = "Acknowledgement";
+"Q4I-W6-Ih2.title" = "謝辞";
 
 /* Class = "UILabel"; text = "<CONTINUOUS_SHOOTING_VELOCITY>"; ObjectID = "Q5i-WN-Whn"; */
 "Q5i-WN-Whn.text" = "<CONTINUOUS_SHOOTING_VELOCITY>";
 
 /* Class = "UILabel"; text = "Recording"; ObjectID = "Q8G-vi-A4n"; */
-"Q8G-vi-A4n.text" = "Recording";
+"Q8G-vi-A4n.text" = "撮影モード";
 
 /* Class = "UILabel"; text = "<SHARP>"; ObjectID = "R5y-1u-Ygn"; */
 "R5y-1u-Ygn.text" = "<SHARP>";
 
 /* Class = "UILabel"; text = "Camera Model Name"; ObjectID = "REo-Vw-TB9"; */
-"REo-Vw-TB9.text" = "Camera Model Name";
+"REo-Vw-TB9.text" = "カメラモデル名";
 
 /* Class = "UILabel"; text = "<QUALITY_MOVIE>"; ObjectID = "RdK-wG-HkR"; */
 "RdK-wG-HkR.text" = "<QUALITY_MOVIE>";
@@ -405,25 +405,25 @@
 "RuS-sL-lhf.text" = "$raw";
 
 /* Class = "UINavigationItem"; title = "Latest Picture"; ObjectID = "S2d-Sr-ERw"; */
-"S2d-Sr-ERw.title" = "Latest Picture";
+"S2d-Sr-ERw.title" = "撮影後確認画像";
 
 /* Class = "UILabel"; text = "Unlock AF"; ObjectID = "SPp-10-Q7a"; */
-"SPp-10-Q7a.text" = "Unlock AF";
+"SPp-10-Q7a.text" = "AFロック解除";
 
 /* Class = "UILabel"; text = "$lensMountStatus"; ObjectID = "SSX-Fr-ckr"; */
 "SSX-Fr-ckr.text" = "$lensMountStatus";
 
 /* Class = "UILabel"; text = "Tapping Live View"; ObjectID = "SXB-cg-i5u"; */
-"SXB-cg-i5u.text" = "Tapping Live View";
+"SXB-cg-i5u.text" = "ライブビュータップ";
 
 /* Class = "UILabel"; text = "$afLockState"; ObjectID = "Se0-Xm-bRZ"; */
 "Se0-Xm-bRZ.text" = "$afLockState";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "ShF-v7-Ifd"; */
-"ShF-v7-Ifd.title" = "Back";
+"ShF-v7-Ifd.title" = "戻る";
 
 /* Class = "UILabel"; text = "Save Camera Setting"; ObjectID = "TLe-q0-pZS"; */
-"TLe-q0-pZS.text" = "Save Camera Setting";
+"TLe-q0-pZS.text" = "設定保存";
 
 /* Class = "UILabel"; text = "<TAKE_DRIVE>"; ObjectID = "Teu-qY-Bcb"; */
 "Teu-qY-Bcb.text" = "<TAKE_DRIVE>";
@@ -441,25 +441,25 @@
 "Uh1-k7-Ozr.text" = "$artEffectType";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "VB8-9s-G3D"; */
-"VB8-9s-G3D.title" = "Back";
+"VB8-9s-G3D.title" = "戻る";
 
 /* Class = "UILabel"; text = "$wb"; ObjectID = "VUY-MU-ckn"; */
 "VUY-MU-ckn.text" = "$wb";
 
 /* Class = "UILabel"; text = "As Video"; ObjectID = "W5h-CZ-dyH"; */
-"W5h-CZ-dyH.text" = "As Video";
+"W5h-CZ-dyH.text" = "録画秒数";
 
 /* Class = "UINavigationItem"; title = "Picture Content"; ObjectID = "WVD-xc-HaF"; */
-"WVD-xc-HaF.title" = "Picture Content";
+"WVD-xc-HaF.title" = "写真";
 
 /* Class = "UILabel"; text = "$takemode"; ObjectID = "WXB-85-o52"; */
 "WXB-85-o52.text" = "$takemode";
 
 /* Class = "UILabel"; text = "Local Name"; ObjectID = "WuQ-WW-j4D"; */
-"WuQ-WW-j4D.text" = "Local Name";
+"WuQ-WW-j4D.text" = "ローカルネーム";
 
 /* Class = "UINavigationItem"; title = "Playback"; ObjectID = "XiZ-lJ-BBa"; */
-"XiZ-lJ-BBa.title" = "Playback";
+"XiZ-lJ-BBa.title" = "再生モード";
 
 /* Class = "UILabel"; text = "$mediaMountStatus"; ObjectID = "Xp8-EV-1b7"; */
 "Xp8-EV-1b7.text" = "$mediaMountStatus";
@@ -468,7 +468,7 @@
 "Xzn-ai-9aq.text" = "$datetime";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "YCu-qw-Qx8"; */
-"YCu-qw-Qx8.title" = "Back";
+"YCu-qw-Qx8.title" = "戻る";
 
 /* Class = "UILabel"; text = "$wbRev"; ObjectID = "Yca-EI-Y8a"; */
 "Yca-EI-Y8a.text" = "$wbRev";
@@ -477,10 +477,10 @@
 "Yur-A9-sXW.text" = "$opticalZoomingMinimumFocalLength";
 
 /* Class = "UILabel"; text = "Orientation"; ObjectID = "ZCU-zu-KZA"; */
-"ZCU-zu-KZA.text" = "Orientation";
+"ZCU-zu-KZA.text" = "向き";
 
 /* Class = "UILabel"; text = "Camera Kit Version"; ObjectID = "ZPV-XQ-YnQ"; */
-"ZPV-XQ-YnQ.text" = "Camera Kit Version";
+"ZPV-XQ-YnQ.text" = "Camera Kit バージョン";
 
 /* Class = "UILabel"; text = "<GPS>"; ObjectID = "ZR0-FK-JtI"; */
 "ZR0-FK-JtI.text" = "<GPS>";
@@ -501,25 +501,25 @@
 "aJE-zH-H1d.text" = "<SHUTTER>";
 
 /* Class = "UINavigationItem"; title = "Status & Saving Setup"; ObjectID = "aJH-iV-cwY"; */
-"aJH-iV-cwY.title" = "Status & Saving Setup";
+"aJH-iV-cwY.title" = "状態と設定保存";
 
 /* Class = "UITableViewSection"; headerTitle = "Media Status"; ObjectID = "aJV-Ja-LDI"; */
-"aJV-Ja-LDI.headerTitle" = "Media Status";
+"aJV-Ja-LDI.headerTitle" = "メディア状態";
 
 /* Class = "UILabel"; text = "<COLOR_CREATOR_COLOR>"; ObjectID = "aKK-fY-Qnc"; */
 "aKK-fY-Qnc.text" = "<COLOR_CREATOR_COLOR>";
 
 /* Class = "UILabel"; text = "Camera Firmware Version"; ObjectID = "ahP-4y-ckN"; */
-"ahP-4y-ckN.text" = "Camera Firmware Version";
+"ahP-4y-ckN.text" = "カメラファームウェア";
 
 /* Class = "UILabel"; text = "High Temperature Warning"; ObjectID = "av1-HT-p58"; */
-"av1-HT-p58.text" = "High Temperature Warning";
+"av1-HT-p58.text" = "高温警告";
 
 /* Class = "UILabel"; text = "Media Mount Status"; ObjectID = "bAI-DU-YZN"; */
-"bAI-DU-YZN.text" = "Media Mount Status";
+"bAI-DU-YZN.text" = "メディア装着状態";
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Exposure Settings"; ObjectID = "bEZ-mJ-Ca9"; */
-"bEZ-mJ-Ca9.headerTitle" = "Auto Exposure Settings";
+"bEZ-mJ-Ca9.headerTitle" = "AE設定";
 
 /* Class = "UILabel"; text = "$digitalZoomingMaximumScale"; ObjectID = "bSY-CE-H7y"; */
 "bSY-CE-H7y.text" = "$digitalZoomingMaximumScale";
@@ -531,7 +531,7 @@
 "bgc-iP-htl.text" = "$contentDetailTitle";
 
 /* Class = "UILabel"; text = "Clear Last Camera Setting"; ObjectID = "bgd-Q7-fKi"; */
-"bgd-Q7-fKi.text" = "Clear Last Camera Setting";
+"bgd-Q7-fKi.text" = "最後のカメラ設定をクリア";
 
 /* Class = "UILabel"; text = "$contentDetailValue"; ObjectID = "bsv-jI-GCg"; */
 "bsv-jI-GCg.text" = "$contentDetailValue";
@@ -540,13 +540,13 @@
 "cFt-DR-ea3.text" = "<IMAGESIZE>";
 
 /* Class = "UILabel"; text = "As Image"; ObjectID = "cLo-Wd-JiV"; */
-"cLo-Wd-JiV.text" = "As Image";
+"cLo-Wd-JiV.text" = "撮影枚数";
 
 /* Class = "UILabel"; text = "$colorCreatorVivid"; ObjectID = "cRm-vS-FEK"; */
 "cRm-vS-FEK.text" = "$colorCreatorVivid";
 
 /* Class = "UILabel"; text = "Current Focal Length"; ObjectID = "cXn-Qy-mzk"; */
-"cXn-Qy-mzk.text" = "Current Focal Length";
+"cXn-Qy-mzk.text" = "現在焦点距離	";
 
 /* Class = "UILabel"; text = "$takeDrive"; ObjectID = "cjN-kg-VhB"; */
 "cjN-kg-VhB.text" = "$takeDrive";
@@ -558,13 +558,13 @@
 "dZP-71-hW9.text" = "$iso";
 
 /* Class = "UILabel"; text = "Media Error"; ObjectID = "dmp-U2-gPj"; */
-"dmp-U2-gPj.text" = "Media Error";
+"dmp-U2-gPj.text" = "エラー発生中";
 
 /* Class = "UINavigationItem"; title = "View & Save"; ObjectID = "dqC-mJ-y4t"; */
-"dqC-mJ-y4t.title" = "View & Save";
+"dqC-mJ-y4t.title" = "表示と画像保存";
 
 /* Class = "UITableViewSection"; headerTitle = "For PASM Mode"; ObjectID = "dwL-Je-PVf"; */
-"dwL-Je-PVf.headerTitle" = "For PASM Mode";
+"dwL-Je-PVf.headerTitle" = "PASMモード用";
 
 /* Class = "UILabel"; text = "<ISO>"; ObjectID = "e5V-iq-eeI"; */
 "e5V-iq-eeI.text" = "<ISO>";
@@ -573,22 +573,22 @@
 "eJy-PI-TGK.text" = "$ssid";
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Exposure"; ObjectID = "eRJ-8W-Hx9"; */
-"eRJ-8W-Hx9.headerTitle" = "Auto Exposure";
+"eRJ-8W-Hx9.headerTitle" = "AE状態";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "eg4-wE-x1X"; */
-"eg4-wE-x1X.title" = "Back";
+"eg4-wE-x1X.title" = "戻る";
 
 /* Class = "UILabel"; text = "$lensFirmwareVersion"; ObjectID = "enN-ud-mxL"; */
 "enN-ud-mxL.text" = "$lensFirmwareVersion";
 
 /* Class = "UITableViewSection"; headerTitle = "Camera Access Method"; ObjectID = "f8h-bq-r9L"; */
-"f8h-bq-r9L.headerTitle" = "Camera Access Method";
+"f8h-bq-r9L.headerTitle" = "カメラ接続方法";
 
 /* Class = "UITableViewSection"; headerTitle = "For ART Mode"; ObjectID = "fEg-hA-QX2"; */
-"fEg-hA-QX2.headerTitle" = "For ART Mode";
+"fEg-hA-QX2.headerTitle" = "ARTモード用";
 
 /* Class = "UITableViewSection"; headerTitle = "Camera Connection"; ObjectID = "fHo-6S-Eiu"; */
-"fHo-6S-Eiu.headerTitle" = "Camera Connection";
+"fHo-6S-Eiu.headerTitle" = "カメラ接続";
 
 /* Class = "UILabel"; text = "<RECVIEW>"; ObjectID = "fI2-my-DTM"; */
 "fI2-my-DTM.text" = "<RECVIEW>";
@@ -603,13 +603,13 @@
 "gR3-GL-Ug5.text" = "$opticalZoomingCurrentFocalLength";
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Focus"; ObjectID = "gbP-IX-xSb"; */
-"gbP-IX-xSb.headerTitle" = "Auto Focus";
+"gbP-IX-xSb.headerTitle" = "AF状態";
 
 /* Class = "UINavigationItem"; title = "AF, AE & IS"; ObjectID = "gmV-DI-59Z"; */
-"gmV-DI-59Z.title" = "AF, AE & IS";
+"gmV-DI-59Z.title" = "AFとAEと手ぶれ補正";
 
 /* Class = "UITableViewSection"; headerTitle = "Network Setting"; ObjectID = "gv4-bx-hXV"; */
-"gv4-bx-hXV.headerTitle" = "Network Setting";
+"gv4-bx-hXV.headerTitle" = "ネットワーク設定";
 
 /* Class = "UILabel"; text = "$wifiCh"; ObjectID = "h90-vn-yDT"; */
 "h90-vn-yDT.text" = "$wifiCh";
@@ -621,13 +621,13 @@
 "hAA-TN-nrW.text" = "<COLORTONE>";
 
 /* Class = "UILabel"; text = "Lens Mount Status"; ObjectID = "hH8-Ob-V1S"; */
-"hH8-Ob-V1S.text" = "Lens Mount Status";
+"hH8-Ob-V1S.text" = "レンズ装着状態";
 
 /* Class = "UILabel"; text = "$opticalZoomingMaximumFocalLength"; ObjectID = "hNa-Ll-1HJ"; */
 "hNa-Ll-1HJ.text" = "$opticalZoomingMaximumFocalLength";
 
 /* Class = "UITableViewSection"; headerTitle = "Autocompletion"; ObjectID = "hyp-WF-Jbx"; */
-"hyp-WF-Jbx.headerTitle" = "Autocompletion";
+"hyp-WF-Jbx.headerTitle" = "自動補完";
 
 /* Class = "UILabel"; text = "$gps"; ObjectID = "iiZ-bF-5Cg"; */
 "iiZ-bF-5Cg.text" = "$gps";
@@ -642,7 +642,7 @@
 "kpc-bp-UgU.text" = "$artFilterAutoBracket";
 
 /* Class = "UITableViewSection"; headerTitle = "Hardware Information"; ObjectID = "kr7-R6-DZl"; */
-"kr7-R6-DZl.headerTitle" = "Hardware Information";
+"kr7-R6-DZl.headerTitle" = "ハードウェア情報";
 
 /* Class = "UILabel"; text = "$filename"; ObjectID = "krS-DM-MfR"; */
 "krS-DM-MfR.text" = "$filename";
@@ -651,25 +651,25 @@
 "kwp-FH-krK.text" = "$aperture";
 
 /* Class = "UILabel"; text = "Passcode"; ObjectID = "lDM-at-apr"; */
-"lDM-at-apr.text" = "Passcode";
+"lDM-at-apr.text" = "パスコード";
 
 /* Class = "UILabel"; text = "$attributes"; ObjectID = "lGt-Fa-3pH"; */
 "lGt-Fa-3pH.text" = "$attributes";
 
 /* Class = "UILabel"; text = "System"; ObjectID = "lVW-z2-rge"; */
-"lVW-z2-rge.text" = "System";
+"lVW-z2-rge.text" = "システムモード";
 
 /* Class = "UILabel"; text = "$toneControlLow"; ObjectID = "m7Y-7I-cdJ"; */
 "m7Y-7I-cdJ.text" = "$toneControlLow";
 
 /* Class = "UILabel"; text = "Minimum Focal Length"; ObjectID = "mJ3-qt-dXo"; */
-"mJ3-qt-dXo.text" = "Minimum Focal Length";
+"mJ3-qt-dXo.text" = "最小焦点距離";
 
 /* Class = "UINavigationItem"; title = "PLAY OPC"; ObjectID = "mkI-Nn-sFD"; */
 "mkI-Nn-sFD.title" = "PLAY OPC";
 
 /* Class = "UILabel"; text = "Connect with using Bluetooth"; ObjectID = "mkn-q0-odx"; */
-"mkn-q0-odx.text" = "Connect with using Bluetooth";
+"mkn-q0-odx.text" = "Bluetooth経由で接続";
 
 /* Class = "UILabel"; text = "$exposeMovieSelect"; ObjectID = "mn8-zu-qbp"; */
 "mn8-zu-qbp.text" = "$exposeMovieSelect";
@@ -684,7 +684,7 @@
 "nvt-LL-CDe.text" = "<TONE_CONTROL_HIGH>";
 
 /* Class = "UITableViewSection"; headerTitle = "Camera Body Status"; ObjectID = "nwF-s3-gVq"; */
-"nwF-s3-gVq.headerTitle" = "Camera Body Status";
+"nwF-s3-gVq.headerTitle" = "本体状態";
 
 /* Class = "UILabel"; text = "$aspectRatio"; ObjectID = "o9f-yR-ysv"; */
 "o9f-yR-ysv.text" = "$aspectRatio";
@@ -693,25 +693,25 @@
 "oHn-pv-1q2.text" = "$sharp";
 
 /* Class = "UITableViewSection"; headerTitle = "App Preferences"; ObjectID = "owG-pU-UuJ"; */
-"owG-pU-UuJ.headerTitle" = "App Preferences";
+"owG-pU-UuJ.headerTitle" = "アプリ設定";
 
 /* Class = "UILabel"; text = "$imagesize"; ObjectID = "pGM-Tj-bJa"; */
 "pGM-Tj-bJa.text" = "$imagesize";
 
 /* Class = "UITableViewSection"; headerTitle = "Action Modes"; ObjectID = "pL0-3d-GdJ"; */
-"pL0-3d-GdJ.headerTitle" = "Action Modes";
+"pL0-3d-GdJ.headerTitle" = "操作モード";
 
 /* Class = "UILabel"; text = "Acknowledgement"; ObjectID = "pQn-x5-3cC"; */
-"pQn-x5-3cC.text" = "Acknowledgement";
+"pQn-x5-3cC.text" = "謝辞";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "paf-WQ-9mu"; */
-"paf-WQ-9mu.title" = "Back";
+"paf-WQ-9mu.title" = "戻る";
 
 /* Class = "UILabel"; text = "$fullTimeAf"; ObjectID = "prG-KV-zzF"; */
 "prG-KV-zzF.text" = "$fullTimeAf";
 
 /* Class = "UILabel"; text = "Toward Tele End"; ObjectID = "qP8-z0-RNf"; */
-"qP8-z0-RNf.text" = "Toward Tele End";
+"qP8-z0-RNf.text" = "光学ズーム(テレ端)";
 
 /* Class = "UILabel"; text = "$zoomingSpeed"; ObjectID = "qXs-eU-8In"; */
 "qXs-eU-8In.text" = "$zoomingSpeed";
@@ -726,13 +726,13 @@
 "rZk-bZ-q1y.text" = "$isoSensitivityWarning";
 
 /* Class = "UITableViewSection"; footerTitle = "A focusing sound, a shutter sound, an error sound are included in this sound."; ObjectID = "s2M-2Z-d2l"; */
-"s2M-2Z-d2l.footerTitle" = "A focusing sound, a shutter sound, an error sound are included in this sound.";
+"s2M-2Z-d2l.footerTitle" = "サウンドには合焦音、シャッター音、エラー音などが含まれます。";
 
 /* Class = "UITableViewSection"; headerTitle = "Sound Setting"; ObjectID = "s2M-2Z-d2l"; */
-"s2M-2Z-d2l.headerTitle" = "Sound Setting";
+"s2M-2Z-d2l.headerTitle" = "音設定";
 
 /* Class = "UITableViewSection"; headerTitle = "Level Gauge"; ObjectID = "s87-tB-NRK"; */
-"s87-tB-NRK.headerTitle" = "Level Gauge";
+"s87-tB-NRK.headerTitle" = "水準器情報";
 
 /* Class = "UILabel"; text = "<EXPOSE_MOVIE_SELECT>"; ObjectID = "s9H-Si-Qf8"; */
 "s9H-Si-Qf8.text" = "<EXPOSE_MOVIE_SELECT>";
@@ -741,55 +741,55 @@
 "s9I-TW-R8P.text" = "$digitalZoomingMinimumScale";
 
 /* Class = "UITableViewSection"; headerTitle = "Camera Information"; ObjectID = "sCE-T0-mCR"; */
-"sCE-T0-mCR.headerTitle" = "Camera Information";
+"sCE-T0-mCR.headerTitle" = "カメラ情報";
 
 /* Class = "UILabel"; text = "Disconnect and Sleep"; ObjectID = "seH-QX-4L3"; */
-"seH-QX-4L3.text" = "Disconnect and Sleep";
+"seH-QX-4L3.text" = "接続解除と電源オフ";
 
 /* Class = "UILabel"; text = "Toward Wide End"; ObjectID = "t8k-9a-Mx7"; */
-"t8k-9a-Mx7.text" = "Toward Wide End";
+"t8k-9a-Mx7.text" = "光学ズーム(ワイド端)";
 
 /* Class = "UILabel"; text = "Disconnect"; ObjectID = "tA9-re-tiV"; */
-"tA9-re-tiV.text" = "Disconnect";
+"tA9-re-tiV.text" = "接続解除";
 
 /* Class = "UILabel"; text = "Unlock AE"; ObjectID = "tBv-Bz-kqN"; */
-"tBv-Bz-kqN.text" = "Unlock AE";
+"tBv-Bz-kqN.text" = "AEロック解除";
 
 /* Class = "UILabel"; text = "$toneControlMiddle"; ObjectID = "tFj-Rj-Gh9"; */
 "tFj-Rj-Gh9.text" = "$toneControlMiddle";
 
 /* Class = "UILabel"; text = "As Media"; ObjectID = "tT0-f3-QXk"; */
-"tT0-f3-QXk.text" = "As Media";
+"tT0-f3-QXk.text" = "バイト数";
 
 /* Class = "UITableViewSection"; headerTitle = "Save Settings"; ObjectID = "tkM-73-zOl"; */
-"tkM-73-zOl.headerTitle" = "Save Settings";
+"tkM-73-zOl.headerTitle" = "カメラ設定";
 
 /* Class = "UITableViewSection"; footerTitle = "Camera setting will be stored to a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
-"ts7-hs-b3f.footerTitle" = "Camera setting will be stored to a file in the application document folder. You can access that file via iTunes.";
+"ts7-hs-b3f.footerTitle" = "カメラ設定はアプリケーションのドキュメントフォルダに保存されます。iTunes経由でこのファイルにアクセスできます。";
 
 /* Class = "UITableViewSection"; headerTitle = "Saving Camera Setting"; ObjectID = "ts7-hs-b3f"; */
-"ts7-hs-b3f.headerTitle" = "Saving Camera Setting";
+"ts7-hs-b3f.headerTitle" = "設定保存";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uQh-LP-Yxa"; */
-"uQh-LP-Yxa.title" = "Back";
+"uQh-LP-Yxa.title" = "戻る";
 
 /* Class = "UILabel"; text = "$digitalZoomingCurrentScale"; ObjectID = "ufQ-7R-eg2"; */
 "ufQ-7R-eg2.text" = "$digitalZoomingCurrentScale";
 
 /* Class = "UINavigationItem"; title = "System"; ObjectID = "uk7-8l-AIP"; */
-"uk7-8l-AIP.title" = "System";
+"uk7-8l-AIP.title" = "システムモード";
 
 /* Class = "UILabel"; text = "<ANTI_SHAKE_FOCAL_LENGTH>"; ObjectID = "uyY-7n-fse"; */
 "uyY-7n-fse.text" = "<ANTI_SHAKE_FOCAL_LENGTH>";
 
 /* Class = "UILabel"; text = "Media Busy"; ObjectID = "uzN-D8-YLw"; */
-"uzN-D8-YLw.text" = "Media Busy";
+"uzN-D8-YLw.text" = "書き込み中";
 
 /* Class = "UILabel"; text = "<MONOTONECOLOR>"; ObjectID = "vGs-uB-UUE"; */
 "vGs-uB-UUE.text" = "<MONOTONECOLOR>";
 
 /* Class = "UITableViewSection"; headerTitle = "Media Capacity"; ObjectID = "vYb-uG-cq7"; */
-"vYb-uG-cq7.headerTitle" = "Media Capacity";
+"vYb-uG-cq7.headerTitle" = "メディア残り容量";
 
 /* Class = "UILabel"; text = "<BATTERY_LEVEL>"; ObjectID = "via-cg-uxm"; */
 "via-cg-uxm.text" = "<BATTERY_LEVEL>";
@@ -801,19 +801,19 @@
 "vjR-Uy-zDI.text" = "$cameraFirmwareVersion";
 
 /* Class = "UILabel"; text = "Magnifying Scale"; ObjectID = "wQZ-qK-vXe"; */
-"wQZ-qK-vXe.text" = "Magnifying Scale";
+"wQZ-qK-vXe.text" = "拡大倍率";
 
 /* Class = "UILabel"; text = "$magnifyingLiveViewScale"; ObjectID = "wdZ-oa-9RA"; */
 "wdZ-oa-9RA.text" = "$magnifyingLiveViewScale";
 
 /* Class = "UILabel"; text = "Start Magnifying"; ObjectID = "wjs-bX-rGU"; */
-"wjs-bX-rGU.text" = "Start Magnifying";
+"wjs-bX-rGU.text" = "拡大開始";
 
 /* Class = "UILabel"; text = "Maximum Scale"; ObjectID = "wnj-mY-May"; */
-"wnj-mY-May.text" = "Maximum Scale";
+"wnj-mY-May.text" = "最大倍率";
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Focus Settings"; ObjectID = "wt5-st-q46"; */
-"wt5-st-q46.headerTitle" = "Auto Focus Settings";
+"wt5-st-q46.headerTitle" = "AF設定";
 
 /* Class = "UILabel"; text = "$batteryLevel"; ObjectID = "x6d-BN-78p"; */
 "x6d-BN-78p.text" = "$batteryLevel";
@@ -831,13 +831,13 @@
 "yji-Ga-Cbc.text" = "$mediaError";
 
 /* Class = "UITableViewSection"; headerTitle = "Digital Zooming"; ObjectID = "ypT-Po-UZa"; */
-"ypT-Po-UZa.headerTitle" = "Digital Zooming";
+"ypT-Po-UZa.headerTitle" = "デジタルズーム";
 
 /* Class = "UILabel"; text = "Rolling"; ObjectID = "zQq-Ju-YwQ"; */
-"zQq-Ju-YwQ.text" = "Rolling";
+"zQq-Ju-YwQ.text" = "ロール量";
 
 /* Class = "UILabel"; text = "Apply Camera Setting"; ObjectID = "zc6-wd-thZ"; */
-"zc6-wd-thZ.text" = "Apply Camera Setting";
+"zc6-wd-thZ.text" = "設定適用";
 
 /* Class = "UILabel"; text = "$liveViewSize"; ObjectID = "zkA-bB-ciD"; */
 "zkA-bB-ciD.text" = "$liveViewSize";

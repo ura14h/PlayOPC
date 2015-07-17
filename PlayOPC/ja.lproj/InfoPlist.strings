@@ -6,6 +6,6 @@
   Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 */
 
-NSLocationUsageDescription = "This application use the current location to set the camera.";
-NSLocationWhenInUseUsageDescription = "This application use the current location to set the camera.";
-NSPhotoLibraryUsageDescription = "This application use the photo library to save a captured image.";
+NSLocationUsageDescription = "このアプリケーションは現在地をカメラに設定します。";
+NSLocationWhenInUseUsageDescription = "このアプリケーションは現在地をカメラに設定します。";
+NSPhotoLibraryUsageDescription = "このアプリケーションは撮影した画像を写真アルバムに保存します。";

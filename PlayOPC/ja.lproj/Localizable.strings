@@ -89,7 +89,7 @@
 "Connecting..." = "接続中...";
 
 /* No comment provided by engineer. */
-"Could not apply camera setting." = "カメラ設定を適用できません。";
+"Could not apply camera setting" = "カメラ設定を適用できません";
 
 /* No comment provided by engineer. */
 "Could not change scale" = "倍率を変更できません";
@@ -119,7 +119,7 @@
 "Could not erase content" = "コンテンツを削除できません";
 
 /* No comment provided by engineer. */
-"Could not get camera properties." = "カメラプロパティが取得できません";
+"Could not get camera properties" = "カメラプロパティが取得できません";
 
 /* No comment provided by engineer. */
 "Could not get information" = "情報が取得できません";
@@ -140,7 +140,7 @@
 "Could not protect content" = "コンテンツをプロテクトできません";
 
 /* No comment provided by engineer. */
-"Could not read camera setting from file." = "カメラ設定をファイルから読み込めません";
+"Could not read camera setting from file." = "カメラ設定をファイルから読み込めません。";
 
 /* No comment provided by engineer. */
 "Could not record" = "撮影できません";

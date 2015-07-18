@@ -48,7 +48,7 @@
 "<APERTURE/81>" = "F81";
 "<APERTURE/91>" = "F91";
 "<AE>" = "Metering";
-"<AE/AE_ESP>" = "ESP";
+"<AE/AE_ESP>" = "Digital ESP";
 "<AE/AE_CENTER>" = "Center Weighted";
 "<AE/AE_PINPOINT>" = "Spot";
 "<TAKEMODE>" = "Shooting Mode";
@@ -206,6 +206,9 @@
 "<FULL_TIME_AF/ON>" = "On";
 "<FOCUS_MOVIE>" = "Focus Mode for Video";
 "<FACE_SCAN>" = "Face Detect";
+"<FACE_SCAN/FACE_SCAN_OFF>" = "Off";
+"<FACE_SCAN/FACE_SCAN_ON>" = "Face";
+"<FACE_SCAN/FACE_SCAN_NEAR>" = "Face & Eye";
 "<ANTI_SHAKE_FOCAL_LENGTH>" = "Focal Length of MF Lens";
 "<RECVIEW>" = "Rec View";
 "<RECVIEW/OFF>" = "Off";
@@ -262,7 +265,7 @@
 "<RECENTLY_ART_FILTER/PASTEL>" = "Watercolor";
 "<RECENTLY_ART_FILTER/VINTAGE>" = "Vintage";
 "<RECENTLY_ART_FILTER/PARTCOLOR>" = "Partcolor";
-"<RECENTLY_ART_FILTER/ART_BKT>" = "ART BKT";
+"<RECENTLY_ART_FILTER/ART_BKT>" = "ART-BKT";
 "<COLOR_PHASE>" = "Hue for Partcolor";
 "<ART_EFFECT_TYPE>" = "Filter Type";
 "<ART_EFFECT_TYPE_POPART>" = "Filter Type";
@@ -533,8 +536,6 @@
 "<MONOTONECOLOR_DRAMATIC_TONE/LIKE_GREEN>" = "Green";
 "<COLOR_CREATOR_COLOR>" = "Hue for Color Creator";
 "<COLOR_CREATOR_VIVID>" = "Chroma for Color Creator";
-"<WB_REV>" = "WB Compensation (A-B)";
-"<WB_REV_G>" = "WB Compensation (G-M)";
 "<WB>" = "White Balance";
 "<WB/WB_AUTO>" = "Auto";
 "<WB/MWB_FINE>" = "Daylight";
@@ -761,7 +762,7 @@
 "[moviesize]" = "Video Frame Size";
 "[moviesize/1920x1080]" = "1920 x 1080";
 "[moviesize/1280x0720]" = "1280 x 720";
-"[shortmovie]" = "Clips";
+"[shortmovie]" = "Video Clip Mode";
 "[shortmovie/yes]" = "Yes";
 "[shortmovie/no]" = "No";
 "[shootingdatetime]" = "Date & Time";

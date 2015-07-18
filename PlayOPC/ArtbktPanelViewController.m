@@ -112,7 +112,7 @@
 		NSError *error = nil;
 		NSDictionary *propertyValues = [camera cameraPropertyValues:properties error:&error];
 		if (!propertyValues) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not get camera properties.", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not get camera properties", nil)];
 			return;
 		}
 		weakSelf.propertyValues = [propertyValues mutableCopy];

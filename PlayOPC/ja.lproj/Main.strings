@@ -12,7 +12,7 @@
 "0pO-an-SDE.text" = "再生モード";
 
 /* Class = "UILabel"; text = "Speed"; ObjectID = "0w0-xP-gLR"; */
-"0w0-xP-gLR.text" = "光学ズーム速度";
+"0w0-xP-gLR.text" = "ズーム速度";
 
 /* Class = "UINavigationItem"; title = "Color & Effect"; ObjectID = "19L-VM-OK2"; */
 "19L-VM-OK2.title" = "色と効果";
@@ -327,7 +327,7 @@
 "N7h-6t-xgt.text" = "露出警告";
 
 /* Class = "UILabel"; text = "Filters for ART_BKT"; ObjectID = "NMs-mM-3Y1"; */
-"NMs-mM-3Y1.text" = "ART_BKT対象フィルター";
+"NMs-mM-3Y1.text" = "ART-BKT 対象アートフィルター";
 
 /* Class = "UILabel"; text = "Minimum Scale"; ObjectID = "NRY-CK-AwW"; */
 "NRY-CK-AwW.text" = "最小倍率";
@@ -339,7 +339,7 @@
 "NV9-Ma-naR.headerTitle" = "ホワイトバランス";
 
 /* Class = "UINavigationItem"; title = "Filters for ART_BKT"; ObjectID = "NZs-rV-Rds"; */
-"NZs-rV-Rds.title" = "ART_BKT対象フィルター";
+"NZs-rV-Rds.title" = "ART-BKT 対象フィルター";
 
 /* Class = "UITableViewSection"; headerTitle = "Effect Control"; ObjectID = "Naf-78-9Mh"; */
 "Naf-78-9Mh.headerTitle" = "効果";
@@ -711,7 +711,7 @@
 "prG-KV-zzF.text" = "$fullTimeAf";
 
 /* Class = "UILabel"; text = "Toward Tele End"; ObjectID = "qP8-z0-RNf"; */
-"qP8-z0-RNf.text" = "光学ズーム(テレ端)";
+"qP8-z0-RNf.text" = "テレ端へズーム";
 
 /* Class = "UILabel"; text = "$zoomingSpeed"; ObjectID = "qXs-eU-8In"; */
 "qXs-eU-8In.text" = "$zoomingSpeed";
@@ -747,7 +747,7 @@
 "seH-QX-4L3.text" = "接続解除と電源オフ";
 
 /* Class = "UILabel"; text = "Toward Wide End"; ObjectID = "t8k-9a-Mx7"; */
-"t8k-9a-Mx7.text" = "光学ズーム(ワイド端)";
+"t8k-9a-Mx7.text" = "ワイド端へズーム";
 
 /* Class = "UILabel"; text = "Disconnect"; ObjectID = "tA9-re-tiV"; */
 "tA9-re-tiV.text" = "接続解除";

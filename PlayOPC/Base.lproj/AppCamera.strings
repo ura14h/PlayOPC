@@ -47,7 +47,7 @@
 "<APERTURE/72>" = "F72";
 "<APERTURE/81>" = "F81";
 "<APERTURE/91>" = "F91";
-"<AE>" = "Metering";
+"<AE>" = "Metering Method";
 "<AE/AE_ESP>" = "Digital ESP";
 "<AE/AE_CENTER>" = "Center Weighted";
 "<AE/AE_PINPOINT>" = "Spot";

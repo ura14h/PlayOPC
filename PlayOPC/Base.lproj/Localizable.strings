@@ -17,7 +17,7 @@
 "1024 Pixels" = "1024 Pixels";
 
 /* No comment provided by engineer. */
-"10times" = "10times";
+"10times" = "10 times";
 
 /* No comment provided by engineer. */
 "1280 x 720, Fine" = "1280 x 720, Fine";
@@ -26,7 +26,7 @@
 "1280 x 720, Normal" = "1280 x 720, Normal";
 
 /* No comment provided by engineer. */
-"14times" = "14times";
+"14times" = "14 times";
 
 /* No comment provided by engineer. */
 "1600 Pixels" = "1600 Pixels";
@@ -44,10 +44,10 @@
 "2048 Pixels" = "2048 Pixels";
 
 /* No comment provided by engineer. */
-"5times" = "5times";
+"5times" = "5 times";
 
 /* No comment provided by engineer. */
-"7times" = "7times";
+"7times" = "7 times";
 
 /* No comment provided by engineer. */
 "A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least." = "A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least.";

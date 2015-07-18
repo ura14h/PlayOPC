@@ -199,7 +199,6 @@
 		311F081A1ADFEE2F00318028 /* ItemSelectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemSelectionViewController.h; sourceTree = "<group>"; };
 		311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemSelectionViewController.m; sourceTree = "<group>"; };
 		312689521B56A9BB00183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		312689531B56A9C000183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
 		312689541B56A9C500183C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.html; name = ja; path = ja.lproj/Acknowledgement.html; sourceTree = "<group>"; };
 		3126895A1B56AA0E00183C1E /* Base */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/Localizable.strings; sourceTree = "<group>"; };
 		3126895C1B56AA1100183C1E /* ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -320,6 +319,7 @@
 		31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
 		31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
 		31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationController.m; sourceTree = "<group>"; };
+		31D5EDA41B5A340B004DF3AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
 		31DB84021AD101C900E50B03 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
 		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCamera.h; sourceTree = "<group>"; };
@@ -962,7 +962,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				31392FDA1B14BED40097FF1B /* Base */,
-				312689531B56A9C000183C1E /* ja */,
+				31D5EDA41B5A340B004DF3AD /* ja */,
 			);
 			name = AppCamera.strings;
 			sourceTree = "<group>";

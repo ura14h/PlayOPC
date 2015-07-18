@@ -202,6 +202,11 @@ NSString *const ContentDetailValueKey = @"ContentDetailValueKey";
 	cell.textLabel.text = itemNameTitle;
 	
 	// コンテンツ情報の値を表示文言に変換して表示します。
+	// MARK: 補正値や角度などの数値型で値の符号がおかしい場合があります。(2の補数を正しく変換できていないようです)
+	// MARK: DigitalTelecon(デジタルテレコン有無)は通信仕様書の記述と異なり"ON"または"OFF"で返されるようです。
+	// MARK: Location(本体の位置)の値は通信仕様書の記述と異なり実際には"0x0"から"0x5"までの値で返されるようです。
+	// MARK: MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	// MARK: MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 	NSString *itemValue = contentDetail[ContentDetailValueKey];
 	NSString *itemValueTitle = [camera contentInformationValueLocalizedTitle:itemName value:itemValue];
 	cell.detailTextLabel.text = itemValueTitle;

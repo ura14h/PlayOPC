@@ -99,5 +99,10 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * コンテンツ削除(eraseContent:error:)は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方削除されるようです。
 * コンテンツ情報取得(inquireContentInformation:error:)に静止画を指定した場合に得られる情報の詳細は、オープンプラットフォームカメラ通信仕様書の静止画ファイル情報取得(get_imageinfo.cgi)の静止画情報パラメータリストフォーマットに記載されているようです。
 * コンテンツ情報取得(inquireContentInformation:error:)に動画を指定した場合に得られる情報の詳細は、オープンプラットフォームカメラ通信仕様書の動画ファイル情報取得(get_movfileinfo.cgi)のHTTPレスポンスに記載されているようです。
+* コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、補正値や角度などの数値型で値の符号がおかしい場合があります。(2の補数を正しく変換できていないようです)
+* コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、DigitalTelecon(デジタルテレコン有無)は通信仕様書の記述と異なり"ON"または"OFF"で返されるようです。
+* コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、Location(本体の位置)の値は通信仕様書の記述と異なり実際には"0x0"から"0x5"までの値で返されるようです。
+* コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+* コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 
 以上

@@ -356,7 +356,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< ä¸€æ
 		DEBUG_LOG(@"filePath=%@", filePath);
 		DEBUG_LOG(@"snapshot=%@", snapshot);
 		if (!snapshot) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not apply camera setting.", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not apply camera setting", nil)];
 			return;
 		}
 		
@@ -364,7 +364,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< ä¸€æ
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera restoreSnapshotOfSetting:snapshot error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera setting.", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera setting", nil)];
 			return;
 		}
 		
@@ -388,7 +388,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< ä¸€æ
 		NSError *error = nil;
 		NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
 		if (!snapshot) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save camera setting.", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save camera setting", nil)];
 			return;
 		}
 		
@@ -399,7 +399,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< ä¸€æ
 		DEBUG_LOG(@"filePath=%@", filePath);
 		DEBUG_LOG(@"fileContent=%@", snapshot);
 		if (![snapshot writeToFile:filePath atomically:YES]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera setting to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save camera setting.", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera setting to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save camera setting", nil)];
 			return;
 		}
 		

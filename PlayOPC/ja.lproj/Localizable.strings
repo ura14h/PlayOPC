@@ -2,325 +2,325 @@
 "%1.1f" = "%1.1f";
 
 /* No comment provided by engineer. */
-"%@ Bytes" = "%@ Bytes";
+"%@ Bytes" = "%@ バイト";
 
 /* No comment provided by engineer. */
-"%@ Images" = "%@ Images";
+"%@ Images" = "%@ 枚";
 
 /* No comment provided by engineer. */
-"%@ Seconds" = "%@ Seconds";
+"%@ Seconds" = "%@ 秒";
 
 /* No comment provided by engineer. */
-"%ld contents (%ld files)" = "%1$ld contents (%2$ld files)";
+"%ld contents (%ld files)" = "%1$ld コンテンツ (%2$ld ファイル)";
 
 /* No comment provided by engineer. */
-"1024 Pixels" = "1024 Pixels";
+"1024 Pixels" = "1024 ピクセル";
 
 /* No comment provided by engineer. */
-"10times" = "10times";
+"10times" = "10倍";
 
 /* No comment provided by engineer. */
-"1280 x 720, Fine" = "1280 x 720, Fine";
+"1280 x 720, Fine" = "1280 x 720, 高画質";
 
 /* No comment provided by engineer. */
-"1280 x 720, Normal" = "1280 x 720, Normal";
+"1280 x 720, Normal" = "1280 x 720, 標準";
 
 /* No comment provided by engineer. */
-"14times" = "14times";
+"14times" = "14倍";
 
 /* No comment provided by engineer. */
-"1600 Pixels" = "1600 Pixels";
+"1600 Pixels" = "1600 ピクセル";
 
 /* No comment provided by engineer. */
-"1920 Pixels" = "1920 Pixels";
+"1920 Pixels" = "1920 ピクセル";
 
 /* No comment provided by engineer. */
-"1920 x 1080, Fine" = "1920 x 1080, Fine";
+"1920 x 1080, Fine" = "1920 x 1080, 高画質";
 
 /* No comment provided by engineer. */
-"1920 x 1080, Normal" = "1920 x 1080, Normal";
+"1920 x 1080, Normal" = "1920 x 1080, 標準";
 
 /* No comment provided by engineer. */
-"2048 Pixels" = "2048 Pixels";
+"2048 Pixels" = "2048 ピクセル";
 
 /* No comment provided by engineer. */
-"5times" = "5times";
+"5times" = "5倍";
 
 /* No comment provided by engineer. */
-"7times" = "7times";
+"7times" = "7倍";
 
 /* No comment provided by engineer. */
-"A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least." = "A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least.";
+"A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least." = "指定したピクセル数に収まるようにリサイズした動画をメディアに追加します。この処理には少なくとも %1.0f 秒かかります。";
 
 /* No comment provided by engineer. */
-"Already runnning now." = "Already runnning now.";
+"Already runnning now." = "すでに実行中です。";
 
 /* No comment provided by engineer. */
-"An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it." = "An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it.";
+"An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it." = "指定したピクセル数に収まるようにリサイズした写真をダウンロードして現在表示されているものと差し替えます。";
 
 /* No comment provided by engineer. */
-"Bluetooth is not available." = "Bluetooth is not available.";
+"Bluetooth is not available." = "Bluetoothは利用できません。";
 
 /* No comment provided by engineer. */
-"Bluetooth local name is empty. Please configure Bluetooth setting." = "Bluetooth local name is empty. Please configure Bluetooth setting.";
+"Bluetooth local name is empty. Please configure Bluetooth setting." = "Bluetoothのローカルネームが空欄です。設定してください。";
 
 /* No comment provided by engineer. */
-"Bluetooth peripheral is already connected." = "Bluetooth peripheral is already connected.";
+"Bluetooth peripheral is already connected." = "Bluetoothデバイスはすでに接続しています。";
 
 /* No comment provided by engineer. */
-"Bluetooth peripheral is already disconnected." = "Bluetooth peripheral is already disconnected.";
+"Bluetooth peripheral is already disconnected." = "Bluetoothデバイスはすでに切断しています。";
 
 /* No comment provided by engineer. */
-"Bluetooth peripheral is already found." = "Bluetooth peripheral is already found.";
+"Bluetooth peripheral is already found." = "Bluetoothデバイスはすでに発見済みです。";
 
 /* No comment provided by engineer. */
-"Busrt" = "Busrt";
+"Busrt" = "一気";
 
 /* No comment provided by engineer. */
-"Cancel" = "Cancel";
+"Cancel" = "取り消し";
 
 /* No comment provided by engineer. */
-"Clear camera setting" = "Clear camera setting";
+"Clear camera setting" = "カメラ設定をクリア";
 
 /* No comment provided by engineer. */
-"Clear log" = "Clear log";
+"Clear log" = "動作ログをクリア";
 
 /* No comment provided by engineer. */
-"Connecting..." = "Connecting...";
+"Connecting..." = "接続中...";
 
 /* No comment provided by engineer. */
-"Could not apply camera setting." = "Could not apply camera setting.";
+"Could not apply camera setting." = "カメラ設定を適用できません。";
 
 /* No comment provided by engineer. */
-"Could not change scale" = "Could not change scale";
+"Could not change scale" = "倍率を変更できません";
 
 /* No comment provided by engineer. */
-"Could not change size" = "Could not change size";
+"Could not change size" = "サイズを変更できません";
 
 /* No comment provided by engineer. */
-"Could not clear gelocation" = "Could not clear gelocation";
+"Could not clear gelocation" = "位置をクリアできません";
 
 /* No comment provided by engineer. */
-"Could not connect" = "Could not connect";
+"Could not connect" = "接続できません";
 
 /* No comment provided by engineer. */
-"Could not download captured image" = "Could not download captured image";
+"Could not download captured image" = "撮影画像をダウンロードできません";
 
 /* No comment provided by engineer. */
-"Could not download content list" = "Could not download content list";
+"Could not download content list" = "コンテンツ一覧をダウンロードできません";
 
 /* No comment provided by engineer. */
-"Could not download image" = "Could not download image";
+"Could not download image" = "写真をダウンロードできません";
 
 /* No comment provided by engineer. */
-"Could not download video" = "Could not download video";
+"Could not download video" = "動画をダウンロードできません";
 
 /* No comment provided by engineer. */
-"Could not erase content" = "Could not erase content";
+"Could not erase content" = "コンテンツを削除できません";
 
 /* No comment provided by engineer. */
-"Could not get camera properties." = "Could not get camera properties.";
+"Could not get camera properties." = "カメラプロパティが取得できません";
 
 /* No comment provided by engineer. */
-"Could not get information" = "Could not get information";
+"Could not get information" = "情報が取得できません";
 
 /* No comment provided by engineer. */
-"Could not get touch point" = "Could not get touch point";
+"Could not get touch point" = "タッチした座標が取得できません";
 
 /* No comment provided by engineer. */
-"Could not move" = "Could not move";
+"Could not move" = "移動できません";
 
 /* No comment provided by engineer. */
-"Could not open link" = "Could not open link";
+"Could not open link" = "リンクを開けません";
 
 /* No comment provided by engineer. */
-"Could not open OA.Central" = "Could not open OA.Central";
+"Could not open OA.Central" = "OA.Centralを開けません";
 
 /* No comment provided by engineer. */
-"Could not protect content" = "Could not protect content";
+"Could not protect content" = "コンテンツをプロテクトできません";
 
 /* No comment provided by engineer. */
-"Could not read camera setting from file." = "Could not read camera setting from file.";
+"Could not read camera setting from file." = "カメラ設定をファイルから読み込めません";
 
 /* No comment provided by engineer. */
-"Could not record" = "Could not record";
+"Could not record" = "撮影できません";
 
 /* No comment provided by engineer. */
-"Could not resize video" = "Could not resize video";
+"Could not resize video" = "動画をリサイズできません";
 
 /* No comment provided by engineer. */
-"Could not restore lastest camera setting" = "Could not restore lastest camera setting";
+"Could not restore lastest camera setting" = "最後のカメラ設定に復元できません";
 
 /* No comment provided by engineer. */
-"Could not save camera setting." = "Could not save camera setting.";
+"Could not save camera setting" = "カメラ設定を保存できません";
 
 /* No comment provided by engineer. */
-"Could not save captured image" = "Could not save captured image";
+"Could not save captured image" = "撮影画像を保存できません";
 
 /* No comment provided by engineer. */
-"Could not set camera property" = "Could not set camera property";
+"Could not set camera property" = "カメラプロパティを設定できません";
 
 /* No comment provided by engineer. */
-"Could not set current geolocation" = "Could not set current geolocation";
+"Could not set current geolocation" = "現在地を設定できません";
 
 /* No comment provided by engineer. */
-"Could not show captured image" = "Could not show captured image";
+"Could not show captured image" = "撮影画像を表示できません";
 
 /* No comment provided by engineer. */
-"Could not show the property value list" = "Could not show the property value list";
+"Could not show the property value list" = "カメラプロパティの値一覧を表示できません";
 
 /* No comment provided by engineer. */
-"Could not start magnifying" = "Could not start magnifying";
+"Could not start magnifying" = "ライブビュー拡大を開始できません";
 
 /* No comment provided by engineer. */
-"Could not start monitoring by failed [Reachability startNotifier]." = "Could not start monitoring by failed [Reachability startNotifier].";
+"Could not start monitoring by failed [Reachability startNotifier]." = "Wi-Fi接続の状態監視を開始できません。";
 
 /* No comment provided by engineer. */
-"Could not start Playback" = "Could not start Playback";
+"Could not start Playback" = "再生モードを開始できません";
 
 /* No comment provided by engineer. */
-"Could not start Recording" = "Could not start Recording";
+"Could not start Recording" = "撮影モードを開始できません";
 
 /* No comment provided by engineer. */
-"Could not start System" = "Could not start System";
+"Could not start System" = "システムモードを開始できません";
 
 /* No comment provided by engineer. */
-"Could not stop magnifying" = "Could not stop magnifying";
+"Could not stop magnifying" = "ライブビュー拡大を終了できません";
 
 /* No comment provided by engineer. */
-"Could not take" = "Could not take";
+"Could not take" = "撮影できません";
 
 /* No comment provided by engineer. */
-"Could not unlock AE" = "Could not unlock AE";
+"Could not unlock AE" = "AEをロックできません";
 
 /* No comment provided by engineer. */
-"Could not unlock AF" = "Could not unlock AF";
+"Could not unlock AF" = "AFをロックできません";
 
 /* No comment provided by engineer. */
-"Could not unprotect content" = "Could not unprotect content";
+"Could not unprotect content" = "コンテンツをプロテクト解除できません";
 
 /* No comment provided by engineer. */
-"Could not unprotect contents" = "Could not unprotect contents";
+"Could not unprotect contents" = "コンテンツをプロテクト解除できません";
 
 /* No comment provided by engineer. */
-"Could not write camera setting to file. The content of file might be lost." = "Could not write camera setting to file. The content of file might be lost.";
+"Could not write camera setting to file. The content of file might be lost." = "カメラ設定をファイルに保存できません。ファイルに出力した内容は失われたかもしれません。";
 
 /* No comment provided by engineer. */
-"Could not zoom" = "Could not zoom";
+"Could not zoom" = "ズームできません";
 
 /* No comment provided by engineer. */
-"Delayed New Setting" = "Delayed New Setting";
+"Delayed New Setting" = "設定はすぐには反映されません";
 
 /* No comment provided by engineer. */
-"Disconnecting..." = "Disconnecting...";
+"Disconnecting..." = "切断中...";
 
 /* No comment provided by engineer. */
-"Discovering Bluetooth peripheral is timed out." = "Discovering Bluetooth peripheral is timed out.";
+"Discovering Bluetooth peripheral is timed out." = "Bluetoothデバイスが時間内に見つかりませんでした。";
 
 /* No comment provided by engineer. */
-"Down %1.1f" = "Down %1.1f";
+"Down %1.1f" = "下向き %1.1f";
 
 /* No comment provided by engineer. */
-"Erase the picture" = "Erase the picture";
+"Erase the picture" = "この写真を削除";
 
 /* No comment provided by engineer. */
-"Erase the video" = "Erase the video";
+"Erase the video" = "この動画を削除";
 
 /* No comment provided by engineer. */
-"Error" = "Error";
+"Error" = "エラー";
 
 /* No comment provided by engineer. */
 "EZ" = "EZ";
 
 /* No comment provided by engineer. */
-"Face down" = "Face down";
+"Face down" = "下向き";
 
 /* No comment provided by engineer. */
-"Face up" = "Face up";
+"Face up" = "上向き";
 
 /* No comment provided by engineer. */
-"Fast" = "Fast";
+"Fast" = "速い";
 
 /* No comment provided by engineer. */
-"Hidden" = "Hidden";
+"Hidden" = "非表示";
 
 /* No comment provided by engineer. */
-"Landscape" = "Landscape";
+"Landscape" = "横置き";
 
 /* No comment provided by engineer. */
-"Left %1.1f" = "Left %1.1f";
+"Left %1.1f" = "左に傾斜 %1.1f";
 
 /* No comment provided by engineer. */
-"Macro" = "Macro";
+"Macro" = "マクロ";
 
 /* No comment provided by engineer. */
-"Mounted" = "Mounted";
+"Mounted" = "装着済み";
 
 /* No comment provided by engineer. */
-"Mounted (%@)" = "Mounted (%@)";
+"Mounted (%@)" = "装着済み (%@)";
 
 /* No comment provided by engineer. */
-"Mounted (full)" = "Mounted (full)";
+"Mounted (full)" = "装着済み (空きなし)";
 
 /* No comment provided by engineer. */
-"Mounted (not-ready)" = "Mounted (not-ready)";
+"Mounted (not-ready)" = "装着済み (読込不可)";
 
 /* No comment provided by engineer. */
-"Mounted (read-only)" = "Mounted (read-only)";
+"Mounted (read-only)" = "装着済み (読込専用)";
 
 /* No comment provided by engineer. */
-"No" = "No";
+"No" = "いいえ";
 
 /* No comment provided by engineer. */
-"No Bluetooth peripherals." = "No Bluetooth peripherals.";
+"No Bluetooth peripherals." = "Bluetoothデバイスはありません。";
 
 /* No comment provided by engineer. */
-"No Configuration" = "No Configuration";
+"No Configuration" = "未構成";
 
 /* No comment provided by engineer. */
-"No Lens" = "No Lens";
+"No Lens" = "レンズなし";
 
 /* No comment provided by engineer. */
-"Normal" = "Normal";
+"Normal" = "通常";
 
 /* No comment provided by engineer. */
-"Not Connected" = "Not Connected";
+"Not Connected" = "未接続";
 
 /* No comment provided by engineer. */
-"Not Connected (%@)" = "Not Connected (%@)";
+"Not Connected (%@)" = "未接続 (%@)";
 
 /* No comment provided by engineer. */
-"Not runnning now." = "Not runnning now.";
+"Not runnning now." = "未実行です。";
 
 /* No comment provided by engineer. */
-"OA.Central is not installed." = "OA.Central is not installed.";
+"OA.Central is not installed." = "OA.Centralはインストールされていません。";
 
 /* No comment provided by engineer. */
 "OK" = "OK";
 
 /* No comment provided by engineer. */
-"ORF file related to the picture will be erased at the same time." = "ORF file related to the picture will be erased at the same time.";
+"ORF file related to the picture will be erased at the same time." = "この写真に関連するORFファイルも同時に削除されます。";
 
 /* No comment provided by engineer. */
-"ORF file related to the picture will be protected at the same time." = "ORF file related to the picture will be protected at the same time.";
+"ORF file related to the picture will be protected at the same time." = "この写真に関連するORFファイルも同時にプロテクトされます。";
 
 /* No comment provided by engineer. */
-"ORF file related to the picture will be unprotected at the same time." = "ORF file related to the picture will be unprotected at the same time.";
+"ORF file related to the picture will be unprotected at the same time." = "この写真に関連するORFファイルも同時にプロテクト解除されます。";
 
 /* No comment provided by engineer. */
-"Original Size" = "Original Size";
+"Original Size" = "オリジナルサイズ";
 
 /* No comment provided by engineer. */
-"Portrait" = "Portrait";
+"Portrait" = "縦置き";
 
 /* No comment provided by engineer. */
-"Protect the picture" = "Protect the picture";
+"Protect the picture" = "この写真をプロテクト";
 
 /* No comment provided by engineer. */
-"Protect the video" = "Protect the video";
+"Protect the video" = "この動画をプロテクト";
 
 /* No comment provided by engineer. */
-"Protected" = "Protected";
+"Protected" = "プロテクト済み";
 
 /* No comment provided by engineer. */
 "Quad VGA" = "Quad VGA";
@@ -329,82 +329,82 @@
 "QVGA" = "QVGA";
 
 /* No comment provided by engineer. */
-"Resize the image" = "Resize the image";
+"Resize the image" = "この写真をリサイズ";
 
 /* No comment provided by engineer. */
-"Resize the video" = "Resize the video";
+"Resize the video" = "この動画をリサイズ";
 
 /* No comment provided by engineer. */
-"Right %1.1f" = "Right %1.1f";
+"Right %1.1f" = "右に傾斜 %1.1f";
 
 /* No comment provided by engineer. */
-"Share the picture" = "Share the picture";
+"Share the picture" = "この写真を共有";
 
 /* No comment provided by engineer. */
-"Share the video" = "Share the video";
+"Share the video" = "この動画を共有";
 
 /* No comment provided by engineer. */
-"Slow" = "Slow";
+"Slow" = "遅い";
 
 /* No comment provided by engineer. */
 "SVGA" = "SVGA";
 
 /* No comment provided by engineer. */
-"The app downloads this long video before sharing it. The handling may take more than several minutes." = "The app downloads this long video before sharing it. The handling may take more than several minutes.";
+"The app downloads this long video before sharing it. The handling may take more than several minutes." = "この長い動画をダウンロードし共有します。この処理は数分以上かかるかもしれません。";
 
 /* No comment provided by engineer. */
-"The app downloads this video before sharing it. The handling takes a little bit of time." = "The app downloads this video before sharing it. The handling takes a little bit of time.";
+"The app downloads this video before sharing it. The handling takes a little bit of time." = "この動画をダウンロードし共有します。この処理にはやや時間がかかります。";
 
 /* No comment provided by engineer. */
-"The application downloads this picture of the original size before sharing it. The handling takes a little bit of time." = "The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.";
+"The application downloads this picture of the original size before sharing it. The handling takes a little bit of time." = "この写真のオリジナルサイズをダウンロードし共有します。この処理にはやや時間がかかります。";
 
 /* No comment provided by engineer. */
-"The camera did wake up, but could not discover a established Wi-Fi connection." = "The camera did wake up, but could not discover a established Wi-Fi connection.";
+"The camera did wake up, but could not discover a established Wi-Fi connection." = "カメラの電源は入れましたが、Wi-Fi接続の確立については確認できませんでした。";
 
 /* No comment provided by engineer. */
-"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings." = "The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.";
+"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings." = "カメラの電源は入れましたが、このWi-Fi接続はカメラのものではないようです。iOSの設定アプリで現在のWi-Fi接続を切断して手動でカメラに接続してみてください。";
 
 /* No comment provided by engineer. */
-"The camera is not sending application any image of the live view. Could not calculate a focus point in the live view." = "The camera is not sending application any image of the live view. Could not calculate a focus point in the live view.";
+"The camera is not sending application any image of the live view. Could not calculate a focus point in the live view." = "ライブビュー画像がカメラから送られてきていません。したがってライブビューでの合焦位置がわかりません。";
 
 /* No comment provided by engineer. */
-"The camera is not sending application any image of the live view. Could not calculate a metering exposure point in the live view." = "The camera is not sending application any image of the live view. Could not calculate a metering exposure point in the live view.";
+"The camera is not sending application any image of the live view. Could not calculate a metering exposure point in the live view." = "ライブビュー画像がカメラから送られてきていません。したがってライブビューでの測光位置がわかりません。";
 
 /* No comment provided by engineer. */
-"The device does not connect with the Internet. If you want to open the site via Wi-Fi it is necessary to disconnect camera connection first." = "The device does not connect with the Internet. If you want to open the site via Wi-Fi it is necessary to disconnect camera connection first.";
+"The device does not connect with the Internet. If you want to open the site via Wi-Fi it is necessary to disconnect camera connection first." = "デバイスはインターネットに接続していません。Wi-Fi経由で開く場合は先にカメラとの接続を解除しておく必要があります。";
 
 /* No comment provided by engineer. */
-"The new setting will be applied by the next connection." = "The new setting will be applied by the next connection.";
+"The new setting will be applied by the next connection." = "新しい設定は次のカメラ接続から適用されます。";
 
 /* No comment provided by engineer. */
-"The new setting will be applied by the next waking-up." = "The new setting will be applied by the next waking-up.";
+"The new setting will be applied by the next waking-up." = "新しい設定は次のカメラ電源投入から適用されます。";
 
 /* No comment provided by engineer. */
-"The property is prohibited from changing other values." = "The property is prohibited from changing other values.";
+"The property is prohibited from changing other values." = "このカメラプロパティの値は変更できません。";
 
 /* No comment provided by engineer. */
-"There is no Wi-Fi connection with the camera." = "There is no Wi-Fi connection with the camera.";
+"There is no Wi-Fi connection with the camera." = "カメラへ接続できるWi-Fiアクセスポイントがありません。";
 
 /* No comment provided by engineer. */
-"This Wi-Fi connection is not the camera." = "This Wi-Fi connection is not the camera.";
+"This Wi-Fi connection is not the camera." = "このW-Fi接続はカメラのものではありません。";
 
 /* No comment provided by engineer. */
-"Unknown" = "Unknown";
+"Unknown" = "不明";
 
 /* No comment provided by engineer. */
-"Unmounted" = "Unmounted";
+"Unmounted" = "未装着";
 
 /* No comment provided by engineer. */
-"Unprotect all contents" = "Unprotect all contents";
+"Unprotect all contents" = "すべてをプロテクト解除";
 
 /* No comment provided by engineer. */
-"Unprotect the picture" = "Unprotect the picture";
+"Unprotect the picture" = "この写真をプロテクト解除";
 
 /* No comment provided by engineer. */
-"Unprotect the video" = "Unprotect the video";
+"Unprotect the video" = "この動画をプロテクト解除";
 
 /* No comment provided by engineer. */
-"Up %1.1f" = "Up %1.1f";
+"Up %1.1f" = "上向き %1.1f";
 
 /* No comment provided by engineer. */
 "VGA" = "VGA";
@@ -413,5 +413,5 @@
 "XGA" = "XGA";
 
 /* No comment provided by engineer. */
-"Yes" = "Yes";
+"Yes" = "はい";
 

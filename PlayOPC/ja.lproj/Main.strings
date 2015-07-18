@@ -24,7 +24,7 @@
 "1Y5-Zw-ei2.text" = "$highTemperatureWarning";
 
 /* Class = "UITextField"; placeholder = "Enter Local Name"; ObjectID = "20e-sY-7p1"; */
-"20e-sY-7p1.placeholder" = "ローカルネームを入れてください";
+"20e-sY-7p1.placeholder" = "OPCのローカルネーム";
 
 /* Class = "UITextField"; text = "$bleName"; ObjectID = "20e-sY-7p1"; */
 "20e-sY-7p1.text" = "$bleName";
@@ -300,7 +300,7 @@
 "Luj-NT-XUW.text" = "位置消去";
 
 /* Class = "UITextField"; placeholder = "Enter Passcode"; ObjectID = "M37-av-fFz"; */
-"M37-av-fFz.placeholder" = "パスコードを入れてください";
+"M37-av-fFz.placeholder" = "OPCのパスコード";
 
 /* Class = "UITextField"; text = "$bleCode"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.text" = "$bleCode";

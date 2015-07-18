@@ -1029,6 +1029,32 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return localizedTitle;
 }
 
+- (NSString *)contentInformationLocalizedTitle:(NSString *)name {
+	DEBUG_DETAIL_LOG(@"name=%@", name);
+
+	// コンテンツ情報のキーが直接ローカライズできるならそれを用います。
+	// 直接ローカライズできないならキーそのものを表示用文言とします。
+	NSString *nameKey = [NSString stringWithFormat:@"[%@]", name];
+	NSString *localizedTitle = AppCameraLocalizedString(nameKey);
+	if ([localizedTitle isEqualToString:nameKey]) {
+		localizedTitle = name;
+	}
+	return localizedTitle;
+}
+
+- (NSString *)contentInformationValueLocalizedTitle:(NSString *)name value:(NSString *)value {
+	DEBUG_DETAIL_LOG(@"name=%@, value=%@", name, value);
+
+	// コンテンツ情報の値名が直接ローカライズできるならそれを用います。
+	// 直接ローカライズできないなら値そのものを表示用文言とします。
+	NSString *valueKey = [NSString stringWithFormat:@"[%@/%@]", name, value];
+	NSString *localizedTitle = AppCameraLocalizedString(valueKey);
+	if ([localizedTitle isEqualToString:valueKey]) {
+		localizedTitle = value;
+	}
+	return localizedTitle;
+}
+
 // 現在位置をNMEA0183形式の設定パラメータに変換します。
 - (BOOL)setGeolocationWithCoreLocation:(CLLocation *)location error:(NSError **)error {
 	DEBUG_LOG(@"location=%@", location.description);

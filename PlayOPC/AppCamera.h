@@ -291,16 +291,26 @@ extern NSString *const CameraPropertyWbRevG;
 - (void)camera:(OLYCamera *)camera notifyDidChangeCameraProperty:(NSString *)name sender:(id<OLYCameraPropertyDelegate>)sender;
 
 /// カメラプロパティのローカライズされたタイトルを取得します。
-/// 先ず、Localizable.stringsに"<カメラプロパティ名>"で定義があればそのローカライズを使用します。
-/// なければ、Localizable.stringsにcameraPropertyTitle:で取得した文言が定義としてあればそのローカライズを使用します。
+/// 先ず、AppCamera.stringsに"<カメラプロパティ名>"で定義があればそのローカライズを使用します。
+/// なければ、AppCamera.stringsにcameraPropertyTitle:で取得した文言が定義としてあればそのローカライズを使用します。
 /// それでもなければ、cameraPropertyTitle:で取得した文言がそのまま使用されます。
 - (NSString *)cameraPropertyLocalizedTitle:(NSString *)name;
 
 /// カメラプロパティ値のローカライズされたタイトルを取得します。
-/// 先ず、Localizable.stringsに"<カメラプロパティ名/カメラプロパティ値>"で定義があればそのローカライズを使用します。
-/// なければ、Localizable.stringsにcameraPropertyValueTitle:で取得した文言が定義としてあればそのローカライズを使用します。
+/// 先ず、AppCamera.stringsに"<カメラプロパティ名/カメラプロパティ値>"で定義があればそのローカライズを使用します。
+/// なければ、AppCamera.stringsにcameraPropertyValueTitle:で取得した文言が定義としてあればそのローカライズを使用します。
 /// それでもなければ、cameraPropertyValueTitle:で取得した文言がそのまま使用されます。
 - (NSString *)cameraPropertyValueLocalizedTitle:(NSString *)value;
+
+/// コンテンツ情報のローカライズされたタイトルを取得します。
+/// 先ず、AppCamera.stringsに"<コンテンツ情報の要素名>"で定義があればそのローカライズを使用します。
+/// なければ、要素名がそのまま使用されます。
+- (NSString *)contentInformationLocalizedTitle:(NSString *)name;
+
+/// コンテンツ情報の値のローカライズされたタイトルを取得します。
+/// 先ず、AppCamera.stringsに"<コンテンツ情報の要素名/値>"で定義があればそのローカライズを使用します。
+/// なければ、要素名がそのまま使用されます。
+- (NSString *)contentInformationValueLocalizedTitle:(NSString *)name value:(NSString *)value;
 
 /// Core Locationから得た位置情報をカメラに登録します。
 - (BOOL)setGeolocationWithCoreLocation:(CLLocation *)location error:(NSError **)error;

@@ -195,13 +195,16 @@ NSString *const ContentDetailValueKey = @"ContentDetailValueKey";
 	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ContentDetailCellIdentifier forIndexPath:indexPath];
 	NSDictionary *contentDetail = self.contentDetails[indexPath.row];
 
-	// コンテンツ情報のキー名を表示します。
-	NSString *contentDetailTitle = contentDetail[ContentDetailTitleKey];
-	cell.textLabel.text = contentDetailTitle;
+	// コンテンツ情報のキー名を表示文言に変換して表示します。
+	AppCamera *camera = GetAppCamera();
+	NSString *itemName = contentDetail[ContentDetailTitleKey];
+	NSString *itemNameTitle = [camera contentInformationLocalizedTitle:itemName];
+	cell.textLabel.text = itemNameTitle;
 	
-	// コンテンツ情報の値を表示します。
-	NSString *contentDetailValue = contentDetail[ContentDetailValueKey];
-	cell.detailTextLabel.text = contentDetailValue;
+	// コンテンツ情報の値を表示文言に変換して表示します。
+	NSString *itemValue = contentDetail[ContentDetailValueKey];
+	NSString *itemValueTitle = [camera contentInformationValueLocalizedTitle:itemName value:itemValue];
+	cell.detailTextLabel.text = itemValueTitle;
 	
 	return cell;
 }

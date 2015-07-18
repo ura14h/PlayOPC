@@ -563,8 +563,8 @@
 /* Class = "UINavigationItem"; title = "View & Save"; ObjectID = "dqC-mJ-y4t"; */
 "dqC-mJ-y4t.title" = "表示と画像保存";
 
-/* Class = "UITableViewSection"; headerTitle = "For PASM Mode"; ObjectID = "dwL-Je-PVf"; */
-"dwL-Je-PVf.headerTitle" = "PASMモード用";
+/* Class = "UITableViewSection"; headerTitle = "For P/A/S/M Mode"; ObjectID = "dwL-Je-PVf"; */
+"dwL-Je-PVf.headerTitle" = "P/A/S/Mモード用";
 
 /* Class = "UILabel"; text = "<ISO>"; ObjectID = "e5V-iq-eeI"; */
 "e5V-iq-eeI.text" = "<ISO>";

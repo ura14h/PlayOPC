@@ -3959,7 +3959,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="For PASM Mode" id="dwL-Je-PVf">
+                            <tableViewSection headerTitle="For P/A/S/M Mode" id="dwL-Je-PVf">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowColortone" textLabel="hAA-TN-nrW" detailTextLabel="Kij-gS-z21" style="IBUITableViewCellStyleValue1" id="wT7-dw-8fX">
                                         <autoresizingMask key="autoresizingMask"/>

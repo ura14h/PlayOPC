@@ -1499,8 +1499,55 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 				// ありえません。
 				break;
 		}
-		// コントロールパネルを表示します。
-		[self showPanel:status animated:YES];
+		if (self.controlPanelVisibleStatus == ControlPanelVisibleStatusHidden) {
+			// コントロールパネルを表示します。
+			[self showPanel:status animated:YES];
+		} else {
+			// この処理ブロックの実装はshowPanelメソッドと似ていてリファクタリングの余地あり
+			
+			// コントロールパネルは表示されているので、その中のパネルを切り替えます。
+			NSDictionary *panels = @{
+				@(ControlPanelVisibleStatusSPanel): self.SPanelView,
+				@(ControlPanelVisibleStatusEPanel): self.EPanelView,
+				@(ControlPanelVisibleStatusCPanel): self.CPanelView,
+				@(ControlPanelVisibleStatusAPanel): self.APanelView,
+				@(ControlPanelVisibleStatusZPanel): self.ZPanelView,
+				@(ControlPanelVisibleStatusVPanel): self.VPanelView,
+			};
+			UIView *currentPanel = panels[@(self.controlPanelVisibleStatus)]; // 現在表示されているパネル
+			UIView *nextPanel = panels[@(status)]; // 次に表示するパネル
+			if (animated) {
+				// パネルの切り替えはフェードアニメーションします。
+				[self.controlPanelView bringSubviewToFront:nextPanel];
+				nextPanel.hidden = NO;
+				nextPanel.alpha = 1.0;
+				[self.controlPanelView bringSubviewToFront:currentPanel];
+				// バシバシ切り替えられると困るのでアニメーションが完了するまでタッチ禁止にしておきます。
+				[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+				[UIView animateWithDuration:0.25 animations:^{
+					currentPanel.alpha = 0.0;
+				} completion:^(BOOL finished) {
+					[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+					currentPanel.hidden = YES;
+					currentPanel.alpha = 1.0;
+				}];
+			} else {
+				// パネルを即時切り替えます。
+				currentPanel.hidden = YES;
+				nextPanel.hidden = NO;
+			}
+
+			// 指定されたパネルのボタンだけを選択状態にして残りのパネルのボタンは選択解除にします。
+			self.showSPanelButton.selected = (status == ControlPanelVisibleStatusSPanel);
+			self.showEPanelButton.selected = (status == ControlPanelVisibleStatusEPanel);
+			self.showCPanelButton.selected = (status == ControlPanelVisibleStatusCPanel);
+			self.showAPanelButton.selected = (status == ControlPanelVisibleStatusAPanel);
+			self.showZPanelButton.selected = (status == ControlPanelVisibleStatusZPanel);
+			self.showVPanelButton.selected = (status == ControlPanelVisibleStatusVPanel);
+			
+			// パネル切り替えは完了です。
+			self.controlPanelVisibleStatus = status;
+		}
 	}
 }
 

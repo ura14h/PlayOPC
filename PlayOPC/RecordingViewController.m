@@ -415,17 +415,41 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// 各パネルのビューコントローラーを保持します。
 		// それぞれのパネルの入り口はナビゲーションコントローラーのルートビューコントローラになっている必要があります。
 		if ([segueIdentifier isEqualToString:@"EmbeddedSPanelViewController"]) {
-			self.embeddedSPanelViewController = navigationController.viewControllers[0];
+			// 分割されたストーリーボードから読み込んで小画面にします。
+			UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingSPanel" bundle:nil];
+			SPanelViewController *viewController = [storybard instantiateInitialViewController];
+			navigationController.viewControllers = @[viewController];
+			self.embeddedSPanelViewController = viewController;
 		} else if ([segueIdentifier isEqualToString:@"EmbeddedEPanelViewController"]) {
-			self.embeddedEPanelViewController = navigationController.viewControllers[0];
+			// 分割されたストーリーボードから読み込んで小画面にします。
+			UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingEPanel" bundle:nil];
+			EPanelViewController *viewController = [storybard instantiateInitialViewController];
+			navigationController.viewControllers = @[viewController];
+			self.embeddedEPanelViewController = viewController;
 		} else if ([segueIdentifier isEqualToString:@"EmbeddedCPanelViewController"]) {
-			self.embeddedCPanelViewController = navigationController.viewControllers[0];
+			// 分割されたストーリーボードから読み込んで小画面にします。
+			UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingCPanel" bundle:nil];
+			CPanelViewController *viewController = [storybard instantiateInitialViewController];
+			navigationController.viewControllers = @[viewController];
+			self.embeddedCPanelViewController = viewController;
 		} else if ([segueIdentifier isEqualToString:@"EmbeddedAPanelViewController"]) {
-			self.embeddedAPanelViewController = navigationController.viewControllers[0];
+			// 分割されたストーリーボードから読み込んで小画面にします。
+			UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingAPanel" bundle:nil];
+			APanelViewController *viewController = [storybard instantiateInitialViewController];
+			navigationController.viewControllers = @[viewController];
+			self.embeddedAPanelViewController = viewController;
 		} else if ([segueIdentifier isEqualToString:@"EmbeddedZPanelViewController"]) {
-			self.embeddedZPanelViewController = navigationController.viewControllers[0];
+			// 分割されたストーリーボードから読み込んで小画面にします。
+			UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingZPanel" bundle:nil];
+			ZPanelViewController *viewController = [storybard instantiateInitialViewController];
+			navigationController.viewControllers = @[viewController];
+			self.embeddedZPanelViewController = viewController;
 		} else if ([segueIdentifier isEqualToString:@"EmbeddedVPanelViewController"]) {
-			self.embeddedVPanelViewController = navigationController.viewControllers[0];
+			// 分割されたストーリーボードから読み込んで小画面にします。
+			UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingVPanel" bundle:nil];
+			VPanelViewController *viewController = [storybard instantiateInitialViewController];
+			navigationController.viewControllers = @[viewController];
+			self.embeddedVPanelViewController = viewController;
 		} else {
 			// 何もしません。
 		}

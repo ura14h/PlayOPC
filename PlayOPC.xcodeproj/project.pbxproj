@@ -155,6 +155,15 @@
 		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
 		31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
+		31E81A2C1B5B7A9E003685A9 /* Recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */; };
+		31E81A2F1B5B7B08003685A9 /* Playback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2D1B5B7B08003685A9 /* Playback.storyboard */; };
+		31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A301B5B7B1F003685A9 /* System.storyboard */; };
+		31E81A351B5B8BD5003685A9 /* RecordingSPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A331B5B8BD5003685A9 /* RecordingSPanel.storyboard */; };
+		31E81A381B5B8BF6003685A9 /* RecordingEPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A361B5B8BF6003685A9 /* RecordingEPanel.storyboard */; };
+		31E81A3B1B5B8C11003685A9 /* RecordingCPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A391B5B8C11003685A9 /* RecordingCPanel.storyboard */; };
+		31E81A3E1B5B8C39003685A9 /* RecordingAPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A3C1B5B8C39003685A9 /* RecordingAPanel.storyboard */; };
+		31E81A411B5B8C48003685A9 /* RecordingZPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A3F1B5B8C48003685A9 /* RecordingZPanel.storyboard */; };
+		31E81A441B5B8C75003685A9 /* RecordingVPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */; };
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 /* End PBXBuildFile section */
@@ -322,9 +331,27 @@
 		31D5EDA41B5A340B004DF3AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
 		31DB84021AD101C900E50B03 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
 		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
+		31E81A2B1B5B7A9E003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recording.storyboard; sourceTree = "<group>"; };
+		31E81A2E1B5B7B08003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Playback.storyboard; sourceTree = "<group>"; };
+		31E81A311B5B7B1F003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PlayOPC/Base.lproj/System.storyboard; sourceTree = "<group>"; };
+		31E81A341B5B8BD5003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecordingSPanel.storyboard; sourceTree = "<group>"; };
+		31E81A371B5B8BF6003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecordingEPanel.storyboard; sourceTree = "<group>"; };
+		31E81A3A1B5B8C11003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PlayOPC/Base.lproj/RecordingCPanel.storyboard; sourceTree = "<group>"; };
+		31E81A3D1B5B8C39003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecordingAPanel.storyboard; sourceTree = "<group>"; };
+		31E81A401B5B8C48003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecordingZPanel.storyboard; sourceTree = "<group>"; };
+		31E81A431B5B8C75003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/RecordingVPanel.storyboard; sourceTree = "<group>"; };
+		31E81A461B5B961C003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
+		31E81A481B5B9625003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Recording.strings; sourceTree = "<group>"; };
+		31E81A4A1B5B962B003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingSPanel.strings; sourceTree = "<group>"; };
+		31E81A4C1B5B9630003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingEPanel.strings; sourceTree = "<group>"; };
+		31E81A4E1B5B9636003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = PlayOPC/ja.lproj/RecordingCPanel.strings; sourceTree = "<group>"; };
+		31E81A501B5B963B003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingAPanel.strings; sourceTree = "<group>"; };
+		31E81A521B5B9640003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingZPanel.strings; sourceTree = "<group>"; };
+		31E81A541B5B9645003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingVPanel.strings; sourceTree = "<group>"; };
+		31E81A561B5B964B003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Playback.strings; sourceTree = "<group>"; };
+		31E81A581B5B9651003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = PlayOPC/ja.lproj/System.strings; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCamera.h; sourceTree = "<group>"; };
 		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCamera.m; sourceTree = "<group>"; };
-		31FFE3A81B57DAF100C51C1E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Main.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -396,6 +423,7 @@
 		311199C21B08726E00538FA0 /* Recording Section */ = {
 			isa = PBXGroup;
 			children = (
+				31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */,
 				319284321AD8E7E0003BC78F /* RecordingViewController.h */,
 				319284331AD8E7E0003BC78F /* RecordingViewController.m */,
 				314E1DB11B3023E90052F8EF /* RecordingLocationManager.h */,
@@ -406,20 +434,26 @@
 				3103FEA11B23F29E008244C9 /* RecImageButton.m */,
 				3142ACD41B23D44F008B2754 /* RecImageViewController.h */,
 				3142ACD51B23D44F008B2754 /* RecImageViewController.m */,
+				31E81A331B5B8BD5003685A9 /* RecordingSPanel.storyboard */,
 				313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */,
 				313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */,
+				31E81A361B5B8BF6003685A9 /* RecordingEPanel.storyboard */,
 				31731EB71AEB88140094193A /* EPanelViewController.h */,
 				31731EB81AEB88140094193A /* EPanelViewController.m */,
+				31E81A391B5B8C11003685A9 /* RecordingCPanel.storyboard */,
 				313D44B61B0CCF0700D6EEAC /* CPanelViewController.h */,
 				313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */,
-				31731EBB1AEB886A0094193A /* APanelViewController.h */,
-				31731EBC1AEB886A0094193A /* APanelViewController.m */,
-				31731EBF1AEB888B0094193A /* ZPanelViewController.h */,
-				31731EC01AEB888B0094193A /* ZPanelViewController.m */,
-				31731EC31AEB88AB0094193A /* VPanelViewController.h */,
-				31731EC41AEB88AB0094193A /* VPanelViewController.m */,
 				3152CF181AF859A500E97036 /* ArtbktPanelViewController.h */,
 				3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */,
+				31E81A3C1B5B8C39003685A9 /* RecordingAPanel.storyboard */,
+				31731EBB1AEB886A0094193A /* APanelViewController.h */,
+				31731EBC1AEB886A0094193A /* APanelViewController.m */,
+				31E81A3F1B5B8C48003685A9 /* RecordingZPanel.storyboard */,
+				31731EBF1AEB888B0094193A /* ZPanelViewController.h */,
+				31731EC01AEB888B0094193A /* ZPanelViewController.m */,
+				31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */,
+				31731EC31AEB88AB0094193A /* VPanelViewController.h */,
+				31731EC41AEB88AB0094193A /* VPanelViewController.m */,
 			);
 			name = "Recording Section";
 			sourceTree = "<group>";
@@ -427,6 +461,7 @@
 		311199C31B08728200538FA0 /* Playback Section */ = {
 			isa = PBXGroup;
 			children = (
+				31E81A2D1B5B7B08003685A9 /* Playback.storyboard */,
 				311268FA1AFF4A6600AEA860 /* PlaybackViewController.h */,
 				311268FB1AFF4A6600AEA860 /* PlaybackViewController.m */,
 				311268F61AFF4A3D00AEA860 /* PlaybackViewCell.h */,
@@ -459,6 +494,7 @@
 		311199C51B0872CD00538FA0 /* System Section */ = {
 			isa = PBXGroup;
 			children = (
+				31E81A301B5B7B1F003685A9 /* System.storyboard */,
 				31A8097A1AD04DE400186E4D /* SystemViewController.h */,
 				31A8097B1AD04DE400186E4D /* SystemViewController.m */,
 			);
@@ -720,9 +756,11 @@
 				31C71DA81AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-13.png in Resources */,
 				31C71DCA1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-17.png in Resources */,
 				31C71DC61AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-13.png in Resources */,
+				31E81A2F1B5B7B08003685A9 /* Playback.storyboard in Resources */,
 				31C71DC21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png in Resources */,
 				31392FD81B14BED40097FF1B /* AppCamera.strings in Resources */,
 				31C71DAA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png in Resources */,
+				31E81A411B5B8C48003685A9 /* RecordingZPanel.storyboard in Resources */,
 				31C71DD11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png in Resources */,
 				31C71DCF1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png in Resources */,
 				31C71DB91AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-29.png in Resources */,
@@ -739,12 +777,15 @@
 				31C71DCC1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png in Resources */,
 				31392FD01B14BEC40097FF1B /* Reference.html in Resources */,
 				31C71DB31AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png in Resources */,
+				31E81A381B5B8BF6003685A9 /* RecordingEPanel.storyboard in Resources */,
 				31C71DBB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png in Resources */,
 				31C71DB41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png in Resources */,
 				31C71DA51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-10.png in Resources */,
 				31C71DC51AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-12.png in Resources */,
 				31392FDC1B14BEDA0097FF1B /* InfoPlist.strings in Resources */,
+				31E81A3E1B5B8C39003685A9 /* RecordingAPanel.storyboard in Resources */,
 				31C71DD21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png in Resources */,
+				31E81A2C1B5B7A9E003685A9 /* Recording.storyboard in Resources */,
 				31C71DB01AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-20.png in Resources */,
 				31C71DA71AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-12.png in Resources */,
 				31C71DBC1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-5.png in Resources */,
@@ -754,22 +795,26 @@
 				31C71DAD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png in Resources */,
 				311B75CC1ABC287C00A7D38C /* LaunchScreen.xib in Resources */,
 				31C71DB61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png in Resources */,
+				31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */,
 				31C71DBF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png in Resources */,
 				31C71DC01AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-9.png in Resources */,
 				31C71DB51AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-25.png in Resources */,
 				31C71DAE1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-19.png in Resources */,
+				31E81A3B1B5B8C11003685A9 /* RecordingCPanel.storyboard in Resources */,
 				31C71DC81AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-15.png in Resources */,
 				311B75C91ABC287C00A7D38C /* Images.xcassets in Resources */,
 				31C71DA91AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-14.png in Resources */,
 				31C71DB11AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-21.png in Resources */,
 				31C71DCE1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-5.png in Resources */,
 				31C71DC91AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-16.png in Resources */,
+				31E81A441B5B8C75003685A9 /* RecordingVPanel.storyboard in Resources */,
 				31C71DAB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-16.png in Resources */,
 				31C71DAF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-2.png in Resources */,
 				31C71DCD1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-4.png in Resources */,
 				31C71DD01AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-7.png in Resources */,
 				31C71DBA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-3.png in Resources */,
 				31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */,
+				31E81A351B5B8BD5003685A9 /* RecordingSPanel.storyboard in Resources */,
 				31392FD41B14BECE0097FF1B /* Acknowledgement.html in Resources */,
 				31C71DA41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-1.png in Resources */,
 			);
@@ -918,7 +963,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				311B75C61ABC287C00A7D38C /* Base */,
-				31FFE3A81B57DAF100C51C1E /* ja */,
+				31E81A461B5B961C003685A9 /* ja */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -974,6 +1019,89 @@
 				312689521B56A9BB00183C1E /* ja */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A2B1B5B7A9E003685A9 /* Base */,
+				31E81A481B5B9625003685A9 /* ja */,
+			);
+			name = Recording.storyboard;
+			sourceTree = "<group>";
+		};
+		31E81A2D1B5B7B08003685A9 /* Playback.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A2E1B5B7B08003685A9 /* Base */,
+				31E81A561B5B964B003685A9 /* ja */,
+			);
+			name = Playback.storyboard;
+			sourceTree = "<group>";
+		};
+		31E81A301B5B7B1F003685A9 /* System.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A311B5B7B1F003685A9 /* Base */,
+				31E81A581B5B9651003685A9 /* ja */,
+			);
+			name = System.storyboard;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		31E81A331B5B8BD5003685A9 /* RecordingSPanel.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A341B5B8BD5003685A9 /* Base */,
+				31E81A4A1B5B962B003685A9 /* ja */,
+			);
+			name = RecordingSPanel.storyboard;
+			sourceTree = "<group>";
+		};
+		31E81A361B5B8BF6003685A9 /* RecordingEPanel.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A371B5B8BF6003685A9 /* Base */,
+				31E81A4C1B5B9630003685A9 /* ja */,
+			);
+			name = RecordingEPanel.storyboard;
+			sourceTree = "<group>";
+		};
+		31E81A391B5B8C11003685A9 /* RecordingCPanel.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A3A1B5B8C11003685A9 /* Base */,
+				31E81A4E1B5B9636003685A9 /* ja */,
+			);
+			name = RecordingCPanel.storyboard;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		31E81A3C1B5B8C39003685A9 /* RecordingAPanel.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A3D1B5B8C39003685A9 /* Base */,
+				31E81A501B5B963B003685A9 /* ja */,
+			);
+			name = RecordingAPanel.storyboard;
+			sourceTree = "<group>";
+		};
+		31E81A3F1B5B8C48003685A9 /* RecordingZPanel.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A401B5B8C48003685A9 /* Base */,
+				31E81A521B5B9640003685A9 /* ja */,
+			);
+			name = RecordingZPanel.storyboard;
+			sourceTree = "<group>";
+		};
+		31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31E81A431B5B8C75003685A9 /* Base */,
+				31E81A541B5B9645003685A9 /* ja */,
+			);
+			name = RecordingVPanel.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

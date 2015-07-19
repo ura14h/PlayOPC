@@ -1,0 +1,165 @@
+
+/* Class = "UINavigationItem"; title = "Color & Effect"; ObjectID = "19L-VM-OK2"; */
+"19L-VM-OK2.title" = "色と効果";
+
+/* Class = "UILabel"; text = "<COLOR_PHASE>"; ObjectID = "2Dx-mK-D16"; */
+"2Dx-mK-D16.text" = "<COLOR_PHASE>";
+
+/* Class = "UILabel"; text = "$tone"; ObjectID = "3p8-2v-rpL"; */
+"3p8-2v-rpL.text" = "$tone";
+
+/* Class = "UILabel"; text = "$monotonefilter"; ObjectID = "3sw-Wa-3MI"; */
+"3sw-Wa-3MI.text" = "$monotonefilter";
+
+/* Class = "UILabel"; text = "<RECENTLY_ART_FILTER>"; ObjectID = "4QJ-lN-qUg"; */
+"4QJ-lN-qUg.text" = "<RECENTLY_ART_FILTER>";
+
+/* Class = "UILabel"; text = "<ART_EFFECT_HYBRID>"; ObjectID = "4Y3-IA-ChZ"; */
+"4Y3-IA-ChZ.text" = "<ART_EFFECT_HYBRID>";
+
+/* Class = "UILabel"; text = "<WB_REV>"; ObjectID = "7II-IY-HXT"; */
+"7II-IY-HXT.text" = "<WB_REV>";
+
+/* Class = "UILabel"; text = "<COLOR_CREATOR_VIVID>"; ObjectID = "8H2-zI-cdo"; */
+"8H2-zI-cdo.text" = "<COLOR_CREATOR_VIVID>";
+
+/* Class = "UILabel"; text = "$contrast"; ObjectID = "99q-yk-IXn"; */
+"99q-yk-IXn.text" = "$contrast";
+
+/* Class = "UILabel"; text = "$toneControlHigh"; ObjectID = "AV0-gR-qSo"; */
+"AV0-gR-qSo.text" = "$toneControlHigh";
+
+/* Class = "UILabel"; text = "$recentlyArtFilter"; ObjectID = "AsM-gY-Wkg"; */
+"AsM-gY-Wkg.text" = "$recentlyArtFilter";
+
+/* Class = "UILabel"; text = "$wbRevG"; ObjectID = "B3a-yM-wG6"; */
+"B3a-yM-wG6.text" = "$wbRevG";
+
+/* Class = "UILabel"; text = "<WB_REV_G>"; ObjectID = "Csc-s9-iOI"; */
+"Csc-s9-iOI.text" = "<WB_REV_G>";
+
+/* Class = "UILabel"; text = "<TONE_CONTROL_LOW>"; ObjectID = "DiH-GK-g9I"; */
+"DiH-GK-g9I.text" = "<TONE_CONTROL_LOW>";
+
+/* Class = "UILabel"; text = "$saturationLevel"; ObjectID = "DiR-Tv-gZB"; */
+"DiR-Tv-gZB.text" = "$saturationLevel";
+
+/* Class = "UILabel"; text = "$colorCreatorColor"; ObjectID = "DkD-Ou-ZE6"; */
+"DkD-Ou-ZE6.text" = "$colorCreatorColor";
+
+/* Class = "UILabel"; text = "<CONTRAST>"; ObjectID = "EgM-9f-VwU"; */
+"EgM-9f-VwU.text" = "<CONTRAST>";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "Etz-b8-jSF"; */
+"Etz-b8-jSF.title" = "戻る";
+
+/* Class = "UILabel"; text = "<CUSTOM_WB_KELVIN_1>"; ObjectID = "FC0-Da-tDq"; */
+"FC0-Da-tDq.text" = "<CUSTOM_WB_KELVIN_1>";
+
+/* Class = "UILabel"; text = "<TONE>"; ObjectID = "FwT-KN-CdY"; */
+"FwT-KN-CdY.text" = "<TONE>";
+
+/* Class = "UITableViewSection"; headerTitle = "Color Control"; ObjectID = "IU8-x4-Rat"; */
+"IU8-x4-Rat.headerTitle" = "色彩";
+
+/* Class = "UILabel"; text = "$effectLevel"; ObjectID = "JYz-yS-AbP"; */
+"JYz-yS-AbP.text" = "$effectLevel";
+
+/* Class = "UILabel"; text = "$colorPhase"; ObjectID = "JnF-sB-Qot"; */
+"JnF-sB-Qot.text" = "$colorPhase";
+
+/* Class = "UILabel"; text = "<ART_EFFECT_TYPE>"; ObjectID = "Jwx-Ek-HQq"; */
+"Jwx-Ek-HQq.text" = "<ART_EFFECT_TYPE>";
+
+/* Class = "UILabel"; text = "$colortone"; ObjectID = "Kij-gS-z21"; */
+"Kij-gS-z21.text" = "$colortone";
+
+/* Class = "UILabel"; text = "Filters for ART-BKT"; ObjectID = "NMs-mM-3Y1"; */
+"NMs-mM-3Y1.text" = "ART-BKT 対象アートフィルター";
+
+/* Class = "UITableViewSection"; headerTitle = "White Balance"; ObjectID = "NV9-Ma-naR"; */
+"NV9-Ma-naR.headerTitle" = "ホワイトバランス";
+
+/* Class = "UINavigationItem"; title = "Filters for ART_BKT"; ObjectID = "NZs-rV-Rds"; */
+"NZs-rV-Rds.title" = "ART-BKT 対象アートフィルター";
+
+/* Class = "UITableViewSection"; headerTitle = "Effect Control"; ObjectID = "Naf-78-9Mh"; */
+"Naf-78-9Mh.headerTitle" = "効果";
+
+/* Class = "UILabel"; text = "$monotonecolor"; ObjectID = "Pd8-rw-GF1"; */
+"Pd8-rw-GF1.text" = "$monotonecolor";
+
+/* Class = "UILabel"; text = "<WB>"; ObjectID = "PnT-Ww-AVW"; */
+"PnT-Ww-AVW.text" = "<WB>";
+
+/* Class = "UILabel"; text = "<AUTO_WB_DENKYU_COLORED_LEAVING>"; ObjectID = "PpQ-OJ-mVZ"; */
+"PpQ-OJ-mVZ.text" = "<AUTO_WB_DENKYU_COLORED_LEAVING>";
+
+/* Class = "UILabel"; text = "<SHARP>"; ObjectID = "R5y-1u-Ygn"; */
+"R5y-1u-Ygn.text" = "<SHARP>";
+
+/* Class = "UILabel"; text = "<TONE_CONTROL_MIDDLE>"; ObjectID = "Thx-tj-6vG"; */
+"Thx-tj-6vG.text" = "<TONE_CONTROL_MIDDLE>";
+
+/* Class = "UILabel"; text = "<EFFECT_LEVEL>"; ObjectID = "Udx-f6-ITe"; */
+"Udx-f6-ITe.text" = "<EFFECT_LEVEL>";
+
+/* Class = "UILabel"; text = "$artEffectType"; ObjectID = "Uh1-k7-Ozr"; */
+"Uh1-k7-Ozr.text" = "$artEffectType";
+
+/* Class = "UILabel"; text = "$wb"; ObjectID = "VUY-MU-ckn"; */
+"VUY-MU-ckn.text" = "$wb";
+
+/* Class = "UILabel"; text = "$wbRev"; ObjectID = "Yca-EI-Y8a"; */
+"Yca-EI-Y8a.text" = "$wbRev";
+
+/* Class = "UILabel"; text = "$customWbKelvin1"; ObjectID = "ZVh-6f-vdq"; */
+"ZVh-6f-vdq.text" = "$customWbKelvin1";
+
+/* Class = "UILabel"; text = "<BRACKET_PICT_*>"; ObjectID = "ZVt-MO-TAf"; */
+"ZVt-MO-TAf.text" = "<BRACKET_PICT_*>";
+
+/* Class = "UILabel"; text = "<MONOTONEFILTER>"; ObjectID = "a0p-ot-zRh"; */
+"a0p-ot-zRh.text" = "<MONOTONEFILTER>";
+
+/* Class = "UILabel"; text = "<COLOR_CREATOR_COLOR>"; ObjectID = "aKK-fY-Qnc"; */
+"aKK-fY-Qnc.text" = "<COLOR_CREATOR_COLOR>";
+
+/* Class = "UILabel"; text = "$colorCreatorVivid"; ObjectID = "cRm-vS-FEK"; */
+"cRm-vS-FEK.text" = "$colorCreatorVivid";
+
+/* Class = "UILabel"; text = "$autoWbDenkyuColoredLeaving"; ObjectID = "dJe-T2-Ksj"; */
+"dJe-T2-Ksj.text" = "$autoWbDenkyuColoredLeaving";
+
+/* Class = "UITableViewSection"; headerTitle = "For P/A/S/M Mode"; ObjectID = "dwL-Je-PVf"; */
+"dwL-Je-PVf.headerTitle" = "P/A/S/Mモード用";
+
+/* Class = "UITableViewSection"; headerTitle = "For ART Mode"; ObjectID = "fEg-hA-QX2"; */
+"fEg-hA-QX2.headerTitle" = "ARTモード用";
+
+/* Class = "UILabel"; text = "<COLORTONE>"; ObjectID = "hAA-TN-nrW"; */
+"hAA-TN-nrW.text" = "<COLORTONE>";
+
+/* Class = "UILabel"; text = "$artFilterAutoBracket"; ObjectID = "kpc-bp-UgU"; */
+"kpc-bp-UgU.text" = "$artFilterAutoBracket";
+
+/* Class = "UILabel"; text = "$toneControlLow"; ObjectID = "m7Y-7I-cdJ"; */
+"m7Y-7I-cdJ.text" = "$toneControlLow";
+
+/* Class = "UILabel"; text = "<TONE_CONTROL_HIGH>"; ObjectID = "nvt-LL-CDe"; */
+"nvt-LL-CDe.text" = "<TONE_CONTROL_HIGH>";
+
+/* Class = "UILabel"; text = "$sharp"; ObjectID = "oHn-pv-1q2"; */
+"oHn-pv-1q2.text" = "$sharp";
+
+/* Class = "UILabel"; text = "<SATURATION_LEVEL>"; ObjectID = "r0r-0b-3dJ"; */
+"r0r-0b-3dJ.text" = "<SATURATION_LEVEL>";
+
+/* Class = "UILabel"; text = "$toneControlMiddle"; ObjectID = "tFj-Rj-Gh9"; */
+"tFj-Rj-Gh9.text" = "$toneControlMiddle";
+
+/* Class = "UILabel"; text = "<MONOTONECOLOR>"; ObjectID = "vGs-uB-UUE"; */
+"vGs-uB-UUE.text" = "<MONOTONECOLOR>";
+
+/* Class = "UILabel"; text = "$artEffectHybrid"; ObjectID = "xIH-Tf-GE1"; */
+"xIH-Tf-GE1.text" = "$artEffectHybrid";

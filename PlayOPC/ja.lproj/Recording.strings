@@ -1,0 +1,12 @@
+
+/* Class = "UINavigationItem"; title = "Recording"; ObjectID = "Bwv-Qk-bIY"; */
+"Bwv-Qk-bIY.title" = "撮影モード";
+
+/* Class = "UINavigationItem"; title = "Latest Picture"; ObjectID = "S2d-Sr-ERw"; */
+"S2d-Sr-ERw.title" = "撮影後確認画像";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "VB8-9s-G3D"; */
+"VB8-9s-G3D.title" = "戻る";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uQh-LP-Yxa"; */
+"uQh-LP-Yxa.title" = "戻る";

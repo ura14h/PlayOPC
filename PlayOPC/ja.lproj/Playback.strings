@@ -1,0 +1,39 @@
+
+/* Class = "UINavigationItem"; title = "Video Content"; ObjectID = "2GU-oX-8V1"; */
+"2GU-oX-8V1.title" = "動画";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "CeT-MK-x1D"; */
+"CeT-MK-x1D.title" = "戻る";
+
+/* Class = "UINavigationItem"; title = "Content Detail"; ObjectID = "FiO-Wa-eH8"; */
+"FiO-Wa-eH8.title" = "コンテンツ詳細";
+
+/* Class = "UINavigationItem"; title = "Picture Content"; ObjectID = "WVD-xc-HaF"; */
+"WVD-xc-HaF.title" = "写真";
+
+/* Class = "UINavigationItem"; title = "Playback"; ObjectID = "XiZ-lJ-BBa"; */
+"XiZ-lJ-BBa.title" = "再生モード";
+
+/* Class = "UILabel"; text = "$datetime"; ObjectID = "Xzn-ai-9aq"; */
+"Xzn-ai-9aq.text" = "$datetime";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "YCu-qw-Qx8"; */
+"YCu-qw-Qx8.title" = "戻る";
+
+/* Class = "UILabel"; text = "$contentDetailTitle"; ObjectID = "bgc-iP-htl"; */
+"bgc-iP-htl.text" = "$contentDetailTitle";
+
+/* Class = "UILabel"; text = "$contentDetailValue"; ObjectID = "bsv-jI-GCg"; */
+"bsv-jI-GCg.text" = "$contentDetailValue";
+
+/* Class = "UILabel"; text = "$filesize"; ObjectID = "g7P-gK-7bz"; */
+"g7P-gK-7bz.text" = "$filesize";
+
+/* Class = "UILabel"; text = "$filename"; ObjectID = "krS-DM-MfR"; */
+"krS-DM-MfR.text" = "$filename";
+
+/* Class = "UILabel"; text = "$attributes"; ObjectID = "lGt-Fa-3pH"; */
+"lGt-Fa-3pH.text" = "$attributes";
+
+/* Class = "UILabel"; text = "$footerLabelText"; ObjectID = "yVY-Ub-XSc"; */
+"yVY-Ub-XSc.text" = "$footerLabelText";

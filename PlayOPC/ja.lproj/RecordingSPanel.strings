@@ -1,0 +1,111 @@
+
+/* Class = "UILabel"; text = "$highTemperatureWarning"; ObjectID = "1Y5-Zw-ei2"; */
+"1Y5-Zw-ei2.text" = "$highTemperatureWarning";
+
+/* Class = "UILabel"; text = "$exposureWarning"; ObjectID = "4lE-HM-eFR"; */
+"4lE-HM-eFR.text" = "$exposureWarning";
+
+/* Class = "UITableViewSection"; headerTitle = "Exposure Status"; ObjectID = "7Yo-QQ-yhb"; */
+"7Yo-QQ-yhb.headerTitle" = "露出状態";
+
+/* Class = "UILabel"; text = "$mediaBusy"; ObjectID = "7mU-eZ-7BK"; */
+"7mU-eZ-7BK.text" = "$mediaBusy";
+
+/* Class = "UILabel"; text = "$exposureMeteringWarning"; ObjectID = "ATH-BD-dsT"; */
+"ATH-BD-dsT.text" = "$exposureMeteringWarning";
+
+/* Class = "UILabel"; text = "$remainingVideoCapacity"; ObjectID = "Gy6-lg-jMZ"; */
+"Gy6-lg-jMZ.text" = "$remainingVideoCapacity";
+
+/* Class = "UILabel"; text = "$remainingMediaCapacity"; ObjectID = "H9u-8g-b78"; */
+"H9u-8g-b78.text" = "$remainingMediaCapacity";
+
+/* Class = "UILabel"; text = "ISO Sensitivity Warning"; ObjectID = "I04-eO-ByW"; */
+"I04-eO-ByW.text" = "自動ISO警告";
+
+/* Class = "UILabel"; text = "Exposure Metering Warning"; ObjectID = "JLP-Md-VaC"; */
+"JLP-Md-VaC.text" = "測光警告";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MLt-wl-EAM"; */
+"MLt-wl-EAM.title" = "戻る";
+
+/* Class = "UILabel"; text = "<BATTERY_LEVEL>"; ObjectID = "MSE-k3-Bs1"; */
+"MSE-k3-Bs1.text" = "<BATTERY_LEVEL>";
+
+/* Class = "UILabel"; text = "Pitching"; ObjectID = "MsN-mV-E94"; */
+"MsN-mV-E94.text" = "ピッチ量";
+
+/* Class = "UILabel"; text = "Exposure Warning"; ObjectID = "N7h-6t-xgt"; */
+"N7h-6t-xgt.text" = "露出警告";
+
+/* Class = "UILabel"; text = "$levelGaugeOrientation"; ObjectID = "OEC-Zk-vam"; */
+"OEC-Zk-vam.text" = "$levelGaugeOrientation";
+
+/* Class = "UILabel"; text = "$levelGaugePitching"; ObjectID = "OKk-tA-hFz"; */
+"OKk-tA-hFz.text" = "$levelGaugePitching";
+
+/* Class = "UILabel"; text = "Save Camera Setting"; ObjectID = "TLe-q0-pZS"; */
+"TLe-q0-pZS.text" = "設定保存";
+
+/* Class = "UILabel"; text = "$remainingImageCapacity"; ObjectID = "Uei-FO-Kfo"; */
+"Uei-FO-Kfo.text" = "$remainingImageCapacity";
+
+/* Class = "UILabel"; text = "As Video"; ObjectID = "W5h-CZ-dyH"; */
+"W5h-CZ-dyH.text" = "録画秒数";
+
+/* Class = "UILabel"; text = "Orientation"; ObjectID = "ZCU-zu-KZA"; */
+"ZCU-zu-KZA.text" = "向き";
+
+/* Class = "UINavigationItem"; title = "Status & Saving Setup"; ObjectID = "aJH-iV-cwY"; */
+"aJH-iV-cwY.title" = "状態と設定保存";
+
+/* Class = "UITableViewSection"; headerTitle = "Media Status"; ObjectID = "aJV-Ja-LDI"; */
+"aJV-Ja-LDI.headerTitle" = "メディア状態";
+
+/* Class = "UILabel"; text = "High Temperature Warning"; ObjectID = "av1-HT-p58"; */
+"av1-HT-p58.text" = "高温警告";
+
+/* Class = "UILabel"; text = "As Image"; ObjectID = "cLo-Wd-JiV"; */
+"cLo-Wd-JiV.text" = "撮影枚数";
+
+/* Class = "UILabel"; text = "Media Error"; ObjectID = "dmp-U2-gPj"; */
+"dmp-U2-gPj.text" = "エラー発生中";
+
+/* Class = "UILabel"; text = "$levelGaugeRolling"; ObjectID = "nCr-ut-r50"; */
+"nCr-ut-r50.text" = "$levelGaugeRolling";
+
+/* Class = "UITableViewSection"; headerTitle = "Camera Body Status"; ObjectID = "nwF-s3-gVq"; */
+"nwF-s3-gVq.headerTitle" = "本体状態";
+
+/* Class = "UILabel"; text = "$isoSensitivityWarning"; ObjectID = "rZk-bZ-q1y"; */
+"rZk-bZ-q1y.text" = "$isoSensitivityWarning";
+
+/* Class = "UITableViewSection"; headerTitle = "Level Gauge"; ObjectID = "s87-tB-NRK"; */
+"s87-tB-NRK.headerTitle" = "水準器情報";
+
+/* Class = "UILabel"; text = "As Media"; ObjectID = "tT0-f3-QXk"; */
+"tT0-f3-QXk.text" = "バイト数";
+
+/* Class = "UITableViewSection"; footerTitle = "Camera setting will be stored to a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.footerTitle" = "カメラ設定はアプリケーションのドキュメントフォルダに保存されます。iTunes経由でこのファイルにアクセスできます。";
+
+/* Class = "UITableViewSection"; headerTitle = "Saving Camera Setting"; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.headerTitle" = "設定保存";
+
+/* Class = "UILabel"; text = "Media Busy"; ObjectID = "uzN-D8-YLw"; */
+"uzN-D8-YLw.text" = "書き込み中";
+
+/* Class = "UITableViewSection"; headerTitle = "Media Capacity"; ObjectID = "vYb-uG-cq7"; */
+"vYb-uG-cq7.headerTitle" = "メディア残り容量";
+
+/* Class = "UILabel"; text = "$batteryLevel"; ObjectID = "x6d-BN-78p"; */
+"x6d-BN-78p.text" = "$batteryLevel";
+
+/* Class = "UILabel"; text = "$mediaError"; ObjectID = "yji-Ga-Cbc"; */
+"yji-Ga-Cbc.text" = "$mediaError";
+
+/* Class = "UILabel"; text = "Rolling"; ObjectID = "zQq-Ju-YwQ"; */
+"zQq-Ju-YwQ.text" = "ロール量";
+
+/* Class = "UILabel"; text = "Apply Camera Setting"; ObjectID = "zc6-wd-thZ"; */
+"zc6-wd-thZ.text" = "設定適用";

@@ -330,6 +330,12 @@
 		[self didSelectRowAtDisconnectCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"DisconnectAndSleep"]) {
 		[self didSelectRowAtDisconnectAndSleepCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"ShowRecording"]) {
+		[self didSelectRowAtRecordingCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"ShowPlayback"]) {
+		[self didSelectRowAtPlaybackCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"ShowSystem"]) {
+		[self didSelectRowAtSystemCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"ClearRememberedCameraSetting"]) {
 		[self didSelectRowAtClearRememberedCameraSettingCell];
 	} else {
@@ -838,6 +844,36 @@
 		// カメラの接続解除が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
 	}];
+}
+
+/// 'Recording'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtRecordingCell {
+	DEBUG_LOG(@"");
+	
+	// 分割されたストーリーボードから読み込んで画面遷移します。
+	UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"Recording" bundle:nil];
+	UIViewController *viewController = [storybard instantiateInitialViewController];
+	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+/// 'Playback'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtPlaybackCell {
+	DEBUG_LOG(@"");
+
+	// 分割されたストーリーボードから読み込んで画面遷移します。
+	UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"Playback" bundle:nil];
+	UIViewController *viewController = [storybard instantiateInitialViewController];
+	[self.navigationController pushViewController:viewController animated:YES];
+}
+
+/// 'System'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtSystemCell {
+	DEBUG_LOG(@"");
+
+	// 分割されたストーリーボードから読み込んで画面遷移します。
+	UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"System" bundle:nil];
+	UIViewController *viewController = [storybard instantiateInitialViewController];
+	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 /// 'Keep Last Camera Setting'のセルのスイッチ状態が変化した時に呼び出されます。

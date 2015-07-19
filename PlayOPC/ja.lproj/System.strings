@@ -1,0 +1,63 @@
+
+/* Class = "UILabel"; text = "$lensModelId"; ObjectID = "5Lp-FM-ehJ"; */
+"5Lp-FM-ehJ.text" = "$lensModelId";
+
+/* Class = "UILabel"; text = "Lens Firmware Version"; ObjectID = "5Pt-G1-YQE"; */
+"5Pt-G1-YQE.text" = "レンズファームウェア";
+
+/* Class = "UILabel"; text = "<WIFI_CH>"; ObjectID = "A1L-2R-WNk"; */
+"A1L-2R-WNk.text" = "<WIFI_CH>";
+
+/* Class = "UILabel"; text = "$batteryLevel"; ObjectID = "FNe-en-CPe"; */
+"FNe-en-CPe.text" = "$batteryLevel";
+
+/* Class = "UILabel"; text = "Lens Model ID"; ObjectID = "HoF-5E-0dF"; */
+"HoF-5E-0dF.text" = "レンズモデルID";
+
+/* Class = "UILabel"; text = "$cameraModelName"; ObjectID = "J3P-uA-fxa"; */
+"J3P-uA-fxa.text" = "$cameraModelName";
+
+/* Class = "UITableViewSection"; headerTitle = "Camera Status"; ObjectID = "NTq-dK-oAZ"; */
+"NTq-dK-oAZ.headerTitle" = "本体状態";
+
+/* Class = "UILabel"; text = "Camera Model Name"; ObjectID = "REo-Vw-TB9"; */
+"REo-Vw-TB9.text" = "カメラモデル名";
+
+/* Class = "UILabel"; text = "$lensMountStatus"; ObjectID = "SSX-Fr-ckr"; */
+"SSX-Fr-ckr.text" = "$lensMountStatus";
+
+/* Class = "UILabel"; text = "$mediaMountStatus"; ObjectID = "Xp8-EV-1b7"; */
+"Xp8-EV-1b7.text" = "$mediaMountStatus";
+
+/* Class = "UILabel"; text = "Camera Firmware Version"; ObjectID = "ahP-4y-ckN"; */
+"ahP-4y-ckN.text" = "カメラファームウェア";
+
+/* Class = "UILabel"; text = "Media Mount Status"; ObjectID = "bAI-DU-YZN"; */
+"bAI-DU-YZN.text" = "メディア装着状態";
+
+/* Class = "UILabel"; text = "$lensFirmwareVersion"; ObjectID = "enN-ud-mxL"; */
+"enN-ud-mxL.text" = "$lensFirmwareVersion";
+
+/* Class = "UITableViewSection"; headerTitle = "Network Setting"; ObjectID = "gv4-bx-hXV"; */
+"gv4-bx-hXV.headerTitle" = "ネットワーク設定";
+
+/* Class = "UILabel"; text = "$wifiCh"; ObjectID = "h90-vn-yDT"; */
+"h90-vn-yDT.text" = "$wifiCh";
+
+/* Class = "UILabel"; text = "Lens Mount Status"; ObjectID = "hH8-Ob-V1S"; */
+"hH8-Ob-V1S.text" = "レンズ装着状態";
+
+/* Class = "UITableViewSection"; headerTitle = "Hardware Information"; ObjectID = "kr7-R6-DZl"; */
+"kr7-R6-DZl.headerTitle" = "ハードウェア情報";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "paf-WQ-9mu"; */
+"paf-WQ-9mu.title" = "戻る";
+
+/* Class = "UINavigationItem"; title = "System"; ObjectID = "uk7-8l-AIP"; */
+"uk7-8l-AIP.title" = "システムモード";
+
+/* Class = "UILabel"; text = "<BATTERY_LEVEL>"; ObjectID = "via-cg-uxm"; */
+"via-cg-uxm.text" = "<BATTERY_LEVEL>";
+
+/* Class = "UILabel"; text = "$cameraFirmwareVersion"; ObjectID = "vjR-Uy-zDI"; */
+"vjR-Uy-zDI.text" = "$cameraFirmwareVersion";

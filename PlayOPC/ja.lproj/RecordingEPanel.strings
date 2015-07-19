@@ -1,0 +1,60 @@
+
+/* Class = "UILabel"; text = "$continuousShootingVelocity"; ObjectID = "9Jq-w7-hF7"; */
+"9Jq-w7-hF7.text" = "$continuousShootingVelocity";
+
+/* Class = "UINavigationItem"; title = "Exposure & Action"; ObjectID = "DSa-A7-tX7"; */
+"DSa-A7-tX7.title" = "露出と撮影操作";
+
+/* Class = "UILabel"; text = "$shutter"; ObjectID = "EtA-yH-TeH"; */
+"EtA-yH-TeH.text" = "$shutter";
+
+/* Class = "UITableViewSection"; headerTitle = "Exposure Parameters"; ObjectID = "Jmy-y1-zNn"; */
+"Jmy-y1-zNn.headerTitle" = "露出パラメータ";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MCq-K1-x7V"; */
+"MCq-K1-x7V.title" = "戻る";
+
+/* Class = "UILabel"; text = "<APERTURE>"; ObjectID = "PYz-j8-3BJ"; */
+"PYz-j8-3BJ.text" = "<APERTURE>";
+
+/* Class = "UILabel"; text = "<TAKEMODE>"; ObjectID = "Pkp-DO-Xyw"; */
+"Pkp-DO-Xyw.text" = "<TAKEMODE>";
+
+/* Class = "UILabel"; text = "<CONTINUOUS_SHOOTING_VELOCITY>"; ObjectID = "Q5i-WN-Whn"; */
+"Q5i-WN-Whn.text" = "<CONTINUOUS_SHOOTING_VELOCITY>";
+
+/* Class = "UILabel"; text = "<TAKE_DRIVE>"; ObjectID = "Teu-qY-Bcb"; */
+"Teu-qY-Bcb.text" = "<TAKE_DRIVE>";
+
+/* Class = "UILabel"; text = "$takemode"; ObjectID = "WXB-85-o52"; */
+"WXB-85-o52.text" = "$takemode";
+
+/* Class = "UILabel"; text = "<SHUTTER>"; ObjectID = "aJE-zH-H1d"; */
+"aJE-zH-H1d.text" = "<SHUTTER>";
+
+/* Class = "UILabel"; text = "$takeDrive"; ObjectID = "cjN-kg-VhB"; */
+"cjN-kg-VhB.text" = "$takeDrive";
+
+/* Class = "UILabel"; text = "$iso"; ObjectID = "dZP-71-hW9"; */
+"dZP-71-hW9.text" = "$iso";
+
+/* Class = "UILabel"; text = "<ISO>"; ObjectID = "e5V-iq-eeI"; */
+"e5V-iq-eeI.text" = "<ISO>";
+
+/* Class = "UILabel"; text = "$aperture"; ObjectID = "kwp-FH-krK"; */
+"kwp-FH-krK.text" = "$aperture";
+
+/* Class = "UILabel"; text = "$exposeMovieSelect"; ObjectID = "mn8-zu-qbp"; */
+"mn8-zu-qbp.text" = "$exposeMovieSelect";
+
+/* Class = "UITableViewSection"; headerTitle = "Action Modes"; ObjectID = "pL0-3d-GdJ"; */
+"pL0-3d-GdJ.headerTitle" = "操作モード";
+
+/* Class = "UILabel"; text = "<EXPREV>"; ObjectID = "qs2-1q-bFq"; */
+"qs2-1q-bFq.text" = "<EXPREV>";
+
+/* Class = "UILabel"; text = "<EXPOSE_MOVIE_SELECT>"; ObjectID = "s9H-Si-Qf8"; */
+"s9H-Si-Qf8.text" = "<EXPOSE_MOVIE_SELECT>";
+
+/* Class = "UILabel"; text = "$exprev"; ObjectID = "yfW-mT-O4i"; */
+"yfW-mT-O4i.text" = "$exprev";

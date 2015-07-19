@@ -371,7 +371,10 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 		// スナップショットからカメラの設定を復元します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
-		if (![camera restoreSnapshotOfSetting:snapshot error:&error]) {
+		NSArray *exclude = @[
+			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
+		];
+		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera setting", nil)];
 			return;
 		}

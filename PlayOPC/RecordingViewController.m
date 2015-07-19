@@ -268,7 +268,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			NSDictionary *snapshot = setting.latestSnapshotOfCameraSetting;
 			if (snapshot) {
 				[weakSelf reportBlockSettingToProgress:progressView];
-				if (![camera restoreSnapshotOfSetting:snapshot error:&error]) {
+				NSArray *exclude = @[
+					CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
+				];
+				if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
 					// エラーを無視して続行します。
 					DEBUG_LOG(@"An error occurred, but ignores it.");

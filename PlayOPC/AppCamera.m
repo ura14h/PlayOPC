@@ -1174,8 +1174,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return snapshot;
 }
 
-- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot error:(NSError **)error {
-	DEBUG_LOG(@"");
+- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error {
+	DEBUG_LOG(@"exclude=%@", exclude);
 
 	// スナップショットから復元する情報を取り出します。
 	if (!snapshot[CameraSettingSnapshotFormatVersionKey] ||
@@ -1197,7 +1197,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// 読み込んだカメラプロパティの設定値をカメラに反映します。
-	NSDictionary *propertyValues = snapshot[CameraSettingSnapshotPropertyValuesKey];
+	NSMutableDictionary *propertyValues = [snapshot[CameraSettingSnapshotPropertyValuesKey] mutableCopy];
+	if (exclude) {
+		// 除外するカメラプロパティが指定されている場合はそれを取り除きます。
+		[exclude enumerateObjectsUsingBlock:^(NSString *property, NSUInteger index, BOOL *stop) {
+			if (propertyValues[property]) {
+				[propertyValues removeObjectForKey:property];
+			}
+		}];
+	}
 	if (![self setCameraPropertyValues:propertyValues error:error]) {
 		return NO;
 	}

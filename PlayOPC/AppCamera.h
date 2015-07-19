@@ -319,7 +319,8 @@ extern NSString *const CameraPropertyWbRevG;
 - (NSDictionary *)createSnapshotOfSetting:(NSError **)error;
 
 /// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
-- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot error:(NSError **)error;
+/// 復元しないカメラプロパティのリストを指定することもできます。
+- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error;
 
 /// 現在設定されている撮影モードでのフォーカスモードを取得します。
 - (AppCameraFocusMode)focusMode:(NSError **)error;

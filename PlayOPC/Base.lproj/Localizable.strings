@@ -215,7 +215,7 @@
 "Disconnecting..." = "Disconnecting...";
 
 /* No comment provided by engineer. */
-"Discovering Bluetooth peripheral is timed out." = "Discovering Bluetooth peripheral is timed out.";
+"Discovering Bluetooth peripheral is timed out. The radio switch of the camera may be off." = "Discovering Bluetooth peripheral is timed out. The radio switch of the camera may be off.";
 
 /* No comment provided by engineer. */
 "Down %1.1f" = "Down %1.1f";

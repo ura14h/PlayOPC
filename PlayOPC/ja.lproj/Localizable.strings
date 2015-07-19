@@ -215,7 +215,7 @@
 "Disconnecting..." = "切断中...";
 
 /* No comment provided by engineer. */
-"Discovering Bluetooth peripheral is timed out." = "Bluetoothデバイスが時間内に見つかりませんでした。";
+"Discovering Bluetooth peripheral is timed out. The radio switch of the camera may be off." = "Bluetoothデバイスが時間内に見つかりませんでした。カメラの無線スイッチがオフになっているかもしれません。";
 
 /* No comment provided by engineer. */
 "Down %1.1f" = "下向き %1.1f";

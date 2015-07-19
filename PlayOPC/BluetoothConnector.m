@@ -138,7 +138,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		[notificationCenter postNotificationName:BluetoothConnectionChangedNotification object:self];
 	} else {
 		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"Discovering Bluetooth peripheral is timed out.", nil)
+			NSLocalizedDescriptionKey: NSLocalizedString(@"Discovering Bluetooth peripheral is timed out. The radio switch of the camera may be off.", nil)
 		};
 		NSError *theError = [NSError errorWithDomain:BluetoothConnectorErrorDomain code:BluetoothConnectorErrorTimeout userInfo:userInfo];
 		DEBUG_LOG(@"error=%@", theError);

@@ -359,7 +359,7 @@
 "The application downloads this picture of the original size before sharing it. The handling takes a little bit of time." = "この写真のオリジナルサイズをダウンロードし共有します。この処理にはやや時間がかかります。";
 
 /* No comment provided by engineer. */
-"The camera did wake up, but could not discover a established Wi-Fi connection." = "カメラの電源は入れましたが、Wi-Fi接続の確立については確認できませんでした。";
+"The camera did wake up, but could not discover a established Wi-Fi connection. Other devices may have been already connected." = "カメラの電源は入れましたが、Wi-Fi接続の確立については確認できませんでした。他のデバイスがすでに接続中かもしれません。";
 
 /* No comment provided by engineer. */
 "The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings." = "カメラの電源は入れましたが、このWi-Fi接続はカメラのものではないようです。iOSの設定アプリで現在のWi-Fi接続を切断して手動でカメラに接続してみてください。";

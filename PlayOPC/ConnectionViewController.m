@@ -674,7 +674,7 @@
 				// Wi-Fi接続が有効になりませんでした。
 				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
 					// カメラにアクセスできるWi-Fi接続は見つかりませんでした。
-					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection. Other devices may have been already connected.", nil) title:NSLocalizedString(@"Could not connect", nil)];
 				} else {
 					// カメラにアクセスできるWi-Fi接続ではありませんでした。(すでに別のアクセスポイントに接続している)
 					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.", nil) title:NSLocalizedString(@"Could not connect", nil)];

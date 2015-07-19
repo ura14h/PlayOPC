@@ -359,7 +359,7 @@
 "The application downloads this picture of the original size before sharing it. The handling takes a little bit of time." = "The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.";
 
 /* No comment provided by engineer. */
-"The camera did wake up, but could not discover a established Wi-Fi connection." = "The camera did wake up, but could not discover a established Wi-Fi connection.";
+"The camera did wake up, but could not discover a established Wi-Fi connection. Other devices may have been already connected." = "The camera did wake up, but could not discover a established Wi-Fi connection. Other devices may have been already connected.";
 
 /* No comment provided by engineer. */
 "The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings." = "The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.";

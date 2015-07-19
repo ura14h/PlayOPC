@@ -85,19 +85,19 @@
 	// TODO: implement!
 	NSMutableArray *magnifyingLiveViewScales = [[NSMutableArray alloc] init];
 	NSDictionary *scaleX5 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"5times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"5 times", nil),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX5)
 	};
 	NSDictionary *scaleX7 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"7times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"7 times", nil),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX7)
 	};
 	NSDictionary *scaleX10 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"10times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"10 times", nil),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX10)
 	};
 	NSDictionary *scaleX14 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"14times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"14 times", nil),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX14)
 	};
 	[magnifyingLiveViewScales addObject:scaleX5];

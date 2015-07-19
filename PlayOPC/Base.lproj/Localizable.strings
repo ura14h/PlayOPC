@@ -14,10 +14,10 @@
 "%ld contents (%ld files)" = "%1$ld contents (%2$ld files)";
 
 /* No comment provided by engineer. */
-"1024 Pixels" = "1024 Pixels";
+"10 times" = "10 times";
 
 /* No comment provided by engineer. */
-"10times" = "10 times";
+"1024 Pixels" = "1024 Pixels";
 
 /* No comment provided by engineer. */
 "1280 x 720, Fine" = "1280 x 720, Fine";
@@ -26,7 +26,7 @@
 "1280 x 720, Normal" = "1280 x 720, Normal";
 
 /* No comment provided by engineer. */
-"14times" = "14 times";
+"14 times" = "14 times";
 
 /* No comment provided by engineer. */
 "1600 Pixels" = "1600 Pixels";
@@ -44,10 +44,10 @@
 "2048 Pixels" = "2048 Pixels";
 
 /* No comment provided by engineer. */
-"5times" = "5 times";
+"5 times" = "5 times";
 
 /* No comment provided by engineer. */
-"7times" = "7 times";
+"7 times" = "7 times";
 
 /* No comment provided by engineer. */
 "A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least." = "A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least.";
@@ -89,9 +89,6 @@
 "Connecting..." = "Connecting...";
 
 /* No comment provided by engineer. */
-"Could not load favorite setting" = "Could not load favorite setting";
-
-/* No comment provided by engineer. */
 "Could not change scale" = "Could not change scale";
 
 /* No comment provided by engineer. */
@@ -128,6 +125,9 @@
 "Could not get touch point" = "Could not get touch point";
 
 /* No comment provided by engineer. */
+"Could not load favorite setting" = "Could not load favorite setting";
+
+/* No comment provided by engineer. */
 "Could not move" = "Could not move";
 
 /* No comment provided by engineer. */
@@ -152,10 +152,10 @@
 "Could not restore lastest camera setting" = "Could not restore lastest camera setting";
 
 /* No comment provided by engineer. */
-"Could not save favorite setting" = "Could not save favorite setting";
+"Could not save captured image" = "Could not save captured image";
 
 /* No comment provided by engineer. */
-"Could not save captured image" = "Could not save captured image";
+"Could not save favorite setting" = "Could not save favorite setting";
 
 /* No comment provided by engineer. */
 "Could not set camera property" = "Could not set camera property";

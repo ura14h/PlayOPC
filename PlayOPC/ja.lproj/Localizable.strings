@@ -14,10 +14,10 @@
 "%ld contents (%ld files)" = "%1$ld コンテンツ (%2$ld ファイル)";
 
 /* No comment provided by engineer. */
-"1024 Pixels" = "1024 ピクセル";
+"10 times" = "10 倍";
 
 /* No comment provided by engineer. */
-"10times" = "10 倍";
+"1024 Pixels" = "1024 ピクセル";
 
 /* No comment provided by engineer. */
 "1280 x 720, Fine" = "1280 x 720, 高画質";
@@ -26,7 +26,7 @@
 "1280 x 720, Normal" = "1280 x 720, 標準";
 
 /* No comment provided by engineer. */
-"14times" = "14 倍";
+"14 times" = "14 倍";
 
 /* No comment provided by engineer. */
 "1600 Pixels" = "1600 ピクセル";
@@ -44,10 +44,10 @@
 "2048 Pixels" = "2048 ピクセル";
 
 /* No comment provided by engineer. */
-"5times" = "5 倍";
+"5 times" = "5 倍";
 
 /* No comment provided by engineer. */
-"7times" = "7 倍";
+"7 times" = "7 倍";
 
 /* No comment provided by engineer. */
 "A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least." = "指定したピクセル数に収まるようにリサイズした動画をメディアに追加します。この処理には少なくとも %1.0f 秒かかります。";
@@ -89,9 +89,6 @@
 "Connecting..." = "接続中...";
 
 /* No comment provided by engineer. */
-"Could not load favorite setting" = "お気に入り設定を読み込めません";
-
-/* No comment provided by engineer. */
 "Could not change scale" = "倍率を変更できません";
 
 /* No comment provided by engineer. */
@@ -128,6 +125,9 @@
 "Could not get touch point" = "タッチした座標が取得できません";
 
 /* No comment provided by engineer. */
+"Could not load favorite setting" = "お気に入り設定を読み込めません";
+
+/* No comment provided by engineer. */
 "Could not move" = "移動できません";
 
 /* No comment provided by engineer. */
@@ -152,10 +152,10 @@
 "Could not restore lastest camera setting" = "最後のカメラ設定に復元できません";
 
 /* No comment provided by engineer. */
-"Could not save favorite setting" = "お気に入り設定に保存できません";
+"Could not save captured image" = "撮影画像を保存できません";
 
 /* No comment provided by engineer. */
-"Could not save captured image" = "撮影画像を保存できません";
+"Could not save favorite setting" = "お気に入り設定に保存できません";
 
 /* No comment provided by engineer. */
 "Could not set camera property" = "カメラプロパティを設定できません";

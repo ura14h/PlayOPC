@@ -554,9 +554,15 @@
 		if ([self.wifiConnector isPossibleToAccessCamera]) {
 			// Wi-Fi接続済みで接続先はカメラ
 		} else {
-			// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
-			[self showAlertMessage:NSLocalizedString(@"This Wi-Fi connection is not the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
-			return;
+			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
+				// だが、カメラの電源を入れることぐらいはできるかもしれない
+				demandToWakeUpWithUsingBluetooth = YES;
+			} else {
+				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
+				[self showAlertMessage:NSLocalizedString(@"This Wi-Fi connection is not the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+				return;
+			}
 		}
 	} else {
 		if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
@@ -661,11 +667,16 @@
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Connecting...", nil);
 			}];
 			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:20.0]) {
+				// Connecting... を元に戻します。
+				[weakSelf executeAsynchronousBlockOnMainThread:^{
+					[weakSelf updateShowWifiSettingCell];
+				}];
+				// Wi-Fi接続が有効になりませんでした。
 				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
-					// Wi-Fi接続が有効になりませんでした。
+					// カメラにアクセスできるWi-Fi接続は見つかりませんでした。
 					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection.", nil) title:NSLocalizedString(@"Could not connect", nil)];
 				} else {
-					// カメラにアクセスできるWi-Fi接続ではありませんでした。
+					// カメラにアクセスできるWi-Fi接続ではありませんでした。(すでに別のアクセスポイントに接続している)
 					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.", nil) title:NSLocalizedString(@"Could not connect", nil)];
 				}
 				return;
@@ -1011,8 +1022,14 @@
 				// Wi-Fi接続済みで接続先はカメラ
 				[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
 			} else {
-				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
-				[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
+				if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+					// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
+					// だが、カメラの電源を入れることぐらいはできるかもしれない
+					[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
+				} else {
+					// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
+					[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
+				}
 			}
 		} else {
 			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {

@@ -434,26 +434,12 @@
 				3103FEA11B23F29E008244C9 /* RecImageButton.m */,
 				3142ACD41B23D44F008B2754 /* RecImageViewController.h */,
 				3142ACD51B23D44F008B2754 /* RecImageViewController.m */,
-				31E81A331B5B8BD5003685A9 /* RecordingSPanel.storyboard */,
-				313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */,
-				313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */,
-				31E81A361B5B8BF6003685A9 /* RecordingEPanel.storyboard */,
-				31731EB71AEB88140094193A /* EPanelViewController.h */,
-				31731EB81AEB88140094193A /* EPanelViewController.m */,
-				31E81A391B5B8C11003685A9 /* RecordingCPanel.storyboard */,
-				313D44B61B0CCF0700D6EEAC /* CPanelViewController.h */,
-				313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */,
-				3152CF181AF859A500E97036 /* ArtbktPanelViewController.h */,
-				3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */,
-				31E81A3C1B5B8C39003685A9 /* RecordingAPanel.storyboard */,
-				31731EBB1AEB886A0094193A /* APanelViewController.h */,
-				31731EBC1AEB886A0094193A /* APanelViewController.m */,
-				31E81A3F1B5B8C48003685A9 /* RecordingZPanel.storyboard */,
-				31731EBF1AEB888B0094193A /* ZPanelViewController.h */,
-				31731EC01AEB888B0094193A /* ZPanelViewController.m */,
-				31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */,
-				31731EC31AEB88AB0094193A /* VPanelViewController.h */,
-				31731EC41AEB88AB0094193A /* VPanelViewController.m */,
+				317ED4FF1B5BB993007491BF /* S Panel */,
+				317ED5001B5BB9B4007491BF /* E Panel */,
+				317ED5011B5BB9BC007491BF /* C Panel */,
+				317ED5021B5BB9C5007491BF /* A Panel */,
+				317ED5031B5BB9CF007491BF /* Z Panel */,
+				317ED5041B5BB9D6007491BF /* V Panel */,
 			);
 			name = "Recording Section";
 			sourceTree = "<group>";
@@ -596,6 +582,68 @@
 				313870A61AC7D3B300B00309 /* CoreBluetooth.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		317ED4FF1B5BB993007491BF /* S Panel */ = {
+			isa = PBXGroup;
+			children = (
+				31E81A331B5B8BD5003685A9 /* RecordingSPanel.storyboard */,
+				313D44B21B0CCE7000D6EEAC /* SPanelViewController.h */,
+				313D44B31B0CCE7000D6EEAC /* SPanelViewController.m */,
+			);
+			name = "S Panel";
+			sourceTree = "<group>";
+		};
+		317ED5001B5BB9B4007491BF /* E Panel */ = {
+			isa = PBXGroup;
+			children = (
+				31E81A361B5B8BF6003685A9 /* RecordingEPanel.storyboard */,
+				31731EB71AEB88140094193A /* EPanelViewController.h */,
+				31731EB81AEB88140094193A /* EPanelViewController.m */,
+			);
+			name = "E Panel";
+			sourceTree = "<group>";
+		};
+		317ED5011B5BB9BC007491BF /* C Panel */ = {
+			isa = PBXGroup;
+			children = (
+				31E81A391B5B8C11003685A9 /* RecordingCPanel.storyboard */,
+				313D44B61B0CCF0700D6EEAC /* CPanelViewController.h */,
+				313D44B71B0CCF0700D6EEAC /* CPanelViewController.m */,
+				3152CF181AF859A500E97036 /* ArtbktPanelViewController.h */,
+				3152CF191AF859A500E97036 /* ArtbktPanelViewController.m */,
+			);
+			name = "C Panel";
+			sourceTree = "<group>";
+		};
+		317ED5021B5BB9C5007491BF /* A Panel */ = {
+			isa = PBXGroup;
+			children = (
+				31E81A3C1B5B8C39003685A9 /* RecordingAPanel.storyboard */,
+				31731EBB1AEB886A0094193A /* APanelViewController.h */,
+				31731EBC1AEB886A0094193A /* APanelViewController.m */,
+			);
+			name = "A Panel";
+			sourceTree = "<group>";
+		};
+		317ED5031B5BB9CF007491BF /* Z Panel */ = {
+			isa = PBXGroup;
+			children = (
+				31E81A3F1B5B8C48003685A9 /* RecordingZPanel.storyboard */,
+				31731EBF1AEB888B0094193A /* ZPanelViewController.h */,
+				31731EC01AEB888B0094193A /* ZPanelViewController.m */,
+			);
+			name = "Z Panel";
+			sourceTree = "<group>";
+		};
+		317ED5041B5BB9D6007491BF /* V Panel */ = {
+			isa = PBXGroup;
+			children = (
+				31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */,
+				31731EC31AEB88AB0094193A /* VPanelViewController.h */,
+				31731EC41AEB88AB0094193A /* VPanelViewController.m */,
+			);
+			name = "V Panel";
 			sourceTree = "<group>";
 		};
 		31C71D721AF9D1260088C2A6 /* CameraProperty Images */ = {

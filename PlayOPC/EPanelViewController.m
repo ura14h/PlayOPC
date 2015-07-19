@@ -92,6 +92,14 @@
 	self.showExposeMovieSelectCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showTakeDriveCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showContinuousShootingVelocityCell.detailTextLabel.text = emptyDetailTextLabel;
+	[self tableViewCell:self.showApertureCell enabled:NO];
+	[self tableViewCell:self.showShutterCell enabled:NO];
+	[self tableViewCell:self.showExprevCell enabled:NO];
+	[self tableViewCell:self.showIsoCell enabled:NO];
+	[self tableViewCell:self.showTakemodeCell enabled:NO];
+	[self tableViewCell:self.showExposeMovieSelectCell enabled:NO];
+	[self tableViewCell:self.showTakeDriveCell enabled:NO];
+	[self tableViewCell:self.showContinuousShootingVelocityCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -174,6 +182,16 @@
 		return;
 	}
 
+	// 表示を更新します。
+	[self tableViewCell:self.showApertureCell enabled:NO];
+	[self tableViewCell:self.showShutterCell enabled:NO];
+	[self tableViewCell:self.showExprevCell enabled:NO];
+	[self tableViewCell:self.showIsoCell enabled:NO];
+	[self tableViewCell:self.showTakemodeCell enabled:NO];
+	[self tableViewCell:self.showExposeMovieSelectCell enabled:NO];
+	[self tableViewCell:self.showTakeDriveCell enabled:NO];
+	[self tableViewCell:self.showContinuousShootingVelocityCell enabled:NO];
+	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
 }

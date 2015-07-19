@@ -127,6 +127,14 @@
 	self.digitalZoomingMaximumScaleCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.digitalZoomingCurrentScaleCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showMagnifyingLiveViewScaleCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.opticalZoomingSlider.enabled = NO;
+	self.digitalZoomingSlider.enabled = NO;
+	[self tableViewCell:self.zoomTowardWideEndCell enabled:NO];
+	[self tableViewCell:self.zoomTowardTeleEndCell enabled:NO];
+	[self tableViewCell:self.showZoomingSpeedCell enabled:NO];
+	[self tableViewCell:self.startMagnifyingLiveViewCell enabled:NO];
+	[self tableViewCell:self.stopMagnifyingLiveViewCell enabled:NO];
+	[self tableViewCell:self.showMagnifyingLiveViewScaleCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -208,6 +216,7 @@
 	[self updateOpticalZoomingSliderEnabled:enableOpticalZooming];
 	[self tableViewCell:self.zoomTowardWideEndCell enabled:enableOpticalZooming];
 	[self tableViewCell:self.zoomTowardTeleEndCell enabled:enableOpticalZooming];
+	[self tableViewCell:self.showZoomingSpeedCell enabled:YES];
 	
 	// デジタルズーム操作の有効無効を設定します。
 	[self updateDigitalZoomingSliderEnabled:YES];
@@ -216,6 +225,7 @@
 	BOOL enableMagnifying = camera.magnifyingLiveView;
 	[self tableViewCell:self.startMagnifyingLiveViewCell enabled:!enableMagnifying];
 	[self tableViewCell:self.stopMagnifyingLiveViewCell enabled:enableMagnifying];
+	[self tableViewCell:self.showMagnifyingLiveViewScaleCell enabled:YES];
 	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -230,6 +240,16 @@
 		return;
 	}
 
+	// 表示を更新します。
+	self.opticalZoomingSlider.enabled = NO;
+	self.digitalZoomingSlider.enabled = NO;
+	[self tableViewCell:self.zoomTowardWideEndCell enabled:NO];
+	[self tableViewCell:self.zoomTowardTeleEndCell enabled:NO];
+	[self tableViewCell:self.showZoomingSpeedCell enabled:NO];
+	[self tableViewCell:self.startMagnifyingLiveViewCell enabled:NO];
+	[self tableViewCell:self.stopMagnifyingLiveViewCell enabled:NO];
+	[self tableViewCell:self.showMagnifyingLiveViewScaleCell enabled:NO];
+	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
 }

@@ -135,6 +135,19 @@
 	self.showQualityMovieShortMovieRecordTimeCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showGpsCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showDestinationFileCell.detailTextLabel.text = emptyDetailTextLabel;
+	[self tableViewCell:self.showLiveViewSizeCell enabled:NO];
+	[self tableViewCell:self.showFaceScanCell enabled:NO];
+	[self tableViewCell:self.showRecviewCell enabled:NO];
+	[self tableViewCell:self.showAspectRatioCell enabled:NO];
+	[self tableViewCell:self.showImagesizeCell enabled:NO];
+	[self tableViewCell:self.showCompressibilityRatioCell enabled:NO];
+	[self tableViewCell:self.showRawCell enabled:NO];
+	[self tableViewCell:self.showQualityMovieCell enabled:NO];
+	[self tableViewCell:self.showQualityMovieShortMovieRecordTimeCell enabled:NO];
+	[self tableViewCell:self.showGpsCell enabled:NO];
+	[self tableViewCell:self.showDestinationFileCell enabled:NO];
+	[self tableViewCell:self.setCurrentGeolocationCell enabled:NO];
+	[self tableViewCell:self.clearGelocationCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -192,8 +205,8 @@
 	}
 	
 	// 表示を更新します。
-	[self updateShowSoundVolumeLevelCell];
 	[self updateShowLiveViewSizeCell];
+	[self updateShowSoundVolumeLevelCell];
 	[self updateShowFaceScanCell];
 	[self updateShowRecviewCell];
 	[self updateShowAspectRatioCell];
@@ -204,6 +217,8 @@
 	[self updateShowQualityMovieShortMovieRecordTimeCell];
 	[self updateShowGpsCell];
 	[self updateShowDestinationFileCell];
+	[self tableViewCell:self.setCurrentGeolocationCell enabled:YES];
+	[self tableViewCell:self.clearGelocationCell enabled:YES];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -218,6 +233,21 @@
 		return;
 	}
 
+	// 表示を更新します。
+	[self tableViewCell:self.showLiveViewSizeCell enabled:NO];
+	[self tableViewCell:self.showFaceScanCell enabled:NO];
+	[self tableViewCell:self.showRecviewCell enabled:NO];
+	[self tableViewCell:self.showAspectRatioCell enabled:NO];
+	[self tableViewCell:self.showImagesizeCell enabled:NO];
+	[self tableViewCell:self.showCompressibilityRatioCell enabled:NO];
+	[self tableViewCell:self.showRawCell enabled:NO];
+	[self tableViewCell:self.showQualityMovieCell enabled:NO];
+	[self tableViewCell:self.showQualityMovieShortMovieRecordTimeCell enabled:NO];
+	[self tableViewCell:self.showGpsCell enabled:NO];
+	[self tableViewCell:self.showDestinationFileCell enabled:NO];
+	[self tableViewCell:self.setCurrentGeolocationCell enabled:NO];
+	[self tableViewCell:self.clearGelocationCell enabled:NO];
+	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
 }
@@ -589,6 +619,7 @@
 	}
 	// 表示を更新します。
 	self.showLiveViewSizeCell.detailTextLabel.text = liveViewSize;
+	[self tableViewCell:self.showLiveViewSizeCell enabled:YES];
 }
 
 /// 音量レベルを表示します。

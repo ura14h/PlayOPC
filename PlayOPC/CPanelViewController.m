@@ -436,6 +436,29 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	self.showColorPhaseCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showArtEffectTypeCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showArtEffectHybridCell.detailTextLabel.text = emptyDetailTextLabel;
+	[self tableViewCell:self.showWbCell enabled:NO];
+	[self tableViewCell:self.showCustomWbKelvin1Cell enabled:NO];
+	[self tableViewCell:self.showWbRevCell enabled:NO];
+	[self tableViewCell:self.showWbRevGCell enabled:NO];
+	[self tableViewCell:self.showAutoWbDenkyuColoredLeavingCell enabled:NO];
+	[self tableViewCell:self.showColortoneCell enabled:NO];
+	[self tableViewCell:self.showRecentlyArtFilterCell enabled:NO];
+	[self tableViewCell:self.showArtFilterAutoBracketCell enabled:NO];
+	[self tableViewCell:self.showContrastCell enabled:NO];
+	[self tableViewCell:self.showSharpCell enabled:NO];
+	[self tableViewCell:self.showSaturationLevelCell enabled:NO];
+	[self tableViewCell:self.showToneCell enabled:NO];
+	[self tableViewCell:self.showEffectLevelCell enabled:NO];
+	[self tableViewCell:self.showToneControlLowCell enabled:NO];
+	[self tableViewCell:self.showToneControlMiddleCell enabled:NO];
+	[self tableViewCell:self.showToneControlHighCell enabled:NO];
+	[self tableViewCell:self.showMonotonefilterCell enabled:NO];
+	[self tableViewCell:self.showMonotonecolorCell enabled:NO];
+	[self tableViewCell:self.showColorCreatorColorCell enabled:NO];
+	[self tableViewCell:self.showColorCreatorVividCell enabled:NO];
+	[self tableViewCell:self.showColorPhaseCell enabled:NO];
+	[self tableViewCell:self.showArtEffectTypeCell enabled:NO];
+	[self tableViewCell:self.showArtEffectHybridCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -542,6 +565,31 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	if (!self.startingActivity) {
 		return;
 	}
+
+	// 表示を更新します。
+	[self tableViewCell:self.showWbCell enabled:NO];
+	[self tableViewCell:self.showCustomWbKelvin1Cell enabled:NO];
+	[self tableViewCell:self.showWbRevCell enabled:NO];
+	[self tableViewCell:self.showWbRevGCell enabled:NO];
+	[self tableViewCell:self.showAutoWbDenkyuColoredLeavingCell enabled:NO];
+	[self tableViewCell:self.showColortoneCell enabled:NO];
+	[self tableViewCell:self.showRecentlyArtFilterCell enabled:NO];
+	[self tableViewCell:self.showArtFilterAutoBracketCell enabled:NO];
+	[self tableViewCell:self.showContrastCell enabled:NO];
+	[self tableViewCell:self.showSharpCell enabled:NO];
+	[self tableViewCell:self.showSaturationLevelCell enabled:NO];
+	[self tableViewCell:self.showToneCell enabled:NO];
+	[self tableViewCell:self.showEffectLevelCell enabled:NO];
+	[self tableViewCell:self.showToneControlLowCell enabled:NO];
+	[self tableViewCell:self.showToneControlMiddleCell enabled:NO];
+	[self tableViewCell:self.showToneControlHighCell enabled:NO];
+	[self tableViewCell:self.showMonotonefilterCell enabled:NO];
+	[self tableViewCell:self.showMonotonecolorCell enabled:NO];
+	[self tableViewCell:self.showColorCreatorColorCell enabled:NO];
+	[self tableViewCell:self.showColorCreatorVividCell enabled:NO];
+	[self tableViewCell:self.showColorPhaseCell enabled:NO];
+	[self tableViewCell:self.showArtEffectTypeCell enabled:NO];
+	[self tableViewCell:self.showArtEffectHybridCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;

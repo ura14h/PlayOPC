@@ -90,6 +90,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	self.levelGaugeOrientationCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugeRollingCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugePitchingCell.detailTextLabel.text = emptyDetailTextLabel;
+	[self tableViewCell:self.applyCameraSettingCell enabled:NO];
+	[self tableViewCell:self.saveCameraSettingCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,6 +168,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	[self updateRemainingImageCapacityCell];
 	[self updateRemainingVideoCapacityCell];
 	[self updateLevelGaugeCell];
+	[self tableViewCell:self.applyCameraSettingCell enabled:YES];
+	[self tableViewCell:self.saveCameraSettingCell enabled:YES];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -179,6 +183,10 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	if (!self.startingActivity) {
 		return;
 	}
+
+	// 表示を更新します。
+	[self tableViewCell:self.applyCameraSettingCell enabled:NO];
+	[self tableViewCell:self.saveCameraSettingCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;

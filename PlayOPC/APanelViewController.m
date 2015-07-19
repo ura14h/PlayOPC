@@ -93,6 +93,15 @@
 	self.showAeCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAntiShakeMovieCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAntiShakeFocalLengthCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.liveViewTappingActionSegment.enabled = NO;
+	[self tableViewCell:self.afLockStateCell enabled:NO];
+	[self tableViewCell:self.aeLockStateCell enabled:NO];
+	[self tableViewCell:self.showFullTimeAfCell enabled:NO];
+	[self tableViewCell:self.showFocusStillCell enabled:NO];
+	[self tableViewCell:self.showFocusMovieCell enabled:NO];
+	[self tableViewCell:self.showAeCell enabled:NO];
+	[self tableViewCell:self.showAntiShakeMovieCell enabled:NO];
+	[self tableViewCell:self.showAntiShakeFocalLengthCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -172,6 +181,7 @@
 			self.liveViewTappingActionSegment.selectedSegmentIndex = UISegmentedControlNoSegment;
 			break;
 	}
+	self.liveViewTappingActionSegment.enabled = YES;
 	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -185,6 +195,17 @@
 	if (!self.startingActivity) {
 		return;
 	}
+
+	// 表示を更新します。
+	self.liveViewTappingActionSegment.enabled = NO;
+	[self tableViewCell:self.afLockStateCell enabled:NO];
+	[self tableViewCell:self.aeLockStateCell enabled:NO];
+	[self tableViewCell:self.showFullTimeAfCell enabled:NO];
+	[self tableViewCell:self.showFocusStillCell enabled:NO];
+	[self tableViewCell:self.showFocusMovieCell enabled:NO];
+	[self tableViewCell:self.showAeCell enabled:NO];
+	[self tableViewCell:self.showAntiShakeMovieCell enabled:NO];
+	[self tableViewCell:self.showAntiShakeFocalLengthCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;

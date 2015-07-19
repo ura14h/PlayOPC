@@ -34,8 +34,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeOrientationCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeRollingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugePitchingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *applyCameraSettingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *saveCameraSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *loadFavoiteSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *saveFavoriteSettingCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
@@ -90,8 +90,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	self.levelGaugeOrientationCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugeRollingCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugePitchingCell.detailTextLabel.text = emptyDetailTextLabel;
-	[self tableViewCell:self.applyCameraSettingCell enabled:NO];
-	[self tableViewCell:self.saveCameraSettingCell enabled:NO];
+	[self tableViewCell:self.loadFavoiteSettingCell enabled:NO];
+	[self tableViewCell:self.saveFavoriteSettingCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -168,8 +168,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	[self updateRemainingImageCapacityCell];
 	[self updateRemainingVideoCapacityCell];
 	[self updateLevelGaugeCell];
-	[self tableViewCell:self.applyCameraSettingCell enabled:YES];
-	[self tableViewCell:self.saveCameraSettingCell enabled:YES];
+	[self tableViewCell:self.loadFavoiteSettingCell enabled:YES];
+	[self tableViewCell:self.saveFavoriteSettingCell enabled:YES];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -185,8 +185,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	}
 
 	// 表示を更新します。
-	[self tableViewCell:self.applyCameraSettingCell enabled:NO];
-	[self tableViewCell:self.saveCameraSettingCell enabled:NO];
+	[self tableViewCell:self.loadFavoiteSettingCell enabled:NO];
+	[self tableViewCell:self.saveFavoriteSettingCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -203,10 +203,10 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	NSString *cellReuseIdentifier = cell.reuseIdentifier;
 	
 	// セルに応じたカメラ操作処理を呼び出します。
-	if ([cellReuseIdentifier isEqualToString:@"ApplyCameraSetting"]) {
-		[self didSelectRowAtApplyCameraSettingCell];
-	} else if ([cellReuseIdentifier isEqualToString:@"SaveCameraSetting"]) {
-		[self didSelectRowAtSaveCameraSettingCell];
+	if ([cellReuseIdentifier isEqualToString:@"LoadFavoriteSetting"]) {
+		[self didSelectRowAtLoadFavoriteSettingCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"SaveFavoriteSetting"]) {
+		[self didSelectRowAtSaveFavoriteSettingCell];
 	} else {
 		// 何もしません。
 	}
@@ -348,7 +348,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 }
 
 /// 'Apply Camera Setting'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtApplyCameraSettingCell {
+- (void)didSelectRowAtLoadFavoriteSettingCell {
 	DEBUG_LOG(@"");
 
 	// カメラ設定のロードを開始します。
@@ -364,7 +364,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 		DEBUG_LOG(@"filePath=%@", filePath);
 		DEBUG_LOG(@"snapshot=%@", snapshot);
 		if (!snapshot) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not apply camera setting", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not load favorite setting", nil)];
 			return;
 		}
 		
@@ -375,7 +375,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 		];
 		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not apply camera setting", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not load favorite setting", nil)];
 			return;
 		}
 		
@@ -386,7 +386,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 }
 
 /// 'Save Camera Setting'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtSaveCameraSettingCell {
+- (void)didSelectRowAtSaveFavoriteSettingCell {
 	DEBUG_LOG(@"");
 
 	// カメラ設定をセーブを開始します。
@@ -399,7 +399,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 		NSError *error = nil;
 		NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
 		if (!snapshot) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save camera setting", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save favorite setting", nil)];
 			return;
 		}
 		
@@ -410,7 +410,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 		DEBUG_LOG(@"filePath=%@", filePath);
 		DEBUG_LOG(@"fileContent=%@", snapshot);
 		if (![snapshot writeToFile:filePath atomically:YES]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera setting to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save camera setting", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera setting to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save favorite setting", nil)];
 			return;
 		}
 		

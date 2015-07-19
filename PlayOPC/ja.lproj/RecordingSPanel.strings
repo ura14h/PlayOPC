@@ -44,8 +44,8 @@
 /* Class = "UILabel"; text = "$levelGaugePitching"; ObjectID = "OKk-tA-hFz"; */
 "OKk-tA-hFz.text" = "$levelGaugePitching";
 
-/* Class = "UILabel"; text = "Save Camera Setting"; ObjectID = "TLe-q0-pZS"; */
-"TLe-q0-pZS.text" = "設定保存";
+/* Class = "UILabel"; text = "Save Favorite Setting"; ObjectID = "TLe-q0-pZS"; */
+"TLe-q0-pZS.text" = "お気に入りに保存";
 
 /* Class = "UILabel"; text = "$remainingImageCapacity"; ObjectID = "Uei-FO-Kfo"; */
 "Uei-FO-Kfo.text" = "$remainingImageCapacity";
@@ -56,8 +56,8 @@
 /* Class = "UILabel"; text = "Orientation"; ObjectID = "ZCU-zu-KZA"; */
 "ZCU-zu-KZA.text" = "向き";
 
-/* Class = "UINavigationItem"; title = "Status & Saving Setup"; ObjectID = "aJH-iV-cwY"; */
-"aJH-iV-cwY.title" = "状態と設定保存";
+/* Class = "UINavigationItem"; title = "Status & Favorites"; ObjectID = "aJH-iV-cwY"; */
+"aJH-iV-cwY.title" = "状態とお気に入り";
 
 /* Class = "UITableViewSection"; headerTitle = "Media Status"; ObjectID = "aJV-Ja-LDI"; */
 "aJV-Ja-LDI.headerTitle" = "メディア状態";
@@ -86,11 +86,11 @@
 /* Class = "UILabel"; text = "As Media"; ObjectID = "tT0-f3-QXk"; */
 "tT0-f3-QXk.text" = "バイト数";
 
-/* Class = "UITableViewSection"; footerTitle = "Camera setting will be stored to a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
-"ts7-hs-b3f.footerTitle" = "カメラ設定はアプリケーションのドキュメントフォルダに保存されます。iTunes経由でこのファイルにアクセスできます。";
+/* Class = "UITableViewSection"; footerTitle = "Favorite camera setting will be stored to a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.footerTitle" = "お気に入りのカメラ設定はアプリケーションのドキュメントフォルダに保存されます。iTunes経由でこのファイルにアクセスできます。";
 
-/* Class = "UITableViewSection"; headerTitle = "Saving Camera Setting"; ObjectID = "ts7-hs-b3f"; */
-"ts7-hs-b3f.headerTitle" = "設定保存";
+/* Class = "UITableViewSection"; headerTitle = "Favorite Settings"; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.headerTitle" = "お気に入り設定";
 
 /* Class = "UILabel"; text = "Media Busy"; ObjectID = "uzN-D8-YLw"; */
 "uzN-D8-YLw.text" = "書き込み中";
@@ -107,5 +107,5 @@
 /* Class = "UILabel"; text = "Rolling"; ObjectID = "zQq-Ju-YwQ"; */
 "zQq-Ju-YwQ.text" = "ロール量";
 
-/* Class = "UILabel"; text = "Apply Camera Setting"; ObjectID = "zc6-wd-thZ"; */
-"zc6-wd-thZ.text" = "設定適用";
+/* Class = "UILabel"; text = "Load Favorite Setting"; ObjectID = "zc6-wd-thZ"; */
+"zc6-wd-thZ.text" = "お気に入りを読込み";

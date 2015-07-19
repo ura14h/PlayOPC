@@ -89,7 +89,7 @@
 "Connecting..." = "接続中...";
 
 /* No comment provided by engineer. */
-"Could not apply camera setting" = "カメラ設定を適用できません";
+"Could not load favorite setting" = "お気に入り設定を読み込めません";
 
 /* No comment provided by engineer. */
 "Could not change scale" = "倍率を変更できません";
@@ -152,7 +152,7 @@
 "Could not restore lastest camera setting" = "最後のカメラ設定に復元できません";
 
 /* No comment provided by engineer. */
-"Could not save camera setting" = "カメラ設定を保存できません";
+"Could not save favorite setting" = "お気に入り設定に保存できません";
 
 /* No comment provided by engineer. */
 "Could not save captured image" = "撮影画像を保存できません";

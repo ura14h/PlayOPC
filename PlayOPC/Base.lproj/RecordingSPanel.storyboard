@@ -4,7 +4,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <scenes>
-        <!--Status & Saving Setup-->
+        <!--Status & Favorites-->
         <scene sceneID="pJG-MR-PdT">
             <objects>
                 <tableViewController storyboardIdentifier="RecordingSPaneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FAx-pf-Otd" customClass="SPanelViewController" sceneMemberID="viewController">
@@ -293,14 +293,14 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Saving Camera Setting" footerTitle="Camera setting will be stored to a file in the application document folder. You can access that file via iTunes." id="ts7-hs-b3f">
+                            <tableViewSection headerTitle="Favorite Settings" footerTitle="Favorite camera setting will be stored to a file in the application document folder. You can access that file via iTunes." id="ts7-hs-b3f">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ApplyCameraSetting" textLabel="zc6-wd-thZ" style="IBUITableViewCellStyleDefault" id="lM4-1H-NRF">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadFavoriteSetting" textLabel="zc6-wd-thZ" style="IBUITableViewCellStyleDefault" id="lM4-1H-NRF">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lM4-1H-NRF" id="ME9-bc-1ma">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Apply Camera Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="zc6-wd-thZ">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Load Favorite Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="zc6-wd-thZ">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -309,12 +309,12 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SaveCameraSetting" textLabel="TLe-q0-pZS" style="IBUITableViewCellStyleDefault" id="t79-fu-pg8">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SaveFavoriteSetting" textLabel="TLe-q0-pZS" style="IBUITableViewCellStyleDefault" id="t79-fu-pg8">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t79-fu-pg8" id="ktk-Qs-VYZ">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Save Camera Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="TLe-q0-pZS">
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Save Favorite Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="TLe-q0-pZS">
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -331,14 +331,13 @@
                             <outlet property="delegate" destination="FAx-pf-Otd" id="eKR-8G-ffq"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Status &amp; Saving Setup" id="aJH-iV-cwY">
+                    <navigationItem key="navigationItem" title="Status &amp; Favorites" id="aJH-iV-cwY">
                         <barButtonItem key="backBarButtonItem" title="Back" id="MLt-wl-EAM"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="320" height="1400"/>
                     <connections>
-                        <outlet property="applyCameraSettingCell" destination="lM4-1H-NRF" id="QxP-mh-sAE"/>
                         <outlet property="batteryLevelCell" destination="5Hw-Gd-pZ9" id="gB3-Ib-0Ns"/>
                         <outlet property="exposureMeteringWarningCell" destination="ABE-iT-aiG" id="PhB-zA-U02"/>
                         <outlet property="exposureWarningCell" destination="cBW-1F-Bwn" id="YGT-fw-dQo"/>
@@ -347,12 +346,13 @@
                         <outlet property="levelGaugeOrientationCell" destination="BUR-Yy-XI8" id="ICZ-qR-n0X"/>
                         <outlet property="levelGaugePitchingCell" destination="etb-cB-1y2" id="Xpf-Ww-1Y9"/>
                         <outlet property="levelGaugeRollingCell" destination="otc-QE-M98" id="3c8-l8-FOT"/>
+                        <outlet property="loadFavoiteSettingCell" destination="lM4-1H-NRF" id="vHA-6X-jsi"/>
                         <outlet property="mediaBusyCell" destination="5xM-Of-St4" id="ULl-J2-A0c"/>
                         <outlet property="mediaErrorCell" destination="VvR-AG-jQp" id="LMv-YW-Xof"/>
                         <outlet property="remainingImageCapacityCell" destination="G3O-qo-wPy" id="hMh-I9-zPb"/>
                         <outlet property="remainingMediaCapacityCell" destination="Utb-Oq-Ps6" id="EDi-Wg-8XW"/>
                         <outlet property="remainingVideoCapacityCell" destination="iUQ-mm-t4L" id="a2x-tX-Igf"/>
-                        <outlet property="saveCameraSettingCell" destination="t79-fu-pg8" id="SQe-GP-beH"/>
+                        <outlet property="saveFavoriteSettingCell" destination="t79-fu-pg8" id="bcM-HB-yM3"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="esm-Qj-gKx" userLabel="First Responder" sceneMemberID="firstResponder"/>

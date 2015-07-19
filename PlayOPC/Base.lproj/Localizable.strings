@@ -89,7 +89,7 @@
 "Connecting..." = "Connecting...";
 
 /* No comment provided by engineer. */
-"Could not apply camera setting" = "Could not apply camera setting";
+"Could not load favorite setting" = "Could not load favorite setting";
 
 /* No comment provided by engineer. */
 "Could not change scale" = "Could not change scale";
@@ -152,7 +152,7 @@
 "Could not restore lastest camera setting" = "Could not restore lastest camera setting";
 
 /* No comment provided by engineer. */
-"Could not save camera setting" = "Could not save camera setting";
+"Could not save favorite setting" = "Could not save favorite setting";
 
 /* No comment provided by engineer. */
 "Could not save captured image" = "Could not save captured image";

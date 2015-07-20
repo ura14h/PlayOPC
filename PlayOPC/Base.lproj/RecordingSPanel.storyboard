@@ -293,9 +293,9 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Favorite Settings" footerTitle="Favorite camera setting will be stored to a file in the application document folder. You can access that file via iTunes." id="ts7-hs-b3f">
+                            <tableViewSection headerTitle="Favorite Settings" footerTitle="Favorite setting is a file in the application document folder. You can access that file via iTunes." id="ts7-hs-b3f">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="LoadFavoriteSetting" textLabel="zc6-wd-thZ" style="IBUITableViewCellStyleDefault" id="lM4-1H-NRF">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowLoadFavoriteSetting" textLabel="zc6-wd-thZ" style="IBUITableViewCellStyleDefault" id="lM4-1H-NRF">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lM4-1H-NRF" id="ME9-bc-1ma">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -308,8 +308,11 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="pJw-Bf-ZfA" kind="show" identifier="ShowLoadFavoriteSetting" id="LAS-pZ-imk"/>
+                                        </connections>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SaveFavoriteSetting" textLabel="TLe-q0-pZS" style="IBUITableViewCellStyleDefault" id="t79-fu-pg8">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowSaveFavoriteSetting" textLabel="TLe-q0-pZS" style="IBUITableViewCellStyleDefault" id="t79-fu-pg8">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t79-fu-pg8" id="ktk-Qs-VYZ">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -346,18 +349,132 @@
                         <outlet property="levelGaugeOrientationCell" destination="BUR-Yy-XI8" id="ICZ-qR-n0X"/>
                         <outlet property="levelGaugePitchingCell" destination="etb-cB-1y2" id="Xpf-Ww-1Y9"/>
                         <outlet property="levelGaugeRollingCell" destination="otc-QE-M98" id="3c8-l8-FOT"/>
-                        <outlet property="loadFavoiteSettingCell" destination="lM4-1H-NRF" id="vHA-6X-jsi"/>
                         <outlet property="mediaBusyCell" destination="5xM-Of-St4" id="ULl-J2-A0c"/>
                         <outlet property="mediaErrorCell" destination="VvR-AG-jQp" id="LMv-YW-Xof"/>
                         <outlet property="remainingImageCapacityCell" destination="G3O-qo-wPy" id="hMh-I9-zPb"/>
                         <outlet property="remainingMediaCapacityCell" destination="Utb-Oq-Ps6" id="EDi-Wg-8XW"/>
                         <outlet property="remainingVideoCapacityCell" destination="iUQ-mm-t4L" id="a2x-tX-Igf"/>
-                        <outlet property="saveFavoriteSettingCell" destination="t79-fu-pg8" id="bcM-HB-yM3"/>
+                        <outlet property="showLoadFavoiteSettingCell" destination="lM4-1H-NRF" id="qpm-xL-1sv"/>
+                        <outlet property="showSaveFavoriteSettingCell" destination="t79-fu-pg8" id="Oeu-9E-VDa"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="esm-Qj-gKx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1766" y="360"/>
+        </scene>
+        <!--Favorite Setting-->
+        <scene sceneID="4sq-eQ-cte">
+            <objects>
+                <tableViewController storyboardIdentifier="FavoriteSavingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vP0-Mr-U1f" customClass="FavoriteSavingViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="2qK-PI-bxr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="0.92156862750000001" green="0.94509803920000002" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <sections>
+                            <tableViewSection footerTitle="Current camera setting will be stored to a file in the application document folder as a new favorite setting." id="116-X0-wUo">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FavoriteSettingName" id="GSQ-Ni-zP8">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GSQ-Ni-zP8" id="zgd-zO-PQA">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LCD-5d-ebj">
+                                                    <rect key="frame" x="15" y="12" width="80" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="80" id="H8W-g3-uvn"/>
+                                                        <constraint firstAttribute="height" constant="20" id="ofg-8z-z2a"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$favoriteSettingName" placeholder="Enter New Name" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Lpp-CV-j1C">
+                                                    <rect key="frame" x="103" y="12" width="202" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="uXd-tc-Gy4"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="vP0-Mr-U1f" id="RQi-tb-1eO"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="LCD-5d-ebj" firstAttribute="centerY" secondItem="Lpp-CV-j1C" secondAttribute="centerY" id="8JF-1W-taA"/>
+                                                <constraint firstItem="LCD-5d-ebj" firstAttribute="leading" secondItem="zgd-zO-PQA" secondAttribute="leading" constant="15" id="Jrg-8h-S7D"/>
+                                                <constraint firstItem="Lpp-CV-j1C" firstAttribute="leading" secondItem="LCD-5d-ebj" secondAttribute="trailing" constant="8" id="Nyo-UU-7Ta"/>
+                                                <constraint firstAttribute="trailing" secondItem="Lpp-CV-j1C" secondAttribute="trailing" constant="15" id="hMG-fi-o96"/>
+                                                <constraint firstAttribute="centerY" secondItem="LCD-5d-ebj" secondAttribute="centerY" id="qpJ-OO-FNm"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="vP0-Mr-U1f" id="PKO-eo-ynH"/>
+                            <outlet property="delegate" destination="vP0-Mr-U1f" id="ghh-m6-12t"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favorite Setting" id="jXf-tp-1CI">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Dg6-hZ-JzF">
+                            <connections>
+                                <action selector="didTapSaveButton:" destination="vP0-Mr-U1f" id="4Qs-l6-9m0"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="favoriteSettingNameText" destination="Lpp-CV-j1C" id="GGw-Gh-U9S"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1qp-z2-gFF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2236" y="776"/>
+        </scene>
+        <!--Favorite Setting-->
+        <scene sceneID="US9-RK-Ycl">
+            <objects>
+                <tableViewController storyboardIdentifier="FavoriteLoadingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pJw-Bf-ZfA" customClass="FavoriteLoadingViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="v1W-uD-Lyk">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteSettingCell" textLabel="465-nw-A9k" detailTextLabel="KnL-dB-ciM" style="IBUITableViewCellStyleValue1" id="hNT-K3-pK4">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hNT-K3-pK4" id="Pzl-pH-6XU">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$favoriteSettingName" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="465-nw-A9k">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$datetime" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" id="KnL-dB-ciM">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="pJw-Bf-ZfA" id="Cxv-Dx-sj7"/>
+                            <outlet property="delegate" destination="pJw-Bf-ZfA" id="nrR-RG-VIW"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Favorite Setting" id="X2g-ve-QMR"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8hs-cj-qnE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2236" y="94"/>
         </scene>
     </scenes>
 </document>

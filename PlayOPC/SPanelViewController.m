@@ -17,7 +17,6 @@
 #import "UIViewController+Threading.h"
 #import "UITableViewController+Cell.h"
 
-static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一括取得したカメラプロパティ値を保存するファイル名
 
 @interface SPanelViewController () <OLYCameraPropertyDelegate>
 
@@ -34,8 +33,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeOrientationCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeRollingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugePitchingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *loadFavoiteSettingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *saveFavoriteSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showLoadFavoiteSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showSaveFavoriteSettingCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
@@ -90,8 +89,8 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	self.levelGaugeOrientationCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugeRollingCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugePitchingCell.detailTextLabel.text = emptyDetailTextLabel;
-	[self tableViewCell:self.loadFavoiteSettingCell enabled:NO];
-	[self tableViewCell:self.saveFavoriteSettingCell enabled:NO];
+	[self tableViewCell:self.showLoadFavoiteSettingCell enabled:NO];
+	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -133,6 +132,11 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	
 	if (self.isMovingToParentViewController) {
 		[self didStartActivity];
+	} else {
+		// 表示を更新します。
+		// お気に入りの読込みや保存の画面との間で内容変更を通知したりするプロトコルを増やすのが面倒なので、
+		// まとめてここで強制的に更新するようにしています。
+		[self updateShowFavoiteSettingCells:YES];
 	}
 }
 
@@ -168,8 +172,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	[self updateRemainingImageCapacityCell];
 	[self updateRemainingVideoCapacityCell];
 	[self updateLevelGaugeCell];
-	[self tableViewCell:self.loadFavoiteSettingCell enabled:YES];
-	[self tableViewCell:self.saveFavoriteSettingCell enabled:YES];
+	[self updateShowFavoiteSettingCells:YES];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -185,8 +188,7 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	}
 
 	// 表示を更新します。
-	[self tableViewCell:self.loadFavoiteSettingCell enabled:NO];
-	[self tableViewCell:self.saveFavoriteSettingCell enabled:NO];
+	[self updateShowFavoiteSettingCells:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -203,10 +205,10 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	NSString *cellReuseIdentifier = cell.reuseIdentifier;
 	
 	// セルに応じたカメラ操作処理を呼び出します。
-	if ([cellReuseIdentifier isEqualToString:@"LoadFavoriteSetting"]) {
-		[self didSelectRowAtLoadFavoriteSettingCell];
-	} else if ([cellReuseIdentifier isEqualToString:@"SaveFavoriteSetting"]) {
-		[self didSelectRowAtSaveFavoriteSettingCell];
+	if ([cellReuseIdentifier isEqualToString:@"ShowLoadFavoriteSetting"]) {
+		[self didSelectRowAtShowLoadFavoriteSettingCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"ShowSaveFavoriteSetting"]) {
+		[self didSelectRowAtShowSaveFavoriteSettingCell];
 	} else {
 		// 何もしません。
 	}
@@ -347,77 +349,27 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	[self updateLevelGaugeCell];
 }
 
-/// 'Apply Camera Setting'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtLoadFavoriteSettingCell {
+/// 'Load Favorite Setting'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtShowLoadFavoriteSettingCell {
 	DEBUG_LOG(@"");
 
-	// カメラ設定のロードを開始します。
-	__weak SPanelViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// 共有ドキュメントフォルダから設定のスナップショットファイルを読み込みます。
-		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *directoryPath = directoryPaths[0];
-		NSString *filePath = [directoryPath stringByAppendingPathComponent:CameraSettingFilePath];
-		NSDictionary *snapshot = [NSDictionary dictionaryWithContentsOfFile:filePath];
-		DEBUG_LOG(@"filePath=%@", filePath);
-		DEBUG_LOG(@"snapshot=%@", snapshot);
-		if (!snapshot) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not load favorite setting", nil)];
-			return;
-		}
-		
-		// スナップショットからカメラの設定を復元します。
-		AppCamera *camera = GetAppCamera();
-		NSError *error = nil;
-		NSArray *exclude = @[
-			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
-		];
-		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not load favorite setting", nil)];
-			return;
-		}
-		
-		// カメラ設定のロードが完了しました。
-		[weakSelf reportBlockFinishedToProgress:progressView];
-		DEBUG_LOG(@"");
-	}];
+	// セグエで遷移するので特に何もしません。
+	// この呼び出しは無駄だが'Save Favorite Setting'との対比として置いておくことにします。
 }
 
-/// 'Save Camera Setting'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtSaveFavoriteSettingCell {
+/// 'Save Favorite Setting'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtShowSaveFavoriteSettingCell {
 	DEBUG_LOG(@"");
 
-	// カメラ設定をセーブを開始します。
-	__weak SPanelViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
-		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-
-		// 現在のカメラ設定のスナップショットを作成します。
-		AppCamera *camera = GetAppCamera();
-		NSError *error = nil;
-		NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
-		if (!snapshot) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save favorite setting", nil)];
-			return;
-		}
-		
-		// 取得したカメラプロパティの設定値を共有ドキュメントフォルダのファイルとして保存します。
-		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *directoryPath = directoryPaths[0];
-		NSString *filePath = [directoryPath stringByAppendingPathComponent:CameraSettingFilePath];
-		DEBUG_LOG(@"filePath=%@", filePath);
-		DEBUG_LOG(@"fileContent=%@", snapshot);
-		if (![snapshot writeToFile:filePath atomically:YES]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera setting to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save favorite setting", nil)];
-			return;
-		}
-		
-		// カメラ設定をセーブが完了しました。
-		[weakSelf reportBlockFinishedToProgress:progressView];
-		DEBUG_LOG(@"");
-	}];
+	// 分割されたストーリーボードから読み込んで画面遷移します。
+	// Sパネルと同じナビゲーションビューではなく、一番外側のナビゲーションビューで画面遷移します。
+	UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"RecordingSPanel" bundle:nil];
+	UIViewController *viewController = [storybard instantiateViewControllerWithIdentifier:@"FavoriteSavingViewController"];
+	UINavigationController *navigationController = self.navigationController;
+	while (navigationController.navigationController) {
+		navigationController = navigationController.navigationController;
+	}
+	[navigationController pushViewController:viewController animated:YES];
 }
 
 #pragma mark -
@@ -623,6 +575,42 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 	self.levelGaugePitchingCell.detailTextLabel.text = levelGuagePitching;
 }
 
+/// お気に入りの読込みを表示します。
+- (void)updateShowFavoiteSettingCells:(BOOL)enabled {
+	DEBUG_LOG(@"");
+
+	// お気に入りへ保存は、常に有効です。
+	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:enabled];
+
+	// お気に入りを読込みは、お気に入り設定のファイルが存在している時だけ有効にします。
+	if (enabled) {
+		__block BOOL hasFavorites = NO;
+		// 共有ドキュメントフォルダにあるファイルの名前を読み取ります。
+		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+		NSString *directoryPath = directoryPaths[0];
+		NSFileManager *fileManager = [NSFileManager defaultManager];
+		NSError *error = nil;
+		NSArray *contents = [fileManager contentsOfDirectoryAtPath:directoryPath error:&error];
+		if (contents) {
+			// お気に入り設定のファイル名は"Favorite-YYYYMMDDHHMMSS.plist"です。
+			[contents enumerateObjectsUsingBlock:^(NSString *path, NSUInteger index, BOOL *stop) {
+				NSString *filename = [[path lastPathComponent] lowercaseString];
+				if ([filename hasPrefix:@"favorite-"] &&
+					[filename hasSuffix:@".plist"]) {
+					hasFavorites = YES;
+					*stop = YES;
+				}
+			}];
+		} else {
+			// ディレクトリリストの取得に失敗しました。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		[self tableViewCell:self.showLoadFavoiteSettingCell enabled:hasFavorites];
+	} else {
+		[self tableViewCell:self.showLoadFavoiteSettingCell enabled:NO];
+	}
+}
+
 /// カメラプロパティ値を表示します。
 - (void)updateCameraPropertyCell:(UITableViewCell *)cell name:(NSString *)name completion:(void (^)(NSString *value))completion {
 	DEBUG_LOG(@"name=%@", name);
@@ -667,21 +655,6 @@ static NSString *const CameraSettingFilePath = @"CameraSetting.plist"; ///< 一�
 			}
 		}];
 	}];
-}
-
-/// 進捗画面に処理完了を報告します。
-- (void)reportBlockFinishedToProgress:(MBProgressHUD *)progress {
-	DEBUG_LOG(@"");
-	
-	__block UIImageView *progressImageView;
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
-		progressImageView = [[UIImageView alloc] initWithImage:image];
-		progressImageView.tintColor = [UIColor whiteColor];
-	});
-	progress.customView = progressImageView;
-	progress.mode = MBProgressHUDModeCustomView;
-	[NSThread sleepForTimeInterval:0.5];
 }
 
 @end

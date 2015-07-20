@@ -101,6 +101,9 @@
 "Could not connect" = "接続できません";
 
 /* No comment provided by engineer. */
+"Could not delete favorite setting" = "お気に入り設定を削除できません";
+
+/* No comment provided by engineer. */
 "Could not download captured image" = "撮影画像をダウンロードできません";
 
 /* No comment provided by engineer. */

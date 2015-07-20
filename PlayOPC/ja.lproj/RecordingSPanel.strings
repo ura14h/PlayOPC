@@ -1,6 +1,11 @@
+/* Class = "UITableViewSection"; footerTitle = "Current camera setting will be stored to a file in the application document folder as a new favorite setting."; ObjectID = "116-X0-wUo"; */
+"116-X0-wUo.footerTitle" = "現在のカメラ設定を新しいお気に入り設定としてアプリケーションのドキュメントフォルダに保存します。";
 
 /* Class = "UILabel"; text = "$highTemperatureWarning"; ObjectID = "1Y5-Zw-ei2"; */
 "1Y5-Zw-ei2.text" = "$highTemperatureWarning";
+
+/* Class = "UILabel"; text = "$favoriteSettingName"; ObjectID = "465-nw-A9k"; */
+"465-nw-A9k.text" = "$favoriteSettingName";
 
 /* Class = "UILabel"; text = "$exposureWarning"; ObjectID = "4lE-HM-eFR"; */
 "4lE-HM-eFR.text" = "$exposureWarning";
@@ -25,6 +30,18 @@
 
 /* Class = "UILabel"; text = "Exposure Metering Warning"; ObjectID = "JLP-Md-VaC"; */
 "JLP-Md-VaC.text" = "測光警告";
+
+/* Class = "UILabel"; text = "$datetime"; ObjectID = "KnL-dB-ciM"; */
+"KnL-dB-ciM.text" = "$datetime";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "LCD-5d-ebj"; */
+"LCD-5d-ebj.text" = "名前";
+
+/* Class = "UITextField"; placeholder = "Enter New Name"; ObjectID = "Lpp-CV-j1C"; */
+"Lpp-CV-j1C.placeholder" = "新しいお気に入り名";
+
+/* Class = "UITextField"; text = "$favoriteSettingName"; ObjectID = "Lpp-CV-j1C"; */
+"Lpp-CV-j1C.text" = "$favoriteSettingName";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MLt-wl-EAM"; */
 "MLt-wl-EAM.title" = "戻る";
@@ -53,6 +70,9 @@
 /* Class = "UILabel"; text = "As Video"; ObjectID = "W5h-CZ-dyH"; */
 "W5h-CZ-dyH.text" = "録画秒数";
 
+/* Class = "UINavigationItem"; title = "Favorite Setting"; ObjectID = "X2g-ve-QMR"; */
+"X2g-ve-QMR.title" = "お気に入り設定";
+
 /* Class = "UILabel"; text = "Orientation"; ObjectID = "ZCU-zu-KZA"; */
 "ZCU-zu-KZA.text" = "向き";
 
@@ -71,6 +91,9 @@
 /* Class = "UILabel"; text = "Media Error"; ObjectID = "dmp-U2-gPj"; */
 "dmp-U2-gPj.text" = "エラー発生中";
 
+/* Class = "UINavigationItem"; title = "Favorite Setting"; ObjectID = "jXf-tp-1CI"; */
+"jXf-tp-1CI.title" = "お気に入り設定";
+
 /* Class = "UILabel"; text = "$levelGaugeRolling"; ObjectID = "nCr-ut-r50"; */
 "nCr-ut-r50.text" = "$levelGaugeRolling";
 
@@ -86,8 +109,8 @@
 /* Class = "UILabel"; text = "As Media"; ObjectID = "tT0-f3-QXk"; */
 "tT0-f3-QXk.text" = "バイト数";
 
-/* Class = "UITableViewSection"; footerTitle = "Favorite camera setting will be stored to a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
-"ts7-hs-b3f.footerTitle" = "お気に入りのカメラ設定はアプリケーションのドキュメントフォルダに保存されます。iTunes経由でこのファイルにアクセスできます。";
+/* Class = "UITableViewSection"; footerTitle = "Favorite camera setting is a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.footerTitle" = "お気に入りのカメラ設定はアプリケーションのドキュメントフォルダのファイルに保存されます。iTunes経由でこのファイルにアクセスできます。";
 
 /* Class = "UITableViewSection"; headerTitle = "Favorite Settings"; ObjectID = "ts7-hs-b3f"; */
 "ts7-hs-b3f.headerTitle" = "お気に入り設定";

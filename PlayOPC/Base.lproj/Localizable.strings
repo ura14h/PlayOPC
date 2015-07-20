@@ -101,6 +101,9 @@
 "Could not connect" = "Could not connect";
 
 /* No comment provided by engineer. */
+"Could not delete favorite setting" = "Could not delete favorite setting";
+
+/* No comment provided by engineer. */
 "Could not download captured image" = "Could not download captured image";
 
 /* No comment provided by engineer. */

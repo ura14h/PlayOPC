@@ -134,6 +134,9 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 	if (name.length == 0) {
 		return;
 	}
+
+	// キーボードを閉じます。
+	[self.favoriteSettingNameText resignFirstResponder];
 	
 	// 現在のカメラ設定をお気に入りとして保存します。
 	__weak FavoriteSavingViewController *weakSelf = self;

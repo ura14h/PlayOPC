@@ -129,24 +129,22 @@
 - (void)viewDidAppear:(BOOL)animated {
 	DEBUG_LOG(@"");
 	[super viewDidAppear:animated];
-	
-	if (self.isMovingToParentViewController) {
-		[self didStartActivity];
-	} else {
-		// 表示を更新します。
-		// お気に入りの読込みや保存の画面との間で内容変更を通知したりするプロトコルを増やすのが面倒なので、
-		// まとめてここで強制的に更新するようにしています。
-		[self updateShowFavoiteSettingCells:YES];
-	}
+
+	// didStartActivityメソッドは、パネルを表示する直前にRecordingViewControllerによって呼び出されます。
+	// RecordingViewController, PlaybackViewController, SystemViewControllerの手順とは異なります。
+
+	// 表示を更新します。
+	// お気に入りの読込みや保存の画面との間で内容変更を通知したりするプロトコルを増やすのが面倒なので、
+	// まとめてここで強制的に更新するようにしています。
+	[self updateShowFavoiteSettingCells:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
 	DEBUG_LOG(@"");
 	[super viewDidDisappear:animated];
-	
-	if (self.isMovingFromParentViewController) {
-		[self didFinishActivity];
-	}
+
+	// didFinishActivityメソッドは、パネルを消去する直前にRecordingViewControllerによって呼び出されます。
+	// RecordingViewController, PlaybackViewController, SystemViewControllerの手順とは異なります。
 }
 
 #pragma mark -

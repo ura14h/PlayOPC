@@ -134,18 +134,16 @@
 	DEBUG_LOG(@"");
 	[super viewDidAppear:animated];
 
-	if (self.isMovingToParentViewController) {
-		[self didStartActivity];
-	}
+	// didStartActivityメソッドは、パネルを表示する直前にRecordingViewControllerによって呼び出されます。
+	// RecordingViewController, PlaybackViewController, SystemViewControllerの手順とは異なります。
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
 	DEBUG_LOG(@"");
 	[super viewDidDisappear:animated];
 	
-	if (self.isMovingFromParentViewController) {
-		[self didFinishActivity];
-	}
+	// didFinishActivityメソッドは、パネルを消去する直前にRecordingViewControllerによって呼び出されます。
+	// RecordingViewController, PlaybackViewController, SystemViewControllerの手順とは異なります。
 }
 
 #pragma mark -

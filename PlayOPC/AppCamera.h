@@ -20,10 +20,20 @@ typedef enum : NSInteger {
 	AppCameraFocusModeCAF, ///< コンティニュアスオートフォーカス
 } AppCameraFocusMode;
 
+/// オートブラケットモード
+typedef enum : NSInteger {
+	AppCameraAutoBracketingModeDisabled = 0, ///< 無効(通常撮影)
+	AppCameraAutoBracketingModeExposure, ///< 露出補正でオートブラケット
+} AppCameraAutoBracketingMode;
+
 // カメラプロパティ
 extern NSString *const CameraPropertyAperture;
 extern NSString *const CameraPropertyAe;
 extern NSString *const CameraPropertyTakemode;
+extern NSString *const CameraPropertyTakemodeP;
+extern NSString *const CameraPropertyTakemodeA;
+extern NSString *const CameraPropertyTakemodeS;
+extern NSString *const CameraPropertyTakemodeM;
 extern NSString *const CameraPropertyIso;
 extern NSString *const CameraPropertyExprev;
 extern NSString *const CameraPropertyTakeDrive;
@@ -238,11 +248,17 @@ extern NSString *const CameraPropertyMonotonecolor;
 extern NSString *const CameraPropertyMonotonefilter;
 extern NSString *const CameraPropertyWbRev;
 extern NSString *const CameraPropertyWbRevG;
+extern NSString *const CameraPropertyAutoBracketingMode;
+extern NSString *const CameraPropertyAutoBracketingCount;
+extern NSString *const CameraPropertyAutoBracketingStep;
 
 /// OLYCameraクラスにアプリ独自の機能を追加拡張したクラス。
 /// OLYCameraに関連するデリゲートのマルチ配信をサポートしています。
 @interface AppCamera : OLYCamera
 
+@property (assign, nonatomic) AppCameraAutoBracketingMode autoBracketingMode; ///< オートブラケットモード
+@property (assign, nonatomic) NSInteger autoBracketingCount; ///< オートブラケットで撮影する枚数(3以上の奇数)
+@property (assign, nonatomic) NSInteger autoBracketingStep; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数(1以上)
 @property (assign, nonatomic, readonly) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
 @property (assign, nonatomic, readonly) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readonly) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
@@ -321,6 +337,9 @@ extern NSString *const CameraPropertyWbRevG;
 /// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
 /// 復元しないカメラプロパティのリストを指定することもできます。
 - (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error;
+
+/// オートブラケット撮影の設定が可能かどうかを示します。
+- (BOOL)canSetAutoBracketing;
 
 /// 現在設定されている撮影モードでのフォーカスモードを取得します。
 - (AppCameraFocusMode)focusMode:(NSError **)error;

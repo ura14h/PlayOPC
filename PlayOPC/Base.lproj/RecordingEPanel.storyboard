@@ -205,6 +205,79 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Auto Bracketing" footerTitle="Auto bracketing enables when shooting mode is in P/A/S/M mode." id="cws-Wj-1YC">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAutoBracketingMode" textLabel="Xab-Ot-xmV" detailTextLabel="DdA-bl-Kqz" style="IBUITableViewCellStyleValue1" id="jdM-3g-ggY">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jdM-3g-ggY" id="2Zc-T8-6Oa">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Auto Bracketing Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="Xab-Ot-xmV">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$autoBracketingMode" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="DdA-bl-Kqz">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IgT-oc-S59" kind="show" identifier="ShowAutoBracketingMode" id="JKJ-eD-Ft8"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAutoBracketingCount" textLabel="Vc7-Bh-NVk" detailTextLabel="3tk-1d-olg" style="IBUITableViewCellStyleValue1" id="CH2-cl-hph">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CH2-cl-hph" id="lAF-Nc-IaJ">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Auto Bracketing Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="Vc7-Bh-NVk">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$autoBracketingCount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="3tk-1d-olg">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IgT-oc-S59" kind="show" identifier="ShowAutoBracketingCount" id="Fgd-2q-Nsg"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAutoBracketingStep" textLabel="JvX-Bx-7bj" detailTextLabel="XQY-LA-W0p" style="IBUITableViewCellStyleValue1" id="omG-o8-UeH">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="omG-o8-UeH" id="m4i-Zk-Y2L">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Auto Bracketing Step" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="JvX-Bx-7bj">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$autoBracketingStep" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="XQY-LA-W0p">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IgT-oc-S59" kind="show" identifier="ShowAutoBracketingStep" id="L7u-hP-lk5"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="zZU-7k-RP2" id="Da1-rN-zYA"/>
@@ -219,6 +292,9 @@
                     <size key="freeformSize" width="320" height="1000"/>
                     <connections>
                         <outlet property="showApertureCell" destination="vE5-l6-9SM" id="ei3-F6-nrD"/>
+                        <outlet property="showAutoBracketingCountCell" destination="CH2-cl-hph" id="5t2-s4-gm2"/>
+                        <outlet property="showAutoBracketingModeCell" destination="jdM-3g-ggY" id="BsV-zV-f8A"/>
+                        <outlet property="showAutoBracketingStepCell" destination="omG-o8-UeH" id="xhf-w3-xYb"/>
                         <outlet property="showContinuousShootingVelocityCell" destination="qcO-L3-Gbr" id="Bx3-hN-gWG"/>
                         <outlet property="showExposeMovieSelectCell" destination="eW3-01-mDe" id="Dry-d4-cZ6"/>
                         <outlet property="showExprevCell" destination="maK-VA-iud" id="CC7-11-onx"/>
@@ -268,8 +344,46 @@
             </objects>
             <point key="canvasLocation" x="2478" y="274"/>
         </scene>
+        <!--Item Selection View Controller-->
+        <scene sceneID="HkW-Zb-75J">
+            <objects>
+                <tableViewController id="IgT-oc-S59" customClass="ItemSelectionViewController" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="qAT-2W-ZKr">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="220"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ItemCell" textLabel="lpF-z9-B4s" style="IBUITableViewCellStyleDefault" id="dbq-Qi-t9V">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dbq-Qi-t9V" id="7NI-Sy-Afd">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="lpF-z9-B4s">
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                </tableViewCellContentView>
+                            </tableViewCell>
+                        </prototypes>
+                        <sections/>
+                        <connections>
+                            <outlet property="dataSource" destination="IgT-oc-S59" id="VOj-zI-axc"/>
+                            <outlet property="delegate" destination="IgT-oc-S59" id="CxP-Ef-bAY"/>
+                        </connections>
+                    </tableView>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="220"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Vmo-sF-gNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2651" y="664"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="kyc-jM-yxm"/>
+        <segue reference="EjY-eo-uOM"/>
+        <segue reference="JKJ-eD-Ft8"/>
     </inferredMetricsTieBreakers>
 </document>

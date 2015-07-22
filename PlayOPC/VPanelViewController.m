@@ -263,13 +263,19 @@
 		viewController.property = CameraPropertySoundVolumeLevel;
 		viewController.itemSelectionDeleage = self;
 	} else if ([segueIdentifier isEqualToString:@"ShowLiveViewSize"]) {
-		AppCamera *camera = GetAppCamera();
-		NSUInteger itemIndex = [self indexOfLiveViewSize:camera.liveViewSize];
 		ItemSelectionViewController *viewController = segue.destinationViewController;
 		viewController.title = self.showLiveViewSizeCell.textLabel.text;
 		viewController.tag = [CameraPropertyLiveViewSize hash];
 		viewController.items = self.liveViewSizes;
-		viewController.selectedItemIndex = itemIndex;
+		AppCamera *camera = GetAppCamera();
+		[self.liveViewSizes enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+			NSValue *itemValue = item[ItemSelectionViewItemValueKey];
+			OLYCameraLiveViewSize itemSize = [itemValue CGSizeValue];
+			if (CGSizeEqualToSize(itemSize, camera.liveViewSize)) {
+				viewController.selectedItemIndex = index;
+				*stop = YES;
+			}
+		}];
 		viewController.itemCellIdentifier = @"ItemCell";
 		viewController.itemSelectionDeleage = self;
 	} else if ([segueIdentifier isEqualToString:@"ShowFaceScan"]) {
@@ -585,36 +591,21 @@
 
 #pragma mark -
 
-/// ライブビューサイズから選択肢のインデックスを取得します。
-- (NSUInteger)indexOfLiveViewSize:(OLYCameraLiveViewSize)size {
-	DEBUG_LOG(@"size=%@", NSStringFromCGSize(size));
-	
-	NSUInteger foundIndex = NSNotFound;
-	for (NSUInteger index = 0; index < self.liveViewSizes.count; index++) {
-		NSDictionary *item = self.liveViewSizes[index];
-		NSValue *itemValue = item[ItemSelectionViewItemValueKey];
-		OLYCameraLiveViewSize itemSize = [itemValue CGSizeValue];
-		if (CGSizeEqualToSize(itemSize, size)) {
-			foundIndex = index;
-			break;
-		}
-	}
-	
-	return foundIndex;
-}
-
 /// ライブビューのピクセルサイズを表示します。
 - (void)updateShowLiveViewSizeCell {
 	DEBUG_LOG(@"");
 	
 	// 選択肢の値を表示用の文言に変換します。
+	__block NSString *liveViewSize = NSLocalizedString(@"Unknown", nil);
 	AppCamera *camera = GetAppCamera();
-	NSString *liveViewSize = nil;
-	NSUInteger itemIndex = [self indexOfLiveViewSize:camera.liveViewSize];
-	if (itemIndex != NSNotFound) {
-		NSDictionary *item = self.liveViewSizes[itemIndex];
-		liveViewSize = item[ItemSelectionViewItemTitleKey];
-	}
+	[self.liveViewSizes enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		NSValue *itemValue = item[ItemSelectionViewItemValueKey];
+		OLYCameraLiveViewSize itemSize = [itemValue CGSizeValue];
+		if (CGSizeEqualToSize(itemSize, camera.liveViewSize)) {
+			liveViewSize = item[ItemSelectionViewItemTitleKey];
+			*stop = YES;
+		}
+	}];
 	// 表示を更新します。
 	self.showLiveViewSizeCell.detailTextLabel.text = liveViewSize;
 	[self tableViewCell:self.showLiveViewSizeCell enabled:YES];

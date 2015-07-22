@@ -27,9 +27,15 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *showExposeMovieSelectCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showTakeDriveCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showContinuousShootingVelocityCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showAutoBracketingModeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showAutoBracketingCountCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showAutoBracketingStepCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
+@property (strong, nonatomic) NSArray *autoBracketingModes; ///< オートブラケットモードの選択肢
+@property (strong, nonatomic) NSArray *autoBracketingCounts; ///< オートブラケットで撮影する枚数の選択肢
+@property (strong, nonatomic) NSArray *autoBracketingSteps; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢
 
 @end
 
@@ -46,6 +52,94 @@
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
 
+	// オートブラケットモードの選択肢を構築します。
+	NSMutableArray *autoBracketingModes = [[NSMutableArray alloc] init];
+	NSDictionary *autoBracketingModeDisabled = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Disabled", nil),
+		ItemSelectionViewItemValueKey:@(AppCameraAutoBracketingModeDisabled)
+	};
+	NSDictionary *autoBracketingModeExposure = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Exposure", nil),
+		ItemSelectionViewItemValueKey:@(AppCameraAutoBracketingModeExposure)
+	};
+	[autoBracketingModes addObject:autoBracketingModeDisabled];
+	[autoBracketingModes addObject:autoBracketingModeExposure];
+	self.autoBracketingModes = autoBracketingModes;
+
+	// オートブラケットモードの選択肢を構築します。
+	NSMutableArray *autoBracketingCounts = [[NSMutableArray alloc] init];
+	NSDictionary *autoBracketingCount3 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"3 Images", nil),
+		ItemSelectionViewItemValueKey:@(3)
+	};
+	NSDictionary *autoBracketingCount5 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"5 Images", nil),
+		ItemSelectionViewItemValueKey:@(5)
+	};
+	NSDictionary *autoBracketingCount7 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"7 Images", nil),
+		ItemSelectionViewItemValueKey:@(7)
+	};
+	NSDictionary *autoBracketingCount9 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"9 Images", nil),
+		ItemSelectionViewItemValueKey:@(9)
+	};
+	[autoBracketingCounts addObject:autoBracketingCount3];
+	[autoBracketingCounts addObject:autoBracketingCount5];
+	[autoBracketingCounts addObject:autoBracketingCount7];
+	[autoBracketingCounts addObject:autoBracketingCount9];
+	self.autoBracketingCounts = autoBracketingCounts;
+	
+	// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢を構築します。
+	// ループで処理するようしておけばよかった...
+	NSMutableArray *autoBracketingSteps = [[NSMutableArray alloc] init];
+	NSDictionary *autoBracketingStep1 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 1 Step", nil),
+		ItemSelectionViewItemValueKey:@(1)
+	};
+	NSDictionary *autoBracketingStep2 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 2 Steps", nil),
+		ItemSelectionViewItemValueKey:@(2)
+	};
+	NSDictionary *autoBracketingStep3 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 3 Steps", nil),
+		ItemSelectionViewItemValueKey:@(3)
+	};
+	NSDictionary *autoBracketingStep4 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 4 Steps", nil),
+		ItemSelectionViewItemValueKey:@(4)
+	};
+	NSDictionary *autoBracketingStep5 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 5 Steps", nil),
+		ItemSelectionViewItemValueKey:@(5)
+	};
+	NSDictionary *autoBracketingStep6 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 6 Steps", nil),
+		ItemSelectionViewItemValueKey:@(6)
+	};
+	NSDictionary *autoBracketingStep7 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 7 Steps", nil),
+		ItemSelectionViewItemValueKey:@(7)
+	};
+	NSDictionary *autoBracketingStep8 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 8 Steps", nil),
+		ItemSelectionViewItemValueKey:@(8)
+	};
+	NSDictionary *autoBracketingStep9 = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 9 Steps", nil),
+		ItemSelectionViewItemValueKey:@(9)
+	};
+	[autoBracketingSteps addObject:autoBracketingStep1];
+	[autoBracketingSteps addObject:autoBracketingStep2];
+	[autoBracketingSteps addObject:autoBracketingStep3];
+	[autoBracketingSteps addObject:autoBracketingStep4];
+	[autoBracketingSteps addObject:autoBracketingStep5];
+	[autoBracketingSteps addObject:autoBracketingStep6];
+	[autoBracketingSteps addObject:autoBracketingStep7];
+	[autoBracketingSteps addObject:autoBracketingStep8];
+	[autoBracketingSteps addObject:autoBracketingStep9];
+	self.autoBracketingSteps = autoBracketingSteps;
+	
 	// 監視するカメラプロパティ名とそれに紐づいた対応処理(メソッド名)を対とする辞書を用意して、
 	// Objective-CのKVOチックに、カメラプロパティに変化があったらその個別処理を呼び出せるようにしてみます。
 	NSMutableDictionary *cameraPropertyObserver = [[NSMutableDictionary alloc] init];
@@ -92,6 +186,9 @@
 	self.showExposeMovieSelectCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showTakeDriveCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showContinuousShootingVelocityCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showAutoBracketingModeCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showAutoBracketingCountCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showAutoBracketingStepCell.detailTextLabel.text = emptyDetailTextLabel;
 	[self tableViewCell:self.showApertureCell enabled:NO];
 	[self tableViewCell:self.showShutterCell enabled:NO];
 	[self tableViewCell:self.showExprevCell enabled:NO];
@@ -100,6 +197,9 @@
 	[self tableViewCell:self.showExposeMovieSelectCell enabled:NO];
 	[self tableViewCell:self.showTakeDriveCell enabled:NO];
 	[self tableViewCell:self.showContinuousShootingVelocityCell enabled:NO];
+	[self tableViewCell:self.showAutoBracketingModeCell enabled:NO];
+	[self tableViewCell:self.showAutoBracketingCountCell enabled:NO];
+	[self tableViewCell:self.showAutoBracketingStepCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -166,6 +266,9 @@
 	[self updateShowExposeMovieSelectCell];
 	[self updateShowTakeDriveCell];
 	[self updateShowContinuousShootingVelocityCell];
+	[self updateShowAutoBracketingModeCell];
+	[self updateShowAutoBracketingCountCell];
+	[self updateShowAutoBracketingStepCell];
 	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -189,6 +292,9 @@
 	[self tableViewCell:self.showExposeMovieSelectCell enabled:NO];
 	[self tableViewCell:self.showTakeDriveCell enabled:NO];
 	[self tableViewCell:self.showContinuousShootingVelocityCell enabled:NO];
+	[self tableViewCell:self.showAutoBracketingModeCell enabled:NO];
+	[self tableViewCell:self.showAutoBracketingCountCell enabled:NO];
+	[self tableViewCell:self.showAutoBracketingStepCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -234,6 +340,45 @@
 		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
 		viewController.property = CameraPropertyContinuousShootingVelocity;
 		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowAutoBracketingMode"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.title = self.showAutoBracketingModeCell.textLabel.text;
+		viewController.tag = [CameraPropertyAutoBracketingMode hash];
+		viewController.items = self.autoBracketingModes;
+		AppCamera *camera = GetAppCamera();
+		viewController.selectedItemIndex = camera.autoBracketingMode;
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowAutoBracketingCount"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.title = self.showAutoBracketingCountCell.textLabel.text;
+		viewController.tag = [CameraPropertyAutoBracketingCount hash];
+		viewController.items = self.autoBracketingCounts;
+		AppCamera *camera = GetAppCamera();
+		[self.autoBracketingCounts enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+			NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
+			if (camera.autoBracketingCount == count) {
+				viewController.selectedItemIndex = index;
+				*stop = YES;
+			}
+		}];
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowAutoBracketingStep"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.title = self.showAutoBracketingStepCell.textLabel.text;
+		viewController.tag = [CameraPropertyAutoBracketingStep hash];
+		viewController.items = self.autoBracketingSteps;
+		AppCamera *camera = GetAppCamera();
+		[self.autoBracketingSteps enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+			NSInteger step = [item[ItemSelectionViewItemValueKey] integerValue];
+			if (camera.autoBracketingStep == step) {
+				viewController.selectedItemIndex = index;
+				*stop = YES;
+			}
+		}];
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
 	} else {
 		// 何もしません。
 	}
@@ -244,25 +389,38 @@
 	DEBUG_LOG(@"index=%ld", (long)index);
 	
 	// カメラプロパティに応じた処理を呼び出します。
-	NSString *property = ((CameraPropertyValueSelectionViewController *)controller).property;
-	if ([property isEqualToString:CameraPropertyAperture]) {
-		[self didChangeAperture];
-	} else if ([property isEqualToString:CameraPropertyShutter]) {
-		[self didChangeShutter];
-	} else if ([property isEqualToString:CameraPropertyExprev]) {
-		[self didChangeExprev];
-	} else if ([property isEqualToString:CameraPropertyIso]) {
-		[self didChangeIso];
-	} else if ([property isEqualToString:CameraPropertyTakemode]) {
-		[self didChangeTakemode];
-	} else if ([property isEqualToString:CameraPropertyExposeMovieSelect]) {
-		[self didChangeExposeMovieSelect];
-	} else if ([property isEqualToString:CameraPropertyTakeDrive]) {
-		[self didChangeTakeDrive];
-	} else if ([property isEqualToString:CameraPropertyContinuousShootingVelocity]) {
-		[self didChangeContinuousShootingVelocity];
-	} else {
-		DEBUG_LOG(@"Unknown property: %@", property);
+	if ([controller isMemberOfClass:[ItemSelectionViewController class]]) {
+		NSUInteger hash = controller.tag;
+		if (hash == [CameraPropertyAutoBracketingMode hash]) {
+			[self didSelectAutoBracketingMode:index];
+		} else if (hash == [CameraPropertyAutoBracketingCount hash]) {
+			[self didSelectAutoBracketingCount:index];
+		} else if (hash == [CameraPropertyAutoBracketingStep hash]) {
+			[self didSelectAutoBracketingSteps:index];
+		} else {
+			DEBUG_LOG(@"Unknown hash: %lu", (unsigned long)hash);
+		}
+	} else if ([controller isMemberOfClass:[CameraPropertyValueSelectionViewController class]]) {
+		NSString *property = ((CameraPropertyValueSelectionViewController *)controller).property;
+		if ([property isEqualToString:CameraPropertyAperture]) {
+			[self didChangeAperture];
+		} else if ([property isEqualToString:CameraPropertyShutter]) {
+			[self didChangeShutter];
+		} else if ([property isEqualToString:CameraPropertyExprev]) {
+			[self didChangeExprev];
+		} else if ([property isEqualToString:CameraPropertyIso]) {
+			[self didChangeIso];
+		} else if ([property isEqualToString:CameraPropertyTakemode]) {
+			[self didChangeTakemode];
+		} else if ([property isEqualToString:CameraPropertyExposeMovieSelect]) {
+			[self didChangeExposeMovieSelect];
+		} else if ([property isEqualToString:CameraPropertyTakeDrive]) {
+			[self didChangeTakeDrive];
+		} else if ([property isEqualToString:CameraPropertyContinuousShootingVelocity]) {
+			[self didChangeContinuousShootingVelocity];
+		} else {
+			DEBUG_LOG(@"Unknown property: %@", property);
+		}
 	}
 }
 
@@ -399,6 +557,10 @@
 	[self tableViewCell:self.showExposeMovieSelectCell enabled:[camera canSetCameraProperty:CameraPropertyExposeMovieSelect]];
 	[self tableViewCell:self.showTakeDriveCell enabled:[camera canSetCameraProperty:CameraPropertyTakeDrive]];
 	[self tableViewCell:self.showContinuousShootingVelocityCell enabled:[camera canSetCameraProperty:CameraPropertyContinuousShootingVelocity]];
+	BOOL canSetAutoBracketing = [camera canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingModeCell enabled:canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingCountCell enabled:canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingStepCell enabled:canSetAutoBracketing];
 }
 
 /// 動画撮影モードの値が変わった時に呼び出されます。
@@ -423,9 +585,17 @@
 /// ドライブモードの値が変わった時に呼び出されます。
 - (void)didChangeTakeDrive {
 	DEBUG_LOG(@"");
-	
+
 	// 画面表示を更新します。
 	[self updateShowTakeDriveCell];
+
+	// カメラプロパティのドライブモード(TAKE_DRIVE)が変更されると、その他のカメラプロパティの設定可不可状態が変化するため、
+	// 最新のカメラプロパティ値設定可不可を元にそれぞれのセルの有効無効を設定し直します。
+	AppCamera *camera = GetAppCamera();
+	BOOL canSetAutoBracketing = [camera canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingModeCell enabled:canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingCountCell enabled:canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingStepCell enabled:canSetAutoBracketing];
 }
 
 /// 連写速度の値が変わった時に呼び出されます。
@@ -434,6 +604,54 @@
 	
 	// 画面表示を更新します。
 	[self updateShowContinuousShootingVelocityCell];
+}
+
+/// オートブラケットモードの選択肢が選択された時に呼び出されます。
+- (void)didSelectAutoBracketingMode:(NSUInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// 選択したオートブラケットモードを取得します。
+	NSDictionary *item = self.autoBracketingModes[itemIndex];
+	AppCameraAutoBracketingMode mode = [item[ItemSelectionViewItemValueKey] integerValue];
+
+	// オートブラケットモードを設定します。
+	AppCamera *camera = GetAppCamera();
+	camera.autoBracketingMode = mode;
+	
+	// 画面表示を更新します。
+	[self updateShowAutoBracketingModeCell];
+}
+
+/// オートブラケットで撮影する枚数の選択肢が選択された時に呼び出されます。
+- (void)didSelectAutoBracketingCount:(NSUInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// 選択した枚数を取得します。
+	NSDictionary *item = self.autoBracketingCounts[itemIndex];
+	NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
+
+	// オートブラケットで撮影する枚数を設定します。
+	AppCamera *camera = GetAppCamera();
+	camera.autoBracketingCount = count;
+	
+	// 画面表示を更新します。
+	[self updateShowAutoBracketingCountCell];
+}
+
+/// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢が選択された時に呼び出されます。
+- (void)didSelectAutoBracketingSteps:(NSUInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// 選択したステップ数を取得します。
+	NSDictionary *item = self.autoBracketingSteps[itemIndex];
+	NSInteger step = [item[ItemSelectionViewItemValueKey] integerValue];
+	
+	// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数を設定します。
+	AppCamera *camera = GetAppCamera();
+	camera.autoBracketingStep = step;
+	
+	// 画面表示を更新します。
+	[self updateShowAutoBracketingStepCell];
 }
 
 #pragma mark -
@@ -540,6 +758,61 @@
 	DEBUG_LOG(@"");
 	
 	[self updateCameraPropertyCell:self.showContinuousShootingVelocityCell name:CameraPropertyContinuousShootingVelocity completion:nil];
+}
+
+/// オートブラケットモードを表示します。
+- (void)updateShowAutoBracketingModeCell {
+	DEBUG_LOG(@"");
+
+	AppCamera *camera = GetAppCamera();
+	NSDictionary *item = self.autoBracketingModes[camera.autoBracketingMode];
+	NSString *autoBracketingMode = item[ItemSelectionViewItemTitleKey];
+	self.showAutoBracketingModeCell.detailTextLabel.text = autoBracketingMode;
+	// タップの有効無効を設定します。
+	BOOL canSetAutoBracketing = [camera canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingModeCell enabled:canSetAutoBracketing];
+}
+
+/// オートブラケットで撮影する枚数を表示します。
+- (void)updateShowAutoBracketingCountCell {
+	DEBUG_LOG(@"");
+	
+	// 枚数の値を表示用の文言に変換します。
+	__block NSString *autoBracketingCount = NSLocalizedString(@"Unknown", nil);
+	AppCamera *camera = GetAppCamera();
+	[self.autoBracketingCounts enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
+		if (camera.autoBracketingCount == count) {
+			autoBracketingCount = item[ItemSelectionViewItemTitleKey];
+			*stop = YES;
+		}
+	}];
+	// 表示を更新します。
+	self.showAutoBracketingCountCell.detailTextLabel.text = autoBracketingCount;
+	// タップの有効無効を設定します。
+	BOOL canSetAutoBracketing = [camera canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingCountCell enabled:canSetAutoBracketing];
+}
+
+/// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数を表示します。
+- (void)updateShowAutoBracketingStepCell {
+	DEBUG_LOG(@"");
+	
+	// ステップ数の値を表示用の文言に変換します。
+	__block NSString *autoBracketingStep = NSLocalizedString(@"Unknown", nil);
+	AppCamera *camera = GetAppCamera();
+	[self.autoBracketingSteps enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		NSInteger step = [item[ItemSelectionViewItemValueKey] integerValue];
+		if (camera.autoBracketingStep == step) {
+			autoBracketingStep = item[ItemSelectionViewItemTitleKey];
+			*stop = YES;
+		}
+	}];
+	// 表示を更新します。
+	self.showAutoBracketingStepCell.detailTextLabel.text = autoBracketingStep;
+	// タップの有効無効を設定します。
+	BOOL canSetAutoBracketing = [camera canSetAutoBracketing];
+	[self tableViewCell:self.showAutoBracketingStepCell enabled:canSetAutoBracketing];
 }
 
 /// カメラプロパティ値を表示します。

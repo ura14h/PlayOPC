@@ -68,76 +68,24 @@
 
 	// オートブラケットモードの選択肢を構築します。
 	NSMutableArray *autoBracketingCounts = [[NSMutableArray alloc] init];
-	NSDictionary *autoBracketingCount3 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"3 Images", nil),
-		ItemSelectionViewItemValueKey:@(3)
-	};
-	NSDictionary *autoBracketingCount5 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"5 Images", nil),
-		ItemSelectionViewItemValueKey:@(5)
-	};
-	NSDictionary *autoBracketingCount7 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"7 Images", nil),
-		ItemSelectionViewItemValueKey:@(7)
-	};
-	NSDictionary *autoBracketingCount9 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"9 Images", nil),
-		ItemSelectionViewItemValueKey:@(9)
-	};
-	[autoBracketingCounts addObject:autoBracketingCount3];
-	[autoBracketingCounts addObject:autoBracketingCount5];
-	[autoBracketingCounts addObject:autoBracketingCount7];
-	[autoBracketingCounts addObject:autoBracketingCount9];
+	for (NSInteger count = 3; count < 10; count += 2) {
+		NSDictionary *autoBracketingCount = @{
+			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"%ld", nil), (long)count],
+			ItemSelectionViewItemValueKey:@(3)
+		};
+		[autoBracketingCounts addObject:autoBracketingCount];
+	}
 	self.autoBracketingCounts = autoBracketingCounts;
 	
 	// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢を構築します。
-	// ループで処理するようしておけばよかった...
 	NSMutableArray *autoBracketingSteps = [[NSMutableArray alloc] init];
-	NSDictionary *autoBracketingStep1 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 1 Step", nil),
-		ItemSelectionViewItemValueKey:@(1)
-	};
-	NSDictionary *autoBracketingStep2 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 2 Steps", nil),
-		ItemSelectionViewItemValueKey:@(2)
-	};
-	NSDictionary *autoBracketingStep3 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 3 Steps", nil),
-		ItemSelectionViewItemValueKey:@(3)
-	};
-	NSDictionary *autoBracketingStep4 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 4 Steps", nil),
-		ItemSelectionViewItemValueKey:@(4)
-	};
-	NSDictionary *autoBracketingStep5 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 5 Steps", nil),
-		ItemSelectionViewItemValueKey:@(5)
-	};
-	NSDictionary *autoBracketingStep6 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 6 Steps", nil),
-		ItemSelectionViewItemValueKey:@(6)
-	};
-	NSDictionary *autoBracketingStep7 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 7 Steps", nil),
-		ItemSelectionViewItemValueKey:@(7)
-	};
-	NSDictionary *autoBracketingStep8 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 8 Steps", nil),
-		ItemSelectionViewItemValueKey:@(8)
-	};
-	NSDictionary *autoBracketingStep9 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"± 9 Steps", nil),
-		ItemSelectionViewItemValueKey:@(9)
-	};
-	[autoBracketingSteps addObject:autoBracketingStep1];
-	[autoBracketingSteps addObject:autoBracketingStep2];
-	[autoBracketingSteps addObject:autoBracketingStep3];
-	[autoBracketingSteps addObject:autoBracketingStep4];
-	[autoBracketingSteps addObject:autoBracketingStep5];
-	[autoBracketingSteps addObject:autoBracketingStep6];
-	[autoBracketingSteps addObject:autoBracketingStep7];
-	[autoBracketingSteps addObject:autoBracketingStep8];
-	[autoBracketingSteps addObject:autoBracketingStep9];
+	for (NSInteger step = 1; step < 10; step++) {
+		NSDictionary *autoBracketingStep = @{
+			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"± %ld", nil), (long)step],
+			ItemSelectionViewItemValueKey:@(step)
+		};
+		[autoBracketingSteps addObject:autoBracketingStep];
+	}
 	self.autoBracketingSteps = autoBracketingSteps;
 	
 	// 監視するカメラプロパティ名とそれに紐づいた対応処理(メソッド名)を対とする辞書を用意して、

@@ -243,6 +243,9 @@ static NSString *const CameraSettingSnapshotFormatVersion = @"1.0"; ///< ファ�
 static NSString *const CameraSettingSnapshotFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
 static NSString *const CameraSettingSnapshotPropertyValuesKey = @"PropertyValues"; ///< ファイルのカメラプロパティ値の辞書キー
 static NSString *const CameraSettingSnapshotLiveViewSizeKey = @"LiveViewSize"; ///< ファイルのライブビューサイズ設定の辞書キー
+static NSString *const CameraSettingSnapshotAutoBracketingModeKey = @"AutoBracketingMode"; ///< オートブラケット撮影設定の辞書キー
+static NSString *const CameraSettingSnapshotAutoBracketingCountKey = @"AutoBracketingCount"; ///< オートブラケット撮影設定の辞書キー
+static NSString *const CameraSettingSnapshotAutoBracketingStepKey = @"AutoBracketingStep"; ///< オートブラケット撮影設定の辞書キー
 static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"MagnifyingLiveViewScale"; ///< ライブビュー拡大倍率の辞書キー
 
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
@@ -333,40 +336,56 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	OLYCameraRunMode previousRunMode = self.runMode;
 	BOOL result = [super changeRunMode:mode error:error];
 	
-	if (result && self.runMode != previousRunMode) {
-		// デジタルズームのプロパティを更新します。
-		float minimumDigitalZoomScale = NAN;
-		float maximumDigitalZoomScale = NAN;
-		float currentDigitalZoomScale = NAN;
-		if (self.runMode == OLYCameraRunModeRecording) {
-			NSDictionary *range = [super digitalZoomScaleRange:error];
-			if (range &&
-				range[OLYCameraDigitalZoomScaleRangeMinimumKey] &&
-				range[OLYCameraDigitalZoomScaleRangeMaximumKey]) {
-				minimumDigitalZoomScale = [range[OLYCameraDigitalZoomScaleRangeMinimumKey] floatValue];
-				maximumDigitalZoomScale = [range[OLYCameraDigitalZoomScaleRangeMaximumKey] floatValue];
-				currentDigitalZoomScale = MIN(MAX(1.0, minimumDigitalZoomScale), maximumDigitalZoomScale);
-			}
-		}
-		if ((isnan(self.minimumDigitalZoomScale) && !isnan(minimumDigitalZoomScale)) ||
-			(!isnan(self.minimumDigitalZoomScale) && isnan(minimumDigitalZoomScale)) ||
-			self.minimumDigitalZoomScale != minimumDigitalZoomScale) {
-			self.minimumDigitalZoomScale = minimumDigitalZoomScale;
-		}
-		if ((isnan(self.maximumDigitalZoomScale) && !isnan(maximumDigitalZoomScale)) ||
-			(!isnan(self.maximumDigitalZoomScale) && isnan(maximumDigitalZoomScale)) ||
-			self.maximumDigitalZoomScale != maximumDigitalZoomScale) {
-			self.maximumDigitalZoomScale = maximumDigitalZoomScale;
-		}
-		if ((isnan(self.currentDigitalZoomScale) && !isnan(currentDigitalZoomScale)) ||
-			(!isnan(self.currentDigitalZoomScale) && isnan(currentDigitalZoomScale)) ||
-			self.currentDigitalZoomScale != currentDigitalZoomScale) {
-			self.currentDigitalZoomScale = currentDigitalZoomScale;
-		}
-		// オートフォーカスと自動測光のフラグを初期化します。
-		self.runningLockingAutoFocus = NO;
-		self.runningLockingAutoExposure = NO;
+	if (result && self.runMode == previousRunMode) {
+		return result;
 	}
+
+#if 0 // 以前の状態に復帰しなくても問題ないようなので実装を無効にしておきます。
+	// オートブラケット撮影のプロパティを更新します。
+	_autoBracketingMode = AppCameraAutoBracketingModeDisabled;
+	_autoBracketingCount = 3;
+	_autoBracketingStep = 1;
+#endif
+	
+	// デジタルズームのプロパティを更新します。
+	float minimumDigitalZoomScale = NAN;
+	float maximumDigitalZoomScale = NAN;
+	float currentDigitalZoomScale = NAN;
+	if (self.runMode == OLYCameraRunModeRecording) {
+		NSDictionary *range = [super digitalZoomScaleRange:error];
+		if (range &&
+			range[OLYCameraDigitalZoomScaleRangeMinimumKey] &&
+			range[OLYCameraDigitalZoomScaleRangeMaximumKey]) {
+			minimumDigitalZoomScale = [range[OLYCameraDigitalZoomScaleRangeMinimumKey] floatValue];
+			maximumDigitalZoomScale = [range[OLYCameraDigitalZoomScaleRangeMaximumKey] floatValue];
+			currentDigitalZoomScale = MIN(MAX(1.0, minimumDigitalZoomScale), maximumDigitalZoomScale);
+		}
+	}
+	if ((isnan(self.minimumDigitalZoomScale) && !isnan(minimumDigitalZoomScale)) ||
+		(!isnan(self.minimumDigitalZoomScale) && isnan(minimumDigitalZoomScale)) ||
+		self.minimumDigitalZoomScale != minimumDigitalZoomScale) {
+		self.minimumDigitalZoomScale = minimumDigitalZoomScale;
+	}
+	if ((isnan(self.maximumDigitalZoomScale) && !isnan(maximumDigitalZoomScale)) ||
+		(!isnan(self.maximumDigitalZoomScale) && isnan(maximumDigitalZoomScale)) ||
+		self.maximumDigitalZoomScale != maximumDigitalZoomScale) {
+		self.maximumDigitalZoomScale = maximumDigitalZoomScale;
+	}
+	if ((isnan(self.currentDigitalZoomScale) && !isnan(currentDigitalZoomScale)) ||
+		(!isnan(self.currentDigitalZoomScale) && isnan(currentDigitalZoomScale)) ||
+		self.currentDigitalZoomScale != currentDigitalZoomScale) {
+		self.currentDigitalZoomScale = currentDigitalZoomScale;
+	}
+
+#if 0 // 以前の状態に復帰しなくても問題ないようなので実装を無効にしておきます。
+	// ライブビュー拡大のプロパティを更新します。
+	_magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
+#endif
+	
+	// オートフォーカスと自動測光のフラグを初期化します。
+	self.runningLockingAutoFocus = NO;
+	self.runningLockingAutoExposure = NO;
+
 	return result;
 }
 
@@ -1194,6 +1213,14 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	NSString *liveViewSize = NSStringFromCGSize(self.liveViewSize);
 	DEBUG_LOG(@"liveViewSize=%@", liveViewSize);
 
+	// 現在設定されているオートブラケット撮影の設定を取得します。
+	NSNumber *autoBracketingMode = @(self.autoBracketingMode);
+	NSNumber *autoBracketingCount = @(self.autoBracketingCount);
+	NSNumber *autoBracketingStep = @(self.autoBracketingStep);
+	DEBUG_LOG(@"autoBracketingMode=%@", autoBracketingMode);
+	DEBUG_LOG(@"autoBracketingCount=%@", autoBracketingCount);
+	DEBUG_LOG(@"autoBracketingStep=%@", autoBracketingStep);
+	
 	// 現在設定されているライブビュー拡大倍率を取得します。
 	NSNumber *magnifyingLiveViewScale = @(self.magnifyingLiveViewScale);
 	DEBUG_LOG(@"magnifyingLiveViewScale=%@", magnifyingLiveViewScale);
@@ -1203,6 +1230,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		CameraSettingSnapshotFormatVersionKey: CameraSettingSnapshotFormatVersion,
 		CameraSettingSnapshotPropertyValuesKey: propertyValues,
 		CameraSettingSnapshotLiveViewSizeKey: liveViewSize,
+		CameraSettingSnapshotAutoBracketingModeKey: autoBracketingMode,
+		CameraSettingSnapshotAutoBracketingCountKey: autoBracketingCount,
+		CameraSettingSnapshotAutoBracketingStepKey: autoBracketingStep,
 		CameraSettingSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
 	};
 	
@@ -1253,6 +1283,24 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (![super changeLiveViewSize:liveViewSize error:error]) {
 		return NO;
 	}
+	
+	// 読み込んだオートブラケット撮影を設定します。
+	AppCameraAutoBracketingMode autoBracketingMode = AppCameraAutoBracketingModeDisabled;
+	if (snapshot[CameraSettingSnapshotAutoBracketingModeKey]) {
+		NSInteger modeValue = [snapshot[CameraSettingSnapshotAutoBracketingModeKey] integerValue];
+		autoBracketingMode = (AppCameraAutoBracketingMode)modeValue;
+	}
+	self.autoBracketingMode = autoBracketingMode;
+	NSInteger autoBracketingCount = 3;
+	if (snapshot[CameraSettingSnapshotAutoBracketingCountKey]) {
+		autoBracketingCount = [snapshot[CameraSettingSnapshotAutoBracketingCountKey] integerValue];
+	}
+	self.autoBracketingCount = autoBracketingCount;
+	NSInteger autoBracketingStep = 1;
+	if (snapshot[CameraSettingSnapshotAutoBracketingStepKey]) {
+		autoBracketingStep = [snapshot[CameraSettingSnapshotAutoBracketingStepKey] integerValue];
+	}
+	self.autoBracketingStep = autoBracketingStep;
 	
 	// 読み込んだライブビュー拡大倍率を設定します。
 	OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;

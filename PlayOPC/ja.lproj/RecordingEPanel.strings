@@ -1,15 +1,24 @@
 
+/* Class = "UILabel"; text = "$autoBracketingCount"; ObjectID = "3tk-1d-olg"; */
+"3tk-1d-olg.text" = "$autoBracketingCount";
+
 /* Class = "UILabel"; text = "$continuousShootingVelocity"; ObjectID = "9Jq-w7-hF7"; */
 "9Jq-w7-hF7.text" = "$continuousShootingVelocity";
 
 /* Class = "UINavigationItem"; title = "Exposure & Action"; ObjectID = "DSa-A7-tX7"; */
 "DSa-A7-tX7.title" = "露出と撮影操作";
 
+/* Class = "UILabel"; text = "$autoBracketingMode"; ObjectID = "DdA-bl-Kqz"; */
+"DdA-bl-Kqz.text" = "$autoBracketingMode";
+
 /* Class = "UILabel"; text = "$shutter"; ObjectID = "EtA-yH-TeH"; */
 "EtA-yH-TeH.text" = "$shutter";
 
 /* Class = "UITableViewSection"; headerTitle = "Exposure Parameters"; ObjectID = "Jmy-y1-zNn"; */
 "Jmy-y1-zNn.headerTitle" = "露出パラメータ";
+
+/* Class = "UILabel"; text = "Step"; ObjectID = "JvX-Bx-7bj"; */
+"JvX-Bx-7bj.text" = "ステップ";
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MCq-K1-x7V"; */
 "MCq-K1-x7V.title" = "戻る";
@@ -26,14 +35,29 @@
 /* Class = "UILabel"; text = "<TAKE_DRIVE>"; ObjectID = "Teu-qY-Bcb"; */
 "Teu-qY-Bcb.text" = "<TAKE_DRIVE>";
 
+/* Class = "UILabel"; text = "Count"; ObjectID = "Vc7-Bh-NVk"; */
+"Vc7-Bh-NVk.text" = "枚数";
+
 /* Class = "UILabel"; text = "$takemode"; ObjectID = "WXB-85-o52"; */
 "WXB-85-o52.text" = "$takemode";
+
+/* Class = "UILabel"; text = "$autoBracketingStep"; ObjectID = "XQY-LA-W0p"; */
+"XQY-LA-W0p.text" = "$autoBracketingStep";
+
+/* Class = "UILabel"; text = "Mode"; ObjectID = "Xab-Ot-xmV"; */
+"Xab-Ot-xmV.text" = "モード";
 
 /* Class = "UILabel"; text = "<SHUTTER>"; ObjectID = "aJE-zH-H1d"; */
 "aJE-zH-H1d.text" = "<SHUTTER>";
 
 /* Class = "UILabel"; text = "$takeDrive"; ObjectID = "cjN-kg-VhB"; */
 "cjN-kg-VhB.text" = "$takeDrive";
+
+/* Class = "UITableViewSection"; footerTitle = "Auto bracketing enables when shooting mode is in P/A/S/M mode."; ObjectID = "cws-Wj-1YC"; */
+"cws-Wj-1YC.footerTitle" = "オートブラケット撮影は撮影モードがP/A/S/Mの時に利用できます。";
+
+/* Class = "UITableViewSection"; headerTitle = "Auto Bracketing"; ObjectID = "cws-Wj-1YC"; */
+"cws-Wj-1YC.headerTitle" = "オートブラケット撮影";
 
 /* Class = "UILabel"; text = "$iso"; ObjectID = "dZP-71-hW9"; */
 "dZP-71-hW9.text" = "$iso";

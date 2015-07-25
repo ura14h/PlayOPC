@@ -245,10 +245,9 @@
 	DEBUG_LOG(@"");
 	
 	// 実行するかを確認します。
-	NSString *title = NSLocalizedString(@"$title:SharePicture", @"PictureContentViewController.didTapShareButton");
 	NSString *message = NSLocalizedString(@"$desc:SharePicture", @"PictureContentViewController.didTapShareButton");
-	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.barButtonItem = self.shareButton;
 	
@@ -264,7 +263,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"$title:cancelSharePicture", @"PictureContentViewController.didTapShareButton");
+		NSString *title = NSLocalizedString(@"$title:CancelSharePicture", @"PictureContentViewController.didTapShareButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];

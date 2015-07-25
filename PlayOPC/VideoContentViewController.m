@@ -185,7 +185,6 @@
 	}
 	
 	// 実行するかを確認します。
-	NSString *title = NSLocalizedString(@"$title:ShareVideo", @"VideoContentViewController.didTapShareButton");
 	NSString *message;
 	if (isLargeContent) {
 		// サイズの大きすぎる動画はダウンロードにとても時間がかかるのでその旨を警告します。
@@ -193,8 +192,8 @@
 	} else {
 		message = NSLocalizedString(@"$desc:ShareVideo", @"VideoContentViewController.didTapShareButton");
 	}
-	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
-	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.barButtonItem = (UIBarButtonItem *)sender;
 	
@@ -225,7 +224,7 @@
 
 	// メッセージにはリサイズ処理の見積り時間も表示します。
 	NSString *title = NSLocalizedString(@"$title:ResizeVideo", @"VideoContentViewController.didTapResizeButton");
-	NSString *messageFormat = NSLocalizedString(@"$desc:ResizeVideo", @"VideoContentViewController.didTapResizeButton");
+	NSString *messageFormat = NSLocalizedString(@"$desc:ResizeVideo(wait %1.0f sec)", @"VideoContentViewController.didTapResizeButton");
 	NSString *message = [NSString stringWithFormat:messageFormat, self.estimatedPlaybackTime];
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];

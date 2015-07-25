@@ -347,7 +347,7 @@
 "$desc:CouldNotDiscoverWifiConnection" = "カメラの電源は入れましたが、Wi-Fi接続は見つかりませんでした。このデバイスが自動で接続しない状態か、他のデバイスがすでに接続中かもしれません。";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
-"$desc:CouldNotOpenOACentralByNoInstalled" = "オリンパス OA.Centralがインストールされていません。";
+"$desc:CouldNotOpenOACentralByNoInstalled" = "オリンパスのOA.Centralがインストールされていません。";
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
  ReferenceViewController.shouldStartLoadWithRequest */
@@ -534,7 +534,7 @@
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
  ReferenceViewController.shouldStartLoadWithRequest */
-"$title:CouldNotOpenWebLink" = "ページのリンクが開けません";
+"$title:CouldNotOpenWebLink" = "リンクが開けません";
 
 /* PictureContentViewController.protectPicture */
 "$title:CouldNotProtectPicture" = "写真をプロテクトできません";

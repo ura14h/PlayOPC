@@ -360,6 +360,16 @@
 	if (!self.startingActivity) {
 		return;
 	}
+
+	// メインスレッド以外から呼び出された場合は、メインスレッドに投げなおします。
+	if (![NSThread isMainThread]) {
+		__weak ZPanelViewController *weakSelf = self;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+			[weakSelf cameraDidStopDrivingZoomLens:camera];
+		}];
+		return;
+	}
 	
 	self.opticalZoomingBySlider = NO;
 	[self updateOpticalZoomingSliderEnabled:YES];

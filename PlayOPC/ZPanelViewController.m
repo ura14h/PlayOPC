@@ -59,19 +59,19 @@
 	// 光学ズーム駆動速度の選択肢を構築します。
 	NSMutableArray *opticalZoomingSpeeds = [[NSMutableArray alloc] init];
 	NSDictionary *speedSlow = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Slow", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:OpticalZoomingSpeedSlow", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraDrivingZoomLensSpeedSlow)
 	};
 	NSDictionary *speedNormal = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Normal", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:OpticalZoomingSpeedNormal", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraDrivingZoomLensSpeedNormal)
 	};
 	NSDictionary *speedFast = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Fast", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:OpticalZoomingSpeedFast", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraDrivingZoomLensSpeedFast)
 	};
 	NSDictionary *speedBurst = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Busrt", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:OpticalZoomingSpeedBusrt", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraDrivingZoomLensSpeedBurst)
 	};
 	[opticalZoomingSpeeds addObject:speedSlow];
@@ -85,19 +85,19 @@
 	// TODO: implement!
 	NSMutableArray *magnifyingLiveViewScales = [[NSMutableArray alloc] init];
 	NSDictionary *scaleX5 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"5 times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:MagnifyingLiveViewScale5", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX5)
 	};
 	NSDictionary *scaleX7 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"7 times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:MagnifyingLiveViewScale7", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX7)
 	};
 	NSDictionary *scaleX10 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"10 times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:MagnifyingLiveViewScale10", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX10)
 	};
 	NSDictionary *scaleX14 = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"14 times", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:MagnifyingLiveViewScale14", @"ZPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(OLYCameraMagnifyingLiveViewScaleX14)
 	};
 	[magnifyingLiveViewScales addObject:scaleX5];
@@ -419,7 +419,7 @@
 				[weakSelf tableViewCell:weakSelf.zoomTowardWideEndCell enabled:YES];
 				[weakSelf tableViewCell:weakSelf.zoomTowardTeleEndCell enabled:YES];
 			}];
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not zoom", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartDrivingZoomLens", @"ZPanelViewController.didChangeOpticalZoomingSliderValue")];
 			return;
 		}
 		
@@ -454,7 +454,7 @@
 				[weakSelf tableViewCell:weakSelf.zoomTowardWideEndCell enabled:YES];
 				[weakSelf tableViewCell:weakSelf.zoomTowardTeleEndCell enabled:YES];
 			}];
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not zoom", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartDrivingZoomLens", @"ZPanelViewController.didSelectRowAtZoomTowardWideEnd")];
 			return;
 		}
 		
@@ -489,7 +489,7 @@
 				[weakSelf tableViewCell:weakSelf.zoomTowardWideEndCell enabled:YES];
 				[weakSelf tableViewCell:weakSelf.zoomTowardTeleEndCell enabled:YES];
 			}];
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not zoom", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartDrivingZoomLens", @"ZPanelViewController.didSelectRowAtZoomTowardTeleEnd")];
 			return;
 		}
 		
@@ -553,7 +553,7 @@
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				[weakSelf updateDigitalZoomingSliderEnabled:YES];
 			}];
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not zoom", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotChangeDigitalZoomScale", @"ZPanelViewController.didChangeDigitalZoomingSliderValue")];
 			return;
 		}
 		
@@ -592,7 +592,7 @@
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera startMagnifyingLiveView:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start magnifying", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartMagnifying", @"ZPanelViewController.didChangeMagnifyingLiveView")];
 			return;
 		}
 		
@@ -615,7 +615,7 @@
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera stopMagnifyingLiveView:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not stop magnifying", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopMagnifying", @"ZPanelViewController.didSelectRowAtStopMagnifyingLiveView")];
 			return;
 		}
 		
@@ -643,7 +643,7 @@
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera changeMagnifyingLiveViewScale:scale error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not change scale", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotChangeMagnifyingScale", @"ZPanelViewController.didSelectMagnifyingLiveViewScaleItem")];
 			return;
 		}
 
@@ -664,9 +664,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *opticalZoomingMinimumFocalLength;
 	if (!isnan(camera.minimumFocalLength)) {
-		opticalZoomingMinimumFocalLength =  [NSString stringWithFormat:@"%1.1f", camera.minimumFocalLength];
+		opticalZoomingMinimumFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingMinimumFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell"), camera.minimumFocalLength];
 	} else {
-		opticalZoomingMinimumFocalLength = NSLocalizedString(@"Unknown", nil);
+		opticalZoomingMinimumFocalLength = NSLocalizedString(@"$cell:OpticalZoomingMinimumFocalLengthUnknown", @"ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell");
 	}
 	// 表示を更新します。
 	self.opticalZoomingMinimumFocalLengthCell.detailTextLabel.text = opticalZoomingMinimumFocalLength;
@@ -681,9 +681,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *opticalZoomingMaximumFocalLength;
 	if (!isnan(camera.maximumFocalLength)) {
-		opticalZoomingMaximumFocalLength =  [NSString stringWithFormat:@"%1.1f", camera.maximumFocalLength];
+		opticalZoomingMaximumFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingMaximumFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell"), camera.maximumFocalLength];
 	} else {
-		opticalZoomingMaximumFocalLength = NSLocalizedString(@"Unknown", nil);
+		opticalZoomingMaximumFocalLength = NSLocalizedString(@"$cell:OpticalZoomingMaximumFocalLengthUnknown", @"ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell");
 	}
 	// 表示を更新します。
 	self.opticalZoomingMaximumFocalLengthCell.detailTextLabel.text = opticalZoomingMaximumFocalLength;
@@ -698,9 +698,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *opticalZoomingCurrentFocalLength;
 	if (!isnan(camera.actualFocalLength)) {
-		opticalZoomingCurrentFocalLength =  [NSString stringWithFormat:@"%1.1f", camera.actualFocalLength];
+		opticalZoomingCurrentFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell"), camera.actualFocalLength];
 	} else {
-		opticalZoomingCurrentFocalLength = NSLocalizedString(@"Unknown", nil);
+		opticalZoomingCurrentFocalLength = NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLengthUnknown", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell");
 	}
 	// 表示を更新します。
 	self.opticalZoomingCurrentFocalLengthCell.detailTextLabel.text = opticalZoomingCurrentFocalLength;
@@ -760,9 +760,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *minimumDigitalZoomScale;
 	if (!isnan(camera.minimumDigitalZoomScale)) {
-		minimumDigitalZoomScale =  [NSString stringWithFormat:@"%1.1f", camera.minimumDigitalZoomScale];
+		minimumDigitalZoomScale =  [NSString stringWithFormat:NSLocalizedString(@"$cell:MinimumDigitalZoomScale(%1.1f times)", @"ZPanelViewController.updateDigitalZoomingMinimumScaleCell"), camera.minimumDigitalZoomScale];
 	} else {
-		minimumDigitalZoomScale = NSLocalizedString(@"Unknown", nil);
+		minimumDigitalZoomScale = NSLocalizedString(@"$cell:MinimumDigitalZoomScaleUnknown", @"ZPanelViewController.updateDigitalZoomingMinimumScaleCell");
 	}
 	// 表示を更新します。
 	self.digitalZoomingMinimumScaleCell.detailTextLabel.text = minimumDigitalZoomScale;
@@ -777,9 +777,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *maximumDigitalZoomScale;
 	if (!isnan(camera.maximumDigitalZoomScale)) {
-		maximumDigitalZoomScale =  [NSString stringWithFormat:@"%1.1f", camera.maximumDigitalZoomScale];
+		maximumDigitalZoomScale =  [NSString stringWithFormat:NSLocalizedString(@"$cell:MaximumDigitalZoomScale(%1.1f times)", @"ZPanelViewController.updateDigitalZoomingMaximumScaleCell"), camera.maximumDigitalZoomScale];
 	} else {
-		maximumDigitalZoomScale = NSLocalizedString(@"Unknown", nil);
+		maximumDigitalZoomScale = NSLocalizedString(@"$cell:MaximumDigitalZoomScaleUnknown", @"ZPanelViewController.updateDigitalZoomingMaximumScaleCell");
 	}
 	// 表示を更新します。
 	self.digitalZoomingMaximumScaleCell.detailTextLabel.text = maximumDigitalZoomScale;
@@ -794,9 +794,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *currentDigitalZoomScale;
 	if (!isnan(camera.currentDigitalZoomScale)) {
-		currentDigitalZoomScale =  [NSString stringWithFormat:@"%1.1f", camera.currentDigitalZoomScale];
+		currentDigitalZoomScale =  [NSString stringWithFormat:NSLocalizedString(@"$cell:CurrentDigitalZoomScale(%1.1f times)", @"ZPanelViewController.updateDigitalZoomingCurrentScaleCell"), camera.currentDigitalZoomScale];
 	} else {
-		currentDigitalZoomScale = NSLocalizedString(@"Unknown", nil);
+		currentDigitalZoomScale = NSLocalizedString(@"$cell:CurrentDigitalZoomScaleUnknown", @"ZPanelViewController.updateDigitalZoomingCurrentScaleCell");
 	}
 	// 表示を更新します。
 	self.digitalZoomingCurrentScaleCell.detailTextLabel.text = currentDigitalZoomScale;
@@ -848,7 +848,7 @@
 	DEBUG_LOG(@"");
 
 	// 倍率の値を表示用の文言に変換します。
-	__block NSString *magnifyingLiveViewScale = NSLocalizedString(@"Unknown", nil);
+	__block NSString *magnifyingLiveViewScale = NSLocalizedString(@"$cell:MagnifyingLiveViewScaleUnknown", @"ZPanelViewController.updateShowMagnifyingLiveViewScaleCell");
 	AppCamera *camera = GetAppCamera();
 	[self.magnifyingLiveViewScales enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
 		NSInteger scaleValue = [item[ItemSelectionViewItemValueKey] integerValue];

@@ -159,7 +159,7 @@
 	[self hideProgress:YES];
 	
 	// レックビューの取得に失敗しました。
-	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not show captured image", nil)];
+	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:ReceiveCapturedImagePreviewFailed", @"RecImageViewController.didFailToReceiveCapturedImagePreviewWithError")];
 }
 
 #pragma mark -

@@ -1245,7 +1245,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// スナップショットから復元する情報を取り出します。
 	if (!snapshot[CameraSettingSnapshotFormatVersionKey] ||
 		![snapshot[CameraSettingSnapshotFormatVersionKey] isEqualToString:CameraSettingSnapshotFormatVersion]) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Unmatched the version of snapshot format." };
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CameraSettingSnapshotFormatVersionUnmatched" };
 		NSError *internalError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		if (error) {
 			*error = internalError;

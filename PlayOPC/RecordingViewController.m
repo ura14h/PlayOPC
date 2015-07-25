@@ -255,7 +255,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		weakSelf.previousRunMode = camera.runMode;
 		if (![camera changeRunMode:OLYCameraRunModeRecording error:&error]) {
 			// モードを移行できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start Recording", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartRecordingMode", @"RecordingViewController.didStartActivity")];
 			return;
 		}
 		if (!camera.autoStartLiveView && camera.liveViewEnabled) {
@@ -272,7 +272,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 					CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 				];
 				if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
-					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not restore lastest camera setting", nil)];
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotRestoreLastestCameraSetting", @"RecordingViewController.didStartActivity")];
 					// エラーを無視して続行します。
 					DEBUG_LOG(@"An error occurred, but ignores it.");
 				}
@@ -305,7 +305,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera addRecordingDelegate:weakSelf];
 		[camera addRecordingSupportsDelegate:weakSelf];
 		if (![camera startLiveView:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start Recording", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartRecordingMode", @"RecordingViewController.didStartActivity")];
 			return;
 		}
 
@@ -585,7 +585,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// レックビューの取得に失敗しました。
 	self.latestRecImage = nil;
 	[self.recImageButton setImage:nil];
-	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not show captured image", nil)];
+	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:ReceiveCapturedImagePreviewFailed", @"RecordingViewController.didFailToReceiveCapturedImagePreviewWithError")];
 }
 
 - (void)cameraWillReceiveCapturedImage:(OLYCamera *)camera {
@@ -609,7 +609,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 		// 撮影画像の保存に失敗しました。
 		if (error) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save captured image", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
 		}
 	}];
 }
@@ -621,7 +621,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self hideProgress:YES];
 
 	// 撮影画像の取得に失敗しました。
-	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download captured image", nil)];
+	[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:ReceiveCapturedImageFailed", @"RecordingViewController.didFailToReceiveCapturedImageWithError")];
 }
 
 - (void)cameraDidStopDrivingZoomLens:(OLYCamera *)camera {
@@ -890,7 +890,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// ライブビューが表示されていない場合はエラーとします。
 	if (!self.liveImageView || !self.liveImageView.image) {
-		[self showAlertMessage:NSLocalizedString(@"The camera is not sending application any image of the live view. Could not calculate a focus point in the live view.", nil) title:NSLocalizedString(@"Could not get touch point", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:LiveViewImageIsEmpty", @"RecordingViewController.lockAutoFocusPoint") title:NSLocalizedString(@"$title:LiveViewImageIsEmpty", @"RecordingViewController.lockAutoFocusPoint")];
 		return;
 	}
 	
@@ -992,7 +992,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// ライブビューが表示されていない場合はエラーとします。
 	if (!self.liveImageView || !self.liveImageView.image) {
-		[self showAlertMessage:NSLocalizedString(@"The camera is not sending application any image of the live view. Could not calculate a metering exposure point in the live view.", nil) title:NSLocalizedString(@"Could not get touch point", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:LiveViewImageIsEmpty", @"RecordingViewController.lockAutoExposurePoint") title:NSLocalizedString(@"$title:LiveViewImageIsEmpty", @"RecordingViewController.lockAutoExposurePoint")];
 		return;
 	}
 	
@@ -1078,7 +1078,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// ライブビューが表示されていない場合はエラーとします。
 	if (!self.liveImageView || !self.liveImageView.image) {
-		[self showAlertMessage:NSLocalizedString(@"The camera is not sending application any image of the live view. Could not calculate a metering exposure point in the live view.", nil) title:NSLocalizedString(@"Could not get touch point", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:LiveViewImageIsEmpty", @"RecordingViewController.startMagnifyingLiveView") title:NSLocalizedString(@"$title:LiveViewImageIsEmpty", @"RecordingViewController.startMagnifyingLiveView")];
 		return;
 	}
 	
@@ -1097,7 +1097,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera startMagnifyingLiveViewAtPoint:point error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start magnifying", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartMagnifying", @"RecordingViewController.startMagnifyingLiveView")];
 			return;
 		}
 		
@@ -1119,7 +1119,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera stopMagnifyingLiveView:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not stop magnifying", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopMagnifying", @"RecordingViewController.stopMagnifyingLiveView")];
 			return;
 		}
 		
@@ -1144,7 +1144,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	NSString *afLockState = [camera cameraPropertyValue:CameraPropertyAfLockState error:&error];
 	DEBUG_LOG(@"afLockState=%@", afLockState);
 	if (!afLockState) {
-		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not take", nil)];
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotTakePicture", @"RecordingViewController.takePicture")];
 		return;
 	}
 	
@@ -1196,7 +1196,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
 		// 撮影に失敗しました。
-		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not take", nil)];
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotTakePicture", @"RecordingViewController.takePicture")];
 	}];
 }
 
@@ -1216,7 +1216,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	NSString *afLockState = [camera cameraPropertyValue:CameraPropertyAfLockState error:&error];
 	DEBUG_LOG(@"afLockState=%@", afLockState);
 	if (!afLockState) {
-		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not take", nil)];
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartTakingPicture", @"RecordingViewController.startTakingPicture")];
 		return;
 	}
 
@@ -1258,7 +1258,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
 		// 撮影に失敗しました。
-		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not take", nil)];
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartTakingPicture", @"RecordingViewController.startTakingPicture")];
 	}];
 }
 
@@ -1305,7 +1305,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
-		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not take", nil)];
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopTakingPicture", @"RecordingViewController.stopTakingPicture")];
 	}];
 }
 
@@ -1331,7 +1331,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// 撮影に失敗しました。
-		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not record", nil)];
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartRecordingVideo", @"RecordingViewController.startRecordingVideo")];
 	}];
 }
 
@@ -1357,7 +1357,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// 撮影に失敗しました。
-		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not record", nil)];
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopRecordingVideo", @"RecordingViewController.stopRecordingVideo")];
 	}];
 }
 
@@ -1447,7 +1447,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self executeAsynchronousBlock:^{
 		NSError *error = nil;
 		if (![camera changeMagnifyingLiveViewArea:direction error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not move", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotChangeMagnifyingViewArea", @"RecordingViewController.changeMagnifyingLiveViewArea")];
 		}
 	}];
 }

@@ -185,13 +185,13 @@
 	}
 	
 	// 実行するかを確認します。
-	NSString *title = NSLocalizedString(@"Share the video", nil);
+	NSString *title = NSLocalizedString(@"$title:ShareVideo", @"VideoContentViewController.didTapShareButton");
 	NSString *message;
 	if (isLargeContent) {
 		// サイズの大きすぎる動画はダウンロードにとても時間がかかるのでその旨を警告します。
-		message = NSLocalizedString(@"The app downloads this long video before sharing it. The handling may take more than several minutes.", nil);
+		message = NSLocalizedString(@"$desc:ShareLargeVideo", @"VideoContentViewController.didTapShareButton");
 	} else {
-		message = NSLocalizedString(@"The app downloads this video before sharing it. The handling takes a little bit of time.", nil);
+		message = NSLocalizedString(@"$desc:ShareVideo", @"VideoContentViewController.didTapShareButton");
 	}
 	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
@@ -201,7 +201,7 @@
 	__weak VideoContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
 	{
-		NSString *title = NSLocalizedString(@"OK", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteShareVideo", @"VideoContentViewController.didTapShareButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			// 動画を共有します。
 			[weakSelf shareVideo];
@@ -210,7 +210,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelShareVideo", @"VideoContentViewController.didTapShareButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -224,8 +224,8 @@
 	DEBUG_LOG(@"");
 
 	// メッセージにはリサイズ処理の見積り時間も表示します。
-	NSString *title = NSLocalizedString(@"Resize the video", nil);
-	NSString *messageFormat = NSLocalizedString(@"A new video with a long side pixel size of specified length will be added to the media. This processing takes %1.0f seconds at least.", nil);
+	NSString *title = NSLocalizedString(@"$title:ResizeVideo", @"VideoContentViewController.didTapResizeButton");
+	NSString *messageFormat = NSLocalizedString(@"$desc:ResizeVideo", @"VideoContentViewController.didTapResizeButton");
 	NSString *message = [NSString stringWithFormat:messageFormat, self.estimatedPlaybackTime];
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
@@ -235,7 +235,7 @@
 	__weak VideoContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
 	{
-		NSString *title = NSLocalizedString(@"1920 x 1080, Fine", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizeVideo1920Fine", @"VideoContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf resizeVideo:1920 quality:OLYCameraResizeVideoQualityFine];
 		};
@@ -243,7 +243,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"1920 x 1080, Normal", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizeVideo1920Normal", @"VideoContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf resizeVideo:1920 quality:OLYCameraResizeVideoQualityNormal];
 		};
@@ -251,7 +251,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"1280 x 720, Fine", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizeVideo1280Fine", @"VideoContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf resizeVideo:1280 quality:OLYCameraResizeVideoQualityFine];
 		};
@@ -259,7 +259,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"1280 x 720, Normal", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizeVideo1280Normal", @"VideoContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf resizeVideo:1280 quality:OLYCameraResizeVideoQualityNormal];
 		};
@@ -267,7 +267,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelResizeVideo", @"VideoContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -288,7 +288,7 @@
 	
 	__weak VideoContentViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Protect the video", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteProtectVideo", @"VideoContentViewController.didTapProtectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf protectVideo];
 		};
@@ -296,7 +296,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelProtectVideo", @"VideoContentViewController.didTapProtectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -317,7 +317,7 @@
 	
 	__weak VideoContentViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Unprotect the video", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteUnprotectVideo", @"VideoContentViewController.didTapUnprotectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf unprotectVideo];
 		};
@@ -325,7 +325,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelUnprotectVideo", @"VideoContentViewController.didTapUnprotectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -346,7 +346,7 @@
 	
 	__weak VideoContentViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Erase the video", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteEraseVideo", @"VideoContentViewController.didTapEraseButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf eraseVideo];
 		};
@@ -354,7 +354,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelEraseVideo", @"VideoContentViewController.didTapEraseButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -389,7 +389,7 @@
 		// コンテンツの再生時間を取得します。
 		NSDictionary *information = [camera inquireContentInformation:filepath error:&error];
 		if (!information) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetScreennail", @"VideoContentViewController.downloadScreennail")];
 			return;
 		}
 		NSTimeInterval playbackTime = [information[@"playtime"] doubleValue];
@@ -418,7 +418,7 @@
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
 			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetScreennail", @"VideoContentViewController.downloadScreennail")];
 		}];
 		
 		// リサイズ画像のダウンロードが完了するのを待ちます。
@@ -487,7 +487,7 @@
 		}
 		__block NSFileHandle *videoFileHandle = [NSFileHandle fileHandleForWritingToURL:videoUrl error:&error];
 		if (!videoFileHandle) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download video", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotShareVideo", @"VideoContentViewController.shareVideo")];
 			return;
 		}
 
@@ -525,7 +525,7 @@
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
 			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download video", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotShareVideo", @"VideoContentViewController.shareVideo")];
 		}];
 		
 		// 動画のダウンロードが完了するのを待ちます。
@@ -608,7 +608,7 @@
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
 			resizeFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not resize video", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotResizeVideo", @"VideoContentViewController.resizeVideo")];
 		}];
 		
 		// 動画のリサイズが完了するのを待ちます。
@@ -668,7 +668,7 @@
 		// 正しくプロテクトできたかを確認します。
 		if (!protected) {
 			// プロテクトに失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not protect content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotProtectVideo", @"VideoContentViewController.protectVideo")];
 			return;
 		}
 		weakSelf.protected = YES;
@@ -717,7 +717,7 @@
 		// 正しくプロテクト解除できたかを確認します。
 		if (!unprotected) {
 			// プロテクト解除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnprotectVideo", @"VideoContentViewController.unprotectVideo")];
 			return;
 		}
 		weakSelf.protected = NO;
@@ -766,7 +766,7 @@
 		// 正しく削除できたかを確認します。
 		if (!erased) {
 			// 削除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotEraseVideo", @"VideoContentViewController.eraseVideo")];
 			return;
 		}
 		

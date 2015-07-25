@@ -245,8 +245,8 @@
 	DEBUG_LOG(@"");
 	
 	// 実行するかを確認します。
-	NSString *title = NSLocalizedString(@"Share the picture", nil);
-	NSString *message = NSLocalizedString(@"The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.", nil);
+	NSString *title = NSLocalizedString(@"$title:SharePicture", @"PictureContentViewController.didTapShareButton");
+	NSString *message = NSLocalizedString(@"$desc:SharePicture", @"PictureContentViewController.didTapShareButton");
 	UIAlertControllerStyle style = UIAlertControllerStyleAlert;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -255,7 +255,7 @@
 	__weak PictureContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
 	{
-		NSString *title = NSLocalizedString(@"OK", nil);
+		NSString *title = NSLocalizedString(@"$title:executeSharePicture", @"PictureContentViewController.didTapShareButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			// 写真を共有します。
 			[weakSelf sharePicture];
@@ -264,7 +264,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:cancelSharePicture", @"PictureContentViewController.didTapShareButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -277,8 +277,8 @@
 - (IBAction)didTapResizeButton:(id)sender {
 	DEBUG_LOG(@"");
 
-	NSString *title = NSLocalizedString(@"Resize the image", nil);
-	NSString *message = NSLocalizedString(@"An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it.", nil);
+	NSString *title = NSLocalizedString(@"$title:ResizePicture", @"PictureContentViewController.didTapResizeButton");
+	NSString *message = NSLocalizedString(@"$desc:ResizePicture", @"PictureContentViewController.didTapResizeButton");
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -287,7 +287,7 @@
 	__weak PictureContentViewController *weakSelf = self;
 	UIAlertActionStyle actionStyle = UIAlertActionStyleDefault;
 	{
-		NSString *title = NSLocalizedString(@"1024 Pixels", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizePicture1024", @"PictureContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResize1024];
 		};
@@ -295,7 +295,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"1600 Pixels", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizePicture1600", @"PictureContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResize1600];
 		};
@@ -303,7 +303,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"1920 Pixels", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizePicture1920", @"PictureContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResize1920];
 		};
@@ -311,7 +311,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"2048 Pixels", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizePicture2048", @"PictureContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResize2048];
 		};
@@ -319,7 +319,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Original Size", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteResizePictureOriginal", @"PictureContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResizeNone];
 		};
@@ -327,7 +327,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelResizePicture", @"PictureContentViewController.didTapResizeButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -341,7 +341,7 @@
 - (IBAction)didTapProtectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"ORF file related to the picture will be protected at the same time.", nil);
+	NSString *message = NSLocalizedString(@"$desc:ProtectPicture", @"PictureContentViewController.didTapProtectButton");
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -349,7 +349,7 @@
 	
 	__weak PictureContentViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Protect the picture", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteProtectPicture", @"PictureContentViewController.didTapProtectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf protectPicture];
 		};
@@ -357,7 +357,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelProtectPicture", @"PictureContentViewController.didTapProtectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -371,7 +371,7 @@
 - (IBAction)didTapUnprotectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"ORF file related to the picture will be unprotected at the same time.", nil);
+	NSString *message = NSLocalizedString(@"$desc:UnprotectPicture", @"PictureContentViewController.didTapUnprotectButton");
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -379,7 +379,7 @@
 	
 	__weak PictureContentViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Unprotect the picture", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteUnprotectPicture", @"PictureContentViewController.didTapUnprotectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf unprotectPicture];
 		};
@@ -387,7 +387,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelUnprotectPicture", @"PictureContentViewController.didTapUnprotectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -401,7 +401,7 @@
 - (IBAction)didTapEraseButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"ORF file related to the picture will be erased at the same time.", nil);
+	NSString *message = NSLocalizedString(@"$desc:ErasePicture", @"PictureContentViewController.didTapEraseButton");
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -409,7 +409,7 @@
 	
 	__weak PictureContentViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Erase the picture", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteErasePicture", @"PictureContentViewController.didTapEraseButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf erasePicture];
 		};
@@ -417,7 +417,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelErasePicture", @"PictureContentViewController.didTapEraseButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -550,7 +550,7 @@
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
 			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSharePicture", @"PictureContentViewController.sharePicture")];
 		}];
 		
 		// 画像のダウンロードが完了するのを待ちます。
@@ -633,7 +633,7 @@
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
 			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download image", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotResizePicture", @"PictureContentViewController.downloadResizedImage")];
 		}];
 		
 		// リサイズ画像のダウンロードが完了するのを待ちます。
@@ -708,7 +708,7 @@
 		// 正しくプロテクトできたかを確認します。
 		if (!protected) {
 			// プロテクトに失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not protect content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotProtectPicture", @"PictureContentViewController.protectPicture")];
 			return;
 		}
 		weakSelf.protected = YES;
@@ -757,7 +757,7 @@
 		// 正しくプロテクト解除できたかを確認します。
 		if (!unprotected) {
 			// プロテクト解除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnprotectPicture", @"PictureContentViewController.unprotectPicture")];
 			return;
 		}
 		weakSelf.protected = NO;
@@ -806,7 +806,7 @@
 		// 正しく削除できたかを確認します。
 		if (!erased) {
 			// 削除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotErasePicture", @"PictureContentViewController.erasePicture")];
 			return;
 		}
 		

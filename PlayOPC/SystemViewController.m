@@ -142,7 +142,7 @@
 		weakSelf.previousRunMode = camera.runMode;
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
 			// モードを移行できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start System", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartSystemMode", @"SystemViewController.didStartActivity")];
 			return;
 		}
 		
@@ -302,7 +302,7 @@
 	DEBUG_LOG(@"");
 
 	// MARK: Wi-Fiチャンネルの変更は次回のカメラ電源投入から有効です。
-	[self showAlertMessage:NSLocalizedString(@"The new setting will be applied by the next waking-up.", nil) title:NSLocalizedString(@"Delayed New Setting", nil)];
+	[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewWifiSetting", @"SystemViewController.didChangeWifiCh") title:NSLocalizedString(@"$title:DelayNewWifiSetting", @"SystemViewController.didChangeWifiCh")];
 	
 	// 画面表示を更新します。
 	[self updateShowWifiChCell];
@@ -327,7 +327,7 @@
 			// エラーを無視します。
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
-				weakSelf.batteryLevelCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakSelf.batteryLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:BatteryLevelUnknown", @"SystemViewController.updateBatteryLevelCell");
 			}];
 			return;
 		}
@@ -348,10 +348,10 @@
 
 	// プロパティの値を表示用の文言に変換します。
 	NSDictionary *titles = @{
-		@"normal": NSLocalizedString(@"Mounted", nil),
-		@"down": NSLocalizedString(@"Mounted (not-ready)", nil),
-		@"nolens": NSLocalizedString(@"No Lens", nil),
-		@"cantshoot": NSLocalizedString(@"Error", nil),
+		@"normal": NSLocalizedString(@"$cell:LensMounted", @"SystemViewController.updateLensMountStatusCell"),
+		@"down": NSLocalizedString(@"$cell:LensMountedButNotReady", @"SystemViewController.updateLensMountStatusCell"),
+		@"nolens": NSLocalizedString(@"$cell:LensNotMounted", @"SystemViewController.updateLensMountStatusCell"),
+		@"cantshoot": NSLocalizedString(@"$cell:LensError", @"SystemViewController.updateLensMountStatusCell"),
 	};
 	AppCamera *camera = GetAppCamera();
 	NSString *lensMountStatusRawValue = camera.lensMountStatus;
@@ -364,15 +364,15 @@
 			// "normal+electriczoom+macro"なら、マクロ機能付の電動ズームレンズを装着
 			NSMutableArray *lensMountStatusDetailParts = [[NSMutableArray alloc] initWithCapacity:2];
 			if ([lensMountStatusRawValue rangeOfString:@"+electriczoom"].location != NSNotFound) {
-				[lensMountStatusDetailParts addObject:NSLocalizedString(@"EZ", nil)];
+				[lensMountStatusDetailParts addObject:NSLocalizedString(@"$cell:LensEZOption", @"SystemViewController.updateLensMountStatusCell")];
 			}
 			if ([lensMountStatusRawValue rangeOfString:@"+macro"].location != NSNotFound) {
-				[lensMountStatusDetailParts addObject:NSLocalizedString(@"Macro", nil)];
+				[lensMountStatusDetailParts addObject:NSLocalizedString(@"$cell:LensMacroOption", @"SystemViewController.updateLensMountStatusCell")];
 			}
 			NSString *lensMountStatusDetailFormattedText = [lensMountStatusDetailParts componentsJoinedByString:@","];
-			lensMountStatus = [NSString stringWithFormat:NSLocalizedString(@"Mounted (%@)", nil), lensMountStatusDetailFormattedText];
+			lensMountStatus = [NSString stringWithFormat:NSLocalizedString(@"$cell:LensMounted(%@ Options)", @"SystemViewController.updateLensMountStatusCell"), lensMountStatusDetailFormattedText];
 		} else {
-			lensMountStatus = NSLocalizedString(@"Unknown", nil);
+			lensMountStatus = NSLocalizedString(@"$cell:LensStatusUnknown", @"SystemViewController.updateLensMountStatusCell");
 		}
 	}
 	// 表示を更新します。
@@ -385,16 +385,16 @@
 	
 	// プロパティの値を表示用の文言に変換します。
 	NSDictionary *titles = @{
-		@"normal": NSLocalizedString(@"Mounted", nil),
-		@"readonly": NSLocalizedString(@"Mounted (read-only)", nil),
-		@"cardfull": NSLocalizedString(@"Mounted (full)", nil),
-		@"unmount": NSLocalizedString(@"Unmounted", nil),
-		@"error": NSLocalizedString(@"Error", nil),
+		@"normal": NSLocalizedString(@"$cell:MediaMounted", @"SystemViewController.updateMediaMountStatusCell"),
+		@"readonly": NSLocalizedString(@"$cell:MediaMountedButReadOnly", @"SystemViewController.updateMediaMountStatusCell"),
+		@"cardfull": NSLocalizedString(@"$cell:MediaMountedButfull", @"SystemViewController.updateMediaMountStatusCell"),
+		@"unmount": NSLocalizedString(@"$cell:MediaNotMounted", @"SystemViewController.updateMediaMountStatusCell"),
+		@"error": NSLocalizedString(@"$cell:MediaError", @"SystemViewController.updateMediaMountStatusCell"),
 	};
 	AppCamera *camera = GetAppCamera();
 	NSString *mediaMountStatus = titles[camera.mediaMountStatus];
 	if (!mediaMountStatus) {
-		mediaMountStatus = NSLocalizedString(@"Unknown", nil);
+		mediaMountStatus = NSLocalizedString(@"$cell:MediaStatusUnknown", @"SystemViewController.updateMediaMountStatusCell");
 	}
 	// 表示を更新します。
 	self.mediaMountStatusCell.detailTextLabel.text = mediaMountStatus;
@@ -416,10 +416,10 @@
 			// ハードウェア情報が取得できませんでした。
 			// エラーを無視します。
 			DEBUG_LOG(@"An error occurred, but ignores it.");
-			weakSelf.cameraModelNameCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
-			weakSelf.cameraFirmwareVersionCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
-			weakSelf.lensModelIdCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
-			weakSelf.lensFirmwareVersionCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+			weakSelf.cameraModelNameCell.detailTextLabel.text = NSLocalizedString(@"$cell:CameraModelNameUnknown", @"SystemViewController.updateHardwareInformationCells");
+			weakSelf.cameraFirmwareVersionCell.detailTextLabel.text = NSLocalizedString(@"$cell:CameraFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
+			weakSelf.lensModelIdCell.detailTextLabel.text = NSLocalizedString(@"$cell:LensModelIdUnknown", @"SystemViewController.updateHardwareInformationCells");
+			weakSelf.lensFirmwareVersionCell.detailTextLabel.text = NSLocalizedString(@"$cell:LensFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
 			return;
 		}
 		DEBUG_LOG(@"hardwareInformation=%@", hardwareInformation);
@@ -427,7 +427,7 @@
 		NSString *cameraModelName = hardwareInformation[OLYCameraHardwareInformationCameraModelNameKey];
 		NSString *cameraFirmwareVersion = hardwareInformation[OLYCameraHardwareInformationCameraFirmwareVersionKey];
 		if ([cameraFirmwareVersion isEqualToString:@"----"]) {
-			cameraFirmwareVersion = NSLocalizedString(@"Unknown", nil);
+			cameraFirmwareVersion = NSLocalizedString(@"$cell:CameraFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
 		} else if (![cameraFirmwareVersion isEqualToString:@"----"] && cameraFirmwareVersion.length == 4) {
 			// MARK: カメラファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
 			// "xyzz"を"x.y.zz"に変換します。
@@ -439,20 +439,20 @@
 			NSInteger buildVersionNumber = [buildVersion integerValue];
 			cameraFirmwareVersion = [NSString stringWithFormat:@"%ld.%ld.%ld", (long)majorVersionNumber, (long)minorVersionNumber, (long)buildVersionNumber];
 		} else {
-			cameraFirmwareVersion = NSLocalizedString(@"Unknown", nil);
+			cameraFirmwareVersion = NSLocalizedString(@"$cell:CameraFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
 		}
 		NSString *lensModelId = hardwareInformation[OLYCameraHardwareInformationLensIdKey];
 		if ([lensModelId isEqualToString:@"----"]) {
-			lensModelId = NSLocalizedString(@"Unknown", nil);
+			lensModelId = NSLocalizedString(@"$cell:LensModelIdUnknown", @"SystemViewController.updateHardwareInformationCells");
 		} else if ([lensModelId integerValue] > 0) {
 			// MARK: レンズIDって何だろう。勝手にレンズの製品型式と解釈しました。
 			lensModelId = lensModelId;
 		} else {
-			lensModelId = NSLocalizedString(@"Unknown", nil);
+			lensModelId = NSLocalizedString(@"$cell:LensModelIdUnknown", @"SystemViewController.updateHardwareInformationCells");
 		}
 		NSString *lensFirmwareVersion = hardwareInformation[OLYCameraHardwareInformationLensFirmwareVersionKey];
 		if ([lensFirmwareVersion isEqualToString:@"----"]) {
-			lensFirmwareVersion = NSLocalizedString(@"Unknown", nil);
+			lensFirmwareVersion = NSLocalizedString(@"$cell:LensFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
 		} else if (![lensFirmwareVersion isEqualToString:@"----"] && lensFirmwareVersion.length == 4) {
 			// MARK: レンズファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
 			// "xyzz"を"x.y.zz"に変換します。
@@ -464,7 +464,7 @@
 			NSInteger buildVersionNumber = [buildVersion integerValue];
 			lensFirmwareVersion = [NSString stringWithFormat:@"%ld.%ld.%ld", (long)majorVersionNumber, (long)minorVersionNumber, (long)buildVersionNumber];
 		} else {
-			lensFirmwareVersion = NSLocalizedString(@"Unknown", nil);
+			lensFirmwareVersion = NSLocalizedString(@"$cell:LensFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
 		}
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			// 表示を更新します。
@@ -507,7 +507,7 @@
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakCell.userInteractionEnabled = userInteractionEnabled;
-				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakCell.detailTextLabel.text = NSLocalizedString(@"$cell:CouldNotGetCameraPropertyValue", @"SystemViewController.updateCameraPropertyCell");
 				if (completion) {
 					completion(propertyValue);
 				}

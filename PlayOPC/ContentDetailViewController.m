@@ -115,7 +115,7 @@ NSString *const ContentDetailValueKey = @"ContentDetailValueKey";
 		NSError *error = nil;
 		NSDictionary *information = [camera inquireContentInformation:filepath error:&error];
 		if (!information) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not get information", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetContentInformation", @"ContentDetailViewController.didStartActivity")];
 			return;
 		}
 		

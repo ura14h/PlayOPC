@@ -88,7 +88,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	
 	if (self.monitoring) {
 		// 監視はすでに実行中です。
-		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"Already runnning now.", nil)];
+		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:MonitoringIsRunnning", @"WifiConnector.startMonitoring")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;
@@ -99,7 +99,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	[self updateNetworkInfo];
 	if (![self.reachability startNotifier]) {
 		// Reachabilityの通知開始に失敗しました。
-		NSError *internalError = [self createError:WifiConnectorErrorReachabilityFailed description:NSLocalizedString(@"Could not start monitoring by failed [Reachability startNotifier].", nil)];
+		NSError *internalError = [self createError:WifiConnectorErrorReachabilityFailed description:NSLocalizedString(@"$desc:CouldNotStartMonitoring", @"WifiConnector.startMonitoring")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;
@@ -116,7 +116,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 	if (!self.monitoring) {
 		// 監視は未実行です。
-		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"Not runnning now.", nil)];
+		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:MonitoringIsNotRunnning", @"WifiConnector.stopMonitoring")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;

@@ -1106,7 +1106,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showWbRevCell.textLabel.text = self.showWbRevCellTitle;
-		self.showWbRevCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showWbRevCell.detailTextLabel.text = NSLocalizedString(@"$cell:WbRevUnknown", @"CPanelViewController.updateShowWbRevCell");
 		[self tableViewCell:self.showWbRevCell enabled:NO];
 		return;
 	}
@@ -1132,7 +1132,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showWbRevGCell.textLabel.text = self.showWbRevGCellTitle;
-		self.showWbRevGCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showWbRevGCell.detailTextLabel.text = NSLocalizedString(@"$cell:WbRevGUnknown", @"CPanelViewController.updateShowWbRevGCell");
 		[self tableViewCell:self.showWbRevGCell enabled:NO];
 		return;
 	}
@@ -1216,7 +1216,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showContrastCell.textLabel.text = self.showContrastCellTitle;
-		self.showContrastCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showContrastCell.detailTextLabel.text = NSLocalizedString(@"$cell:ContrastUnknown", @"CPanelViewController.updateShowContrastCell");
 		[self tableViewCell:self.showContrastCell enabled:NO];
 		return;
 	}
@@ -1242,7 +1242,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showSharpCell.textLabel.text = self.showSharpCellTitle;
-		self.showSharpCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showSharpCell.detailTextLabel.text = NSLocalizedString(@"$cell:SharpUnknown", @"CPanelViewController.updateShowSharpCell");
 		[self tableViewCell:self.showSharpCell enabled:NO];
 		return;
 	}
@@ -1268,7 +1268,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showSaturationLevelCell.textLabel.text = self.showSaturationLevelCellTitle;
-		self.showSaturationLevelCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showSaturationLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:SaturationUnknown", @"CPanelViewController.updateShowSaturationLevelCell");
 		[self tableViewCell:self.showSaturationLevelCell enabled:NO];
 		return;
 	}
@@ -1294,7 +1294,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showToneCell.textLabel.text = self.showToneCellTitle;
-		self.showToneCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showToneCell.detailTextLabel.text = NSLocalizedString(@"$cell:ToneUnknown", @"CPanelViewController.updateShowToneCell");
 		[self tableViewCell:self.showToneCell enabled:NO];
 		return;
 	}
@@ -1320,7 +1320,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showEffectLevelCell.textLabel.text = self.showEffectLevelCellTitle;
-		self.showEffectLevelCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showEffectLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectUnknown", @"CPanelViewController.updateShowEffectLevelCell");
 		[self tableViewCell:self.showEffectLevelCell enabled:NO];
 		return;
 	}
@@ -1367,7 +1367,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showMonotonefilterCell.textLabel.text = self.showMonotonefilterCellTitle;
-		self.showMonotonefilterCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showMonotonefilterCell.detailTextLabel.text = NSLocalizedString(@"$cell:MonotonefilterUnknown", @"CPanelViewController.updateShowMonotonefilterCell");
 		[self tableViewCell:self.showMonotonefilterCell enabled:NO];
 		return;
 	}
@@ -1393,7 +1393,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showMonotonecolorCell.textLabel.text = self.showMonotonecolorCellTitle;
-		self.showMonotonecolorCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showMonotonecolorCell.detailTextLabel.text = NSLocalizedString(@"$cell:MonotonecolorUnknown", @"CPanelViewController.updateShowMonotonecolorCell");
 		[self tableViewCell:self.showMonotonecolorCell enabled:NO];
 		return;
 	}
@@ -1440,7 +1440,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showArtEffectTypeCell.textLabel.text = self.showArtEffectTypeCellTitle;
-		self.showArtEffectTypeCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showArtEffectTypeCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectTypeUnknown", @"CPanelViewController.updateShowArtEffectTypeCell");
 		[self tableViewCell:self.showArtEffectTypeCell enabled:NO];
 		return;
 	}
@@ -1466,7 +1466,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	}
 	if (!property) {
 		self.showArtEffectHybridCell.textLabel.text = self.showArtEffectHybridCellTitle;
-		self.showArtEffectHybridCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showArtEffectHybridCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectHybridUnknown", @"CPanelViewController.updateShowArtEffectHybridCell");
 		[self tableViewCell:self.showArtEffectHybridCell enabled:NO];
 		return;
 	}
@@ -1500,7 +1500,7 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakCell.userInteractionEnabled = userInteractionEnabled;
-				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakCell.detailTextLabel.text = NSLocalizedString(@"$cell:CouldNotGetCameraPropertyValue", @"CPanelViewController.updateCameraPropertyCell");
 				[weakSelf tableViewCell:weakCell enabled:[camera canSetCameraProperty:name]];
 				if (completion) {
 					completion(propertyValue);

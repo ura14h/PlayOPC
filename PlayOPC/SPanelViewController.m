@@ -387,9 +387,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *highTemperatureWarning;
 	if (camera.highTemperatureWarning) {
-		highTemperatureWarning = NSLocalizedString(@"Yes", nil);
+		highTemperatureWarning = NSLocalizedString(@"$cell:HighTemperatureWarningYes", @"SPanelViewController.updateHighTemperatureWarningCell");
 	} else {
-		highTemperatureWarning = NSLocalizedString(@"No", nil);
+		highTemperatureWarning = NSLocalizedString(@"$cell:HighTemperatureWarningNo", @"SPanelViewController.updateHighTemperatureWarningCell");
 	}
 	// 表示を更新します。
 	self.highTemperatureWarningCell.detailTextLabel.text = highTemperatureWarning;
@@ -403,9 +403,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *isoSensitivityWarning;
 	if (camera.actualIsoSensitivityWarning) {
-		isoSensitivityWarning = NSLocalizedString(@"Yes", nil);
+		isoSensitivityWarning = NSLocalizedString(@"$cell:IsoSensitivityWarningYes", @"SPanelViewController.updateIsoSensitivityWarningCell");
 	} else {
-		isoSensitivityWarning = NSLocalizedString(@"No", nil);
+		isoSensitivityWarning = NSLocalizedString(@"$cell:IsoSensitivityWarningNo", @"SPanelViewController.updateIsoSensitivityWarningCell");
 	}
 	// 表示を更新します。
 	self.isoSensitivityWarningCell.detailTextLabel.text = isoSensitivityWarning;
@@ -419,9 +419,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *exposureWarning;
 	if (camera.exposureWarning) {
-		exposureWarning = NSLocalizedString(@"Yes", nil);
+		exposureWarning = NSLocalizedString(@"$cell:ExposureWarningYes", @"SPanelViewController.updateExposureWarningCell");
 	} else {
-		exposureWarning = NSLocalizedString(@"No", nil);
+		exposureWarning = NSLocalizedString(@"$cell:ExposureWarningNo", @"SPanelViewController.updateExposureWarningCell");
 	}
 	// 表示を更新します。
 	self.exposureWarningCell.detailTextLabel.text = exposureWarning;
@@ -435,9 +435,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *exposureMeteringWarning;
 	if (camera.exposureMeteringWarning) {
-		exposureMeteringWarning = NSLocalizedString(@"Yes", nil);
+		exposureMeteringWarning = NSLocalizedString(@"$cell:ExposureMeteringWarningYes", @"SPanelViewController.updateExposureMeteringWarningCell");
 	} else {
-		exposureMeteringWarning = NSLocalizedString(@"No", nil);
+		exposureMeteringWarning = NSLocalizedString(@"$cell:ExposureMeteringWarningNo", @"SPanelViewController.updateExposureMeteringWarningCell");
 	}
 	// 表示を更新します。
 	self.exposureMeteringWarningCell.detailTextLabel.text = exposureMeteringWarning;
@@ -451,9 +451,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *mediaBusy;
 	if (camera.mediaBusy) {
-		mediaBusy = NSLocalizedString(@"Yes", nil);
+		mediaBusy = NSLocalizedString(@"$cell:MediaBusyYes", @"SPanelViewController.updateMediaBusyCell");
 	} else {
-		mediaBusy = NSLocalizedString(@"No", nil);
+		mediaBusy = NSLocalizedString(@"$cell:MediaBusyNo", @"SPanelViewController.updateMediaBusyCell");
 	}
 	// 表示を更新します。
 	self.mediaBusyCell.detailTextLabel.text = mediaBusy;
@@ -467,9 +467,9 @@
 	AppCamera *camera = GetAppCamera();
 	NSString *mediaError;
 	if (camera.mediaError) {
-		mediaError = NSLocalizedString(@"Yes", nil);
+		mediaError = NSLocalizedString(@"$cell:MediaErrorYes", @"SPanelViewController.updateMediaErrorCell");
 	} else {
-		mediaError = NSLocalizedString(@"No", nil);
+		mediaError = NSLocalizedString(@"$cell:MediaErrorNo", @"SPanelViewController.updateMediaErrorCell");
 	}
 	// 表示を更新します。
 	self.mediaErrorCell.detailTextLabel.text = mediaError;
@@ -484,7 +484,7 @@
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	NSString *remainingMediaCapacityFormattedNumber = [numberFormatter stringFromNumber:@(camera.remainingMediaCapacity)];
-	NSString *remainingMediaCapacity = [NSString stringWithFormat:NSLocalizedString(@"%@ Bytes", nil), remainingMediaCapacityFormattedNumber];
+	NSString *remainingMediaCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:RemainingMediaCapacity(%@ Bytes)", @"SPanelViewController.updateRemainingMediaCapacityCell"), remainingMediaCapacityFormattedNumber];
 	// 表示を更新します。
 	self.remainingMediaCapacityCell.detailTextLabel.text = remainingMediaCapacity;
 }
@@ -498,7 +498,7 @@
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	NSString *remainingImageCapacityFormattedNumber = [numberFormatter stringFromNumber:@(camera.remainingImageCapacity)];
-	NSString *remainingImageCapacity = [NSString stringWithFormat:NSLocalizedString(@"%@ Images", nil), remainingImageCapacityFormattedNumber];
+	NSString *remainingImageCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:RemainingImageCapacity(%@ Images)", @"SPanelViewController.updateRemainingImageCapacityCell"), remainingImageCapacityFormattedNumber];
 	// 表示を更新します。
 	self.remainingImageCapacityCell.detailTextLabel.text = remainingImageCapacity;
 }
@@ -512,7 +512,7 @@
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	NSString *remainingVideoCapacityFormattedNumber = [numberFormatter stringFromNumber:@(camera.remainingVideoCapacity)];
-	NSString *remainingVideoCapacity = [NSString stringWithFormat:NSLocalizedString(@"%@ Seconds", nil), remainingVideoCapacityFormattedNumber];
+	NSString *remainingVideoCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:remainingVideoCapacity(%@ Seconds)", @"SPanelViewController.updateRemainingVideoCapacityCell"), remainingVideoCapacityFormattedNumber];
 	// 表示を更新します。
 	self.remainingVideoCapacityCell.detailTextLabel.text = remainingVideoCapacity;
 }
@@ -528,42 +528,42 @@
 	AppCamera *camera = GetAppCamera();
 	NSDictionary *levelGuageDictionary = camera.levelGauge;
 	// プロパティの値を表示用の文言に変換します。
-	NSString *levelGuageOrientation = NSLocalizedString(@"Unknown", nil);
+	NSString *levelGuageOrientation = NSLocalizedString(@"$cell:LevelGuageOrientationUnknown", @"SPanelViewController.updateLevelGaugeCell");
 	if (levelGuageDictionary[OLYCameraLevelGaugeOrientationKey]) {
 		NSString *levelGuageOrientationValue = levelGuageDictionary[OLYCameraLevelGaugeOrientationKey];
 		NSDictionary *levelGuageOrientationTitles = @{
-			@"landscape": NSLocalizedString(@"Landscape", nil),
-			@"portrait_left": NSLocalizedString(@"Portrait", nil),
-			@"landscape_upside_down": NSLocalizedString(@"Landscape", nil),
-			@"portrait_right": NSLocalizedString(@"Portrait", nil),
-			@"faceup": NSLocalizedString(@"Face up", nil),
-			@"facedown": NSLocalizedString(@"Face down", nil),
+			@"landscape": NSLocalizedString(@"$cell:LevelGuageOrientationLandscape", @"SPanelViewController.updateLevelGaugeCell"),
+			@"portrait_left": NSLocalizedString(@"$cell:LevelGuageOrientationPortrait", @"SPanelViewController.updateLevelGaugeCell"),
+			@"landscape_upside_down": NSLocalizedString(@"$cell:LevelGuageOrientationLandscape", @"SPanelViewController.updateLevelGaugeCell"),
+			@"portrait_right": NSLocalizedString(@"$cell:LevelGuageOrientationPortrait", @"SPanelViewController.updateLevelGaugeCell"),
+			@"faceup": NSLocalizedString(@"$cell:LevelGuageOrientationFaceUp", @"SPanelViewController.updateLevelGaugeCell"),
+			@"facedown": NSLocalizedString(@"$cell:LevelGuageOrientationFaceDown", @"SPanelViewController.updateLevelGaugeCell"),
 		};
 		levelGuageOrientation = levelGuageOrientationTitles[levelGuageOrientationValue];
 	}
-	NSString *levelGuageRolling = NSLocalizedString(@"Unknown", nil);
+	NSString *levelGuageRolling = NSLocalizedString(@"$cell:LevelGuageRollingUnknown", @"SPanelViewController.updateLevelGaugeCell");
 	if (levelGuageDictionary[OLYCameraLevelGaugeRollingKey]) {
 		float levelGuageRollingValue = [levelGuageDictionary[OLYCameraLevelGaugeRollingKey] floatValue];
 		if (!isnan(levelGuageRollingValue)) {
 			if (levelGuageRollingValue > 0) {
-				levelGuageRolling = [NSString stringWithFormat:NSLocalizedString(@"Left %1.1f", nil), levelGuageRollingValue];
+				levelGuageRolling = [NSString stringWithFormat:NSLocalizedString(@"$cell:LevelGuageRollingLeft(%1.1f Degrees)", @"SPanelViewController.updateLevelGaugeCell"), levelGuageRollingValue];
 			} else if (levelGuageRollingValue < 0) {
-				levelGuageRolling = [NSString stringWithFormat:NSLocalizedString(@"Right %1.1f", nil), -levelGuageRollingValue];
+				levelGuageRolling = [NSString stringWithFormat:NSLocalizedString(@"$cell:LevelGuageRollingRight(%1.1f Degrees)", @"SPanelViewController.updateLevelGaugeCell"), -levelGuageRollingValue];
 			} else {
-				levelGuageRolling = [NSString stringWithFormat:NSLocalizedString(@"%1.1f", nil), levelGuageRollingValue];
+				levelGuageRolling = [NSString stringWithFormat:NSLocalizedString(@"$cell:LevelGuageRollingNone(%1.1f Degrees)", @"SPanelViewController.updateLevelGaugeCell"), levelGuageRollingValue];
 			}
 		}
 	}
-	NSString *levelGuagePitching = NSLocalizedString(@"Unknown", nil);
+	NSString *levelGuagePitching = NSLocalizedString(@"$cell:LevelGuagePitchingUnknown", @"SPanelViewController.updateLevelGaugeCell");
 	if (levelGuageDictionary[OLYCameraLevelGaugePitchingKey]) {
 		float levelGuagePitchingValue = [levelGuageDictionary[OLYCameraLevelGaugePitchingKey] floatValue];
 		if (!isnan(levelGuagePitchingValue)) {
 			if (levelGuagePitchingValue > 0) {
-				levelGuagePitching = [NSString stringWithFormat:NSLocalizedString(@"Up %1.1f", nil), levelGuagePitchingValue];
+				levelGuagePitching = [NSString stringWithFormat:NSLocalizedString(@"$cell:LevelGuagePitchingUp(%1.1f Degrees)", @"SPanelViewController.updateLevelGaugeCell"), levelGuagePitchingValue];
 			} else if (levelGuagePitchingValue < 0) {
-				levelGuagePitching = [NSString stringWithFormat:NSLocalizedString(@"Down %1.1f", nil), -levelGuagePitchingValue];
+				levelGuagePitching = [NSString stringWithFormat:NSLocalizedString(@"$cell:LevelGuagePitchingDown(%1.1f Degrees)", @"SPanelViewController.updateLevelGaugeCell"), -levelGuagePitchingValue];
 			} else {
-				levelGuagePitching = [NSString stringWithFormat:NSLocalizedString(@"%1.1f", nil), levelGuagePitchingValue];
+				levelGuagePitching = [NSString stringWithFormat:NSLocalizedString(@"$cell:LevelGuagePitchingNone(%1.1f Degrees)", @"SPanelViewController.updateLevelGaugeCell"), levelGuagePitchingValue];
 			}
 		}
 	}
@@ -630,7 +630,7 @@
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakCell.userInteractionEnabled = userInteractionEnabled;
-				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakCell.detailTextLabel.text = NSLocalizedString(@"$cell:CouldNotGetCameraPropertyValue", @"SPanelViewController.updateCameraPropertyCell");
 				[weakSelf tableViewCell:weakCell enabled:[camera canSetCameraProperty:name]];
 				if (completion) {
 					completion(propertyValue);

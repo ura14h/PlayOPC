@@ -414,12 +414,12 @@
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera clearAutoFocusPoint:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unlock AF", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnlockAF", @"APanelViewController.didSelectRowAtUnlockAfCell")];
 			return;
 		}
 		// AFロックを解除します。
 		if (![camera unlockAutoFocus:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unlock AF", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnlockAF", @"APanelViewController.didSelectRowAtUnlockAfCell")];
 			return;
 		}
 
@@ -444,12 +444,12 @@
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera clearAutoExposurePoint:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unlock AE", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnlockAE", @"APanelViewController.didSelectRowAtUnlockAeCell")];
 			return;
 		}
 		// AEロックを解除します。
 		if (![camera unlockAutoExposure:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unlock AE", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnlockAE", @"APanelViewController.didSelectRowAtUnlockAeCell")];
 			return;
 		}
 
@@ -553,7 +553,7 @@
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakCell.userInteractionEnabled = userInteractionEnabled;
-				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakCell.detailTextLabel.text = NSLocalizedString(@"$cell:CouldNotGetCameraPropertyValue", @"APanelViewController.updateCameraPropertyCell");
 				if (completion) {
 					completion(propertyValue);
 				}

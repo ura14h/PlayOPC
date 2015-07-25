@@ -29,7 +29,7 @@
 	// 警告メッセージを表示します。
 	NSString *alertTitle = title;
 	NSString *alertMessage = message;
-	NSString *alertActionTitle = NSLocalizedString(@"OK", nil);
+	NSString *alertActionTitle = NSLocalizedString(@"$title:OK", @"UIViewController.showAlertMessage");
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:alertTitle message:alertMessage preferredStyle:UIAlertControllerStyleAlert];
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.sourceRect = self.view.bounds;

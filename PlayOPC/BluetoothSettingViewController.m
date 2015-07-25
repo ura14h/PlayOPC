@@ -160,7 +160,7 @@
 	// OA.Centralに接続設定の取得を要求します。
 	if (![OACentralConfiguration requestConfigurationURL:AppUrlSchemeGetFromOacentral]) {
 		// OA.Centralの呼び出しに失敗しました。
-		[self showAlertMessage:NSLocalizedString(@"OA.Central is not installed.", nil) title:NSLocalizedString(@"Could not open OA.Central", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotOpenOACentralByNoInstalled", @"BluetoothSettingViewController.didSelectRowAtFromOacentralCell") title:NSLocalizedString(@"$title:CouldNotOpenOACentral", @"BluetoothSettingViewController.didSelectRowAtFromOacentralCell")];
 	}
 }
 

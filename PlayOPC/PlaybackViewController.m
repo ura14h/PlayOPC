@@ -142,7 +142,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		weakSelf.previousRunMode = camera.runMode;
 		if (![camera changeRunMode:OLYCameraRunModePlayback error:&error]) {
 			// モードを移行できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not start Playback", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartPlaybackMode", @"PlaybackViewController.didStartActivity")];
 			return;
 		}
 
@@ -270,14 +270,14 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	numberFormatter.numberStyle = NSNumberFormatterDecimalStyle;
 	NSString *filesize = [numberFormatter stringFromNumber:content[OLYCameraContentListFilesizeKey]];
-	cell.filesizeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"%@ Bytes", nil), filesize];
+	cell.filesizeLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$cell:ContentFileSize(%@ Bytes)", @"PlaybackViewController.cellForRowAtIndexPath"), filesize];
 	
 	// コンテンツの属性を表示します。
 	NSString *attributes = @" ";
 	if ([content[OLYCameraContentListAttributesKey] containsObject:@"hidden"]) {
-		attributes = NSLocalizedString(@"Hidden", nil);
+		attributes = NSLocalizedString(@"$cell:ContentHidden", @"PlaybackViewController.cellForRowAtIndexPath");
 	} else if ([content[OLYCameraContentListAttributesKey] containsObject:@"protected"]) {
-		attributes = NSLocalizedString(@"Protected", nil);
+		attributes = NSLocalizedString(@"$cell:ContentProtected", @"PlaybackViewController.cellForRowAtIndexPath");
 	}
 	cell.attributesLabel.text = attributes;
 	
@@ -443,7 +443,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		// 正しく削除できたかを確認します。
 		if (!erased) {
 			// 削除に失敗しました。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not erase content", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotEraseContent", @"PlaybackViewController.commitEditingStyle")];
 			return;
 		}
 
@@ -454,7 +454,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		// 表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			// フッターを更新します。
-			NSString *footerLabelTextFormat = NSLocalizedString(@"%ld contents (%ld files)", nil);
+			NSString *footerLabelTextFormat = NSLocalizedString(@"$title:TotalOfContentsAndFiles(%ld contents, %ld files)", @"PlaybackViewController.commitEditingStyle");
 			NSString *footerLabelText = [NSString stringWithFormat:footerLabelTextFormat, (long)numberOfContents, (long)numberOfFiles];
 			weakSelf.tableviewFooterLabel.text = footerLabelText;
 			
@@ -526,7 +526,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	
 	__weak PlaybackViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Unprotect all contents", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteUnprotectAllContents", @"PlaybackViewController.didTapUnprotectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf unprotectAllContents];
 		};
@@ -534,7 +534,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelUnprotectAllContents", @"PlaybackViewController.didTapUnprotectButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -572,7 +572,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	[camera downloadContentList:^(NSMutableArray *list, NSError *error) {
 		if (error) {
 			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not download content list", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotDownloadContentList", @"PlaybackViewController.downloadContentList")];
 			return;
 		}
 		downloadedList = list;
@@ -630,7 +630,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		weakSelf.unprotectButton.enabled = unprotectEnabled;
 		
 		// フッターを更新します。
-		NSString *footerLabelTextFormat = NSLocalizedString(@"%ld contents (%ld files)", nil);
+		NSString *footerLabelTextFormat = NSLocalizedString(@"$title:TotalOfContentsAndFiles(%ld contents, %ld files)", @"PlaybackViewController.downloadContentList");
 		NSString *footerLabelText = [NSString stringWithFormat:footerLabelTextFormat, (long)numberOfContents, (long)numberOfFiles];
 		weakSelf.tableviewFooterLabel.text = footerLabelText;
 
@@ -677,7 +677,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
 			unprotectFailed = YES; // 下の方で待っている人がいるので、すぐにプロテクト解除が終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not unprotect contents", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotUnprotectAllContents", @"PlaybackViewController.unprotectAllContents")];
 		}];
 		
 		// コンテンツのプロテクト解除が完了するのを待ちます。

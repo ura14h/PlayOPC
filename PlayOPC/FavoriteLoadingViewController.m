@@ -110,7 +110,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		NSError *error = nil;
 		NSArray *contents = [fileManager contentsOfDirectoryAtPath:directoryPath error:&error];
 		if (!contents) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not load favorite setting", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didStartActivity")];
 			return;
 		}
 
@@ -232,17 +232,17 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		NSDictionary *favoriteSetting = [NSDictionary dictionaryWithContentsOfFile:filePath];
 		if (!favoriteSetting[FavoriteSettingNameKey] ||
 			!favoriteSetting[FavoriteSettingSnapshotKey]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not load favorite setting", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
 		NSString *favoriteName = favoriteSetting[FavoriteSettingNameKey];
 		if (favoriteName.length == 0) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not load favorite setting", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingName", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
 		NSDictionary *snapshot = favoriteSetting[FavoriteSettingSnapshotKey];
 		if (!snapshot) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not read camera setting from file.", nil) title:NSLocalizedString(@"Could not load favorite setting", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingSnapshot", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
 		
@@ -253,7 +253,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 		];
 		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not load favorite setting", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
 		
@@ -285,7 +285,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 	NSFileManager *fileManager = [NSFileManager defaultManager];
 	NSError *error = nil;
 	if (![fileManager removeItemAtPath:filePath error:&error]) {
-		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not delete favorite setting", nil)];
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.commitEditingStyle")];
 		return;
 	}
 	

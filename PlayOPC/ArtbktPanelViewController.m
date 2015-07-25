@@ -112,7 +112,7 @@
 		NSError *error = nil;
 		NSDictionary *propertyValues = [camera cameraPropertyValues:properties error:&error];
 		if (!propertyValues) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not get camera properties", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetCameraPropertyValues", @"ArtbktPanelViewController.didStartActivity")];
 			return;
 		}
 		weakSelf.propertyValues = [propertyValues mutableCopy];
@@ -203,7 +203,7 @@
 		// セルの選択を解除します。
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		// 変更は許されていません。
-		[self showAlertMessage:NSLocalizedString(@"The property is prohibited from changing other values.", nil) title:NSLocalizedString(@"Could not set camera property", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:CanNotSetCameraProperty", @"ArtbktPanelViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CanNotSetCameraProperty", @"ArtbktPanelViewController.didSelectRowAtIndexPath")];
 		return;
 	}
 
@@ -236,7 +236,7 @@
 		// カメラプロパティ値を変更します。
 		NSError *error = nil;
 		if (![camera setCameraPropertyValue:property value:value error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not set camera property", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSetCameraPropertyValue", @"ArtbktPanelViewController.didSelectRowAtIndexPath")];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			}];

@@ -80,7 +80,7 @@
 	if (authorizationStatus == kCLAuthorizationStatusNotDetermined ||
 		authorizationStatus == kCLAuthorizationStatusDenied ||
 		authorizationStatus == kCLAuthorizationStatusRestricted) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Turn on location service to allow this application to determine your location." };
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized" };
 		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorDenied userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -90,7 +90,7 @@
 	
 	// メインスレッドで実行できません。
 	if ([NSThread isMainThread]) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Could not perform the method in main thread." };
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CouldNotPerformCurrentLocationInMainThread." };
 		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -100,7 +100,7 @@
 
 	// すでに実行中の場合はさらに実行できません。
 	if (self.running) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Could not perform the method because it is running now." };
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CurrentLocationIsRunning" };
 		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -141,7 +141,7 @@
 	if (!location) {
 		// 現在位置が取得できませんでした。
 		if (!locationError) {
-			NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"Could not get current geolocation." };
+			NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CouldNotGetCurrentGeolocation" };
 			NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
 			locationError = internalError;
 		}

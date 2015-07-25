@@ -241,7 +241,7 @@
 	
 	__weak CameraLogViewController *weakSelf = self;
 	{
-		NSString *title = NSLocalizedString(@"Clear log", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteClearLog", @"CameraLogViewController.didTapClearButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf clearLog];
 		};
@@ -249,7 +249,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelClearLog", @"CameraLogViewController.didTapClearButton");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];

@@ -57,23 +57,23 @@
 	// ライブビューサイズの選択肢を構築します。
 	NSMutableArray *liveViewSizes = [[NSMutableArray alloc] init];
 	NSDictionary *liveViewSizeQVGA = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"QVGA", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:LiveViewSizeIsQVGA", @"VPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:[NSValue valueWithCGSize:OLYCameraLiveViewSizeQVGA]
 	};
 	NSDictionary *liveViewSizeVGA = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"VGA", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:LiveViewSizeIsVGA", @"VPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:[NSValue valueWithCGSize:OLYCameraLiveViewSizeVGA]
 	};
 	NSDictionary *liveViewSizeSVGA = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"SVGA", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:LiveViewSizeIsSVGA", @"VPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:[NSValue valueWithCGSize:OLYCameraLiveViewSizeSVGA]
 	};
 	NSDictionary *liveViewSizeXVGA = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"XGA", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:LiveViewSizeIsXGA", @"VPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:[NSValue valueWithCGSize:OLYCameraLiveViewSizeXGA]
 	};
 	NSDictionary *liveViewSizeQuadVGA = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Quad VGA", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:LiveViewSizeIsQuadVGA", @"VPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:[NSValue valueWithCGSize:OLYCameraLiveViewSizeQuadVGA]
 	};
 	[liveViewSizes addObject:liveViewSizeQVGA];
@@ -520,7 +520,7 @@
 		NSError *error = nil;
 		if (![camera changeLiveViewSize:itemSize error:&error]) {
 			// サイズを変更できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not change size", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotChangeLiveViewSize", @"VPanelViewController.didSelectLiveViewSizeItem")];
 			return;
 		}
 		
@@ -546,7 +546,7 @@
 		CLLocation *location = [locationManager currentLocation:10.0 error:&error];
 		if (!location) {
 			// 現在位置が取得できませんでした。
-			[weakSelf showAlertMessage:error.description title:NSLocalizedString(@"Could not set current geolocation", nil)];
+			[weakSelf showAlertMessage:error.description title:NSLocalizedString(@"$title:CouldNotSetCurrentGeolocation", @"VPanelViewController.didSelectRowAtSetCurrentGeolocationCell")];
 			return;
 		}
 		DEBUG_LOG(@"location=%@", location.description);
@@ -555,7 +555,7 @@
 		AppCamera *camera = GetAppCamera();
 		if (![camera setGeolocationWithCoreLocation:location error:&error]) {
 			// 位置情報を設定できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not set current geolocation", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSetCurrentGeolocation", @"VPanelViewController.didSelectRowAtSetCurrentGeolocationCell")];
 			return;
 		}
 		
@@ -579,7 +579,7 @@
 		NSError *error = nil;
 		if (![camera clearGeolocation:&error]) {
 			// 位置情報をクリアできませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not clear gelocation", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotClearGelocation", @"VPanelViewController.didSelectRowAtClearGelocationCell")];
 			return;
 		}
 		
@@ -596,7 +596,7 @@
 	DEBUG_LOG(@"");
 	
 	// 選択肢の値を表示用の文言に変換します。
-	__block NSString *liveViewSize = NSLocalizedString(@"Unknown", nil);
+	__block NSString *liveViewSize = NSLocalizedString(@"$cell:LiveViewSizeUnknown", @"VPanelViewController.updateShowLiveViewSizeCell");
 	AppCamera *camera = GetAppCamera();
 	[self.liveViewSizes enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
 		NSValue *itemValue = item[ItemSelectionViewItemValueKey];
@@ -709,7 +709,7 @@
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakCell.userInteractionEnabled = userInteractionEnabled;
-				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakCell.detailTextLabel.text = NSLocalizedString(@"$cell:CouldNotGetCameraPropertyValue", @"VPanelViewController.updateCameraPropertyCell");
 				if (completion) {
 					completion(propertyValue);
 				}

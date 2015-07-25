@@ -71,7 +71,7 @@
 	Reachability *reachability = [Reachability reachabilityWithHostName:@"itunes.apple.com"];
 	NetworkStatus status = [reachability currentReachabilityStatus];
 	if (status == NotReachable) {
-		[self showAlertMessage:NSLocalizedString(@"The device does not connect with the Internet. If you want to open the site via Wi-Fi it is necessary to disconnect camera connection first.", nil) title:NSLocalizedString(@"Could not open link", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotOpenWebLinkByNoInternet", @"ReferenceViewController.shouldStartLoadWithRequest") title:NSLocalizedString(@"$title:CouldNotOpenWebLink",  @"ReferenceViewController.shouldStartLoadWithRequest")];
 		return NO;
 	}
 	

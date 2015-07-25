@@ -96,7 +96,7 @@
 		NSArray *values = [camera cameraPropertyValueList:weakSelf.property error:&error];
 		if (!values) {
 			// カメラプロパティ値のリストを取得できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not show the property value list", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetCameraPropertyValueList", @"CameraPropertyValueSelectionViewController.didStartActivity")];
 			return;
 		}
 		NSMutableArray *items = [[NSMutableArray alloc] initWithCapacity:values.count];
@@ -124,7 +124,7 @@
 		NSString *value = [camera cameraPropertyValue:weakSelf.property error:&error];
 		if (!value) {
 			// 現在設定されているカメラプロパティ値を取得できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not show the property value list", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetCameraPropertyValue", @"CameraPropertyValueSelectionViewController.didStartActivity")];
 			return;
 		}
 		weakSelf.selectedItemIndex = [values indexOfObject:value];
@@ -199,7 +199,7 @@
 		// セルの選択を解除します。
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		// 変更は許されていません。
-		[self showAlertMessage:NSLocalizedString(@"The property is prohibited from changing other values.", nil) title:NSLocalizedString(@"Could not set camera property", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:CanNotSetCameraProperty", @"CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CanNotSetCameraProperty", @"CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath")];
 		return;
 	}
 	
@@ -213,7 +213,7 @@
 		NSString *value = selectedItem[ItemSelectionViewItemValueKey];
 		NSError *error = nil;
 		if (![camera setCameraPropertyValue:weakSelf.property value:value error:&error]) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not set camera property", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSetCameraPropertyValue", @"CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath")];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				[tableView deselectRowAtIndexPath:indexPath animated:YES];
 			}];

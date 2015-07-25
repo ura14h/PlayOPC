@@ -55,11 +55,11 @@
 	// オートブラケットモードの選択肢を構築します。
 	NSMutableArray *autoBracketingModes = [[NSMutableArray alloc] init];
 	NSDictionary *autoBracketingModeDisabled = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Disabled", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:AutoBracketingModeDisabled", @"EPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(AppCameraAutoBracketingModeDisabled)
 	};
 	NSDictionary *autoBracketingModeExposure = @{
-		ItemSelectionViewItemTitleKey:NSLocalizedString(@"Exposure", nil),
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:AutoBracketingModeExposure", @"EPanelViewController.viewDidLoad"),
 		ItemSelectionViewItemValueKey:@(AppCameraAutoBracketingModeExposure)
 	};
 	[autoBracketingModes addObject:autoBracketingModeDisabled];
@@ -70,7 +70,7 @@
 	NSMutableArray *autoBracketingCounts = [[NSMutableArray alloc] init];
 	for (NSInteger count = 3; count < 10; count += 2) {
 		NSDictionary *autoBracketingCount = @{
-			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"%ld", nil), (long)count],
+			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:AutoBracketingCount(%ld)", @"EPanelViewController.viewDidLoad"), (long)count],
 			ItemSelectionViewItemValueKey:@(3)
 		};
 		[autoBracketingCounts addObject:autoBracketingCount];
@@ -81,7 +81,7 @@
 	NSMutableArray *autoBracketingSteps = [[NSMutableArray alloc] init];
 	for (NSInteger step = 1; step < 10; step++) {
 		NSDictionary *autoBracketingStep = @{
-			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"± %ld", nil), (long)step],
+			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:AutoBracketingStep(%ld)", nil), (long)step],
 			ItemSelectionViewItemValueKey:@(step)
 		};
 		[autoBracketingSteps addObject:autoBracketingStep];
@@ -617,7 +617,7 @@
 		NSString *actualApertureValueTitle = [camera cameraPropertyValueLocalizedTitle:actualApertureValue];
 		self.showApertureCell.detailTextLabel.text = actualApertureValueTitle;
 	} else {
-		self.showApertureCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showApertureCell.detailTextLabel.text = NSLocalizedString(@"$cell:ApertureValueUnknown", @"EPanelViewController.updateShowApertureCell");
 	}
 	[self tableViewCell:self.showApertureCell enabled:[camera canSetCameraProperty:CameraPropertyAperture]];
 #endif
@@ -636,7 +636,7 @@
 		NSString *actualShutterSpeedTitle = [camera cameraPropertyValueLocalizedTitle:actualShutterSpeed];
 		self.showShutterCell.detailTextLabel.text = actualShutterSpeedTitle;
 	} else {
-		self.showShutterCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showShutterCell.detailTextLabel.text = NSLocalizedString(@"$cell:ShutterSpeedUnknown", @"EPanelViewController.updateShowShutterCell");
 	}
 	[self tableViewCell:self.showShutterCell enabled:[camera canSetCameraProperty:CameraPropertyShutter]];
 #endif
@@ -655,7 +655,7 @@
 		NSString *actualExposureCompensationTitle = [camera cameraPropertyValueLocalizedTitle:actualExposureCompensation];
 		self.showExprevCell.detailTextLabel.text = actualExposureCompensationTitle;
 	} else {
-		self.showExprevCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showExprevCell.detailTextLabel.text = NSLocalizedString(@"$cell:ExposureCompensationUnknown", @"EPanelViewController.updateShowExprevCell");
 	}
 	[self tableViewCell:self.showExprevCell enabled:[camera canSetCameraProperty:CameraPropertyExprev]];
 #endif
@@ -674,7 +674,7 @@
 		NSString *actualIsoSensitivityTitle = [camera cameraPropertyValueLocalizedTitle:actualIsoSensitivity];
 		self.showIsoCell.detailTextLabel.text = actualIsoSensitivityTitle;
 	} else {
-		self.showIsoCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showIsoCell.detailTextLabel.text = NSLocalizedString(@"$cell:IsoSensitivityUnknown", @"EPanelViewController.updateShowIsoCell");
 	}
 	[self tableViewCell:self.showIsoCell enabled:[camera canSetCameraProperty:CameraPropertyIso]];
 #endif
@@ -726,7 +726,7 @@
 	DEBUG_LOG(@"");
 	
 	// 枚数の値を表示用の文言に変換します。
-	__block NSString *autoBracketingCount = NSLocalizedString(@"Unknown", nil);
+	__block NSString *autoBracketingCount = NSLocalizedString(@"$cell:AutoBracketingCountUnknown", @"EPanelViewController.updateShowAutoBracketingCountCell");
 	AppCamera *camera = GetAppCamera();
 	[self.autoBracketingCounts enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
 		NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
@@ -747,7 +747,7 @@
 	DEBUG_LOG(@"");
 	
 	// ステップ数の値を表示用の文言に変換します。
-	__block NSString *autoBracketingStep = NSLocalizedString(@"Unknown", nil);
+	__block NSString *autoBracketingStep = NSLocalizedString(@"$cell:AutoBracketingStepUnknown", @"EPanelViewController.updateShowAutoBracketingStepCell");
 	AppCamera *camera = GetAppCamera();
 	[self.autoBracketingSteps enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
 		NSInteger step = [item[ItemSelectionViewItemValueKey] integerValue];
@@ -784,7 +784,7 @@
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakCell.userInteractionEnabled = userInteractionEnabled;
-				weakCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+				weakCell.detailTextLabel.text = NSLocalizedString(@"$cell:CouldNotGetCameraPropertyValue", @"EPanelViewController.updateCameraPropertyCell");
 				[weakSelf tableViewCell:weakCell enabled:[camera canSetCameraProperty:name]];
 				if (completion) {
 					completion(propertyValue);

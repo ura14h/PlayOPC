@@ -452,7 +452,7 @@
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
 		// 次回の接続から有効です。
-		[self showAlertMessage:NSLocalizedString(@"The new setting will be applied by the next connection.", nil) title:NSLocalizedString(@"Delayed New Setting", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewBluetoothSetting", @"ConnectionViewController.didChangeBluetoothSetting") title:NSLocalizedString(@"$title:DelayNewBluetoothSetting", @"ConnectionViewController.didChangeBluetoothSetting")];
 	}
 	
 	// 画面表示を更新します。
@@ -469,7 +469,7 @@
 	NSString *bluetoothPasscode = setting.bluetoothPasscode;
 	if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
 		// Bluetoothデバイスの設定が不完全です。
-		[self showAlertMessage:NSLocalizedString(@"Bluetooth local name is empty. Please configure Bluetooth setting.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 		return;
 	}
 	
@@ -485,7 +485,7 @@
 		if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotFound) {
 			if (![weakSelf.bluetoothConnector discoverPeripheral:&error]) {
 				// カメラが見つかりませんでした。
-				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 				return;
 			}
 		}
@@ -494,7 +494,7 @@
 		if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotConnected) {
 			if (![weakSelf.bluetoothConnector connectPeripheral:&error]) {
 				// カメラにBluetooth接続できませんでした。
-				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 				return;
 			}
 		}
@@ -507,7 +507,7 @@
 		camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
 		if (![camera connect:OLYCameraConnectionTypeBluetoothLE error:&error]) {
 			// カメラにアプリ接続できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			camera.bluetoothPeripheral = nil;
 			camera.bluetoothPassword = nil;
 			// カメラとのBluetooth接続を解除します。
@@ -524,7 +524,7 @@
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 		if (![camera changeTime:[NSDate date] error:&error]) {
 			// 時刻が設定できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
 		
@@ -532,7 +532,7 @@
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
 			// 実行モードを変更できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
 
@@ -566,7 +566,7 @@
 				demandToWakeUpWithUsingBluetooth = YES;
 			} else {
 				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
-				[self showAlertMessage:NSLocalizedString(@"This Wi-Fi connection is not the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+				[self showAlertMessage:NSLocalizedString(@"$desc:WifiConnectionIsNotCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
 		}
@@ -576,7 +576,7 @@
 			demandToWakeUpWithUsingBluetooth = YES;
 		} else {
 			// Wi-Fi未接続でBluetooth使用不可なため自動でカメラに接続できる見込みなし
-			[self showAlertMessage:NSLocalizedString(@"There is no Wi-Fi connection with the camera.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+			[self showAlertMessage:NSLocalizedString(@"$desc:NoWifiConnections", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
 	}
@@ -588,7 +588,7 @@
 	if (demandToWakeUpWithUsingBluetooth) {
 		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
 			// Bluetoothデバイスの設定が不完全です。
-			[self showAlertMessage:NSLocalizedString(@"Bluetooth local name is empty. Please configure Bluetooth setting.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
 	}
@@ -608,7 +608,7 @@
 			if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotFound) {
 				if (![weakSelf.bluetoothConnector discoverPeripheral:&error]) {
 					// カメラが見つかりませんでした。
-					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 					return;
 				}
 			}
@@ -617,7 +617,7 @@
 			if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotConnected) {
 				if (![weakSelf.bluetoothConnector connectPeripheral:&error]) {
 					// カメラにBluetooth接続できませんでした。
-					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 					return;
 				}
 			}
@@ -645,7 +645,7 @@
 					DEBUG_LOG(@"An error occurred, but ignores it.");
 					wokenUp = YES;
 				} else {
-					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				}
 			}
 			camera.bluetoothPeripheral = nil;
@@ -670,7 +670,7 @@
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			[weakSelf reportBlockConnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
-				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Connecting...", nil);
+				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 			}];
 			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:20.0]) {
 				// Connecting... を元に戻します。
@@ -680,10 +680,10 @@
 				// Wi-Fi接続が有効になりませんでした。
 				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
 					// カメラにアクセスできるWi-Fi接続は見つかりませんでした。
-					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but could not discover a established Wi-Fi connection. Other devices may have been already connected.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+					[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotDiscoverWifiConnection", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				} else {
 					// カメラにアクセスできるWi-Fi接続ではありませんでした。(すでに別のアクセスポイントに接続している)
-					[weakSelf showAlertMessage:NSLocalizedString(@"The camera did wake up, but this Wi-Fi connection is not the camera. Please disconnect the current connection and try to connect the camera manually in Settings.", nil) title:NSLocalizedString(@"Could not connect", nil)];
+					[weakSelf showAlertMessage:NSLocalizedString(@"$desc:WifiConnectionIsNotCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				}
 				return;
 			}
@@ -698,7 +698,7 @@
 		NSError *error = nil;
 		if (![camera connect:&error]) {
 			// カメラにアプリ接続できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
 
@@ -706,7 +706,7 @@
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 		if (![camera changeTime:[NSDate date] error:&error]) {
 			// 時刻が設定できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
 		
@@ -714,7 +714,7 @@
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
 			// 実行モードを変更できませんでした。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not connect", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
 
@@ -825,7 +825,7 @@
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			[weakSelf reportBlockDisconnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
-				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Disconnecting...", nil);
+				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$desc:DisconnectingWifi", @"ConnectionViewController.didSelectRowAtDisconnectAndSleepCell");
 			}];
 			if ([weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusNotConnected timeout:20.0]) {
 				// エラーを無視して続行します。
@@ -895,7 +895,7 @@
 	alertController.popoverPresentationController.sourceRect = self.clearRememberedCameraSettingCell.frame;
 	
 	{
-		NSString *title = NSLocalizedString(@"Clear camera setting", nil);
+		NSString *title = NSLocalizedString(@"$title:ExecuteClearCameraSetting", @"ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			// 記憶している前回のカメラ設定をクリアします。
 			// MARK: 画面表示の更新はユーザー設定値の監視から呼び出されるのでここでは更新しません。
@@ -906,7 +906,7 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"Cancel", nil);
+		NSString *title = NSLocalizedString(@"$title:CancelClearCameraSetting", @"ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell");
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
@@ -993,10 +993,10 @@
 		NSString *bluetoothLocalName = setting.bluetoothLocalName;
 		if (bluetoothLocalName && bluetoothLocalName.length > 0) {
 			// 接続されていない場合は未接続と表示します。
-			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"Not Connected", nil);
+			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotConnected", @"ConnectionViewController.updateShowBluetoothSettingCell");
 		} else {
 			// 設定が未構成です。
-			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"No Configuration", nil);
+			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNoConfiguration", @"ConnectionViewController.updateShowBluetoothSettingCell");
 		}
 	}
 }
@@ -1012,14 +1012,14 @@
 		if ([self.wifiConnector isPossibleToAccessCamera]) {
 			ssid = self.wifiConnector.SSID;
 		} else {
-			ssid = [NSString stringWithFormat:NSLocalizedString(@"Not Connected (%@)", nil), self.wifiConnector.SSID];
+			ssid = [NSString stringWithFormat:NSLocalizedString(@"$cell:WifiNotConnected(%@)", @"ConnectionViewController.updateShowWifiSettingCell"), self.wifiConnector.SSID];
 		}
 		self.showWifiSettingCell.detailTextLabel.text = ssid;
 	} else if (wifiStatus == WifiConnectionStatusNotConnected) {
 		// 接続されていない場合は未接続と表示します。
-		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Not Connected", nil);
+		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected", @"ConnectionViewController.updateShowWifiSettingCell");
 	} else {
-		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"Unknown", nil);
+		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
 	}
 }
 

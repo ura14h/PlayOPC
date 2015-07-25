@@ -148,7 +148,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		NSError *error = nil;
 		NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
 		if (!snapshot) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"Could not save favorite setting", nil)];
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteSavingViewController.didTapSaveButton")];
 			return;
 		}
 		
@@ -172,7 +172,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		DEBUG_LOG(@"filePath=%@", filePath);
 		DEBUG_LOG(@"fileContent=%@", snapshot);
 		if (![favoriteSetting writeToFile:filePath atomically:YES]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"Could not write camera setting to file. The content of file might be lost.", nil) title:NSLocalizedString(@"Could not save favorite setting", nil)];
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotWriteFavoriteSettingFile", @"FavoriteSavingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteSavingViewController.didTapSaveButton")];
 			return;
 		}
 

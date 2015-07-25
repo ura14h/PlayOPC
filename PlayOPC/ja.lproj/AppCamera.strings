@@ -210,7 +210,7 @@
 "<FACE_SCAN/FACE_SCAN_ON>" = "顔優先";
 "<FACE_SCAN/FACE_SCAN_NEAR>" = "瞳優先";
 "<ANTI_SHAKE_FOCAL_LENGTH>" = "MFレンズ用手ぶれ補正焦点距離";
-"<RECVIEW>" = "撮影結果確認用画像";
+"<RECVIEW>" = "撮影後確認画像";
 "<RECVIEW/OFF>" = "表示しない";
 "<RECVIEW/ON>" = "表示する";
 "<ANTI_SHAKE_MOVIE>" = "動画用手ぶれ補正モード";

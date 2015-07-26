@@ -53,8 +53,8 @@
 /* Class = "UILabel"; text = "$takeDrive"; ObjectID = "cjN-kg-VhB"; */
 "cjN-kg-VhB.text" = "$takeDrive";
 
-/* Class = "UITableViewSection"; footerTitle = "Auto bracketing enables when shooting mode is in P/A/S/M mode."; ObjectID = "cws-Wj-1YC"; */
-"cws-Wj-1YC.footerTitle" = "オートブラケット撮影は撮影モードがP/A/S/Mの時に利用できます。";
+/* Class = "UITableViewSection"; footerTitle = "Auto bracketing enables when shooting mode is in P/A/S/M mode and drive mode is single. When the combination of count and step is not good, The camera will take some pictures which became overexposure and underexposure."; ObjectID = "cws-Wj-1YC"; */
+"cws-Wj-1YC.footerTitle" = "オートブラケット撮影は撮影モードがP/A/S/Mで単写の時に利用できます。枚数とステップとの組合せがよくないと、カメラは露出過度と露出不足になった写真を撮るでしょう。";
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Bracketing"; ObjectID = "cws-Wj-1YC"; */
 "cws-Wj-1YC.headerTitle" = "オートブラケット撮影";

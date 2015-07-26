@@ -205,7 +205,8 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Auto Bracketing" footerTitle="Auto bracketing enables when shooting mode is in P/A/S/M mode." id="cws-Wj-1YC">
+                            <tableViewSection headerTitle="Auto Bracketing" id="cws-Wj-1YC">
+                                <string key="footerTitle">Auto bracketing enables when shooting mode is in P/A/S/M mode and drive mode is single. When the combination of count and step is not good, The camera will take some pictures which became overexposure and underexposure.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAutoBracketingMode" textLabel="Xab-Ot-xmV" detailTextLabel="DdA-bl-Kqz" style="IBUITableViewCellStyleValue1" id="jdM-3g-ggY">
                                         <autoresizingMask key="autoresizingMask"/>

@@ -1616,6 +1616,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// 開きます。
 		CGFloat width = self.finderPanelView.bounds.size.width * 0.5; // 倍率は適当な値です。
 		CGFloat height = self.finderPanelView.bounds.size.height * 0.5;	// 倍率は適当な値です。
+		if (width > 320.0) { // iPadだと広がりすぎるのでiPhoneの縦置きと同じ幅に制限します。
+			width = 320.0;
+		}
 		self.controlPanelViewWidthConstraints.constant = width;
 		self.controlPanelViewHeightConstraints.constant = height;
 		controlPanelViewAlpha = 1.0;

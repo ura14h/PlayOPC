@@ -71,7 +71,7 @@
 	for (NSInteger count = 3; count < 10; count += 2) {
 		NSDictionary *autoBracketingCount = @{
 			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:AutoBracketingCount(%ld)", @"EPanelViewController.viewDidLoad"), (long)count],
-			ItemSelectionViewItemValueKey:@(3)
+			ItemSelectionViewItemValueKey:@(count)
 		};
 		[autoBracketingCounts addObject:autoBracketingCount];
 	}

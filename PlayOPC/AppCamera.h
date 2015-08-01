@@ -26,6 +26,24 @@ typedef enum : NSInteger {
 	AppCameraAutoBracketingModeExposure, ///< 露出補正でオートブラケット
 } AppCameraAutoBracketingMode;
 
+typedef enum : NSInteger {
+	AppCameraActionTypeUnknown, ///< 不明
+	AppCameraActionTypeTakingPictureSingle, ///< 静止画を単写で撮影
+	AppCameraActionTypeTakingPictureSequential, ///< 静止画を連写で撮影
+	AppCameraActionTypeTakingPictureAutoBracketing, ///< 静止画をオートブラケットで撮影
+	AppCameraActionTypeRecordingVideo, ///< 動画を撮影
+} AppCameraActionType;
+
+/// カメラの動作ステータス
+typedef enum : NSInteger {
+	AppCameraActionStatusReady, ///< 撮影の開始を待機中
+	AppCameraActionStatusTakingPictureSingle, ///< 静止画を単写で撮影中
+	AppCameraActionStatusTakingPictureSequential, ///< 静止画を連写で撮影中
+	AppCameraActionStatusTakingPictureAutoBracketing, ///< 静止画をオートブラケットで撮影中
+	AppCameraActionStatusRecordingVideo, ///< 動画を撮影中
+} AppCameraActionStatus;
+
+
 // カメラプロパティ
 extern NSString *const CameraPropertyAperture;
 extern NSString *const CameraPropertyAe;
@@ -252,6 +270,9 @@ extern NSString *const CameraPropertyAutoBracketingMode;
 extern NSString *const CameraPropertyAutoBracketingCount;
 extern NSString *const CameraPropertyAutoBracketingStep;
 
+@protocol AppCameraTakingPictureDelegate;
+
+
 /// OLYCameraクラスにアプリ独自の機能を追加拡張したクラス。
 /// OLYCameraに関連するデリゲートのマルチ配信をサポートしています。
 @interface AppCamera : OLYCamera
@@ -300,6 +321,11 @@ extern NSString *const CameraPropertyAutoBracketingStep;
 /// recordingSupportsDelegateのリストから削除します。
 - (void)removeRecordingSupportsDelegate:(id<OLYCameraRecordingSupportsDelegate>)delegate;
 
+/// takingPictureDelegateのリストに登録します。
+- (void)addTakingPictureDelegate:(id<AppCameraTakingPictureDelegate>)delegate;
+/// takingPictureDelegateのリストから削除します。
+- (void)removeTakingPictureDelegate:(id<AppCameraTakingPictureDelegate>)delegate;
+
 /// 自動露光制御の動作をロックします。 非同期実行バージョンです。
 - (void)lockAutoExposure:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
 
@@ -338,8 +364,20 @@ extern NSString *const CameraPropertyAutoBracketingStep;
 /// 復元しないカメラプロパティのリストを指定することもできます。
 - (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error;
 
+/// 動作ステータスを示します。
+- (AppCameraActionStatus)cameraActionStatus;
+
+/// 撮影タイプを示します。
+- (AppCameraActionType)cameraActionType;
+
 /// オートブラケット撮影の設定が可能かどうかを示します。
 - (BOOL)canSetAutoBracketing;
+
+/// オートブラケット撮影を開始します。
+- (void)startTakingPictureByAutoBracketing:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
+
+/// オートブラケット撮影を終了します。
+- (void)stopTakingPictureByAutoBracketing:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler;
 
 /// 現在設定されている撮影モードでのフォーカスモードを取得します。
 - (AppCameraFocusMode)focusMode:(NSError **)error;
@@ -349,5 +387,20 @@ extern NSString *const CameraPropertyAutoBracketingStep;
 
 /// 現在設定されている倍率でライブビュー拡大を位置指定で開始します。
 - (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point error:(NSError **)error;
+
+@end
+
+/// 静止画連続撮影中に起きたイベントを通知します。
+@protocol AppCameraTakingPictureDelegate <NSObject>
+@optional
+
+/// オートブラケット撮影が開始した時に呼び出されます。
+- (void) cameraDidStartTakingPictureByAutoBracketing:(AppCamera *)camera;
+/// オートブラケットによる1コマ撮影が開始する時に呼び出されます。
+- (void) cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
+/// オートブラケットによる1コマ撮影が完了した時に呼び出されます。
+- (void) cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
+/// オートブラケット撮影が終了した時に呼び出されます。
+- (void) cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error;
 
 @end

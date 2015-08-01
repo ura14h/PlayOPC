@@ -594,6 +594,9 @@
 /* RecordingViewController.startTakingPicture */
 "$title:CouldNotStartTakingPicture" = "Could not start taking picture";
 
+/* RecordingViewController.startTakingPictureByAutoBracketing */
+"$title:CouldNotStartTakingPictureByAutoBracketing" = "Could not start taking picture";
+
 /* RecordingViewController.stopMagnifyingLiveView
    ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
 "$title:CouldNotStopMagnifying" = "Could not stop magnifying";
@@ -603,6 +606,9 @@
 
 /* RecordingViewController.stopTakingPicture */
 "$title:CouldNotStopTakingPicture" = "Could not stop taking picture";
+
+/* RecordingViewController.stopTakingPictureByAutoBracketing */
+"$title:CouldNotStopTakingPictureByAutoBracketing" = "Could not stop taking picture";
 
 /* RecordingViewController.takePicture */
 "$title:CouldNotTakePicture" = "Could not take picture";
@@ -708,6 +714,9 @@
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ResizeVideo" = "Resize this video";
+
+/* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
+"$title:TakePictureByAutoBracketingFailed" = "Could not taking all pictures";
 
 /* PlaybackViewController.commitEditingStyle
    PlaybackViewController.downloadContentList */

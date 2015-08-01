@@ -594,6 +594,9 @@
 /* RecordingViewController.startTakingPicture */
 "$title:CouldNotStartTakingPicture" = "写真撮影が開始できません";
 
+/* RecordingViewController.startTakingPictureByAutoBracketing */
+"$title:CouldNotStartTakingPictureByAutoBracketing" = "写真撮影が開始できません";
+
 /* RecordingViewController.stopMagnifyingLiveView
  ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
 "$title:CouldNotStopMagnifying" = "拡大表示が終了できません";
@@ -603,6 +606,9 @@
 
 /* RecordingViewController.stopTakingPicture */
 "$title:CouldNotStopTakingPicture" = "写真撮影が停止できません";
+
+/* RecordingViewController.stopTakingPictureByAutoBracketing */
+"$title:CouldNotStopTakingPictureByAutoBracketing" = "写真撮影が停止できません";
 
 /* RecordingViewController.takePicture */
 "$title:CouldNotTakePicture" = "写真撮影できません";
@@ -708,6 +714,9 @@
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ResizeVideo" = "この動画をリサイズ";
+
+/* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
+"$title:TakePictureByAutoBracketingFailed" = "すべての写真を撮影できませんでした";
 
 /* PlaybackViewController.commitEditingStyle
  PlaybackViewController.downloadContentList */

@@ -41,7 +41,7 @@ typedef enum : NSInteger {
 
 static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバムのグループ名(OAシリーズに合わせてあります)
 
-@interface RecordingViewController () <OLYCameraLiveViewDelegate, OLYCameraPropertyDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
+@interface RecordingViewController () <OLYCameraLiveViewDelegate, OLYCameraPropertyDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate, AppCameraTakingPictureDelegate>
 
 // ビューコントローラーの構成に関する設計メモ:
 //
@@ -304,6 +304,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera addLiveViewDelegate:weakSelf];
 		[camera addRecordingDelegate:weakSelf];
 		[camera addRecordingSupportsDelegate:weakSelf];
+		[camera addTakingPictureDelegate:weakSelf];
 		if (![camera startLiveView:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartRecordingMode", @"RecordingViewController.didStartActivity")];
 			return;
@@ -351,6 +352,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera removeLiveViewDelegate:weakSelf];
 		[camera removeRecordingDelegate:weakSelf];
 		[camera removeRecordingSupportsDelegate:weakSelf];
+		[camera removeTakingPictureDelegate:weakSelf];
 		NSError *error = nil;
 		if (![camera stopLiveView:&error]) {
 			// エラーを無視して続行します。
@@ -628,6 +630,35 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 }
 
+- (void)cameraDidStartTakingPictureByAutoBracketing:(AppCamera *)camera {
+	DEBUG_LOG(@"");
+
+	// 表示を撮影中にします。
+	self.takeButton.selected = YES;
+}
+
+- (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
+	DEBUG_LOG(@"count=%ld", (long)count);
+	// TODO:
+}
+
+- (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
+	DEBUG_LOG(@"count=%ld", (long)count);
+	// TODO:
+}
+
+- (void)cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error {
+	DEBUG_LOG(@"error=%@", error);
+
+	// 表示を待機中にします。
+	self.takeButton.selected = NO;
+	
+	if (error) {
+		// オートブラケット撮影に失敗しました。
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:TakePictureByAutoBracketingFailed", @"RecordingViewController.cameraDidStopTakingPictureByAutoBracketing")];
+	}
+}
+
 #pragma mark -
 
 /// フォーカス固定(AFロック)の値が変わった時に呼び出されます。
@@ -733,18 +764,43 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (IBAction)didTapTakeButton:(UITapGestureRecognizer *)sender {
 	DEBUG_LOG(@"");
 
-	// 単写モードと連写モードの場合は静止画撮影、動画モードの場合は動画撮影開始もしくは動画撮影終了します。
+	// 現在設定されている撮影モードと現在実行されている撮影状態から何をすべきかを決めます。
 	AppCamera *camera = GetAppCamera();
-	OLYCameraActionType actionType = [camera actionType];
-	if (actionType == OLYCameraActionTypeSingle ||
-		actionType == OLYCameraActionTypeSequential) {
-		[self takePicture];
-	} else if (actionType == OLYCameraActionTypeMovie) {
-		if (!camera.recordingVideo) {
-			[self startRecordingVideo];
+	AppCameraActionType actionType = [camera cameraActionType];
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+
+	if (actionType == AppCameraActionTypeTakingPictureSingle) {
+		if (actionStatus == AppCameraActionStatusReady) {
+			[self takePicture];
 		} else {
-			[self stopRecordingVideo];
+			DEBUG_LOG(@"ignore user action.");
 		}
+	} else if (actionType == AppCameraActionTypeTakingPictureSequential) {
+		if (actionStatus == AppCameraActionStatusReady) {
+			[self takePicture];
+		} else if (actionStatus == AppCameraActionStatusTakingPictureSequential) {
+			[self stopTakingPicture];
+		} else {
+			DEBUG_LOG(@"ignore user action.");
+		}
+	} else if (actionType == AppCameraActionTypeTakingPictureAutoBracketing) {
+		if (actionStatus == AppCameraActionStatusReady) {
+			[self startTakingPictureByAutoBracketing];
+		} else if (actionStatus == AppCameraActionStatusTakingPictureAutoBracketing) {
+			[self stopTakingPictureByAutoBracketing];
+		} else {
+			DEBUG_LOG(@"ignore user action.");
+		}
+	} else if (actionType == AppCameraActionTypeRecordingVideo) {
+		if (actionStatus == AppCameraActionStatusReady) {
+			[self startRecordingVideo];
+		} else if (actionStatus == AppCameraActionStatusRecordingVideo) {
+			[self stopRecordingVideo];
+		} else {
+			DEBUG_LOG(@"ignore user action.");
+		}
+	} else {
+		DEBUG_LOG(@"ignore user action.");
 	}
 }
 
@@ -752,24 +808,57 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (IBAction)didLongPressTakeButton:(UILongPressGestureRecognizer *)sender {
 	DEBUG_LOG(@"sender.state=%ld", (long)sender.state);
 
+	// 現在設定されている撮影モードと現在実行されている撮影状態から何をすべきかを決めます。
 	AppCamera *camera = GetAppCamera();
-	OLYCameraActionType actionType = [camera actionType];
+	AppCameraActionType actionType = [camera cameraActionType];
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+
 	if (sender.state == UIGestureRecognizerStateBegan) {
-		// ロングタップの押し始めにて、
-		// 単写モードの場合は静止画撮影、連写モードの場合は静止画撮影開始、動画モードの場合は動画撮影開始します。
-		if (actionType == OLYCameraActionTypeSingle) {
-			[self takePicture];
-		} else if (actionType == OLYCameraActionTypeSequential) {
-			[self startTakingPicture];
-		} else if (actionType == OLYCameraActionTypeMovie) {
-			[self startRecordingVideo];
+		// ロングタップの押し始め
+		if (actionType == AppCameraActionStatusTakingPictureSingle) {
+			if (actionStatus == AppCameraActionStatusReady) {
+				[self takePicture];
+			} else {
+				DEBUG_LOG(@"ignore user action.");
+			}
+		} else if (actionType == AppCameraActionStatusTakingPictureSequential) {
+			if (actionStatus == AppCameraActionStatusReady) {
+				[self startTakingPicture];
+			} else if (actionStatus == AppCameraActionStatusTakingPictureSequential) {
+				[self stopTakingPicture];
+			} else {
+				DEBUG_LOG(@"ignore user action.");
+			}
+		} else if (actionType == AppCameraActionStatusTakingPictureAutoBracketing) {
+			if (actionStatus == AppCameraActionStatusReady) {
+				[self startTakingPictureByAutoBracketing];
+			} else if (actionStatus == AppCameraActionStatusTakingPictureAutoBracketing) {
+				[self stopTakingPictureByAutoBracketing];
+			} else {
+				DEBUG_LOG(@"ignore user action.");
+			}
+		} else if (actionType == AppCameraActionStatusRecordingVideo) {
+			if (actionStatus == AppCameraActionStatusReady) {
+				[self startRecordingVideo];
+			} else if (actionStatus == AppCameraActionStatusRecordingVideo) {
+				[self stopRecordingVideo];
+			} else {
+				DEBUG_LOG(@"ignore user action.");
+			}
+		} else {
+			DEBUG_LOG(@"ignore user action.");
 		}
 	} else if (sender.state == UIGestureRecognizerStateEnded ||
 			   sender.state == UIGestureRecognizerStateCancelled) {
-		// ロングタップの押し終わりにて、
-		// 連写モードの場合は静止画撮影開始します。
-		if (actionType == OLYCameraActionTypeSequential) {
-			[self stopTakingPicture];
+		// ロングタップの押し終わり
+		if (actionType == AppCameraActionStatusTakingPictureSequential) {
+			if (actionStatus == AppCameraActionStatusTakingPictureSequential) {
+				[self stopTakingPicture];
+			} else {
+				DEBUG_LOG(@"ignore user action.");
+			}
+		} else {
+			DEBUG_LOG(@"ignore user action.");
 		}
 	}
 }
@@ -818,8 +907,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 	
@@ -883,8 +973,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 
@@ -985,8 +1076,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 	
@@ -1071,8 +1163,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 	
@@ -1134,8 +1227,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 
@@ -1206,8 +1300,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 	
@@ -1266,10 +1361,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)stopTakingPicture {
 	DEBUG_LOG(@"");
 
-	// 撮影していない時は何もできません。
+	// 撮影中の時以外は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (!camera.takingPicture) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusTakingPictureSequential) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 
@@ -1309,14 +1405,123 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	}];
 }
 
+/// 静止画のオートブラケット撮影を開始します。
+- (void)startTakingPictureByAutoBracketing {
+	DEBUG_LOG(@"");
+
+	// 撮影中の時は何もできません。
+	AppCamera *camera = GetAppCamera();
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
+		return;
+	}
+
+	// フォーカスロックしてから撮影をしようとしているのか、この撮影中にフォーカスロックするのかを確認します。
+	NSError *error = nil;
+	NSString *afLockState = [camera cameraPropertyValue:CameraPropertyAfLockState error:&error];
+	DEBUG_LOG(@"afLockState=%@", afLockState);
+	if (!afLockState) {
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartTakingPictureByAutoBracketing", @"RecordingViewController.startTakingPictureByAutoBracketing")];
+		return;
+	}
+	
+	// オートブラケット撮影を開始します。
+	__weak RecordingViewController *weakSelf = self;
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[camera startTakingPictureByAutoBracketing:nil progressHandler:^(OLYCameraTakingProgress progress, NSDictionary *info) {
+		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
+		if (progress == OLYCameraTakingProgressEndFocusing) {
+			// この撮影中にフォーカスロックした場合はオートフォーカス枠を表示します。
+			if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+				// オートフォーカスの結果を取得します。
+				NSString *focusResult = info[OLYCameraTakingPictureProgressInfoFocusResultKey];
+				NSValue *focusRectValue = info[OLYCameraTakingPictureProgressInfoFocusRectKey];
+				DEBUG_LOG(@"focusResult=%@, focusRectValue=%@", focusResult, focusRectValue);
+				if ([focusResult isEqualToString:@"ok"] && focusRectValue) {
+					// オートフォーカスとフォーカスロックに成功しました。結果のフォーカス枠を表示します。
+					CGRect postFocusFrameRect = [focusRectValue CGRectValue];
+					[weakSelf.liveImageView showFocusFrame:postFocusFrameRect status:RecordingCameraLiveImageViewStatusLocked animated:YES];
+				} else if ([focusResult isEqualToString:@"none"]) {
+					// オートフォーカスできませんでした。(オートフォーカス機構が搭載されていません)
+					[weakSelf.liveImageView hideFocusFrame:YES];
+				} else {
+					// オートフォーカスできませんでした。
+					[weakSelf.liveImageView hideFocusFrame:YES];
+				}
+			}
+		}
+	} completionHandler:^{
+		DEBUG_LOG(@"");
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// オートブラケット撮影を継続します。
+	} errorHandler:^(NSError *error) {
+		DEBUG_LOG(@"error=%p", error);
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// この撮影中にフォーカスロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			[camera clearAutoFocusPoint:nil];
+			[weakSelf.liveImageView hideFocusFrame:YES];
+		}
+		// 撮影に失敗しました。
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartTakingPictureByAutoBracketing", @"RecordingViewController.startTakingPictureByAutoBracketing")];
+	}];
+}
+
+/// 静止画のオートブラケット撮影を終了します。
+- (void)stopTakingPictureByAutoBracketing {
+	DEBUG_LOG(@"");
+
+	// 撮影中の時以外は何もできません。
+	AppCamera *camera = GetAppCamera();
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusTakingPictureAutoBracketing) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
+		return;
+	}
+
+	// フォーカスロックしてから撮影をしようとしているのか、この撮影中にフォーカスロックするのかを確認します。
+	NSError *error = nil;
+	NSString *afLockState = [camera cameraPropertyValue:CameraPropertyAfLockState error:&error];
+	DEBUG_LOG(@"afLockState=%@", afLockState);
+	if (!afLockState) {
+		// エラーを無視して続行します。
+		DEBUG_LOG(@"An error occurred, but ignores it.");
+	}
+	
+	// オートブラケット撮影を終了します。
+	__weak RecordingViewController *weakSelf = self;
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[camera stopTakingPictureByAutoBracketing:^(NSDictionary *info) {
+		DEBUG_LOG(@"info=%p", info);
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// この撮影中にフォーカスロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			[camera clearAutoFocusPoint:nil];
+			[weakSelf.liveImageView hideFocusFrame:YES];
+		}
+	} errorHandler:^(NSError *error) {
+		DEBUG_LOG(@"error=%p", error);
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// 撮影に失敗しました。
+		// この撮影中にフォーカスロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			[camera clearAutoFocusPoint:nil];
+			[weakSelf.liveImageView hideFocusFrame:YES];
+		}
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopTakingPictureByAutoBracketing", @"RecordingViewController.stopTakingPictureByAutoBracketing")];
+	}];
+}
+
 /// 動画の撮影を開始します。
 - (void)startRecordingVideo {
 	DEBUG_LOG(@"");
 
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 
@@ -1339,10 +1544,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)stopRecordingVideo {
 	DEBUG_LOG(@"");
 
-	// 撮影していない時は何もできません。
+	// 撮影中の時以外は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (!camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusRecordingVideo) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 
@@ -1367,8 +1573,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 撮影中の時は何もできません。
 	AppCamera *camera = GetAppCamera();
-	if (camera.takingPicture || camera.recordingVideo) {
-		DEBUG_LOG(@"camera.takingPicture=%ld, camera.recordingVideo=%ld", (long)camera.takingPicture, (long)camera.recordingVideo);
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
 		return;
 	}
 

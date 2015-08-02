@@ -30,7 +30,7 @@
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kne-3f-kN0">
                                                     <rect key="frame" x="192" y="8" width="120" height="29"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="120" id="GCT-fo-ETr"/>
+                                                        <constraint firstAttribute="width" priority="250" constant="120" id="GCT-fo-ETr"/>
                                                     </constraints>
                                                     <segments>
                                                         <segment title="AF"/>
@@ -45,7 +45,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="SXB-cg-i5u" secondAttribute="bottom" id="4vn-SO-fnt"/>
                                                 <constraint firstItem="SXB-cg-i5u" firstAttribute="top" secondItem="qns-aD-9gF" secondAttribute="top" id="6we-yG-Zvc"/>
                                                 <constraint firstItem="SXB-cg-i5u" firstAttribute="leading" secondItem="qns-aD-9gF" secondAttribute="leading" constant="15" id="Egp-62-TUD"/>
-                                                <constraint firstAttribute="trailing" secondItem="Kne-3f-kN0" secondAttribute="trailing" constant="8" id="EwY-gB-dON"/>
+                                                <constraint firstAttribute="trailing" secondItem="Kne-3f-kN0" secondAttribute="trailing" priority="750" constant="8" id="EwY-gB-dON"/>
                                                 <constraint firstItem="Kne-3f-kN0" firstAttribute="leading" secondItem="SXB-cg-i5u" secondAttribute="trailing" constant="8" id="NiT-q4-3Du"/>
                                                 <constraint firstItem="Kne-3f-kN0" firstAttribute="trailing" secondItem="qns-aD-9gF" secondAttribute="trailingMargin" id="cMS-kS-xTw"/>
                                                 <constraint firstAttribute="centerY" secondItem="Kne-3f-kN0" secondAttribute="centerY" id="nec-Yx-BKz"/>

@@ -1611,9 +1611,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera startRecordingVideo:nil completionHandler:^{
 		DEBUG_LOG(@"");
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-		// シャッターボタンの状態を撮影中にします。
-		weakSelf.takeButton.selected = YES;
-		weakSelf.takeButton.enabled = YES;
+		// MARK: 動画撮影を開始しても動画撮影開始通知は呼び出されないようなので自力で呼び出します。
+		[weakSelf cameraDidStartRecordingVideo:camera];
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
@@ -1649,9 +1648,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// MARK: カメラ側の録画終了の合図が遅れるようなので、アプリの録画終了も少し遅延させます。
 		dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC));
 		dispatch_after(delay, dispatch_get_main_queue(), ^{
-			// シャッターボタンの状態を待機中にします。
-			weakSelf.takeButton.selected = NO;
-			weakSelf.takeButton.enabled = YES;
+			// MARK: 動画撮影を終了しても動画撮影終了通知は呼び出されないようなので自力で呼び出します。
+			[weakSelf cameraDidStopRecordingVideo:camera];
 		});
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);

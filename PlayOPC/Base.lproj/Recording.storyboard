@@ -783,7 +783,6 @@
         <!--Navigation Controller-->
         <scene sceneID="Yfa-em-cDm">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="WE4-cG-EnS" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController id="yQL-8N-GRU" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XfC-vt-3ZQ">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -791,6 +790,7 @@
                         <color key="barTintColor" red="0.92156862750000001" green="0.96078431369999995" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </navigationBar>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WE4-cG-EnS" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1584" y="-524"/>
         </scene>
@@ -890,16 +890,26 @@
                             <constraint firstAttribute="trailing" secondItem="aw8-Ul-KHw" secondAttribute="trailing" id="fqj-gR-N0P"/>
                         </constraints>
                     </view>
-                    <toolbarItems/>
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="JpX-8m-Ntg"/>
+                        <barButtonItem systemItem="trash" id="t1Y-1e-qH6">
+                            <connections>
+                                <action selector="didTapEraseButton:" destination="ATI-Lf-Tbo" id="XiT-7o-FgF"/>
+                            </connections>
+                        </barButtonItem>
+                    </toolbarItems>
                     <navigationItem key="navigationItem" title="Latest Picture" id="S2d-Sr-ERw">
                         <barButtonItem key="backBarButtonItem" title="Back" id="uQh-LP-Yxa"/>
                     </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="5cf-lY-c6o" id="ZnY-5k-xpO"/>
                         <outlet property="scrollView" destination="aw8-Ul-KHw" id="iOh-fG-C2f"/>
+                        <segue destination="C9f-mH-IrP" kind="unwind" identifier="DoneRecImageView" unwindAction="exitToRecordingViewController:" id="MKd-d8-J4u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jL2-aM-pm1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="C9f-mH-IrP" userLabel="Exit" sceneMemberID="exit"/>
                 <tapGestureRecognizer numberOfTapsRequired="2" id="ojo-7M-QBE">
                     <connections>
                         <action selector="didTapScrollView:" destination="ATI-Lf-Tbo" id="9JR-m7-HOb"/>

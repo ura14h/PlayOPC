@@ -42,7 +42,7 @@ typedef enum : NSInteger {
 
 static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバムのグループ名(OAシリーズに合わせてあります)
 
-@interface RecordingViewController () <OLYCameraLiveViewDelegate, OLYCameraPropertyDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate, AppCameraTakingPictureDelegate>
+@interface RecordingViewController () <OLYCameraLiveViewDelegate, OLYCameraPropertyDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate, AppCameraTakingPictureDelegate, RecImageViewControllerControllerDelegate>
 
 // ビューコントローラーの構成に関する設計メモ:
 //
@@ -412,6 +412,18 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 #pragma mark -
 
+/// このビューコントローラーの画面に戻る時に呼び出されます。
+- (IBAction)exitToRecordingViewController:(UIStoryboardSegue *)segue {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"DoneRecImageView"]) {
+	} else {
+		// 何もしません。
+	}
+}
+
 /// セグエを準備する(画面が遷移する)時に呼び出されます。
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
 	DEBUG_LOG(@"segue=%@", segue);
@@ -474,6 +486,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	} else {
 		if ([segueIdentifier isEqualToString:@"ShowRecImageViewController"]) {
 			RecImageViewController *viewController = segue.destinationViewController;
+			viewController.delegate = self;
 			viewController.image = self.latestRecImage;
 		} else {
 			// 何もしません。
@@ -716,6 +729,15 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// オートブラケット撮影に失敗しました。
 		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:TakePictureByAutoBracketingFailed", @"RecordingViewController.cameraDidStopTakingPictureByAutoBracketing")];
 	}
+}
+
+/// 撮影後確認画像表示で画像が削除された時に呼び出されます。
+- (void)recImageViewControllerDidEraseImage:(RecImageViewController *)controller {
+	DEBUG_LOG(@"");
+	
+	// レックビューの表示を消去します。
+	self.latestRecImage = nil;
+	[self.recImageButton setImage:nil];
 }
 
 #pragma mark -

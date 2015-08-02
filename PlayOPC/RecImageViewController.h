@@ -11,9 +11,21 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol RecImageViewControllerControllerDelegate;
+
 /// 撮影後確認画像を表示します。
 @interface RecImageViewController : UIViewController
 
+@property (weak, nonatomic) id<RecImageViewControllerControllerDelegate> delegate; ///< 撮影後確認画像表示中に発生した通知を受け取るためのデリゲート
 @property (strong, nonatomic) UIImage *image; ///< 表示する撮影後確認画像
+
+@end
+
+/// 撮影後確認画像表示中に発生した通知を受け取るためのデリゲートプロトコル。
+@protocol RecImageViewControllerControllerDelegate <NSObject>
+@optional
+
+/// 撮影後確認画像を削除しました。
+- (void)recImageViewControllerDidEraseImage:(RecImageViewController *)controller;
 
 @end

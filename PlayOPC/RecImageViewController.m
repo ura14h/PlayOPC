@@ -53,8 +53,8 @@
 	DEBUG_LOG(@"");
 	[super viewWillAppear:animated];
 	
-	// ツールバーを非表示にします。
-	[self.navigationController setToolbarHidden:YES animated:animated];
+	// ツールバーを表示します。
+	[self.navigationController setToolbarHidden:NO animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -212,6 +212,18 @@
 		// スクロールビューを最小倍率までズームアウトします。
 		[self.scrollView setZoomScale:minimumZoomScale animated:YES];
 	}
+}
+
+/// 削除ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapEraseButton:(id)sender {
+	DEBUG_LOG(@"");
+
+	if (self.delegate) {
+		[self.delegate recImageViewControllerDidEraseImage:self];
+	}
+	
+	// 前の画面に戻ります。
+	[self performSegueWithIdentifier:@"DoneRecImageView" sender:self];
 }
 
 #pragma mark -

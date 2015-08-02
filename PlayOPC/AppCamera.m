@@ -1699,9 +1699,19 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				break;
 			}
 			// 設定した値が実際に適用されたかを確認します。
+			NSTimeInterval timeout;
+			if (weakSelf.connectionType == OLYCameraConnectionTypeWiFi) {
+				timeout = 3.0;
+			} else if (weakSelf.connectionType == OLYCameraConnectionTypeBluetoothLE) {
+				timeout = 5.0; // MARK: Bluetoothだとかなり遅れて設定されるようです。
+			} else {
+				// 異常事態が発生している場合は撮影は中止です。
+				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not connected." };
+				takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorNotConnected userInfo:userInfo];
+				break;
+			}
 			if ([autoBracketingProperty isEqualToString:CameraPropertyExprev]) {
 				// 露出補正値
-				NSTimeInterval timeout = 3.0;
 				NSDate *startTime = [NSDate date];
 				while (![weakSelf.actualExposureCompensation isEqualToString:propertyValue]) {
 					if ([[NSDate date] timeIntervalSinceDate:startTime] > timeout) {
@@ -1721,7 +1731,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				}
 			} else if ([autoBracketingProperty isEqualToString:CameraPropertyShutter]) {
 				// シャッター速度
-				NSTimeInterval timeout = 3.0;
 				NSDate *startTime = [NSDate date];
 				while (![weakSelf.actualShutterSpeed isEqualToString:propertyValue]) {
 					if ([[NSDate date] timeIntervalSinceDate:startTime] > timeout) {
@@ -1742,6 +1751,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			} else {
 				// ありえません。
 				assert(NO);
+			}
+			if (takingError) {
+				// 設定に失敗したようです。
+				break;
 			}
 			
 			// 写真撮影します。
@@ -1781,15 +1794,37 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 
 			// メディアへの書き込みが終わるまで待ちます。
 			// MARK: これがないと次のカメラプロパティ設定がエラーになる場合があります。
-			while (weakSelf.mediaBusy) {
-				if (weakSelf.runMode == OLYCameraRunModeRecording) {
-					[NSThread sleepForTimeInterval:0.1];
-				} else {
-					// 異常事態が発生している場合は撮影は中止です。
-					NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
-					takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
-					break;
+			if (weakSelf.connectionType == OLYCameraConnectionTypeWiFi) {
+				// MARK: Wi-Fiの場合はメディア書き込み中を示すプロパティで完了を確認できます。
+				while (weakSelf.mediaBusy) {
+					if (weakSelf.runMode == OLYCameraRunModeRecording) {
+						[NSThread sleepForTimeInterval:0.1];
+					} else {
+						// 異常事態が発生している場合は撮影は中止です。
+						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
+						break;
+					}
 				}
+				
+			} else if (weakSelf.connectionType == OLYCameraConnectionTypeBluetoothLE) {
+				// Bluetoothの場合はメディア書き込み中を示すプロパティで完了を確認できないので少し待ちます。
+				NSTimeInterval timeout = 3.0;
+				NSDate *startTime = [NSDate date];
+				while ([[NSDate date] timeIntervalSinceDate:startTime] < timeout) {
+					if (weakSelf.runMode == OLYCameraRunModeRecording) {
+						[NSThread sleepForTimeInterval:0.1];
+					} else {
+						// 異常事態が発生している場合は撮影は中止です。
+						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
+						break;
+					}
+				}
+			}
+			if (takingError) {
+				// 待ち合わせに失敗したようです。
+				break;
 			}
 			
 			// ここで一枚撮影完了です。

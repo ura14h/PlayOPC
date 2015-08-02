@@ -716,6 +716,12 @@
  RecordingViewController.didFailToReceiveCapturedImagePreviewWithError */
 "$title:ReceiveCapturedImagePreviewFailed" = "撮影後確認画像を受信できませんでした";
 
+/* RecordingViewController.didChangeRecordingElapsedTime */
+"$title:RecordingVideo(%ld,%ld)" = "録画中: %1$ld:%2$02ld";
+
+/* RecordingViewController.cameraDidStartRecordingVideo */
+"$title:RecordingVideoStart" = "録画中";
+
 /* PictureContentViewController.didTapResizeButton */
 "$title:ResizePicture" = "この写真をリサイズ";
 

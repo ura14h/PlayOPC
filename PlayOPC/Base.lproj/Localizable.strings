@@ -716,6 +716,12 @@
    RecordingViewController.didFailToReceiveCapturedImagePreviewWithError */
 "$title:ReceiveCapturedImagePreviewFailed" = "Could not receive preview of captured image";
 
+/* RecordingViewController.didChangeRecordingElapsedTime */
+"$title:RecordingVideo(%ld,%ld)" = "Recording: %1$ld:%2$02ld";
+
+/* RecordingViewController.cameraDidStartRecordingVideo */
+"$title:RecordingVideoStart" = "Recording";
+
 /* PictureContentViewController.didTapResizeButton */
 "$title:ResizePicture" = "Resize this picture";
 

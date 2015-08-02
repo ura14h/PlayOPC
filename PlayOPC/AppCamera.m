@@ -238,6 +238,7 @@ NSString *const CameraPropertyWbRevG = @"WB_REV_G";
 NSString *const CameraPropertyAutoBracketingMode = @"autoBracketingMode";
 NSString *const CameraPropertyAutoBracketingCount = @"autoBrackettingCount";
 NSString *const CameraPropertyAutoBracketingStep = @"autoBrackettingStep";
+NSString *const CameraPropertyRecordingElapsedTime = @"recordingElapsedTime";
 
 static NSString *const CameraSettingSnapshotFormatVersion = @"1.0"; ///< ファイルのフォーマットバージョン
 static NSString *const CameraSettingSnapshotFormatVersionKey = @"FormatVersion"; ///< ファイルのフォーマットバージョンの辞書キー
@@ -250,6 +251,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
 
+@property (assign, nonatomic, readwrite) NSTimeInterval recordingElapsedTime; ///< 動画撮影経過時間
 @property (assign, nonatomic, readwrite) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
 @property (assign, nonatomic, readwrite) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readwrite) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
@@ -271,6 +273,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 @property (assign, nonatomic) BOOL abortedAutoBracketing; /// オートブラケット撮影を中止させようとしているか
 @property (strong, nonatomic) dispatch_queue_t takingPictureRunnerQueue; /// 静止画複数枚撮影を実行するキュー
 @property (strong, nonatomic) dispatch_queue_t takingPictureStopperQueue; /// 静止画複数枚撮影を中止させるキュー
+@property (strong, nonatomic) NSDate *recordingVideoStartTime; ///< 動画撮影を開始した時刻
+@property (strong, nonatomic) NSTimer *recordingVideoTimer; ///< 動画撮影経過時間を更新するためのタイマー
 
 @end
 
@@ -291,6 +295,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_autoBracketingMode = AppCameraAutoBracketingModeDisabled;
 	_autoBracketingCount = 3;
 	_autoBracketingStep = 1;
+	_recordingElapsedTime = 0;
 	_minimumDigitalZoomScale = NAN;
 	_maximumDigitalZoomScale = NAN;
 	_currentDigitalZoomScale = NAN;
@@ -302,6 +307,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_abortedAutoBracketing = NO;
 	_takingPictureRunnerQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.takingPictureRunner", DISPATCH_QUEUE_SERIAL);
 	_takingPictureStopperQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.takingStopperRunner", DISPATCH_QUEUE_SERIAL);
+	_recordingVideoStartTime = nil;
+	_recordingVideoTimer = nil;
 	
 	// 弱い参照を格納できる集合を生成します。
 	_connectionDelegates = [NSHashTable weakObjectsHashTable];
@@ -325,8 +332,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (void)dealloc {
 	DEBUG_LOG(@"");
 	
+	[_recordingVideoTimer invalidate];
 	_takingPictureRunnerQueue = nil;
 	_takingPictureStopperQueue = nil;
+	_recordingVideoStartTime = nil;
+	_recordingVideoTimer = nil;
 
 	_connectionDelegates = nil;
 	_cameraPropertyDelegates = nil;
@@ -363,6 +373,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_autoBracketingStep = 1;
 #endif
 	
+	// 動画撮影経過時間を更新します。
+	if (self.recordingElapsedTime != 0) {
+		self.recordingElapsedTime = 0;
+	}
+
 	// デジタルズームのプロパティを更新します。
 	float minimumDigitalZoomScale = NAN;
 	float maximumDigitalZoomScale = NAN;
@@ -407,6 +422,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	self.abortAutoBracketing = NO;
 	self.abortedAutoBracketing = NO;
 
+	// 動画撮影の経過時間監視を初期化します。
+	[self.recordingVideoTimer invalidate];
+	self.recordingVideoStartTime = nil;
+	self.recordingVideoTimer = nil;
+	
 	return result;
 }
 
@@ -501,6 +521,36 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	return YES;
+}
+
+- (void)startRecordingVideo:(NSDictionary *)options completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+	DEBUG_LOG(@"");
+	
+	[super startRecordingVideo:options completionHandler:^() {
+		// 完了ハンドラを呼びます。
+		completionHandler();
+		
+		// 動画撮影経過時間を更新するためのタイマーを開始します。
+		self.recordingElapsedTime = 0;
+		self.recordingVideoStartTime = [NSDate date];
+		self.recordingVideoTimer = [NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(recordingVideoTimerDidFire:) userInfo:nil repeats:YES];
+		[[NSRunLoop currentRunLoop] addTimer:self.recordingVideoTimer forMode:NSRunLoopCommonModes];
+		
+	} errorHandler:errorHandler];
+}
+
+- (void)stopRecordingVideo:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+	DEBUG_LOG(@"");
+
+	[super stopRecordingVideo:^(NSDictionary *info) {
+		// 動画撮影経過時間を更新するためのタイマーを停止します。
+		[self.recordingVideoTimer invalidate];
+		self.recordingVideoStartTime = nil;
+		self.recordingVideoTimer = nil;
+
+		// 完了ハンドラを呼びます。
+		completionHandler(info);
+	} errorHandler:errorHandler];
 }
 
 - (void)lockAutoFocus:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
@@ -696,10 +746,21 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			[delegate cameraDidStartRecordingVideo:camera];
 		}
 	}
+	
+	// 動画撮影経過時間を更新するためのタイマーを開始します。
+	self.recordingElapsedTime = 0;
+	self.recordingVideoStartTime = [NSDate date];
+	self.recordingVideoTimer = [NSTimer timerWithTimeInterval:0.25 target:self selector:@selector(recordingVideoTimerDidFire:) userInfo:nil repeats:YES];
+	[[NSRunLoop currentRunLoop] addTimer:self.recordingVideoTimer forMode:NSRunLoopCommonModes];
 }
 
 - (void)cameraDidStopRecordingVideo:(OLYCamera *)camera {
 	DEBUG_LOG(@"");
+
+	// 動画撮影経過時間を更新するためのタイマーを停止します。
+	[self.recordingVideoTimer invalidate];
+	self.recordingVideoStartTime = nil;
+	self.recordingVideoTimer = nil;
 	
 	// デリゲート集合を取得します。
 	// 別スレッドでイベントハンドラの追加削除を行っている可能性があるのでスナップショットを取り出します。
@@ -1927,6 +1988,25 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	
 	DEBUG_DETAIL_LOG(@"nmea=%lf", nmea);
 	return nmea;
+}
+
+/// 動画撮影経過時間を更新するためのタイマーが発火した時に呼び出されます。
+- (void)recordingVideoTimerDidFire:(NSTimer *)timer {
+	DEBUG_DETAIL_LOG(@"");
+	
+	if (!self.recordingVideo ||
+		!self.recordingVideoStartTime) {
+		// 通常はあり得ません。
+		return;
+	}
+	
+	// MARK: 経過時間を更新します。
+	// 録画終了のタイミングが正確ではないので、Wi-Fiで接続している時に限っては
+	// 自前で開始時刻から計算するよりも、開始時のカメラの残り録画可能時間と現在の残り録画可能時間を使って逆算したほうが正確かもしれない。
+	NSTimeInterval time = [[NSDate date] timeIntervalSinceDate:self.recordingVideoStartTime];
+	if (self.recordingElapsedTime != time) {
+		self.recordingElapsedTime = time;
+	}
 }
 
 @end

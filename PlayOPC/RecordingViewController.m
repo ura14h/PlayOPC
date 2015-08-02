@@ -143,6 +143,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	AppCamera *camera = GetAppCamera();
 	[camera addCameraPropertyDelegate:self];
 	[camera addObserver:self forKeyPath:CameraPropertyDetectedHumanFaces options:0 context:@selector(didChangeDetectedHumanFaces:)];
+	[camera addObserver:self forKeyPath:CameraPropertyRecordingElapsedTime options:0 context:@selector(didChangeRecordingElapsedTime:)];
 	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveView options:0 context:@selector(didChangeMagnifyingLiveView:)];
 	
 	// 画面表示を初期設定します。
@@ -178,6 +179,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	AppCamera *camera = GetAppCamera();
 	[camera removeObserver:self forKeyPath:CameraPropertyDetectedHumanFaces];
+	[camera removeObserver:self forKeyPath:CameraPropertyRecordingElapsedTime];
 	[camera removeObserver:self forKeyPath:CameraPropertyMagnifyingLiveView];
 	[camera removeCameraPropertyDelegate:self];
 	_cameraPropertyObserver = nil;
@@ -543,6 +545,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// シャッターボタンの状態を撮影中にします。
 	self.takeButton.selected = YES;
 	self.takeButton.enabled = YES;
+
+	// 撮影進捗ラベルを表示開始します。
+	NSString *text = NSLocalizedString(@"$title:RecordingVideoStart", @"RecordingViewController.cameraDidStartRecordingVideo");
+	self.progressLabel.text = text;
+	[UIView animateWithDuration:0.25 animations:^{
+		self.progressLabel.alpha = 1.0;
+	}];
 }
 
 - (void)cameraDidStopRecordingVideo:(OLYCamera *)camera {
@@ -551,6 +560,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// シャッターボタンの状態を待機中にします。
 	self.takeButton.selected = NO;
 	self.takeButton.enabled = YES;
+
+	// 撮影進捗ラベルを消去します。
+	[UIView animateWithDuration:0.25 animations:^{
+		self.progressLabel.alpha = 0.0;
+	}];
 }
 
 - (void)camera:(OLYCamera *)camera didChangeAutoFocusResult:(NSDictionary *)result {
@@ -739,6 +753,21 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	AppCamera *camera = GetAppCamera();
 	NSDictionary *detectedHumanFaces = camera.detectedHumanFaces;
 	[self.liveImageView showFaceFrames:detectedHumanFaces animated:YES];
+}
+
+/// 動画撮影経過時間が変わった時に呼び出されます。
+- (void)didChangeRecordingElapsedTime:(NSDictionary *)change {
+	DEBUG_DETAIL_LOG(@"");
+
+	// 動画撮影経過時間を取得します。
+	AppCamera *camera = GetAppCamera();
+	NSInteger time = (NSInteger)camera.recordingElapsedTime;
+	NSInteger minutes = time / 60;
+	NSInteger seconds = time % 60;
+
+	// 撮影進捗ラベルを表示更新します。
+	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:RecordingVideo(%ld,%ld)", @"RecordingViewController.didChangeRecordingElapsedTime"), (long)minutes, (long)seconds];
+	self.progressLabel.text = text;
 }
 
 /// ライブビュー拡大の状態が変わった時に呼び出されます。

@@ -269,6 +269,7 @@ extern NSString *const CameraPropertyWbRevG;
 extern NSString *const CameraPropertyAutoBracketingMode;
 extern NSString *const CameraPropertyAutoBracketingCount;
 extern NSString *const CameraPropertyAutoBracketingStep;
+extern NSString *const CameraPropertyRecordingElapsedTime;
 
 @protocol AppCameraTakingPictureDelegate;
 
@@ -280,6 +281,7 @@ extern NSString *const CameraPropertyAutoBracketingStep;
 @property (assign, nonatomic) AppCameraAutoBracketingMode autoBracketingMode; ///< オートブラケットモード
 @property (assign, nonatomic) NSInteger autoBracketingCount; ///< オートブラケットで撮影する枚数(3以上の奇数)
 @property (assign, nonatomic) NSInteger autoBracketingStep; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数(1以上)
+@property (assign, nonatomic, readonly) NSTimeInterval recordingElapsedTime; ///< 動画撮影経過時間
 @property (assign, nonatomic, readonly) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
 @property (assign, nonatomic, readonly) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readonly) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率

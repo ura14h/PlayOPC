@@ -152,6 +152,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	self.controlPanelVisibleStatus = ControlPanelVisibleStatusUnknown;
 	self.toolPanelView.layer.borderWidth = 0.5;
 	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
+	self.takeButton.selected = NO;
+	self.takeButton.enabled = YES;
+	self.showSPanelButton.selected = NO;
+	self.showEPanelButton.selected = NO;
+	self.showCPanelButton.selected = NO;
+	self.showAPanelButton.selected = NO;
+	self.showZPanelButton.selected = NO;
+	self.showVPanelButton.selected = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -528,6 +536,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 表示を撮影中にします。
 	self.takeButton.selected = YES;
+	self.takeButton.enabled = YES;
 }
 
 - (void)cameraDidStopRecordingVideo:(OLYCamera *)camera {
@@ -535,6 +544,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 表示を待機中にします。
 	self.takeButton.selected = NO;
+	self.takeButton.enabled = YES;
 }
 
 - (void)camera:(OLYCamera *)camera didChangeAutoFocusResult:(NSDictionary *)result {
@@ -635,16 +645,21 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 表示を撮影中にします。
 	self.takeButton.selected = YES;
+	self.takeButton.enabled = YES;
 }
 
 - (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
-	// TODO:
+
+	// 撮影を開始する時にフラッシュ表現を開始します。
+	[self.liveImageView showFlashing:YES];
 }
 
 - (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
-	// TODO:
+
+	// 撮影を完了した時にフラッシュ表現を終了します。
+	[self.liveImageView hideFlashing:YES];
 }
 
 - (void)cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error {
@@ -652,8 +667,12 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 表示を待機中にします。
 	self.takeButton.selected = NO;
+	self.takeButton.enabled = YES;
 	
 	if (error) {
+		// エラー終了して中途半端になっているかもしれない、フラッシュ表現を終了します。
+		[self.liveImageView hideFlashing:NO];
+		
 		// オートブラケット撮影に失敗しました。
 		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:TakePictureByAutoBracketingFailed", @"RecordingViewController.cameraDidStopTakingPictureByAutoBracketing")];
 	}
@@ -1343,6 +1362,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	} completionHandler:^{
 		DEBUG_LOG(@"");
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = YES;
 		// 連写撮影を継続します。
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
@@ -1387,6 +1407,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	} completionHandler:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = NO;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
@@ -1429,6 +1450,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// オートブラケット撮影を開始します。
 	__weak RecordingViewController *weakSelf = self;
 	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	weakSelf.takeButton.selected = NO;
+	weakSelf.takeButton.enabled = NO;
 	[camera startTakingPictureByAutoBracketing:nil progressHandler:^(OLYCameraTakingProgress progress, NSDictionary *info) {
 		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
 		if (progress == OLYCameraTakingProgressEndFocusing) {
@@ -1454,10 +1477,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	} completionHandler:^{
 		DEBUG_LOG(@"");
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = YES;
+		weakSelf.takeButton.enabled = YES;
 		// オートブラケット撮影を継続します。
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = NO;
+		weakSelf.takeButton.enabled = YES;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
@@ -1492,9 +1519,12 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// オートブラケット撮影を終了します。
 	__weak RecordingViewController *weakSelf = self;
 	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	weakSelf.takeButton.selected = NO;
+	weakSelf.takeButton.enabled = NO;
 	[camera stopTakingPictureByAutoBracketing:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// MARK: シャッターボタンの状態変更はオートブラケット撮影の完了通知にお任せします。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
@@ -1503,6 +1533,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = YES;
+		weakSelf.takeButton.enabled = YES;
 		// 撮影に失敗しました。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
@@ -1528,13 +1560,18 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// 動画撮影を開始します。
 	__weak RecordingViewController *weakSelf = self;
 	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	weakSelf.takeButton.selected = NO;
+	weakSelf.takeButton.enabled = NO;
 	[camera startRecordingVideo:nil completionHandler:^{
 		DEBUG_LOG(@"");
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-		self.takeButton.selected = YES;
+		weakSelf.takeButton.selected = YES;
+		weakSelf.takeButton.enabled = YES;
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = NO;
+		weakSelf.takeButton.enabled = YES;
 		// 撮影に失敗しました。
 		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartRecordingVideo", @"RecordingViewController.startRecordingVideo")];
 	}];
@@ -1555,13 +1592,22 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// 動画撮影を終了します。
 	__weak RecordingViewController *weakSelf = self;
 	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	weakSelf.takeButton.selected = NO;
+	weakSelf.takeButton.enabled = NO;
 	[camera stopRecordingVideo:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
-		self.takeButton.selected = NO;
+		// MARK: カメラ側の録画終了の合図が遅れるようなので、アプリの録画終了も少し遅延させます。
+		dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC));
+		dispatch_after(delay, dispatch_get_main_queue(), ^{
+			weakSelf.takeButton.selected = NO;
+			weakSelf.takeButton.enabled = YES;
+		});
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		weakSelf.takeButton.selected = YES;
+		weakSelf.takeButton.enabled = YES;
 		// 撮影に失敗しました。
 		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopRecordingVideo", @"RecordingViewController.stopRecordingVideo")];
 	}];

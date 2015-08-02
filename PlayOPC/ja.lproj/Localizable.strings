@@ -431,6 +431,13 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:WifiConnectionIsNotCamera" = "カメラの電源は入れましたが、このWi-Fi接続はカメラのものではないようです。「設定」で手動で現在のWi-Fi接続を切断してカメラに接続してください。";
 
+/* RecordingViewController.cameraDidTakePictureByAutoBracketing
+ RecordingViewController.cameraWillTakePictureByAutoBracketing */
+"$title:AutoBracketingProgres(%ld,%ld)" = "オートブラケット: %1$ld/%2$ld";
+
+/* RecordingViewController.cameraDidStartTakingPictureByAutoBracketing */
+"$title:AutoBracketingStart" = "オートブラケット";
+
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
 "$title:CancelClearCameraSetting" = "取り消し";
 

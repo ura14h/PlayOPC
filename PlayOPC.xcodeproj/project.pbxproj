@@ -155,6 +155,8 @@
 		31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */; };
 		31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
 		31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
+		31C80DF11B6DD0E900E77BA4 /* MarginedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */; };
+		31C80DF21B6DD0E900E77BA4 /* MarginedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */; };
 		31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
@@ -334,6 +336,8 @@
 		31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-0.png"; sourceTree = "<group>"; };
 		31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomAlbum.h"; sourceTree = "<group>"; };
 		31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
+		31C80DEF1B6DD0E900E77BA4 /* MarginedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginedLabel.h; sourceTree = "<group>"; };
+		31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginedLabel.m; sourceTree = "<group>"; };
 		31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
 		31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationController.m; sourceTree = "<group>"; };
 		31D5EDA41B5A340B004DF3AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
@@ -537,6 +541,8 @@
 				311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */,
 				3192843E1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.h */,
 				3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */,
+				31C80DEF1B6DD0E900E77BA4 /* MarginedLabel.h */,
+				31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */,
 				311199C01B08702100538FA0 /* Extended Classes */,
 				311199B71B086F5E00538FA0 /* Imported Classes */,
 				311B75C81ABC287C00A7D38C /* Images.xcassets */,
@@ -945,6 +951,7 @@
 				319284401AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
 				311268F81AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
 				313870A41AC7D27600B00309 /* BluetoothConnector.m in Sources */,
+				31C80DF11B6DD0E900E77BA4 /* MarginedLabel.m in Sources */,
 				31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */,
 				311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
 				3162EB091ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,
@@ -995,6 +1002,7 @@
 				3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
 				314D7A511ACFDA03004C2644 /* AppCameraLog.m in Sources */,
 				319284411AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
+				31C80DF21B6DD0E900E77BA4 /* MarginedLabel.m in Sources */,
 				311268F91AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
 				3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */,
 				31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */,

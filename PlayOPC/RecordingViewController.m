@@ -16,6 +16,7 @@
 #import "RecordingLocationManager.h"
 #import "LiveImageView.h"
 #import "RecImageButton.h"
+#import "MarginedLabel.h"
 #import "RecImageViewController.h"
 #import "SPanelViewController.h"
 #import "EPanelViewController.h"
@@ -85,6 +86,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIButton *moveToRightButton;
 @property (weak, nonatomic) IBOutlet UIButton *moveToDownButton;
 @property (weak, nonatomic) IBOutlet RecImageButton *recImageButton;
+@property (weak, nonatomic) IBOutlet MarginedLabel *progressLabel;
 @property (weak, nonatomic) IBOutlet UIView *controlPanelView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewHeightConstraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewWidthConstraints;
@@ -149,6 +151,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	self.moveToLeftButton.alpha = moveButtonAlpha;
 	self.moveToRightButton.alpha = moveButtonAlpha;
 	self.moveToDownButton.alpha = moveButtonAlpha;
+	self.progressLabel.layer.cornerRadius = 5.0;
+	self.progressLabel.clipsToBounds = true;
+	self.progressLabel.alpha = 0.0;
+	self.progressLabel.text = @" ";
 	self.controlPanelVisibleStatus = ControlPanelVisibleStatusUnknown;
 	self.toolPanelView.layer.borderWidth = 0.5;
 	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
@@ -646,11 +652,22 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// シャッターボタンの状態を撮影中にします。
 	self.takeButton.selected = YES;
 	self.takeButton.enabled = YES;
+	
+	// 撮影進捗ラベルを表示開始します。
+	NSString *text = NSLocalizedString(@"$title:AutoBracketingStart", @"RecordingViewController.cameraDidStartTakingPictureByAutoBracketing");
+	self.progressLabel.text = text;
+	[UIView animateWithDuration:0.25 animations:^{
+		self.progressLabel.alpha = 1.0;
+	}];
 }
 
 - (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
 
+	// 撮影進捗ラベルを表示更新します。
+	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:AutoBracketingProgres(%ld,%ld)", @"RecordingViewController.cameraWillTakePictureByAutoBracketing"), (long)count, (long)camera.autoBracketingCount];
+	self.progressLabel.text = text;
+	
 	// 撮影を開始する時にフラッシュ表現を開始します。
 	[self.liveImageView showFlashing:YES];
 }
@@ -658,6 +675,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
 
+	// 撮影進捗ラベルを表示更新します。
+	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:AutoBracketingProgres(%ld,%ld)", @"RecordingViewController.cameraDidTakePictureByAutoBracketing"), (long)(count + 1), (long)camera.autoBracketingCount];
+	self.progressLabel.text = text;
+	
 	// 撮影を完了した時にフラッシュ表現を終了します。
 	[self.liveImageView hideFlashing:YES];
 }
@@ -668,6 +689,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// シャッターボタンの状態を待機中にします。
 	self.takeButton.selected = NO;
 	self.takeButton.enabled = YES;
+
+	// 撮影進捗ラベルを消去します。
+	[UIView animateWithDuration:0.25 animations:^{
+		self.progressLabel.alpha = 0.0;
+	}];
 	
 	if (error) {
 		// エラー終了して中途半端になっているかもしれない、フラッシュ表現を終了します。

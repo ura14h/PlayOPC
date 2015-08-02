@@ -511,6 +511,13 @@
                                                     <action selector="didTapMoveToRightButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="IQJ-C6-jbb"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$progressLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5u4-rp-8Ro" customClass="MarginedLabel">
+                                                <rect key="frame" x="8" y="196" width="95" height="16"/>
+                                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="77O-Ii-WQH" secondAttribute="centerX" id="3Df-tK-zXk"/>
@@ -520,12 +527,14 @@
                                             <constraint firstItem="Egu-Zq-VuS" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="Lld-Jp-l2x"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="MKe-Ce-YFP"/>
                                             <constraint firstAttribute="trailing" secondItem="9oC-LX-B0l" secondAttribute="trailing" id="NLe-qm-2ee"/>
+                                            <constraint firstItem="5u4-rp-8Ro" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" constant="8" id="ZbX-yt-gc7"/>
                                             <constraint firstAttribute="bottom" secondItem="AJr-e7-fHh" secondAttribute="bottom" id="Zf8-AQ-zgg"/>
                                             <constraint firstItem="zjO-Vu-jx4" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="dUG-U2-3gu"/>
                                             <constraint firstAttribute="centerY" secondItem="Egu-Zq-VuS" secondAttribute="centerY" id="ddO-g2-Sf8"/>
                                             <constraint firstAttribute="centerX" secondItem="a6R-h1-Iap" secondAttribute="centerX" id="fGi-M6-qAU"/>
                                             <constraint firstAttribute="centerY" secondItem="9oC-LX-B0l" secondAttribute="centerY" id="l3h-kp-WDZ"/>
                                             <constraint firstItem="77O-Ii-WQH" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="sWS-Of-zAQ"/>
+                                            <constraint firstAttribute="bottom" secondItem="5u4-rp-8Ro" secondAttribute="bottom" constant="8" id="w3k-8y-taE"/>
                                             <constraint firstAttribute="bottom" secondItem="a6R-h1-Iap" secondAttribute="bottom" id="xHZ-Fa-lRJ"/>
                                         </constraints>
                                     </view>
@@ -720,6 +729,7 @@
                         <outlet property="moveToLeftButton" destination="Egu-Zq-VuS" id="v2O-0V-A7z"/>
                         <outlet property="moveToRightButton" destination="9oC-LX-B0l" id="itL-xc-6DQ"/>
                         <outlet property="moveToUpButton" destination="77O-Ii-WQH" id="zIW-xm-UJA"/>
+                        <outlet property="progressLabel" destination="5u4-rp-8Ro" id="lCq-Wp-4fi"/>
                         <outlet property="recImageButton" destination="zjO-Vu-jx4" id="l4x-3G-UtX"/>
                         <outlet property="showAPanelButton" destination="ZQQ-QB-tBG" id="sYW-rV-4dd"/>
                         <outlet property="showCPanelButton" destination="VqA-pW-FV9" id="qat-Jx-dLu"/>

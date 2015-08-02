@@ -1,4 +1,7 @@
 
+/* Class = "UILabel"; text = "$progressLabel"; ObjectID = "5u4-rp-8Ro"; */
+"5u4-rp-8Ro.text" = "$progressLabel";
+
 /* Class = "UINavigationItem"; title = "Recording"; ObjectID = "Bwv-Qk-bIY"; */
 "Bwv-Qk-bIY.title" = "撮影モード";
 

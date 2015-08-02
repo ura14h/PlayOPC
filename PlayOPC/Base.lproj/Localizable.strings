@@ -431,6 +431,13 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:WifiConnectionIsNotCamera" = "This Wi-Fi connection is not the camera. You have to disconnect current connection and to connect the device to the camera by manual operation at Setting.";
 
+/* RecordingViewController.cameraDidTakePictureByAutoBracketing
+ RecordingViewController.cameraWillTakePictureByAutoBracketing */
+"$title:AutoBracketingProgres(%ld,%ld)" = "Auto Bracketing: %1$ld/%2$ld";
+
+/* RecordingViewController.cameraDidStartTakingPictureByAutoBracketing */
+"$title:AutoBracketingStart" = "Auto Bracketing";
+
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
 "$title:CancelClearCameraSetting" = "Cancel";
 

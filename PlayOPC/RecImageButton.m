@@ -87,10 +87,16 @@
 	CGSize thumbnailSize = CGSizeMake(image.size.width * ratio, image.size.height * ratio);
 	
 	// リサイズした画像を作成します。
+	// 縁線も描画します。縁線の外側は黒色で内側は白色です。
+	CGRect rect = CGRectMake(0.0, 0.0, thumbnailSize.width, thumbnailSize.height);
 	UIGraphicsBeginImageContextWithOptions(thumbnailSize, NO, [[UIScreen mainScreen] scale]);
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-	[image drawInRect:CGRectMake(0.0, 0.0, thumbnailSize.width, thumbnailSize.height)];
+	[image drawInRect:rect];
+	CGContextSetStrokeColorWithColor(context, [[UIColor whiteColor] CGColor]);
+	CGContextStrokeRectWithWidth(context, rect, 2.0);
+	CGContextSetStrokeColorWithColor(context, [[UIColor blackColor] CGColor]);
+	CGContextStrokeRectWithWidth(context, rect, 1.0);
 	UIImage *thumbnailImage = UIGraphicsGetImageFromCurrentImageContext();
 	UIGraphicsEndImageContext();
 	

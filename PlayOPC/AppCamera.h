@@ -395,12 +395,12 @@ extern NSString *const CameraPropertyAutoBracketingStep;
 @optional
 
 /// オートブラケット撮影が開始した時に呼び出されます。
-- (void) cameraDidStartTakingPictureByAutoBracketing:(AppCamera *)camera;
+- (void)cameraDidStartTakingPictureByAutoBracketing:(AppCamera *)camera;
 /// オートブラケットによる1コマ撮影が開始する時に呼び出されます。
-- (void) cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
+- (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
 /// オートブラケットによる1コマ撮影が完了した時に呼び出されます。
-- (void) cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
+- (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
 /// オートブラケット撮影が終了した時に呼び出されます。
-- (void) cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error;
+- (void)cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error;
 
 @end

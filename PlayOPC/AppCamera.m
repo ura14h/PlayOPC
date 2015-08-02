@@ -1701,7 +1701,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			// 設定した値が実際に適用されたかを確認します。
 			if ([autoBracketingProperty isEqualToString:CameraPropertyExprev]) {
 				// 露出補正値
+				NSTimeInterval timeout = 3.0;
+				NSDate *startTime = [NSDate date];
 				while (![weakSelf.actualExposureCompensation isEqualToString:propertyValue]) {
+					if ([[NSDate date] timeIntervalSinceDate:startTime] > timeout) {
+						// 設定がある程度の時間内に適用されない場合は撮影は中止です。
+						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera could not change a value of property." };
+						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorCameraBusy userInfo:userInfo];
+						break;
+					}
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
 						[NSThread sleepForTimeInterval:0.1];
 					} else {
@@ -1713,7 +1721,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				}
 			} else if ([autoBracketingProperty isEqualToString:CameraPropertyShutter]) {
 				// シャッター速度
+				NSTimeInterval timeout = 3.0;
+				NSDate *startTime = [NSDate date];
 				while (![weakSelf.actualShutterSpeed isEqualToString:propertyValue]) {
+					if ([[NSDate date] timeIntervalSinceDate:startTime] > timeout) {
+						// 設定がある程度の時間内に適用されない場合は撮影は中止です。
+						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera could not change a value of property." };
+						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorCameraBusy userInfo:userInfo];
+						break;
+					}
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
 						[NSThread sleepForTimeInterval:0.1];
 					} else {

@@ -83,6 +83,8 @@ extern NSString *const CameraPropertyBatteryLevel;
 extern NSString *const CameraPropertyFaceScan;
 extern NSString *const CameraPropertyAntiShakeFocalLength;
 extern NSString *const CameraPropertyRecview;
+extern NSString *const CameraPropertyRecviewOn;
+extern NSString *const CameraPropertyRecviewOff;
 extern NSString *const CameraPropertyAntiShakeMovie;
 extern NSString *const CameraPropertySoundVolumeLevel;
 extern NSString *const CameraPropertyGps;

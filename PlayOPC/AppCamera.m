@@ -53,6 +53,8 @@ NSString *const CameraPropertyBatteryLevel = @"BATTERY_LEVEL";
 NSString *const CameraPropertyFaceScan = @"FACE_SCAN";
 NSString *const CameraPropertyAntiShakeFocalLength = @"ANTI_SHAKE_FOCAL_LENGTH";
 NSString *const CameraPropertyRecview = @"RECVIEW";
+NSString *const CameraPropertyRecviewOn = @"<RECVIEW/ON>";
+NSString *const CameraPropertyRecviewOff = @"<RECVIEW/OFF>";
 NSString *const CameraPropertyAntiShakeMovie = @"ANTI_SHAKE_MOVIE";
 NSString *const CameraPropertySoundVolumeLevel = @"SOUND_VOLUME_LEVEL";
 NSString *const CameraPropertyGps = @"GPS";
@@ -1727,6 +1729,19 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 		}
 	
+		// 撮影後確認画像を非表示にします。
+		// MARK: 非表示にしておかないと、露出を変えながらの撮影で調子が悪くなる傾向があるようです。
+		NSString *recview = [super cameraPropertyValue:CameraPropertyRecview error:&error];
+		if ([recview isEqualToString:CameraPropertyRecviewOn]) {
+			if (![super setCameraPropertyValue:CameraPropertyRecview value:CameraPropertyRecviewOff error:&error]) {
+				weakSelf.runningAutoBracketing = NO;
+				dispatch_async(dispatch_get_main_queue(), ^{
+					errorHandler(error);
+				});
+				return;
+			}
+		}
+		
 		// オートブラケット撮影を開始します。
 		dispatch_async(dispatch_get_main_queue(), ^{
 			NSDictionary *info = @{
@@ -1892,15 +1907,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			DEBUG_LOG(@"finish taking a picture: %@", propertyValue);
 		}
 
-		// ブラケット撮影の基本にしたプロパティ値に戻します。
-		if (![super setCameraPropertyValue:autoBracketingProperty value:currentPropertyValue error:&error]) {
-			// エラーを無視して続行します。
-			if (!takingError) {
-				takingError = error;
-			}
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
 		// この処理でフォーカスをロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
 			if (![self unlockAutoFocus:&error]) {
@@ -1914,6 +1920,26 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		// この処理で自動測光をロックした場合はそのロックを解除します。
 		if ([aeLockState isEqualToString:CameraPropertyAeLockStateUnlock]) {
 			if (![super unlockAutoExposure:&error]) {
+				// エラーを無視して続行します。
+				if (!takingError) {
+					takingError = error;
+				}
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+
+		// ブラケット撮影の基本にしたプロパティ値に戻します。
+		if (![super setCameraPropertyValue:autoBracketingProperty value:currentPropertyValue error:&error]) {
+			// エラーを無視して続行します。
+			if (!takingError) {
+				takingError = error;
+			}
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+		}
+		
+		// 撮影後確認画像を元に戻します。
+		if ([recview isEqualToString:CameraPropertyRecviewOn]) {
+			if (![super setCameraPropertyValue:CameraPropertyRecview value:recview error:&error]) {
 				// エラーを無視して続行します。
 				if (!takingError) {
 					takingError = error;

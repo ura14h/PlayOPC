@@ -43,6 +43,9 @@
 @property (assign, nonatomic) BOOL protected; ///< コンテンツはプロテクトされているか否か
 @property (strong, nonatomic) NSArray *unprotectedContentToolbarItems; ///< プロテクト解除状態のコンテンツを表示するときのツールバーボタンセット
 @property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
+@property (strong, nonatomic) NSData *contentData; ///< コンテンツのバイナリデータ
+@property (strong, nonatomic) UIImage *contentImage; ///< コンテンツの表示用画像データ
+@property (strong, nonatomic) NSDictionary *contentMetadata; ///< コンテンツのメタデータ
 
 @end
 
@@ -87,6 +90,9 @@
 	
 	_delegate = nil;
 	_content = nil;
+	_contentData = nil;
+	_contentImage = nil;
+	_contentMetadata = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -170,6 +176,11 @@
 		return;
 	}
 
+	// コンテンツの情報を破棄します。
+	self.contentData = nil;
+	self.contentImage = nil;
+	self.contentMetadata = nil;
+	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
 }
@@ -609,7 +620,6 @@
 		// MARK: Appleのドキュメントによると、1024*1024より大きいUIImageの表示は推奨できないらしい。
 		// MARK: iPhone 4Sで動かしてみた限りでは、オリジナル画像のサイズ(OLYCameraImageResizeNone)でも表示は問題なくできるようです。
 		AppCamera *camera = GetAppCamera();
-		__block UIImage *image = nil;
 		__block BOOL downloadCompleted = NO;
 		__block BOOL downloadFailed = NO;
 		[camera downloadImage:filepath withResize:size progressHandler:^(float progress, BOOL *stop) {
@@ -627,7 +637,9 @@
 			progressView.progress = progress;
 		} completionHandler:^(NSData *data) {
 			DEBUG_LOG(@"data=%p", data);
-			image = [UIImage imageWithData:data];
+			weakSelf.contentData = data;
+			weakSelf.contentImage = [UIImage imageWithData:data];
+			weakSelf.contentMetadata = (__bridge NSDictionary *)CGImageSourceCopyPropertiesAtIndex(CGImageSourceCreateWithData((CFDataRef)data, nil), 0, nil);
 			downloadCompleted = YES;
 		} errorHandler:^(NSError *error) {
 			DEBUG_LOG(@"error=%p", error);
@@ -651,7 +663,7 @@
 			[UIView animateWithDuration:0.25 delay:0.0 options:0 animations:^{
 				weakSelf.imageView.alpha = 0.0; // レイアウトの乱れを隠すため処理が完了するまで透明にしておきます。
 			} completion:^(BOOL finished) {
-				weakSelf.imageView.image = image;
+				weakSelf.imageView.image = weakSelf.contentImage;
 				// スクロールビューの表示を調節します。
 				// MARK: 一つのイベント内で表示しようとするとレイアウト計算の時に画像表示ビューの大きさが正しいサイズになっていないようです。
 				[weakSelf executeAsynchronousBlockOnMainThread:^{

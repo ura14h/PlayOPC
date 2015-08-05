@@ -420,7 +420,7 @@
 "$desc:ShareLargeVideo" = "この長い動画をダウンロードし共有します。この処理は数分以上かかるかもしれません。";
 
 /* PictureContentViewController.didTapShareButton */
-"$desc:SharePicture" = "この写真のオリジナルサイズをダウンロードし共有します。この処理にはやや時間がかかります。";
+"$desc:SharePicture" = "このリサイズした写真を共有します。(EXIFタグ、GPSタグなどのメタデータを含みます)";
 
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareVideo" = "この動画をダウンロードし共有します。この処理にはやや時間がかかります。";

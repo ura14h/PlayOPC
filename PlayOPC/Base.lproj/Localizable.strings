@@ -420,7 +420,7 @@
 "$desc:ShareLargeVideo" = "The application downloads this long video before sharing it. The handling may take more than several minutes.";
 
 /* PictureContentViewController.didTapShareButton */
-"$desc:SharePicture" = "The application downloads this picture of the original size before sharing it. The handling takes a little bit of time.";
+"$desc:SharePicture" = "The application does share this resized picture. (EXIF tag, GPS tag and so metadata include)";
 
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareVideo" = "The application downloads this video before sharing it. The handling takes a little bit of time.";

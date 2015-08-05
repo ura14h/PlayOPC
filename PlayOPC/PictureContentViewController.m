@@ -514,18 +514,14 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
-		// コンテンツの絶対パスを作成します。
-		NSString *dirname = self.content[OLYCameraContentListDirectoryKey];
-		NSString *filename = self.content[OLYCameraContentListFilenameKey];
-		NSString *filepath = [dirname stringByAppendingPathComponent:filename];
-		
 		// 写真の保存先URLを作成します。
+		NSString *filename = weakSelf.content[OLYCameraContentListFilenameKey];
 		NSString *temporaryDirectory = NSTemporaryDirectory();
 		NSString *temporaryFilepath = [temporaryDirectory stringByAppendingPathComponent:filename];
 		NSURL *imageUrl = [NSURL fileURLWithPath:temporaryFilepath isDirectory:NO];
 		DEBUG_LOG(@"imageUrl=%@", imageUrl);
 		
-		// 画像ファイルを準備します。
+		// 画像データをファイルに保存します。
 		NSFileManager *manager = [[NSFileManager alloc] init];
 		if ([manager fileExistsAtPath:imageUrl.path]) {
 			NSError *error = nil;
@@ -534,50 +530,7 @@
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
 		}
-		
-		// 画像をダウンロードします。
-		AppCamera *camera = GetAppCamera();
-		__block BOOL downloadCompleted = NO;
-		__block BOOL downloadFailed = NO;
-		[camera downloadContent:filepath progressHandler:^(float progress, BOOL *stop) {
-			// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
-			if (!weakSelf.startingActivity) {
-				*stop = YES;
-				downloadCompleted = YES;
-				return;
-			}
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
-		} completionHandler:^(NSData *data) {
-			DEBUG_LOG(@"data=%p", data);
-			// ファイルに保存します。
-			[data writeToURL:imageUrl atomically:YES];
-			downloadCompleted = YES;
-		} errorHandler:^(NSError *error) {
-			DEBUG_LOG(@"error=%p", error);
-			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSharePicture", @"PictureContentViewController.sharePicture")];
-		}];
-		
-		// 画像のダウンロードが完了するのを待ちます。
-		while (!downloadCompleted && !downloadFailed) {
-			[NSThread sleepForTimeInterval:0.1];
-		}
-		if (downloadFailed) {
-			// ダウンロードに失敗したようです。
-			NSError *error = nil;
-			if (![manager removeItemAtPath:imageUrl.path error:&error]) {
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-			}
-			return;
-		}
-		// 進捗率の表示を止めます。
-		progressView.mode = MBProgressHUDModeIndeterminate;
+		[weakSelf.contentData writeToURL:imageUrl atomically:YES];
 		
 		// 共有ダイアログを表示します。
 		// 一番最初だけ表示されるまでとても時間がかかるようです。

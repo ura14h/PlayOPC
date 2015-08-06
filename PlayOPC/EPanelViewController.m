@@ -33,7 +33,7 @@
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
-@property (strong, nonatomic) NSArray *autoBracketingModes; ///< オートブラケットモードの選択肢
+@property (strong, nonatomic) NSArray *autoBracketingModes; ///< オートブラケット撮影モードの選択肢
 @property (strong, nonatomic) NSArray *autoBracketingCounts; ///< オートブラケットで撮影する枚数の選択肢
 @property (strong, nonatomic) NSArray *autoBracketingSteps; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢
 
@@ -52,7 +52,7 @@
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
 
-	// オートブラケットモードの選択肢を構築します。
+	// オートブラケット撮影モードの選択肢を構築します。
 	NSMutableArray *autoBracketingModes = [[NSMutableArray alloc] init];
 	NSDictionary *autoBracketingModeDisabled = @{
 		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:AutoBracketingModeDisabled", @"EPanelViewController.viewDidLoad"),
@@ -66,7 +66,7 @@
 	[autoBracketingModes addObject:autoBracketingModeExposure];
 	self.autoBracketingModes = autoBracketingModes;
 
-	// オートブラケットモードの選択肢を構築します。
+	// オートブラケット撮影モードの選択肢を構築します。
 	NSMutableArray *autoBracketingCounts = [[NSMutableArray alloc] init];
 	for (NSInteger count = 3; count < 10; count += 2) {
 		NSDictionary *autoBracketingCount = @{
@@ -554,15 +554,15 @@
 	[self updateShowContinuousShootingVelocityCell];
 }
 
-/// オートブラケットモードの選択肢が選択された時に呼び出されます。
+/// オートブラケット撮影モードの選択肢が選択された時に呼び出されます。
 - (void)didSelectAutoBracketingMode:(NSUInteger)itemIndex {
 	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
 
-	// 選択したオートブラケットモードを取得します。
+	// 選択したオートブラケット撮影モードを取得します。
 	NSDictionary *item = self.autoBracketingModes[itemIndex];
 	AppCameraAutoBracketingMode mode = [item[ItemSelectionViewItemValueKey] integerValue];
 
-	// オートブラケットモードを設定します。
+	// オートブラケット撮影モードを設定します。
 	AppCamera *camera = GetAppCamera();
 	camera.autoBracketingMode = mode;
 	
@@ -708,7 +708,7 @@
 	[self updateCameraPropertyCell:self.showContinuousShootingVelocityCell name:CameraPropertyContinuousShootingVelocity completion:nil];
 }
 
-/// オートブラケットモードを表示します。
+/// オートブラケット撮影モードを表示します。
 - (void)updateShowAutoBracketingModeCell {
 	DEBUG_LOG(@"");
 

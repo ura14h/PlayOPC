@@ -20,10 +20,10 @@ typedef enum : NSInteger {
 	AppCameraFocusModeCAF, ///< コンティニュアスオートフォーカス
 } AppCameraFocusMode;
 
-/// オートブラケットモード
+/// オートブラケット撮影モード
 typedef enum : NSInteger {
 	AppCameraAutoBracketingModeDisabled = 0, ///< 無効(通常撮影)
-	AppCameraAutoBracketingModeExposure, ///< 露出補正でオートブラケット
+	AppCameraAutoBracketingModeExposure, ///< 露出補正でオートブラケット撮影
 } AppCameraAutoBracketingMode;
 
 /// カメラの撮影動作タイプ
@@ -281,7 +281,7 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// OLYCameraに関連するデリゲートのマルチ配信をサポートしています。
 @interface AppCamera : OLYCamera
 
-@property (assign, nonatomic) AppCameraAutoBracketingMode autoBracketingMode; ///< オートブラケットモード
+@property (assign, nonatomic) AppCameraAutoBracketingMode autoBracketingMode; ///< オートブラケット撮影モード
 @property (assign, nonatomic) NSInteger autoBracketingCount; ///< オートブラケットで撮影する枚数(3以上の奇数)
 @property (assign, nonatomic) NSInteger autoBracketingStep; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数(1以上)
 @property (assign, nonatomic, readonly) NSTimeInterval recordingElapsedTime; ///< 動画撮影経過時間

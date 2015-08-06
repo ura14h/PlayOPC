@@ -26,6 +26,7 @@ typedef enum : NSInteger {
 	AppCameraAutoBracketingModeExposure, ///< 露出補正でオートブラケット
 } AppCameraAutoBracketingMode;
 
+/// カメラの撮影動作タイプ
 typedef enum : NSInteger {
 	AppCameraActionTypeUnknown, ///< 不明
 	AppCameraActionTypeTakingPictureSingle, ///< 静止画を単写で撮影
@@ -34,7 +35,7 @@ typedef enum : NSInteger {
 	AppCameraActionTypeRecordingVideo, ///< 動画を撮影
 } AppCameraActionType;
 
-/// カメラの動作ステータス
+/// カメラの撮影動作ステータス
 typedef enum : NSInteger {
 	AppCameraActionStatusReady, ///< 撮影の開始を待機中
 	AppCameraActionStatusTakingPictureSingle, ///< 静止画を単写で撮影中

@@ -266,15 +266,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 @property (strong, atomic) NSHashTable *liveViewDelegates; ///< liveViewDelegateの集合
 @property (strong, atomic) NSHashTable *recordingDelegates; ///< recordingDelegateの集合
 @property (strong, atomic) NSHashTable *recordingSupportsDelegates; ///< recordingSupportsDelegateの集合
-@property (strong, atomic) NSHashTable *takingPictureDelegates; // takingPicutreDelegateの集合
+@property (strong, atomic) NSHashTable *takingPictureDelegates; ///< takingPicutreDelegateの集合
 
 @property (assign, nonatomic) BOOL runningLockingAutoFocus; ///< AFロックを実行中か
 @property (assign, nonatomic) BOOL runningLockingAutoExposure; ///< AEロックを実行中か
-@property (assign, nonatomic) BOOL runningAutoBracketing; /// オートブラケット撮影中か
-@property (assign, nonatomic) BOOL abortAutoBracketing; /// オートブラケット撮影を中止させようとしているか
-@property (assign, nonatomic) BOOL abortedAutoBracketing; /// オートブラケット撮影を中止させようとしているか
-@property (strong, nonatomic) dispatch_queue_t takingPictureRunnerQueue; /// 静止画複数枚撮影を実行するキュー
-@property (strong, nonatomic) dispatch_queue_t takingPictureStopperQueue; /// 静止画複数枚撮影を中止させるキュー
+@property (assign, nonatomic) BOOL runningAutoBracketing; ///< オートブラケット撮影中か
+@property (assign, nonatomic) BOOL abortAutoBracketing; ///< オートブラケット撮影を中止させようとしているか
+@property (assign, nonatomic) BOOL abortedAutoBracketing; ///< オートブラケット撮影を中止させようとしているか
+@property (strong, nonatomic) dispatch_queue_t takingPictureRunnerQueue; ///< 静止画複数枚撮影を実行するキュー
+@property (strong, nonatomic) dispatch_queue_t takingPictureStopperQueue; ///< 静止画複数枚撮影を中止させるキュー
 @property (strong, nonatomic) NSDate *recordingVideoStartTime; ///< 動画撮影を開始した時刻
 @property (strong, nonatomic) NSTimer *recordingVideoTimer; ///< 動画撮影経過時間を更新するためのタイマー
 

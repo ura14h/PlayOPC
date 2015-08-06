@@ -240,6 +240,9 @@ NSString *const CameraPropertyWbRevG = @"WB_REV_G";
 NSString *const CameraPropertyAutoBracketingMode = @"autoBracketingMode";
 NSString *const CameraPropertyAutoBracketingCount = @"autoBrackettingCount";
 NSString *const CameraPropertyAutoBracketingStep = @"autoBrackettingStep";
+NSString *const CameraPropertyIntervalTimerMode = @"intervalTimerMode";
+NSString *const CameraPropertyIntervalTimerCount = @"intervalTimerCount";
+NSString *const CameraPropertyIntervalTimerTime = @"intervalTimerTime";
 NSString *const CameraPropertyRecordingElapsedTime = @"recordingElapsedTime";
 
 static NSString *const CameraSettingSnapshotFormatVersion = @"1.0"; ///< ファイルのフォーマットバージョン
@@ -249,6 +252,9 @@ static NSString *const CameraSettingSnapshotLiveViewSizeKey = @"LiveViewSize"; /
 static NSString *const CameraSettingSnapshotAutoBracketingModeKey = @"AutoBracketingMode"; ///< オートブラケット撮影設定の辞書キー
 static NSString *const CameraSettingSnapshotAutoBracketingCountKey = @"AutoBracketingCount"; ///< オートブラケット撮影設定の辞書キー
 static NSString *const CameraSettingSnapshotAutoBracketingStepKey = @"AutoBracketingStep"; ///< オートブラケット撮影設定の辞書キー
+static NSString *const CameraSettingSnapshotIntervalTimerModeKey = @"IntervalTimerMode"; ///< インターバルタイマー撮影設定の辞書キー
+static NSString *const CameraSettingSnapshotIntervalTimerCountKey = @"IntervalTimerCount"; ///< インターバルタイマー撮影設定の辞書キー
+static NSString *const CameraSettingSnapshotIntervalTimerTimeKey = @"IntervalTimerTime"; ///< インターバルタイマー撮影設定の辞書キー
 static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"MagnifyingLiveViewScale"; ///< ライブビュー拡大倍率の辞書キー
 
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
@@ -271,8 +277,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 @property (assign, nonatomic) BOOL runningLockingAutoFocus; ///< AFロックを実行中か
 @property (assign, nonatomic) BOOL runningLockingAutoExposure; ///< AEロックを実行中か
 @property (assign, nonatomic) BOOL runningAutoBracketing; ///< オートブラケット撮影中か
+@property (assign, nonatomic) BOOL runningIntervalTimer; ///< インターバルタイマー撮影中か
 @property (assign, nonatomic) BOOL abortAutoBracketing; ///< オートブラケット撮影を中止させようとしているか
-@property (assign, nonatomic) BOOL abortedAutoBracketing; ///< オートブラケット撮影を中止させようとしているか
+@property (assign, nonatomic) BOOL abortedAutoBracketing; ///< オートブラケット撮影を中止したか
+@property (assign, nonatomic) BOOL abortIntervalTimer; ///< インターバルタイマー撮影を中止させようとしているか
+@property (assign, nonatomic) BOOL abortedIntervalTimer; ///< インターバルタイマー撮影を中止したか
 @property (strong, nonatomic) dispatch_queue_t takingPictureRunnerQueue; ///< 静止画複数枚撮影を実行するキュー
 @property (strong, nonatomic) dispatch_queue_t takingPictureStopperQueue; ///< 静止画複数枚撮影を中止させるキュー
 @property (strong, nonatomic) NSDate *recordingVideoStartTime; ///< 動画撮影を開始した時刻
@@ -297,6 +306,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_autoBracketingMode = AppCameraAutoBracketingModeDisabled;
 	_autoBracketingCount = 3;
 	_autoBracketingStep = 1;
+	_intervalTimerMode = AppCameraIntervalTimerModeDisabled;
+	_intervalTimerCount = 1;
+	_intervalTimerTime = 1.0;
 	_recordingElapsedTime = 0;
 	_minimumDigitalZoomScale = NAN;
 	_maximumDigitalZoomScale = NAN;
@@ -373,6 +385,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_autoBracketingMode = AppCameraAutoBracketingModeDisabled;
 	_autoBracketingCount = 3;
 	_autoBracketingStep = 1;
+	
+	// インターバルタイマー撮影のプロパティを更新します。
+	_intervalTimerMode = AppCameraIntervalTimerModeDisabled;
+	_intervalTimerCount = 1;
+	_intervalTimerTime = 1.0;
 #endif
 	
 	// 動画撮影経過時間を更新します。
@@ -424,6 +441,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	self.abortAutoBracketing = NO;
 	self.abortedAutoBracketing = NO;
 
+	// インターバルタイマー撮影のフラグを初期化します。
+	self.runningIntervalTimer = NO;
+	self.abortIntervalTimer = NO;
+	self.abortedIntervalTimer = NO;
+	
 	// 動画撮影の経過時間監視を初期化します。
 	[self.recordingVideoTimer invalidate];
 	self.recordingVideoStartTime = nil;
@@ -1468,6 +1490,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				return AppCameraActionStatusTakingPictureAutoBracketing;
 			}
 			break;
+		case AppCameraActionTypeTakingPictureIntervalTimer:
+			// 静止画をインターバルタイマーで撮影中
+			if (self.runningIntervalTimer) {
+				return AppCameraActionStatusTakingPictureIntervalTimer;
+			}
 		case AppCameraActionTypeRecordingVideo:
 			// 動画を撮影中
 			if (self.recordingVideo) {
@@ -1505,21 +1532,27 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			return AppCameraActionTypeUnknown;
 	}
 
-	// オートブラケット撮影が有効かを検査します。
+	// 単写撮影の詳細を検査します。
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
 	if (![takemode isEqualToString:CameraPropertyTakemodeP] &&
 		![takemode isEqualToString:CameraPropertyTakemodeA] &&
 		![takemode isEqualToString:CameraPropertyTakemodeS] &&
 		![takemode isEqualToString:CameraPropertyTakemodeM]) {
-		// これらの撮影モード以外ではオートブラケット撮影はできません。
+		// PASMモード以外ではオートブラケット撮影やインターバルタイマー撮影はできません。
 		return AppCameraActionTypeTakingPictureSingle;
 	}
-	if (self.autoBracketingMode == AppCameraAutoBracketingModeDisabled) {
-		// 無効になっている場合はオートブラケット撮影はできません。
-		return AppCameraActionTypeTakingPictureSingle;
+	// オートブラケット撮影が有効か検査します。
+	if (self.autoBracketingMode != AppCameraAutoBracketingModeDisabled) {
+		return AppCameraActionTypeTakingPictureAutoBracketing;
 	}
-	return AppCameraActionTypeTakingPictureAutoBracketing;
+	// インターバルタイマー撮影が有効か検査します。
+	if (self.intervalTimerMode != AppCameraIntervalTimerModeDisabled) {
+		return AppCameraActionTypeTakingPictureIntervalTimer;
+	}
+	
+	// 通常の単写撮影です。
+	return AppCameraActionTypeTakingPictureSingle;
 }
 
 - (BOOL)canSetAutoBracketing {
@@ -1984,6 +2017,52 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			completionHandler(nil);
 		});
 	});
+}
+
+- (BOOL)canSetIntervalTimer {
+	DEBUG_LOG(@"");
+
+	// 撮影モード/ドライブモードの種別を検査します。
+	switch ([super actionType]) {
+		case OLYCameraActionTypeSingle:
+			// 静止画を単写で撮影
+			// 次の検査へ
+			break;
+		case OLYCameraActionTypeSequential:
+			// 静止画を連写で撮影
+			return NO;
+		case OLYCameraActionTypeMovie:
+			// 動画を撮影
+			return NO;
+		case OLYCameraActionTypeUnknown:
+		default:
+			// ありえません。
+			return NO;
+	}
+	
+	// オートブラケット撮影が有効かを検査します。
+	NSError *error = nil;
+	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
+	if (![takemode isEqualToString:CameraPropertyTakemodeP] &&
+		![takemode isEqualToString:CameraPropertyTakemodeA] &&
+		![takemode isEqualToString:CameraPropertyTakemodeS] &&
+		![takemode isEqualToString:CameraPropertyTakemodeM]) {
+		// これらの撮影モード以外ではインターバルタイマー撮影はできません。
+		return NO;
+	}
+	return YES;
+}
+
+- (void)startTakingPictureByIntervalTimer:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+	DEBUG_LOG(@"");
+	
+	// TODO: 実装しなくては！
+}
+
+- (void)stopTakingPictureByIntervalTimer:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+	DEBUG_LOG(@"");
+	
+	// TODO: 実装しなくては！
 }
 
 - (BOOL)startMagnifyingLiveView:(NSError **)error {

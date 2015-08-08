@@ -1324,6 +1324,14 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	DEBUG_LOG(@"autoBracketingMode=%@", autoBracketingMode);
 	DEBUG_LOG(@"autoBracketingCount=%@", autoBracketingCount);
 	DEBUG_LOG(@"autoBracketingStep=%@", autoBracketingStep);
+
+	// 現在設定されているインターバルタイマー撮影の設定を取得します。
+	NSNumber *intervalTimerMode = @(self.intervalTimerMode);
+	NSNumber *intervalTimerCount = @(self.intervalTimerCount);
+	NSNumber *intervalTimerTime = @(self.intervalTimerTime);
+	DEBUG_LOG(@"intervalTimerMode=%@", intervalTimerMode);
+	DEBUG_LOG(@"intervalTimerCount=%@", intervalTimerCount);
+	DEBUG_LOG(@"intervalTimerTime=%@", intervalTimerTime);
 	
 	// 現在設定されているライブビュー拡大倍率を取得します。
 	NSNumber *magnifyingLiveViewScale = @(self.magnifyingLiveViewScale);
@@ -1337,6 +1345,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		CameraSettingSnapshotAutoBracketingModeKey: autoBracketingMode,
 		CameraSettingSnapshotAutoBracketingCountKey: autoBracketingCount,
 		CameraSettingSnapshotAutoBracketingStepKey: autoBracketingStep,
+		CameraSettingSnapshotIntervalTimerModeKey: intervalTimerMode,
+		CameraSettingSnapshotIntervalTimerCountKey: intervalTimerCount,
+		CameraSettingSnapshotIntervalTimerTimeKey: intervalTimerTime,
 		CameraSettingSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
 	};
 	
@@ -1406,6 +1417,24 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	self.autoBracketingStep = autoBracketingStep;
 	
+	// 読み込んだインターバルタイマー撮影を設定します。
+	AppCameraIntervalTimerMode intervalTimerMode = AppCameraIntervalTimerModeDisabled;
+	if (snapshot[CameraSettingSnapshotIntervalTimerModeKey]) {
+		NSInteger modeValue = [snapshot[CameraSettingSnapshotIntervalTimerModeKey] integerValue];
+		intervalTimerMode = (AppCameraIntervalTimerMode)modeValue;
+	}
+	self.intervalTimerMode = intervalTimerMode;
+	NSInteger intervalTimerCount = 1;
+	if (snapshot[CameraSettingSnapshotIntervalTimerCountKey]) {
+		intervalTimerCount = [snapshot[CameraSettingSnapshotIntervalTimerCountKey] integerValue];
+	}
+	self.intervalTimerCount = intervalTimerCount;
+	NSInteger intervalTimerTime = 1.0;
+	if (snapshot[CameraSettingSnapshotIntervalTimerTimeKey]) {
+		intervalTimerTime = [snapshot[CameraSettingSnapshotIntervalTimerTimeKey] doubleValue];
+	}
+	self.intervalTimerTime = intervalTimerTime;
+
 	// 読み込んだライブビュー拡大倍率を設定します。
 	OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
 	if (snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey]) {

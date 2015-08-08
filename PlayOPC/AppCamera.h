@@ -29,7 +29,8 @@ typedef enum : NSInteger {
 /// インターバルタイマー撮影モード
 typedef enum : NSInteger {
 	AppCameraIntervalTimerModeDisabled = 0, ///< 無効(通常撮影)
-	AppCameraIntervalTimerModeEnabled, ///< 有効(インターバルタイマー撮影)
+	AppCameraIntervalTimerModePriorCount, ///< 撮影枚数優先でインターバルタイマー撮影
+	AppCameraIntervalTimerModePriorTime, ///< 撮影時間優先でインターバルタイマー撮影
 } AppCameraIntervalTimerMode;
 
 /// カメラの撮影動作タイプ
@@ -434,7 +435,7 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// インターバルタイマー撮影が開始した時に呼び出されます。
 - (void)cameraDidStartTakingPictureByIntervalTimer:(AppCamera *)camera;
 /// インターバルタイマーによる1コマ撮影が開始する時に呼び出されます。
-- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count;
+- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count ;
 /// インターバルタイマーによる1コマ撮影が完了した時に呼び出されます。
 - (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count;
 /// インターバルタイマー撮影が終了した時に呼び出されます。

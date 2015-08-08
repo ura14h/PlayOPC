@@ -2056,13 +2056,286 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (void)startTakingPictureByIntervalTimer:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
 	DEBUG_LOG(@"");
 	
-	// TODO: 実装しなくては！
+	// インターバルタイマー撮影の設定が妥当かを検査します。
+	if ([self cameraActionType] != AppCameraActionTypeTakingPictureIntervalTimer) {
+		// インターバルタイマー撮影は無効です。
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer is not available." };
+		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
+		errorHandler(error);
+		return;
+	}
+	if (self.intervalTimerCount > 0) {
+		// 撮影枚数は1以上でなければなりません。
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer count is incorrect." };
+		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
+		errorHandler(error);
+		return;
+	}
+	if (self.intervalTimerTime > 0.0) {
+		// 撮影間隔は1秒以上でなければなりません。
+		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer time is incorrect." };
+		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
+		errorHandler(error);
+		return;
+	}
+	
+	// インターバルタイマー撮影の状態管理を初期化します。
+	__weak AppCamera *weakSelf = self;
+	weakSelf.runningIntervalTimer = YES;
+	weakSelf.abortIntervalTimer = NO;
+	weakSelf.abortedIntervalTimer = NO;
+	
+	/// メインスレッド以外で非同期に処理ブロックを実行します。
+	dispatch_async(weakSelf.takingPictureRunnerQueue, ^{
+		// 現在の自動測光ロックとフォーカスロック状態状態を取得します。
+		NSError *error = nil;
+		NSString *aeLockState = [super cameraPropertyValue:CameraPropertyAeLockState error:&error];
+		if (!aeLockState) {
+			weakSelf.runningIntervalTimer = NO;
+			dispatch_async(dispatch_get_main_queue(), ^{
+				errorHandler(error);
+			});
+			return;
+		}
+		NSString *afLockState = [super cameraPropertyValue:CameraPropertyAfLockState error:&error];
+		if (!afLockState) {
+			weakSelf.runningIntervalTimer = NO;
+			dispatch_async(dispatch_get_main_queue(), ^{
+				errorHandler(error);
+			});
+			return;
+		}
+		
+		// 自動測光ロックをしていない場合は、複数枚撮影中に露出が揺れないようにロックします。
+		if ([aeLockState isEqualToString:CameraPropertyAeLockStateUnlock]) {
+			if (![super lockAutoExposure:&error]) {
+				weakSelf.runningIntervalTimer = NO;
+				dispatch_async(dispatch_get_main_queue(), ^{
+					errorHandler(error);
+				});
+				return;
+			}
+		}
+		// フォーカスロックしていない場合は、複数枚撮影中にピント位置が揺れないようにロックします。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			// オートフォーカスを開始しました。
+			dispatch_async(dispatch_get_main_queue(), ^{
+				progressHandler(OLYCameraTakingProgressBeginFocusing, nil);
+			});
+			
+			// オートフォーカスをロックします。
+			__block BOOL lockingCompleted = NO;
+			__block BOOL lockingFailed = NO;
+			[self lockAutoFocus:^(NSDictionary *info) {
+				// オートフォーカスを終了しました。
+				dispatch_async(dispatch_get_main_queue(), ^{
+					progressHandler(OLYCameraTakingProgressEndFocusing, info);
+				});
+				lockingCompleted = YES;
+			} errorHandler:^(NSError *error) {
+				weakSelf.runningIntervalTimer = NO;
+				dispatch_async(dispatch_get_main_queue(), ^{
+					errorHandler(error);
+				});
+				lockingFailed = YES;
+			}];
+			
+			// オートフォーカスのロックが完了するのを待ちます。
+			while (!lockingCompleted && !lockingFailed) {
+				[NSThread sleepForTimeInterval:0.1];
+			}
+			if (lockingFailed) {
+				// オートフォーカスのロックに失敗したようです。
+				return;
+			}
+		}
+		
+		// 撮影後確認画像を非表示にします。
+		NSString *recview = [super cameraPropertyValue:CameraPropertyRecview error:&error];
+		if ([recview isEqualToString:CameraPropertyRecviewOn]) {
+			if (![super setCameraPropertyValue:CameraPropertyRecview value:CameraPropertyRecviewOff error:&error]) {
+				weakSelf.runningIntervalTimer = NO;
+				dispatch_async(dispatch_get_main_queue(), ^{
+					errorHandler(error);
+				});
+				return;
+			}
+		}
+
+		// インターバルタイマー撮影を開始します。
+		dispatch_async(dispatch_get_main_queue(), ^{
+			completionHandler(nil);
+		});
+		dispatch_async(dispatch_get_main_queue(), ^{
+			for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
+				if ([delegate respondsToSelector:@selector(cameraDidStartTakingPictureByIntervalTimer:)]) {
+					[delegate cameraDidStartTakingPictureByIntervalTimer:weakSelf];
+				}
+			}
+		});
+		NSDate *takingStartTime = [NSDate date];
+		__block NSError *takingError = nil;
+		for (NSInteger count = 0; count < weakSelf.intervalTimerCount; count++) {
+			DEBUG_LOG(@"start taking a picture: %ld", (long)count);
+			
+			// 中止を要求されているか確認します。
+			if (weakSelf.abortIntervalTimer) {
+				DEBUG_LOG(@"ABORT!");
+				weakSelf.abortedIntervalTimer = YES;
+				break;
+			}
+
+			// 撮影時間がオーバーしているか確認します。
+			NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:takingStartTime];
+			if (weakSelf.intervalTimerMode == AppCameraIntervalTimerModePriorTime) {
+				NSTimeInterval limitedTime = weakSelf.intervalTimerCount * weakSelf.intervalTimerTime;
+				if (elapsedTime > limitedTime) {
+					DEBUG_LOG(@"TIME OVER!");
+					break;
+				}
+			}
+			
+			// 写真撮影します。
+			dispatch_async(dispatch_get_main_queue(), ^{
+				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
+					if ([delegate respondsToSelector:@selector(cameraWillTakePictureByIntervalTimer:current:)]) {
+						[delegate cameraWillTakePictureByIntervalTimer:weakSelf current:count];
+					}
+				}
+			});
+			__block BOOL takingCompleted = NO;
+			__block BOOL takingFailed = NO;
+			[super takePicture:options progressHandler:^(OLYCameraTakingProgress progress, NSDictionary *info) {
+				// 進捗情報はすべて無視します。
+			} completionHandler:^(NSDictionary *info) {
+				takingCompleted = YES;
+			} errorHandler:^(NSError *error) {
+				takingError = error;
+				takingFailed = YES;
+			}];
+			
+			// 写真撮影が完了するのを待ちます。
+			while (!takingCompleted && !takingFailed) {
+				[NSThread sleepForTimeInterval:0.1];
+			}
+			if (takingFailed) {
+				// 写真撮影に失敗したようです。
+				break;
+			}
+			dispatch_async(dispatch_get_main_queue(), ^{
+				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
+					if ([delegate respondsToSelector:@selector(cameraDidTakePictureByIntervalTimer:current:)]) {
+						[delegate cameraDidTakePictureByIntervalTimer:weakSelf current:count];
+					}
+				}
+			});
+			
+			// メディアへの書き込みが終わるまで待ちます。
+			if (weakSelf.connectionType == OLYCameraConnectionTypeWiFi) {
+				// MARK: Wi-Fiの場合はメディア書き込み中を示すプロパティで完了を確認できます。
+				while (weakSelf.mediaBusy) {
+					if (weakSelf.runMode == OLYCameraRunModeRecording) {
+						[NSThread sleepForTimeInterval:0.1];
+					} else {
+						// 異常事態が発生している場合は撮影は中止です。
+						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
+						break;
+					}
+				}
+				
+			} else if (weakSelf.connectionType == OLYCameraConnectionTypeBluetoothLE) {
+				// Bluetoothの場合はメディア書き込み中を示すプロパティで完了を確認できないので少し待ちます。
+				NSTimeInterval timeout = 3.0;
+				NSDate *startTime = [NSDate date];
+				while ([[NSDate date] timeIntervalSinceDate:startTime] < timeout) {
+					if (weakSelf.runMode == OLYCameraRunModeRecording) {
+						[NSThread sleepForTimeInterval:0.1];
+					} else {
+						// 異常事態が発生している場合は撮影は中止です。
+						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
+						break;
+					}
+				}
+			}
+			if (takingError) {
+				// 待ち合わせに失敗したようです。
+				break;
+			}
+			
+			// ここで一枚撮影完了です。
+			DEBUG_LOG(@"finish taking a picture: %ld", (long)count);
+		}
+		
+		// この処理でフォーカスをロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			if (![self unlockAutoFocus:&error]) {
+				// エラーを無視して続行します。
+				if (!takingError) {
+					takingError = error;
+				}
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+		// この処理で自動測光をロックした場合はそのロックを解除します。
+		if ([aeLockState isEqualToString:CameraPropertyAeLockStateUnlock]) {
+			if (![super unlockAutoExposure:&error]) {
+				// エラーを無視して続行します。
+				if (!takingError) {
+					takingError = error;
+				}
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+		
+		// 撮影後確認画像を元に戻します。
+		if ([recview isEqualToString:CameraPropertyRecviewOn]) {
+			if (![super setCameraPropertyValue:CameraPropertyRecview value:recview error:&error]) {
+				// エラーを無視して続行します。
+				if (!takingError) {
+					takingError = error;
+				}
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+		
+		// 完了です。
+		weakSelf.runningIntervalTimer = NO;
+		weakSelf.abortIntervalTimer = NO;
+		weakSelf.abortedIntervalTimer = NO;
+		dispatch_async(dispatch_get_main_queue(), ^{
+			for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
+				if ([delegate respondsToSelector:@selector(cameraDidStopTakingPictureByIntervalTimer:error:)]) {
+					[delegate cameraDidStopTakingPictureByIntervalTimer:weakSelf error:takingError];
+				}
+			}
+		});
+	});
 }
 
 - (void)stopTakingPictureByIntervalTimer:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
 	DEBUG_LOG(@"");
 	
-	// TODO: 実装しなくては！
+	/// メインスレッド以外で非同期に処理ブロックを実行します。
+	__weak AppCamera *weakSelf = self;
+	dispatch_async(weakSelf.takingPictureStopperQueue, ^{
+		// インターバルタイマー撮影を中止します。
+		weakSelf.abortIntervalTimer = YES;
+		
+		// インターバルタイマー撮影の実行が完了するのを待ちます。
+		while (weakSelf.runningIntervalTimer &&
+			   weakSelf.abortIntervalTimer &&
+			   !weakSelf.abortedIntervalTimer) {
+			[NSThread sleepForTimeInterval:0.1];
+		}
+		
+		// 完了です。
+		// 実はエラーは発生しません。
+		dispatch_async(dispatch_get_main_queue(), ^{
+			completionHandler(nil);
+		});
+	});
 }
 
 - (BOOL)startMagnifyingLiveView:(NSError **)error {

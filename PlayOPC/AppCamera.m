@@ -1795,13 +1795,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			NSString *propertyValue = autoBracketingPropertyValues[index];
 			DEBUG_LOG(@"start taking a picture: %@", propertyValue);
 
-			// 中止を要求されているか確認します。
-			if (weakSelf.abortAutoBracketing) {
-				DEBUG_LOG(@"ABORT!");
-				weakSelf.abortedAutoBracketing = YES;
-				break;
-			}
-			
 			// オートブラケットで変更するカメラプロパティ値を設定します。
 			if (![super setCameraPropertyValue:autoBracketingProperty value:propertyValue error:&error]) {
 				takingError = error;
@@ -1938,6 +1931,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			
 			// ここで一枚撮影完了です。
 			DEBUG_LOG(@"finish taking a picture: %@", propertyValue);
+
+			// 中止を要求されているか確認します。
+			if (weakSelf.abortAutoBracketing) {
+				DEBUG_LOG(@"ABORT!");
+				weakSelf.abortedAutoBracketing = YES;
+				break;
+			}
 		}
 
 		// この処理でフォーカスをロックした場合はそのロックを解除します。

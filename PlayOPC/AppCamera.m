@@ -2173,29 +2173,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				}
 			}
 		});
-		NSDate *takingStartTime = [NSDate date];
+		NSDate *intervalTimerStartTime = [NSDate date];
 		__block NSError *takingError = nil;
 		for (NSInteger count = 0; count < weakSelf.intervalTimerCount; count++) {
 			DEBUG_LOG(@"start taking a picture: %ld", (long)count);
 			
-			// 中止を要求されているか確認します。
-			if (weakSelf.abortIntervalTimer) {
-				DEBUG_LOG(@"ABORT!");
-				weakSelf.abortedIntervalTimer = YES;
-				break;
-			}
-
-			// 撮影時間がオーバーしているか確認します。
-			NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:takingStartTime];
-			if (weakSelf.intervalTimerMode == AppCameraIntervalTimerModePriorTime) {
-				NSTimeInterval limitedTime = weakSelf.intervalTimerCount * weakSelf.intervalTimerTime;
-				if (elapsedTime > limitedTime) {
-					DEBUG_LOG(@"TIME OVER!");
-					break;
-				}
-			}
-			
 			// 写真撮影します。
+			NSDate *takingTimerStartTime = [NSDate date];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
 					if ([delegate respondsToSelector:@selector(cameraWillTakePictureByIntervalTimer:current:)]) {
@@ -2266,6 +2250,47 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			
 			// ここで一枚撮影完了です。
 			DEBUG_LOG(@"finish taking a picture: %ld", (long)count);
+			
+			// 次の撮影時刻まで待ちます。
+			BOOL intervalTimerIsOver = NO;
+			while ([[NSDate date] timeIntervalSinceDate:takingTimerStartTime] < weakSelf.intervalTimerTime) {
+				if (weakSelf.runMode == OLYCameraRunModeRecording) {
+					// 中止を要求されているか確認します。
+					if (weakSelf.abortIntervalTimer) {
+						break;
+					}
+					// 撮影時間がオーバーしているか確認します。
+					if (weakSelf.intervalTimerMode == AppCameraIntervalTimerModePriorTime) {
+						NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:intervalTimerStartTime];
+						NSTimeInterval limitedTime = weakSelf.intervalTimerCount * weakSelf.intervalTimerTime;
+						if (elapsedTime > limitedTime) {
+							intervalTimerIsOver = YES;
+							break;
+						}
+					}
+					[NSThread sleepForTimeInterval:0.05];
+				} else {
+					// 異常事態が発生している場合は撮影は中止です。
+					NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+					takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
+					break;
+				}
+			}
+			if (takingError) {
+				// 時間待ちに失敗したようです。
+				break;
+			}
+			if (intervalTimerIsOver) {
+				// 撮影時間がオーバーしたようです。
+				DEBUG_LOG(@"TIME OVER!");
+				break;
+			}
+			if (weakSelf.abortIntervalTimer) {
+				// 中止したいようです。
+				DEBUG_LOG(@"ABORT!");
+				weakSelf.abortedIntervalTimer = YES;
+				break;
+			}
 		}
 		
 		// この処理でフォーカスをロックした場合はそのロックを解除します。

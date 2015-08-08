@@ -581,7 +581,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	
 	// コンテンツ一覧のダウンロードが完了するのを待ちます。
 	while (!downloadCompleted && !downloadFailed) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	if (downloadFailed) {
 		// ダウンロードに失敗したようです。
@@ -682,7 +682,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		
 		// コンテンツのプロテクト解除が完了するのを待ちます。
 		while (!unprotectCompleted && !unprotectFailed) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		progressView.mode = MBProgressHUDModeIndeterminate;
 		

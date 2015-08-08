@@ -1754,7 +1754,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			
 			// オートフォーカスのロックが完了するのを待ちます。
 			while (!lockingCompleted && !lockingFailed) {
-				[NSThread sleepForTimeInterval:0.1];
+				[NSThread sleepForTimeInterval:0.05];
 			}
 			if (lockingFailed) {
 				// オートフォーカスのロックに失敗したようです。
@@ -1830,7 +1830,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						break;
 					}
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
-						[NSThread sleepForTimeInterval:0.1];
+						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
 						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
@@ -1849,7 +1849,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						break;
 					}
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
-						[NSThread sleepForTimeInterval:0.1];
+						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
 						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
@@ -1887,7 +1887,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			
 			// 写真撮影が完了するのを待ちます。
 			while (!takingCompleted && !takingFailed) {
-				[NSThread sleepForTimeInterval:0.1];
+				[NSThread sleepForTimeInterval:0.05];
 			}
 			if (takingFailed) {
 				// 写真撮影に失敗したようです。
@@ -1907,7 +1907,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// MARK: Wi-Fiの場合はメディア書き込み中を示すプロパティで完了を確認できます。
 				while (weakSelf.mediaBusy) {
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
-						[NSThread sleepForTimeInterval:0.1];
+						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
 						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
@@ -1922,7 +1922,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				NSDate *startTime = [NSDate date];
 				while ([[NSDate date] timeIntervalSinceDate:startTime] < timeout) {
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
-						[NSThread sleepForTimeInterval:0.1];
+						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
 						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
@@ -2008,7 +2008,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		while (weakSelf.runningAutoBracketing &&
 			   weakSelf.abortAutoBracketing &&
 			   !weakSelf.abortedAutoBracketing) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		
 		// 完了です。
@@ -2142,7 +2142,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			
 			// オートフォーカスのロックが完了するのを待ちます。
 			while (!lockingCompleted && !lockingFailed) {
-				[NSThread sleepForTimeInterval:0.1];
+				[NSThread sleepForTimeInterval:0.05];
 			}
 			if (lockingFailed) {
 				// オートフォーカスのロックに失敗したようです。
@@ -2216,7 +2216,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			
 			// 写真撮影が完了するのを待ちます。
 			while (!takingCompleted && !takingFailed) {
-				[NSThread sleepForTimeInterval:0.1];
+				[NSThread sleepForTimeInterval:0.05];
 			}
 			if (takingFailed) {
 				// 写真撮影に失敗したようです。
@@ -2235,7 +2235,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// MARK: Wi-Fiの場合はメディア書き込み中を示すプロパティで完了を確認できます。
 				while (weakSelf.mediaBusy) {
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
-						[NSThread sleepForTimeInterval:0.1];
+						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
 						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
@@ -2250,7 +2250,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				NSDate *startTime = [NSDate date];
 				while ([[NSDate date] timeIntervalSinceDate:startTime] < timeout) {
 					if (weakSelf.runMode == OLYCameraRunModeRecording) {
-						[NSThread sleepForTimeInterval:0.1];
+						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
 						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
@@ -2327,7 +2327,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		while (weakSelf.runningIntervalTimer &&
 			   weakSelf.abortIntervalTimer &&
 			   !weakSelf.abortedIntervalTimer) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		
 		// 完了です。

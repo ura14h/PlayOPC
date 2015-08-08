@@ -602,7 +602,7 @@
 		
 		// リサイズ画像のダウンロードが完了するのを待ちます。
 		while (!downloadCompleted && !downloadFailed) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		if (downloadFailed) {
 			// ダウンロードに失敗したようです。
@@ -629,7 +629,7 @@
 		
 		// リサイズ画像の表示が完了するのを待ちます。
 		while (!renderingComplete) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[UIView animateWithDuration:0.25 animations:^{

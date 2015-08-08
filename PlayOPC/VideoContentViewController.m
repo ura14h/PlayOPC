@@ -422,7 +422,7 @@
 		
 		// リサイズ画像のダウンロードが完了するのを待ちます。
 		while (!downloadCompleted && !downloadFailed) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		if (downloadFailed) {
 			// ダウンロードに失敗したようです。
@@ -441,7 +441,7 @@
 		
 		// リサイズ画像の表示が完了するのを待ちます。
 		while (!renderingComplete) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[UIView animateWithDuration:0.25 animations:^{
@@ -529,7 +529,7 @@
 		
 		// 動画のダウンロードが完了するのを待ちます。
 		while (!downloadCompleted && !downloadFailed) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		
 		// ファイルへの保存を終了します。
@@ -612,7 +612,7 @@
 		
 		// 動画のリサイズが完了するのを待ちます。
 		while (!resizeCompleted && !resizeFailed) {
-			[NSThread sleepForTimeInterval:0.1];
+			[NSThread sleepForTimeInterval:0.05];
 		}
 		if (resizeFailed) {
 			// リサイズに失敗したようです。

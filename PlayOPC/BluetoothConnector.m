@@ -95,7 +95,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	// MARK: セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
 	NSDate *managerStartTime = [NSDate date];
 	while (self.centralManager.state != CBCentralManagerStatePoweredOn && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
 		// Bluetoothデバイスは利用できません。
@@ -126,7 +126,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	[self.centralManager scanForPeripheralsWithServices:self.services options:scanOptions];
 	NSDate *scanStartTime = [NSDate date];
 	while (!self.peripheral && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	[self.centralManager stopScan];
 	BOOL discovered = (self.peripheral != nil);
@@ -164,7 +164,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	// MARK: セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
 	NSDate *managerStartTime = [NSDate date];
 	while (self.centralManager.state != CBCentralManagerStatePoweredOn && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
 		// Bluetoothデバイスは利用できません。
@@ -204,7 +204,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	[self.centralManager connectPeripheral:self.peripheral options:connectOptions];
 	NSDate *scanStartTime = [NSDate date];
 	while (self.peripheral.state != CBPeripheralStateConnected && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	BOOL connected = (self.peripheral.state == CBPeripheralStateConnected);
 	self.running = NO;
@@ -271,7 +271,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	[self.centralManager cancelPeripheralConnection:self.peripheral];
 	NSDate *scanStartTime = [NSDate date];
 	while (self.peripheral.state != CBPeripheralStateDisconnected && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	BOOL disconnected = self.peripheral.state == CBPeripheralStateDisconnected;
 	self.running = NO;

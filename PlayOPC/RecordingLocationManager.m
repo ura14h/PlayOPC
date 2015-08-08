@@ -130,7 +130,7 @@
 	// 現在位置を取得します。
 	NSDate *scanStartTime = [NSDate date];
 	while (!self.location && !self.locationError && [[NSDate date] timeIntervalSinceDate:scanStartTime] < timeout) {
-		[NSThread sleepForTimeInterval:0.1];
+		[NSThread sleepForTimeInterval:0.05];
 	}
 	[self.locationManager stopUpdatingLocation];
 	CLLocation *location = self.location;

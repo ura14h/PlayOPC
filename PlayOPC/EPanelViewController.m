@@ -30,12 +30,18 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAutoBracketingModeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAutoBracketingCountCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAutoBracketingStepCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showIntervalTimerModeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showIntervalTimerCountCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showIntervalTimerTimeCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
 @property (strong, nonatomic) NSArray *autoBracketingModes; ///< オートブラケット撮影モードの選択肢
 @property (strong, nonatomic) NSArray *autoBracketingCounts; ///< オートブラケットで撮影する枚数の選択肢
 @property (strong, nonatomic) NSArray *autoBracketingSteps; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢
+@property (strong, nonatomic) NSArray *intervalTimerModes; ///< インターバルタイマー撮影モードの選択肢
+@property (strong, nonatomic) NSArray *intervalTimerCounts; ///< インターバルタイマーで撮影する枚数の選択肢
+@property (strong, nonatomic) NSArray *intervalTimerTimes; ///< インターバルタイマーで撮影する時間間隔の選択肢
 
 @end
 
@@ -66,7 +72,7 @@
 	[autoBracketingModes addObject:autoBracketingModeExposure];
 	self.autoBracketingModes = autoBracketingModes;
 
-	// オートブラケット撮影モードの選択肢を構築します。
+	// オートブラケットで撮影する枚数の選択肢を構築します。
 	NSMutableArray *autoBracketingCounts = [[NSMutableArray alloc] init];
 	for (NSInteger count = 3; count < 10; count += 2) {
 		NSDictionary *autoBracketingCount = @{
@@ -87,6 +93,61 @@
 		[autoBracketingSteps addObject:autoBracketingStep];
 	}
 	self.autoBracketingSteps = autoBracketingSteps;
+	
+	// インターバルタイマー撮影モードの選択肢を構築します。
+	NSMutableArray *intervalTimerModes = [[NSMutableArray alloc] init];
+	NSDictionary *intervalTimerModeDisabled = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:IntervalTimerModeDisabled", @"EPanelViewController.viewDidLoad"),
+		ItemSelectionViewItemValueKey:@(AppCameraIntervalTimerModeDisabled)
+	};
+	NSDictionary *intervalTimerModePriorCount = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:IntervalTimerModePriorCount", @"EPanelViewController.viewDidLoad"),
+		ItemSelectionViewItemValueKey:@(AppCameraIntervalTimerModePriorCount)
+	};
+	NSDictionary *intervalTimerModePriorTime = @{
+		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:IntervalTimerModePriorTime", @"EPanelViewController.viewDidLoad"),
+		ItemSelectionViewItemValueKey:@(AppCameraIntervalTimerModePriorTime)
+	};
+	[intervalTimerModes addObject:intervalTimerModeDisabled];
+	[intervalTimerModes addObject:intervalTimerModePriorCount];
+	[intervalTimerModes addObject:intervalTimerModePriorTime];
+	self.intervalTimerModes = intervalTimerModes;
+	
+	// インターバルタイマーで撮影する枚数の選択肢を構築します。
+	const NSArray *intervalTimerCountList = @[
+		@3, @5, @10, @30, @60, @90, @120, @180, @240, @300, @360, @480, @600, @720, @960,
+	];
+	NSMutableArray *intervalTimerCounts = [[NSMutableArray alloc] init];
+	for (NSNumber *countValue in intervalTimerCountList) {
+		NSInteger count = [countValue integerValue];
+		NSDictionary *intervalTimerCount = @{
+			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:IntervalTimerCount(%ld)", @"EPanelViewController.viewDidLoad"), (long)count],
+			ItemSelectionViewItemValueKey:@(count)
+		};
+		[intervalTimerCounts addObject:intervalTimerCount];
+	}
+	self.intervalTimerCounts = intervalTimerCounts;
+	
+	// インターバルタイマーで撮影する時間間隔の選択肢を構築します。
+	const NSArray *intervalTimerTimeList = @[
+		@1.0, @3.0, @5.0, @10.0, @15.0, @20.0, @30.0, @60.0, @120.0, @180.0, @300.0, @600.0,
+	];
+	NSMutableArray *intervalTimerTimes = [[NSMutableArray alloc] init];
+	for (NSNumber *timeValue in intervalTimerTimeList) {
+		NSTimeInterval time = [timeValue doubleValue];
+		NSString *title;
+		if (time < 60.0) {
+			title = [NSString stringWithFormat:NSLocalizedString(@"$cell:IntervalTimerTime(%ld seconds)", @"EPanelViewController.viewDidLoad"), (long)time];
+		} else {
+			title = [NSString stringWithFormat:NSLocalizedString(@"$cell:IntervalTimerTime(%ld minutes)", @"EPanelViewController.viewDidLoad"), (long)(time / 60.0)];
+		}
+		NSDictionary *intervalTimerTime = @{
+			ItemSelectionViewItemTitleKey:title,
+			ItemSelectionViewItemValueKey:@(time)
+		};
+		[intervalTimerTimes addObject:intervalTimerTime];
+	}
+	self.intervalTimerTimes = intervalTimerTimes;
 	
 	// 監視するカメラプロパティ名とそれに紐づいた対応処理(メソッド名)を対とする辞書を用意して、
 	// Objective-CのKVOチックに、カメラプロパティに変化があったらその個別処理を呼び出せるようにしてみます。
@@ -137,6 +198,9 @@
 	self.showAutoBracketingModeCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAutoBracketingCountCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAutoBracketingStepCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showIntervalTimerModeCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showIntervalTimerCountCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showIntervalTimerTimeCell.detailTextLabel.text = emptyDetailTextLabel;
 	[self tableViewCell:self.showApertureCell enabled:NO];
 	[self tableViewCell:self.showShutterCell enabled:NO];
 	[self tableViewCell:self.showExprevCell enabled:NO];
@@ -148,6 +212,9 @@
 	[self tableViewCell:self.showAutoBracketingModeCell enabled:NO];
 	[self tableViewCell:self.showAutoBracketingCountCell enabled:NO];
 	[self tableViewCell:self.showAutoBracketingStepCell enabled:NO];
+	[self tableViewCell:self.showIntervalTimerModeCell enabled:NO];
+	[self tableViewCell:self.showIntervalTimerCountCell enabled:NO];
+	[self tableViewCell:self.showIntervalTimerTimeCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -217,6 +284,9 @@
 	[self updateShowAutoBracketingModeCell];
 	[self updateShowAutoBracketingCountCell];
 	[self updateShowAutoBracketingStepCell];
+	[self updateShowIntervalTimerModeCell];
+	[self updateShowIntervalTimerCountCell];
+	[self updateShowIntervalTimerTimeCell];
 	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -243,6 +313,9 @@
 	[self tableViewCell:self.showAutoBracketingModeCell enabled:NO];
 	[self tableViewCell:self.showAutoBracketingCountCell enabled:NO];
 	[self tableViewCell:self.showAutoBracketingStepCell enabled:NO];
+	[self tableViewCell:self.showIntervalTimerModeCell enabled:NO];
+	[self tableViewCell:self.showIntervalTimerCountCell enabled:NO];
+	[self tableViewCell:self.showIntervalTimerTimeCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -327,6 +400,45 @@
 		}];
 		viewController.itemCellIdentifier = @"ItemCell";
 		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowIntervalTimerMode"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.title = self.showIntervalTimerModeCell.textLabel.text;
+		viewController.tag = [CameraPropertyIntervalTimerMode hash];
+		viewController.items = self.intervalTimerModes;
+		AppCamera *camera = GetAppCamera();
+		viewController.selectedItemIndex = camera.intervalTimerMode;
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowIntervalTimerCount"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.title = self.showIntervalTimerCountCell.textLabel.text;
+		viewController.tag = [CameraPropertyIntervalTimerCount hash];
+		viewController.items = self.intervalTimerCounts;
+		AppCamera *camera = GetAppCamera();
+		[self.intervalTimerCounts enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+			NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
+			if (camera.intervalTimerCount == count) {
+				viewController.selectedItemIndex = index;
+				*stop = YES;
+			}
+		}];
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowIntervalTimerTime"]) {
+		ItemSelectionViewController *viewController = segue.destinationViewController;
+		viewController.title = self.showIntervalTimerTimeCell.textLabel.text;
+		viewController.tag = [CameraPropertyIntervalTimerTime hash];
+		viewController.items = self.intervalTimerTimes;
+		AppCamera *camera = GetAppCamera();
+		[self.intervalTimerTimes enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+			NSTimeInterval time = [item[ItemSelectionViewItemValueKey] doubleValue];
+			if (camera.intervalTimerTime == time) {
+				viewController.selectedItemIndex = index;
+				*stop = YES;
+			}
+		}];
+		viewController.itemCellIdentifier = @"ItemCell";
+		viewController.itemSelectionDeleage = self;
 	} else {
 		// 何もしません。
 	}
@@ -344,7 +456,13 @@
 		} else if (hash == [CameraPropertyAutoBracketingCount hash]) {
 			[self didSelectAutoBracketingCount:index];
 		} else if (hash == [CameraPropertyAutoBracketingStep hash]) {
-			[self didSelectAutoBracketingSteps:index];
+			[self didSelectAutoBracketingStep:index];
+		} else if (hash == [CameraPropertyIntervalTimerMode hash]) {
+			[self didSelectIntervalTimerMode:index];
+		} else if (hash == [CameraPropertyIntervalTimerCount hash]) {
+			[self didSelectIntervalTimerCount:index];
+		} else if (hash == [CameraPropertyIntervalTimerTime hash]) {
+			[self didSelectIntervalTimerTime:index];
 		} else {
 			DEBUG_LOG(@"Unknown hash: %lu", (unsigned long)hash);
 		}
@@ -509,6 +627,10 @@
 	[self tableViewCell:self.showAutoBracketingModeCell enabled:canSetAutoBracketing];
 	[self tableViewCell:self.showAutoBracketingCountCell enabled:canSetAutoBracketing];
 	[self tableViewCell:self.showAutoBracketingStepCell enabled:canSetAutoBracketing];
+	BOOL canSetIntervalTimer = [camera canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerModeCell enabled:canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerCountCell enabled:canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerTimeCell enabled:canSetIntervalTimer];
 }
 
 /// 動画撮影モードの値が変わった時に呼び出されます。
@@ -544,6 +666,10 @@
 	[self tableViewCell:self.showAutoBracketingModeCell enabled:canSetAutoBracketing];
 	[self tableViewCell:self.showAutoBracketingCountCell enabled:canSetAutoBracketing];
 	[self tableViewCell:self.showAutoBracketingStepCell enabled:canSetAutoBracketing];
+	BOOL canSetIntervalTimer = [camera canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerModeCell enabled:canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerCountCell enabled:canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerTimeCell enabled:canSetIntervalTimer];
 }
 
 /// 連写速度の値が変わった時に呼び出されます。
@@ -587,7 +713,7 @@
 }
 
 /// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢が選択された時に呼び出されます。
-- (void)didSelectAutoBracketingSteps:(NSUInteger)itemIndex {
+- (void)didSelectAutoBracketingStep:(NSUInteger)itemIndex {
 	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
 
 	// 選択したステップ数を取得します。
@@ -600,6 +726,54 @@
 	
 	// 画面表示を更新します。
 	[self updateShowAutoBracketingStepCell];
+}
+
+/// インターバルタイマー撮影モードの選択肢が選択された時に呼び出されます。
+- (void)didSelectIntervalTimerMode:(NSUInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// 選択したインターバルタイマー撮影モードを取得します。
+	NSDictionary *item = self.intervalTimerModes[itemIndex];
+	AppCameraIntervalTimerMode mode = [item[ItemSelectionViewItemValueKey] integerValue];
+	
+	// インターバルタイマー撮影モードを設定します。
+	AppCamera *camera = GetAppCamera();
+	camera.intervalTimerMode = mode;
+	
+	// 画面表示を更新します。
+	[self updateShowIntervalTimerModeCell];
+}
+
+/// インターバルタイマーで撮影する枚数の選択肢が選択された時に呼び出されます。
+- (void)didSelectIntervalTimerCount:(NSUInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// 選択した枚数を取得します。
+	NSDictionary *item = self.intervalTimerCounts[itemIndex];
+	NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
+	
+	// インターバルタイマーで撮影する枚数を設定します。
+	AppCamera *camera = GetAppCamera();
+	camera.intervalTimerCount = count;
+	
+	// 画面表示を更新します。
+	[self updateShowIntervalTimerCountCell];
+}
+
+/// インターバルタイマーで撮影する時間間隔の選択肢が選択された時に呼び出されます。
+- (void)didSelectIntervalTimerTime:(NSUInteger)itemIndex {
+	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
+
+	// 選択した時間間隔を取得します。
+	NSDictionary *item = self.intervalTimerTimes[itemIndex];
+	NSTimeInterval time = [item[ItemSelectionViewItemValueKey] doubleValue];
+	
+	// インターバルタイマーで撮影する時間間隔を設定します。
+	AppCamera *camera = GetAppCamera();
+	camera.intervalTimerTime = time;
+	
+	// 画面表示を更新します。
+	[self updateShowIntervalTimerTimeCell];
 }
 
 #pragma mark -
@@ -761,6 +935,61 @@
 	// タップの有効無効を設定します。
 	BOOL canSetAutoBracketing = [camera canSetAutoBracketing];
 	[self tableViewCell:self.showAutoBracketingStepCell enabled:canSetAutoBracketing];
+}
+
+/// インターバルタイマー撮影モードを表示します。
+- (void)updateShowIntervalTimerModeCell {
+	DEBUG_LOG(@"");
+
+	AppCamera *camera = GetAppCamera();
+	NSDictionary *item = self.intervalTimerModes[camera.intervalTimerMode];
+	NSString *intervalTimerMode = item[ItemSelectionViewItemTitleKey];
+	self.showIntervalTimerModeCell.detailTextLabel.text = intervalTimerMode;
+	// タップの有効無効を設定します。
+	BOOL canSetIntervalTimer = [camera canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerModeCell enabled:canSetIntervalTimer];
+}
+
+/// インターバルタイマーで撮影する枚数を表示します。
+- (void)updateShowIntervalTimerCountCell {
+	DEBUG_LOG(@"");
+
+	// 枚数の値を表示用の文言に変換します。
+	__block NSString *intervalTimerCount = NSLocalizedString(@"$cell:IntervalTimerCountUnknown", @"EPanelViewController.updateShowIntervalTimerCountCell");
+	AppCamera *camera = GetAppCamera();
+	[self.intervalTimerCounts enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
+		if (camera.intervalTimerCount == count) {
+			intervalTimerCount = item[ItemSelectionViewItemTitleKey];
+			*stop = YES;
+		}
+	}];
+	// 表示を更新します。
+	self.showIntervalTimerCountCell.detailTextLabel.text = intervalTimerCount;
+	// タップの有効無効を設定します。
+	BOOL canSetIntervalTimer = [camera canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerCountCell enabled:canSetIntervalTimer];
+}
+
+/// インターバルタイマーで撮影する時間間隔を表示します。
+- (void)updateShowIntervalTimerTimeCell {
+	DEBUG_LOG(@"");
+
+	// 時間間隔の値を表示用の文言に変換します。
+	__block NSString *intervalTimerTime = NSLocalizedString(@"$cell:IntervalTimerTimeUnknown", @"EPanelViewController.updateShowIntervalTimerTimeCell");
+	AppCamera *camera = GetAppCamera();
+	[self.intervalTimerTimes enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		NSTimeInterval time = [item[ItemSelectionViewItemValueKey] doubleValue];
+		if (camera.intervalTimerTime == time) {
+			intervalTimerTime = item[ItemSelectionViewItemTitleKey];
+			*stop = YES;
+		}
+	}];
+	// 表示を更新します。
+	self.showIntervalTimerTimeCell.detailTextLabel.text = intervalTimerTime;
+	// タップの有効無効を設定します。
+	BOOL canSetIntervalTimer = [camera canSetIntervalTimer];
+	[self tableViewCell:self.showIntervalTimerTimeCell enabled:canSetIntervalTimer];
 }
 
 /// カメラプロパティ値を表示します。

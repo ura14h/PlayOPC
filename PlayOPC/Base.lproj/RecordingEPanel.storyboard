@@ -9,7 +9,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="RecordingEPaneViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zZU-7k-RP2" customClass="EPanelViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="rHR-Ap-puN">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="1000"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1100"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.92156862750000001" green="0.94509803920000002" blue="0.92156862750000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <sections>
@@ -279,6 +279,79 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection headerTitle="Interval Timer" footerTitle="Interval timer enables when shooting mode is in P/A/S/M mode and drive mode is single." id="Jyu-IS-ckE">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowIntervalTimerMode" textLabel="0Zo-uM-w9h" detailTextLabel="dOC-Be-wZm" style="IBUITableViewCellStyleValue1" id="1gI-ZV-Nkb">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1gI-ZV-Nkb" id="loA-Ay-ERv">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Mode" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="0Zo-uM-w9h">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$intervalTimerMode" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="dOC-Be-wZm">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IgT-oc-S59" kind="show" identifier="ShowIntervalTimerMode" id="TG2-bR-1Sb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowIntervalTimerCount" textLabel="oVO-Ko-IqU" detailTextLabel="F3X-ak-TMO" style="IBUITableViewCellStyleValue1" id="Da7-K0-gJe">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Da7-K0-gJe" id="JWQ-kj-ujc">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Count" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="oVO-Ko-IqU">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$intervalTimerCount" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="F3X-ak-TMO">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IgT-oc-S59" kind="show" identifier="ShowIntervalTimerCount" id="yhm-LO-tkU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowIntervalTimerTime" textLabel="DeZ-P8-xKd" detailTextLabel="sYb-Sx-5ka" style="IBUITableViewCellStyleValue1" id="Fac-3m-Yfg">
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Fac-3m-Yfg" id="58L-LC-35b">
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="DeZ-P8-xKd">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$intervalTimerTime" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" id="sYb-Sx-5ka">
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="IgT-oc-S59" kind="show" identifier="ShowIntervalTimerTime" id="pMQ-t0-PeU"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="zZU-7k-RP2" id="Da1-rN-zYA"/>
@@ -290,7 +363,7 @@
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="320" height="1000"/>
+                    <size key="freeformSize" width="320" height="1100"/>
                     <connections>
                         <outlet property="showApertureCell" destination="vE5-l6-9SM" id="ei3-F6-nrD"/>
                         <outlet property="showAutoBracketingCountCell" destination="CH2-cl-hph" id="5t2-s4-gm2"/>
@@ -299,6 +372,9 @@
                         <outlet property="showContinuousShootingVelocityCell" destination="qcO-L3-Gbr" id="Bx3-hN-gWG"/>
                         <outlet property="showExposeMovieSelectCell" destination="eW3-01-mDe" id="Dry-d4-cZ6"/>
                         <outlet property="showExprevCell" destination="maK-VA-iud" id="CC7-11-onx"/>
+                        <outlet property="showIntervalTimerCountCell" destination="Da7-K0-gJe" id="BYP-dI-991"/>
+                        <outlet property="showIntervalTimerModeCell" destination="1gI-ZV-Nkb" id="4V4-K3-ExM"/>
+                        <outlet property="showIntervalTimerTimeCell" destination="Fac-3m-Yfg" id="pry-vq-T2I"/>
                         <outlet property="showIsoCell" destination="NGT-3a-LO1" id="j3x-vh-smi"/>
                         <outlet property="showShutterCell" destination="4Ji-ho-NvZ" id="9wL-4M-Sx8"/>
                         <outlet property="showTakeDriveCell" destination="Xu3-u7-nyN" id="A3g-tQ-Jvn"/>
@@ -384,7 +460,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="pMQ-t0-PeU"/>
         <segue reference="EjY-eo-uOM"/>
-        <segue reference="JKJ-eD-Ft8"/>
     </inferredMetricsTieBreakers>
 </document>

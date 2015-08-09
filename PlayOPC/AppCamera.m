@@ -307,7 +307,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_autoBracketingCount = 3;
 	_autoBracketingStep = 1;
 	_intervalTimerMode = AppCameraIntervalTimerModeDisabled;
-	_intervalTimerCount = 1;
+	_intervalTimerCount = 3;
 	_intervalTimerTime = 1.0;
 	_recordingElapsedTime = 0;
 	_minimumDigitalZoomScale = NAN;
@@ -388,7 +388,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	
 	// インターバルタイマー撮影のプロパティを更新します。
 	_intervalTimerMode = AppCameraIntervalTimerModeDisabled;
-	_intervalTimerCount = 1;
+	_intervalTimerCount = 3;
 	_intervalTimerTime = 1.0;
 #endif
 	
@@ -1424,7 +1424,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		intervalTimerMode = (AppCameraIntervalTimerMode)modeValue;
 	}
 	self.intervalTimerMode = intervalTimerMode;
-	NSInteger intervalTimerCount = 1;
+	NSInteger intervalTimerCount = 3;
 	if (snapshot[CameraSettingSnapshotIntervalTimerCountKey]) {
 		intervalTimerCount = [snapshot[CameraSettingSnapshotIntervalTimerCountKey] integerValue];
 	}

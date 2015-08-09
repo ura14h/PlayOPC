@@ -2281,6 +2281,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			DEBUG_LOG(@"finish taking a picture: %ld", (long)count);
 			
 			// 次の撮影時刻まで待ちます。
+			if (count == weakSelf.intervalTimerCount - 1) {
+				// 最後の撮影については、わざわざ待つ必要はありません。
+				continue;
+			}
 			BOOL intervalTimerIsOver = NO;
 			while ([[NSDate date] timeIntervalSinceDate:takingTimerStartTime] < weakSelf.intervalTimerTime) {
 				if (weakSelf.runMode == OLYCameraRunModeRecording) {

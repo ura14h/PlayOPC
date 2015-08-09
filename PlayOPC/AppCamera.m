@@ -18,10 +18,13 @@
 NSString *const CameraPropertyAperture = @"APERTURE";
 NSString *const CameraPropertyAe = @"AE";
 NSString *const CameraPropertyTakemode = @"TAKEMODE";
+NSString *const CameraPropertyTakemodeIAuto = @"<TAKEMODE/iAuto>";
 NSString *const CameraPropertyTakemodeP = @"<TAKEMODE/P>";
 NSString *const CameraPropertyTakemodeA = @"<TAKEMODE/A>";
 NSString *const CameraPropertyTakemodeS = @"<TAKEMODE/S>";
 NSString *const CameraPropertyTakemodeM = @"<TAKEMODE/M>";
+NSString *const CameraPropertyTakemodeArt = @"<TAKEMODE/ART>";
+NSString *const CameraPropertyTakemodeMovie = @"<TAKEMODE/movie>";
 NSString *const CameraPropertyIso = @"ISO";
 NSString *const CameraPropertyExprev = @"EXPREV";
 NSString *const CameraPropertyTakeDrive = @"TAKE_DRIVE";
@@ -1561,23 +1564,34 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			return AppCameraActionTypeUnknown;
 	}
 
-	// 単写撮影の詳細を検査します。
-	NSError *error = nil;
-	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-	if (![takemode isEqualToString:CameraPropertyTakemodeP] &&
-		![takemode isEqualToString:CameraPropertyTakemodeA] &&
-		![takemode isEqualToString:CameraPropertyTakemodeS] &&
-		![takemode isEqualToString:CameraPropertyTakemodeM]) {
-		// PASMモード以外ではオートブラケット撮影やインターバルタイマー撮影はできません。
-		return AppCameraActionTypeTakingPictureSingle;
-	}
 	// オートブラケット撮影が有効か検査します。
 	if (self.autoBracketingMode != AppCameraAutoBracketingModeDisabled) {
-		return AppCameraActionTypeTakingPictureAutoBracketing;
+		NSError *error = nil;
+		NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
+		if ([takemode isEqualToString:CameraPropertyTakemodeP] ||
+			[takemode isEqualToString:CameraPropertyTakemodeA] ||
+			[takemode isEqualToString:CameraPropertyTakemodeS] ||
+			[takemode isEqualToString:CameraPropertyTakemodeM]) {
+			return AppCameraActionTypeTakingPictureAutoBracketing;
+		} else {
+			return AppCameraActionTypeTakingPictureSingle;
+		}
 	}
+	
 	// インターバルタイマー撮影が有効か検査します。
 	if (self.intervalTimerMode != AppCameraIntervalTimerModeDisabled) {
-		return AppCameraActionTypeTakingPictureIntervalTimer;
+		NSError *error = nil;
+		NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
+		if ([takemode isEqualToString:CameraPropertyTakemodeIAuto] ||
+			[takemode isEqualToString:CameraPropertyTakemodeP] ||
+			[takemode isEqualToString:CameraPropertyTakemodeA] ||
+			[takemode isEqualToString:CameraPropertyTakemodeS] ||
+			[takemode isEqualToString:CameraPropertyTakemodeM] ||
+			[takemode isEqualToString:CameraPropertyTakemodeArt]) {
+			return AppCameraActionTypeTakingPictureIntervalTimer;
+		} else {
+			return AppCameraActionTypeTakingPictureSingle;
+		}
 	}
 	
 	// 通常の単写撮影です。
@@ -1608,14 +1622,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// オートブラケット撮影が有効かを検査します。
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-	if (![takemode isEqualToString:CameraPropertyTakemodeP] &&
-		![takemode isEqualToString:CameraPropertyTakemodeA] &&
-		![takemode isEqualToString:CameraPropertyTakemodeS] &&
-		![takemode isEqualToString:CameraPropertyTakemodeM]) {
-		// これらの撮影モード以外ではオートブラケット撮影はできません。
-		return NO;
+	if ([takemode isEqualToString:CameraPropertyTakemodeP] ||
+		[takemode isEqualToString:CameraPropertyTakemodeA] ||
+		[takemode isEqualToString:CameraPropertyTakemodeS] ||
+		[takemode isEqualToString:CameraPropertyTakemodeM]) {
+		return YES;
 	}
-	return YES;
+	return NO;
 }
 
 - (void)startTakingPictureByAutoBracketing:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
@@ -2072,14 +2085,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// オートブラケット撮影が有効かを検査します。
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-	if (![takemode isEqualToString:CameraPropertyTakemodeP] &&
-		![takemode isEqualToString:CameraPropertyTakemodeA] &&
-		![takemode isEqualToString:CameraPropertyTakemodeS] &&
-		![takemode isEqualToString:CameraPropertyTakemodeM]) {
-		// これらの撮影モード以外ではインターバルタイマー撮影はできません。
-		return NO;
+	if ([takemode isEqualToString:CameraPropertyTakemodeIAuto] ||
+		[takemode isEqualToString:CameraPropertyTakemodeP] ||
+		[takemode isEqualToString:CameraPropertyTakemodeA] ||
+		[takemode isEqualToString:CameraPropertyTakemodeS] ||
+		[takemode isEqualToString:CameraPropertyTakemodeM] ||
+		[takemode isEqualToString:CameraPropertyTakemodeArt]) {
+		return YES;
 	}
-	return YES;
+	return NO;
 }
 
 - (void)startTakingPictureByIntervalTimer:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {

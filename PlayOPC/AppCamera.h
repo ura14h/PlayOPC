@@ -58,10 +58,13 @@ typedef enum : NSInteger {
 extern NSString *const CameraPropertyAperture;
 extern NSString *const CameraPropertyAe;
 extern NSString *const CameraPropertyTakemode;
+extern NSString *const CameraPropertyTakemodeIAuto;
 extern NSString *const CameraPropertyTakemodeP;
 extern NSString *const CameraPropertyTakemodeA;
 extern NSString *const CameraPropertyTakemodeS;
 extern NSString *const CameraPropertyTakemodeM;
+extern NSString *const CameraPropertyTakemodeArt;
+extern NSString *const CameraPropertyTakemodeMovie;
 extern NSString *const CameraPropertyIso;
 extern NSString *const CameraPropertyExprev;
 extern NSString *const CameraPropertyTakeDrive;

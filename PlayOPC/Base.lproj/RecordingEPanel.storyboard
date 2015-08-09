@@ -279,7 +279,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="Interval Timer" footerTitle="Interval timer enables when shooting mode is in P/A/S/M mode and drive mode is single." id="Jyu-IS-ckE">
+                            <tableViewSection headerTitle="Interval Timer" footerTitle="Interval Timer mode and the Auto Bracketing mode work exclusively." id="Jyu-IS-ckE">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowIntervalTimerMode" textLabel="0Zo-uM-w9h" detailTextLabel="dOC-Be-wZm" style="IBUITableViewCellStyleValue1" id="1gI-ZV-Nkb">
                                         <autoresizingMask key="autoresizingMask"/>

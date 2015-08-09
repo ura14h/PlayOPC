@@ -731,6 +731,64 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	}
 }
 
+- (void)cameraDidStartTakingPictureByIntervalTimer:(AppCamera *)camera {
+	DEBUG_LOG(@"");
+	
+	// シャッターボタンの状態を撮影中にします。
+	self.takeButton.selected = YES;
+	self.takeButton.enabled = YES;
+	
+	// 撮影進捗ラベルを表示開始します。
+	NSString *text = NSLocalizedString(@"$title:IntervalTimerStart", @"RecordingViewController.cameraDidStartTakingPictureByIntervalTimer");
+	self.progressLabel.text = text;
+	[UIView animateWithDuration:0.25 animations:^{
+		self.progressLabel.alpha = 1.0;
+	}];
+}
+
+- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count {
+	DEBUG_LOG(@"count=%ld", (long)count);
+	
+	// 撮影進捗ラベルを表示更新します。
+	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:IntervalTimerProgres(%ld,%ld)", @"RecordingViewController.cameraWillTakePictureByIntervalTimer"), (long)count, (long)camera.intervalTimerCount];
+	self.progressLabel.text = text;
+	
+	// 撮影を開始する時にフラッシュ表現を開始します。
+	[self.liveImageView showFlashing:YES];
+}
+
+- (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count {
+	DEBUG_LOG(@"count=%ld", (long)count);
+
+	// 撮影進捗ラベルを表示更新します。
+	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:IntervalTimerProgres(%ld,%ld)", @"RecordingViewController.cameraDidTakePictureByIntervalTimer"), (long)(count + 1), (long)camera.intervalTimerCount];
+	self.progressLabel.text = text;
+	
+	// 撮影を完了した時にフラッシュ表現を終了します。
+	[self.liveImageView hideFlashing:YES];
+}
+
+- (void)cameraDidStopTakingPictureByIntervalTimer:(AppCamera *)camera error:(NSError *)error {
+	DEBUG_LOG(@"error=%@", error);
+
+	// シャッターボタンの状態を待機中にします。
+	self.takeButton.selected = NO;
+	self.takeButton.enabled = YES;
+	
+	// 撮影進捗ラベルを消去します。
+	[UIView animateWithDuration:0.25 animations:^{
+		self.progressLabel.alpha = 0.0;
+	}];
+	
+	if (error) {
+		// エラー終了して中途半端になっているかもしれない、フラッシュ表現を終了します。
+		[self.liveImageView hideFlashing:NO];
+		
+		// インターバルタイマー撮影に失敗しました。
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:TakePictureByIntervalTimerFailed", @"RecordingViewController.cameraDidStopTakingPictureByIntervalTimer")];
+	}
+}
+
 /// 撮影後確認画像表示で画像が削除された時に呼び出されます。
 - (void)recImageViewControllerDidEraseImage:(RecImageViewController *)controller {
 	DEBUG_LOG(@"");
@@ -887,6 +945,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		} else {
 			DEBUG_LOG(@"ignore user action.");
 		}
+	} else if (actionType == AppCameraActionTypeTakingPictureIntervalTimer) {
+		if (actionStatus == AppCameraActionStatusReady) {
+			[self startTakingPictureByIntervalTimer];
+		} else if (actionStatus == AppCameraActionStatusTakingPictureIntervalTimer) {
+			[self stopTakingPictureByIntervalTimer];
+		} else {
+			DEBUG_LOG(@"ignore user action.");
+		}
 	} else if (actionType == AppCameraActionTypeRecordingVideo) {
 		if (actionStatus == AppCameraActionStatusReady) {
 			[self startRecordingVideo];
@@ -930,6 +996,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 				[self startTakingPictureByAutoBracketing];
 			} else if (actionStatus == AppCameraActionStatusTakingPictureAutoBracketing) {
 				[self stopTakingPictureByAutoBracketing];
+			} else {
+				DEBUG_LOG(@"ignore user action.");
+			}
+		} else if (actionType == AppCameraActionStatusTakingPictureIntervalTimer) {
+			if (actionStatus == AppCameraActionStatusReady) {
+				[self startTakingPictureByIntervalTimer];
+			} else if (actionStatus == AppCameraActionStatusTakingPictureIntervalTimer) {
+				[self stopTakingPictureByIntervalTimer];
 			} else {
 				DEBUG_LOG(@"ignore user action.");
 			}
@@ -1638,6 +1712,130 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
 		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopTakingPictureByAutoBracketing", @"RecordingViewController.stopTakingPictureByAutoBracketing")];
+	}];
+}
+
+/// 静止画のインターバルタイマー撮影を開始します。
+- (void)startTakingPictureByIntervalTimer {
+	DEBUG_LOG(@"");
+
+	// 撮影中の時は何もできません。
+	AppCamera *camera = GetAppCamera();
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusReady) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
+		return;
+	}
+	
+	// フォーカスロックしてから撮影をしようとしているのか、この撮影中にフォーカスロックするのかを確認します。
+	NSError *error = nil;
+	NSString *afLockState = [camera cameraPropertyValue:CameraPropertyAfLockState error:&error];
+	DEBUG_LOG(@"afLockState=%@", afLockState);
+	if (!afLockState) {
+		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartTakingPictureByIntervalTimer", @"RecordingViewController.startTakingPictureByIntervalTimer")];
+		return;
+	}
+	
+	// インターバルタイマー撮影を開始します。
+	__weak RecordingViewController *weakSelf = self;
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	// シャッターボタンの状態を準備中にします。
+	weakSelf.takeButton.selected = NO;
+	weakSelf.takeButton.enabled = NO;
+	[camera startTakingPictureByIntervalTimer:nil progressHandler:^(OLYCameraTakingProgress progress, NSDictionary *info) {
+		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
+		if (progress == OLYCameraTakingProgressEndFocusing) {
+			// この撮影中にフォーカスロックした場合はオートフォーカス枠を表示します。
+			if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+				// オートフォーカスの結果を取得します。
+				NSString *focusResult = info[OLYCameraTakingPictureProgressInfoFocusResultKey];
+				NSValue *focusRectValue = info[OLYCameraTakingPictureProgressInfoFocusRectKey];
+				DEBUG_LOG(@"focusResult=%@, focusRectValue=%@", focusResult, focusRectValue);
+				if ([focusResult isEqualToString:@"ok"] && focusRectValue) {
+					// オートフォーカスとフォーカスロックに成功しました。結果のフォーカス枠を表示します。
+					CGRect postFocusFrameRect = [focusRectValue CGRectValue];
+					[weakSelf.liveImageView showFocusFrame:postFocusFrameRect status:RecordingCameraLiveImageViewStatusLocked animated:YES];
+				} else if ([focusResult isEqualToString:@"none"]) {
+					// オートフォーカスできませんでした。(オートフォーカス機構が搭載されていません)
+					[weakSelf.liveImageView hideFocusFrame:YES];
+				} else {
+					// オートフォーカスできませんでした。
+					[weakSelf.liveImageView hideFocusFrame:YES];
+				}
+			}
+		}
+	} completionHandler:^{
+		DEBUG_LOG(@"");
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// シャッターボタンの状態を撮影中にします。
+		weakSelf.takeButton.selected = YES;
+		weakSelf.takeButton.enabled = YES;
+		// インターバルタイマー撮影を継続します。
+	} errorHandler:^(NSError *error) {
+		DEBUG_LOG(@"error=%p", error);
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// シャッターボタンの状態を待機中にします。
+		weakSelf.takeButton.selected = NO;
+		weakSelf.takeButton.enabled = YES;
+		// この撮影中にフォーカスロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			[camera clearAutoFocusPoint:nil];
+			[weakSelf.liveImageView hideFocusFrame:YES];
+		}
+		// 撮影に失敗しました。
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartTakingPictureByIntervalTimer", @"RecordingViewController.startTakingPictureByIntervalTimer")];
+	}];
+}
+
+/// 静止画のインターバルタイマー撮影を終了します。
+- (void)stopTakingPictureByIntervalTimer {
+	DEBUG_LOG(@"");
+
+	// 撮影中の時以外は何もできません。
+	AppCamera *camera = GetAppCamera();
+	AppCameraActionStatus actionStatus = [camera cameraActionStatus];
+	if (actionStatus != AppCameraActionStatusTakingPictureIntervalTimer) {
+		DEBUG_LOG(@"actionStatus=%ld", (long)actionStatus);
+		return;
+	}
+	
+	// フォーカスロックしてから撮影をしようとしているのか、この撮影中にフォーカスロックするのかを確認します。
+	NSError *error = nil;
+	NSString *afLockState = [camera cameraPropertyValue:CameraPropertyAfLockState error:&error];
+	DEBUG_LOG(@"afLockState=%@", afLockState);
+	if (!afLockState) {
+		// エラーを無視して続行します。
+		DEBUG_LOG(@"An error occurred, but ignores it.");
+	}
+	
+	// インターバルタイマー撮影を終了します。
+	__weak RecordingViewController *weakSelf = self;
+	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	// シャッターボタンの状態を準備中にします。
+	weakSelf.takeButton.selected = NO;
+	weakSelf.takeButton.enabled = NO;
+	[camera stopTakingPictureByIntervalTimer:^(NSDictionary *info) {
+		DEBUG_LOG(@"info=%p", info);
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// MARK: シャッターボタンの状態変更はオートブラケット撮影の完了通知にお任せします。
+		// この撮影中にフォーカスロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			[camera clearAutoFocusPoint:nil];
+			[weakSelf.liveImageView hideFocusFrame:YES];
+		}
+	} errorHandler:^(NSError *error) {
+		DEBUG_LOG(@"error=%p", error);
+		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		// シャッターボタンの状態を撮影中にします。
+		weakSelf.takeButton.selected = YES;
+		weakSelf.takeButton.enabled = YES;
+		// 撮影に失敗しました。
+		// この撮影中にフォーカスロックした場合はそのロックを解除します。
+		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			[camera clearAutoFocusPoint:nil];
+			[weakSelf.liveImageView hideFocusFrame:YES];
+		}
+		[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStopTakingPictureByIntervalTimer", @"RecordingViewController.stopTakingPictureByIntervalTimer")];
 	}];
 }
 

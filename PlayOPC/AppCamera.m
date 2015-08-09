@@ -2093,14 +2093,14 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		errorHandler(error);
 		return;
 	}
-	if (self.intervalTimerCount > 0) {
+	if (self.intervalTimerCount < 1) {
 		// 撮影枚数は1以上でなければなりません。
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer count is incorrect." };
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		errorHandler(error);
 		return;
 	}
-	if (self.intervalTimerTime > 0.0) {
+	if (self.intervalTimerTime < 1.0) {
 		// 撮影間隔は1秒以上でなければなりません。
 		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer time is incorrect." };
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];

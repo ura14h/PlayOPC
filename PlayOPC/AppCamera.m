@@ -1620,6 +1620,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// オートブラケット撮影が有効かを検査します。
+	if (self.intervalTimerMode != AppCameraIntervalTimerModeDisabled) {
+		// インターバルタイマー撮影と排他します。
+		return NO;
+	}
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
 	if ([takemode isEqualToString:CameraPropertyTakemodeP] ||
@@ -1629,6 +1633,18 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		return YES;
 	}
 	return NO;
+}
+
+- (void)setAutoBracketingMode:(AppCameraAutoBracketingMode)mode {
+	DEBUG_LOG(@"mode=%ld", (long)mode);
+	
+	if (mode != AppCameraAutoBracketingModeDisabled) {
+		// オートブラケット撮影を有効にするときは、インターバルタイマー撮影は無効になります。
+		if (self.intervalTimerMode != AppCameraIntervalTimerModeDisabled) {
+			self.intervalTimerMode = AppCameraIntervalTimerModeDisabled;
+		}
+	}
+	_autoBracketingMode = mode;
 }
 
 - (void)startTakingPictureByAutoBracketing:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
@@ -2082,7 +2098,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			return NO;
 	}
 	
-	// オートブラケット撮影が有効かを検査します。
+	// インターバルタイマー撮影が有効かを検査します。
+	if (self.autoBracketingMode != AppCameraAutoBracketingModeDisabled) {
+		// オートブラケット撮影と排他します。
+		return NO;
+	}
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
 	if ([takemode isEqualToString:CameraPropertyTakemodeIAuto] ||
@@ -2094,6 +2114,18 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		return YES;
 	}
 	return NO;
+}
+
+- (void)setIntervalTimerMode:(AppCameraIntervalTimerMode)mode {
+	DEBUG_LOG(@"mode=%ld", (long)mode);
+	
+	if (mode != AppCameraIntervalTimerModeDisabled) {
+		// インターバルタイマー撮影を有効にするときは、オートブラケット撮影は無効になります。
+		if (self.autoBracketingMode != AppCameraAutoBracketingModeDisabled) {
+			self.autoBracketingMode = AppCameraAutoBracketingModeDisabled;
+		}
+	}
+	_intervalTimerMode = mode;
 }
 
 - (void)startTakingPictureByIntervalTimer:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {

@@ -694,6 +694,9 @@
 	
 	// 画面表示を更新します。
 	[self updateShowAutoBracketingModeCell];
+	[self updateShowIntervalTimerModeCell];
+	[self updateShowIntervalTimerCountCell];
+	[self updateShowIntervalTimerTimeCell];
 }
 
 /// オートブラケットで撮影する枚数の選択肢が選択された時に呼び出されます。
@@ -742,6 +745,9 @@
 	
 	// 画面表示を更新します。
 	[self updateShowIntervalTimerModeCell];
+	[self updateShowAutoBracketingModeCell];
+	[self updateShowAutoBracketingCountCell];
+	[self updateShowAutoBracketingStepCell];
 }
 
 /// インターバルタイマーで撮影する枚数の選択肢が選択された時に呼び出されます。

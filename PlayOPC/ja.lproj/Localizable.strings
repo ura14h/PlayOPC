@@ -93,6 +93,30 @@
 /* SPanelViewController.updateHighTemperatureWarningCell */
 "$cell:HighTemperatureWarningYes" = "はい";
 
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerCount(%ld)" = "%ld 枚";
+
+/* EPanelViewController.updateShowIntervalTimerCountCell */
+"$cell:IntervalTimerCountUnknown" = "不明";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerModeDisabled" = "無効";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerModePriorCount" = "枚数優先";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerModePriorTime" = "総時間優先";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerTime(%ld minutes)" = "%ld 分";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerTime(%ld seconds)" = "%ld 秒";
+
+/* EPanelViewController.updateShowIntervalTimerTimeCell */
+"$cell:IntervalTimerTimeUnknown" = "不明";
+
 /* EPanelViewController.updateShowIsoCell */
 "$cell:IsoSensitivityUnknown" = "不明";
 
@@ -604,6 +628,9 @@
 /* RecordingViewController.startTakingPictureByAutoBracketing */
 "$title:CouldNotStartTakingPictureByAutoBracketing" = "写真撮影が開始できません";
 
+/* RecordingViewController.startTakingPictureByIntervalTimer */
+"$title:CouldNotStartTakingPictureByIntervalTimer" = "写真撮影が開始できません";
+
 /* RecordingViewController.stopMagnifyingLiveView
  ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
 "$title:CouldNotStopMagnifying" = "拡大表示が終了できません";
@@ -616,6 +643,9 @@
 
 /* RecordingViewController.stopTakingPictureByAutoBracketing */
 "$title:CouldNotStopTakingPictureByAutoBracketing" = "写真撮影が停止できません";
+
+/* RecordingViewController.stopTakingPictureByIntervalTimer */
+"$title:CouldNotStopTakingPictureByIntervalTimer" = "写真撮影が停止できません";
 
 /* RecordingViewController.takePicture */
 "$title:CouldNotTakePicture" = "写真撮影できません";
@@ -701,6 +731,13 @@
 /* VideoContentViewController.didTapUnprotectButton */
 "$title:ExecuteUnprotectVideo" = "この動画のプロテクトを解除";
 
+/* RecordingViewController.cameraDidTakePictureByIntervalTimer
+ RecordingViewController.cameraWillTakePictureByIntervalTimer */
+"$title:IntervalTimerProgres(%ld,%ld)" = "インターバルタイマー: %1$ld/%2$ld";
+
+/* RecordingViewController.cameraDidStartTakingPictureByIntervalTimer */
+"$title:IntervalTimerStart" = "インターバルタイマー";
+
 /* RecordingViewController.lockAutoExposurePoint
  RecordingViewController.lockAutoFocusPoint
  RecordingViewController.startMagnifyingLiveView */
@@ -730,6 +767,9 @@
 
 /* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
 "$title:TakePictureByAutoBracketingFailed" = "すべての写真を撮影できませんでした";
+
+/* RecordingViewController.cameraDidStopTakingPictureByIntervalTimer */
+"$title:TakePictureByIntervalTimerFailed" = "すべての写真を撮影できませんでした";
 
 /* PlaybackViewController.commitEditingStyle
  PlaybackViewController.downloadContentList */

@@ -93,6 +93,30 @@
 /* SPanelViewController.updateHighTemperatureWarningCell */
 "$cell:HighTemperatureWarningYes" = "Yes";
 
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerCount(%ld)" = "%ld images";
+
+/* EPanelViewController.updateShowIntervalTimerCountCell */
+"$cell:IntervalTimerCountUnknown" = "Unknown";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerModeDisabled" = "Disabled";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerModePriorCount" = "Prior Count";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerModePriorTime" = "Prior Total Time";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerTime(%ld minutes)" = "%ld minutes";
+
+/* EPanelViewController.viewDidLoad */
+"$cell:IntervalTimerTime(%ld seconds)" = "%ld seconds";
+
+/* EPanelViewController.updateShowIntervalTimerTimeCell */
+"$cell:IntervalTimerTimeUnknown" = "Unknown";
+
 /* EPanelViewController.updateShowIsoCell */
 "$cell:IsoSensitivityUnknown" = "Unknown";
 
@@ -604,6 +628,9 @@
 /* RecordingViewController.startTakingPictureByAutoBracketing */
 "$title:CouldNotStartTakingPictureByAutoBracketing" = "Could not start taking picture";
 
+/* RecordingViewController.startTakingPictureByIntervalTimer */
+"$title:CouldNotStartTakingPictureByIntervalTimer" = "Could not start taking picture";
+
 /* RecordingViewController.stopMagnifyingLiveView
    ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
 "$title:CouldNotStopMagnifying" = "Could not stop magnifying";
@@ -616,6 +643,9 @@
 
 /* RecordingViewController.stopTakingPictureByAutoBracketing */
 "$title:CouldNotStopTakingPictureByAutoBracketing" = "Could not stop taking picture";
+
+/* RecordingViewController.stopTakingPictureByIntervalTimer */
+"$title:CouldNotStopTakingPictureByIntervalTimer" = "Could not stop taking picture";
 
 /* RecordingViewController.takePicture */
 "$title:CouldNotTakePicture" = "Could not take picture";
@@ -701,6 +731,13 @@
 /* VideoContentViewController.didTapUnprotectButton */
 "$title:ExecuteUnprotectVideo" = "Unprotect this video";
 
+/* RecordingViewController.cameraDidTakePictureByIntervalTimer
+ RecordingViewController.cameraWillTakePictureByIntervalTimer */
+"$title:IntervalTimerProgres(%ld,%ld)" = "Interval Timer: %1$ld/%2$ld";
+
+/* RecordingViewController.cameraDidStartTakingPictureByIntervalTimer */
+"$title:IntervalTimerStart" = "Interval Timer";
+
 /* RecordingViewController.lockAutoExposurePoint
    RecordingViewController.lockAutoFocusPoint
    RecordingViewController.startMagnifyingLiveView */
@@ -730,6 +767,9 @@
 
 /* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
 "$title:TakePictureByAutoBracketingFailed" = "Could not taking all pictures";
+
+/* RecordingViewController.cameraDidStopTakingPictureByIntervalTimer */
+"$title:TakePictureByIntervalTimerFailed" = "Could not taking all pictures";
 
 /* PlaybackViewController.commitEditingStyle
    PlaybackViewController.downloadContentList */

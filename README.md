@@ -17,6 +17,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Changing a shooting mode
 * Coordinating some exposure parameters
 * Shooting supports auto bracketing mode
+* Shooting supports interval timer mode
 * Changing the color taste of the image
 * Adding special effects to an image
 * Locking auto focus and auto exposure

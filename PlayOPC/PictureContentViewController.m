@@ -575,30 +575,55 @@
 		AppCamera *camera = GetAppCamera();
 		__block BOOL downloadCompleted = NO;
 		__block BOOL downloadFailed = NO;
-		[camera downloadImage:filepath withResize:size progressHandler:^(float progress, BOOL *stop) {
-			// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
-			if (!weakSelf.startingActivity) {
-				*stop = YES;
+		if (size == OLYCameraImageResizeNone) {
+			// リサイズ画像をといいつつも、
+			// オリジナルサイズが指定された場合は、リサイズせずにオリジナルデータそのものをダウンロードします。
+			[camera downloadContent:filepath progressHandler:^(float progress, BOOL *stop) {
+				// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
+				if (!weakSelf.startingActivity) {
+					*stop = YES;
+					downloadCompleted = YES;
+					return;
+				}
+				// 進捗率表示モードに変更します。
+				if (progressView.mode == MBProgressHUDModeIndeterminate) {
+					progressView.mode = MBProgressHUDModeAnnularDeterminate;
+				}
+				// 進捗率の表示を更新します。
+				progressView.progress = progress;
+			} completionHandler:^(NSData *data) {
+				DEBUG_LOG(@"data=%p", data);
+				weakSelf.contentData = data;
 				downloadCompleted = YES;
-				return;
-			}
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
-		} completionHandler:^(NSData *data) {
-			DEBUG_LOG(@"data=%p", data);
-			weakSelf.contentData = data;
-			weakSelf.contentImage = [UIImage imageWithData:data];
-			weakSelf.contentMetadata = (__bridge NSDictionary *)CGImageSourceCopyPropertiesAtIndex(CGImageSourceCreateWithData((CFDataRef)data, nil), 0, nil);
-			downloadCompleted = YES;
-		} errorHandler:^(NSError *error) {
-			DEBUG_LOG(@"error=%p", error);
-			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotResizePicture", @"PictureContentViewController.downloadResizedImage")];
-		}];
+			} errorHandler:^(NSError *error) {
+				DEBUG_LOG(@"error=%p", error);
+				downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotResizePicture", @"PictureContentViewController.downloadResizedImage")];
+			}];
+		} else {
+			[camera downloadImage:filepath withResize:size progressHandler:^(float progress, BOOL *stop) {
+				// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
+				if (!weakSelf.startingActivity) {
+					*stop = YES;
+					downloadCompleted = YES;
+					return;
+				}
+				// 進捗率表示モードに変更します。
+				if (progressView.mode == MBProgressHUDModeIndeterminate) {
+					progressView.mode = MBProgressHUDModeAnnularDeterminate;
+				}
+				// 進捗率の表示を更新します。
+				progressView.progress = progress;
+			} completionHandler:^(NSData *data) {
+				DEBUG_LOG(@"data=%p", data);
+				weakSelf.contentData = data;
+				downloadCompleted = YES;
+			} errorHandler:^(NSError *error) {
+				DEBUG_LOG(@"error=%p", error);
+				downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotResizePicture", @"PictureContentViewController.downloadResizedImage")];
+			}];
+		}
 		
 		// リサイズ画像のダウンロードが完了するのを待ちます。
 		while (!downloadCompleted && !downloadFailed) {
@@ -608,6 +633,16 @@
 			// ダウンロードに失敗したようです。
 			return;
 		}
+
+		// バイナリデータから画像データとメタデータを抽出します。
+		weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
+		CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)(weakSelf.contentData), nil);
+		NSDictionary *metadata = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(sourceRef, 0, nil);
+		CFRelease(sourceRef);
+		weakSelf.contentMetadata = metadata;
+
+		DEBUG_LOG(@"contentImage=%@", weakSelf.contentImage);
+		DEBUG_LOG(@"contentMetadata=%@", weakSelf.contentMetadata);
 		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
 		
 		// ダウンロードしたリサイズ画像を表示します。

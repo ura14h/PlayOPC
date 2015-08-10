@@ -688,7 +688,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	}];
 }
 
-- (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
+- (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera currentCount:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
 
 	// 撮影進捗ラベルを表示更新します。
@@ -699,7 +699,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self.liveImageView showFlashing:YES];
 }
 
-- (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count {
+- (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera currentCount:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
 
 	// 撮影進捗ラベルを表示更新します。
@@ -746,7 +746,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	}];
 }
 
-- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count {
+- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera currentCount:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
 	
 	// 撮影進捗ラベルを表示更新します。
@@ -757,7 +757,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self.liveImageView showFlashing:YES];
 }
 
-- (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count {
+- (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera currentCount:(NSInteger)count {
 	DEBUG_LOG(@"count=%ld", (long)count);
 
 	// 撮影進捗ラベルを表示更新します。

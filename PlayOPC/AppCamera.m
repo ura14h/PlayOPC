@@ -1930,8 +1930,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			// 写真撮影します。
 			dispatch_async(dispatch_get_main_queue(), ^{
 				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
-					if ([delegate respondsToSelector:@selector(cameraWillTakePictureByAutoBracketing:current:)]) {
-						[delegate cameraWillTakePictureByAutoBracketing:weakSelf current:index];
+					if ([delegate respondsToSelector:@selector(cameraWillTakePictureByAutoBracketing:currentCount:)]) {
+						[delegate cameraWillTakePictureByAutoBracketing:weakSelf currentCount:index];
 					}
 				}
 			});
@@ -1956,8 +1956,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 			dispatch_async(dispatch_get_main_queue(), ^{
 				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
-					if ([delegate respondsToSelector:@selector(cameraDidTakePictureByAutoBracketing:current:)]) {
-						[delegate cameraDidTakePictureByAutoBracketing:weakSelf current:index];
+					if ([delegate respondsToSelector:@selector(cameraDidTakePictureByAutoBracketing:currentCount:)]) {
+						[delegate cameraDidTakePictureByAutoBracketing:weakSelf currentCount:index];
 					}
 				}
 			});
@@ -2267,8 +2267,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			NSDate *takingTimerStartTime = [NSDate date];
 			dispatch_async(dispatch_get_main_queue(), ^{
 				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
-					if ([delegate respondsToSelector:@selector(cameraWillTakePictureByIntervalTimer:current:)]) {
-						[delegate cameraWillTakePictureByIntervalTimer:weakSelf current:count];
+					if ([delegate respondsToSelector:@selector(cameraWillTakePictureByIntervalTimer:currentCount:)]) {
+						[delegate cameraWillTakePictureByIntervalTimer:weakSelf currentCount:count];
 					}
 				}
 			});
@@ -2293,8 +2293,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 			dispatch_async(dispatch_get_main_queue(), ^{
 				for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
-					if ([delegate respondsToSelector:@selector(cameraDidTakePictureByIntervalTimer:current:)]) {
-						[delegate cameraDidTakePictureByIntervalTimer:weakSelf current:count];
+					if ([delegate respondsToSelector:@selector(cameraDidTakePictureByIntervalTimer:currentCount:)]) {
+						[delegate cameraDidTakePictureByIntervalTimer:weakSelf currentCount:count];
 					}
 				}
 			});
@@ -2341,21 +2341,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// 最後の撮影については、わざわざ待つ必要はありません。
 				continue;
 			}
-			BOOL intervalTimerIsOver = NO;
 			while ([[NSDate date] timeIntervalSinceDate:takingTimerStartTime] < weakSelf.intervalTimerTime) {
 				if (weakSelf.runMode == OLYCameraRunModeRecording) {
 					// 中止を要求されているか確認します。
 					if (weakSelf.abortIntervalTimer) {
 						break;
-					}
-					// 撮影時間がオーバーしているか確認します。
-					if (weakSelf.intervalTimerMode == AppCameraIntervalTimerModePriorTime) {
-						NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:intervalTimerStartTime];
-						NSTimeInterval limitedTime = weakSelf.intervalTimerCount * weakSelf.intervalTimerTime;
-						if (elapsedTime > limitedTime) {
-							intervalTimerIsOver = YES;
-							break;
-						}
 					}
 					[NSThread sleepForTimeInterval:0.05];
 				} else {
@@ -2369,16 +2359,22 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// 時間待ちに失敗したようです。
 				break;
 			}
-			if (intervalTimerIsOver) {
-				// 撮影時間がオーバーしたようです。
-				DEBUG_LOG(@"TIME OVER!");
-				break;
-			}
 			if (weakSelf.abortIntervalTimer) {
 				// 中止したいようです。
 				DEBUG_LOG(@"ABORT!");
 				weakSelf.abortedIntervalTimer = YES;
 				break;
+			}
+			// 撮影時間がオーバーしているか確認します。
+			NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:intervalTimerStartTime];
+			NSTimeInterval limitedTime = weakSelf.intervalTimerCount * weakSelf.intervalTimerTime;
+			if (elapsedTime > limitedTime) {
+				// 撮影時間がオーバーしたようです。
+				DEBUG_LOG(@"taking a picture runs over: %ld sec", (long)(elapsedTime - limitedTime));
+				if (weakSelf.intervalTimerMode == AppCameraIntervalTimerModePriorTime) {
+					DEBUG_LOG(@"TIME OVER! GIVE UP!");
+					break;
+				}
 			}
 		}
 		

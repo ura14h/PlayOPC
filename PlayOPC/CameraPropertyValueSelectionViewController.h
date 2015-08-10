@@ -15,6 +15,6 @@
 /// カメラプロパティの値リストを表示できます。ユーザーがカメラプロパティのリストから値を選択できます。
 @interface CameraPropertyValueSelectionViewController : ItemSelectionViewController
 
-@property (strong, nonatomic) NSString *property; /// 値をリスト表示するカメラプロパティ
+@property (strong, nonatomic) NSString *property; ///< 値をリスト表示するカメラプロパティ
 
 @end

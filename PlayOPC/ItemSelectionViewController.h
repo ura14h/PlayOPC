@@ -29,7 +29,6 @@ extern NSString *const ItemSelectionViewItemValueKey; ///< 値への辞書キー
 
 @end
 
-
 /// 値のリストを表示中に起きたイベントを通知します。
 @protocol ItemSelectionViewControllerDelegate <NSObject>
 @optional

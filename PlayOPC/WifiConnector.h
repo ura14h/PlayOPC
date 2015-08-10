@@ -28,7 +28,6 @@ typedef enum : NSInteger {
 extern NSString *const WifiConnectionChangedNotification; ///< Wi-Fiの接続状態が変化した時の通知名
 extern NSString *const WifiConnectorErrorDomain; ///< Wi-Fi接続状態監視のエラードメイン
 
-
 /// Wi-Fi接続の監視をお手伝いをします。
 /// この内部ではReachabilityが動作しています。
 @interface WifiConnector : NSObject

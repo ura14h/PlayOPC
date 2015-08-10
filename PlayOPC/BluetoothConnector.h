@@ -34,7 +34,6 @@ typedef enum : NSInteger {
 extern NSString *const BluetoothConnectionChangedNotification; ///< Bluetoothの接続状態が変化した時の通知名
 extern NSString *const BluetoothConnectorErrorDomain; ///< Bluetooth接続状態監視のエラードメイン
 
-
 /// Bluetoothペリフェラルへの接続をお手伝いをします。
 /// この内部ではBluetoothセントラルマネージャが動作しています。
 @interface BluetoothConnector : NSObject

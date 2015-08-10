@@ -53,7 +53,6 @@ typedef enum : NSInteger {
 	AppCameraActionStatusRecordingVideo, ///< 動画を撮影中
 } AppCameraActionStatus;
 
-
 // カメラプロパティ
 extern NSString *const CameraPropertyAperture;
 extern NSString *const CameraPropertyAe;
@@ -291,7 +290,6 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 
 @protocol AppCameraTakingPictureDelegate;
 
-
 /// OLYCameraクラスにアプリ独自の機能を追加拡張したクラス。
 /// OLYCameraに関連するデリゲートのマルチ配信をサポートしています。
 @interface AppCamera : OLYCamera
@@ -311,41 +309,48 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// connectionDelegateのリストに登録します。
 /// connectionDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addConnectionDelegate:(id<OLYCameraConnectionDelegate>)delegate;
+
 /// connectionDelegateのリストから削除します。
 - (void)removeConnectionDelegate:(id<OLYCameraConnectionDelegate>)delegate;
 
 /// cameraPropertyDelegateのリストに登録します。
 /// cameraPropertyDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addCameraPropertyDelegate:(id<OLYCameraPropertyDelegate>)delegate;
+
 /// cameraPropertyDelegateのリストから削除します。
 - (void)removeCameraPropertyDelegate:(id<OLYCameraPropertyDelegate>)delegate;
 
 /// playbackDelegateのリストに登録します。
 /// playbackDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addPlaybackDelegate:(id<OLYCameraPlaybackDelegate>)delegate;
+
 /// playbackDelegateのリストから削除します。
 - (void)removePlaybackDelegate:(id<OLYCameraPlaybackDelegate>)delegate;
 
 /// liveViewDelegateのリストに登録します。
 /// liveViewDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addLiveViewDelegate:(id<OLYCameraLiveViewDelegate>)delegate;
+
 /// liveViewDelegateのリストから削除します。
 - (void)removeLiveViewDelegate:(id<OLYCameraLiveViewDelegate>)delegate;
 
 /// recordingDelegateのリストに登録します。
 /// recordingDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addRecordingDelegate:(id<OLYCameraRecordingDelegate>)delegate;
+
 /// recordingDelegateのリストから削除します。
 - (void)removeRecordingDelegate:(id<OLYCameraRecordingDelegate>)delegate;
 
 /// recordingSupportsDelegateのリストに登録します。
 /// recordingSupportsDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addRecordingSupportsDelegate:(id<OLYCameraRecordingSupportsDelegate>)delegate;
+
 /// recordingSupportsDelegateのリストから削除します。
 - (void)removeRecordingSupportsDelegate:(id<OLYCameraRecordingSupportsDelegate>)delegate;
 
 /// takingPictureDelegateのリストに登録します。
 - (void)addTakingPictureDelegate:(id<AppCameraTakingPictureDelegate>)delegate;
+
 /// takingPictureDelegateのリストから削除します。
 - (void)removeTakingPictureDelegate:(id<AppCameraTakingPictureDelegate>)delegate;
 
@@ -428,19 +433,25 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 
 /// オートブラケット撮影が開始した時に呼び出されます。
 - (void)cameraDidStartTakingPictureByAutoBracketing:(AppCamera *)camera;
+
 /// オートブラケットによる1コマ撮影が開始する時に呼び出されます。
 - (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
+
 /// オートブラケットによる1コマ撮影が完了した時に呼び出されます。
 - (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera current:(NSInteger)count;
+
 /// オートブラケット撮影が終了した時に呼び出されます。
 - (void)cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error;
 
 /// インターバルタイマー撮影が開始した時に呼び出されます。
 - (void)cameraDidStartTakingPictureByIntervalTimer:(AppCamera *)camera;
+
 /// インターバルタイマーによる1コマ撮影が開始する時に呼び出されます。
 - (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count ;
+
 /// インターバルタイマーによる1コマ撮影が完了した時に呼び出されます。
 - (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera current:(NSInteger)count;
+
 /// インターバルタイマー撮影が終了した時に呼び出されます。
 - (void)cameraDidStopTakingPictureByIntervalTimer:(AppCamera *)camera error:(NSError *)error;
 

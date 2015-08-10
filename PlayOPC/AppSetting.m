@@ -16,7 +16,6 @@ static NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetti
 static NSString *const UserDefaultsLatestSnapshotOfCameraSetting = @"LatestSnapshotOfCameraSetting";
 static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingAction";
 
-
 @interface AppSetting ()
 @end
 

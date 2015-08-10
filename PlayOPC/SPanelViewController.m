@@ -17,7 +17,6 @@
 #import "UIViewController+Threading.h"
 #import "UITableViewController+Cell.h"
 
-
 @interface SPanelViewController () <OLYCameraPropertyDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *batteryLevelCell;

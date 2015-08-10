@@ -18,7 +18,6 @@
 static NSString *const FavoriteSettingNameKey = @"FavoriteSettingName";
 static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 
-
 @interface FavoriteSavingViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *favoriteSettingNameText;

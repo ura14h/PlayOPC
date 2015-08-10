@@ -21,7 +21,6 @@ static NSString *const FavoriteSettingListDateKey = @"FavoriteSettingListDateKey
 static NSString *const FavoriteSettingNameKey = @"FavoriteSettingName";
 static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 
-
 @interface FavoriteLoadingViewController ()
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か

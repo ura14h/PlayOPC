@@ -18,7 +18,6 @@ typedef enum : NSInteger {
 	RecordingCameraLiveImageViewStatusFailed, ///< ロック失敗
 } RecordingCameraLiveImageViewStatus;
 
-
 /// カメラのライブビューを表示します。
 @interface LiveImageView : UIImageView
 

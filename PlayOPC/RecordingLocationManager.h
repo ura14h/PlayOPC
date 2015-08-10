@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
+/// 現在位置を管理します。
 @interface RecordingLocationManager : NSObject
 
 @property(assign, nonatomic) CLLocationAccuracy desiredAccuracy; ///< 位置データの精度

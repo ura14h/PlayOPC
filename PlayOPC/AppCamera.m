@@ -1691,6 +1691,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	weakSelf.runningAutoBracketing = YES;
 	weakSelf.abortAutoBracketing = NO;
 	weakSelf.abortedAutoBracketing = NO;
+	NSInteger autoBracketingCount = weakSelf.autoBracketingCount;
+	NSInteger autoBracketingStep = weakSelf.autoBracketingStep;
 	
 	/// メインスレッド以外で非同期に処理ブロックを実行します。
 	dispatch_async(weakSelf.takingPictureRunnerQueue, ^{
@@ -1743,10 +1745,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 			// オートブラケットで使用するプロパティ値を拾い集めます。
 			NSInteger currentIndex = [valueList indexOfObject:currentPropertyValue];
-			NSInteger minimumIndex = currentIndex - weakSelf.autoBracketingStep * ((weakSelf.autoBracketingCount - 1) / 2);
-			NSInteger maximumIndex = currentIndex + weakSelf.autoBracketingStep * ((weakSelf.autoBracketingCount - 1) / 2);
+			NSInteger minimumIndex = currentIndex - autoBracketingStep * ((autoBracketingCount - 1) / 2);
+			NSInteger maximumIndex = currentIndex + autoBracketingStep * ((autoBracketingCount - 1) / 2);
 			autoBracketingPropertyValues = [[NSMutableArray alloc] init];
-			for (NSInteger index = minimumIndex; index <= maximumIndex; index += weakSelf.autoBracketingStep) {
+			for (NSInteger index = minimumIndex; index <= maximumIndex; index += autoBracketingStep) {
 				// 値のインデックスがプロパティ値リストの範囲に収まるように補正します。
 				NSInteger correctedIndex = index;
 				if (correctedIndex < 0) {
@@ -2169,6 +2171,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	weakSelf.runningIntervalTimer = YES;
 	weakSelf.abortIntervalTimer = NO;
 	weakSelf.abortedIntervalTimer = NO;
+	NSInteger intervalTimerCount = weakSelf.intervalTimerCount;
+	NSTimeInterval intervalTimerTime = weakSelf.intervalTimerTime;
+	NSTimeInterval estimateTotalTime = intervalTimerCount * intervalTimerTime;
 	
 	/// メインスレッド以外で非同期に処理ブロックを実行します。
 	dispatch_async(weakSelf.takingPictureRunnerQueue, ^{
@@ -2260,7 +2265,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		});
 		NSDate *intervalTimerStartTime = [NSDate date];
 		__block NSError *takingError = nil;
-		for (NSInteger count = 0; count < weakSelf.intervalTimerCount; count++) {
+		for (NSInteger count = 0; count < intervalTimerCount; count++) {
 			DEBUG_LOG(@"start taking a picture: %ld", (long)count);
 			
 			// 写真撮影します。
@@ -2337,11 +2342,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			DEBUG_LOG(@"finish taking a picture: %ld", (long)count);
 			
 			// 次の撮影時刻まで待ちます。
-			if (count == weakSelf.intervalTimerCount - 1) {
+			if (count == (intervalTimerCount - 1)) {
 				// 最後の撮影については、わざわざ待つ必要はありません。
 				continue;
 			}
-			while ([[NSDate date] timeIntervalSinceDate:takingTimerStartTime] < weakSelf.intervalTimerTime) {
+			while ([[NSDate date] timeIntervalSinceDate:takingTimerStartTime] < intervalTimerTime) {
 				if (weakSelf.runMode == OLYCameraRunModeRecording) {
 					// 中止を要求されているか確認します。
 					if (weakSelf.abortIntervalTimer) {
@@ -2366,11 +2371,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				break;
 			}
 			// 撮影時間がオーバーしているか確認します。
-			NSTimeInterval elapsedTime = [[NSDate date] timeIntervalSinceDate:intervalTimerStartTime];
-			NSTimeInterval limitedTime = weakSelf.intervalTimerCount * weakSelf.intervalTimerTime;
-			if (elapsedTime > limitedTime) {
+			NSTimeInterval actualTotalTime = [[NSDate date] timeIntervalSinceDate:intervalTimerStartTime];
+			if (actualTotalTime > estimateTotalTime) {
 				// 撮影時間がオーバーしたようです。
-				DEBUG_LOG(@"taking a picture runs over: %ld sec", (long)(elapsedTime - limitedTime));
+				DEBUG_LOG(@"taking a picture runs over: %ld sec", (long)(actualTotalTime - estimateTotalTime));
 				if (weakSelf.intervalTimerMode == AppCameraIntervalTimerModePriorTime) {
 					DEBUG_LOG(@"TIME OVER! GIVE UP!");
 					break;

@@ -10,6 +10,9 @@
 //
 
 #import "ItemSelectionViewController.h"
+#import "AppDelegate.h"
+#import "AppCamera.h"
+#import "UIViewController+Alert.h"
 
 NSString *const ItemSelectionViewItemTitleKey = @"ItemSelectionViewItemTitleKey";
 NSString *const ItemSelectionViewItemImageKey = @"ItemSelectionViewItemImageKey";
@@ -116,6 +119,16 @@ NSString *const ItemSelectionViewItemValueKey = @"ItemSelectionViewItemValueKey"
 		// セルの選択を解除します。
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];
 		DEBUG_LOG(@"The row is already selected.");
+		return;
+	}
+	
+	// 現在、値の変更が許可されているか確認します。
+	AppCamera *camera = GetAppCamera();
+	if ([camera cameraActionStatus] != AppCameraActionStatusReady) {
+		// セルの選択を解除します。
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		// 変更は許されていません。
+		[self showAlertMessage:NSLocalizedString(@"$desc:CanNotSelectItemInTaking", @"ItemSelectionViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CanNotSelectItemInTaking", @"ItemSelectionViewController.didSelectRowAtIndexPath")];
 		return;
 	}
 	

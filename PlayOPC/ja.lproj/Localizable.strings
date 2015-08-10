@@ -351,9 +351,15 @@
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetoothデバイスはすでに見つかっています。";
 
+/* ItemSelectionViewController.didSelectRowAtIndexPath */
+"$desc:CanNotSelectItemInTaking" = "撮影動作中は設定の変更は許可されていません。";
+
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
  CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSetCameraProperty" = "カメラプロパティの変更は現在許可されていません。";
+
+/* CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+"$desc:CanNotSetCameraPropertyInTaking" = "撮影動作中はカメラプロパティの変更は許可されていません。";
 
 /* BluetoothConnector.connectPeripheral
  BluetoothConnector.disconnectPeripheral
@@ -501,9 +507,15 @@
 /* VideoContentViewController.didTapUnprotectButton */
 "$title:CancelUnprotectVideo" = "取り消し";
 
+/* ItemSelectionViewController.didSelectRowAtIndexPath */
+"$title:CanNotSelectItemInTaking" = "設定は変更できません";
+
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
  CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$title:CanNotSetCameraProperty" = "カメラプロパティは変更できません";
+
+/* CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+"$title:CanNotSetCameraPropertyInTaking" = "カメラプロパティは変更できません";
 
 /* ZPanelViewController.didChangeDigitalZoomingSliderValue */
 "$title:CouldNotChangeDigitalZoomScale" = "ズーム倍率を変更できません";

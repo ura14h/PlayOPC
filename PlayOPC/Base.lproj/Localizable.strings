@@ -351,9 +351,15 @@
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetooth device is already found.";
 
+/* ItemSelectionViewController.didSelectRowAtIndexPath */
+"$desc:CanNotSelectItemInTaking" = "Changing this setting is not permitted during capturing image.";
+
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
    CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSetCameraProperty" = "Changing this camera property is not permitted currently.";
+
+/* CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+"$desc:CanNotSetCameraPropertyInTaking" = "Changing this camera property is not permitted during capturing image.";
 
 /* BluetoothConnector.connectPeripheral
    BluetoothConnector.disconnectPeripheral
@@ -501,9 +507,15 @@
 /* VideoContentViewController.didTapUnprotectButton */
 "$title:CancelUnprotectVideo" = "Cancel";
 
+/* ItemSelectionViewController.didSelectRowAtIndexPath */
+"$title:CanNotSelectItemInTaking" = "Cannot change setting";
+
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
    CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$title:CanNotSetCameraProperty" = "Cannot change camera property";
+
+/* CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+"$title:CanNotSetCameraPropertyInTaking" = "Cannot change camera property";
 
 /* ZPanelViewController.didChangeDigitalZoomingSliderValue */
 "$title:CouldNotChangeDigitalZoomScale" = "Could not change zooming scale";

@@ -195,6 +195,13 @@
 
 	// 現在、値の変更が許可されているか確認します。
 	AppCamera *camera = GetAppCamera();
+	if ([camera cameraActionStatus] != AppCameraActionStatusReady) {
+		// セルの選択を解除します。
+		[tableView deselectRowAtIndexPath:indexPath animated:YES];
+		// 変更は許されていません。
+		[self showAlertMessage:NSLocalizedString(@"$desc:CanNotSetCameraPropertyInTaking", @"CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CanNotSetCameraPropertyInTaking", @"CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath")];
+		return;
+	}
 	if (![camera canSetCameraProperty:self.property]) {
 		// セルの選択を解除します。
 		[tableView deselectRowAtIndexPath:indexPath animated:YES];

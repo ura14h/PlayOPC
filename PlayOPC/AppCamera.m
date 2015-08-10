@@ -383,6 +383,16 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		return result;
 	}
 
+	// MARK: 撮影モードに遷移する場合は強制的に撮影モードをiAutoに設定します。
+	// カメラプロパティの撮影モード(TAKEMODE)をmovieに変更したまま、実行モード変更(changeRunMode:error:)で
+	// 撮影モード以外に遷移してから再び撮影モードに入ると、カメラ側はiAuto、ライブラリ側はmovieと認識しているようです。
+	// このため、全体としてちぐはぐな動作になります。
+	if (result && self.runMode == OLYCameraRunModeRecording) {
+		if (![super setCameraPropertyValue:CameraPropertyTakemode value:CameraPropertyTakemodeIAuto error:error]) {
+			return NO;
+		}
+	}
+	
 #if 0 // 以前の状態に復帰しなくても問題ないようなので実装を無効にしておきます。
 	// オートブラケット撮影のプロパティを更新します。
 	_autoBracketingMode = AppCameraAutoBracketingModeDisabled;

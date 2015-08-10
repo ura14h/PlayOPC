@@ -69,6 +69,7 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
   * TAKEMODEをP,A,S,Mからmovieに変更すると露出補正値(EXPREV)の値リストが+5.0〜-5.0から+3.0〜-3.0に狭まります。
 * ~~カメラプロパティの撮影モード(TAKEMODE)をmovieにして動画撮影モード(EXPOSE\_MOVIE\_SELECT)を変更すると、その時の露光パラメータ(APERTURE, SHUTTER, EXPREV, ISO)の設定可不可メソッド(canSetCameraProperty:)が返す値がおかしい時があります。~~ #reported-sdk-1.0.1 #fixed-sdk-1.1.0
 * カメラプロパティの撮影モード(TAKEMODE、EXPOSE\_MOVIE\_SELECT)をmovieに変更すると、そのモードでは設定できない露出パラメータ(actualApertureValue, actualShutterSpeed, actualExposureCompensation, actualIsoSensitivity)の現在値がNANになるようです。
+* カメラプロパティの撮影モード(TAKEMODE)をmovieに変更したまま、実行モード変更(changeRunMode:error:)で撮影モード以外に遷移してから再び撮影モードに入ると、カメラ側はiAuto、ライブラリ側はmovieと認識しているようです。このため、全体としてちぐはぐな動作になります。 #avoided-app-1.4.2260
 
 ### 色と効果
 

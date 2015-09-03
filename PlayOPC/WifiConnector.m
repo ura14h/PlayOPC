@@ -63,24 +63,16 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 - (WifiConnectionStatus)currentConnectionStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
-#if !(TARGET_IPHONE_SIMULATOR)
 	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
 	switch (networkStatus) {
 		case ReachableViaWiFi:
-			if (self.SSID && self.BSSID) {
-				return WifiConnectionStatusConnected;
-			} else {
-				// FIXME: アプリ起動直後にこの状態になることがある。(原因は追求していない)
-				return WifiConnectionStatusUnknown;
-			}
+			return WifiConnectionStatusConnected;
 		case NotReachable:
 			return WifiConnectionStatusNotConnected;
 		default:
-			return WifiConnectionStatusUnknown;
+			break;
 	}
-#else
-	return WifiConnectionStatusConnected;
-#endif
+	return WifiConnectionStatusUnknown;
 }
 
 - (BOOL)startMonitoring:(NSError **)error {
@@ -138,17 +130,21 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		return NO;
 	}
 
-#if !(TARGET_IPHONE_SIMULATOR)
 	// SSIDが"AIR-A01-?????????"でなければカメラにアクセスできません。
 	// FIXME: 現状ではこんな判断の方法しかないようです。
-	NSString *pattern = @"^AIR-A\\d+-.+$";
-	NSError *error = nil;
-	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-	NSTextCheckingResult *match = [regex firstMatchInString:self.SSID options:0 range:NSMakeRange(0, self.SSID.length)];
-	if (!match) {
-		return NO;
+	if (self.SSID) {
+		NSString *pattern = @"^AIR-A\\d+-.+$";
+		NSError *error = nil;
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
+		NSTextCheckingResult *match = [regex firstMatchInString:self.SSID options:0 range:NSMakeRange(0, self.SSID.length)];
+		if (!match) {
+			return NO;
+		}
+		return YES;
 	}
-#endif
+	
+	// MARK: iOSシミュレーターとiOS9では、接続先のSSIDが正しく取得できないようです。
+	// TODO: カメラのIPアドレスを指定して接続できるかを試みます。
 	return YES;
 }
 
@@ -164,7 +160,6 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	// 監視を一時的に停止します。
 	[self.reachability stopNotifier];
 	
-#if !(TARGET_IPHONE_SIMULATOR)
 	// 接続状態の変化をポーリングします。
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
@@ -195,9 +190,6 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	
 	// タイムアウトしました。
 	return NO;
-#else
-	return YES;
-#endif
 }
 
 #pragma mark -
@@ -206,12 +198,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 - (void)reachabilityChanged:(NSNotification *)notification {
 	DEBUG_LOG(@"");
 
-	NSString *currentSSID = self.SSID;
-	NSString *currentBSSID = self.BSSID;
 	[self updateNetworkInfo];
-	if ([self.SSID isEqualToString:currentSSID] && [self.BSSID isEqualToString:currentBSSID]) {
-		return;
-	}
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
 }
@@ -220,9 +207,9 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 - (BOOL)updateNetworkInfo {
 	DEBUG_LOG(@"");
 	
+	BOOL validNetworkInfo = NO;
 	NSString *currentSSID = nil;
 	NSString *currentBSSID = nil;
-#if !(TARGET_IPHONE_SIMULATOR)
 	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
 	if (networkStatus == ReachableViaWiFi) {
 		NSArray* supportedInterfaces = (__bridge_transfer id)CNCopySupportedInterfaces();
@@ -231,21 +218,14 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 			if (currentNetworkInfo) {
 				currentSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeySSID];
 				currentBSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeyBSSID];
+				validNetworkInfo = YES;
 			}
 		}
 	}
-#endif
-	
-	BOOL updated = NO;
-	if (![self.SSID isEqualToString:currentSSID]) {
-		self.SSID = currentSSID;
-		updated = YES;
-	}
-	if (![self.BSSID isEqualToString:currentBSSID]) {
-		self.BSSID = currentBSSID;
-		updated = YES;
-	}
-	return updated;
+	self.SSID = currentSSID;
+	self.BSSID = currentBSSID;
+
+	return validNetworkInfo;
 }
 
 /// エラー情報を作成します。

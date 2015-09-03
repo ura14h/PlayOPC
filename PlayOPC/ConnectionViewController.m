@@ -1008,13 +1008,19 @@
 	WifiConnectionStatus wifiStatus = self.wifiConnector.currentConnectionStatus;
 	if (wifiStatus == WifiConnectionStatusConnected) {
 		// 接続されている場合はそのSSIDを表示します。
-		NSString *ssid;
 		if ([self.wifiConnector isPossibleToAccessCamera]) {
-			ssid = self.wifiConnector.SSID;
+			if (self.wifiConnector.SSID) {
+				self.showWifiSettingCell.detailTextLabel.text = self.wifiConnector.SSID;
+			} else {
+				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
+			}
 		} else {
-			ssid = [NSString stringWithFormat:NSLocalizedString(@"$cell:WifiNotConnected(%@)", @"ConnectionViewController.updateShowWifiSettingCell"), self.wifiConnector.SSID];
+			if (self.wifiConnector.SSID) {
+				self.showWifiSettingCell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$cell:WifiNotConnected(%@)", @"ConnectionViewController.updateShowWifiSettingCell"), self.wifiConnector.SSID];
+			} else {
+				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
+			}
 		}
-		self.showWifiSettingCell.detailTextLabel.text = ssid;
 	} else if (wifiStatus == WifiConnectionStatusNotConnected) {
 		// 接続されていない場合は未接続と表示します。
 		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected", @"ConnectionViewController.updateShowWifiSettingCell");

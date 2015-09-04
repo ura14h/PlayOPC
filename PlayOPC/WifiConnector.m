@@ -22,6 +22,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 @property (strong, nonatomic) NSString *BSSID;
 @property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
 @property (strong, nonatomic) Reachability *reachability;
+@property (assign, nonatomic) BOOL cameraIsReachable; ///< カメラに到達できるか否かを示します。
 
 @end
 
@@ -125,27 +126,12 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 - (BOOL)isPossibleToAccessCamera {
 	DEBUG_LOG(@"");
 
-	// 接続していなかったらカメラにはアクセスできません。
 	if ([self currentConnectionStatus] != WifiConnectionStatusConnected) {
+		// 接続していなかったらカメラにはアクセスできません。
 		return NO;
 	}
 
-	// SSIDが"AIR-A01-?????????"でなければカメラにアクセスできません。
-	// FIXME: 現状ではこんな判断の方法しかないようです。
-	if (self.SSID) {
-		NSString *pattern = @"^AIR-A\\d+-.+$";
-		NSError *error = nil;
-		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:&error];
-		NSTextCheckingResult *match = [regex firstMatchInString:self.SSID options:0 range:NSMakeRange(0, self.SSID.length)];
-		if (!match) {
-			return NO;
-		}
-		return YES;
-	}
-	
-	// MARK: iOSシミュレーターとiOS9では、接続先のSSIDが正しく取得できないようです。
-	// TODO: カメラのIPアドレスを指定して接続できるかを試みます。
-	return YES;
+	return self.cameraIsReachable;
 }
 
 - (BOOL)waitForConnectionStatus:(WifiConnectionStatus)status timeout:(NSTimeInterval)timeout {
@@ -204,10 +190,11 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 }
 
 /// ネットワーク接続情報を更新します。
-- (BOOL)updateNetworkInfo {
+- (void)updateNetworkInfo {
 	DEBUG_LOG(@"");
 	
-	BOOL validNetworkInfo = NO;
+	// SSIDとBSSIDを取得します。
+	// MARK: iOS 9とそれ以降のバージョンのiOSでは正しく動作しません。SSIDもBSSIDもnilに設定されます。
 	NSString *currentSSID = nil;
 	NSString *currentBSSID = nil;
 	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
@@ -218,14 +205,86 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 			if (currentNetworkInfo) {
 				currentSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeySSID];
 				currentBSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeyBSSID];
-				validNetworkInfo = YES;
 			}
 		}
 	}
 	self.SSID = currentSSID;
 	self.BSSID = currentBSSID;
 
-	return validNetworkInfo;
+	// カメラのIPアドレスを指定して接続できるかを試みます。
+	self.cameraIsReachable = NO;
+
+	// 通信仕様書に従って、
+	// 単発かつその後の動作に影響の少ないと思われるCGIコマンドをカメラへ送信してそのレスポンスを確認します。
+	// 通信仕様書に沿った期待したレスポンスが返って来れば、このWi-Fiはカメラに接続していると判定します。
+
+	NSString *cameraIPAddress = @"192.168.0.10"; // カメラのIPアドレス
+	NSTimeInterval timeout = 3.0; // このタイムアウト秒数は暫定の値です。(値が短すぎると誤判断する)
+	
+	// カメラのIPアドレスへのルーティングがあるかを確認します。
+	Reachability *reachability = [Reachability reachabilityWithHostName:cameraIPAddress];
+	NSDate *waitStartTime = [NSDate date];
+	while ([reachability currentReachabilityStatus] == NotReachable &&
+		   [[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
+		[NSThread sleepForTimeInterval:0.05];
+	}
+	if ([reachability currentReachabilityStatus] != ReachableViaWiFi) {
+		return;
+	}
+	
+	// HTTP接続のリクエストを作成します。
+	// 送信するCGIコマンドは、接続モード取得(get_connectmode.cgi)を使います。
+	NSMutableString *url = [[NSMutableString alloc] init];
+	[url appendString:@"http://"];
+	[url appendString:cameraIPAddress];
+	[url appendString:@"/get_connectmode.cgi"];
+	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:url]];
+	request.allowsCellularAccess = NO; // LTE/3G側には送信しないようにします。
+	request.cachePolicy = NSURLRequestReloadIgnoringCacheData;
+	request.timeoutInterval = timeout;
+	[request setValue:cameraIPAddress forHTTPHeaderField:@"Host"];
+	[request setValue:@"OlympusCameraKit" forHTTPHeaderField:@"User-Agent"];
+	NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
+	configuration.allowsCellularAccess = request.allowsCellularAccess;
+	configuration.timeoutIntervalForRequest = request.timeoutInterval;
+	configuration.timeoutIntervalForResource = request.timeoutInterval;
+	
+	// HTTP接続を試みます。
+	__block NSData *result = nil;
+	__block NSHTTPURLResponse *response = nil;
+	dispatch_semaphore_t completion = dispatch_semaphore_create(0);
+	NSURLSession *session = [NSURLSession sessionWithConfiguration:configuration];
+	NSURLSessionDataTask *task = [session dataTaskWithRequest:request completionHandler:^(NSData *taskResult, NSURLResponse *taskResponse, NSError *taskError) {
+		result = taskResult;
+		response = (NSHTTPURLResponse *)taskResponse;
+		dispatch_semaphore_signal(completion);
+	}];
+	[task resume];
+	dispatch_semaphore_wait(completion, DISPATCH_TIME_FOREVER);
+	[session invalidateAndCancel];
+	
+	// HTTP接続のレスポンスを確認します。
+	// 期待するCGIコマンドの応答は、XML形式でconnectmode要素のテキストがOPCになっていることです。
+	if (!result || !response) {
+		return;
+	}
+	if (response.statusCode != 200) {
+		return;
+	}
+	NSDictionary *fields = response.allHeaderFields;
+	NSString *contentType = fields[@"Content-Type"];
+	if (![contentType isEqualToString:@"text/xml"]) {
+		return;
+	}
+	NSString *resultText = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+	if ([resultText rangeOfString:@"<connectmode>OPC</connectmode>"].location == NSNotFound) {
+		return;
+	}
+	
+	// カメラへHTTPで接続できたようです。
+	self.cameraIsReachable = YES;
+	
+	return;
 }
 
 /// エラー情報を作成します。

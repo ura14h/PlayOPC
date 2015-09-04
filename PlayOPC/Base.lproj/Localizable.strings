@@ -340,10 +340,10 @@
 "$cell:WifiNotConnected" = "Not Connected";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiNotConnected(%@)" = "Not Connected (%@)";
+"$cell:WifiNotConnected(%@)" = "Connected Another (%@)";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiNotConnected(null)" = "Not Connected";
+"$cell:WifiNotConnected(null)" = "Connected Another";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "Unknown";

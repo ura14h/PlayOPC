@@ -82,7 +82,6 @@
 	self.opticalZoomingSpeed = 1;
 
 	// ライブビュー拡大の選択肢を構築します。
-	// TODO: implement!
 	NSMutableArray *magnifyingLiveViewScales = [[NSMutableArray alloc] init];
 	NSDictionary *scaleX5 = @{
 		ItemSelectionViewItemTitleKey:NSLocalizedString(@"$cell:MagnifyingLiveViewScale5", @"ZPanelViewController.viewDidLoad"),

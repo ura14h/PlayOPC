@@ -1236,6 +1236,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		NSString *title = [super cameraPropertyValueTitle:value];
 		localizedTitle = AppCameraLocalizedString(title);
 	}
+	// F値の時は特別なローカライズを行います。
+	if ([value hasPrefix:@"<APERTURE/"] && [value hasSuffix:@">"]) {
+		if (![localizedTitle hasPrefix:@"F"]) {
+			// F値が開放の場合など、値がローカライズのリストにない場合は頑張ってローカライズします。
+			NSString *format = AppCameraLocalizedString(@"F%@");
+			NSString *aperture = [super cameraPropertyValueTitle:value];
+			localizedTitle = [NSString stringWithFormat:format, aperture];
+		}
+	}
 	return localizedTitle;
 }
 

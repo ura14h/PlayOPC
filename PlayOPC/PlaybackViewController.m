@@ -427,12 +427,9 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 			DEBUG_LOG(@"An error occurred, but ignores it.");
 		}
 		
-		// 指定されたコンテンツを削除します。
+		// 指定されたコンテンツをカメラから削除します。
 		NSError *error = nil;
 		BOOL erased = [camera eraseContent:filepath error:&error];
-		if (erased) {
-			[weakSelf.contentList removeObjectAtIndex:indexPath.row];
-		}
 
 		// カメラを再生モードに戻します。
 		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {
@@ -447,6 +444,18 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 			return;
 		}
 
+		// 指定されたコンテンツすべてを一覧から削除します。
+		// MARK: コンテンツ削除は、JPEGファイルを指定してもRAWファイルを指定してもJPEGファイルとRAWファイルのセットで両方削除されるようです。
+		NSIndexSet *indexes = [self collectIndexOfContent:content];
+		[self.contentList removeObjectsAtIndexes:indexes];
+
+		// 表示から取り除く行セットを作成します。
+		NSMutableArray *indexPaths = [[NSMutableArray alloc] init];
+		[indexes enumerateIndexesUsingBlock:^(NSUInteger index, BOOL *stop) {
+			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:index inSection:0];
+			[indexPaths addObject:indexPath];
+		}];
+		
 		// コンテンツ一覧の概要も更新します。
 		NSInteger numberOfContents = [camera countNumberOfContents:&error];
 		NSInteger numberOfFiles = weakSelf.contentList.count;
@@ -459,7 +468,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 			weakSelf.tableviewFooterLabel.text = footerLabelText;
 			
 			// 表示行を削除します。
-			[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+			[self.tableView deleteRowsAtIndexPaths:indexPaths withRowAnimation:UITableViewRowAnimationAutomatic];
 		}];
 	}];
 }
@@ -700,6 +709,29 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		// コンテンツ一覧をダウンロードします。
 		[weakSelf downloadContentList:nil];
 	}];
+}
+
+/// 指定されたコンテンツに関するファイル情報を探し、見つかったファイル情報のコンテンツ一覧上でのインデックス群を返します。
+- (NSIndexSet *)collectIndexOfContent:(NSDictionary *)content {
+	DEBUG_LOG(@"content=%@", content);
+	
+	// 検索するためのファイル名プレフィックスを作成します。
+	NSString *filename = [content[OLYCameraContentListFilenameKey] stringByDeletingPathExtension];
+	NSString *prefix = [filename stringByAppendingString:@"."];
+	
+	// ファイル名プレフィックスが一致するコンテンツ情報を探します。
+	__block NSMutableIndexSet *indexes = [[NSMutableIndexSet alloc] init];
+	[self.contentList enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {
+		if ([item[OLYCameraContentListDirectoryKey] isEqualToString:content[OLYCameraContentListDirectoryKey]]) {
+			if ([item[OLYCameraContentListFilenameKey] hasPrefix:prefix]) {
+				// プレフィックスが一致するコンテンツ情報のインデックスを保存します。
+				[indexes addIndex:index];
+			}
+		}
+	}];
+	
+	// 保存したインデックス群を返します。
+	return indexes;
 }
 
 @end

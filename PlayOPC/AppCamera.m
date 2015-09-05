@@ -262,6 +262,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 
 @interface AppCamera () <OLYCameraConnectionDelegate, OLYCameraPropertyDelegate, OLYCameraPlaybackDelegate, OLYCameraLiveViewDelegate, OLYCameraRecordingDelegate, OLYCameraRecordingSupportsDelegate>
 
+@property (strong, nonatomic, readwrite) NSArray *autoBracketingCountList; ///< オートブラケットで撮影する枚数の選択肢リスト
+@property (strong, nonatomic, readwrite) NSArray *autoBracketingStepList; ///< オートブラケットで撮影する際のステップ数の選択肢リスト
+@property (strong, nonatomic, readwrite) NSArray *intervalTimerCountList; ///< インターバルタイマーで撮影する枚数の選択肢リスト
+@property (strong, nonatomic, readwrite) NSArray *intervalTimerTimeList; ///< インターバルタイマーで撮影する際の時間間隔の選択肢リスト
 @property (assign, nonatomic, readwrite) NSTimeInterval recordingElapsedTime; ///< 動画撮影経過時間
 @property (assign, nonatomic, readwrite) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
 @property (assign, nonatomic, readwrite) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
@@ -305,12 +309,42 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
     if (!self) {
 		return nil;
     }
+
+	// 設定ファイルから初期化に使用するリストを構築します。
+	NSString *autoBracketingCountListPath = [[NSBundle mainBundle] pathForResource:@"AutoBracketingCountList" ofType:@"plist"];
+	NSArray *autoBracketingCountList = [NSArray arrayWithContentsOfFile:autoBracketingCountListPath];
+	if (!autoBracketingCountList || autoBracketingCountList.count < 1) {
+		DEBUG_LOG(@"could not configure autoBracketingCountList.");
+		return nil;
+	}
+	NSString *autoBracketingStepListPath = [[NSBundle mainBundle] pathForResource:@"AutoBracketingStepList" ofType:@"plist"];
+	NSArray *autoBracketingStepList = [NSArray arrayWithContentsOfFile:autoBracketingStepListPath];
+	if (!autoBracketingStepList || autoBracketingStepList.count < 1) {
+		DEBUG_LOG(@"could not configure autoBracketingStepList.");
+		return nil;
+	}
+	NSString *intervalTimerCountListPath = [[NSBundle mainBundle] pathForResource:@"IntervalTimerCountList" ofType:@"plist"];
+	NSArray *intervalTimerCountList = [NSArray arrayWithContentsOfFile:intervalTimerCountListPath];
+	if (!intervalTimerCountList || intervalTimerCountList.count < 1) {
+		DEBUG_LOG(@"could not configure intervalTimerCountList.");
+		return nil;
+	}
+	NSString *intervalTimerTimeListPath = [[NSBundle mainBundle] pathForResource:@"IntervalTimerTimeList" ofType:@"plist"];
+	NSArray *intervalTimerTimeList = [NSArray arrayWithContentsOfFile:intervalTimerTimeListPath];
+	if (!intervalTimerTimeList || intervalTimerTimeList.count < 1) {
+		DEBUG_LOG(@"could not configure intervalTimerTimeList.");
+		return nil;
+	}
 	
 	_autoBracketingMode = AppCameraAutoBracketingModeDisabled;
+	_autoBracketingCountList = autoBracketingCountList;
 	_autoBracketingCount = 3;
+	_autoBracketingStepList = autoBracketingStepList;
 	_autoBracketingStep = 1;
 	_intervalTimerMode = AppCameraIntervalTimerModeDisabled;
+	_intervalTimerCountList = intervalTimerCountList;
 	_intervalTimerCount = 3;
+	_intervalTimerTimeList = intervalTimerTimeList;
 	_intervalTimerTime = 1.0;
 	_recordingElapsedTime = 0;
 	_minimumDigitalZoomScale = NAN;
@@ -350,6 +384,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	DEBUG_LOG(@"");
 	
 	[_recordingVideoTimer invalidate];
+	
+	_autoBracketingCountList = nil;
+	_autoBracketingStepList = nil;
+	_intervalTimerCountList = nil;
+	_intervalTimerTimeList = nil;
 	_takingPictureRunnerQueue = nil;
 	_takingPictureStopperQueue = nil;
 	_recordingVideoStartTime = nil;

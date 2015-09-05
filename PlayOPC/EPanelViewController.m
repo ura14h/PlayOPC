@@ -73,8 +73,10 @@
 	self.autoBracketingModes = autoBracketingModes;
 
 	// オートブラケットで撮影する枚数の選択肢を構築します。
+	AppCamera *camera = GetAppCamera();
 	NSMutableArray *autoBracketingCounts = [[NSMutableArray alloc] init];
-	for (NSInteger count = 3; count < 10; count += 2) {
+	for (NSNumber *countValue in camera.autoBracketingCountList) {
+		NSInteger count = [countValue integerValue];
 		NSDictionary *autoBracketingCount = @{
 			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:AutoBracketingCount(%ld)", @"EPanelViewController.viewDidLoad"), (long)count],
 			ItemSelectionViewItemValueKey:@(count)
@@ -85,7 +87,8 @@
 	
 	// オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢を構築します。
 	NSMutableArray *autoBracketingSteps = [[NSMutableArray alloc] init];
-	for (NSInteger step = 1; step < 10; step++) {
+	for (NSNumber *stepValue in camera.autoBracketingStepList) {
+		NSInteger step = [stepValue integerValue];
 		NSDictionary *autoBracketingStep = @{
 			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:AutoBracketingStep(%ld)", nil), (long)step],
 			ItemSelectionViewItemValueKey:@(step)
@@ -114,11 +117,8 @@
 	self.intervalTimerModes = intervalTimerModes;
 	
 	// インターバルタイマーで撮影する枚数の選択肢を構築します。
-	const NSArray *intervalTimerCountList = @[
-		@3, @5, @10, @30, @60, @90, @120, @180, @240, @300, @360, @480, @600, @720, @960,
-	];
 	NSMutableArray *intervalTimerCounts = [[NSMutableArray alloc] init];
-	for (NSNumber *countValue in intervalTimerCountList) {
+	for (NSNumber *countValue in camera.intervalTimerCountList) {
 		NSInteger count = [countValue integerValue];
 		NSDictionary *intervalTimerCount = @{
 			ItemSelectionViewItemTitleKey:[NSString stringWithFormat:NSLocalizedString(@"$cell:IntervalTimerCount(%ld)", @"EPanelViewController.viewDidLoad"), (long)count],
@@ -129,11 +129,8 @@
 	self.intervalTimerCounts = intervalTimerCounts;
 	
 	// インターバルタイマーで撮影する時間間隔の選択肢を構築します。
-	const NSArray *intervalTimerTimeList = @[
-		@1.0, @3.0, @5.0, @10.0, @15.0, @20.0, @30.0, @60.0, @120.0, @180.0, @300.0, @600.0,
-	];
 	NSMutableArray *intervalTimerTimes = [[NSMutableArray alloc] init];
-	for (NSNumber *timeValue in intervalTimerTimeList) {
+	for (NSNumber *timeValue in camera.intervalTimerTimeList) {
 		NSTimeInterval time = [timeValue doubleValue];
 		NSString *title;
 		if (time < 60.0) {
@@ -162,7 +159,6 @@
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeContinuousShootingVelocity)) forKey:CameraPropertyContinuousShootingVelocity];
 	self.cameraPropertyObserver = cameraPropertyObserver;
 	// カメラプロパティ、カメラのプロパティを監視開始します。
-	AppCamera *camera = GetAppCamera();
 	[camera addCameraPropertyDelegate:self];
 	[camera addObserver:self forKeyPath:CameraPropertyActualApertureValue options:0 context:@selector(didChangeActualApertureValue:)];
 	[camera addObserver:self forKeyPath:CameraPropertyActualShutterSpeed options:0 context:@selector(didChangeActualShutterSpeed:)];

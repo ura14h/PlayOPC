@@ -442,7 +442,7 @@
 			cameraFirmwareVersion = NSLocalizedString(@"$cell:CameraFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
 		}
 		NSString *lensModelId = hardwareInformation[OLYCameraHardwareInformationLensIdKey];
-		if ([lensModelId isEqualToString:@"----"]) {
+		if ([lensModelId isEqualToString:@"none"]) {
 			lensModelId = NSLocalizedString(@"$cell:LensModelIdNotAvailable", @"SystemViewController.updateHardwareInformationCells");
 		} else if ([lensModelId integerValue] > 0) {
 			// MARK: レンズIDって何だろう。勝手にレンズの製品型式と解釈しました。

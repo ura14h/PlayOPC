@@ -427,7 +427,7 @@
 		NSString *cameraModelName = hardwareInformation[OLYCameraHardwareInformationCameraModelNameKey];
 		NSString *cameraFirmwareVersion = hardwareInformation[OLYCameraHardwareInformationCameraFirmwareVersionKey];
 		if ([cameraFirmwareVersion isEqualToString:@"----"]) {
-			cameraFirmwareVersion = NSLocalizedString(@"$cell:CameraFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
+			cameraFirmwareVersion = NSLocalizedString(@"$cell:CameraFirmwareVersionNotAvailable", @"SystemViewController.updateHardwareInformationCells");
 		} else if (![cameraFirmwareVersion isEqualToString:@"----"] && cameraFirmwareVersion.length == 4) {
 			// MARK: カメラファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
 			// "xyzz"を"x.y.zz"に変換します。
@@ -443,7 +443,7 @@
 		}
 		NSString *lensModelId = hardwareInformation[OLYCameraHardwareInformationLensIdKey];
 		if ([lensModelId isEqualToString:@"----"]) {
-			lensModelId = NSLocalizedString(@"$cell:LensModelIdUnknown", @"SystemViewController.updateHardwareInformationCells");
+			lensModelId = NSLocalizedString(@"$cell:LensModelIdNotAvailable", @"SystemViewController.updateHardwareInformationCells");
 		} else if ([lensModelId integerValue] > 0) {
 			// MARK: レンズIDって何だろう。勝手にレンズの製品型式と解釈しました。
 			lensModelId = lensModelId;
@@ -452,7 +452,7 @@
 		}
 		NSString *lensFirmwareVersion = hardwareInformation[OLYCameraHardwareInformationLensFirmwareVersionKey];
 		if ([lensFirmwareVersion isEqualToString:@"----"]) {
-			lensFirmwareVersion = NSLocalizedString(@"$cell:LensFirmwareVersionUnknown", @"SystemViewController.updateHardwareInformationCells");
+			lensFirmwareVersion = NSLocalizedString(@"$cell:LensFirmwareVersionNotAvailable", @"SystemViewController.updateHardwareInformationCells");
 		} else if (![lensFirmwareVersion isEqualToString:@"----"] && lensFirmwareVersion.length == 4) {
 			// MARK: レンズファームウェアのバージョンは、OA.Centralが表示している書式ルールに合わせます。
 			// "xyzz"を"x.y.zz"に変換します。

@@ -1,5 +1,5 @@
 ﻿/* EPanelViewController.updateShowApertureCell */
-"$cell:ApertureValueUnknown" = "不明";
+"$cell:ApertureValueNotAvailable" = "無効";
 
 /* EPanelViewController.viewDidLoad */
 "$cell:AutoBracketingCount(%ld)" = "%ld 枚";
@@ -29,6 +29,9 @@
 "$cell:BluetoothNotConnected" = "未接続";
 
 /* SystemViewController.updateHardwareInformationCells */
+"$cell:CameraFirmwareVersionNotAvailable" = "無効";
+
+/* SystemViewController.updateHardwareInformationCells */
 "$cell:CameraFirmwareVersionUnknown" = "不明";
 
 /* SystemViewController.updateHardwareInformationCells */
@@ -47,6 +50,9 @@
 "$cell:ContentProtected" = "プロテクト";
 
 /* CPanelViewController.updateShowContrastCell */
+"$cell:ContrastNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowContrastCell */
 "$cell:ContrastUnknown" = "不明";
 
 /* APanelViewController.updateCameraPropertyCell
@@ -61,19 +67,28 @@
 "$cell:CurrentDigitalZoomScale(%1.1f times)" = "%1.1f 倍";
 
 /* ZPanelViewController.updateDigitalZoomingCurrentScaleCell */
-"$cell:CurrentDigitalZoomScaleUnknown" = "不明";
+"$cell:CurrentDigitalZoomScaleNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowArtEffectHybridCell */
+"$cell:EffectHybridNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowArtEffectHybridCell */
 "$cell:EffectHybridUnknown" = "不明";
 
 /* CPanelViewController.updateShowArtEffectTypeCell */
+"$cell:EffectTypeNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowArtEffectTypeCell */
 "$cell:EffectTypeUnknown" = "不明";
+
+/* CPanelViewController.updateShowEffectLevelCell */
+"$cell:EffectNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowEffectLevelCell */
 "$cell:EffectUnknown" = "不明";
 
 /* EPanelViewController.updateShowExprevCell */
-"$cell:ExposureCompensationUnknown" = "不明";
+"$cell:ExposureCompensationNotAvailable" = "無効";
 
 /* SPanelViewController.updateExposureMeteringWarningCell */
 "$cell:ExposureMeteringWarningNo" = "いいえ";
@@ -118,7 +133,7 @@
 "$cell:IntervalTimerTimeUnknown" = "不明";
 
 /* EPanelViewController.updateShowIsoCell */
-"$cell:IsoSensitivityUnknown" = "不明";
+"$cell:IsoSensitivityNotAvailable" = "無効";
 
 /* SPanelViewController.updateIsoSensitivityWarningCell */
 "$cell:IsoSensitivityWarningNo" = "いいえ";
@@ -133,10 +148,16 @@
 "$cell:LensEZOption" = "EZ";
 
 /* SystemViewController.updateHardwareInformationCells */
+"$cell:LensFirmwareVersionNotAvailable" = "無効";
+
+/* SystemViewController.updateHardwareInformationCells */
 "$cell:LensFirmwareVersionUnknown" = "不明";
 
 /* SystemViewController.updateLensMountStatusCell */
 "$cell:LensMacroOption" = "マクロ";
+
+/* SystemViewController.updateHardwareInformationCells */
+"$cell:LensModelIdNotAvailable" = "無効";
 
 /* SystemViewController.updateHardwareInformationCells */
 "$cell:LensModelIdUnknown" = "不明";
@@ -232,7 +253,7 @@
 "$cell:MaximumDigitalZoomScale(%1.1f times)" = "%1.1f 倍";
 
 /* ZPanelViewController.updateDigitalZoomingMaximumScaleCell */
-"$cell:MaximumDigitalZoomScaleUnknown" = "不明";
+"$cell:MaximumDigitalZoomScaleNotAvailable" = "無効";
 
 /* SPanelViewController.updateMediaBusyCell */
 "$cell:MediaBusyNo" = "いいえ";
@@ -268,10 +289,16 @@
 "$cell:MinimumDigitalZoomScale(%1.1f times)" = "%1.1f 倍";
 
 /* ZPanelViewController.updateDigitalZoomingMinimumScaleCell */
-"$cell:MinimumDigitalZoomScaleUnknown" = "不明";
+"$cell:MinimumDigitalZoomScaleNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowMonotonecolorCell */
+"$cell:MonotonecolorNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowMonotonecolorCell */
 "$cell:MonotonecolorUnknown" = "不明";
+
+/* CPanelViewController.updateShowMonotonefilterCell */
+"$cell:MonotonefilterNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowMonotonefilterCell */
 "$cell:MonotonefilterUnknown" = "不明";
@@ -280,19 +307,19 @@
 "$cell:OpticalZoomingCurrentFocalLength(%1.1f mm)" = "%1.1f mm";
 
 /* ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell */
-"$cell:OpticalZoomingCurrentFocalLengthUnknown" = "不明";
+"$cell:OpticalZoomingCurrentFocalLengthNotAvailable" = "無効";
 
 /* ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell */
 "$cell:OpticalZoomingMaximumFocalLength(%1.1f mm)" = "%1.1f mm";
 
 /* ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell */
-"$cell:OpticalZoomingMaximumFocalLengthUnknown" = "不明";
+"$cell:OpticalZoomingMaximumFocalLengthNotAvailable" = "無効";
 
 /* ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell */
 "$cell:OpticalZoomingMinimumFocalLength(%1.1f mm)" = "%1.1f mm";
 
 /* ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell */
-"$cell:OpticalZoomingMinimumFocalLengthUnknown" = "不明";
+"$cell:OpticalZoomingMinimumFocalLengthNotAvailable" = "無効";
 
 /* ZPanelViewController.viewDidLoad */
 "$cell:OpticalZoomingSpeedBusrt" = "最速";
@@ -316,19 +343,34 @@
 "$cell:remainingVideoCapacity(%@ Seconds)" = "%@ 秒";
 
 /* CPanelViewController.updateShowSaturationLevelCell */
+"$cell:SaturationNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationUnknown" = "不明";
+
+/* CPanelViewController.updateShowSharpCell */
+"$cell:SharpNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowSharpCell */
 "$cell:SharpUnknown" = "不明";
 
 /* EPanelViewController.updateShowShutterCell */
-"$cell:ShutterSpeedUnknown" = "不明";
+"$cell:ShutterSpeedNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowToneCell */
+"$cell:ToneNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowToneCell */
 "$cell:ToneUnknown" = "不明";
 
 /* CPanelViewController.updateShowWbRevGCell */
+"$cell:WbRevGNotAvailable" = "無効";
+
+/* CPanelViewController.updateShowWbRevGCell */
 "$cell:WbRevGUnknown" = "不明";
+
+/* CPanelViewController.updateShowWbRevCell */
+"$cell:WbRevNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowWbRevCell */
 "$cell:WbRevUnknown" = "不明";

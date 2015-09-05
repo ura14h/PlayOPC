@@ -793,7 +793,7 @@
 		NSString *actualApertureValueTitle = [camera cameraPropertyValueLocalizedTitle:actualApertureValue];
 		self.showApertureCell.detailTextLabel.text = actualApertureValueTitle;
 	} else {
-		self.showApertureCell.detailTextLabel.text = NSLocalizedString(@"$cell:ApertureValueUnknown", @"EPanelViewController.updateShowApertureCell");
+		self.showApertureCell.detailTextLabel.text = NSLocalizedString(@"$cell:ApertureValueNotAvailable", @"EPanelViewController.updateShowApertureCell");
 	}
 	[self tableViewCell:self.showApertureCell enabled:[camera canSetCameraProperty:CameraPropertyAperture]];
 #endif
@@ -812,7 +812,7 @@
 		NSString *actualShutterSpeedTitle = [camera cameraPropertyValueLocalizedTitle:actualShutterSpeed];
 		self.showShutterCell.detailTextLabel.text = actualShutterSpeedTitle;
 	} else {
-		self.showShutterCell.detailTextLabel.text = NSLocalizedString(@"$cell:ShutterSpeedUnknown", @"EPanelViewController.updateShowShutterCell");
+		self.showShutterCell.detailTextLabel.text = NSLocalizedString(@"$cell:ShutterSpeedNotAvailable", @"EPanelViewController.updateShowShutterCell");
 	}
 	[self tableViewCell:self.showShutterCell enabled:[camera canSetCameraProperty:CameraPropertyShutter]];
 #endif
@@ -831,7 +831,7 @@
 		NSString *actualExposureCompensationTitle = [camera cameraPropertyValueLocalizedTitle:actualExposureCompensation];
 		self.showExprevCell.detailTextLabel.text = actualExposureCompensationTitle;
 	} else {
-		self.showExprevCell.detailTextLabel.text = NSLocalizedString(@"$cell:ExposureCompensationUnknown", @"EPanelViewController.updateShowExprevCell");
+		self.showExprevCell.detailTextLabel.text = NSLocalizedString(@"$cell:ExposureCompensationNotAvailable", @"EPanelViewController.updateShowExprevCell");
 	}
 	[self tableViewCell:self.showExprevCell enabled:[camera canSetCameraProperty:CameraPropertyExprev]];
 #endif
@@ -850,7 +850,7 @@
 		NSString *actualIsoSensitivityTitle = [camera cameraPropertyValueLocalizedTitle:actualIsoSensitivity];
 		self.showIsoCell.detailTextLabel.text = actualIsoSensitivityTitle;
 	} else {
-		self.showIsoCell.detailTextLabel.text = NSLocalizedString(@"$cell:IsoSensitivityUnknown", @"EPanelViewController.updateShowIsoCell");
+		self.showIsoCell.detailTextLabel.text = NSLocalizedString(@"$cell:IsoSensitivityNotAvailable", @"EPanelViewController.updateShowIsoCell");
 	}
 	[self tableViewCell:self.showIsoCell enabled:[camera canSetCameraProperty:CameraPropertyIso]];
 #endif

@@ -1099,14 +1099,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	
 	// 現在のホワイトバランスからホワイトバランス補正値(A)のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentWhiteBalance) {
-		NSDictionary *whiteBalance = self.whiteBalanceMap[self.currentWhiteBalance];
-		property = whiteBalance[WhiteBalanceMapWbRevKey];
-	}
-	if (!property) {
+	if (!self.currentWhiteBalance) {
 		self.showWbRevCell.textLabel.text = self.showWbRevCellTitle;
 		self.showWbRevCell.detailTextLabel.text = NSLocalizedString(@"$cell:WbRevUnknown", @"CPanelViewController.updateShowWbRevCell");
+		[self tableViewCell:self.showWbRevCell enabled:NO];
+		return;
+	}
+	NSDictionary *whiteBalance = self.whiteBalanceMap[self.currentWhiteBalance];
+	NSString *property = whiteBalance[WhiteBalanceMapWbRevKey];
+	if (!property) {
+		self.showWbRevCell.textLabel.text = self.showWbRevCellTitle;
+		self.showWbRevCell.detailTextLabel.text = NSLocalizedString(@"$cell:WbRevNotAvailable", @"CPanelViewController.updateShowWbRevCell");
 		[self tableViewCell:self.showWbRevCell enabled:NO];
 		return;
 	}
@@ -1125,14 +1128,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	
 	// 現在のホワイトバランスからホワイトバランス補正値(G)のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentWhiteBalance) {
-		NSDictionary *whiteBalance = self.whiteBalanceMap[self.currentWhiteBalance];
-		property = whiteBalance[WhiteBalanceMapWbRevGKey];
-	}
-	if (!property) {
+	if (!self.currentWhiteBalance) {
 		self.showWbRevGCell.textLabel.text = self.showWbRevGCellTitle;
 		self.showWbRevGCell.detailTextLabel.text = NSLocalizedString(@"$cell:WbRevGUnknown", @"CPanelViewController.updateShowWbRevGCell");
+		[self tableViewCell:self.showWbRevGCell enabled:NO];
+		return;
+	}
+	NSDictionary *whiteBalance = self.whiteBalanceMap[self.currentWhiteBalance];
+	NSString *property = whiteBalance[WhiteBalanceMapWbRevGKey];
+	if (!property) {
+		self.showWbRevGCell.textLabel.text = self.showWbRevGCellTitle;
+		self.showWbRevGCell.detailTextLabel.text = NSLocalizedString(@"$cell:WbRevGNotAvailable", @"CPanelViewController.updateShowWbRevGCell");
 		[self tableViewCell:self.showWbRevGCell enabled:NO];
 		return;
 	}
@@ -1209,14 +1215,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 	
 	// 現在のアートフィルターからコントラストのプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterContrastKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showContrastCell.textLabel.text = self.showContrastCellTitle;
 		self.showContrastCell.detailTextLabel.text = NSLocalizedString(@"$cell:ContrastUnknown", @"CPanelViewController.updateShowContrastCell");
+		[self tableViewCell:self.showContrastCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterContrastKey];
+	if (!property) {
+		self.showContrastCell.textLabel.text = self.showContrastCellTitle;
+		self.showContrastCell.detailTextLabel.text = NSLocalizedString(@"$cell:ContrastNotAvailable", @"CPanelViewController.updateShowContrastCell");
 		[self tableViewCell:self.showContrastCell enabled:NO];
 		return;
 	}
@@ -1235,14 +1244,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターからシャープネスのプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterSharpKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showSharpCell.textLabel.text = self.showSharpCellTitle;
 		self.showSharpCell.detailTextLabel.text = NSLocalizedString(@"$cell:SharpUnknown", @"CPanelViewController.updateShowSharpCell");
+		[self tableViewCell:self.showSharpCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterSharpKey];
+	if (!property) {
+		self.showSharpCell.textLabel.text = self.showSharpCellTitle;
+		self.showSharpCell.detailTextLabel.text = NSLocalizedString(@"$cell:SharpNotAvailable", @"CPanelViewController.updateShowSharpCell");
 		[self tableViewCell:self.showSharpCell enabled:NO];
 		return;
 	}
@@ -1261,14 +1273,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターから彩度のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterSaturationLevelKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showSaturationLevelCell.textLabel.text = self.showSaturationLevelCellTitle;
 		self.showSaturationLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:SaturationUnknown", @"CPanelViewController.updateShowSaturationLevelCell");
+		[self tableViewCell:self.showSaturationLevelCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterSaturationLevelKey];
+	if (!property) {
+		self.showSaturationLevelCell.textLabel.text = self.showSaturationLevelCellTitle;
+		self.showSaturationLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:SaturationNotAvailable", @"CPanelViewController.updateShowSaturationLevelCell");
 		[self tableViewCell:self.showSaturationLevelCell enabled:NO];
 		return;
 	}
@@ -1287,14 +1302,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターから階調のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterToneKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showToneCell.textLabel.text = self.showToneCellTitle;
 		self.showToneCell.detailTextLabel.text = NSLocalizedString(@"$cell:ToneUnknown", @"CPanelViewController.updateShowToneCell");
+		[self tableViewCell:self.showToneCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterToneKey];
+	if (!property) {
+		self.showToneCell.textLabel.text = self.showToneCellTitle;
+		self.showToneCell.detailTextLabel.text = NSLocalizedString(@"$cell:ToneNotAvailable", @"CPanelViewController.updateShowToneCell");
 		[self tableViewCell:self.showToneCell enabled:NO];
 		return;
 	}
@@ -1313,14 +1331,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターから効果強弱のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterEffectLevelKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showEffectLevelCell.textLabel.text = self.showEffectLevelCellTitle;
 		self.showEffectLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectUnknown", @"CPanelViewController.updateShowEffectLevelCell");
+		[self tableViewCell:self.showEffectLevelCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterEffectLevelKey];
+	if (!property) {
+		self.showEffectLevelCell.textLabel.text = self.showEffectLevelCellTitle;
+		self.showEffectLevelCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectNotAvailable", @"CPanelViewController.updateShowEffectLevelCell");
 		[self tableViewCell:self.showEffectLevelCell enabled:NO];
 		return;
 	}
@@ -1360,14 +1381,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターからモノクロフィルター効果のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterMonotonefilterKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showMonotonefilterCell.textLabel.text = self.showMonotonefilterCellTitle;
 		self.showMonotonefilterCell.detailTextLabel.text = NSLocalizedString(@"$cell:MonotonefilterUnknown", @"CPanelViewController.updateShowMonotonefilterCell");
+		[self tableViewCell:self.showMonotonefilterCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterMonotonefilterKey];
+	if (!property) {
+		self.showMonotonefilterCell.textLabel.text = self.showMonotonefilterCellTitle;
+		self.showMonotonefilterCell.detailTextLabel.text = NSLocalizedString(@"$cell:MonotonefilterNotAvailable", @"CPanelViewController.updateShowMonotonefilterCell");
 		[self tableViewCell:self.showMonotonefilterCell enabled:NO];
 		return;
 	}
@@ -1386,14 +1410,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターから調色効果のプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterMonotonecolorKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showMonotonecolorCell.textLabel.text = self.showMonotonecolorCellTitle;
 		self.showMonotonecolorCell.detailTextLabel.text = NSLocalizedString(@"$cell:MonotonecolorUnknown", @"CPanelViewController.updateShowMonotonecolorCell");
+		[self tableViewCell:self.showMonotonecolorCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterMonotonecolorKey];
+	if (!property) {
+		self.showMonotonecolorCell.textLabel.text = self.showMonotonecolorCellTitle;
+		self.showMonotonecolorCell.detailTextLabel.text = NSLocalizedString(@"$cell:MonotonecolorNotAvailable", @"CPanelViewController.updateShowMonotonecolorCell");
 		[self tableViewCell:self.showMonotonecolorCell enabled:NO];
 		return;
 	}
@@ -1433,14 +1460,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターからアートフィルターバリエーションのプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterArtEffectTypeKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showArtEffectTypeCell.textLabel.text = self.showArtEffectTypeCellTitle;
 		self.showArtEffectTypeCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectTypeUnknown", @"CPanelViewController.updateShowArtEffectTypeCell");
+		[self tableViewCell:self.showArtEffectTypeCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterArtEffectTypeKey];
+	if (!property) {
+		self.showArtEffectTypeCell.textLabel.text = self.showArtEffectTypeCellTitle;
+		self.showArtEffectTypeCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectTypeNotAvailable", @"CPanelViewController.updateShowArtEffectTypeCell");
 		[self tableViewCell:self.showArtEffectTypeCell enabled:NO];
 		return;
 	}
@@ -1459,14 +1489,17 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 
 	// 現在のアートフィルターからアートエフェクトのプロパティ名を取得します。
 	AppCamera *camera = GetAppCamera();
-	NSString *property = nil;
-	if (self.currentArtFilter) {
-		NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
-		property = artFilter[ArtFilterArtEffectHybridKey];
-	}
-	if (!property) {
+	if (!self.currentArtFilter) {
 		self.showArtEffectHybridCell.textLabel.text = self.showArtEffectHybridCellTitle;
 		self.showArtEffectHybridCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectHybridUnknown", @"CPanelViewController.updateShowArtEffectHybridCell");
+		[self tableViewCell:self.showArtEffectHybridCell enabled:NO];
+		return;
+	}
+	NSDictionary *artFilter = self.artFilterMap[self.currentArtFilter];
+	NSString *property = artFilter[ArtFilterArtEffectHybridKey];
+	if (!property) {
+		self.showArtEffectHybridCell.textLabel.text = self.showArtEffectHybridCellTitle;
+		self.showArtEffectHybridCell.detailTextLabel.text = NSLocalizedString(@"$cell:EffectHybridNotAvailable", @"CPanelViewController.updateShowArtEffectHybridCell");
 		[self tableViewCell:self.showArtEffectHybridCell enabled:NO];
 		return;
 	}

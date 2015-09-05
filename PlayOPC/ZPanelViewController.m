@@ -676,7 +676,7 @@
 	if (!isnan(camera.minimumFocalLength)) {
 		opticalZoomingMinimumFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingMinimumFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell"), camera.minimumFocalLength];
 	} else {
-		opticalZoomingMinimumFocalLength = NSLocalizedString(@"$cell:OpticalZoomingMinimumFocalLengthUnknown", @"ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell");
+		opticalZoomingMinimumFocalLength = NSLocalizedString(@"$cell:OpticalZoomingMinimumFocalLengthNotAvailable", @"ZPanelViewController.updateOpticalZoomingMinimumFocalLengthCell");
 	}
 	// 表示を更新します。
 	self.opticalZoomingMinimumFocalLengthCell.detailTextLabel.text = opticalZoomingMinimumFocalLength;
@@ -693,7 +693,7 @@
 	if (!isnan(camera.maximumFocalLength)) {
 		opticalZoomingMaximumFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingMaximumFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell"), camera.maximumFocalLength];
 	} else {
-		opticalZoomingMaximumFocalLength = NSLocalizedString(@"$cell:OpticalZoomingMaximumFocalLengthUnknown", @"ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell");
+		opticalZoomingMaximumFocalLength = NSLocalizedString(@"$cell:OpticalZoomingMaximumFocalLengthNotAvailable", @"ZPanelViewController.updateOpticalZoomingMaximumFocalLengthCell");
 	}
 	// 表示を更新します。
 	self.opticalZoomingMaximumFocalLengthCell.detailTextLabel.text = opticalZoomingMaximumFocalLength;
@@ -710,7 +710,7 @@
 	if (!isnan(camera.actualFocalLength)) {
 		opticalZoomingCurrentFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell"), camera.actualFocalLength];
 	} else {
-		opticalZoomingCurrentFocalLength = NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLengthUnknown", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell");
+		opticalZoomingCurrentFocalLength = NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLengthNotAvailable", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell");
 	}
 	// 表示を更新します。
 	self.opticalZoomingCurrentFocalLengthCell.detailTextLabel.text = opticalZoomingCurrentFocalLength;
@@ -772,7 +772,7 @@
 	if (!isnan(camera.minimumDigitalZoomScale)) {
 		minimumDigitalZoomScale =  [NSString stringWithFormat:NSLocalizedString(@"$cell:MinimumDigitalZoomScale(%1.1f times)", @"ZPanelViewController.updateDigitalZoomingMinimumScaleCell"), camera.minimumDigitalZoomScale];
 	} else {
-		minimumDigitalZoomScale = NSLocalizedString(@"$cell:MinimumDigitalZoomScaleUnknown", @"ZPanelViewController.updateDigitalZoomingMinimumScaleCell");
+		minimumDigitalZoomScale = NSLocalizedString(@"$cell:MinimumDigitalZoomScaleNotAvailable", @"ZPanelViewController.updateDigitalZoomingMinimumScaleCell");
 	}
 	// 表示を更新します。
 	self.digitalZoomingMinimumScaleCell.detailTextLabel.text = minimumDigitalZoomScale;
@@ -789,7 +789,7 @@
 	if (!isnan(camera.maximumDigitalZoomScale)) {
 		maximumDigitalZoomScale =  [NSString stringWithFormat:NSLocalizedString(@"$cell:MaximumDigitalZoomScale(%1.1f times)", @"ZPanelViewController.updateDigitalZoomingMaximumScaleCell"), camera.maximumDigitalZoomScale];
 	} else {
-		maximumDigitalZoomScale = NSLocalizedString(@"$cell:MaximumDigitalZoomScaleUnknown", @"ZPanelViewController.updateDigitalZoomingMaximumScaleCell");
+		maximumDigitalZoomScale = NSLocalizedString(@"$cell:MaximumDigitalZoomScaleNotAvailable", @"ZPanelViewController.updateDigitalZoomingMaximumScaleCell");
 	}
 	// 表示を更新します。
 	self.digitalZoomingMaximumScaleCell.detailTextLabel.text = maximumDigitalZoomScale;
@@ -806,7 +806,7 @@
 	if (!isnan(camera.currentDigitalZoomScale)) {
 		currentDigitalZoomScale =  [NSString stringWithFormat:NSLocalizedString(@"$cell:CurrentDigitalZoomScale(%1.1f times)", @"ZPanelViewController.updateDigitalZoomingCurrentScaleCell"), camera.currentDigitalZoomScale];
 	} else {
-		currentDigitalZoomScale = NSLocalizedString(@"$cell:CurrentDigitalZoomScaleUnknown", @"ZPanelViewController.updateDigitalZoomingCurrentScaleCell");
+		currentDigitalZoomScale = NSLocalizedString(@"$cell:CurrentDigitalZoomScaleNotAvailable", @"ZPanelViewController.updateDigitalZoomingCurrentScaleCell");
 	}
 	// 表示を更新します。
 	self.digitalZoomingCurrentScaleCell.detailTextLabel.text = currentDigitalZoomScale;

@@ -433,7 +433,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	if ([segueIdentifier hasPrefix:@"Embedded"] && [segue.destinationViewController isKindOfClass:[UINavigationController class]]) {
 		// セグエは埋め込み用セグエでかつ埋め込んであるのはナビゲーションコントローラーしか許しません。
 		UINavigationController *navigationController = segue.destinationViewController;
-		// ついでにコントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
+		// コントロールパネルのナビゲーションバーのドラッグを検知します。
+		UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanNavigationBarInControlPanel:)];
+		[navigationController.navigationBar addGestureRecognizer:gestureRecognizer];
+		// コントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
 		UIFont *titleFont = [UIFont systemFontOfSize:17.0]; // FIXME: ナビゲーションバータイトルの省略時のフォントサイズがわからなかったのでハードコーディングしました。
 		UIColor *titleColor = [UIColor colorWithWhite:0.5 alpha:1.0];
 		NSDictionary *titleAttributes = @{
@@ -1133,6 +1136,58 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	/// Vパネルを表示します。
 	[self togglePanel:ControlPanelVisibleStatusVPanel animated:YES];
+}
+
+/// コントロールパネルのナビゲーションバーがドラッグされた時に呼び出されます。
+- (IBAction)didPanNavigationBarInControlPanel:(UIPanGestureRecognizer *)sender {
+	DEBUG_DETAIL_LOG(@"sender=%@", sender);
+
+	AppCamera *camera = GetAppCamera();
+	if (sender.state == UIGestureRecognizerStateBegan) {
+		// ドラッグを開始しました。
+		// 一時的にライブビューを止めて表示のチラツキを食い止めます。
+		NSError *error = nil;
+		if (![camera stopLiveView:&error]) {
+			// エラーは無視して続行します。
+		}
+		// ドラッグで移動した距離をリセットします。
+		[sender setTranslation:CGPointZero inView:self.view];
+	} else if (sender.state == UIGestureRecognizerStateChanged) {
+		// ドラッグを継続しています。
+		// ドラッグで移動した距離をコントロールパネルのレイアウト制約を計算します。
+		CGPoint panDelta = [sender translationInView:self.view];
+		CGFloat pannedWidthConstraintsConstant = self.controlPanelViewWidthConstraints.constant - panDelta.x;
+		CGFloat pannedHeightConstraintsConstant = self.controlPanelViewHeightConstraints.constant - panDelta.y;
+		// コントロールパネルが操作できなくなるほどサイズを変更できないように制限を加えます。値はそれぞれ適当な値です。
+		if (pannedWidthConstraintsConstant < self.toolPanelView.frame.size.width) {
+			pannedWidthConstraintsConstant = self.toolPanelView.frame.size.width;
+		}
+		if (pannedHeightConstraintsConstant < self.toolPanelView.frame.size.height) {
+			pannedHeightConstraintsConstant = self.toolPanelView.frame.size.height;
+		}
+		CGFloat width = self.finderPanelView.bounds.size.width - self.toolPanelView.frame.size.width;
+		CGFloat height = self.finderPanelView.bounds.size.height - self.toolPanelView.frame.size.height;
+		if (pannedWidthConstraintsConstant > width) {
+			pannedWidthConstraintsConstant = width;
+		}
+		if (pannedHeightConstraintsConstant > height) {
+			pannedHeightConstraintsConstant = height;
+		}
+		// 計算したレイアウト制約をコントロールパネルに適用します。
+		[UIView animateWithDuration:0.25 animations:^{
+			self.controlPanelViewWidthConstraints.constant = pannedWidthConstraintsConstant;
+			self.controlPanelViewHeightConstraints.constant = pannedHeightConstraintsConstant;
+		}];
+		// ドラッグで移動した距離をリセットします。
+		[sender setTranslation:CGPointZero inView:self.view];
+	} else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
+		// ドラッグを終了しました。
+		// ライブビューを再開します。
+		NSError *error = nil;
+		if (![camera startLiveView:&error]) {
+			// エラーは無視して続行します。
+		}
+	}
 }
 
 #pragma mark -

@@ -1155,7 +1155,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (![camera stopLiveView:&error]) {
 			// エラーは無視して続行します。
 		}
-		self.cameraPanelView.alpha = 0.75;
+		self.cameraPanelView.alpha = 0.5;
 		
 		// ドラッグで移動した距離をリセットします。
 		[sender setTranslation:CGPointZero inView:self.view];

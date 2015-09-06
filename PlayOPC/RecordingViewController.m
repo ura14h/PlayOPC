@@ -1178,13 +1178,21 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// 画面に対するコントロールパネルのサイズ割合を更新します。
 		CGFloat width = MIN(MAX(draggedWidth, minimumWidth), maximumWidth);
 		CGFloat height = MIN(MAX(draggedHeight, minimumHeight), maximumHeight);
-		self.controlPanelWidthRatio = width / self.finderPanelView.bounds.size.width;
-		self.controlPanelHeightRatio = height / self.finderPanelView.bounds.size.height;
+		if (self.controlPanelViewWidthConstraints.active) {
+			self.controlPanelWidthRatio = width / self.finderPanelView.bounds.size.width;
+		}
+		if (self.controlPanelViewHeightConstraints.active) {
+			self.controlPanelHeightRatio = height / self.finderPanelView.bounds.size.height;
+		}
 		
 		// コントロールパネルのサイズを更新します。
 		[self executeAsynchronousBlockOnMainThread:^{
-			self.controlPanelViewWidthConstraints.constant = width;
-			self.controlPanelViewHeightConstraints.constant = height;
+			if (self.controlPanelViewWidthConstraints.active) {
+				self.controlPanelViewWidthConstraints.constant = width;
+			}
+			if (self.controlPanelViewHeightConstraints.active) {
+				self.controlPanelViewHeightConstraints.constant = height;
+			}
 		}];
 
 		// ドラッグで移動した距離をリセットします。

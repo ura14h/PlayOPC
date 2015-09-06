@@ -109,7 +109,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
 @property (strong, nonatomic) UIImage *latestRecImage; ///< 最新の撮影後確認画像
-@property (assign, nonatomic) ControlPanelVisibleStatus controlPanelVisibleStatus; ///< コントロールの表示状態
+@property (assign, nonatomic) ControlPanelVisibleStatus controlPanelVisibleStatus; ///< コントロールパネルの表示状態
+@property (assign, nonatomic) CGFloat controlPanelWidthRatio; // 画面に対するコントロールパネル横幅の割合
+@property (assign, nonatomic) CGFloat controlPanelHeightRatio; // 画面に対するコントロールパネル高さの割合
 @property (strong, nonatomic) SPanelViewController *embeddedSPanelViewController; ///< Sパネルのビューコントローラ
 @property (strong, nonatomic) EPanelViewController *embeddedEPanelViewController; ///< Eパネルのビューコントローラ
 @property (strong, nonatomic) CPanelViewController *embeddedCPanelViewController; ///< Cパネルのビューコントローラ
@@ -157,6 +159,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	self.progressLabel.alpha = 0.0;
 	self.progressLabel.text = @" ";
 	self.controlPanelVisibleStatus = ControlPanelVisibleStatusUnknown;
+	self.controlPanelWidthRatio = 0.5;
+	self.controlPanelHeightRatio = 0.5;
 	self.toolPanelView.layer.borderWidth = 0.5;
 	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
 	self.takeButton.selected = NO;
@@ -1145,43 +1149,50 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	AppCamera *camera = GetAppCamera();
 	if (sender.state == UIGestureRecognizerStateBegan) {
 		// ドラッグを開始しました。
+		
 		// 一時的にライブビューを止めて表示のチラツキを食い止めます。
 		NSError *error = nil;
 		if (![camera stopLiveView:&error]) {
 			// エラーは無視して続行します。
 		}
+		
 		// ドラッグで移動した距離をリセットします。
 		[sender setTranslation:CGPointZero inView:self.view];
+		
 	} else if (sender.state == UIGestureRecognizerStateChanged) {
 		// ドラッグを継続しています。
-		// ドラッグで移動した距離をコントロールパネルのレイアウト制約を計算します。
-		CGPoint panDelta = [sender translationInView:self.view];
-		CGFloat pannedWidthConstraintsConstant = self.controlPanelViewWidthConstraints.constant - panDelta.x;
-		CGFloat pannedHeightConstraintsConstant = self.controlPanelViewHeightConstraints.constant - panDelta.y;
-		// コントロールパネルが操作できなくなるほどサイズを変更できないように制限を加えます。値はそれぞれ適当な値です。
-		if (pannedWidthConstraintsConstant < self.toolPanelView.frame.size.width) {
-			pannedWidthConstraintsConstant = self.toolPanelView.frame.size.width;
-		}
-		if (pannedHeightConstraintsConstant < self.toolPanelView.frame.size.height) {
-			pannedHeightConstraintsConstant = self.toolPanelView.frame.size.height;
-		}
-		CGFloat width = self.finderPanelView.bounds.size.width - self.toolPanelView.frame.size.width;
-		CGFloat height = self.finderPanelView.bounds.size.height - self.toolPanelView.frame.size.height;
-		if (pannedWidthConstraintsConstant > width) {
-			pannedWidthConstraintsConstant = width;
-		}
-		if (pannedHeightConstraintsConstant > height) {
-			pannedHeightConstraintsConstant = height;
-		}
-		// 計算したレイアウト制約をコントロールパネルに適用します。
-		[UIView animateWithDuration:0.25 animations:^{
-			self.controlPanelViewWidthConstraints.constant = pannedWidthConstraintsConstant;
-			self.controlPanelViewHeightConstraints.constant = pannedHeightConstraintsConstant;
+		
+		// ドラッグで変化したコントロールパネルのサイズを求めます。
+		CGPoint delta = [sender translationInView:self.view];
+		CGFloat draggedWidth = self.finderPanelView.bounds.size.width * self.controlPanelWidthRatio - delta.x;
+		CGFloat draggedHeight = self.finderPanelView.bounds.size.height * self.controlPanelHeightRatio - delta.y;
+		
+		// コントロールパネルが操作できなくなるほどサイズを変更できないように制限を加えるため、サイズ変更の上限と下限を求めます。
+		// 制限値のマージンはそれぞれ適当な値です。
+		CGFloat minimumWidth = 160.0;
+		CGFloat minimumHeight = self.navigationController.navigationBar.frame.size.height;
+		CGFloat margin = (64.0 + 8.0 * 2); // 撮影後確認画像ボタン分は余白を残しておきます。
+		CGFloat maximumWidth = self.finderPanelView.bounds.size.width - margin;
+		CGFloat maximumHeight = self.finderPanelView.bounds.size.height - margin;
+		
+		// 画面に対するコントロールパネルのサイズ割合を更新します。
+		CGFloat width = MIN(MAX(draggedWidth, minimumWidth), maximumWidth);
+		CGFloat height = MIN(MAX(draggedHeight, minimumHeight), maximumHeight);
+		self.controlPanelWidthRatio = width / self.finderPanelView.bounds.size.width;
+		self.controlPanelHeightRatio = height / self.finderPanelView.bounds.size.height;
+		
+		// コントロールパネルのサイズを更新します。
+		[self executeAsynchronousBlockOnMainThread:^{
+			self.controlPanelViewWidthConstraints.constant = width;
+			self.controlPanelViewHeightConstraints.constant = height;
 		}];
+
 		// ドラッグで移動した距離をリセットします。
 		[sender setTranslation:CGPointZero inView:self.view];
+		
 	} else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
 		// ドラッグを終了しました。
+		
 		// ライブビューを再開します。
 		NSError *error = nil;
 		if (![camera startLiveView:&error]) {
@@ -2133,6 +2144,20 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 				break;
 		}
 		if (self.controlPanelVisibleStatus == ControlPanelVisibleStatusHidden) {
+			// コントロールパネルを開いた時のサイズ比率を初期化します。
+			CGFloat widthRatio = 0.5;
+			CGFloat heightRatio = 0.5;
+			
+			// iPadだと広がりすぎるのでiPhoneの縦置きと同じ幅に制限します。(高さは適当な値です)
+			CGFloat width = self.finderPanelView.bounds.size.width * widthRatio;
+			CGFloat height = self.finderPanelView.bounds.size.height * heightRatio;
+			widthRatio = MIN(width, 320.0) / self.finderPanelView.bounds.size.width;
+			heightRatio = MIN(height, (240.0 + 64.0)) / self.finderPanelView.bounds.size.height;
+
+			// コントロールパネルのサイズ比率を更新します。
+			self.controlPanelWidthRatio = widthRatio;
+			self.controlPanelHeightRatio = heightRatio;
+			
 			// コントロールパネルを表示します。
 			[self showPanel:status animated:YES];
 		} else {
@@ -2220,11 +2245,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		controlPanelViewAlpha = 0.0;
 	} else {
 		// 開きます。
-		CGFloat width = self.finderPanelView.bounds.size.width * 0.5; // 倍率は適当な値です。
-		CGFloat height = self.finderPanelView.bounds.size.height * 0.5;	// 倍率は適当な値です。
-		if (width > 320.0) { // iPadだと広がりすぎるのでiPhoneの縦置きと同じ幅に制限します。
-			width = 320.0;
-		}
+		CGFloat width = self.finderPanelView.bounds.size.width * self.controlPanelWidthRatio;
+		CGFloat height = self.finderPanelView.bounds.size.height * self.controlPanelHeightRatio;
 		self.controlPanelViewWidthConstraints.constant = width;
 		self.controlPanelViewHeightConstraints.constant = height;
 		controlPanelViewAlpha = 1.0;

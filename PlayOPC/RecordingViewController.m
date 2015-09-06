@@ -1149,12 +1149,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	AppCamera *camera = GetAppCamera();
 	if (sender.state == UIGestureRecognizerStateBegan) {
 		// ドラッグを開始しました。
-		
+
 		// 一時的にライブビューを止めて表示のチラツキを食い止めます。
 		NSError *error = nil;
 		if (![camera stopLiveView:&error]) {
 			// エラーは無視して続行します。
 		}
+		self.cameraPanelView.alpha = 0.75;
 		
 		// ドラッグで移動した距離をリセットします。
 		[sender setTranslation:CGPointZero inView:self.view];
@@ -1206,6 +1207,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (![camera startLiveView:&error]) {
 			// エラーは無視して続行します。
 		}
+		self.cameraPanelView.alpha = 1.0;
 	}
 }
 

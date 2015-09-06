@@ -22,6 +22,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 @property (strong, nonatomic) NSString *BSSID;
 @property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
 @property (strong, nonatomic) Reachability *reachability;
+@property (strong, nonatomic) dispatch_queue_t reachabilityQueue; ///< 到達確認性を実行するキュー
 @property (assign, nonatomic) BOOL cameraIsReachable; ///< カメラに到達できるか否かを示します。
 
 @end
@@ -43,6 +44,8 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	_SSID = nil;
 	_BSSID = nil;
 	_reachability = [Reachability reachabilityForLocalWiFi];
+	_reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
+	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 
@@ -54,6 +57,8 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter removeObserver:self name:kReachabilityChangedNotification object:nil];
+	
+	_reachabilityQueue = nil;
 	_reachability = nil;
 	_SSID = nil;
 	_BSSID = nil;
@@ -88,8 +93,10 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		}
 		return NO;
 	}
-	
-	[self updateNetworkInfo];
+
+	dispatch_sync(self.reachabilityQueue, ^{
+		[self updateNetworkInfo];
+	});
 	if (![self.reachability startNotifier]) {
 		// Reachabilityの通知開始に失敗しました。
 		NSError *internalError = [self createError:WifiConnectorErrorReachabilityFailed description:NSLocalizedString(@"$desc:CouldNotStartMonitoring", @"WifiConnector.startMonitoring")];
@@ -152,15 +159,12 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		if ([self currentConnectionStatus] == status) {
 			// 期待した接続状態になったらSSIDを更新します。(Wi-Fi接続状態変化の通知が飛ぶかもしれません)
 			[self reachabilityChanged:nil];
-			BOOL result;
+			__block BOOL result;
 			if (status == WifiConnectionStatusConnected) {
 				// 接続中になったらカメラに接続できるか否かを確認します。
-				if ([self isPossibleToAccessCamera]) {
-					result = YES;
-				} else {
-					// Wi-Fi接続済みでカメラにアクセスできない状態は望みがないので異常終了です。
-					result = NO;
-				}
+				dispatch_sync(self.reachabilityQueue, ^{
+					result = self.cameraIsReachable;
+				});
 			} else if (status == WifiConnectionStatusNotConnected) {
 				// 切断中になったら正常終了です。
 				result = YES;
@@ -184,9 +188,13 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 - (void)reachabilityChanged:(NSNotification *)notification {
 	DEBUG_LOG(@"");
 
-	[self updateNetworkInfo];
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
+	dispatch_async(self.reachabilityQueue, ^{
+		[self updateNetworkInfo];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+			[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
+		});
+	});
 }
 
 /// ネットワーク接続情報を更新します。
@@ -229,6 +237,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		[NSThread sleepForTimeInterval:0.05];
 	}
 	if ([reachability currentReachabilityStatus] != ReachableViaWiFi) {
+		DEBUG_LOG(@"timed out");
 		return;
 	}
 	
@@ -266,18 +275,22 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	// HTTP接続のレスポンスを確認します。
 	// 期待するCGIコマンドの応答は、XML形式でconnectmode要素のテキストがOPCになっていることです。
 	if (!result || !response) {
+		DEBUG_LOG(@"timed out");
 		return;
 	}
 	if (response.statusCode != 200) {
+		DEBUG_LOG(@"error");
 		return;
 	}
 	NSDictionary *fields = response.allHeaderFields;
 	NSString *contentType = fields[@"Content-Type"];
 	if (![contentType isEqualToString:@"text/xml"]) {
+		DEBUG_LOG(@"error");
 		return;
 	}
 	NSString *resultText = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
 	if ([resultText rangeOfString:@"<connectmode>OPC</connectmode>"].location == NSNotFound) {
+		DEBUG_LOG(@"error");
 		return;
 	}
 	

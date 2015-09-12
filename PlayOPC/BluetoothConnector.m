@@ -61,7 +61,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 
 #pragma mark -
 
-- (BluetoothConnectionStatus)currentConnectionStatus {
+- (BluetoothConnectionStatus)connectionStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
 #if !(TARGET_IPHONE_SIMULATOR)

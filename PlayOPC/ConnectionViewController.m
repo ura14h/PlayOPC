@@ -388,7 +388,7 @@
 	// MARK: カメラキットはBluetoothの切断を検知しないのでアプリが自主的にカメラとの接続を解除しなければならない。
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
-		BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.currentConnectionStatus;
+		BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.connectionStatus;
 		if (bluetoothStatus == BluetoothConnectionStatusNotFound ||
 			bluetoothStatus == BluetoothConnectionStatusNotConnected) {
 			DEBUG_LOG(@"");
@@ -473,7 +473,7 @@
 		
 		// カメラを探します。
 		NSError *error = nil;
-		if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotFound) {
+		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
 			if (![weakSelf.bluetoothConnector discoverPeripheral:&error]) {
 				// カメラが見つかりませんでした。
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -482,7 +482,7 @@
 		}
 		
 		// カメラにBluetooth接続します。
-		if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotConnected) {
+		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
 			if (![weakSelf.bluetoothConnector connectPeripheral:&error]) {
 				// カメラにBluetooth接続できませんでした。
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -552,7 +552,7 @@
 			// Wi-Fi接続済みで接続先はカメラ
 		} else if (self.wifiConnector.cameraStatus == WifiCameraStatusUnreachable) {
 			// Wi-Fi接続済みで接続先はカメラではない
-			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+			if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
 				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
 				// だが、カメラの電源を入れることぐらいはできるかもしれない
 				demandToWakeUpWithUsingBluetooth = YES;
@@ -566,7 +566,7 @@
 			// TODO: どうすればよい?
 		}
 	} else {
-		if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+		if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
 			// Wi-Fi未接続でBluetooth経由の電源投入により自動接続できる見込みあり
 			demandToWakeUpWithUsingBluetooth = YES;
 		} else {
@@ -600,7 +600,7 @@
 		if (demandToWakeUpWithUsingBluetooth) {
 			// カメラを探します。
 			NSError *error = nil;
-			if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotFound) {
+			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
 				if (![weakSelf.bluetoothConnector discoverPeripheral:&error]) {
 					// カメラが見つかりませんでした。
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
@@ -609,7 +609,7 @@
 			}
 			
 			// カメラにBluetooth接続します。
-			if (weakSelf.bluetoothConnector.currentConnectionStatus == BluetoothConnectionStatusNotConnected) {
+			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
 				if (![weakSelf.bluetoothConnector connectPeripheral:&error]) {
 					// カメラにBluetooth接続できませんでした。
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
@@ -978,7 +978,7 @@
 - (void)updateShowBluetoothSettingCell {
 	DEBUG_LOG(@"");
 	
-	BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.currentConnectionStatus;
+	BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.connectionStatus;
 	if (bluetoothStatus == BluetoothConnectionStatusConnected) {
 		// 接続されている場合はローカルネームを表示します。
 		CBPeripheral *peripheral = self.bluetoothConnector.peripheral;
@@ -1053,7 +1053,7 @@
 		self.connectWithUsingWiFiCell.accessoryType = UITableViewCellAccessoryCheckmark;
 	} else {
 		// 未接続です。
-		if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+		if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
 			// Bluetooth使用可
 			[self tableViewCell:self.connectWithUsingBluetoothCell enabled:YES];
 		} else {
@@ -1066,7 +1066,7 @@
 				[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
 			} else if (self.wifiConnector.cameraStatus == WifiCameraStatusUnreachable) {
 				// Wi-Fi接続済みで接続先はカメラではない
-				if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+				if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
 					// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
 					// だが、カメラの電源を入れることぐらいはできるかもしれない
 					[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
@@ -1080,7 +1080,7 @@
 				[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 			}
 		} else {
-			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
+			if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
 				// Wi-Fi未接続でBluetooth経由の電源投入により自動接続できる見込みあり
 				[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
 			} else {

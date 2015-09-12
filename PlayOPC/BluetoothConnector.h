@@ -45,7 +45,7 @@ extern NSString *const BluetoothConnectorErrorDomain; ///< Bluetooth接続状態
 @property (assign, nonatomic, readonly) BOOL running; ///< 処理実行中か否かを示します。
 
 /// 現在の接続状態を取得します。
-- (BluetoothConnectionStatus)currentConnectionStatus;
+- (BluetoothConnectionStatus)connectionStatus;
 
 /// ペリフェラルを探します。
 - (BOOL)discoverPeripheral:(NSError **)error;

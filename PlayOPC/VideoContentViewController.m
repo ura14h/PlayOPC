@@ -167,6 +167,7 @@
 	if ([segueIdentifier isEqualToString:@"ShowVideoContentDetail"]) {
 		ContentDetailViewController *viewController = segue.destinationViewController;
 		viewController.content = self.content;
+		viewController.contentData = nil;
 	} else {
 		// 何もしません。
 	}

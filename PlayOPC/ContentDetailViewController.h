@@ -15,5 +15,6 @@
 @interface ContentDetailViewController : UITableViewController
 
 @property (strong, nonatomic) NSDictionary *content; ///< 詳細情報を表示するコンテンツ
+@property (strong, nonatomic) NSData *contentData; ///< コンテンツのバイナリデータ
 
 @end

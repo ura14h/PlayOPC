@@ -45,7 +45,6 @@
 @property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
 @property (strong, nonatomic) NSData *contentData; ///< コンテンツのバイナリデータ
 @property (strong, nonatomic) UIImage *contentImage; ///< コンテンツの表示用画像データ
-@property (strong, nonatomic) NSDictionary *contentMetadata; ///< コンテンツのメタデータ
 
 @end
 
@@ -92,7 +91,6 @@
 	_content = nil;
 	_contentData = nil;
 	_contentImage = nil;
-	_contentMetadata = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -179,7 +177,6 @@
 	// コンテンツの情報を破棄します。
 	self.contentData = nil;
 	self.contentImage = nil;
-	self.contentMetadata = nil;
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -196,6 +193,7 @@
 	if ([segueIdentifier isEqualToString:@"ShowPictureContentDetail"]) {
 		ContentDetailViewController *viewController = segue.destinationViewController;
 		viewController.content = self.content;
+		viewController.contentData = self.contentData;
 	} else {
 		// 何もしません。
 	}
@@ -634,15 +632,9 @@
 			return;
 		}
 
-		// バイナリデータから画像データとメタデータを抽出します。
+		// バイナリデータから画像データを抽出します。
 		weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
-		CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)(weakSelf.contentData), nil);
-		NSDictionary *metadata = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(sourceRef, 0, nil);
-		CFRelease(sourceRef);
-		weakSelf.contentMetadata = metadata;
 
-		DEBUG_LOG(@"contentImage=%@", weakSelf.contentImage);
-		DEBUG_LOG(@"contentMetadata=%@", weakSelf.contentMetadata);
 		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
 		
 		// ダウンロードしたリサイズ画像を表示します。

@@ -13,17 +13,17 @@
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import "Reachability.h"
 
-NSString *const WifiConnectionChangedNotification = @"WifiConnectionChangedNotification";
-NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
+NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification";
 
 @interface WifiConnector ()
 
 @property (strong, nonatomic) NSString *SSID;
 @property (strong, nonatomic) NSString *BSSID;
 @property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
-@property (strong, nonatomic) Reachability *reachability;
 @property (strong, nonatomic) dispatch_queue_t reachabilityQueue; ///< 到達確認性を実行するキュー
-@property (assign, nonatomic) BOOL cameraIsReachable; ///< カメラに到達できるか否かを示します。
+@property (strong, nonatomic) Reachability *reachability;
+@property (assign, nonatomic) NetworkStatus networkStatus; ///< 最新のネットワーク状態
+@property (assign, nonatomic) BOOL cameraResponded; ///< カメラの応答があったか否か
 
 @end
 
@@ -43,8 +43,9 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 	_SSID = nil;
 	_BSSID = nil;
-	_reachability = [Reachability reachabilityForLocalWiFi];
 	_reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
+	_reachability = [Reachability reachabilityForLocalWiFi];
+	_networkStatus = NotReachable;
 	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -66,11 +67,10 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 #pragma mark -
 
-- (WifiConnectionStatus)currentConnectionStatus {
+- (WifiConnectionStatus)connectionStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
-	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
-	switch (networkStatus) {
+	switch (self.networkStatus) {
 		case ReachableViaWiFi:
 			return WifiConnectionStatusConnected;
 		case NotReachable:
@@ -81,105 +81,144 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	return WifiConnectionStatusUnknown;
 }
 
-- (BOOL)startMonitoring:(NSError **)error {
+- (WifiCameraStatus)cameraStatus {
+	DEBUG_DETAIL_LOG(@"");
+	
+	switch (self.networkStatus) {
+		case ReachableViaWiFi:
+			break;
+		default:
+			return WifiCameraStatusUnreachable;
+	}
+	if (!self.cameraResponded) {
+		return WifiCameraStatusUnreachable;
+	}
+	return WifiCameraStatusReachable;
+}
+
+- (void)startMonitoring {
 	DEBUG_LOG(@"");
 	
 	if (self.monitoring) {
 		// 監視はすでに実行中です。
-		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:MonitoringIsRunnning", @"WifiConnector.startMonitoring")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		return NO;
+		NSLog(NSLocalizedString(@"$desc:MonitoringIsRunnning", @"WifiConnector.startMonitoring"));
+		return;
 	}
 
-	dispatch_sync(self.reachabilityQueue, ^{
-		[self updateNetworkInfo];
+	__weak WifiConnector *weakSelf = self;
+	dispatch_async(weakSelf.reachabilityQueue, ^{
+		[weakSelf updateStatus];
+		// 監視を開始します。
+		// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
+		dispatch_async(dispatch_get_main_queue(), ^{
+			if (![weakSelf.reachability startNotifier]) {
+				// Reachabilityの通知開始に失敗しました。
+				NSLog(NSLocalizedString(@"$desc:CouldNotStartMonitoring", @"WifiConnector.startMonitoring"));
+				return;
+			}
+		});
 	});
-	if (![self.reachability startNotifier]) {
-		// Reachabilityの通知開始に失敗しました。
-		NSError *internalError = [self createError:WifiConnectorErrorReachabilityFailed description:NSLocalizedString(@"$desc:CouldNotStartMonitoring", @"WifiConnector.startMonitoring")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		return NO;
-	}
 	self.monitoring = YES;
-	
-	return YES;
 }
 
-- (BOOL)stopMonitoring:(NSError **)error {
+- (void)stopMonitoring {
 	DEBUG_LOG(@"");
 
 	if (!self.monitoring) {
 		// 監視は未実行です。
-		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:MonitoringIsNotRunnning", @"WifiConnector.stopMonitoring")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		return NO;
+		NSLog(NSLocalizedString(@"$desc:MonitoringIsNotRunnning", @"WifiConnector.stopMonitoring"));
+		return;
 	}
 	
-	[self.reachability stopNotifier];
+	__weak WifiConnector *weakSelf = self;
+	dispatch_async(weakSelf.reachabilityQueue, ^{
+		// 監視を停止します。
+		// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[weakSelf.reachability stopNotifier];
+		});
+	});
 	self.monitoring = NO;
-	
-	return YES;
 }
 
-- (BOOL)isPossibleToAccessCamera {
-	DEBUG_LOG(@"");
-
-	if ([self currentConnectionStatus] != WifiConnectionStatusConnected) {
-		// 接続していなかったらカメラにはアクセスできません。
-		return NO;
-	}
-
-	return self.cameraIsReachable;
-}
-
-- (BOOL)waitForConnectionStatus:(WifiConnectionStatus)status timeout:(NSTimeInterval)timeout {
+- (BOOL)waitForConnected:(NSTimeInterval)timeout {
 	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 
-	// 引数を確認します。
-	if (status != WifiConnectionStatusConnected &&
-		status != WifiConnectionStatusNotConnected) {
-		return NO;
+	// 監視を一時的に停止します。
+	if (self.monitoring) {
+		__weak WifiConnector *weakSelf = self;
+		dispatch_sync(weakSelf.reachabilityQueue, ^{
+			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[weakSelf.reachability stopNotifier];
+			});
+		});
 	}
 
-	// 監視を一時的に停止します。
-	[self.reachability stopNotifier];
-	
 	// 接続状態の変化をポーリングします。
+	BOOL connected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		if ([self currentConnectionStatus] == status) {
-			// 期待した接続状態になったらSSIDを更新します。(Wi-Fi接続状態変化の通知が飛ぶかもしれません)
-			[self reachabilityChanged:nil];
-			__block BOOL result;
-			if (status == WifiConnectionStatusConnected) {
-				// 接続中になったらカメラに接続できるか否かを確認します。
-				dispatch_sync(self.reachabilityQueue, ^{
-					result = self.cameraIsReachable;
-				});
-			} else if (status == WifiConnectionStatusNotConnected) {
-				// 切断中になったら正常終了です。
-				result = YES;
-			}
-			// 監視を再開します。
-			if (![self.reachability startNotifier]) {
-				DEBUG_LOG(@"Could not restart monitoring by failed [Reachability startNotifier].");
-			}
-			return result;
+		[self updateStatus];
+		if (self.networkStatus == ReachableViaWiFi && self.cameraResponded) {
+			connected = YES;
+			break;
 		}
 		[NSThread sleepForTimeInterval:0.05];
 	}
 	
-	// タイムアウトしました。
-	return NO;
+	// 監視を再開します。
+	if (self.monitoring) {
+		__weak WifiConnector *weakSelf = self;
+		dispatch_sync(weakSelf.reachabilityQueue, ^{
+			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[weakSelf.reachability startNotifier];
+			});
+		});
+	}
+	
+	return connected;
+}
+
+- (BOOL)waitForDisconnected:(NSTimeInterval)timeout {
+	DEBUG_LOG(@"timeout=%ld", (long)timeout);
+	
+	// 監視を一時的に停止します。
+	if (self.monitoring) {
+		__weak WifiConnector *weakSelf = self;
+		dispatch_sync(weakSelf.reachabilityQueue, ^{
+			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[weakSelf.reachability stopNotifier];
+			});
+		});
+	}
+	
+	// 接続状態の変化をポーリングします。
+	BOOL disconnected = NO;
+	NSDate *waitStartTime = [NSDate date];
+	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
+		[self updateStatus];
+		if (self.networkStatus == NotReachable || !self.cameraResponded) {
+			disconnected = YES;
+			break;
+		}
+		[NSThread sleepForTimeInterval:0.05];
+	}
+	
+	// 監視を再開します。
+	if (self.monitoring) {
+		__weak WifiConnector *weakSelf = self;
+		dispatch_sync(weakSelf.reachabilityQueue, ^{
+			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[weakSelf.reachability startNotifier];
+			});
+		});
+	}
+	
+	return disconnected;
 }
 
 #pragma mark -
@@ -188,25 +227,55 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 - (void)reachabilityChanged:(NSNotification *)notification {
 	DEBUG_LOG(@"");
 
-	dispatch_async(self.reachabilityQueue, ^{
-		[self updateNetworkInfo];
-		dispatch_async(dispatch_get_main_queue(), ^{
-			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-			[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
-		});
+	__weak WifiConnector *weakSelf = self;
+	dispatch_async(weakSelf.reachabilityQueue, ^{
+		[weakSelf updateStatus];
 	});
 }
 
+#pragma mark -
+
+/// 接続状態を更新します。
+- (void)updateStatus {
+	DEBUG_DETAIL_LOG(@"");
+	
+	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
+	if (self.networkStatus == networkStatus) {
+		return;
+	}
+	if (networkStatus == NotReachable) {
+		// Wi-Fi未接続
+		self.networkStatus = NotReachable;
+		self.cameraResponded = NO;
+		[self retreiveSSID];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
+		});
+	} else if (networkStatus == ReachableViaWiFi) {
+		// Wi-Fi接続済
+		self.networkStatus = ReachableViaWiFi;
+		self.cameraResponded = NO;
+		[self retreiveSSID];
+		self.cameraResponded = [self pingCamera];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
+		});
+	} else {
+		// ここにはこないはず...
+	}
+}
+
 /// ネットワーク接続情報を更新します。
-- (void)updateNetworkInfo {
-	DEBUG_LOG(@"");
+- (void)retreiveSSID {
+	DEBUG_DETAIL_LOG(@"");
 	
 	// SSIDとBSSIDを取得します。
-	// MARK: iOS 9とそれ以降のバージョンのiOSでは正しく動作しません。SSIDもBSSIDもnilに設定されます。
+	// MARK: iOSシミュレータでは正しく動作しません。SSIDもBSSIDもnilに設定されます。
 	NSString *currentSSID = nil;
 	NSString *currentBSSID = nil;
-	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
-	if (networkStatus == ReachableViaWiFi) {
+	if (self.networkStatus == ReachableViaWiFi) {
 		NSArray* supportedInterfaces = (__bridge_transfer id)CNCopySupportedInterfaces();
 		for (NSString *interfaceName in supportedInterfaces) {
 			NSDictionary *currentNetworkInfo = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)interfaceName);
@@ -218,10 +287,12 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	}
 	self.SSID = currentSSID;
 	self.BSSID = currentBSSID;
+}
 
-	// カメラのIPアドレスを指定して接続できるかを試みます。
-	self.cameraIsReachable = NO;
-
+/// カメラにアクセスできるか否かを確かめます。
+- (BOOL)pingCamera {
+	DEBUG_DETAIL_LOG(@"");
+	
 	// 通信仕様書に従って、
 	// 単発かつその後の動作に影響の少ないと思われるCGIコマンドをカメラへ送信してそのレスポンスを確認します。
 	// 通信仕様書に沿った期待したレスポンスが返って来れば、このWi-Fiはカメラに接続していると判定します。
@@ -238,7 +309,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	}
 	if ([reachability currentReachabilityStatus] != ReachableViaWiFi) {
 		DEBUG_LOG(@"timed out");
-		return;
+		return false;
 	}
 	
 	// HTTP接続のリクエストを作成します。
@@ -276,37 +347,26 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	// 期待するCGIコマンドの応答は、XML形式でconnectmode要素のテキストがOPCになっていることです。
 	if (!result || !response) {
 		DEBUG_LOG(@"timed out");
-		return;
+		return false;
 	}
 	if (response.statusCode != 200) {
 		DEBUG_LOG(@"error");
-		return;
+		return false;
 	}
 	NSDictionary *fields = response.allHeaderFields;
 	NSString *contentType = fields[@"Content-Type"];
 	if (![contentType isEqualToString:@"text/xml"]) {
 		DEBUG_LOG(@"error");
-		return;
+		return false;
 	}
 	NSString *resultText = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
 	if ([resultText rangeOfString:@"<connectmode>OPC</connectmode>"].location == NSNotFound) {
 		DEBUG_LOG(@"error");
-		return;
+		return false;
 	}
 	
 	// カメラへHTTPで接続できたようです。
-	self.cameraIsReachable = YES;
-	
-	return;
-}
-
-/// エラー情報を作成します。
-- (NSError *)createError:(NSInteger)code description:(NSString *)description {
-	DEBUG_LOG(@"code=%ld, description=%@", (long)code, description);
-	
-	NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: description };
-	NSError *error = [[NSError alloc] initWithDomain:WifiConnectorErrorDomain code:code userInfo:userInfo];
-	return error;
+	return YES;
 }
 
 @end

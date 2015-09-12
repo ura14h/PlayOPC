@@ -79,7 +79,7 @@
 	self.bluetoothConnector = [[BluetoothConnector alloc] init];
 	[notificationCenter addObserver:self selector:@selector(didChangeBluetoothConnection:) name:BluetoothConnectionChangedNotification object:nil];
 	self.wifiConnector = [[WifiConnector alloc] init];
-	[notificationCenter addObserver:self selector:@selector(didChangeWifiConnection:) name:WifiConnectionChangedNotification object:nil];
+	[notificationCenter addObserver:self selector:@selector(didChangeWifiStatus:) name:WifiStatusChangedNotification object:nil];
 
 	// カメラの接続状態を監視開始します。
 	AppCamera *camera = GetAppCamera();
@@ -134,7 +134,7 @@
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter removeObserver:self name:AppSettingChangedNotification object:nil];
 	[notificationCenter removeObserver:self name:BluetoothConnectionChangedNotification object:nil];
-	[notificationCenter removeObserver:self name:WifiConnectionChangedNotification object:nil];
+	[notificationCenter removeObserver:self name:WifiStatusChangedNotification object:nil];
 	_bluetoothConnector = nil;
 	_wifiConnector = nil;
 
@@ -196,12 +196,7 @@
 	
 	// BluetoothとWi-Fiの接続状態を監視開始します。
 	self.bluetoothConnector.peripheral = nil;
-	NSError *error = nil;
-	if (![self.wifiConnector startMonitoring:&error]) {
-		// Wi-Fi接続の監視開始に失敗しました。
-		// エラーを無視して続行します。
-		DEBUG_LOG(@"An error occurred, but ignores it.");
-	}
+	[self.wifiConnector startMonitoring];
 	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
@@ -234,11 +229,7 @@
 	
 	// BluetoothとWi-Fiの接続状態を監視停止します。
 	self.bluetoothConnector.peripheral = nil;
-	if (![self.wifiConnector stopMonitoring:&error]) {
-		// Wi-Fi接続の監視開始に失敗しました。
-		// エラーを無視して続行します。
-		DEBUG_LOG(@"An error occurred, but ignores it.");
-	}
+	[self.wifiConnector stopMonitoring];
 	
 	// カメラ操作の子画面を表示している場合は、この画面に戻します。
 	[self backToConnectionView:NO];
@@ -426,7 +417,7 @@
 }
 
 /// Wi-Fi接続の状態が変化した時に呼び出されます。
-- (void)didChangeWifiConnection:(NSNotification *)notification {
+- (void)didChangeWifiStatus:(NSNotification *)notification {
 	DEBUG_LOG(@"");
 
 	// メインスレッド以外から呼び出された場合は、メインスレッドに投げなおします。
@@ -434,7 +425,7 @@
 		__weak ConnectionViewController *weakSelf = self;
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			DEBUG_LOG(@"weakSelf=%p", weakSelf);
-			[weakSelf didChangeWifiConnection:notification];
+			[weakSelf didChangeWifiStatus:notification];
 		}];
 		return;
 	}
@@ -556,10 +547,11 @@
 
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
 	BOOL demandToWakeUpWithUsingBluetooth = NO;
-	if (self.wifiConnector.currentConnectionStatus == WifiConnectionStatusConnected) {
-		if ([self.wifiConnector isPossibleToAccessCamera]) {
+	if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
+		if (self.wifiConnector.cameraStatus == WifiCameraStatusReachable) {
 			// Wi-Fi接続済みで接続先はカメラ
-		} else {
+		} else if (self.wifiConnector.cameraStatus == WifiCameraStatusUnreachable) {
+			// Wi-Fi接続済みで接続先はカメラではない
 			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
 				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
 				// だが、カメラの電源を入れることぐらいはできるかもしれない
@@ -569,6 +561,9 @@
 				[self showAlertMessage:NSLocalizedString(@"$desc:WifiConnectionIsNotCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
+		} else {
+			// Wi-Fi接続済みで接続先は確認中
+			// TODO: どうすればよい?
 		}
 	} else {
 		if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
@@ -672,13 +667,13 @@
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 			}];
-			if (![weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusConnected timeout:20.0]) {
+			if (![weakSelf.wifiConnector waitForConnected:20.0]) {
 				// Connecting... を元に戻します。
 				[weakSelf executeAsynchronousBlockOnMainThread:^{
 					[weakSelf updateShowWifiSettingCell];
 				}];
 				// Wi-Fi接続が有効になりませんでした。
-				if (weakSelf.wifiConnector.currentConnectionStatus != WifiConnectionStatusConnected) {
+				if (weakSelf.wifiConnector.connectionStatus != WifiConnectionStatusConnected) {
 					// カメラにアクセスできるWi-Fi接続は見つかりませんでした。
 					[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotDiscoverWifiConnection", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				} else {
@@ -827,7 +822,7 @@
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$desc:DisconnectingWifi", @"ConnectionViewController.didSelectRowAtDisconnectAndSleepCell");
 			}];
-			if ([weakSelf.wifiConnector waitForConnectionStatus:WifiConnectionStatusNotConnected timeout:20.0]) {
+			if ([weakSelf.wifiConnector waitForDisconnected:20.0]) {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
@@ -1005,21 +1000,27 @@
 - (void)updateShowWifiSettingCell {
 	DEBUG_LOG(@"");
 	
-	WifiConnectionStatus wifiStatus = self.wifiConnector.currentConnectionStatus;
+	WifiConnectionStatus wifiStatus = self.wifiConnector.connectionStatus;
 	if (wifiStatus == WifiConnectionStatusConnected) {
 		// 接続されている場合はそのSSIDを表示します。
-		if ([self.wifiConnector isPossibleToAccessCamera]) {
+		WifiCameraStatus cameraStatus = self.wifiConnector.cameraStatus;
+		if (cameraStatus == WifiCameraStatusReachable) {
+			// Wi-Fi接続済みで接続先はカメラ
 			if (self.wifiConnector.SSID) {
 				self.showWifiSettingCell.detailTextLabel.text = self.wifiConnector.SSID;
 			} else {
 				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
 			}
-		} else {
+		} else if (cameraStatus == WifiCameraStatusUnreachable) {
+			// Wi-Fi接続済みで接続先はカメラではない
 			if (self.wifiConnector.SSID) {
 				self.showWifiSettingCell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$cell:WifiNotConnected(%@)", @"ConnectionViewController.updateShowWifiSettingCell"), self.wifiConnector.SSID];
 			} else {
 				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
 			}
+		} else {
+			// Wi-Fi接続済みで接続先は確認中
+			self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
 		}
 	} else if (wifiStatus == WifiConnectionStatusNotConnected) {
 		// 接続されていない場合は未接続と表示します。
@@ -1059,11 +1060,12 @@
 			// Bluetooth使用不可
 			[self tableViewCell:self.connectWithUsingBluetoothCell enabled:NO];
 		}
-		if (self.wifiConnector.currentConnectionStatus == WifiConnectionStatusConnected) {
-			if ([self.wifiConnector isPossibleToAccessCamera]) {
+		if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
+			if (self.wifiConnector.cameraStatus == WifiCameraStatusReachable) {
 				// Wi-Fi接続済みで接続先はカメラ
 				[self tableViewCell:self.connectWithUsingWiFiCell enabled:YES];
-			} else {
+			} else if (self.wifiConnector.cameraStatus == WifiCameraStatusUnreachable) {
+				// Wi-Fi接続済みで接続先はカメラではない
 				if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {
 					// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
 					// だが、カメラの電源を入れることぐらいはできるかもしれない
@@ -1072,6 +1074,10 @@
 					// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
 					[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 				}
+			} else {
+				// Wi-Fi接続済みで接続先は確認中
+				// カメラにアクセスできるか否かが確定するまでの間は操作を許可しない
+				[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 			}
 		} else {
 			if (self.bluetoothConnector.currentConnectionStatus != BluetoothConnectionStatusUnknown) {

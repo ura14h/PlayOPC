@@ -341,10 +341,10 @@
         <scene sceneID="jFd-LC-AMW">
             <objects>
                 <tableViewController storyboardIdentifier="ContentDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XpH-rm-Hqa" customClass="ContentDetailViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="8bx-tK-SXq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="8bx-tK-SXq">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="ContentDetailCell" textLabel="bgc-iP-htl" detailTextLabel="bsv-jI-GCg" style="IBUITableViewCellStyleValue1" id="vtS-4o-znY">
                                 <autoresizingMask key="autoresizingMask"/>
@@ -373,6 +373,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="Content Detail" id="FiO-Wa-eH8"/>
+                    <nil key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yXu-F3-TWi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

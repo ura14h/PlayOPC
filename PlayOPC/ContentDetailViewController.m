@@ -70,8 +70,8 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 	// タイトルを設定します。
 	self.title = self.content[OLYCameraContentListFilenameKey];
 	
-	// ツールバーを表示します。
-	[self.navigationController setToolbarHidden:NO animated:animated];
+	// ツールバーを非表示にします。
+	[self.navigationController setToolbarHidden:YES animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {

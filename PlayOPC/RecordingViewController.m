@@ -1155,7 +1155,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (![camera stopLiveView:&error]) {
 			// エラーは無視して続行します。
 		}
-		self.cameraPanelView.alpha = 0.5;
+		[UIView animateWithDuration:0.25 animations:^{
+			self.cameraPanelView.alpha = 0.5;
+		}];
 		
 		// ドラッグで移動した距離をリセットします。
 		[sender setTranslation:CGPointZero inView:self.view];
@@ -1207,7 +1209,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (![camera startLiveView:&error]) {
 			// エラーは無視して続行します。
 		}
-		self.cameraPanelView.alpha = 1.0;
+		[UIView animateWithDuration:0.25 animations:^{
+			self.cameraPanelView.alpha = 1.0;
+		}];
 	}
 }
 

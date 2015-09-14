@@ -691,7 +691,7 @@
 		// カメラにアプリ接続します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
-		if (![camera connect:&error]) {
+		if (![camera connect:OLYCameraConnectionTypeWiFi error:&error]) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;

@@ -35,7 +35,6 @@
 		311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C31ABC287C00A7D38C /* ConnectionViewController.m */; };
 		311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C51ABC287C00A7D38C /* Main.storyboard */; };
 		311B75C91ABC287C00A7D38C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C81ABC287C00A7D38C /* Images.xcassets */; };
-		311B75CC1ABC287C00A7D38C /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 311B75CA1ABC287C00A7D38C /* LaunchScreen.xib */; };
 		311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75D71ABC287C00A7D38C /* PlayOPCTests.m */; };
 		311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
 		311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
@@ -66,6 +65,7 @@
 		314826921B4FE82C00AB057A /* AppSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 314826901B4FE82C00AB057A /* AppSetting.m */; };
 		314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
 		314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */; };
+		314BDFA21BAD3F4A00EF8D91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 314BDFA41BAD3F4A00EF8D91 /* LaunchScreen.storyboard */; };
 		314D7A481ACF87AE004C2644 /* WifiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A471ACF87AE004C2644 /* WifiConnector.m */; };
 		314D7A491ACF87AE004C2644 /* WifiConnector.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A471ACF87AE004C2644 /* WifiConnector.m */; };
 		314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */; };
@@ -219,7 +219,6 @@
 		311B75C31ABC287C00A7D38C /* ConnectionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ConnectionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		311B75C61ABC287C00A7D38C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		311B75C81ABC287C00A7D38C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		311B75CB1ABC287C00A7D38C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		311B75D11ABC287C00A7D38C /* PlayOPCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PlayOPCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		311B75D61ABC287C00A7D38C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		311B75D71ABC287C00A7D38C /* PlayOPCTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PlayOPCTests.m; sourceTree = "<group>"; };
@@ -252,6 +251,7 @@
 		314826901B4FE82C00AB057A /* AppSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppSetting.m; sourceTree = "<group>"; };
 		314A4EC81B08B1C1002E4128 /* CameraLogViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraLogViewCell.h; sourceTree = "<group>"; };
 		314A4EC91B08B1C1002E4128 /* CameraLogViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraLogViewCell.m; sourceTree = "<group>"; };
+		314BDFA31BAD3F4A00EF8D91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		314D7A461ACF87AE004C2644 /* WifiConnector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiConnector.h; sourceTree = "<group>"; };
 		314D7A471ACF87AE004C2644 /* WifiConnector.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiConnector.m; sourceTree = "<group>"; };
 		314D7A4E1ACFDA03004C2644 /* AppCameraLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCameraLog.h; sourceTree = "<group>"; };
@@ -559,7 +559,7 @@
 				311199B71B086F5E00538FA0 /* Imported Classes */,
 				311B75C81ABC287C00A7D38C /* Images.xcassets */,
 				31C71D721AF9D1260088C2A6 /* CameraProperty Images */,
-				311B75CA1ABC287C00A7D38C /* LaunchScreen.xib */,
+				314BDFA41BAD3F4A00EF8D91 /* LaunchScreen.storyboard */,
 				311B75BB1ABC287C00A7D38C /* Supporting Files */,
 			);
 			path = PlayOPC;
@@ -796,7 +796,7 @@
 		311B75B01ABC287C00A7D38C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0620;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Hiroki Ishiura";
 				TargetAttributes = {
 					311B75B71ABC287C00A7D38C = {
@@ -860,6 +860,7 @@
 				31C71DCC1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-3.png in Resources */,
 				31392FD01B14BEC40097FF1B /* Reference.html in Resources */,
 				31C71DB31AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-23.png in Resources */,
+				314BDFA21BAD3F4A00EF8D91 /* LaunchScreen.storyboard in Resources */,
 				31E81A381B5B8BF6003685A9 /* RecordingEPanel.storyboard in Resources */,
 				31C71DBB1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-4.png in Resources */,
 				31C71DB41AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-24.png in Resources */,
@@ -877,7 +878,6 @@
 				3116E8781B9A6EA60075046D /* AutoBracketingStepList.plist in Resources */,
 				311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */,
 				31C71DAD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png in Resources */,
-				311B75CC1ABC287C00A7D38C /* LaunchScreen.xib in Resources */,
 				31C71DB61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png in Resources */,
 				31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */,
 				31C71DBF1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-8.png in Resources */,
@@ -1064,14 +1064,6 @@
 			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
-		311B75CA1ABC287C00A7D38C /* LaunchScreen.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				311B75CB1ABC287C00A7D38C /* Base */,
-			);
-			name = LaunchScreen.xib;
-			sourceTree = "<group>";
-		};
 		3126895B1B56AA0E00183C1E /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -1115,6 +1107,14 @@
 				312689521B56A9BB00183C1E /* ja */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		314BDFA41BAD3F4A00EF8D91 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				314BDFA31BAD3F4A00EF8D91 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 		31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */ = {
@@ -1222,7 +1222,9 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -1266,6 +1268,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1295,6 +1298,7 @@
 					"$(PROJECT_DIR)/PlayOPC/Imports",
 				);
 				INFOPLIST_FILE = PlayOPC/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.homeunix.hio.ipa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1310,6 +1314,7 @@
 					"$(PROJECT_DIR)/PlayOPC/Imports",
 				);
 				INFOPLIST_FILE = PlayOPC/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.homeunix.hio.ipa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1328,6 +1333,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = PlayOPCTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.homeunix.hio.ipa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlayOPC.app/PlayOPC";
 			};
@@ -1342,6 +1348,7 @@
 					"$(PROJECT_DIR)/PlayOPC/Imports",
 				);
 				INFOPLIST_FILE = PlayOPCTests/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.homeunix.hio.ipa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/PlayOPC.app/PlayOPC";
 			};

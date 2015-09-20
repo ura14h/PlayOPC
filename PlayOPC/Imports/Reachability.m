@@ -116,7 +116,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 			returnValue->_alwaysReturnLocalWiFiStatus = NO;
 		}
 	}
-	return returnValue;
+	return returnValue; // FIXME: Analyzer warns that Potential leak of an object stored into 'reachability'.
 }
 
 
@@ -135,7 +135,7 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 			returnValue->_alwaysReturnLocalWiFiStatus = NO;
 		}
 	}
-	return returnValue;
+	return returnValue; // FIXME: Analyzer warns that Potential leak of an object stored into 'reachability'.
 }
 
 

@@ -1,4 +1,6 @@
-﻿/* EPanelViewController.updateShowApertureCell */
+﻿/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
+
+/* EPanelViewController.updateShowApertureCell */
 "$cell:ApertureValueNotAvailable" = "無効";
 
 /* EPanelViewController.viewDidLoad */
@@ -56,11 +58,11 @@
 "$cell:ContrastUnknown" = "不明";
 
 /* APanelViewController.updateCameraPropertyCell
- CPanelViewController.updateCameraPropertyCell
- EPanelViewController.updateCameraPropertyCell
- SPanelViewController.updateCameraPropertyCell
- SystemViewController.updateCameraPropertyCell
- VPanelViewController.updateCameraPropertyCell */
+   CPanelViewController.updateCameraPropertyCell
+   EPanelViewController.updateCameraPropertyCell
+   SPanelViewController.updateCameraPropertyCell
+   SystemViewController.updateCameraPropertyCell
+   VPanelViewController.updateCameraPropertyCell */
 "$cell:CouldNotGetCameraPropertyValue" = "不明";
 
 /* ZPanelViewController.updateDigitalZoomingCurrentScaleCell */
@@ -75,14 +77,14 @@
 /* CPanelViewController.updateShowArtEffectHybridCell */
 "$cell:EffectHybridUnknown" = "不明";
 
+/* CPanelViewController.updateShowEffectLevelCell */
+"$cell:EffectNotAvailable" = "無効";
+
 /* CPanelViewController.updateShowArtEffectTypeCell */
 "$cell:EffectTypeNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowArtEffectTypeCell */
 "$cell:EffectTypeUnknown" = "不明";
-
-/* CPanelViewController.updateShowEffectLevelCell */
-"$cell:EffectNotAvailable" = "無効";
 
 /* CPanelViewController.updateShowEffectLevelCell */
 "$cell:EffectUnknown" = "不明";
@@ -403,22 +405,22 @@
 "$desc:CanNotSelectItemInTaking" = "撮影動作中は設定の変更は許可されていません。";
 
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
- CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+   CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSetCameraProperty" = "カメラプロパティの変更は現在許可されていません。";
 
 /* CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSetCameraPropertyInTaking" = "撮影動作中はカメラプロパティの変更は許可されていません。";
 
 /* BluetoothConnector.connectPeripheral
- BluetoothConnector.disconnectPeripheral
- BluetoothConnector.discoverPeripheral */
+   BluetoothConnector.disconnectPeripheral
+   BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth機能は利用できません。「設定」で有効にしてください。";
 
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectPeripheralIsRunnning" = "Bluetoothデバイスへの接続は実行中です。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
- ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
@@ -428,7 +430,7 @@
 "$desc:CouldNotOpenOACentralByNoInstalled" = "オリンパスのOA.Centralがインストールされていません。";
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
- ReferenceViewController.shouldStartLoadWithRequest */
+   ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "このデバイスはインターネットに接続していません。Wi-Fi経由で開きたい場合は先にカメラとの接続を解除しておく必要があります。";
 
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath */
@@ -468,8 +470,8 @@
 "$desc:ErasePicture" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
 
 /* RecordingViewController.lockAutoExposurePoint
- RecordingViewController.lockAutoFocusPoint
- RecordingViewController.startMagnifyingLiveView */
+   RecordingViewController.lockAutoFocusPoint
+   RecordingViewController.startMagnifyingLiveView */
 "$desc:LiveViewImageIsEmpty" = "カメラからライブビューの画像が送られていません。ライブビュー上でタッチした座標を計算できません。";
 
 /* WifiConnector.stopMonitoring */
@@ -479,7 +481,7 @@
 "$desc:MonitoringIsRunnning" = "Wi-Fi接続の状態監視は実行中です。";
 
 /* BluetoothConnector.connectPeripheral
- BluetoothConnector.disconnectPeripheral */
+   BluetoothConnector.disconnectPeripheral */
 "$desc:NoBluetoothPeripherals" = "Bluetoothデバイスがありません。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
@@ -510,7 +512,7 @@
 "$desc:WifiConnectionIsNotCamera" = "カメラの電源は入れましたが、このWi-Fi接続はカメラのものではないようです。「設定」で手動で現在のWi-Fi接続を切断してカメラに接続してください。";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
- RecordingViewController.cameraWillTakePictureByAutoBracketing */
+   RecordingViewController.cameraWillTakePictureByAutoBracketing */
 "$title:AutoBracketingProgres(%ld,%ld)" = "オートブラケット: %1$ld/%2$ld";
 
 /* RecordingViewController.cameraDidStartTakingPictureByAutoBracketing */
@@ -559,7 +561,7 @@
 "$title:CanNotSelectItemInTaking" = "設定は変更できません";
 
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
- CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+   CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$title:CanNotSetCameraProperty" = "カメラプロパティは変更できません";
 
 /* CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
@@ -623,14 +625,14 @@
 "$title:CouldNotGetScreennail" = "動画の代表画像が取得できません";
 
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
- FavoriteLoadingViewController.didStartActivity */
+   FavoriteLoadingViewController.didStartActivity */
 "$title:CouldNotLoadFavoriteSetting" = "お気に入り設定が読み込めません";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
 "$title:CouldNotOpenOACentral" = "OA.Centralが開けません";
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
- ReferenceViewController.shouldStartLoadWithRequest */
+   ReferenceViewController.shouldStartLoadWithRequest */
 "$title:CouldNotOpenWebLink" = "リンクが開けません";
 
 /* PictureContentViewController.protectPicture */
@@ -655,25 +657,22 @@
 "$title:CouldNotSaveFavoriteSetting" = "お気に入り設定を保存できません";
 
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
- CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
+   CameraPropertyValueSelectionViewController.didSelectRowAtIndexPath */
 "$title:CouldNotSetCameraPropertyValue" = "カメラプロパティの値を設定できません";
 
 /* VPanelViewController.didSelectRowAtSetCurrentGeolocationCell */
 "$title:CouldNotSetCurrentGeolocation" = "現在地を設定できません";
 
-/* PictureContentViewController.sharePicture */
-"$title:CouldNotSharePicture" = "写真を共有できません";
-
 /* VideoContentViewController.shareVideo */
 "$title:CouldNotShareVideo" = "動画を共有できません";
 
 /* ZPanelViewController.didChangeOpticalZoomingSliderValue
- ZPanelViewController.didSelectRowAtZoomTowardTeleEnd
- ZPanelViewController.didSelectRowAtZoomTowardWideEnd */
+   ZPanelViewController.didSelectRowAtZoomTowardTeleEnd
+   ZPanelViewController.didSelectRowAtZoomTowardWideEnd */
 "$title:CouldNotStartDrivingZoomLens" = "ズームできません";
 
 /* RecordingViewController.startMagnifyingLiveView
- ZPanelViewController.didChangeMagnifyingLiveView */
+   ZPanelViewController.didChangeMagnifyingLiveView */
 "$title:CouldNotStartMagnifying" = "拡大表示できません";
 
 /* PlaybackViewController.didStartActivity */
@@ -698,7 +697,7 @@
 "$title:CouldNotStartTakingPictureByIntervalTimer" = "写真撮影が開始できません";
 
 /* RecordingViewController.stopMagnifyingLiveView
- ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
+   ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
 "$title:CouldNotStopMagnifying" = "拡大表示が終了できません";
 
 /* RecordingViewController.stopRecordingVideo */
@@ -798,15 +797,15 @@
 "$title:ExecuteUnprotectVideo" = "この動画のプロテクトを解除";
 
 /* RecordingViewController.cameraDidTakePictureByIntervalTimer
- RecordingViewController.cameraWillTakePictureByIntervalTimer */
+   RecordingViewController.cameraWillTakePictureByIntervalTimer */
 "$title:IntervalTimerProgres(%ld,%ld)" = "インターバルタイマー: %1$ld/%2$ld";
 
 /* RecordingViewController.cameraDidStartTakingPictureByIntervalTimer */
 "$title:IntervalTimerStart" = "インターバルタイマー";
 
 /* RecordingViewController.lockAutoExposurePoint
- RecordingViewController.lockAutoFocusPoint
- RecordingViewController.startMagnifyingLiveView */
+   RecordingViewController.lockAutoFocusPoint
+   RecordingViewController.startMagnifyingLiveView */
 "$title:LiveViewImageIsEmpty" = "ライブビューの画像がありません";
 
 /* UIViewController.showAlertMessage */
@@ -816,7 +815,7 @@
 "$title:ReceiveCapturedImageFailed" = "撮影した画像を受信できませんでした";
 
 /* RecImageViewController.didFailToReceiveCapturedImagePreviewWithError
- RecordingViewController.didFailToReceiveCapturedImagePreviewWithError */
+   RecordingViewController.didFailToReceiveCapturedImagePreviewWithError */
 "$title:ReceiveCapturedImagePreviewFailed" = "撮影後確認画像を受信できませんでした";
 
 /* RecordingViewController.didChangeRecordingElapsedTime */
@@ -838,6 +837,6 @@
 "$title:TakePictureByIntervalTimerFailed" = "すべての写真を撮影できませんでした";
 
 /* PlaybackViewController.commitEditingStyle
- PlaybackViewController.downloadContentList */
+   PlaybackViewController.downloadContentList */
 "$title:TotalOfContentsAndFiles(%ld contents, %ld files)" = "%1$ld コンテンツ (%2$ld ファイル)";
 

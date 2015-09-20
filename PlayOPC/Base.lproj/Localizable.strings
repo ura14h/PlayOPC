@@ -1,3 +1,5 @@
+﻿/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
+
 /* EPanelViewController.updateShowApertureCell */
 "$cell:ApertureValueNotAvailable" = "N/A";
 
@@ -75,14 +77,14 @@
 /* CPanelViewController.updateShowArtEffectHybridCell */
 "$cell:EffectHybridUnknown" = "Unknown";
 
+/* CPanelViewController.updateShowEffectLevelCell */
+"$cell:EffectNotAvailable" = "N/A";
+
 /* CPanelViewController.updateShowArtEffectTypeCell */
 "$cell:EffectTypeNotAvailable" = "N/A";
 
 /* CPanelViewController.updateShowArtEffectTypeCell */
 "$cell:EffectTypeUnknown" = "Unknown";
-
-/* CPanelViewController.updateShowEffectLevelCell */
-"$cell:EffectNotAvailable" = "N/A";
 
 /* CPanelViewController.updateShowEffectLevelCell */
 "$cell:EffectUnknown" = "Unknown";
@@ -510,7 +512,7 @@
 "$desc:WifiConnectionIsNotCamera" = "This Wi-Fi connection is not the camera. You have to disconnect current connection and to connect the device to the camera by manual operation at Setting.";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
- RecordingViewController.cameraWillTakePictureByAutoBracketing */
+   RecordingViewController.cameraWillTakePictureByAutoBracketing */
 "$title:AutoBracketingProgres(%ld,%ld)" = "Auto Bracketing: %1$ld/%2$ld";
 
 /* RecordingViewController.cameraDidStartTakingPictureByAutoBracketing */
@@ -661,9 +663,6 @@
 /* VPanelViewController.didSelectRowAtSetCurrentGeolocationCell */
 "$title:CouldNotSetCurrentGeolocation" = "Could not set current geolocation";
 
-/* PictureContentViewController.sharePicture */
-"$title:CouldNotSharePicture" = "Could not share picture";
-
 /* VideoContentViewController.shareVideo */
 "$title:CouldNotShareVideo" = "Could not share video";
 
@@ -798,7 +797,7 @@
 "$title:ExecuteUnprotectVideo" = "Unprotect this video";
 
 /* RecordingViewController.cameraDidTakePictureByIntervalTimer
- RecordingViewController.cameraWillTakePictureByIntervalTimer */
+   RecordingViewController.cameraWillTakePictureByIntervalTimer */
 "$title:IntervalTimerProgres(%ld,%ld)" = "Interval Timer: %1$ld/%2$ld";
 
 /* RecordingViewController.cameraDidStartTakingPictureByIntervalTimer */

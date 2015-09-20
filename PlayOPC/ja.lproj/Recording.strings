@@ -1,4 +1,3 @@
-
 /* Class = "UILabel"; text = "$progressLabel"; ObjectID = "5u4-rp-8Ro"; */
 "5u4-rp-8Ro.text" = "$progressLabel";
 
@@ -13,3 +12,4 @@
 
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uQh-LP-Yxa"; */
 "uQh-LP-Yxa.title" = "戻る";
+

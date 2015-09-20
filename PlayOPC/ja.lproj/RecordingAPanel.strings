@@ -1,4 +1,3 @@
-
 /* Class = "UILabel"; text = "<FOCUS_STILL>"; ObjectID = "0RA-Tv-3w1"; */
 "0RA-Tv-3w1.text" = "<FOCUS_STILL>";
 
@@ -85,3 +84,4 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Focus Settings"; ObjectID = "wt5-st-q46"; */
 "wt5-st-q46.headerTitle" = "AF設定";
+

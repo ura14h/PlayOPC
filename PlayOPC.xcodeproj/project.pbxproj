@@ -291,6 +291,7 @@
 		319396931B04CD4B00EAAE35 /* PictureContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureContentViewController.m; sourceTree = "<group>"; };
 		3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		319A5E8E1B2C0A00008BBB47 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		319D8DBC1BAE695D005F8DB8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		31A8097A1AD04DE400186E4D /* SystemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemViewController.h; sourceTree = "<group>"; };
 		31A8097B1AD04DE400186E4D /* SystemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SystemViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		31BD00011B3C3D7200F555A7 /* AppCameraTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCameraTests.m; sourceTree = "<group>"; };
@@ -1113,6 +1114,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				314BDFA31BAD3F4A00EF8D91 /* Base */,
+				319D8DBC1BAE695D005F8DB8 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";

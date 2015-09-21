@@ -42,6 +42,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAcknowledgementCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showReferenceCell;
 
+@property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報へアクセスする権限があるか調べるための位置情報マネージャ
 @property (strong, nonatomic) BluetoothConnector *bluetoothConnector; ///< Bluetooth接続の監視
 @property (strong, nonatomic) WifiConnector *wifiConnector; ///< Wi-Fi接続の監視
@@ -61,6 +62,9 @@
 	DEBUG_LOG(@"");
 	[super viewDidLoad];
 
+	// ビューコントローラーの活動状態を初期化します。
+	self.startingActivity = NO;
+	
 	// 現在位置利用の権限確認を準備します。
 	self.locationManager = [[CLLocationManager alloc] init];
 	self.locationManager.delegate = self;
@@ -157,6 +161,21 @@
 	
 	// ツールバーを非表示にします。
 	[self.navigationController setToolbarHidden:YES animated:animated];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+	DEBUG_LOG(@"");
+	[super viewDidAppear:animated];
+	
+	if (!self.startingActivity) {
+		// MARK: iOS9では初回の画面表示の際にapplicationDidBecomeActiveが呼び出されないのでここでフォローします。
+		NSOperatingSystemVersion iOS9 = { 9, 0, 0 };
+		if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:iOS9]) {
+			DEBUG_LOG(@"The application is running on iOS9!");
+			[self applicationDidBecomeActive:nil];
+		}
+		self.startingActivity = YES;
+	}
 }
 
 /// アプリケーションがアクティブになる時に呼び出されます。

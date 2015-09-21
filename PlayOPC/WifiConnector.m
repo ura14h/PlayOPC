@@ -248,23 +248,19 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		self.networkStatus = NotReachable;
 		self.cameraResponded = NO;
 		[self retreiveSSID];
-		dispatch_async(dispatch_get_main_queue(), ^{
-			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
-		});
 	} else if (networkStatus == ReachableViaWiFi) {
 		// Wi-Fi接続済
 		self.networkStatus = ReachableViaWiFi;
 		self.cameraResponded = NO;
 		[self retreiveSSID];
 		self.cameraResponded = [self pingCamera];
-		dispatch_async(dispatch_get_main_queue(), ^{
-			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
-		});
 	} else {
 		// ここにはこないはず...
 	}
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+		[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
+	});
 }
 
 /// ネットワーク接続情報を更新します。

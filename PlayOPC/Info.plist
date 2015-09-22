@@ -32,7 +32,12 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2555</string>
+	<string>2559</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>jp.olympus-imaging.oacentral</string>
+		<string>jp.olympus-imaging.oacentralus</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>

@@ -106,4 +106,27 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 * コンテンツ情報取得(inquireContentInformation:error:)で得られる情報のうち、MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 
+## iOS 9 への移行
+
+* アプリのInfo.plistに以下の設定を忘れるとカメラとのHTTP通信がエラーになります。
+
+```
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+```
+
+* アプリのInfo.plistに以下の設定を忘れるとOA.Centralとの連携がエラーになります。
+
+```	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>jp.olympus-imaging.oacentral</string>
+		<string>jp.olympus-imaging.oacentralus</string>
+	</array>
+```
+
+* UIApplicationDelegateのapplicationDidBecomeActive:メソッドが呼び出されるタイミングが、viewDidLoadの後だったのがviewDidLoadよりも前に移動したようです。
+
 以上

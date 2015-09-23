@@ -108,7 +108,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 
 	__weak WifiConnector *weakSelf = self;
 	dispatch_async(weakSelf.reachabilityQueue, ^{
-		[weakSelf updateStatus];
+		[weakSelf updateStatusWithToPingCamera:YES];
 		// 監視を開始します。
 		// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
 		dispatch_async(dispatch_get_main_queue(), ^{
@@ -160,7 +160,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	BOOL connected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		[self updateStatus];
+		[self updateStatusWithToPingCamera:YES];
 		if (self.networkStatus == ReachableViaWiFi && self.cameraResponded) {
 			connected = YES;
 			break;
@@ -200,11 +200,9 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	BOOL disconnected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		// FIXME: 電源オフできない。 {
-		//     電源オフ中に、接続状態更新のためにカメラにCGIコマンドを送っちゃうと、電源オフがキャンセルされてしまうみたい。
-		//     ここ専用の、接続状態を監視する処理を実装する必要がありそう。
-		[self updateStatus];
-		// FIXME: }
+		// MARK: カメラの電源オフ中にCGIコマンドを送信するとカメラが電源オフにならないようです。
+		// ここでは、カメラへCGIコマンドを送らないように電源オフ(Wi-Fi切断)を待つようにしています。
+		[self updateStatusWithToPingCamera:NO];
 		if (self.networkStatus == NotReachable || !self.cameraResponded) {
 			disconnected = YES;
 			break;
@@ -234,14 +232,14 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 
 	__weak WifiConnector *weakSelf = self;
 	dispatch_async(weakSelf.reachabilityQueue, ^{
-		[weakSelf updateStatus];
+		[weakSelf updateStatusWithToPingCamera:YES];
 	});
 }
 
 #pragma mark -
 
 /// 接続状態を更新します。
-- (void)updateStatus {
+- (void)updateStatusWithToPingCamera:(BOOL)ping {
 	DEBUG_DETAIL_LOG(@"");
 	
 	NetworkStatus previousNetworkStatus = self.networkStatus;
@@ -258,7 +256,9 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		self.networkStatus = ReachableViaWiFi;
 		self.cameraResponded = NO;
 		[self retreiveSSID];
-		self.cameraResponded = [self pingCamera];
+		if (ping) {
+			self.cameraResponded = [self pingCamera];
+		}
 	} else {
 		// ここにはこないはず...
 	}

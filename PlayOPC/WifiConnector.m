@@ -46,6 +46,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	_reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
 	_reachability = [Reachability reachabilityForLocalWiFi];
 	_networkStatus = NotReachable;
+	_cameraResponded = NO;
 	
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -199,7 +200,11 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	BOOL disconnected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
+		// FIXME: 電源オフできない。 {
+		//     電源オフ中に、接続状態更新のためにカメラにCGIコマンドを送っちゃうと、電源オフがキャンセルされてしまうみたい。
+		//     ここ専用の、接続状態を監視する処理を実装する必要がありそう。
 		[self updateStatus];
+		// FIXME: }
 		if (self.networkStatus == NotReachable || !self.cameraResponded) {
 			disconnected = YES;
 			break;
@@ -239,10 +244,10 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 - (void)updateStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
+	NetworkStatus previousNetworkStatus = self.networkStatus;
+	BOOL previousCameraResponded = self.cameraResponded;
+	
 	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
-	if (self.networkStatus == networkStatus) {
-		return;
-	}
 	if (networkStatus == NotReachable) {
 		// Wi-Fi未接続
 		self.networkStatus = NotReachable;
@@ -257,10 +262,15 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	} else {
 		// ここにはこないはず...
 	}
-	dispatch_async(dispatch_get_main_queue(), ^{
-		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-		[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
-	});
+	
+	// 状態に変化があった時にだけ通知します。
+	if (self.networkStatus != previousNetworkStatus ||
+		self.cameraResponded != previousCameraResponded) {
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
+		});
+	}
 }
 
 /// ネットワーク接続情報を更新します。

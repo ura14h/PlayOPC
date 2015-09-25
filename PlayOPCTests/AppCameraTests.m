@@ -36,7 +36,7 @@
 	{
 		NSError *error = nil;
 		AppCamera *camera = [[AppCamera alloc] init];
-		XCTAssertTrue([camera connect:&error], @"%@", error);
+		XCTAssertTrue([camera connect:OLYCameraConnectionTypeBluetoothLE error:&error], @"%@", error);
 		XCTAssertTrue([camera changeRunMode:OLYCameraRunModeRecording error:&error], @"%@", error);
 		NSDictionary *properties = @{
 			@"TAKEMODE": @"<TAKEMODE/A>",
@@ -53,7 +53,7 @@
 	{
 		NSError *error = nil;
 		AppCamera *camera = [[AppCamera alloc] init];
-		XCTAssertTrue([camera connect:&error], @"%@", error);
+		XCTAssertTrue([camera connect:OLYCameraConnectionTypeBluetoothLE error:&error], @"%@", error);
 		XCTAssertTrue([camera changeRunMode:OLYCameraRunModeRecording error:&error], @"%@", error);
 		NSDictionary *properties1 = @{ @"TAKEMODE": @"<TAKEMODE/A>" };
 		NSDictionary *properties2 = @{ @"RECENTLY_ART_FILTER": @"<RECENTLY_ART_FILTER/VINTAGE>" };
@@ -68,7 +68,7 @@
 	{
 		NSError *error = nil;
 		AppCamera *camera = [[AppCamera alloc] init];
-		XCTAssertTrue([camera connect:&error], @"%@", error);
+		XCTAssertTrue([camera connect:OLYCameraConnectionTypeBluetoothLE error:&error], @"%@", error);
 		XCTAssertTrue([camera changeRunMode:OLYCameraRunModeRecording error:&error], @"%@", error);
 		NSDictionary *properties1 = @{ @"TAKEMODE": @"<TAKEMODE/A>" };
 		NSDictionary *properties2 = @{ @"COLORTONE": @"<COLORTONE/VINTAGE>" };
@@ -83,7 +83,7 @@
 	{
 		NSError *error = nil;
 		AppCamera *camera = [[AppCamera alloc] init];
-		XCTAssertTrue([camera connect:&error], @"%@", error);
+		XCTAssertTrue([camera connect:OLYCameraConnectionTypeBluetoothLE error:&error], @"%@", error);
 		XCTAssertTrue([camera changeRunMode:OLYCameraRunModeRecording error:&error], @"%@", error);
 		NSDictionary *properties1 = @{ @"TAKEMODE": @"<TAKEMODE/A>" };
 		NSDictionary *properties2 = @{ @"COLORTONE": @"<COLORTONE/VINTAGE>" };

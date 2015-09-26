@@ -12,14 +12,9 @@
 #import "FavoriteLoadingViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
+#import "AppFavoriteSetting.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
-
-static NSString *const FavoriteSettingListNameKey = @"FavoriteSettingListNameKey";
-static NSString *const FavoriteSettingListPathKey = @"FavoriteSettingListPathKey";
-static NSString *const FavoriteSettingListDateKey = @"FavoriteSettingListDateKey";
-static NSString *const FavoriteSettingNameKey = @"FavoriteSettingName";
-static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 
 @interface FavoriteLoadingViewController ()
 
@@ -97,57 +92,14 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		return;
 	}
 
-	/// お気に入り設定一覧を読込みます。
+	/// お気に入り設定一覧の表示を開始します。
 	__weak FavoriteLoadingViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// 共有ドキュメントフォルダにあるファイルの名前を読み取ります。
-		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *directoryPath = directoryPaths[0];
-		NSFileManager *fileManager = [NSFileManager defaultManager];
-		NSError *error = nil;
-		NSArray *contents = [fileManager contentsOfDirectoryAtPath:directoryPath error:&error];
-		if (!contents) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didStartActivity")];
-			return;
-		}
 
-		// お気に入り設定のファイルを一覧に加えます。
-		NSMutableArray *favoriteSettingList = [[NSMutableArray alloc] init];
-		[contents enumerateObjectsUsingBlock:^(NSString *path, NSUInteger index, BOOL *stop) {
-			// お気に入り設定のファイル名は"Favorite-YYYYMMDDHHMMSS.plist"です。
-			NSString *filename = [[path lastPathComponent] lowercaseString];
-			if (![filename hasPrefix:@"favorite-"] ||
-				![filename hasSuffix:@".plist"]) {
-				return;
-			}
-			
-			// 一覧で使用する要素を取得します。
-			NSString *filePath = [directoryPath stringByAppendingPathComponent:path];
-			NSError *error = nil;
-			NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
-			NSDate *fileDate = fileAttributes[NSFileModificationDate];
-			NSDictionary *favoriteSetting = [NSDictionary dictionaryWithContentsOfFile:filePath];
-			if (!favoriteSetting[FavoriteSettingNameKey] ||
-				!favoriteSetting[FavoriteSettingSnapshotKey]) {
-				return;
-			}
-			NSString *favoriteName = favoriteSetting[FavoriteSettingNameKey];
-			if (favoriteName.length == 0) {
-				return;
-			}
-			
-			// 取得した要素を持つ辞書を一覧に加えます。
-			NSDictionary *favoriteListItem = @{
-				FavoriteSettingListNameKey: favoriteName,
-				FavoriteSettingListPathKey: filePath,
-				FavoriteSettingListDateKey: fileDate,
-			};
-			[favoriteSettingList addObject:favoriteListItem];
-		}];
-		DEBUG_LOG(@"favoriteSettingList=%@", favoriteSettingList);
-		weakSelf.favoriteSettingList = favoriteSettingList;
+		/// お気に入り設定一覧を読込みます。
+		NSArray *favoriteSettingList = [AppFavoriteSetting listOfSettings];
+		weakSelf.favoriteSettingList = [favoriteSettingList mutableCopy];
 		
 		// 一覧を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -193,10 +145,10 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 	NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
 	
 	// お気に入り設定の名前を表示します。
-	cell.textLabel.text = favoriteSetting[FavoriteSettingListNameKey];
+	cell.textLabel.text = favoriteSetting[AppFavoriteSettingListNameKey];
 
 	// お気に入り設定の更新日時を表示します。
-	NSDate *date = favoriteSetting[FavoriteSettingListDateKey];
+	NSDate *date = favoriteSetting[AppFavoriteSettingListDateKey];
 	NSString *dateText;
 	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 	NSTimeInterval past = [date timeIntervalSinceDate:[NSDate date]];
@@ -220,27 +172,16 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 	
 	// カメラに設定するお気に入り設定ファイルのパスを取得します。
 	NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
-	NSString *filePath = favoriteSetting[FavoriteSettingListPathKey];
+	NSString *filePath = favoriteSetting[AppFavoriteSettingListPathKey];
 
 	// カメラ設定のロードを開始します。
 	__weak FavoriteLoadingViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
-		// 共有ドキュメントフォルダから設定のスナップショットファイルを読み込みます。
-		NSDictionary *favoriteSetting = [NSDictionary dictionaryWithContentsOfFile:filePath];
-		if (!favoriteSetting[FavoriteSettingNameKey] ||
-			!favoriteSetting[FavoriteSettingSnapshotKey]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
-			return;
-		}
-		NSString *favoriteName = favoriteSetting[FavoriteSettingNameKey];
-		if (favoriteName.length == 0) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingName", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
-			return;
-		}
-		NSDictionary *snapshot = favoriteSetting[FavoriteSettingSnapshotKey];
-		if (!snapshot) {
+		// 共有ドキュメントフォルダからお気に入り設定を読み込みます。
+		AppFavoriteSetting *setting = [AppFavoriteSetting favoriteSettingWithContentsOfFile:filePath];
+		if (!setting) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingSnapshot", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
@@ -251,7 +192,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		NSArray *exclude = @[
 			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 		];
-		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
+		if (![camera restoreSnapshotOfSetting:setting.snapshot exclude:exclude error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
@@ -278,13 +219,11 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 
 	// カメラに設定するお気に入り設定ファイルのパスを取得します。
 	NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
-	NSString *filePath = favoriteSetting[FavoriteSettingListPathKey];
+	NSString *filePath = favoriteSetting[AppFavoriteSettingListPathKey];
 	
 	// お気に入り設定のファイルを削除します。
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	NSError *error = nil;
-	if (![fileManager removeItemAtPath:filePath error:&error]) {
-		[self showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.commitEditingStyle")];
+	if (![AppFavoriteSetting removeFile:filePath]) {
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.commitEditingStyle") title:NSLocalizedString(@"$title:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.commitEditingStyle")];
 		return;
 	}
 	

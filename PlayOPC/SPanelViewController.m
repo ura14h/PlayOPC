@@ -12,6 +12,7 @@
 #import "SPanelViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
+#import "AppFavoriteSetting.h"
 #import "CameraPropertyValueSelectionViewController.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
@@ -580,32 +581,13 @@
 	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:enabled];
 
 	// お気に入りを読込みは、お気に入り設定のファイルが存在している時だけ有効にします。
+	BOOL hasFavorites = NO;
 	if (enabled) {
-		__block BOOL hasFavorites = NO;
-		// 共有ドキュメントフォルダにあるファイルの名前を読み取ります。
-		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *directoryPath = directoryPaths[0];
-		NSFileManager *fileManager = [NSFileManager defaultManager];
-		NSError *error = nil;
-		NSArray *contents = [fileManager contentsOfDirectoryAtPath:directoryPath error:&error];
-		if (contents) {
-			// お気に入り設定のファイル名は"Favorite-YYYYMMDDHHMMSS.plist"です。
-			[contents enumerateObjectsUsingBlock:^(NSString *path, NSUInteger index, BOOL *stop) {
-				NSString *filename = [[path lastPathComponent] lowercaseString];
-				if ([filename hasPrefix:@"favorite-"] &&
-					[filename hasSuffix:@".plist"]) {
-					hasFavorites = YES;
-					*stop = YES;
-				}
-			}];
-		} else {
-			// ディレクトリリストの取得に失敗しました。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
+		if ([AppFavoriteSetting countOfSettings] > 0) {
+			hasFavorites = YES;
 		}
-		[self tableViewCell:self.showLoadFavoiteSettingCell enabled:hasFavorites];
-	} else {
-		[self tableViewCell:self.showLoadFavoiteSettingCell enabled:NO];
 	}
+	[self tableViewCell:self.showLoadFavoiteSettingCell enabled:hasFavorites];
 }
 
 /// カメラプロパティ値を表示します。

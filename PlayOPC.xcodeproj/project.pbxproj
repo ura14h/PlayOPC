@@ -88,6 +88,8 @@
 		3164EA0B1B5C833C00B4C3EC /* FavoriteSavingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164EA091B5C833C00B4C3EC /* FavoriteSavingViewController.m */; };
 		3165E5E51ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
 		3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
+		316859B21BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; settings = {ASSET_TAGS = (); }; };
+		316859B31BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; settings = {ASSET_TAGS = (); }; };
 		31731EB91AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
 		31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
 		31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EBC1AEB886A0094193A /* APanelViewController.m */; };
@@ -272,6 +274,8 @@
 		3164EA091B5C833C00B4C3EC /* FavoriteSavingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteSavingViewController.m; sourceTree = "<group>"; };
 		3165E5E31ADBC21200D4A680 /* LiveImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveImageView.h; sourceTree = "<group>"; };
 		3165E5E41ADBC21200D4A680 /* LiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveImageView.m; sourceTree = "<group>"; };
+		316859B01BB61847007CFE1E /* AppFavoriteSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppFavoriteSetting.h; sourceTree = "<group>"; };
+		316859B11BB61847007CFE1E /* AppFavoriteSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppFavoriteSetting.m; sourceTree = "<group>"; };
 		31731EB71AEB88140094193A /* EPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPanelViewController.h; sourceTree = "<group>"; };
 		31731EB81AEB88140094193A /* EPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		31731EBB1AEB886A0094193A /* APanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APanelViewController.h; sourceTree = "<group>"; };
@@ -541,6 +545,8 @@
 				314826901B4FE82C00AB057A /* AppSetting.m */,
 				31F3782C1AE12D23001A7CAD /* AppCamera.h */,
 				31F3782D1AE12D23001A7CAD /* AppCamera.m */,
+				316859B01BB61847007CFE1E /* AppFavoriteSetting.h */,
+				316859B11BB61847007CFE1E /* AppFavoriteSetting.m */,
 				314D7A4E1ACFDA03004C2644 /* AppCameraLog.h */,
 				314D7A4F1ACFDA03004C2644 /* AppCameraLog.m */,
 				31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */,
@@ -970,6 +976,7 @@
 				31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */,
 				313D44B81B0CCF0700D6EEAC /* CPanelViewController.m in Sources */,
 				319284381AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
+				316859B21BB61847007CFE1E /* AppFavoriteSetting.m in Sources */,
 				3165E5E51ADBC21200D4A680 /* LiveImageView.m in Sources */,
 				3164EA061B5C832100B4C3EC /* FavoriteLoadingViewController.m in Sources */,
 				314D7A481ACF87AE004C2644 /* WifiConnector.m in Sources */,
@@ -1021,6 +1028,7 @@
 				311268FD1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
 				31731EBE1AEB886A0094193A /* APanelViewController.m in Sources */,
 				313D44B91B0CCF0700D6EEAC /* CPanelViewController.m in Sources */,
+				316859B31BB61847007CFE1E /* AppFavoriteSetting.m in Sources */,
 				311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
 				3164EA071B5C832100B4C3EC /* FavoriteLoadingViewController.m in Sources */,
 				313870A51AC7D27600B00309 /* BluetoothConnector.m in Sources */,

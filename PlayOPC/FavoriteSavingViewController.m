@@ -12,11 +12,9 @@
 #import "FavoriteSavingViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
+#import "AppFavoriteSetting.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
-
-static NSString *const FavoriteSettingNameKey = @"FavoriteSettingName";
-static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 
 @interface FavoriteSavingViewController () <UITextFieldDelegate>
 
@@ -137,7 +135,7 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 	// キーボードを閉じます。
 	[self.favoriteSettingNameText resignFirstResponder];
 	
-	// 現在のカメラ設定をお気に入りとして保存します。
+	// 現在のカメラ設定をお気に入り設定として保存します。
 	__weak FavoriteSavingViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
@@ -152,25 +150,8 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 		}
 		
 		// 取得したカメラプロパティの設定値を共有ドキュメントフォルダのファイルとして保存します。
-		NSDictionary *favoriteSetting = @{
-			FavoriteSettingNameKey: name,
-			FavoriteSettingSnapshotKey: snapshot,
-		};
-		NSArray *directoryPaths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-		NSString *directoryPath = directoryPaths[0];
-		NSString *fileName;
-		{
-			// お気に入り設定のファイル名は"Favorite-YYYYMMDDHHMMSS.plist"です。
-			NSDate *timestamp = [NSDate date];
-			NSDateFormatter *timestampFormatter = [[NSDateFormatter alloc] init];
-			[timestampFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"UTC"]];
-			[timestampFormatter setDateFormat:@"yyyyMMddHHmmss"];
-			fileName = [NSString stringWithFormat:@"Favorite-%@.plist", [timestampFormatter stringFromDate:timestamp]];
-		}
-		NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
-		DEBUG_LOG(@"filePath=%@", filePath);
-		DEBUG_LOG(@"fileContent=%@", snapshot);
-		if (![favoriteSetting writeToFile:filePath atomically:YES]) {
+		AppFavoriteSetting *setting = [[AppFavoriteSetting alloc] initWithSnapshot:snapshot name:name];
+		if (![setting writeToFile]) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotWriteFavoriteSettingFile", @"FavoriteSavingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteSavingViewController.didTapSaveButton")];
 			return;
 		}

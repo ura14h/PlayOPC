@@ -12,7 +12,7 @@
 ### OLYCamera(CameraConnection)
 
 * bluetoothServices
-* connect:
+* ~~connect:~~
 * connect:error:
 * connectingRequiresBluetoothPassword:
 * disconnectWithPowerOff:error:

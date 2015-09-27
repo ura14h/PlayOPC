@@ -36,6 +36,7 @@
 		311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C51ABC287C00A7D38C /* Main.storyboard */; };
 		311B75C91ABC287C00A7D38C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C81ABC287C00A7D38C /* Images.xcassets */; };
 		311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75D71ABC287C00A7D38C /* PlayOPCTests.m */; };
+		311CF4D41BB7861E00366493 /* ContentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
 		311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
 		311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
 		312689581B56AA0E00183C1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3126895B1B56AA0E00183C1E /* Localizable.strings */; };
@@ -1038,6 +1039,7 @@
 				31C80DF21B6DD0E900E77BA4 /* MarginedLabel.m in Sources */,
 				311268F91AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
 				3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */,
+				311CF4D41BB7861E00366493 /* ContentDetailViewController.m in Sources */,
 				31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */,
 				311199BD1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
 				31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */,

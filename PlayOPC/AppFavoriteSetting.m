@@ -72,16 +72,16 @@ static NSString *const FavoriteSettingSnapshotKey = @"FavoriteSettingSnapshot";
 
 	// お気に入り設定のファイルを一覧に加えます。
 	NSMutableArray *favoriteSettingList = [[NSMutableArray alloc] init];
-	[contents enumerateObjectsUsingBlock:^(NSString *path, NSUInteger index, BOOL *stop) {
+	[contents enumerateObjectsUsingBlock:^(NSString *fileName, NSUInteger index, BOOL *stop) {
 		// お気に入り設定のファイル名は"Favorite-YYYYMMDDHHMMSS.plist"です。
-		NSString *fileName = [[path lastPathComponent] lowercaseString];
-		if (![fileName hasPrefix:@"favorite-"] ||
-			![fileName hasSuffix:@".plist"]) {
+		NSString *lowercaseName = [[fileName lastPathComponent] lowercaseString];
+		if (![lowercaseName hasPrefix:@"favorite-"] ||
+			![lowercaseName hasSuffix:@".plist"]) {
 			return;
 		}
 		
 		// 一覧で使用する要素を取得します。
-		NSString *filePath = [directoryPath stringByAppendingPathComponent:path];
+		NSString *filePath = [directoryPath stringByAppendingPathComponent:fileName];
 		NSError *error = nil;
 		NSDictionary *fileAttributes = [fileManager attributesOfItemAtPath:filePath error:&error];
 		NSDate *fileDate = fileAttributes[NSFileModificationDate];

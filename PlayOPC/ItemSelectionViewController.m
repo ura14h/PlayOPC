@@ -43,6 +43,14 @@ NSString *const ItemSelectionViewItemValueKey = @"ItemSelectionViewItemValueKey"
 	return self;
 }
 
+- (void)viewDidLoad {
+	DEBUG_LOG(@"");
+	[super viewDidLoad];
+	
+	// 不要な行を表示しないようにします。
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
+}
+
 - (void)didReceiveMemoryWarning {
 	DEBUG_LOG(@"");
 	[super didReceiveMemoryWarning];

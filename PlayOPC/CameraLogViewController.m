@@ -44,6 +44,9 @@
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 	[notificationCenter addObserver:self selector:@selector(applicationDidBecomeActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
 	[notificationCenter addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:nil];
+
+	// 不要な行を表示しないようにします。
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	
 	// 画面表示を初期表示します。
 	self.tableView.estimatedRowHeight = self.tableView.rowHeight;

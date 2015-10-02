@@ -38,6 +38,9 @@
 
 	// お気に入り設定一覧をクリアします。
 	self.favoriteSettingList = [[NSMutableArray alloc] init];
+
+	// 不要な行を表示しないようにします。
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 	
 	// 画面表示を初期表示します。
 	self.navigationItem.rightBarButtonItem = [self editButtonItem];

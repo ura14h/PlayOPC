@@ -55,6 +55,9 @@
 	[properties addObject:CameraPropertyBracketPictPartcolor];
 	self.properties = properties;
 	self.propertyValues = nil;
+
+	// 不要な行を表示しないようにします。
+	self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
 }
 
 - (void)didReceiveMemoryWarning {

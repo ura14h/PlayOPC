@@ -212,26 +212,98 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_LOG(@"indexPath.row=%ld", (long)indexPath.row);
 	
-	// 削除操作以外は無視します。
-	if (editingStyle != UITableViewCellEditingStyleDelete) {
-		return;
-	}
+	// MARK: セルを左スワイプした時にアクションを表示するためには、このメソッドを空っぽの実装で用意しなければなりません。
 
-	// カメラに設定するお気に入り設定ファイルのパスを取得します。
-	NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
-	NSString *filePath = favoriteSetting[AppFavoriteSettingListPathKey];
-	
-	// お気に入り設定のファイルを削除します。
-	if (![AppFavoriteSetting removeFile:filePath]) {
-		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.commitEditingStyle") title:NSLocalizedString(@"$title:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.commitEditingStyle")];
-		return;
-	}
-	
-	// お気に入り設定一覧から削除します。
-	[self.favoriteSettingList removeObjectAtIndex:indexPath.row];
-	
-	// 画面表示を更新します。
-	[self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+/// セルを左スワイプした時に表示されるアクション群を返します。
+/// 編集モードに入った時にも呼び出されます。
+- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+	DEBUG_LOG(@"indexPath.row=%ld", (long)indexPath.row);
+
+	// 削除アクションを構築します。
+	__weak FavoriteLoadingViewController *weakSelf = self;
+	NSString *deleteActionTitle = @"Delete";//NSLocalizedString(@"$title:DeleteFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
+	UITableViewRowActionStyle deleteActionStyle = UITableViewRowActionStyleDestructive;
+	void (^deleteActionHandler)(UITableViewRowAction *action, NSIndexPath *indexPath) = ^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+		
+		// カメラに設定するお気に入り設定ファイルのパスを取得します。
+		NSDictionary *favoriteSetting = weakSelf.favoriteSettingList[indexPath.row];
+		NSString *filePath = favoriteSetting[AppFavoriteSettingListPathKey];
+		
+		// お気に入り設定の共有を開始します。
+		[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+			// お気に入り設定のファイルを削除します。
+			if (![AppFavoriteSetting removeFile:filePath]) {
+				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotDeleteFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath")];
+				return;
+			}
+			
+			// お気に入り設定一覧から削除します。
+			[weakSelf.favoriteSettingList removeObjectAtIndex:indexPath.row];
+
+			// 画面表示を更新します。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				[weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+			}];
+		}];
+	};
+	UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:deleteActionStyle title:deleteActionTitle handler:deleteActionHandler];
+
+	// 共有アクションを構築します。
+	NSString *shareActionTitle = @"Share";//NSLocalizedString(@"$title:ShareFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
+	UITableViewRowActionStyle shareActionStyle = UITableViewRowActionStyleNormal;
+	void (^shareActionHandler)(UITableViewRowAction *action, NSIndexPath *indexPath) = ^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+		
+		// カメラに設定するお気に入り設定ファイルのパスを取得します。
+		NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
+		NSString *filePath = favoriteSetting[AppFavoriteSettingListPathKey];
+		
+		// お気に入り設定の共有を開始します。
+		[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+			// 共有ドキュメントフォルダからお気に入り設定を読み込みます。
+			AppFavoriteSetting *setting = [AppFavoriteSetting favoriteSettingWithContentsOfFile:filePath];
+			if (!setting) {
+				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath")];
+				return;
+			}
+			
+			// お気に入り設定を共有できるようにフォーマット変換します。
+			NSString *snapshotText = [setting.snapshot description];
+			DEBUG_LOG(@"snapshotText=%@", snapshotText);
+			
+#if 0 // このブロックはサンプルコードです。
+			// 共有機能で得たお気に入り設定のテキストは以下の方法で辞書に逆変換でできます。
+			NSDictionary *snapshot = nil;
+			@try { snapshot = [snapshotText propertyList]; } @catch (NSException *e) {};
+			if (!snapshot) {
+				// Could not load a snapshot text into a dictionary.
+			}
+#endif
+			
+			// 共有ダイアログを表示します。
+			// 一番最初だけ表示されるまでとても時間がかかるようです。
+			NSArray *shareItems = @[ snapshotText ];
+			UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+			shareController.popoverPresentationController.sourceView = weakSelf.view;
+			shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+				DEBUG_LOG(@"sharing completed.");
+			};
+			
+			// 画面表示を更新します。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				[weakSelf presentViewController:shareController animated:YES completion:nil];
+			}];
+		}];
+	};
+	UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:shareActionStyle title:shareActionTitle handler:shareActionHandler];
+
+	// 左スワイプで使用できるアクションを返します。
+	return @[deleteAction, shareAction];
 }
 
 #pragma mark -

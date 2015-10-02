@@ -1,0 +1,78 @@
+
+/* Class = "UILabel"; text = "Stop Magnifying"; ObjectID = "08b-hE-Eee"; */
+"08b-hE-Eee.text" = "Stop Magnifying";
+
+/* Class = "UILabel"; text = "Zooming Speed"; ObjectID = "0w0-xP-gLR"; */
+"0w0-xP-gLR.text" = "Zooming Speed";
+
+/* Class = "UITableViewSection"; footerTitle = "By doing a long press on a live-view, it will start magnifying the live-view at the pressed point or stop."; ObjectID = "2fU-Xa-ydD"; */
+"2fU-Xa-ydD.footerTitle" = "By doing a long press on a live-view, it will start magnifying the live-view at the pressed point or stop.";
+
+/* Class = "UITableViewSection"; headerTitle = "Live View Magnifying"; ObjectID = "2fU-Xa-ydD"; */
+"2fU-Xa-ydD.headerTitle" = "Live View Magnifying";
+
+/* Class = "UILabel"; text = "Maximum Focal Length"; ObjectID = "4A7-Pi-ct1"; */
+"4A7-Pi-ct1.text" = "Maximum Focal Length";
+
+/* Class = "UINavigationItem"; title = "Zooming & Magnifying"; ObjectID = "B6p-Qx-ngH"; */
+"B6p-Qx-ngH.title" = "Zooming & Magnifying";
+
+/* Class = "UITableViewSection"; headerTitle = "Optical Zooming"; ObjectID = "E8V-Tq-ayW"; */
+"E8V-Tq-ayW.headerTitle" = "Optical Zooming";
+
+/* Class = "UILabel"; text = "Current Scale"; ObjectID = "Jyn-Xg-dds"; */
+"Jyn-Xg-dds.text" = "Current Scale";
+
+/* Class = "UILabel"; text = "Minimum Scale"; ObjectID = "NRY-CK-AwW"; */
+"NRY-CK-AwW.text" = "Minimum Scale";
+
+/* Class = "UILabel"; text = "$opticalZoomingMinimumFocalLength"; ObjectID = "Yur-A9-sXW"; */
+"Yur-A9-sXW.text" = "$opticalZoomingMinimumFocalLength";
+
+/* Class = "UILabel"; text = "$digitalZoomingMaximumScale"; ObjectID = "bSY-CE-H7y"; */
+"bSY-CE-H7y.text" = "$digitalZoomingMaximumScale";
+
+/* Class = "UILabel"; text = "Current Focal Length"; ObjectID = "cXn-Qy-mzk"; */
+"cXn-Qy-mzk.text" = "Current Focal Length";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "eg4-wE-x1X"; */
+"eg4-wE-x1X.title" = "Back";
+
+/* Class = "UILabel"; text = "$opticalZoomingCurrentFocalLength"; ObjectID = "gR3-GL-Ug5"; */
+"gR3-GL-Ug5.text" = "$opticalZoomingCurrentFocalLength";
+
+/* Class = "UILabel"; text = "$opticalZoomingMaximumFocalLength"; ObjectID = "hNa-Ll-1HJ"; */
+"hNa-Ll-1HJ.text" = "$opticalZoomingMaximumFocalLength";
+
+/* Class = "UILabel"; text = "Minimum Focal Length"; ObjectID = "mJ3-qt-dXo"; */
+"mJ3-qt-dXo.text" = "Minimum Focal Length";
+
+/* Class = "UILabel"; text = "Toward Tele End"; ObjectID = "qP8-z0-RNf"; */
+"qP8-z0-RNf.text" = "Toward Tele End";
+
+/* Class = "UILabel"; text = "$zoomingSpeed"; ObjectID = "qXs-eU-8In"; */
+"qXs-eU-8In.text" = "$zoomingSpeed";
+
+/* Class = "UILabel"; text = "$digitalZoomingMinimumScale"; ObjectID = "s9I-TW-R8P"; */
+"s9I-TW-R8P.text" = "$digitalZoomingMinimumScale";
+
+/* Class = "UILabel"; text = "Toward Wide End"; ObjectID = "t8k-9a-Mx7"; */
+"t8k-9a-Mx7.text" = "Toward Wide End";
+
+/* Class = "UILabel"; text = "$digitalZoomingCurrentScale"; ObjectID = "ufQ-7R-eg2"; */
+"ufQ-7R-eg2.text" = "$digitalZoomingCurrentScale";
+
+/* Class = "UILabel"; text = "Magnifying Scale"; ObjectID = "wQZ-qK-vXe"; */
+"wQZ-qK-vXe.text" = "Magnifying Scale";
+
+/* Class = "UILabel"; text = "$magnifyingLiveViewScale"; ObjectID = "wdZ-oa-9RA"; */
+"wdZ-oa-9RA.text" = "$magnifyingLiveViewScale";
+
+/* Class = "UILabel"; text = "Start Magnifying"; ObjectID = "wjs-bX-rGU"; */
+"wjs-bX-rGU.text" = "Start Magnifying";
+
+/* Class = "UILabel"; text = "Maximum Scale"; ObjectID = "wnj-mY-May"; */
+"wnj-mY-May.text" = "Maximum Scale";
+
+/* Class = "UITableViewSection"; headerTitle = "Digital Zooming"; ObjectID = "ypT-Po-UZa"; */
+"ypT-Po-UZa.headerTitle" = "Digital Zooming";

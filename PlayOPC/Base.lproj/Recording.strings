@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "$progressLabel"; ObjectID = "5u4-rp-8Ro"; */
+"5u4-rp-8Ro.text" = "$progressLabel";
+
+/* Class = "UINavigationItem"; title = "Recording"; ObjectID = "Bwv-Qk-bIY"; */
+"Bwv-Qk-bIY.title" = "Recording";
+
+/* Class = "UINavigationItem"; title = "Latest Picture"; ObjectID = "S2d-Sr-ERw"; */
+"S2d-Sr-ERw.title" = "Latest Picture";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "VB8-9s-G3D"; */
+"VB8-9s-G3D.title" = "Back";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uQh-LP-Yxa"; */
+"uQh-LP-Yxa.title" = "Back";

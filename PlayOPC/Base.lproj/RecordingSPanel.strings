@@ -1,0 +1,135 @@
+
+/* Class = "UITableViewSection"; footerTitle = "Current camera setting will be stored to a file in the application document folder as a new favorite setting."; ObjectID = "116-X0-wUo"; */
+"116-X0-wUo.footerTitle" = "Current camera setting will be stored to a file in the application document folder as a new favorite setting.";
+
+/* Class = "UILabel"; text = "$highTemperatureWarning"; ObjectID = "1Y5-Zw-ei2"; */
+"1Y5-Zw-ei2.text" = "$highTemperatureWarning";
+
+/* Class = "UILabel"; text = "$favoriteSettingName"; ObjectID = "465-nw-A9k"; */
+"465-nw-A9k.text" = "$favoriteSettingName";
+
+/* Class = "UILabel"; text = "$exposureWarning"; ObjectID = "4lE-HM-eFR"; */
+"4lE-HM-eFR.text" = "$exposureWarning";
+
+/* Class = "UITableViewSection"; headerTitle = "Exposure Status"; ObjectID = "7Yo-QQ-yhb"; */
+"7Yo-QQ-yhb.headerTitle" = "Exposure Status";
+
+/* Class = "UILabel"; text = "$mediaBusy"; ObjectID = "7mU-eZ-7BK"; */
+"7mU-eZ-7BK.text" = "$mediaBusy";
+
+/* Class = "UILabel"; text = "$exposureMeteringWarning"; ObjectID = "ATH-BD-dsT"; */
+"ATH-BD-dsT.text" = "$exposureMeteringWarning";
+
+/* Class = "UILabel"; text = "$remainingVideoCapacity"; ObjectID = "Gy6-lg-jMZ"; */
+"Gy6-lg-jMZ.text" = "$remainingVideoCapacity";
+
+/* Class = "UILabel"; text = "$remainingMediaCapacity"; ObjectID = "H9u-8g-b78"; */
+"H9u-8g-b78.text" = "$remainingMediaCapacity";
+
+/* Class = "UILabel"; text = "ISO Sensitivity Warning"; ObjectID = "I04-eO-ByW"; */
+"I04-eO-ByW.text" = "ISO Sensitivity Warning";
+
+/* Class = "UILabel"; text = "Exposure Metering Warning"; ObjectID = "JLP-Md-VaC"; */
+"JLP-Md-VaC.text" = "Exposure Metering Warning";
+
+/* Class = "UILabel"; text = "$datetime"; ObjectID = "KnL-dB-ciM"; */
+"KnL-dB-ciM.text" = "$datetime";
+
+/* Class = "UILabel"; text = "Name"; ObjectID = "LCD-5d-ebj"; */
+"LCD-5d-ebj.text" = "Name";
+
+/* Class = "UITextField"; placeholder = "Enter New Name"; ObjectID = "Lpp-CV-j1C"; */
+"Lpp-CV-j1C.placeholder" = "Enter New Name";
+
+/* Class = "UITextField"; text = "$favoriteSettingName"; ObjectID = "Lpp-CV-j1C"; */
+"Lpp-CV-j1C.text" = "$favoriteSettingName";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "MLt-wl-EAM"; */
+"MLt-wl-EAM.title" = "Back";
+
+/* Class = "UILabel"; text = "<BATTERY_LEVEL>"; ObjectID = "MSE-k3-Bs1"; */
+"MSE-k3-Bs1.text" = "<BATTERY_LEVEL>";
+
+/* Class = "UILabel"; text = "Pitching"; ObjectID = "MsN-mV-E94"; */
+"MsN-mV-E94.text" = "Pitching";
+
+/* Class = "UILabel"; text = "Exposure Warning"; ObjectID = "N7h-6t-xgt"; */
+"N7h-6t-xgt.text" = "Exposure Warning";
+
+/* Class = "UILabel"; text = "$levelGaugeOrientation"; ObjectID = "OEC-Zk-vam"; */
+"OEC-Zk-vam.text" = "$levelGaugeOrientation";
+
+/* Class = "UILabel"; text = "$levelGaugePitching"; ObjectID = "OKk-tA-hFz"; */
+"OKk-tA-hFz.text" = "$levelGaugePitching";
+
+/* Class = "UILabel"; text = "Save Favorite Setting"; ObjectID = "TLe-q0-pZS"; */
+"TLe-q0-pZS.text" = "Save Favorite Setting";
+
+/* Class = "UILabel"; text = "$remainingImageCapacity"; ObjectID = "Uei-FO-Kfo"; */
+"Uei-FO-Kfo.text" = "$remainingImageCapacity";
+
+/* Class = "UILabel"; text = "As Video"; ObjectID = "W5h-CZ-dyH"; */
+"W5h-CZ-dyH.text" = "As Video";
+
+/* Class = "UINavigationItem"; title = "Favorite Setting"; ObjectID = "X2g-ve-QMR"; */
+"X2g-ve-QMR.title" = "Favorite Setting";
+
+/* Class = "UILabel"; text = "Orientation"; ObjectID = "ZCU-zu-KZA"; */
+"ZCU-zu-KZA.text" = "Orientation";
+
+/* Class = "UINavigationItem"; title = "Status & Favorites"; ObjectID = "aJH-iV-cwY"; */
+"aJH-iV-cwY.title" = "Status & Favorites";
+
+/* Class = "UITableViewSection"; headerTitle = "Media Status"; ObjectID = "aJV-Ja-LDI"; */
+"aJV-Ja-LDI.headerTitle" = "Media Status";
+
+/* Class = "UILabel"; text = "High Temperature Warning"; ObjectID = "av1-HT-p58"; */
+"av1-HT-p58.text" = "High Temperature Warning";
+
+/* Class = "UILabel"; text = "As Image"; ObjectID = "cLo-Wd-JiV"; */
+"cLo-Wd-JiV.text" = "As Image";
+
+/* Class = "UILabel"; text = "Media Error"; ObjectID = "dmp-U2-gPj"; */
+"dmp-U2-gPj.text" = "Media Error";
+
+/* Class = "UINavigationItem"; title = "Favorite Setting"; ObjectID = "jXf-tp-1CI"; */
+"jXf-tp-1CI.title" = "Favorite Setting";
+
+/* Class = "UILabel"; text = "$levelGaugeRolling"; ObjectID = "nCr-ut-r50"; */
+"nCr-ut-r50.text" = "$levelGaugeRolling";
+
+/* Class = "UITableViewSection"; headerTitle = "Camera Body Status"; ObjectID = "nwF-s3-gVq"; */
+"nwF-s3-gVq.headerTitle" = "Camera Body Status";
+
+/* Class = "UILabel"; text = "$isoSensitivityWarning"; ObjectID = "rZk-bZ-q1y"; */
+"rZk-bZ-q1y.text" = "$isoSensitivityWarning";
+
+/* Class = "UITableViewSection"; headerTitle = "Level Gauge"; ObjectID = "s87-tB-NRK"; */
+"s87-tB-NRK.headerTitle" = "Level Gauge";
+
+/* Class = "UILabel"; text = "As Media"; ObjectID = "tT0-f3-QXk"; */
+"tT0-f3-QXk.text" = "As Media";
+
+/* Class = "UITableViewSection"; footerTitle = "Favorite camera setting is a file in the application document folder. You can access that file via iTunes."; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.footerTitle" = "Favorite camera setting is a file in the application document folder. You can access that file via iTunes.";
+
+/* Class = "UITableViewSection"; headerTitle = "Favorite Settings"; ObjectID = "ts7-hs-b3f"; */
+"ts7-hs-b3f.headerTitle" = "Favorite Settings";
+
+/* Class = "UILabel"; text = "Media Busy"; ObjectID = "uzN-D8-YLw"; */
+"uzN-D8-YLw.text" = "Media Busy";
+
+/* Class = "UITableViewSection"; headerTitle = "Media Capacity"; ObjectID = "vYb-uG-cq7"; */
+"vYb-uG-cq7.headerTitle" = "Media Capacity";
+
+/* Class = "UILabel"; text = "$batteryLevel"; ObjectID = "x6d-BN-78p"; */
+"x6d-BN-78p.text" = "$batteryLevel";
+
+/* Class = "UILabel"; text = "$mediaError"; ObjectID = "yji-Ga-Cbc"; */
+"yji-Ga-Cbc.text" = "$mediaError";
+
+/* Class = "UILabel"; text = "Rolling"; ObjectID = "zQq-Ju-YwQ"; */
+"zQq-Ju-YwQ.text" = "Rolling";
+
+/* Class = "UILabel"; text = "Load Favorite Setting"; ObjectID = "zc6-wd-thZ"; */
+"zc6-wd-thZ.text" = "Load Favorite Setting";

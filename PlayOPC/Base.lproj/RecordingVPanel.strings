@@ -1,0 +1,102 @@
+
+/* Class = "UILabel"; text = "<SOUND_VOLUME_LEVEL>"; ObjectID = "0CR-9U-OuC"; */
+"0CR-9U-OuC.text" = "<SOUND_VOLUME_LEVEL>";
+
+/* Class = "UILabel"; text = "$qualityMovie"; ObjectID = "2c2-lo-YJa"; */
+"2c2-lo-YJa.text" = "$qualityMovie";
+
+/* Class = "UILabel"; text = "$compressibilityRatio"; ObjectID = "2pG-O6-FiK"; */
+"2pG-O6-FiK.text" = "$compressibilityRatio";
+
+/* Class = "UILabel"; text = "<RAW>"; ObjectID = "3DU-Qu-SqB"; */
+"3DU-Qu-SqB.text" = "<RAW>";
+
+/* Class = "UILabel"; text = "<ASPECT_RATIO>"; ObjectID = "5N1-fw-pvM"; */
+"5N1-fw-pvM.text" = "<ASPECT_RATIO>";
+
+/* Class = "UILabel"; text = "$qualityMovieShortMovieRecordTime"; ObjectID = "7Md-8e-wJU"; */
+"7Md-8e-wJU.text" = "$qualityMovieShortMovieRecordTime";
+
+/* Class = "UILabel"; text = "$soundVolumeLevel"; ObjectID = "8in-ZU-5e2"; */
+"8in-ZU-5e2.text" = "$soundVolumeLevel";
+
+/* Class = "UILabel"; text = "$destinationFile"; ObjectID = "BHd-rO-SC3"; */
+"BHd-rO-SC3.text" = "$destinationFile";
+
+/* Class = "UITableViewSection"; headerTitle = "View Settings"; ObjectID = "DiU-da-fHW"; */
+"DiU-da-fHW.headerTitle" = "View Settings";
+
+/* Class = "UILabel"; text = "$faceScan"; ObjectID = "EoN-ng-fll"; */
+"EoN-ng-fll.text" = "$faceScan";
+
+/* Class = "UITableViewSection"; footerTitle = "The current geolocation is set automatically when the app enters in Recording mode. But you can set current geolocation by manual operation again."; ObjectID = "Iwr-3f-fte"; */
+"Iwr-3f-fte.footerTitle" = "The current geolocation is set automatically when the app enters in Recording mode. But you can set current geolocation by manual operation again.";
+
+/* Class = "UITableViewSection"; headerTitle = "Geolocation"; ObjectID = "Iwr-3f-fte"; */
+"Iwr-3f-fte.headerTitle" = "Geolocation";
+
+/* Class = "UILabel"; text = "$recview"; ObjectID = "JRJ-rL-P0U"; */
+"JRJ-rL-P0U.text" = "$recview";
+
+/* Class = "UILabel"; text = "Set Current Geolocation"; ObjectID = "K2Z-at-ajA"; */
+"K2Z-at-ajA.text" = "Set Current Geolocation";
+
+/* Class = "UILabel"; text = "Clear Gelocation"; ObjectID = "Luj-NT-XUW"; */
+"Luj-NT-XUW.text" = "Clear Gelocation";
+
+/* Class = "UILabel"; text = "<DESTINATION_FILE>"; ObjectID = "PFH-de-Wxc"; */
+"PFH-de-Wxc.text" = "<DESTINATION_FILE>";
+
+/* Class = "UILabel"; text = "Live View Size"; ObjectID = "PLg-5A-6fg"; */
+"PLg-5A-6fg.text" = "Live View Size";
+
+/* Class = "UILabel"; text = "<QUALITY_MOVIE>"; ObjectID = "RdK-wG-HkR"; */
+"RdK-wG-HkR.text" = "<QUALITY_MOVIE>";
+
+/* Class = "UILabel"; text = "<FACE_SCAN>"; ObjectID = "RjD-mH-6qW"; */
+"RjD-mH-6qW.text" = "<FACE_SCAN>";
+
+/* Class = "UILabel"; text = "$raw"; ObjectID = "RuS-sL-lhf"; */
+"RuS-sL-lhf.text" = "$raw";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "ShF-v7-Ifd"; */
+"ShF-v7-Ifd.title" = "Back";
+
+/* Class = "UILabel"; text = "<GPS>"; ObjectID = "ZR0-FK-JtI"; */
+"ZR0-FK-JtI.text" = "<GPS>";
+
+/* Class = "UILabel"; text = "<IMAGESIZE>"; ObjectID = "cFt-DR-ea3"; */
+"cFt-DR-ea3.text" = "<IMAGESIZE>";
+
+/* Class = "UINavigationItem"; title = "View & Save"; ObjectID = "dqC-mJ-y4t"; */
+"dqC-mJ-y4t.title" = "View & Save";
+
+/* Class = "UILabel"; text = "<RECVIEW>"; ObjectID = "fI2-my-DTM"; */
+"fI2-my-DTM.text" = "<RECVIEW>";
+
+/* Class = "UILabel"; text = "$gps"; ObjectID = "iiZ-bF-5Cg"; */
+"iiZ-bF-5Cg.text" = "$gps";
+
+/* Class = "UILabel"; text = "<COMPRESSIBILITY_RATIO>"; ObjectID = "nBr-u5-wIe"; */
+"nBr-u5-wIe.text" = "<COMPRESSIBILITY_RATIO>";
+
+/* Class = "UILabel"; text = "$aspectRatio"; ObjectID = "o9f-yR-ysv"; */
+"o9f-yR-ysv.text" = "$aspectRatio";
+
+/* Class = "UILabel"; text = "$imagesize"; ObjectID = "pGM-Tj-bJa"; */
+"pGM-Tj-bJa.text" = "$imagesize";
+
+/* Class = "UITableViewSection"; footerTitle = "A focusing sound, a shutter sound, an error sound are included in this sound."; ObjectID = "s2M-2Z-d2l"; */
+"s2M-2Z-d2l.footerTitle" = "A focusing sound, a shutter sound, an error sound are included in this sound.";
+
+/* Class = "UITableViewSection"; headerTitle = "Sound Setting"; ObjectID = "s2M-2Z-d2l"; */
+"s2M-2Z-d2l.headerTitle" = "Sound Setting";
+
+/* Class = "UITableViewSection"; headerTitle = "Save Settings"; ObjectID = "tkM-73-zOl"; */
+"tkM-73-zOl.headerTitle" = "Save Settings";
+
+/* Class = "UILabel"; text = "<QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME>"; ObjectID = "vin-ci-KqI"; */
+"vin-ci-KqI.text" = "<QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME>";
+
+/* Class = "UILabel"; text = "$liveViewSize"; ObjectID = "zkA-bB-ciD"; */
+"zkA-bB-ciD.text" = "$liveViewSize";

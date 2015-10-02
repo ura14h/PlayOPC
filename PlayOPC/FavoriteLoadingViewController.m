@@ -223,7 +223,7 @@
 
 	// 削除アクションを構築します。
 	__weak FavoriteLoadingViewController *weakSelf = self;
-	NSString *deleteActionTitle = @"Delete";//NSLocalizedString(@"$title:DeleteFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
+	NSString *deleteActionTitle = NSLocalizedString(@"$title:DeleteFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
 	UITableViewRowActionStyle deleteActionStyle = UITableViewRowActionStyleDestructive;
 	void (^deleteActionHandler)(UITableViewRowAction *action, NSIndexPath *indexPath) = ^(UITableViewRowAction *action, NSIndexPath *indexPath) {
 		
@@ -253,7 +253,7 @@
 	UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:deleteActionStyle title:deleteActionTitle handler:deleteActionHandler];
 
 	// 共有アクションを構築します。
-	NSString *shareActionTitle = @"Share";//NSLocalizedString(@"$title:ShareFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
+	NSString *shareActionTitle = NSLocalizedString(@"$title:ShareFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
 	UITableViewRowActionStyle shareActionStyle = UITableViewRowActionStyleNormal;
 	void (^shareActionHandler)(UITableViewRowAction *action, NSIndexPath *indexPath) = ^(UITableViewRowAction *action, NSIndexPath *indexPath) {
 		

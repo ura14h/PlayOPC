@@ -1,4 +1,4 @@
-﻿/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
+/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
 
 /* EPanelViewController.updateShowApertureCell */
 "$cell:ApertureValueNotAvailable" = "無効";
@@ -423,6 +423,9 @@
    ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。";
 
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$desc:CouldNotDeleteFavoriteSetting" = "アプリのドキュメントフォルダにある、お気に入り設定ファイルを削除できません。";
+
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotDiscoverWifiConnection" = "カメラの電源は入れましたが、Wi-Fi接続は見つかりませんでした。このデバイスが自動で接続しない状態か、他のデバイスがすでに接続中かもしれません。";
 
@@ -433,14 +436,9 @@
    ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "このデバイスはインターネットに接続していません。Wi-Fi経由で開きたい場合は先にカメラとの接続を解除しておく必要があります。";
 
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
+/* FavoriteLoadingViewController.didSelectRowAtIndexPath
+   FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "お気に入りファイルが読めません。";
-
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
-"$desc:CouldNotReadFavoriteSettingName" = "お気に入りファイルが読めません。このファイルはアプリが想定しているフォーマットではないようです。";
-
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
-"$desc:CouldNotReadFavoriteSettingSnapshot" = "お気に入りファイルが読めません。このファイルはアプリが想定しているフォーマットではないようです。";
 
 /* WifiConnector.startMonitoring */
 "$desc:CouldNotStartMonitoring" = "Wi-Fi接続の状態監視を開始できません。";
@@ -594,7 +592,7 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$title:CouldNotConnectWifi" = "Wi-Fiで接続できません";
 
-/* FavoriteLoadingViewController.commitEditingStyle */
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:CouldNotDeleteFavoriteSetting" = "お気に入り設定を削除できません";
 
 /* PlaybackViewController.downloadContentList */
@@ -625,7 +623,7 @@
 "$title:CouldNotGetScreennail" = "動画の代表画像が取得できません";
 
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
-   FavoriteLoadingViewController.didStartActivity */
+   FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:CouldNotLoadFavoriteSetting" = "お気に入り設定が読み込めません";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
@@ -736,6 +734,9 @@
 /* SystemViewController.didChangeWifiCh */
 "$title:DelayNewWifiSetting" = "設定はすぐに適用されません";
 
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$title:DeleteFavroiteSetting" = "削除";
+
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
 "$title:ExecuteClearCameraSetting" = "カメラ設定をクリア";
 
@@ -829,6 +830,9 @@
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ResizeVideo" = "この動画をリサイズ";
+
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$title:ShareFavroiteSetting" = "共有";
 
 /* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
 "$title:TakePictureByAutoBracketingFailed" = "すべての写真を撮影できませんでした";

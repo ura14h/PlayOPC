@@ -1,4 +1,4 @@
-﻿/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
+/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
 
 /* EPanelViewController.updateShowApertureCell */
 "$cell:ApertureValueNotAvailable" = "N/A";
@@ -423,6 +423,9 @@
    ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
 
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$desc:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting file in the application's document folder.";
+
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotDiscoverWifiConnection" = "The camera did wake up, but Wi-Fi connection was not found. This device is in condition not to be connected automatically, or other devices may be already connected.";
 
@@ -433,14 +436,9 @@
    ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "The device does not connect to the Internet. If you want to open the site via Wi-Fi, it is necessary to disconnect camera connection first.";
 
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
+/* FavoriteLoadingViewController.didSelectRowAtIndexPath
+   FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "Could not read a favorite setting file.";
-
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
-"$desc:CouldNotReadFavoriteSettingName" = "Could not read a favorite setting file. It seems to be different that application expects the format of this file.";
-
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
-"$desc:CouldNotReadFavoriteSettingSnapshot" = "Could not read a favorite setting file. It seems to be different that application expects the format of this file.";
 
 /* WifiConnector.startMonitoring */
 "$desc:CouldNotStartMonitoring" = "Could not start monitoring a status of Wi-Fi connection.";
@@ -594,7 +592,7 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$title:CouldNotConnectWifi" = "Could not connect with using Wi-Fi";
 
-/* FavoriteLoadingViewController.commitEditingStyle */
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting";
 
 /* PlaybackViewController.downloadContentList */
@@ -625,7 +623,7 @@
 "$title:CouldNotGetScreennail" = "Could not get screennail";
 
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
-   FavoriteLoadingViewController.didStartActivity */
+   FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:CouldNotLoadFavoriteSetting" = "Could not load favorite setting";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
@@ -736,6 +734,9 @@
 /* SystemViewController.didChangeWifiCh */
 "$title:DelayNewWifiSetting" = "This setting is not applied immediately";
 
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$title:DeleteFavroiteSetting" = "Delete";
+
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
 "$title:ExecuteClearCameraSetting" = "Clear camera setting";
 
@@ -829,6 +830,9 @@
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ResizeVideo" = "Resize this video";
+
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$title:ShareFavroiteSetting" = "Share";
 
 /* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
 "$title:TakePictureByAutoBracketingFailed" = "Could not taking all pictures";

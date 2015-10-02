@@ -1,0 +1,87 @@
+
+/* Class = "UILabel"; text = "<FOCUS_STILL>"; ObjectID = "0RA-Tv-3w1"; */
+"0RA-Tv-3w1.text" = "<FOCUS_STILL>";
+
+/* Class = "UILabel"; text = "<AE_LOCK_STATE>"; ObjectID = "2xO-7o-Ypp"; */
+"2xO-7o-Ypp.text" = "<AE_LOCK_STATE>";
+
+/* Class = "UITableViewSection"; headerTitle = "Action Modes"; ObjectID = "3bg-mT-FjB"; */
+"3bg-mT-FjB.headerTitle" = "Action Modes";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "7Fw-fv-xsW"; */
+"7Fw-fv-xsW.title" = "Back";
+
+/* Class = "UILabel"; text = "<ANTI_SHAKE_MOVIE>"; ObjectID = "9eO-x3-CyU"; */
+"9eO-x3-CyU.text" = "<ANTI_SHAKE_MOVIE>";
+
+/* Class = "UILabel"; text = "<FULL_TIME_AF>"; ObjectID = "J0N-SR-8a1"; */
+"J0N-SR-8a1.text" = "<FULL_TIME_AF>";
+
+/* Class = "UILabel"; text = "$aeLockState"; ObjectID = "JPR-p9-gK7"; */
+"JPR-p9-gK7.text" = "$aeLockState";
+
+/* Class = "UISegmentedControl"; Kne-3f-kN0.segmentTitles[0] = "AF"; ObjectID = "Kne-3f-kN0"; */
+"Kne-3f-kN0.segmentTitles[0]" = "AF";
+
+/* Class = "UISegmentedControl"; Kne-3f-kN0.segmentTitles[1] = "AE"; ObjectID = "Kne-3f-kN0"; */
+"Kne-3f-kN0.segmentTitles[1]" = "AE";
+
+/* Class = "UILabel"; text = "$antiShakeMovie"; ObjectID = "LTJ-SG-5td"; */
+"LTJ-SG-5td.text" = "$antiShakeMovie";
+
+/* Class = "UILabel"; text = "$focusMovie"; ObjectID = "Lox-Pd-ljz"; */
+"Lox-Pd-ljz.text" = "$focusMovie";
+
+/* Class = "UILabel"; text = "<FOCUS_MOVIE>"; ObjectID = "M8J-pO-wtl"; */
+"M8J-pO-wtl.text" = "<FOCUS_MOVIE>";
+
+/* Class = "UITableViewSection"; headerTitle = "Image Stabilization Settings"; ObjectID = "Nkr-o0-t1M"; */
+"Nkr-o0-t1M.headerTitle" = "Image Stabilization Settings";
+
+/* Class = "UILabel"; text = "<AF_LOCK_STATE>"; ObjectID = "O9h-rD-MNk"; */
+"O9h-rD-MNk.text" = "<AF_LOCK_STATE>";
+
+/* Class = "UILabel"; text = "Unlock AF"; ObjectID = "SPp-10-Q7a"; */
+"SPp-10-Q7a.text" = "Unlock AF";
+
+/* Class = "UILabel"; text = "Tapping Live View"; ObjectID = "SXB-cg-i5u"; */
+"SXB-cg-i5u.text" = "Tapping Live View";
+
+/* Class = "UILabel"; text = "$afLockState"; ObjectID = "Se0-Xm-bRZ"; */
+"Se0-Xm-bRZ.text" = "$afLockState";
+
+/* Class = "UITableViewSection"; headerTitle = "Auto Exposure Settings"; ObjectID = "bEZ-mJ-Ca9"; */
+"bEZ-mJ-Ca9.headerTitle" = "Auto Exposure Settings";
+
+/* Class = "UILabel"; text = "$antiShakeFocalLength"; ObjectID = "bfG-iS-0zG"; */
+"bfG-iS-0zG.text" = "$antiShakeFocalLength";
+
+/* Class = "UITableViewSection"; headerTitle = "Auto Exposure"; ObjectID = "eRJ-8W-Hx9"; */
+"eRJ-8W-Hx9.headerTitle" = "Auto Exposure";
+
+/* Class = "UILabel"; text = "$ae"; ObjectID = "gF7-9W-B30"; */
+"gF7-9W-B30.text" = "$ae";
+
+/* Class = "UITableViewSection"; headerTitle = "Auto Focus"; ObjectID = "gbP-IX-xSb"; */
+"gbP-IX-xSb.headerTitle" = "Auto Focus";
+
+/* Class = "UINavigationItem"; title = "AF, AE & IS"; ObjectID = "gmV-DI-59Z"; */
+"gmV-DI-59Z.title" = "AF, AE & IS";
+
+/* Class = "UILabel"; text = "<AE>"; ObjectID = "jBa-4b-ehQ"; */
+"jBa-4b-ehQ.text" = "<AE>";
+
+/* Class = "UILabel"; text = "$focusStill"; ObjectID = "jtm-Et-BfD"; */
+"jtm-Et-BfD.text" = "$focusStill";
+
+/* Class = "UILabel"; text = "$fullTimeAf"; ObjectID = "prG-KV-zzF"; */
+"prG-KV-zzF.text" = "$fullTimeAf";
+
+/* Class = "UILabel"; text = "Unlock AE"; ObjectID = "tBv-Bz-kqN"; */
+"tBv-Bz-kqN.text" = "Unlock AE";
+
+/* Class = "UILabel"; text = "<ANTI_SHAKE_FOCAL_LENGTH>"; ObjectID = "uyY-7n-fse"; */
+"uyY-7n-fse.text" = "<ANTI_SHAKE_FOCAL_LENGTH>";
+
+/* Class = "UITableViewSection"; headerTitle = "Auto Focus Settings"; ObjectID = "wt5-st-q46"; */
+"wt5-st-q46.headerTitle" = "Auto Focus Settings";

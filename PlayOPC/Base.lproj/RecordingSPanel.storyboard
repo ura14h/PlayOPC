@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8191" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="FAx-pf-Otd">
     <dependencies>
-        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
     </dependencies>
     <scenes>
@@ -413,7 +412,7 @@
                         <outlet property="remainingImageCapacityCell" destination="G3O-qo-wPy" id="hMh-I9-zPb"/>
                         <outlet property="remainingMediaCapacityCell" destination="Utb-Oq-Ps6" id="EDi-Wg-8XW"/>
                         <outlet property="remainingVideoCapacityCell" destination="iUQ-mm-t4L" id="a2x-tX-Igf"/>
-                        <outlet property="showLoadFavoiteSettingCell" destination="lM4-1H-NRF" id="qpm-xL-1sv"/>
+                        <outlet property="showLoadFavoriteSettingCell" destination="lM4-1H-NRF" id="qpm-xL-1sv"/>
                         <outlet property="showSaveFavoriteSettingCell" destination="t79-fu-pg8" id="Oeu-9E-VDa"/>
                     </connections>
                 </tableViewController>

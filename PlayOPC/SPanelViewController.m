@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeOrientationCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeRollingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugePitchingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *showLoadFavoiteSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showLoadFavoriteSettingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showSaveFavoriteSettingCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
@@ -89,7 +89,7 @@
 	self.levelGaugeOrientationCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugeRollingCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugePitchingCell.detailTextLabel.text = emptyDetailTextLabel;
-	[self tableViewCell:self.showLoadFavoiteSettingCell enabled:NO];
+	[self tableViewCell:self.showLoadFavoriteSettingCell enabled:NO];
 	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:NO];
 }
 
@@ -136,7 +136,7 @@
 	// 表示を更新します。
 	// お気に入りの読込みや保存の画面との間で内容変更を通知したりするプロトコルを増やすのが面倒なので、
 	// まとめてここで強制的に更新するようにしています。
-	[self updateShowFavoiteSettingCells:YES];
+	[self updateShowFavoriteSettingCells:YES];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -170,7 +170,7 @@
 	[self updateRemainingImageCapacityCell];
 	[self updateRemainingVideoCapacityCell];
 	[self updateLevelGaugeCell];
-	[self updateShowFavoiteSettingCells:YES];
+	[self updateShowFavoriteSettingCells:YES];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -186,7 +186,7 @@
 	}
 
 	// 表示を更新します。
-	[self updateShowFavoiteSettingCells:NO];
+	[self updateShowFavoriteSettingCells:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -574,7 +574,7 @@
 }
 
 /// お気に入りの読込みを表示します。
-- (void)updateShowFavoiteSettingCells:(BOOL)enabled {
+- (void)updateShowFavoriteSettingCells:(BOOL)enabled {
 	DEBUG_LOG(@"");
 
 	// お気に入りへ保存は、常に有効です。
@@ -587,7 +587,7 @@
 			hasFavorites = YES;
 		}
 	}
-	[self tableViewCell:self.showLoadFavoiteSettingCell enabled:hasFavorites];
+	[self tableViewCell:self.showLoadFavoriteSettingCell enabled:hasFavorites];
 }
 
 /// カメラプロパティ値を表示します。

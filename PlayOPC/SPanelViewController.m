@@ -33,8 +33,10 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeOrientationCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugeRollingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *levelGaugePitchingCell;
-@property (weak, nonatomic) IBOutlet UITableViewCell *showLoadFavoriteSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *doCopyCameraSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *doPasteCameraSettingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showSaveFavoriteSettingCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showLoadFavoriteSettingCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (strong, nonatomic) NSMutableDictionary *cameraPropertyObserver; ///< 監視するカメラプロパティ名とメソッド名の辞書
@@ -89,8 +91,10 @@
 	self.levelGaugeOrientationCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugeRollingCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.levelGaugePitchingCell.detailTextLabel.text = emptyDetailTextLabel;
-	[self tableViewCell:self.showLoadFavoriteSettingCell enabled:NO];
+	[self tableViewCell:self.doCopyCameraSettingCell enabled:NO];
+	[self tableViewCell:self.doPasteCameraSettingCell enabled:NO];
 	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:NO];
+	[self tableViewCell:self.showLoadFavoriteSettingCell enabled:NO];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -136,7 +140,8 @@
 	// 表示を更新します。
 	// お気に入りの読込みや保存の画面との間で内容変更を通知したりするプロトコルを増やすのが面倒なので、
 	// まとめてここで強制的に更新するようにしています。
-	[self updateShowFavoriteSettingCells:YES];
+	[self updateDoPasteCameraSettingCell];
+	[self updateShowLoadFavoriteSettingCell];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -170,7 +175,10 @@
 	[self updateRemainingImageCapacityCell];
 	[self updateRemainingVideoCapacityCell];
 	[self updateLevelGaugeCell];
-	[self updateShowFavoriteSettingCells:YES];
+	[self tableViewCell:self.doCopyCameraSettingCell enabled:YES];
+	[self updateDoPasteCameraSettingCell];
+	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:YES];
+	[self updateShowLoadFavoriteSettingCell];
 
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
@@ -186,7 +194,10 @@
 	}
 
 	// 表示を更新します。
-	[self updateShowFavoriteSettingCells:NO];
+	[self tableViewCell:self.doCopyCameraSettingCell enabled:NO];
+	[self tableViewCell:self.doPasteCameraSettingCell enabled:NO];
+	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:NO];
+	[self tableViewCell:self.showLoadFavoriteSettingCell enabled:NO];
 	
 	// ビューコントローラーが活動を停止しました。
 	self.startingActivity = NO;
@@ -203,10 +214,14 @@
 	NSString *cellReuseIdentifier = cell.reuseIdentifier;
 	
 	// セルに応じたカメラ操作処理を呼び出します。
-	if ([cellReuseIdentifier isEqualToString:@"ShowLoadFavoriteSetting"]) {
-		[self didSelectRowAtShowLoadFavoriteSettingCell];
+	if ([cellReuseIdentifier isEqualToString:@"DoCopyCameraSetting"]) {
+		[self didSelectRowAtDoCopyCameraSetting];
+	} else if ([cellReuseIdentifier isEqualToString:@"DoPasteCameraSetting"]) {
+		[self didSelectRowAtDoPasteCameraSetting];
 	} else if ([cellReuseIdentifier isEqualToString:@"ShowSaveFavoriteSetting"]) {
 		[self didSelectRowAtShowSaveFavoriteSettingCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"ShowLoadFavoriteSetting"]) {
+		[self didSelectRowAtShowLoadFavoriteSettingCell];
 	} else {
 		// 何もしません。
 	}
@@ -347,12 +362,23 @@
 	[self updateLevelGaugeCell];
 }
 
-/// 'Load Favorite Setting'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtShowLoadFavoriteSettingCell {
+/// 'Copy Camera Setting'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtDoCopyCameraSetting {
 	DEBUG_LOG(@"");
+	
+	// TODO: 未実装
+	DEBUG_LOG(@"*** 未実装 ***");
 
-	// セグエで遷移するので特に何もしません。
-	// この呼び出しは無駄だが'Save Favorite Setting'との対比として置いておくことにします。
+	// 画面表示を更新します。
+	[self updateDoPasteCameraSettingCell];
+}
+
+/// 'Paste Camera Setting'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtDoPasteCameraSetting {
+	DEBUG_LOG(@"");
+	
+	// TODO: 未実装
+	DEBUG_LOG(@"*** 未実装 ***");
 }
 
 /// 'Save Favorite Setting'のセルが選択されたときに呼び出されます。
@@ -368,6 +394,14 @@
 		navigationController = navigationController.navigationController;
 	}
 	[navigationController pushViewController:viewController animated:YES];
+}
+
+/// 'Load Favorite Setting'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtShowLoadFavoriteSettingCell {
+	DEBUG_LOG(@"");
+
+	// セグエで遷移するので特に何もしません。
+	// この呼び出しは無駄だが'Save Favorite Setting'との対比として置いておくことにします。
 }
 
 #pragma mark -
@@ -573,20 +607,45 @@
 	self.levelGaugePitchingCell.detailTextLabel.text = levelGuagePitching;
 }
 
-/// お気に入りの読込みを表示します。
-- (void)updateShowFavoriteSettingCells:(BOOL)enabled {
+/// カメラ設定の貼り付けを表示します。
+- (void)updateDoPasteCameraSettingCell {
 	DEBUG_LOG(@"");
 
-	// お気に入りへ保存は、常に有効です。
-	[self tableViewCell:self.showSaveFavoriteSettingCell enabled:enabled];
+	// カメラ設定貼り付けは、ペーストボードにカメラ設定が存在している時だけ有効にします。
+	BOOL hasSetting = NO;
+
+	// ペーストボードからカメラ設定を取得します。
+	UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+	NSString *snapshotText = [pasteboard valueForPasteboardType:@"public.text"];
+	if (snapshotText) {
+		// ペーストボードから取得したテキストをプロパティリストの辞書に変換します。
+		NSData *data = [snapshotText dataUsingEncoding:NSUnicodeStringEncoding];
+		NSPropertyListFormat format;
+		NSError *error = nil;
+		NSData *plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:&error];
+		// プロパティリストがカメラ設定か否かを確認します。
+		// TODO: もう少し厳密な検査が必要。
+		if ([plist isKindOfClass:[NSDictionary class]]) {
+			NSDictionary *snapshot = (NSDictionary *)plist;
+			hasSetting = YES;
+		}
+	}
+	
+	// 表示を更新します。
+	[self tableViewCell:self.doPasteCameraSettingCell enabled:hasSetting];
+}
+
+/// お気に入りの読込みを表示します。
+- (void)updateShowLoadFavoriteSettingCell {
+	DEBUG_LOG(@"");
 
 	// お気に入りを読込みは、お気に入り設定のファイルが存在している時だけ有効にします。
 	BOOL hasFavorites = NO;
-	if (enabled) {
-		if ([AppFavoriteSetting countOfSettings] > 0) {
-			hasFavorites = YES;
-		}
+	if ([AppFavoriteSetting countOfSettings] > 0) {
+		hasFavorites = YES;
 	}
+
+	// 表示を更新します。
 	[self tableViewCell:self.showLoadFavoriteSettingCell enabled:hasFavorites];
 }
 

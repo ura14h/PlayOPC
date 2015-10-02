@@ -1541,7 +1541,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// スナップショットから復元する情報を取り出します。
 	if (!snapshot[CameraSettingSnapshotFormatVersionKey] ||
 		![snapshot[CameraSettingSnapshotFormatVersionKey] isEqualToString:CameraSettingSnapshotFormatVersion]) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CameraSettingSnapshotFormatVersionUnmatched" };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraSettingSnapshotFormatVersionUnmatched", @"AppCamera.restoreSnapshotOfSetting")
+		};
 		NSError *internalError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -1831,7 +1833,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// オートブラケット撮影の設定が妥当かを検査します。
 	if ([self cameraActionType] != AppCameraActionTypeTakingPictureAutoBracketing) {
 		// オートブラケット撮影は無効です。
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"auto bracketting is not available." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:AutoBrackettingIsNotAvailable", @"AppCamera.startTakingPictureByAutoBracketing")
+		};
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 		errorHandler(error);
 		return;
@@ -1840,7 +1844,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		self.autoBracketingCount >  9 ||
 		(self.autoBracketingCount % 2) == 0) {
 		// 撮影枚数は3以上の奇数でなければなりません。
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"auto bracketting count is incorrect." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:AutoBrackettingCountIsIncorrect", @"AppCamera.startTakingPictureByAutoBracketing")
+		};
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		errorHandler(error);
 		return;
@@ -1848,7 +1854,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (self.autoBracketingStep < 1 ||		// 1 step = 0.3EV
 		self.autoBracketingStep > 9) {		// 9 step = 3.0EV
 		// カメラプロパティ値を変更するステップ数は1以上でなければなりません。
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"auto bracketting step is incorrect." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:AutoBrackettingStepIsIncorrect", @"AppCamera.startTakingPictureByAutoBracketing")
+		};
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		errorHandler(error);
 		return;
@@ -2046,7 +2054,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				timeout = 5.0; // MARK: Bluetoothだとかなり遅れて設定されるようです。
 			} else {
 				// 異常事態が発生している場合は撮影は中止です。
-				NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not connected." };
+				NSDictionary *userInfo = @{
+					NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotConnected", @"AppCamera.startTakingPictureByAutoBracketing")
+				};
 				takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorNotConnected userInfo:userInfo];
 				break;
 			}
@@ -2056,7 +2066,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				while (![weakSelf.actualExposureCompensation isEqualToString:propertyValue]) {
 					if ([[NSDate date] timeIntervalSinceDate:startTime] > timeout) {
 						// 設定がある程度の時間内に適用されない場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera could not change a value of property." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraCouldNotChangeValueOfProperty", @"AppCamera.startTakingPictureByAutoBracketing")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorCameraBusy userInfo:userInfo];
 						break;
 					}
@@ -2064,7 +2076,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByAutoBracketing")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 						break;
 					}
@@ -2075,7 +2089,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				while (![weakSelf.actualShutterSpeed isEqualToString:propertyValue]) {
 					if ([[NSDate date] timeIntervalSinceDate:startTime] > timeout) {
 						// 設定がある程度の時間内に適用されない場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera could not change a value of property." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraCouldNotChangeValueOfProperty", @"AppCamera.startTakingPictureByAutoBracketing")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorCameraBusy userInfo:userInfo];
 						break;
 					}
@@ -2083,7 +2099,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByAutoBracketing")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 						break;
 					}
@@ -2141,7 +2159,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByAutoBracketing")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 						break;
 					}
@@ -2156,7 +2176,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByAutoBracketing")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 						break;
 					}
@@ -2314,21 +2336,27 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// インターバルタイマー撮影の設定が妥当かを検査します。
 	if ([self cameraActionType] != AppCameraActionTypeTakingPictureIntervalTimer) {
 		// インターバルタイマー撮影は無効です。
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer is not available." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:IntervalTimerIsNotAvailable", @"AppCamera.startTakingPictureByIntervalTimer")
+		};
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 		errorHandler(error);
 		return;
 	}
 	if (self.intervalTimerCount < 1) {
 		// 撮影枚数は1以上でなければなりません。
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer count is incorrect." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:IntervalTimerCountIsIncorrect", @"AppCamera.startTakingPictureByIntervalTimer")
+		};
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		errorHandler(error);
 		return;
 	}
 	if (self.intervalTimerTime < 1.0) {
 		// 撮影間隔は1秒以上でなければなりません。
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"interval timer time is incorrect." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:IntervalTimerTimeIsIncorrect", @"AppCamera.startTakingPictureByIntervalTimer")
+		};
 		NSError *error = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		errorHandler(error);
 		return;
@@ -2480,7 +2508,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByIntervalTimer")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 						break;
 					}
@@ -2495,7 +2525,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[NSThread sleepForTimeInterval:0.05];
 					} else {
 						// 異常事態が発生している場合は撮影は中止です。
-						NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+						NSDictionary *userInfo = @{
+							NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByIntervalTimer")
+						};
 						takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 						break;
 					}
@@ -2523,7 +2555,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					[NSThread sleepForTimeInterval:0.05];
 				} else {
 					// 異常事態が発生している場合は撮影は中止です。
-					NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"camera is not recording mode." };
+					NSDictionary *userInfo = @{
+						NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraIsNotRecordingMode", @"AppCamera.startTakingPictureByIntervalTimer")
+					};
 					takingError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidOperations userInfo:userInfo];
 					break;
 				}

@@ -80,7 +80,9 @@
 	if (authorizationStatus == kCLAuthorizationStatusNotDetermined ||
 		authorizationStatus == kCLAuthorizationStatusDenied ||
 		authorizationStatus == kCLAuthorizationStatusRestricted) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized" };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized", @"RecordingLocationManager.currentLocation")
+		};
 		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorDenied userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -90,7 +92,9 @@
 	
 	// メインスレッドで実行できません。
 	if ([NSThread isMainThread]) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CouldNotPerformCurrentLocationInMainThread." };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CouldNotPerformCurrentLocationInMainThread", @"RecordingLocationManager.currentLocation")
+		};
 		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -100,7 +104,9 @@
 
 	// すでに実行中の場合はさらに実行できません。
 	if (self.running) {
-		NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CurrentLocationIsRunning" };
+		NSDictionary *userInfo = @{
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CurrentLocationIsRunning", @"RecordingLocationManager.currentLocation")
+		};
 		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
 		if (error) {
 			*error = internalError;
@@ -141,7 +147,9 @@
 	if (!location) {
 		// 現在位置が取得できませんでした。
 		if (!locationError) {
-			NSDictionary *userInfo = @{ NSLocalizedDescriptionKey: @"$desc:CouldNotGetCurrentGeolocation" };
+			NSDictionary *userInfo = @{
+				NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CouldNotGetCurrentGeolocation", @"RecordingLocationManager.currentLocation")
+			};
 			NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
 			locationError = internalError;
 		}

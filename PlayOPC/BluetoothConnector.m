@@ -215,7 +215,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		[notificationCenter postNotificationName:BluetoothConnectionChangedNotification object:self];
 	} else {
 		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: @"$desc:ConnectingBluetoothPeripheralTimedOut"
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:ConnectingBluetoothPeripheralTimedOut", @"BluetoothConnector.connectPeripheral")
 		};
 		NSError *theError = [NSError errorWithDomain:BluetoothConnectorErrorDomain code:BluetoothConnectorErrorTimeout userInfo:userInfo];
 		DEBUG_LOG(@"error=%@", theError);
@@ -282,7 +282,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		[notificationCenter postNotificationName:BluetoothConnectionChangedNotification object:self];
 	} else {
 		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: @"$desc:DisconnectingBluetoothPeripheralTimedOut"
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:DisconnectingBluetoothPeripheralTimedOut", @"BluetoothConnector.disconnectPeripheral")
 		};
 		NSError *theError = [NSError errorWithDomain:BluetoothConnectorErrorDomain code:BluetoothConnectorErrorTimeout userInfo:userInfo];
 		DEBUG_LOG(@"error=%@", theError);

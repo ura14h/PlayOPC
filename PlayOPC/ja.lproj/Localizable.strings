@@ -392,6 +392,15 @@
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "不明";
 
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:AutoBrackettingCountIsIncorrect" = "オートブラケットの枚数が正しくありません。";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:AutoBrackettingIsNotAvailable" = "オートブラケットが有効になっていません。";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:AutoBrackettingStepIsIncorrect" = "オートブラケットのステップ数が正しくありません。";
+
 /* BluetoothConnector.connectPeripheral */
 "$desc:BluetoothPeripheralConnected" = "Bluetoothデバイスにすでに接続しています。";
 
@@ -400,6 +409,19 @@
 
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetoothデバイスはすでに見つかっています。";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:CameraCouldNotChangeValueOfProperty" = "カメラプロパティ値が変更できません。";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:CameraIsNotConnected" = "カメラが接続されていません。";
+
+/* AppCamera.startTakingPictureByAutoBracketing
+   AppCamera.startTakingPictureByIntervalTimer */
+"$desc:CameraIsNotRecordingMode" = "カメラが撮影モードではありません。";
+
+/* AppCamera.restoreSnapshotOfSetting */
+"$desc:CameraSettingSnapshotFormatVersionUnmatched" = "カメラ設定のデータフォーマットが一致しません。";
 
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSelectItemInTaking" = "撮影動作中は設定の変更は許可されていません。";
@@ -416,6 +438,12 @@
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth機能は利用できません。「設定」で有効にしてください。";
 
+/* RecordingLocationManager.currentLocation */
+"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized" = "位置情報サービスが許可されていません。";
+
+/* BluetoothConnector.connectPeripheral */
+"$desc:ConnectingBluetoothPeripheralTimedOut" = "Bluetoothデバイスへの接続がタイムアウトしました。";
+
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectPeripheralIsRunnning" = "Bluetoothデバイスへの接続は実行中です。";
 
@@ -429,12 +457,18 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotDiscoverWifiConnection" = "カメラの電源は入れましたが、Wi-Fi接続は見つかりませんでした。このデバイスが自動で接続しない状態か、他のデバイスがすでに接続中かもしれません。";
 
+/* RecordingLocationManager.currentLocation */
+"$desc:CouldNotGetCurrentGeolocation" = "現在地が取得できません。";
+
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
 "$desc:CouldNotOpenOACentralByNoInstalled" = "オリンパスのOA.Centralがインストールされていません。";
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
    ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "このデバイスはインターネットに接続していません。Wi-Fi経由で開きたい場合は先にカメラとの接続を解除しておく必要があります。";
+
+/* RecordingLocationManager.currentLocation */
+"$desc:CouldNotPerformCurrentLocationInMainThread" = "現在地が取得できません。";
 
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
@@ -446,11 +480,17 @@
 /* FavoriteSavingViewController.didTapSaveButton */
 "$desc:CouldNotWriteFavoriteSettingFile" = "お気に入りファイルに書き込めません。";
 
+/* RecordingLocationManager.currentLocation */
+"$desc:CurrentLocationIsRunning" = "現在地取得は実行中です。";
+
 /* ConnectionViewController.didChangeBluetoothSetting */
 "$desc:DelayNewBluetoothSetting" = "新しいBluetooth設定は次のカメラ接続から適用されます。";
 
 /* SystemViewController.didChangeWifiCh */
 "$desc:DelayNewWifiSetting" = "新しいWi-Fi設定は次のカメラ電源投入から適用されます。";
+
+/* BluetoothConnector.disconnectPeripheral */
+"$desc:DisconnectingBluetoothPeripheralTimedOut" = "Bluetoothデバイスの切断がタイムアウトしました。";
 
 /* ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
 "$desc:DisconnectingWifi" = "切断中...";
@@ -466,6 +506,15 @@
 
 /* PictureContentViewController.didTapEraseButton */
 "$desc:ErasePicture" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
+
+/* AppCamera.startTakingPictureByIntervalTimer */
+"$desc:IntervalTimerCountIsIncorrect" = "インターバルタイマーの枚数が正しくありません。";
+
+/* AppCamera.startTakingPictureByIntervalTimer */
+"$desc:IntervalTimerIsNotAvailable" = "インターバルタイマーが有効になっていません。";
+
+/* AppCamera.startTakingPictureByIntervalTimer */
+"$desc:IntervalTimerTimeIsIncorrect" = "インターバルタイマーの間隔が正しくありません。";
 
 /* RecordingViewController.lockAutoExposurePoint
    RecordingViewController.lockAutoFocusPoint

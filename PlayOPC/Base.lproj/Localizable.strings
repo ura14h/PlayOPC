@@ -392,6 +392,15 @@
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "Unknown";
 
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:AutoBrackettingCountIsIncorrect" = "Auto bracketting count is incorrect.";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:AutoBrackettingIsNotAvailable" = "Auto bracketting is not available.";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:AutoBrackettingStepIsIncorrect" = "Auto bracketting step is incorrect.";
+
 /* BluetoothConnector.connectPeripheral */
 "$desc:BluetoothPeripheralConnected" = "Bluetooth device is already connected.";
 
@@ -400,6 +409,19 @@
 
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetooth device is already found.";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:CameraCouldNotChangeValueOfProperty" = "Camera could not change a value of property.";
+
+/* AppCamera.startTakingPictureByAutoBracketing */
+"$desc:CameraIsNotConnected" = "Camera is not connected.";
+
+/* AppCamera.startTakingPictureByAutoBracketing
+   AppCamera.startTakingPictureByIntervalTimer */
+"$desc:CameraIsNotRecordingMode" = "Camera is not Recording mode.";
+
+/* AppCamera.restoreSnapshotOfSetting */
+"$desc:CameraSettingSnapshotFormatVersionUnmatched" = "Camera setting snapshot format version unmatched.";
 
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSelectItemInTaking" = "Changing this setting is not permitted during capturing image.";
@@ -416,6 +438,12 @@
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth function is not available. Please enable it at Settings.";
 
+/* RecordingLocationManager.currentLocation */
+"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized" = "Location service is not authorized.";
+
+/* BluetoothConnector.connectPeripheral */
+"$desc:ConnectingBluetoothPeripheralTimedOut" = "Connecting Bluetooth peripheral timed out.";
+
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectPeripheralIsRunnning" = "Connecting a Bluetooth device is runnning.";
 
@@ -429,12 +457,18 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotDiscoverWifiConnection" = "The camera did wake up, but Wi-Fi connection was not found. This device is in condition not to be connected automatically, or other devices may be already connected.";
 
+/* RecordingLocationManager.currentLocation */
+"$desc:CouldNotGetCurrentGeolocation" = "Could not get current geolocation.";
+
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
 "$desc:CouldNotOpenOACentralByNoInstalled" = "Olympus OA.Central is not installled.";
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
    ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "The device does not connect to the Internet. If you want to open the site via Wi-Fi, it is necessary to disconnect camera connection first.";
+
+/* RecordingLocationManager.currentLocation */
+"$desc:CouldNotPerformCurrentLocationInMainThread" = "Could not acquire the current location.";
 
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
@@ -446,11 +480,17 @@
 /* FavoriteSavingViewController.didTapSaveButton */
 "$desc:CouldNotWriteFavoriteSettingFile" = "Could not write a favorite setting file.";
 
+/* RecordingLocationManager.currentLocation */
+"$desc:CurrentLocationIsRunning" = "To acquire the current location is running.";
+
 /* ConnectionViewController.didChangeBluetoothSetting */
 "$desc:DelayNewBluetoothSetting" = "The new Bluetooth setting will be applied at the next connecting.";
 
 /* SystemViewController.didChangeWifiCh */
 "$desc:DelayNewWifiSetting" = "The new Wi-Fi setting will be applied at the next waking-up.";
+
+/* BluetoothConnector.disconnectPeripheral */
+"$desc:DisconnectingBluetoothPeripheralTimedOut" = "Disconnecting Bluetooth peripheral timed out.";
 
 /* ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
 "$desc:DisconnectingWifi" = "Disconnecting...";
@@ -466,6 +506,15 @@
 
 /* PictureContentViewController.didTapEraseButton */
 "$desc:ErasePicture" = "If there is ORF file related to this picture, it will be erased at the same time too.";
+
+/* AppCamera.startTakingPictureByIntervalTimer */
+"$desc:IntervalTimerCountIsIncorrect" = "Interval timer count is incorrect.";
+
+/* AppCamera.startTakingPictureByIntervalTimer */
+"$desc:IntervalTimerIsNotAvailable" = "Interval timer is not available.";
+
+/* AppCamera.startTakingPictureByIntervalTimer */
+"$desc:IntervalTimerTimeIsIncorrect" = "Interval timer time is incorrect.";
 
 /* RecordingViewController.lockAutoExposurePoint
    RecordingViewController.lockAutoFocusPoint

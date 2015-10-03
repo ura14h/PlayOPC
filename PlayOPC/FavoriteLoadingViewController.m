@@ -189,7 +189,8 @@
 			return;
 		}
 		
-		// スナップショットからカメラの設定を復元します。
+		// 気に入り設定のスナップショットからカメラの設定を復元します。
+		[weakSelf reportBlockSettingToProgress:progressView];
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		NSArray *exclude = @[
@@ -279,15 +280,6 @@
 			NSString *snapshotText = [setting.snapshot description];
 			DEBUG_LOG(@"snapshotText=%@", snapshotText);
 			
-#if 0 // このブロックはサンプルコードです。
-			// 共有機能で得たお気に入り設定のテキストは以下の方法で辞書に逆変換でできます。
-			NSDictionary *snapshot = nil;
-			@try { snapshot = [snapshotText propertyList]; } @catch (NSException *e) {};
-			if (!snapshot) {
-				// Could not load a snapshot text into a dictionary.
-			}
-#endif
-			
 			// 共有ダイアログを表示します。
 			// 一番最初だけ表示されるまでとても時間がかかるようです。
 			NSArray *shareItems = @[ snapshotText ];
@@ -310,6 +302,31 @@
 }
 
 #pragma mark -
+
+/// 進捗画面にカメラ設定中を報告します。
+- (void)reportBlockSettingToProgress:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	__block UIImageView *progressImageView;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		UIImage *image = [UIImage imageNamed:@"Progress-Setting"];
+		progressImageView = [[UIImageView alloc] initWithImage:image];
+		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.alpha = 0.75;
+	});
+	progress.customView = progressImageView;
+	progress.mode = MBProgressHUDModeCustomView;
+	
+	// 回転アニメーションを付け加えます。
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+	animation.toValue = @(0.0);
+	animation.fromValue = @(M_PI * -2.0);
+	animation.duration = 4.0;
+	animation.repeatCount = HUGE_VALF;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressImageView.layer addAnimation:animation forKey:nil];
+	});
+}
 
 /// 進捗画面に処理完了を報告します。
 - (void)reportBlockFinishedToProgress:(MBProgressHUD *)progress {

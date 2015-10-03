@@ -347,6 +347,8 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Camera Setting Exchange" id="bH1-Gj-JN8">
+                                <string key="footerTitle">You can use copy command and paste command for the current camera setting. You can exchange other apps the current camera setting via the system pasteboard. 
+Paste command is not available when the data format of the pasteboard content is not correct.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DoCopyCameraSetting" textLabel="JXL-Cn-liq" style="IBUITableViewCellStyleDefault" id="2CI-KT-rU2">
                                         <rect key="frame" x="0.0" y="901" width="320" height="44"/>
@@ -387,7 +389,7 @@
                             <tableViewSection headerTitle="Favorite Settings" footerTitle="Favorite camera setting is a file in the application document folder. You can access that file via iTunes." id="ts7-hs-b3f">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowSaveFavoriteSetting" textLabel="TLe-q0-pZS" style="IBUITableViewCellStyleDefault" id="t79-fu-pg8">
-                                        <rect key="frame" x="0.0" y="1032" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="1136" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="t79-fu-pg8" id="ktk-Qs-VYZ">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -404,7 +406,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowLoadFavoriteSetting" textLabel="zc6-wd-thZ" style="IBUITableViewCellStyleDefault" id="lM4-1H-NRF">
-                                        <rect key="frame" x="0.0" y="1076" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="1180" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lM4-1H-NRF" id="ME9-bc-1ma">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>

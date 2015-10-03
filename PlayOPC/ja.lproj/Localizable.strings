@@ -420,9 +420,6 @@
    AppCamera.startTakingPictureByIntervalTimer */
 "$desc:CameraIsNotRecordingMode" = "カメラが撮影モードではありません。";
 
-/* AppCamera.restoreSnapshotOfSetting */
-"$desc:CameraSettingSnapshotFormatVersionUnmatched" = "カメラ設定のデータフォーマットが一致しません。";
-
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSelectItemInTaking" = "撮影動作中は設定の変更は許可されていません。";
 
@@ -483,6 +480,9 @@
 /* RecordingLocationManager.currentLocation */
 "$desc:CurrentLocationIsRunning" = "現在地取得は実行中です。";
 
+/* AppCamera.restoreSnapshotOfSetting */
+"$desc:DataFormatIsNotSnapshotOfSetting" = "データフォーマットがカメラ設定のスナップショットではありません。";
+
 /* ConnectionViewController.didChangeBluetoothSetting */
 "$desc:DelayNewBluetoothSetting" = "新しいBluetooth設定は次のカメラ接続から適用されます。";
 
@@ -533,6 +533,9 @@
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:NoWifiConnections" = "Wi-fi接続がありません。「設定」で手動でカメラに接続してください。";
+
+/* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
+"$desc:PasteboardTextIsNotCameraSetting" = "ペーストボードのテキストはカメラ設定ではありません。";
 
 /* PictureContentViewController.didTapProtectButton */
 "$desc:ProtectPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクトされます。";
@@ -641,6 +644,9 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$title:CouldNotConnectWifi" = "Wi-Fiで接続できません";
 
+/* SPanelViewController.didSelectRowAtDoCopyCameraSetting */
+"$title:CouldNotCopyCameraSetting" = "カメラ設定をコピーできません";
+
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:CouldNotDeleteFavoriteSetting" = "お気に入り設定を削除できません";
 
@@ -681,6 +687,9 @@
 /* AcknowledgementViewController.shouldStartLoadWithRequest
    ReferenceViewController.shouldStartLoadWithRequest */
 "$title:CouldNotOpenWebLink" = "リンクが開けません";
+
+/* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
+"$title:CouldNotPasteCameraSetting" = "カメラ設定に貼り付けできません";
 
 /* PictureContentViewController.protectPicture */
 "$title:CouldNotProtectPicture" = "写真をプロテクトできません";

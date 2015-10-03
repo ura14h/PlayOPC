@@ -31,6 +31,9 @@
 /* Class = "UILabel"; text = "Exposure Metering Warning"; ObjectID = "JLP-Md-VaC"; */
 "JLP-Md-VaC.text" = "測光警告";
 
+/* Class = "UILabel"; text = "Copy Camera Setting"; ObjectID = "JXL-Cn-liq"; */
+"JXL-Cn-liq.text" = "カメラ設定をコピー";
+
 /* Class = "UILabel"; text = "$datetime"; ObjectID = "KnL-dB-ciM"; */
 "KnL-dB-ciM.text" = "$datetime";
 
@@ -64,6 +67,9 @@
 /* Class = "UILabel"; text = "Save Favorite Setting"; ObjectID = "TLe-q0-pZS"; */
 "TLe-q0-pZS.text" = "お気に入りに保存";
 
+/* Class = "UILabel"; text = "Paste Camera Setting"; ObjectID = "UVm-pT-0P7"; */
+"UVm-pT-0P7.text" = "カメラ設定に貼り付け";
+
 /* Class = "UILabel"; text = "$remainingImageCapacity"; ObjectID = "Uei-FO-Kfo"; */
 "Uei-FO-Kfo.text" = "$remainingImageCapacity";
 
@@ -84,6 +90,12 @@
 
 /* Class = "UILabel"; text = "High Temperature Warning"; ObjectID = "av1-HT-p58"; */
 "av1-HT-p58.text" = "高温警告";
+
+/* Class = "UITableViewSection"; footerTitle = "You can use copy command and paste command for the current camera setting. You can exchange other apps the current camera setting via the system pasteboard. \nPaste command is not available when the data format of the pasteboard content is not correct."; ObjectID = "bH1-Gj-JN8"; */
+"bH1-Gj-JN8.footerTitle" = "現在のカメラ設定をコピーしたり貼り付けたりできます。他のアプリとシステムのペーストボードを経由してやりとりもできます。なお、貼り付けはペーストボードの内容のデータフォーマットが正しくない時は利用できません。";
+
+/* Class = "UITableViewSection"; headerTitle = "Camera Setting Exchange"; ObjectID = "bH1-Gj-JN8"; */
+"bH1-Gj-JN8.headerTitle" = "カメラ設定のやりとり";
 
 /* Class = "UILabel"; text = "As Image"; ObjectID = "cLo-Wd-JiV"; */
 "cLo-Wd-JiV.text" = "撮影枚数";

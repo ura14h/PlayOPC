@@ -420,9 +420,6 @@
    AppCamera.startTakingPictureByIntervalTimer */
 "$desc:CameraIsNotRecordingMode" = "Camera is not Recording mode.";
 
-/* AppCamera.restoreSnapshotOfSetting */
-"$desc:CameraSettingSnapshotFormatVersionUnmatched" = "Camera setting snapshot format version unmatched.";
-
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSelectItemInTaking" = "Changing this setting is not permitted during capturing image.";
 
@@ -483,6 +480,9 @@
 /* RecordingLocationManager.currentLocation */
 "$desc:CurrentLocationIsRunning" = "To acquire the current location is running.";
 
+/* AppCamera.restoreSnapshotOfSetting */
+"$desc:DataFormatIsNotSnapshotOfSetting" = "Data format is not snapshot of setting.";
+
 /* ConnectionViewController.didChangeBluetoothSetting */
 "$desc:DelayNewBluetoothSetting" = "The new Bluetooth setting will be applied at the next connecting.";
 
@@ -533,6 +533,9 @@
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:NoWifiConnections" = "No Wi-fi Connections. You have to connect the device to the camera by manual operation at Setting.";
+
+/* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
+"$desc:PasteboardTextIsNotCameraSetting" = "Pasteboard text is not camera setting.";
 
 /* PictureContentViewController.didTapProtectButton */
 "$desc:ProtectPicture" = "If there is ORF file related to this picture, it will be protected at the same time too.";
@@ -641,6 +644,9 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$title:CouldNotConnectWifi" = "Could not connect with using Wi-Fi";
 
+/* SPanelViewController.didSelectRowAtDoCopyCameraSetting */
+"$title:CouldNotCopyCameraSetting" = "Could not copy camera setting";
+
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting";
 
@@ -681,6 +687,9 @@
 /* AcknowledgementViewController.shouldStartLoadWithRequest
    ReferenceViewController.shouldStartLoadWithRequest */
 "$title:CouldNotOpenWebLink" = "Could not open link to the Web";
+
+/* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
+"$title:CouldNotPasteCameraSetting" = "Could not paste camera setting";
 
 /* PictureContentViewController.protectPicture */
 "$title:CouldNotProtectPicture" = "Could not protect picture";

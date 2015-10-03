@@ -366,19 +366,68 @@
 - (void)didSelectRowAtDoCopyCameraSetting {
 	DEBUG_LOG(@"");
 	
-	// TODO: 未実装
-	DEBUG_LOG(@"*** 未実装 ***");
-
-	// 画面表示を更新します。
-	[self updateDoPasteCameraSettingCell];
+	// カメラ設定のペーストボードへのコピーを開始します。
+	__weak SPanelViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// 現在のカメラ設定のスナップショットを作成します。
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
+		if (!snapshot) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotCopyCameraSetting", @"SPanelViewController.didSelectRowAtDoCopyCameraSetting")];
+			return;
+		}
+		
+		// 取得したカメラプロパティの設定値をペーストボードにテキストとして保存します。
+		UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+		NSString *snapshotText = [snapshot description];
+		[pasteboard setValue:snapshotText forPasteboardType:@"public.text"];
+		
+		// 画面表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf updateDoPasteCameraSettingCell];
+		}];
+		
+		// カメラ設定のコピーが完了しました。
+		[weakSelf reportBlockFinishedToProgress:progressView];
+		DEBUG_LOG(@"");
+	}];
 }
 
 /// 'Paste Camera Setting'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtDoPasteCameraSetting {
 	DEBUG_LOG(@"");
 	
-	// TODO: 未実装
-	DEBUG_LOG(@"*** 未実装 ***");
+	// カメラ設定のペーストボードからのペーストを開始します。
+	__weak SPanelViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// ペーストボードからカメラ設定のスナップショットを取得します。
+		NSDictionary *snapshot = [self createSnapshotOfSettingWithPasteboard];
+		if (!snapshot) {
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:PasteboardTextIsNotCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting") title:NSLocalizedString(@"$title:CouldNotPasteCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting")];
+			return;
+		}
+
+		// スナップショットからカメラの設定を復元します。
+		[weakSelf reportBlockSettingToProgress:progressView];
+		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
+		NSArray *exclude = @[
+			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
+		];
+		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotPasteCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting")];
+			return;
+		}
+		
+		// カメラ設定のペーストが完了しました。
+		[weakSelf reportBlockFinishedToProgress:progressView];
+		DEBUG_LOG(@"");
+	}];
 }
 
 /// 'Save Favorite Setting'のセルが選択されたときに呼び出されます。
@@ -613,24 +662,10 @@
 
 	// カメラ設定貼り付けは、ペーストボードにカメラ設定が存在している時だけ有効にします。
 	BOOL hasSetting = NO;
-
-	// ペーストボードからカメラ設定を取得します。
-	UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-	NSString *snapshotText = [pasteboard valueForPasteboardType:@"public.text"];
-	if (snapshotText) {
-		// ペーストボードから取得したテキストをプロパティリストの辞書に変換します。
-		NSData *data = [snapshotText dataUsingEncoding:NSUnicodeStringEncoding];
-		NSPropertyListFormat format;
-		NSError *error = nil;
-		NSData *plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:&error];
-		// プロパティリストがカメラ設定か否かを確認します。
-		// TODO: もう少し厳密な検査が必要。
-		if ([plist isKindOfClass:[NSDictionary class]]) {
-			NSDictionary *snapshot = (NSDictionary *)plist;
-			hasSetting = YES;
-		}
+	if ([self createSnapshotOfSettingWithPasteboard]) {
+		hasSetting = YES;
 	}
-	
+
 	// 表示を更新します。
 	[self tableViewCell:self.doPasteCameraSettingCell enabled:hasSetting];
 }
@@ -693,6 +728,79 @@
 			}
 		}];
 	}];
+}
+
+// ペーストボードからカメラ設定を取得します。
+- (NSDictionary *)createSnapshotOfSettingWithPasteboard {
+	DEBUG_LOG(@"");
+	
+	// ペーストボードからテキストを取得します。
+	UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
+	NSString *snapshotText = [pasteboard valueForPasteboardType:@"public.text"];
+	if (!snapshotText) {
+		DEBUG_LOG(@"pasteboard content is not text.");
+		return nil;
+	}
+
+	// ペーストボードから取得したテキストをプロパティリストの辞書に変換します。
+	NSData *data = [snapshotText dataUsingEncoding:NSUnicodeStringEncoding];
+	NSPropertyListFormat format;
+	NSError *error = nil;
+	id plist = [NSPropertyListSerialization propertyListWithData:data options:NSPropertyListImmutable format:&format error:&error];
+	if (![plist isKindOfClass:[NSDictionary class]]) {
+		DEBUG_LOG(@"pasteboard content is not NSDictionary format.");
+		return nil;
+	}
+
+	// プロパティリストの辞書がカメラ設定か確認します。
+	NSDictionary *snapshot = (NSDictionary *)plist;
+	AppCamera *camera = GetAppCamera();
+	if (![camera validateSnapshotOfSetting:snapshot]) {
+		DEBUG_LOG(@"pasteboard content is not snapshot of camera setting.");
+		return nil;
+	}
+	
+	return snapshot;
+}
+
+/// 進捗画面にカメラ設定中を報告します。
+- (void)reportBlockSettingToProgress:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	__block UIImageView *progressImageView;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		UIImage *image = [UIImage imageNamed:@"Progress-Setting"];
+		progressImageView = [[UIImageView alloc] initWithImage:image];
+		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.alpha = 0.75;
+	});
+	progress.customView = progressImageView;
+	progress.mode = MBProgressHUDModeCustomView;
+	
+	// 回転アニメーションを付け加えます。
+	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
+	animation.toValue = @(0.0);
+	animation.fromValue = @(M_PI * -2.0);
+	animation.duration = 4.0;
+	animation.repeatCount = HUGE_VALF;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		[progressImageView.layer addAnimation:animation forKey:nil];
+	});
+}
+
+/// 進捗画面に処理完了を報告します。
+- (void)reportBlockFinishedToProgress:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	__block UIImageView *progressImageView;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
+		progressImageView = [[UIImageView alloc] initWithImage:image];
+		progressImageView.tintColor = [UIColor whiteColor];
+	});
+	progress.customView = progressImageView;
+	progress.mode = MBProgressHUDModeCustomView;
+	[NSThread sleepForTimeInterval:0.5];
 }
 
 @end

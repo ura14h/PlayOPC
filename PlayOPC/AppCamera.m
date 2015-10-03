@@ -1637,6 +1637,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return YES;
 }
 
+- (BOOL)validateSnapshotOfSetting:(NSDictionary *)snapshot {
+	DEBUG_LOG(@"");
+
+	return YES;
+}
+
 - (AppCameraFocusMode)focusMode:(NSError **)error {
 	DEBUG_LOG(@"");
 

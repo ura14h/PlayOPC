@@ -660,14 +660,25 @@
 - (void)updateDoPasteCameraSettingCell {
 	DEBUG_LOG(@"");
 
-	// カメラ設定貼り付けは、ペーストボードにカメラ設定が存在している時だけ有効にします。
-	BOOL hasSetting = NO;
-	if ([self createSnapshotOfSettingWithPasteboard]) {
-		hasSetting = YES;
-	}
+	// 判定に少し時間がかかるので非同期で処理します。
+	__weak SPanelViewController *weakSelf = self;
+	BOOL userInteractionEnabled = weakSelf.doPasteCameraSettingCell.userInteractionEnabled;
+	weakSelf.doPasteCameraSettingCell.userInteractionEnabled = NO; // 表示内容が確定するまでは操作禁止にします。
+	[weakSelf executeAsynchronousBlock:^{
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
-	// 表示を更新します。
-	[self tableViewCell:self.doPasteCameraSettingCell enabled:hasSetting];
+		// カメラ設定貼り付けは、ペーストボードにカメラ設定が存在している時だけ有効にします。
+		BOOL hasSetting = NO;
+		if ([weakSelf createSnapshotOfSettingWithPasteboard]) {
+			hasSetting = YES;
+		}
+		
+		// 表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			weakSelf.doPasteCameraSettingCell.userInteractionEnabled = userInteractionEnabled;
+			[weakSelf tableViewCell:weakSelf.doPasteCameraSettingCell enabled:hasSetting];
+		}];
+	}];
 }
 
 /// お気に入りの読込みを表示します。

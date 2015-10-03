@@ -285,6 +285,9 @@
 			NSArray *shareItems = @[ snapshotText ];
 			UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
 			shareController.popoverPresentationController.sourceView = weakSelf.view;
+			CGRect cellRect = [tableView rectForRowAtIndexPath:indexPath];
+			[weakSelf.tableView convertRect:cellRect toView:weakSelf.view];
+			shareController.popoverPresentationController.sourceRect = cellRect;
 			shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
 				DEBUG_LOG(@"sharing completed.");
 			};

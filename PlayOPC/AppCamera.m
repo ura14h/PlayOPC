@@ -1538,11 +1538,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error {
 	DEBUG_LOG(@"exclude=%@", exclude);
 
-	// スナップショットから復元する情報を取り出します。
-	if (!snapshot[CameraSettingSnapshotFormatVersionKey] ||
-		![snapshot[CameraSettingSnapshotFormatVersionKey] isEqualToString:CameraSettingSnapshotFormatVersion]) {
+	/// スナップショットがカメラ設定として妥当かを確認します。
+	if (![self validateSnapshotOfSetting:snapshot]) {
 		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CameraSettingSnapshotFormatVersionUnmatched", @"AppCamera.restoreSnapshotOfSetting")
+			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:DataFormatIsNotSnapshotOfSetting", @"AppCamera.restoreSnapshotOfSetting")
 		};
 		NSError *internalError = [NSError errorWithDomain:OLYCameraErrorDomain code:OLYCameraErrorInvalidParameters userInfo:userInfo];
 		if (error) {
@@ -1640,6 +1639,189 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (BOOL)validateSnapshotOfSetting:(NSDictionary *)snapshot {
 	DEBUG_LOG(@"");
 
+	// フォーマットバージョンは必須で"1.0"でなければなりません。
+	if (!snapshot[CameraSettingSnapshotFormatVersionKey] ||
+		![snapshot[CameraSettingSnapshotFormatVersionKey] isKindOfClass:[NSString class]] ||
+		![snapshot[CameraSettingSnapshotFormatVersionKey] isEqualToString:CameraSettingSnapshotFormatVersion]) {
+		DEBUG_LOG(@"CameraSettingSnapshotFormatVersion is incorrect.");
+		return NO;
+	}
+	
+	// ライブビューサイズは任意ですが、設定する場合はCGSizeに変換可能でなければなりません。
+	if (snapshot[CameraSettingSnapshotLiveViewSizeKey]) {
+		if ([snapshot[CameraSettingSnapshotLiveViewSizeKey] isKindOfClass:[NSString class]]) {
+			CGSize liveViewSize = CGSizeFromString(snapshot[CameraSettingSnapshotLiveViewSizeKey]);
+			if (!CGSizeEqualToSize(liveViewSize, OLYCameraLiveViewSizeQVGA) &&
+				!CGSizeEqualToSize(liveViewSize, OLYCameraLiveViewSizeVGA) &&
+				!CGSizeEqualToSize(liveViewSize, OLYCameraLiveViewSizeSVGA) &&
+				!CGSizeEqualToSize(liveViewSize, OLYCameraLiveViewSizeXGA) &&
+				!CGSizeEqualToSize(liveViewSize, OLYCameraLiveViewSizeQuadVGA)) {
+				DEBUG_LOG(@"CameraSettingSnapshotLiveViewSize is incorrect.");
+				return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotLiveViewSize is incorrect.");
+			return NO;
+		}
+	}
+
+	// オートブラケット撮影は任意ですが、設定する場合は変換可能でなければなりません。
+	if (snapshot[CameraSettingSnapshotAutoBracketingModeKey]) {
+		if ([snapshot[CameraSettingSnapshotAutoBracketingModeKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotAutoBracketingModeKey] isKindOfClass:[NSString class]]) {
+			NSInteger modeValue = [snapshot[CameraSettingSnapshotAutoBracketingModeKey] integerValue];
+			AppCameraAutoBracketingMode autoBracketingMode = (AppCameraAutoBracketingMode)modeValue;
+			switch (autoBracketingMode) {
+				case AppCameraAutoBracketingModeDisabled:
+				case AppCameraAutoBracketingModeExposure:
+					break;
+				default:
+					DEBUG_LOG(@"CameraSettingSnapshotAutoBracketingMode is incorrect.");
+					return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotAutoBracketingMode is incorrect.");
+			return NO;
+		}
+	}
+	if (snapshot[CameraSettingSnapshotAutoBracketingCountKey]) {
+		if ([snapshot[CameraSettingSnapshotAutoBracketingCountKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotAutoBracketingCountKey] isKindOfClass:[NSString class]]) {
+			NSInteger autoBracketingCount = [snapshot[CameraSettingSnapshotAutoBracketingCountKey] integerValue];
+			if (autoBracketingCount <  3 ||
+				autoBracketingCount >  9 ||
+				(autoBracketingCount % 2) == 0) {
+				DEBUG_LOG(@"CameraSettingSnapshotAutoBracketingCount is incorrect.");
+				return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotAutoBracketingCount is incorrect.");
+			return NO;
+		}
+	}
+	if (snapshot[CameraSettingSnapshotAutoBracketingStepKey]) {
+		if ([snapshot[CameraSettingSnapshotAutoBracketingStepKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotAutoBracketingStepKey] isKindOfClass:[NSString class]]) {
+			NSInteger autoBracketingStep = [snapshot[CameraSettingSnapshotAutoBracketingStepKey] integerValue];
+			if (autoBracketingStep < 1 ||		// 1 step = 0.3EV
+				autoBracketingStep > 9) {		// 9 step = 3.0EV
+				DEBUG_LOG(@"CameraSettingSnapshotAutoBracketingStep is incorrect.");
+				return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotAutoBracketingStep is incorrect.");
+			return NO;
+		}
+	}
+	
+	// インターバルタイマー撮影は任意ですが、設定する場合は変換可能でなければなりません。
+	if (snapshot[CameraSettingSnapshotIntervalTimerModeKey]) {
+		if ([snapshot[CameraSettingSnapshotIntervalTimerModeKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotIntervalTimerModeKey] isKindOfClass:[NSString class]]) {
+			NSInteger modeValue = [snapshot[CameraSettingSnapshotIntervalTimerModeKey] integerValue];
+			AppCameraIntervalTimerMode intervalTimerMode = (AppCameraIntervalTimerMode)modeValue;
+			switch (intervalTimerMode) {
+				case AppCameraIntervalTimerModeDisabled:
+				case AppCameraIntervalTimerModePriorCount:
+				case AppCameraIntervalTimerModePriorTime:
+					break;
+				default:
+					DEBUG_LOG(@"CameraSettingSnapshotIntervalTimerMode is incorrect.");
+					return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotIntervalTimerMode is incorrect.");
+			return NO;
+		}
+	}
+	if (snapshot[CameraSettingSnapshotIntervalTimerCountKey]) {
+		if ([snapshot[CameraSettingSnapshotIntervalTimerCountKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotIntervalTimerCountKey] isKindOfClass:[NSString class]]) {
+			NSInteger intervalTimerCount = [snapshot[CameraSettingSnapshotIntervalTimerCountKey] integerValue];
+			if (intervalTimerCount < 1) {
+				DEBUG_LOG(@"CameraSettingSnapshotIntervalTimerCount is incorrect.");
+				return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotIntervalTimerCount is incorrect.");
+			return NO;
+		}
+	}
+	if (snapshot[CameraSettingSnapshotIntervalTimerTimeKey]) {
+		if ([snapshot[CameraSettingSnapshotIntervalTimerTimeKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotIntervalTimerTimeKey] isKindOfClass:[NSString class]]) {
+			NSInteger intervalTimerTime =  [snapshot[CameraSettingSnapshotIntervalTimerTimeKey] doubleValue];
+			if (intervalTimerTime < 1) {
+				DEBUG_LOG(@"CameraSettingSnapshotIntervalTimerTime is incorrect.");
+				return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotIntervalTimerTime is incorrect.");
+			return NO;
+		}
+	}
+	
+	// ライブビュー拡大倍率
+	if (snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey]) {
+		if ([snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] isKindOfClass:[NSNumber class]] ||
+			[snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] isKindOfClass:[NSString class]]) {
+			NSInteger scaleValue = [snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] integerValue];
+			OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
+			switch (magnifyingLiveViewScale) {
+				case OLYCameraMagnifyingLiveViewScaleX5:
+				case OLYCameraMagnifyingLiveViewScaleX7:
+				case OLYCameraMagnifyingLiveViewScaleX10:
+				case OLYCameraMagnifyingLiveViewScaleX14:
+					break;
+				default:
+					DEBUG_LOG(@"CameraSettingSnapshotMagnifyingLiveViewScale is incorrect.");
+					return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotMagnifyingLiveViewScale is incorrect.");
+			return NO;
+		}
+	}
+	
+	// カメラプロパティは任意ですが、設定する場合は変換可能でなければなりません。
+	if (snapshot[CameraSettingSnapshotPropertyValuesKey]) {
+		if ([snapshot[CameraSettingSnapshotPropertyValuesKey] isKindOfClass:[NSDictionary class]]) {
+			NSDictionary *propertyValues = snapshot[CameraSettingSnapshotPropertyValuesKey];
+			__block BOOL foundBadFormat = NO;
+			[propertyValues enumerateKeysAndObjectsUsingBlock:^(id keyObject, id valueObject, BOOL *stop) {
+				// プロパティ名を確認します。
+				if ([keyObject isKindOfClass:[NSString class]]) {
+					NSString *key = keyObject;
+					if (key.length < 1) {
+						foundBadFormat = YES;
+						*stop = YES;
+					}
+				}
+				// プロパティ値を確認します。
+				if ([valueObject isKindOfClass:[NSString class]]) {
+					NSString *value = valueObject;
+					if (value.length < 1) {
+						foundBadFormat = YES;
+						*stop = YES;
+					}
+					if (![value hasPrefix:@"<"] ||
+						![value hasSuffix:@">"] ||
+						![value containsString:@"/"]) {
+						foundBadFormat = YES;
+						*stop = YES;
+					}
+				}
+			}];
+			if (foundBadFormat) {
+				DEBUG_LOG(@"CameraSettingSnapshotPropertyValues is incorrect.");
+				return NO;
+			}
+		} else {
+			DEBUG_LOG(@"CameraSettingSnapshotPropertyValues is incorrect.");
+			return NO;
+		}
+	}
+	
 	return YES;
 }
 

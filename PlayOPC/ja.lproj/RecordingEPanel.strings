@@ -28,9 +28,6 @@
 /* Class = "UILabel"; text = "Step"; ObjectID = "JvX-Bx-7bj"; */
 "JvX-Bx-7bj.text" = "ステップ";
 
-/* Class = "UITableViewSection"; footerTitle = "Interval Timer mode and the Auto Bracketing mode work exclusively."; ObjectID = "Jyu-IS-ckE"; */
-"Jyu-IS-ckE.footerTitle" = "インターバルタイマー撮影とオートブラケット撮影は排他的に動作します。";
-
 /* Class = "UITableViewSection"; headerTitle = "Interval Timer"; ObjectID = "Jyu-IS-ckE"; */
 "Jyu-IS-ckE.headerTitle" = "インターバルタイマー撮影";
 

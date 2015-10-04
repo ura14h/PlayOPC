@@ -40,6 +40,7 @@ typedef enum : NSInteger {
 	AppCameraActionTypeTakingPictureSequential, ///< 静止画を連写で撮影
 	AppCameraActionTypeTakingPictureAutoBracketing, ///< 静止画をオートブラケットで撮影
 	AppCameraActionTypeTakingPictureIntervalTimer, ///< 静止画をインターバルタイマーで撮影
+	AppCameraActionTypeTakingPictureCombination, ///< 静止画をオートブラケット＋インターバルタイマーで撮影
 	AppCameraActionTypeRecordingVideo, ///< 動画を撮影
 } AppCameraActionType;
 
@@ -50,6 +51,7 @@ typedef enum : NSInteger {
 	AppCameraActionStatusTakingPictureSequential, ///< 静止画を連写で撮影中
 	AppCameraActionStatusTakingPictureAutoBracketing, ///< 静止画をオートブラケットで撮影中
 	AppCameraActionStatusTakingPictureIntervalTimer, ///< 静止画をインターバルタイマーで撮影中
+	AppCameraActionStatusTakingPictureCombination, ///< 静止画をオートブラケット＋インターバルタイマーで撮影中
 	AppCameraActionStatusRecordingVideo, ///< 動画を撮影中
 } AppCameraActionStatus;
 
@@ -408,20 +410,14 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// オートブラケット撮影の設定が可能かどうかを示します。
 - (BOOL)canSetAutoBracketing;
 
-/// オートブラケット撮影を開始します。
-- (void)startTakingPictureByAutoBracketing:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
-
-/// オートブラケット撮影を終了します。
-- (void)stopTakingPictureByAutoBracketing:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler;
-
 /// インターバルタイマー撮影の設定が可能かどうかを示します。
 - (BOOL)canSetIntervalTimer;
 
-/// インターバルタイマー撮影を開始します。
-- (void)startTakingPictureByIntervalTimer:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
+/// オートブラケット＋インターバルタイマー撮影を開始します。
+- (void)startTakingPluralPictures:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
 
-/// インターバルタイマー撮影終了します。
-- (void)stopTakingPictureByIntervalTimer:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler;
+/// オートブラケット＋インターバルタイマー撮影終了します。
+- (void)stopTakingPluralPictures:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler;
 
 /// 現在設定されている撮影モードでのフォーカスモードを取得します。
 - (AppCameraFocusMode)focusMode:(NSError **)error;
@@ -438,28 +434,25 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 @protocol AppCameraTakingPictureDelegate <NSObject>
 @optional
 
-/// オートブラケット撮影が開始した時に呼び出されます。
-- (void)cameraDidStartTakingPictureByAutoBracketing:(AppCamera *)camera;
+/// オートブラケット＋インターバルタイマー撮影が開始した時に呼び出されます。
+- (void)cameraDidStartTakingPluralPictures:(AppCamera *)camera;
 
 /// オートブラケットによる1コマ撮影が開始する時に呼び出されます。
-- (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera currentCount:(NSInteger)count;
+- (void)cameraWillTakePictureByAutoBracketing:(AppCamera *)camera currentCount:(NSInteger)current totalCount:(NSInteger)total;
 
 /// オートブラケットによる1コマ撮影が完了した時に呼び出されます。
-- (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera currentCount:(NSInteger)count;
-
-/// オートブラケット撮影が終了した時に呼び出されます。
-- (void)cameraDidStopTakingPictureByAutoBracketing:(AppCamera *)camera error:(NSError *)error;
-
-/// インターバルタイマー撮影が開始した時に呼び出されます。
-- (void)cameraDidStartTakingPictureByIntervalTimer:(AppCamera *)camera;
+- (void)cameraDidTakePictureByAutoBracketing:(AppCamera *)camera currentCount:(NSInteger)current totalCount:(NSInteger)total;
 
 /// インターバルタイマーによる1コマ撮影が開始する時に呼び出されます。
-- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera currentCount:(NSInteger)count ;
+- (void)cameraWillTakePictureByIntervalTimer:(AppCamera *)camera currentCount:(NSInteger)current totalCount:(NSInteger)total;
 
 /// インターバルタイマーによる1コマ撮影が完了した時に呼び出されます。
-- (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera currentCount:(NSInteger)count;
+- (void)cameraDidTakePictureByIntervalTimer:(AppCamera *)camera currentCount:(NSInteger)current totalCount:(NSInteger)total;
 
-/// インターバルタイマー撮影が終了した時に呼び出されます。
-- (void)cameraDidStopTakingPictureByIntervalTimer:(AppCamera *)camera error:(NSError *)error;
+/// インターバルタイマーによる次の1コマ撮影までの残り時間を更新した時に呼び出されます。
+- (void)cameraDidPauseTakingPictureForIntervalTimer:(AppCamera *)camera remainTime:(NSTimeInterval)remain currentCount:(NSInteger)current totalCount:(NSInteger)total;
+
+/// オートブラケット＋インターバルタイマー撮影が終了した時に呼び出されます。
+- (void)cameraDidStopTakingPluralPictures:(AppCamera *)camera error:(NSError *)error;
 
 @end

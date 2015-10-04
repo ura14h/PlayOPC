@@ -2520,7 +2520,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				continue;
 			}
 			NSTimeInterval pastTime = [[NSDate date] timeIntervalSinceDate:takingTimerStartTime];
-			NSTimeInterval notifiedTime = pastTime;
+			NSTimeInterval notifiedTime = pastTime + 0.25; // 最初の通知を0.5秒遅らせて直前の進捗表示を継続させます。
 			while (pastTime < intervalTimerTime) {
 				if (weakSelf.runMode != OLYCameraRunModeRecording) {
 					// 異常事態が発生している場合は撮影は中止です。
@@ -2534,19 +2534,22 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				if (weakSelf.abortTakingPluralPictures) {
 					break;
 				}
-				// 0.5秒ごとに次までの撮影時間を更新したことを通知します。
-				if ((pastTime - notifiedTime) > 0.5) {
-					NSTimeInterval remain = intervalTimerTime - pastTime;
-					NSInteger current = (count + 1) * autoBracketingCount;
-					NSInteger total = intervalTimerCount * autoBracketingCount;
-					dispatch_async(dispatch_get_main_queue(), ^{
-						for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
-							if ([delegate respondsToSelector:@selector(cameraDidPauseTakingPictureForIntervalTimer:remainTime:currentCount:totalCount:)]) {
-								[delegate cameraDidPauseTakingPictureForIntervalTimer:weakSelf remainTime:remain currentCount:current totalCount:total];
+				// 0.25秒ごとに次までの撮影時間を更新したことを通知します。
+				// ただし、最後の通知が残り0.5秒に足りない場合は進捗表示の更新を止めます。
+				if ((pastTime - notifiedTime) > 0.25) {
+					if ((intervalTimerTime - pastTime) > 0.5) {
+						NSTimeInterval remain = intervalTimerTime - pastTime;
+						NSInteger current = (count + 1) * autoBracketingCount;
+						NSInteger total = intervalTimerCount * autoBracketingCount;
+						dispatch_async(dispatch_get_main_queue(), ^{
+							for (id<AppCameraTakingPictureDelegate> delegate in weakSelf.takingPictureDelegates) {
+								if ([delegate respondsToSelector:@selector(cameraDidPauseTakingPictureForIntervalTimer:remainTime:currentCount:totalCount:)]) {
+									[delegate cameraDidPauseTakingPictureForIntervalTimer:weakSelf remainTime:remain currentCount:current totalCount:total];
+								}
 							}
-						}
-					});
-					notifiedTime = pastTime;
+						});
+						notifiedTime = pastTime;
+					}
 				}
 				// 経過時間を更新します。
 				[NSThread sleepForTimeInterval:0.05];

@@ -392,13 +392,10 @@
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "Unknown";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:AutoBrackettingCountIsIncorrect" = "Auto bracketting count is incorrect.";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
-"$desc:AutoBrackettingIsNotAvailable" = "Auto bracketting is not available.";
-
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:AutoBrackettingStepIsIncorrect" = "Auto bracketting step is incorrect.";
 
 /* BluetoothConnector.connectPeripheral */
@@ -410,14 +407,13 @@
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetooth device is already found.";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:CameraCouldNotChangeValueOfProperty" = "Camera could not change a value of property.";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:CameraIsNotConnected" = "Camera is not connected.";
 
-/* AppCamera.startTakingPictureByAutoBracketing
-   AppCamera.startTakingPictureByIntervalTimer */
+/* AppCamera.startTakingPluralPictures */
 "$desc:CameraIsNotRecordingMode" = "Camera is not Recording mode.";
 
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
@@ -507,13 +503,10 @@
 /* PictureContentViewController.didTapEraseButton */
 "$desc:ErasePicture" = "If there is ORF file related to this picture, it will be erased at the same time too.";
 
-/* AppCamera.startTakingPictureByIntervalTimer */
+/* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerCountIsIncorrect" = "Interval timer count is incorrect.";
 
-/* AppCamera.startTakingPictureByIntervalTimer */
-"$desc:IntervalTimerIsNotAvailable" = "Interval timer is not available.";
-
-/* AppCamera.startTakingPictureByIntervalTimer */
+/* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerTimeIsIncorrect" = "Interval timer time is incorrect.";
 
 /* RecordingViewController.lockAutoExposurePoint
@@ -555,6 +548,9 @@
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareVideo" = "The application downloads this video before sharing it. The handling takes a little bit of time.";
 
+/* AppCamera.startTakingPluralPictures */
+"$desc:TakingPluralPicturesIsNotAvailable" = "Auto bracketting or interval timer is not available.";
+
 /* PictureContentViewController.didTapUnprotectButton */
 "$desc:UnprotectPicture" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
 
@@ -565,7 +561,7 @@
    RecordingViewController.cameraWillTakePictureByAutoBracketing */
 "$title:AutoBracketingProgres(%ld,%ld)" = "Auto Bracketing: %1$ld/%2$ld";
 
-/* RecordingViewController.cameraDidStartTakingPictureByAutoBracketing */
+/* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:AutoBracketingStart" = "Auto Bracketing";
 
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
@@ -746,11 +742,8 @@
 /* RecordingViewController.startTakingPicture */
 "$title:CouldNotStartTakingPicture" = "Could not start taking picture";
 
-/* RecordingViewController.startTakingPictureByAutoBracketing */
-"$title:CouldNotStartTakingPictureByAutoBracketing" = "Could not start taking picture";
-
-/* RecordingViewController.startTakingPictureByIntervalTimer */
-"$title:CouldNotStartTakingPictureByIntervalTimer" = "Could not start taking picture";
+/* RecordingViewController.startTakingPluralPictures */
+"$title:CouldNotStartTakingPluralPictures" = "Could not start taking picture";
 
 /* RecordingViewController.stopMagnifyingLiveView
    ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
@@ -762,11 +755,8 @@
 /* RecordingViewController.stopTakingPicture */
 "$title:CouldNotStopTakingPicture" = "Could not stop taking picture";
 
-/* RecordingViewController.stopTakingPictureByAutoBracketing */
-"$title:CouldNotStopTakingPictureByAutoBracketing" = "Could not stop taking picture";
-
-/* RecordingViewController.stopTakingPictureByIntervalTimer */
-"$title:CouldNotStopTakingPictureByIntervalTimer" = "Could not stop taking picture";
+/* RecordingViewController.stopTakingPicturePluralPictures */
+"$title:CouldNotStopTakingPluralPictures" = "Could not stop taking picture";
 
 /* RecordingViewController.takePicture */
 "$title:CouldNotTakePicture" = "Could not take picture";
@@ -855,11 +845,14 @@
 /* VideoContentViewController.didTapUnprotectButton */
 "$title:ExecuteUnprotectVideo" = "Unprotect this video";
 
+/* RecordingViewController.cameraDidPauseTakingPictureForIntervalTimer */
+"$title:IntervalTimerProgres(%f,%ld,%ld)" = "Interval Timer: %2$ld/%3$ld (wait %1$0.0f sec)";
+
 /* RecordingViewController.cameraDidTakePictureByIntervalTimer
    RecordingViewController.cameraWillTakePictureByIntervalTimer */
 "$title:IntervalTimerProgres(%ld,%ld)" = "Interval Timer: %1$ld/%2$ld";
 
-/* RecordingViewController.cameraDidStartTakingPictureByIntervalTimer */
+/* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:IntervalTimerStart" = "Interval Timer";
 
 /* RecordingViewController.lockAutoExposurePoint
@@ -892,11 +885,20 @@
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:ShareFavroiteSetting" = "Share";
 
-/* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
-"$title:TakePictureByAutoBracketingFailed" = "Could not taking all pictures";
+/* RecordingViewController.cameraDidStopTakingPluralPictures */
+"$title:TakingPluralPicturesFailed" = "Could not taking all pictures";
 
-/* RecordingViewController.cameraDidStopTakingPictureByIntervalTimer */
-"$title:TakePictureByIntervalTimerFailed" = "Could not taking all pictures";
+/* RecordingViewController.cameraDidPauseTakingPictureForIntervalTimer */
+"$title:TakingPluralPicturesProgres(%f,%ld,%ld)" = "Interval Bracketting: %2$ld/%3$ld (wait %1$0.0f sec)";
+
+/* RecordingViewController.cameraDidTakePictureByAutoBracketing
+   RecordingViewController.cameraDidTakePictureByIntervalTimer
+   RecordingViewController.cameraWillTakePictureByAutoBracketing
+   RecordingViewController.cameraWillTakePictureByIntervalTimer */
+"$title:TakingPluralPicturesProgres(%ld,%ld)" = "Interval Bracketting: %1$ld/%2$ld";
+
+/* RecordingViewController.cameraDidStartTakingPluralPictures */
+"$title:TakingPluralPicturesStart" = "Interval Bracketting";
 
 /* PlaybackViewController.commitEditingStyle
    PlaybackViewController.downloadContentList */

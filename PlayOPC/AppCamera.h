@@ -29,7 +29,7 @@ typedef enum : NSInteger {
 /// インターバルタイマー撮影モード
 typedef enum : NSInteger {
 	AppCameraIntervalTimerModeDisabled = 0, ///< 無効(通常撮影)
-	AppCameraIntervalTimerModePriorCount, ///< 撮影枚数優先でインターバルタイマー撮影
+	AppCameraIntervalTimerModePriorCount, ///< 撮影回数優先でインターバルタイマー撮影
 	AppCameraIntervalTimerModePriorTime, ///< 撮影時間優先でインターバルタイマー撮影
 } AppCameraIntervalTimerMode;
 
@@ -302,8 +302,8 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 @property (strong, nonatomic, readonly) NSArray *autoBracketingStepList; ///< オートブラケットで撮影する際のステップ数の選択肢リスト
 @property (assign, nonatomic) NSInteger autoBracketingStep; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数(1以上)
 @property (assign, nonatomic) AppCameraIntervalTimerMode intervalTimerMode; ///< インターバルタイマー撮影モード
-@property (strong, nonatomic, readonly) NSArray *intervalTimerCountList; ///< インターバルタイマーで撮影する枚数の選択肢リスト
-@property (assign, nonatomic) NSInteger intervalTimerCount; ///< インターバルタイマーで撮影する枚数(2枚以上)
+@property (strong, nonatomic, readonly) NSArray *intervalTimerCountList; ///< インターバルタイマーで撮影する回数の選択肢リスト
+@property (assign, nonatomic) NSInteger intervalTimerCount; ///< インターバルタイマーで撮影する回数(2回以上)
 @property (strong, nonatomic, readonly) NSArray *intervalTimerTimeList; ///< インターバルタイマーで撮影する際の時間間隔の選択肢リスト
 @property (assign, nonatomic) NSTimeInterval intervalTimerTime; ///< インターバルタイマーで撮影する際の前回撮影開始から次の撮影開始までの時間間隔(秒数)
 @property (assign, nonatomic, readonly) NSTimeInterval recordingElapsedTime; ///< 動画撮影経過時間

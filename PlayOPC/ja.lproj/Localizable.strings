@@ -111,7 +111,7 @@
 "$cell:HighTemperatureWarningYes" = "はい";
 
 /* EPanelViewController.viewDidLoad */
-"$cell:IntervalTimerCount(%ld)" = "%ld 枚";
+"$cell:IntervalTimerCount(%ld)" = "%ld 回";
 
 /* EPanelViewController.updateShowIntervalTimerCountCell */
 "$cell:IntervalTimerCountUnknown" = "不明";
@@ -120,7 +120,7 @@
 "$cell:IntervalTimerModeDisabled" = "無効";
 
 /* EPanelViewController.viewDidLoad */
-"$cell:IntervalTimerModePriorCount" = "枚数優先";
+"$cell:IntervalTimerModePriorCount" = "回数優先";
 
 /* EPanelViewController.viewDidLoad */
 "$cell:IntervalTimerModePriorTime" = "総時間優先";
@@ -392,13 +392,10 @@
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "不明";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:AutoBrackettingCountIsIncorrect" = "オートブラケットの枚数が正しくありません。";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
-"$desc:AutoBrackettingIsNotAvailable" = "オートブラケットが有効になっていません。";
-
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:AutoBrackettingStepIsIncorrect" = "オートブラケットのステップ数が正しくありません。";
 
 /* BluetoothConnector.connectPeripheral */
@@ -410,14 +407,13 @@
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetoothデバイスはすでに見つかっています。";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:CameraCouldNotChangeValueOfProperty" = "カメラプロパティ値が変更できません。";
 
-/* AppCamera.startTakingPictureByAutoBracketing */
+/* AppCamera.startTakingPluralPictures */
 "$desc:CameraIsNotConnected" = "カメラが接続されていません。";
 
-/* AppCamera.startTakingPictureByAutoBracketing
-   AppCamera.startTakingPictureByIntervalTimer */
+/* AppCamera.startTakingPluralPictures */
 "$desc:CameraIsNotRecordingMode" = "カメラが撮影モードではありません。";
 
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
@@ -507,13 +503,10 @@
 /* PictureContentViewController.didTapEraseButton */
 "$desc:ErasePicture" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
 
-/* AppCamera.startTakingPictureByIntervalTimer */
-"$desc:IntervalTimerCountIsIncorrect" = "インターバルタイマーの枚数が正しくありません。";
+/* AppCamera.startTakingPluralPictures */
+"$desc:IntervalTimerCountIsIncorrect" = "インターバルタイマーの回数が正しくありません。";
 
-/* AppCamera.startTakingPictureByIntervalTimer */
-"$desc:IntervalTimerIsNotAvailable" = "インターバルタイマーが有効になっていません。";
-
-/* AppCamera.startTakingPictureByIntervalTimer */
+/* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerTimeIsIncorrect" = "インターバルタイマーの間隔が正しくありません。";
 
 /* RecordingViewController.lockAutoExposurePoint
@@ -555,6 +548,9 @@
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareVideo" = "この動画をダウンロードし共有します。この処理にはやや時間がかかります。";
 
+/* AppCamera.startTakingPluralPictures */
+"$desc:TakingPluralPicturesIsNotAvailable" = "オートブラケットもしくはインターバルタイマーが有効になっていません。";
+
 /* PictureContentViewController.didTapUnprotectButton */
 "$desc:UnprotectPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
 
@@ -565,7 +561,7 @@
    RecordingViewController.cameraWillTakePictureByAutoBracketing */
 "$title:AutoBracketingProgres(%ld,%ld)" = "オートブラケット: %1$ld/%2$ld";
 
-/* RecordingViewController.cameraDidStartTakingPictureByAutoBracketing */
+/* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:AutoBracketingStart" = "オートブラケット";
 
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
@@ -746,11 +742,8 @@
 /* RecordingViewController.startTakingPicture */
 "$title:CouldNotStartTakingPicture" = "写真撮影が開始できません";
 
-/* RecordingViewController.startTakingPictureByAutoBracketing */
-"$title:CouldNotStartTakingPictureByAutoBracketing" = "写真撮影が開始できません";
-
-/* RecordingViewController.startTakingPictureByIntervalTimer */
-"$title:CouldNotStartTakingPictureByIntervalTimer" = "写真撮影が開始できません";
+/* RecordingViewController.startTakingPluralPictures */
+"$title:CouldNotStartTakingPluralPictures" = "写真撮影が開始できません";
 
 /* RecordingViewController.stopMagnifyingLiveView
    ZPanelViewController.didSelectRowAtStopMagnifyingLiveView */
@@ -762,11 +755,8 @@
 /* RecordingViewController.stopTakingPicture */
 "$title:CouldNotStopTakingPicture" = "写真撮影が停止できません";
 
-/* RecordingViewController.stopTakingPictureByAutoBracketing */
-"$title:CouldNotStopTakingPictureByAutoBracketing" = "写真撮影が停止できません";
-
-/* RecordingViewController.stopTakingPictureByIntervalTimer */
-"$title:CouldNotStopTakingPictureByIntervalTimer" = "写真撮影が停止できません";
+/* RecordingViewController.stopTakingPicturePluralPictures */
+"$title:CouldNotStopTakingPluralPictures" = "写真撮影が停止できません";
 
 /* RecordingViewController.takePicture */
 "$title:CouldNotTakePicture" = "写真撮影できません";
@@ -855,11 +845,14 @@
 /* VideoContentViewController.didTapUnprotectButton */
 "$title:ExecuteUnprotectVideo" = "この動画のプロテクトを解除";
 
+/* RecordingViewController.cameraDidPauseTakingPictureForIntervalTimer */
+"$title:IntervalTimerProgres(%f,%ld,%ld)" = "インターバルタイマー: %2$ld/%3$ld (次まで%1$0.0f秒)";
+
 /* RecordingViewController.cameraDidTakePictureByIntervalTimer
    RecordingViewController.cameraWillTakePictureByIntervalTimer */
 "$title:IntervalTimerProgres(%ld,%ld)" = "インターバルタイマー: %1$ld/%2$ld";
 
-/* RecordingViewController.cameraDidStartTakingPictureByIntervalTimer */
+/* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:IntervalTimerStart" = "インターバルタイマー";
 
 /* RecordingViewController.lockAutoExposurePoint
@@ -892,11 +885,20 @@
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:ShareFavroiteSetting" = "共有";
 
-/* RecordingViewController.cameraDidStopTakingPictureByAutoBracketing */
-"$title:TakePictureByAutoBracketingFailed" = "すべての写真を撮影できませんでした";
+/* RecordingViewController.cameraDidStopTakingPluralPictures */
+"$title:TakingPluralPicturesFailed" = "すべての写真を撮影できませんでした";
 
-/* RecordingViewController.cameraDidStopTakingPictureByIntervalTimer */
-"$title:TakePictureByIntervalTimerFailed" = "すべての写真を撮影できませんでした";
+/* RecordingViewController.cameraDidPauseTakingPictureForIntervalTimer */
+"$title:TakingPluralPicturesProgres(%f,%ld,%ld)" = "インターバル-ブラケット: %2$ld/%3$ld (次まで%1$0.0f秒)";
+
+/* RecordingViewController.cameraDidTakePictureByAutoBracketing
+   RecordingViewController.cameraDidTakePictureByIntervalTimer
+   RecordingViewController.cameraWillTakePictureByAutoBracketing
+   RecordingViewController.cameraWillTakePictureByIntervalTimer */
+"$title:TakingPluralPicturesProgres(%ld,%ld)" = "インターバル-ブラケット: %1$ld/%2$ld";
+
+/* RecordingViewController.cameraDidStartTakingPluralPictures */
+"$title:TakingPluralPicturesStart" = "インターバル-ブラケット";
 
 /* PlaybackViewController.commitEditingStyle
    PlaybackViewController.downloadContentList */

@@ -264,7 +264,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 
 @property (strong, nonatomic, readwrite) NSArray *autoBracketingCountList; ///< オートブラケットで撮影する枚数の選択肢リスト
 @property (strong, nonatomic, readwrite) NSArray *autoBracketingStepList; ///< オートブラケットで撮影する際のステップ数の選択肢リスト
-@property (strong, nonatomic, readwrite) NSArray *intervalTimerCountList; ///< インターバルタイマーで撮影する枚数の選択肢リスト
+@property (strong, nonatomic, readwrite) NSArray *intervalTimerCountList; ///< インターバルタイマーで撮影する回数の選択肢リスト
 @property (strong, nonatomic, readwrite) NSArray *intervalTimerTimeList; ///< インターバルタイマーで撮影する際の時間間隔の選択肢リスト
 @property (assign, nonatomic, readwrite) NSTimeInterval recordingElapsedTime; ///< 動画撮影経過時間
 @property (assign, nonatomic, readwrite) float minimumDigitalZoomScale;	///< デジタルズームの最小倍率
@@ -2081,7 +2081,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (actionType == AppCameraActionTypeTakingPictureIntervalTimer ||
 		actionType == AppCameraActionTypeTakingPictureCombination) {
 		if (self.intervalTimerCount < 1) {
-			// 撮影枚数は1以上でなければなりません。
+			// 撮影回数は1以上でなければなりません。
 			NSDictionary *userInfo = @{
 				NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:IntervalTimerCountIsIncorrect", @"AppCamera.startTakingPluralPictures")
 			};

@@ -40,7 +40,7 @@
 @property (strong, nonatomic) NSArray *autoBracketingCounts; ///< オートブラケットで撮影する枚数の選択肢
 @property (strong, nonatomic) NSArray *autoBracketingSteps; ///< オートブラケットで撮影する際にカメラプロパティ値を変更するステップ数の選択肢
 @property (strong, nonatomic) NSArray *intervalTimerModes; ///< インターバルタイマー撮影モードの選択肢
-@property (strong, nonatomic) NSArray *intervalTimerCounts; ///< インターバルタイマーで撮影する枚数の選択肢
+@property (strong, nonatomic) NSArray *intervalTimerCounts; ///< インターバルタイマーで撮影する回数の選択肢
 @property (strong, nonatomic) NSArray *intervalTimerTimes; ///< インターバルタイマーで撮影する時間間隔の選択肢
 
 @end
@@ -116,7 +116,7 @@
 	[intervalTimerModes addObject:intervalTimerModePriorTime];
 	self.intervalTimerModes = intervalTimerModes;
 	
-	// インターバルタイマーで撮影する枚数の選択肢を構築します。
+	// インターバルタイマーで撮影する回数の選択肢を構築します。
 	NSMutableArray *intervalTimerCounts = [[NSMutableArray alloc] init];
 	for (NSNumber *countValue in camera.intervalTimerCountList) {
 		NSInteger count = [countValue integerValue];
@@ -746,15 +746,15 @@
 	[self updateShowAutoBracketingStepCell];
 }
 
-/// インターバルタイマーで撮影する枚数の選択肢が選択された時に呼び出されます。
+/// インターバルタイマーで撮影する回数の選択肢が選択された時に呼び出されます。
 - (void)didSelectIntervalTimerCount:(NSUInteger)itemIndex {
 	DEBUG_LOG(@"itemIndex=%ld", (long)itemIndex);
 
-	// 選択した枚数を取得します。
+	// 選択した回数を取得します。
 	NSDictionary *item = self.intervalTimerCounts[itemIndex];
 	NSInteger count = [item[ItemSelectionViewItemValueKey] integerValue];
 	
-	// インターバルタイマーで撮影する枚数を設定します。
+	// インターバルタイマーで撮影する回数を設定します。
 	AppCamera *camera = GetAppCamera();
 	camera.intervalTimerCount = count;
 	
@@ -952,11 +952,11 @@
 	[self tableViewCell:self.showIntervalTimerModeCell enabled:canSetIntervalTimer];
 }
 
-/// インターバルタイマーで撮影する枚数を表示します。
+/// インターバルタイマーで撮影する回数を表示します。
 - (void)updateShowIntervalTimerCountCell {
 	DEBUG_LOG(@"");
 
-	// 枚数の値を表示用の文言に変換します。
+	// 回数の値を表示用の文言に変換します。
 	__block NSString *intervalTimerCount = NSLocalizedString(@"$cell:IntervalTimerCountUnknown", @"EPanelViewController.updateShowIntervalTimerCountCell");
 	AppCamera *camera = GetAppCamera();
 	[self.intervalTimerCounts enumerateObjectsUsingBlock:^(NSDictionary *item, NSUInteger index, BOOL *stop) {

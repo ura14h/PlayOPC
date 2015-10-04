@@ -86,7 +86,7 @@
 "mn8-zu-qbp.text" = "$exposeMovieSelect";
 
 /* Class = "UILabel"; text = "Count"; ObjectID = "oVO-Ko-IqU"; */
-"oVO-Ko-IqU.text" = "枚数";
+"oVO-Ko-IqU.text" = "回数";
 
 /* Class = "UITableViewSection"; headerTitle = "Action Modes"; ObjectID = "pL0-3d-GdJ"; */
 "pL0-3d-GdJ.headerTitle" = "操作モード";

@@ -190,9 +190,14 @@ extern NSString *const OLYCameraDigitalZoomScaleRangeMinimumKey;
 extern NSString *const OLYCameraDigitalZoomScaleRangeMaximumKey;	
 
 /**
+ * Dictionary key for accessing 'Overall view' elements of the magnified live view information.
+ */
+extern NSString *const OLYCameraMagnifyingOverallViewSizeKey;	
+
+/**
  * Dictionary key for accessing 'Display area' elements of the magnified live view information.
  */
-extern NSString *const OLYCameraMagnifyingLiveViewAreaRectKey;	
+extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;	
 
 /** @} */
 /** @} */
@@ -518,7 +523,33 @@ extern NSString *const OLYCameraMagnifyingLiveViewAreaRectKey;
  */
 - (BOOL)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction error:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Get display area information of magnified live view.
+ *
+ * If live view is not magnified, an error occurs.
+ *
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return Display area information in the dictionary format.
+ *   - #OLYCameraMagnifyingOverallViewSizeKey ... Size of the overall view.
+ *   - #OLYCameraMagnifyingDisplayAreaRectKey ... Rectangular coordinates of the display area in viewfinder coordinate system. The viewfinder coordinate system is explained in coordinate conversion utilities section of functions menu.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run mode and otherwise causes an error. 
+ *   - #OLYCameraRunModeRecording
+ *
+ * @par Availability
+ *   - Camera firmware: Version 1.1 or later.
+ *
+ * @see OLYCamera::magnifyingLiveView
+ * @see OLYCamera::startMagnifyingLiveView:error:
+ * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
+ * @see OLYCamera::stopMagnifyingLiveView:
+ * @see OLYCamera::changeMagnifyingLiveViewArea:error:
+ *
+ * 
+ */
+- (NSDictionary *)magnifyingLiveViewArea:(NSError **)error;	
 
 // ;-)
 

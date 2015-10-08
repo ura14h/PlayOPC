@@ -190,19 +190,6 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  * Connect to the camera.
  *
  * Connection to the camera is complete, the application will be able to use features of the SDK.
- *
- * @param error Error details will be set when operation is abnormally terminated.
- * @return If true, the operation was successful. If false, the operation had an abnormal termination.
- *
- * 
- */
-- (BOOL)connect:(NSError **)error;	
-
-/**
- * 
- * Connect to the camera.
- *
- * Connection to the camera is complete, the application will be able to use features of the SDK.
  * If the application wants to change the connection type when it is already connected
  * to the camera, the application must disconnect and connect again.
  *

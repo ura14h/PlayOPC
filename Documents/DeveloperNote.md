@@ -130,4 +130,6 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 
 * UIApplicationDelegateのapplicationDidBecomeActive:メソッドが呼び出されるタイミングが、viewDidLoadの後だったのがviewDidLoadよりも前に移動したようです。
 
+* OLYCameraKit.framworkの最新バージョン(1.1.1)をアプリのプロジェクトに組み込むとビルド時に警告が大量に発生する場合があるようです。なお、プロジェクトのビルド設定でDebug Information FormatをDWARF with dSYMからDWARFに変えると警告は消えるようです。 #reported-sdk-1.1.1 #avoided-app-1.5.2477
+
 以上

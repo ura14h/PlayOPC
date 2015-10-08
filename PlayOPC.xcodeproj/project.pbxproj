@@ -99,6 +99,7 @@
 		31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC01AEB888B0094193A /* ZPanelViewController.m */; };
 		31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
 		31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
+		31841A2D1BC6771A0081C9EF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */; };
 		3190B3461B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
 		3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
 		319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284331AD8E7E0003BC78F /* RecordingViewController.m */; };
@@ -110,7 +111,6 @@
 		319396941B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319396931B04CD4B00EAAE35 /* PictureContentViewController.m */; };
 		319396951B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319396931B04CD4B00EAAE35 /* PictureContentViewController.m */; };
 		3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */; };
-		319A5E8F1B2C0A00008BBB47 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 319A5E8E1B2C0A00008BBB47 /* Photos.framework */; };
 		31A8097C1AD04DE400186E4D /* SystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A8097B1AD04DE400186E4D /* SystemViewController.m */; };
 		31BD00021B3C3D7200F555A7 /* AppCameraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD00011B3C3D7200F555A7 /* AppCameraTests.m */; };
 		31BD64601B0865FD00934C3B /* VideoContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31BD645F1B0865FD00934C3B /* VideoContentViewController.m */; };
@@ -285,6 +285,7 @@
 		31731EC01AEB888B0094193A /* ZPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZPanelViewController.m; sourceTree = "<group>"; };
 		31731EC31AEB88AB0094193A /* VPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPanelViewController.h; sourceTree = "<group>"; };
 		31731EC41AEB88AB0094193A /* VPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		3190B3451B34F61C006B0A16 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
 		319284321AD8E7E0003BC78F /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
 		319284331AD8E7E0003BC78F /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RecordingViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -295,7 +296,6 @@
 		319396921B04CD4B00EAAE35 /* PictureContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PictureContentViewController.h; sourceTree = "<group>"; };
 		319396931B04CD4B00EAAE35 /* PictureContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PictureContentViewController.m; sourceTree = "<group>"; };
 		3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		319A5E8E1B2C0A00008BBB47 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		319D8DBC1BAE695D005F8DB8 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		31A8097A1AD04DE400186E4D /* SystemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemViewController.h; sourceTree = "<group>"; };
 		31A8097B1AD04DE400186E4D /* SystemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SystemViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -389,9 +389,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31841A2D1BC6771A0081C9EF /* AssetsLibrary.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
-				319A5E8F1B2C0A00008BBB47 /* Photos.framework in Frameworks */,
 				311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -614,7 +614,7 @@
 		313870A81AC7D3C900B00309 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				319A5E8E1B2C0A00008BBB47 /* Photos.framework */,
+				31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */,
 				311199B41B086F4800538FA0 /* OLYCameraKit.framework */,
 				3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */,
 				313870A61AC7D3B300B00309 /* CoreBluetooth.framework */,

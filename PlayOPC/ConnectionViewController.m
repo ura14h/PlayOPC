@@ -648,11 +648,11 @@
 			BOOL wokenUp = [camera wakeup:&error];
 			if (!wokenUp) {
 				// カメラの電源を入れるのに失敗しました。
-				if ([error.domain isEqualToString:OLYCameraErrorDomain] && error.code == 195887114) {
+				if ([error.domain isEqualToString:OLYCameraErrorDomain] && error.code == OLYCameraErrorOperationAborted) {
 					// MARK: カメラをUSB給電中に電源入れるとその後にWi-Fi接続できるようになるのにもかかわらずエラーが返ってくるようです。
 					//     Error {
 					//         Domain = OLYCameraErrorDomain
-					//         Code = 195887114
+					//         Code = 195887114 (OLYCameraErrorOperationAborted)
 					//         UserInfo = { NSLocalizedDescription=The camera did not respond in time. }
 					//     }
 					// エラーにすると使い勝手が悪いので、無視して続行します。

@@ -2331,7 +2331,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					NSString *propertyValue = autoBracketingPropertyValues[index];
 					NSInteger retry = 0;
 					while (![super setCameraPropertyValue:autoBracketingProperty value:propertyValue error:&error]) {
-						if (error.domain == OLYCameraErrorDomain && error.code == 195887111) {
+						if (error.domain == OLYCameraErrorDomain && error.code == OLYCameraErrorCommandFailed) {
 							// カメラ内部エラーの場合はリトライしてみます。リトライが規定回数を超えた場合はこの撮影ループは異常終了です。
 							retry++;
 							if (retry > 2) {

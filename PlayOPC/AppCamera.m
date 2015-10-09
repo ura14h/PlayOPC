@@ -2329,9 +2329,22 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					
 					// オートブラケットで変更するカメラプロパティ値を設定します。
 					NSString *propertyValue = autoBracketingPropertyValues[index];
-					if (![super setCameraPropertyValue:autoBracketingProperty value:propertyValue error:&error]) {
-						takingError = error;
-						goto ExitTakingPluralPicturesLoop;
+					NSInteger retry = 0;
+					while (![super setCameraPropertyValue:autoBracketingProperty value:propertyValue error:&error]) {
+						if (error.domain == OLYCameraErrorDomain && error.code == 195887111) {
+							// カメラ内部エラーの場合はリトライしてみます。リトライが規定回数を超えた場合はこの撮影ループは異常終了です。
+							retry++;
+							if (retry > 2) {
+								takingError = error;
+								goto ExitTakingPluralPicturesLoop;
+							}
+							// 次のリトライまで少し時間を空けます。
+							[NSThread sleepForTimeInterval:1.0];
+						} else {
+							// カメラ内部エラー以外は復帰の見込みがないのでこの撮影ループはすぐに異常終了です。
+							takingError = error;
+							goto ExitTakingPluralPicturesLoop;
+						}
 					}
 					
 					// 設定した値が実際に適用されたかを確認します。

@@ -1383,6 +1383,75 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if ([localizedTitle isEqualToString:valueKey]) {
 		localizedTitle = value;
 	}
+	// いくつかの項目については特別なローカライズを行います。
+	// なんでまた項目ごとにこんなにバラバラの書式になってしまっているのでしょうか...。ハードウェア情報ともカメラプロパティの値ともまた違っているし。
+	// MARK: 補正値や角度などの数値型で値の符号がおかしい場合があります。(2の補数を正しく変換できていないようです)
+	// MARK: DigitalTelecon(デジタルテレコン有無)は通信仕様書の記述と異なり"ON"または"OFF"で返されるようです。
+	// MARK: Location(本体の位置)の値は通信仕様書の記述と異なり実際には"0x0"から"0x5"までの値で返されるようです。
+	// MARK: MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	// MARK: MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	// MARK: WhiteBalance(ホワイトバランス)が自動の時にWB補正を伴うと通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	if ([name isEqualToString:@"DateTime"]) {
+		// 撮影年月日は書式化し直します。
+		NSString *pattern = @"^(....)(..)(..)T(..)(..)$";
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
+		NSTextCheckingResult *matches = [regex firstMatchInString:value options:0 range:NSMakeRange(0, value.length)];
+		if (matches.numberOfRanges == 6) {
+			NSString *years = [value substringWithRange:[matches rangeAtIndex:1]];
+			NSString *months = [value substringWithRange:[matches rangeAtIndex:2]];
+			NSString *days = [value substringWithRange:[matches rangeAtIndex:3]];
+			NSString *hours = [value substringWithRange:[matches rangeAtIndex:4]];
+			NSString *minites = [value substringWithRange:[matches rangeAtIndex:5]];
+			localizedTitle = [NSString stringWithFormat:@"%@-%@-%@ %@:%@", years, months, days, hours, minites];
+		}
+	} else if ([name isEqualToString:@"ColorCreatorVivid"] ||
+			   [name isEqualToString:@"WBBiasA"] ||
+			   [name isEqualToString:@"WBBiasG"]) {
+		// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にプラス記号がついている)
+		NSScanner *scanner = [NSScanner scannerWithString:value];
+		int unsingedInt = 0;
+		[scanner scanInt:&unsingedInt];
+		SInt16 signedInt16 = (SInt16)unsingedInt;
+		localizedTitle = [NSString stringWithFormat:@"%ld", (long)signedInt16];
+	} else if ([name isEqualToString:@"ToneControlHigh"] ||
+			   [name isEqualToString:@"ToneControlMiddle"] ||
+			   [name isEqualToString:@"ToneControlShadow"]) {
+		// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にはプラス記号がついていない)
+		NSScanner *scanner = [NSScanner scannerWithString:value];
+		int unsingedInt = 0;
+		[scanner scanInt:&unsingedInt];
+		SInt16 signedInt16 = (SInt16)unsingedInt;
+		localizedTitle = [NSString stringWithFormat:@"%ld", (long)signedInt16];
+	} else if ([name isEqualToString:@"RoleAngle"] ||
+			   [name isEqualToString:@"PitchAngle"]) {
+		// 16ビット符号なし16進数になっているので書式化し直します。
+		NSString *pattern = @"^0x([0-9A-Fa-f]+)$";
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
+		NSTextCheckingResult *matches = [regex firstMatchInString:value options:0 range:NSMakeRange(0, value.length)];
+		if (matches.numberOfRanges == 2) {
+			NSString *hexText = [value substringWithRange:[matches rangeAtIndex:1]];
+			unsigned int hexUnsignedInt = 0;
+			NSScanner *scanner = [NSScanner scannerWithString:hexText];
+			[scanner scanHexInt:&hexUnsignedInt];
+			SInt16 hexSignedInt16 = (SInt16)hexUnsignedInt;
+			float angle = (float)hexSignedInt16 / 10.0;
+			localizedTitle = [NSString stringWithFormat:@"%0.1f", angle];
+		}
+	} else if ([name isEqualToString:@"LensID"] ||
+			   [name isEqualToString:@"AccessaryID"]) {
+		// 2つの8ビット10進数に分離しているので、ハードウェア情報取得で得られる形式と同じ、16ビット符号なし16進数に再構築します。
+		NSString *pattern = @"^\\(([0-9]+), *([0-9]+)\\)$";
+		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];
+		NSTextCheckingResult *matches = [regex firstMatchInString:value options:0 range:NSMakeRange(0, value.length)];
+		if (matches.numberOfRanges == 3) {
+			NSString *highHexText = [value substringWithRange:[matches rangeAtIndex:1]];
+			NSString *lowHexText = [value substringWithRange:[matches rangeAtIndex:2]];
+			NSInteger highInteger = [highHexText integerValue];
+			NSInteger lowInteger = [lowHexText integerValue];
+			UInt16 unsignedInt16 = (UInt16)(highInteger * 256 + lowInteger);
+			localizedTitle = [NSString stringWithFormat:@"%04lx", (long)unsignedInt16];
+		}
+	}
 	return localizedTitle;
 }
 

@@ -657,6 +657,10 @@
 "[COLORTONE/VINTAGE]" = "ヴィンテージ";
 "[COLORTONE/PARTCOLOR]" = "パートカラー";
 "[Tone]" = "階調";
+"[Tone/Auto]" = "自動";
+"[Tone/Normal]" = "標準";
+"[Tone/HighKey]" = "ハイキー";
+"[Tone/LowKey]" = "ローキー";
 "[Sharpness]" = "シャープネス";
 "[Contrast]" = "コントラスト";
 "[Saturation]" = "彩度";
@@ -715,8 +719,9 @@
 "[WhiteBalance/CLOUD]" = "曇天";
 "[WhiteBalance/LAMP]" = "電球";
 "[WhiteBalance/FLUORESCENCE1]" = "蛍光灯";
-"[WhiteBalance/WATER_1]" = "水中";
+"[WhiteBalance/WATER1]" = "水中";
 "[WhiteBalance/CUSTOM1]" = "カスタムWB";
+"[WhiteBalance/ERROR]" = "自動?";
 "[CustomWBBias]" = "カスタムWB用色温度";
 "[WBAutoLightBulbColorLeaving]" = "電球色";
 "[WBAutoLightBulbColorLeaving/ON]" = "残す";

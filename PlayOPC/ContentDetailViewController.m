@@ -135,7 +135,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 			NSString *keyText = key;
 			NSString *valueText;
 			if ([value isKindOfClass:[NSArray class]]) {
-				valueText = [value componentsJoinedByString:@", "];
+				valueText = [NSString stringWithFormat:@"(%@)", [value componentsJoinedByString:@", "]];
 			} else {
 				valueText = [value description];
 			}
@@ -278,11 +278,6 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 		cell.textLabel.text = itemNameTitle;
 		
 		// コンテンツ情報の値を表示文言に変換して表示します。
-		// MARK: 補正値や角度などの数値型で値の符号がおかしい場合があります。(2の補数を正しく変換できていないようです)
-		// MARK: DigitalTelecon(デジタルテレコン有無)は通信仕様書の記述と異なり"ON"または"OFF"で返されるようです。
-		// MARK: Location(本体の位置)の値は通信仕様書の記述と異なり実際には"0x0"から"0x5"までの値で返されるようです。
-		// MARK: MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
-		// MARK: MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 		NSString *itemValue = detail[ContentDetailValueKey];
 		NSString *itemValueTitle = [camera contentInformationValueLocalizedTitle:itemName value:itemValue];
 		cell.detailTextLabel.text = itemValueTitle;
@@ -337,13 +332,15 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 		// 要素が配列の場合は1つの文字列に結合します。
 		NSString *title = [names componentsJoinedByString:@"."];
 		__block NSMutableString *value = [[NSMutableString alloc] init];
+		[value appendString:@"("];
 		[(NSArray *)element enumerateObjectsUsingBlock:^(id item, NSUInteger index, BOOL *stop) {
-			if (value.length > 0) {
+			if (index > 0) {
 				[value appendString:@","];
 			}
 			NSString *itemText = [[item description] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
 			[value appendString:itemText];
 		}];
+		[value appendString:@")"];
 		NSDictionary *item = @{
 			ContentMetadataTitleKey: title,
 			ContentMetadataValueKey: value,

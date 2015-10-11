@@ -657,6 +657,10 @@
 "[COLORTONE/VINTAGE]" = "Vintage";
 "[COLORTONE/PARTCOLOR]" = "Partcolor";
 "[Tone]" = "Gradation";
+"[Tone/Auto]" = "Auto";
+"[Tone/Normal]" = "Normal";
+"[Tone/HighKey]" = "High Key";
+"[Tone/LowKey]" = "Low Key";
 "[Sharpness]" = "Sharpness";
 "[Contrast]" = "Contrast";
 "[Saturation]" = "Saturation";
@@ -715,8 +719,9 @@
 "[WhiteBalance/CLOUD]" = "Cloudy";
 "[WhiteBalance/LAMP]" = "Tungsten Light";
 "[WhiteBalance/FLUORESCENCE1]" = "Fluorescent Light";
-"[WhiteBalance/WATER_1]" = "Underwater";
+"[WhiteBalance/WATER1]" = "Underwater";
 "[WhiteBalance/CUSTOM1]" = "Custom WB";
+"[WhiteBalance/ERROR]" = "Auto?";
 "[CustomWBBias]" = "Custom WB";
 "[WBAutoLightBulbColorLeaving]" = "Keep Warm Color";
 "[WBAutoLightBulbColorLeaving/ON]" = "Yes";

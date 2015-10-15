@@ -10,6 +10,7 @@
 //
 
 #import "ContentDetailViewController.h"
+#import "FavoriteForgingViewController.h"
 #import "AppDelegate.h"
 #import "AppCamera.h"
 #import "UIViewController+Alert.h"
@@ -29,9 +30,13 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 
 @interface ContentDetailViewController ()
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *showForgingButton;
+
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
-@property (strong, nonatomic) NSMutableArray *contentDetails; ///< コンテンツ情報
-@property (strong, nonatomic) NSMutableArray *contentMetadata; ///< コンテンツのメタデータ
+@property (strong, nonatomic) NSDictionary *originalInformation; ///< お気に入り変換画面へ引き渡すためのコンテンツ情報
+@property (strong, nonatomic) NSDictionary *originalMetadata; ///< お気に入り変換画面へ引き渡すためのコンテンツのメタデータ
+@property (strong, nonatomic) NSArray *contentDetails; ///< 画面表示に使用するコンテンツ情報
+@property (strong, nonatomic) NSArray *contentMetadata; ///< 画面表示に使用するコンテンツのメタデータ
 
 @end
 
@@ -45,6 +50,9 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 	DEBUG_LOG(@"");
 	[super viewDidLoad];
 
+	// ツールバーボタンセットを初期設定します。
+	self.showForgingButton.enabled = NO;
+	
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
 }
@@ -59,6 +67,8 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 	
 	_content = nil;
 	_contentData = nil;
+	_originalInformation = nil;
+	_originalMetadata = nil;
 	_contentDetails = nil;
 	_contentMetadata = nil;
 }
@@ -70,8 +80,8 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 	// タイトルを設定します。
 	self.title = self.content[OLYCameraContentListFilenameKey];
 	
-	// ツールバーを非表示にします。
-	[self.navigationController setToolbarHidden:YES animated:animated];
+	// ツールバーを表示します。
+	[self.navigationController setToolbarHidden:NO animated:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -126,6 +136,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotGetContentInformation", @"ContentDetailViewController.didStartActivity")];
 			return;
 		}
+		weakSelf.originalInformation = information;
 		
 		// コンテンツ情報を整形して取り込みます。
 		NSMutableArray *contentDetails = [[NSMutableArray alloc] initWithCapacity:information.count];
@@ -162,6 +173,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 			CGImageSourceRef sourceRef = CGImageSourceCreateWithData((__bridge CFDataRef)(weakSelf.contentData), nil);
 			NSDictionary *metadata = (__bridge_transfer NSDictionary *)CGImageSourceCopyPropertiesAtIndex(sourceRef, 0, nil);
 			CFRelease(sourceRef);
+			weakSelf.originalMetadata = metadata;
 			
 			// 多階層構造のメタデータを表示用にフラットな構造に変換します。
 			[self flattenMetadata:metadata names:nil result:contentMetadata];
@@ -180,6 +192,13 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// ツールバーを更新します。
+			if (weakSelf.originalInformation && weakSelf.originalMetadata) {
+				weakSelf.showForgingButton.enabled = YES; // 情報が揃っていてお気に入りへの変換ができそうです。
+			} else {
+				weakSelf.showForgingButton.enabled = NO;
+			}
+			
 			// 一覧を更新します。
 			[weakSelf.tableView reloadData];
 		}];
@@ -210,6 +229,22 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 }
 
 #pragma mark -
+
+/// セグエを準備する(画面が遷移する)時に呼び出されます。
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"ShowForgingFavorite"]) {
+		FavoriteForgingViewController *viewController = segue.destinationViewController;
+		viewController.content = self.content;
+		viewController.information = self.originalInformation;
+		viewController.metadata = self.originalMetadata;
+	} else {
+		// 何もしません。
+	}
+}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 	DEBUG_DETAIL_LOG(@"");

@@ -172,6 +172,7 @@
 		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
 		31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
+		31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */; settings = {ASSET_TAGS = (); }; };
 		31E81A2C1B5B7A9E003685A9 /* Recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */; };
 		31E81A2F1B5B7B08003685A9 /* Playback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2D1B5B7B08003685A9 /* Playback.storyboard */; };
 		31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A301B5B7B1F003685A9 /* System.storyboard */; };
@@ -361,6 +362,8 @@
 		31D5EDA41B5A340B004DF3AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
 		31DB84021AD101C900E50B03 /* UIViewController+Alert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Alert.h"; sourceTree = "<group>"; };
 		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
+		31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteForgingViewController.m; sourceTree = "<group>"; };
+		31E0DAFC1BCFC8F1002B690C /* FavoriteForgingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteForgingViewController.h; sourceTree = "<group>"; };
 		31E81A2B1B5B7A9E003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recording.storyboard; sourceTree = "<group>"; };
 		31E81A2E1B5B7B08003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Playback.storyboard; sourceTree = "<group>"; };
 		31E81A311B5B7B1F003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PlayOPC/Base.lproj/System.storyboard; sourceTree = "<group>"; };
@@ -488,6 +491,8 @@
 				31BD645F1B0865FD00934C3B /* VideoContentViewController.m */,
 				31C3683B1B47BEB00057A390 /* ContentDetailViewController.h */,
 				31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */,
+				31E0DAFC1BCFC8F1002B690C /* FavoriteForgingViewController.h */,
+				31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */,
 			);
 			name = "Playback Section";
 			sourceTree = "<group>";
@@ -989,6 +994,7 @@
 				311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
 				3162EB091ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,
 				31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */,
+				31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */,
 				314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */,
 				31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */,
 				311199BE1B086FB200538FA0 /* Reachability.m in Sources */,

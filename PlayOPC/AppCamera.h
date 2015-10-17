@@ -69,6 +69,8 @@ extern NSString *const CameraPropertyTakemodeMovie;
 extern NSString *const CameraPropertyIso;
 extern NSString *const CameraPropertyExprev;
 extern NSString *const CameraPropertyTakeDrive;
+extern NSString *const CameraPropertyTakeDriveDriveNormal;
+extern NSString *const CameraPropertyTakeDriveDriveContinue;
 extern NSString *const CameraPropertyAspectRatio;
 extern NSString *const CameraPropertyShutter;
 extern NSString *const CameraPropertyContinuousShootingVelocity;

@@ -28,6 +28,8 @@ NSString *const CameraPropertyTakemodeMovie = @"<TAKEMODE/movie>";
 NSString *const CameraPropertyIso = @"ISO";
 NSString *const CameraPropertyExprev = @"EXPREV";
 NSString *const CameraPropertyTakeDrive = @"TAKE_DRIVE";
+NSString *const CameraPropertyTakeDriveDriveNormal = @"<TAKE_DRIVE/DRIVE_NORMAL>";
+NSString *const CameraPropertyTakeDriveDriveContinue = @"<TAKE_DRIVE/DRIVE_CONTINUE>";
 NSString *const CameraPropertyAspectRatio = @"ASPECT_RATIO";
 NSString *const CameraPropertyShutter = @"SHUTTER";
 NSString *const CameraPropertyContinuousShootingVelocity = @"CONTINUOUS_SHOOTING_VELOCITY";
@@ -1890,9 +1892,340 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (NSDictionary *)forgeSnapshotOfSettingWithContentInformation:(NSDictionary *)information metadata:(NSDictionary *)metadata {
 	DEBUG_LOG(@"information=%@, metadata=%@", information, metadata);
 	
-	// TODO: 作ろう。
+	// 操作モード/撮影モードを決定します。
+	NSMutableDictionary *propertyValues = [[NSMutableDictionary alloc] init];
+	NSDictionary *exifDictionary = metadata[(NSString *)kCGImagePropertyExifDictionary];
+	if (!exifDictionary) {
+		DEBUG_LOG(@"no exif dictionary.");
+		return nil;
+	}
+	NSNumber *exifExposureMode = exifDictionary[(NSString *)kCGImagePropertyExifExposureProgram];
+	if (!exifExposureMode) {
+		DEBUG_LOG(@"no exif exposure mode.");
+		return nil;
+	}
+	switch ([exifExposureMode longValue]) {
+		case 1: // マニュアル
+			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeM;
+			break;
+		case 2: // ノーマルプログラム
+			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeP;
+			break;
+		case 3: // 絞り優先
+			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeA;
+			break;
+		case 4: // シャッター優先
+			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeS;
+			break;
+		default:
+			DEBUG_LOG(@"not supported exif exposure mode.");
+			return nil;
+	}
 	
-	return nil;
+	// 操作モード/動画撮影モード ... 扱いません。
+	propertyValues[CameraPropertyExposeMovieSelect] = nil;
+	
+	// 操作モード/ドライブモード ... 単写にします。
+	propertyValues[CameraPropertyTakeDrive] = CameraPropertyTakeDriveDriveNormal;
+	
+	// 操作モード/連写速度 ... 扱いません。
+	propertyValues[CameraPropertyContinuousShootingVelocity] = nil;
+
+	// 露出パラメータ/絞り値を決定します。
+	NSNumber *exifFNumber = exifDictionary[(NSString *)kCGImagePropertyExifFNumber];
+	if (exifFNumber) {
+		// 絞り値のカメラプロパティ値リストを取得します。
+		NSArray *aperturePropertyValueList = [super cameraPropertyValueList:CameraPropertyAperture error:nil];
+		if (aperturePropertyValueList) {
+			// 絞り値リストを作成します。
+			NSMutableArray *apertureNumberList = [[NSMutableArray alloc] init];
+			[aperturePropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *apertureNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+				[apertureNumberList addObject:apertureNumber];
+			}];
+			// 絞り値リストの中で絞り値がもっとも近い値のインデックスを検索します。
+			// MARK: 絞り値リストは並びが値の小さい順に並んでいます。
+			float aperture = [exifFNumber floatValue];
+			NSInteger nearestIndex;
+			if (aperture < [apertureNumberList[0] floatValue]) {
+				nearestIndex = 0;
+			} else if (aperture > [apertureNumberList[apertureNumberList.count - 1] floatValue]) {
+				nearestIndex = apertureNumberList.count - 1;
+			} else {
+				nearestIndex = 0;
+				for (NSInteger index = 0; index < apertureNumberList.count - 1; index++) {
+					float boundarySmallAperture = [apertureNumberList[index] floatValue];
+					float boundaryLargeAperture = [apertureNumberList[index + 1] floatValue];
+					if (fabsf(boundarySmallAperture - aperture) < FLT_EPSILON) {
+						nearestIndex = index;
+						break;
+					}
+					if (fabsf(boundaryLargeAperture - aperture) < FLT_EPSILON) {
+						nearestIndex = index + 1;
+						break;
+					}
+					float nearestAperture = [apertureNumberList[nearestIndex] floatValue];
+					float distanceFromNearest = fabsf(aperture - nearestAperture);
+					float distanceFromBoundarySmall = fabsf(aperture - boundarySmallAperture);
+					float distanceFromBoundaryLarge = fabsf(aperture - boundaryLargeAperture);
+					if (distanceFromBoundarySmall < distanceFromNearest) {
+						nearestIndex = index;
+					}
+					if (distanceFromBoundaryLarge < distanceFromNearest) {
+						nearestIndex = index + 1;
+					}
+				}
+			}
+			// 探したインデックスに対応するカメラプロパティの絞り値で決定します。
+			NSString *apertureValue = aperturePropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyAperture] = apertureValue;
+		}
+	}
+
+	// 露出パラメータ/シャッター速度を決定します。
+	NSNumber *exifExposureTime = exifDictionary[(NSString *)kCGImagePropertyExifExposureTime];
+	if (exifExposureTime) {
+		// シャッター速度のカメラプロパティ値リストを取得します。
+		NSArray *shutterPropertyValueList = [super cameraPropertyValueList:CameraPropertyShutter error:nil];
+		if (shutterPropertyValueList) {
+			// 露光時間リストを作成します。
+			NSMutableArray *exposureTimeNumberList = [[NSMutableArray alloc] init];
+			[shutterPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *exposureTimeNumber;
+				if ([strippedValue hasSuffix:@"\""]) {
+					NSString *moreStrippedValue = [strippedValue substringToIndex:strippedValue.length - 1];
+					exposureTimeNumber = [NSNumber numberWithFloat:[moreStrippedValue floatValue]];
+				} else {
+					exposureTimeNumber = [NSNumber numberWithFloat:(1.0 / [strippedValue floatValue])];
+				}
+				[exposureTimeNumberList addObject:exposureTimeNumber];
+			}];
+			// 露光時間リストの中で露光時間がもっとも近い値のインデックスを検索します。
+			// MARK: 露光時間リストは並びが値の大きい順に並んでいます。
+			float exposureTime = [exifExposureTime floatValue];
+			NSInteger nearestIndex;
+			if (exposureTime > [exposureTimeNumberList[0] floatValue]) {
+				nearestIndex = 0;
+			} else if (exposureTime < [exposureTimeNumberList[exposureTimeNumberList.count - 1] floatValue]) {
+				nearestIndex = exposureTimeNumberList.count - 1;
+			} else {
+				nearestIndex = 0;
+				for (NSInteger index = 0; index < exposureTimeNumberList.count - 1; index++) {
+					float boundaryLongExposureTime = [exposureTimeNumberList[index] floatValue];
+					float boundaryShortExposureTime = [exposureTimeNumberList[index + 1] floatValue];
+					if (fabsf(boundaryLongExposureTime - exposureTime) < FLT_EPSILON) {
+						nearestIndex = index;
+						break;
+					}
+					if (fabsf(boundaryShortExposureTime - exposureTime) < FLT_EPSILON) {
+						nearestIndex = index + 1;
+						break;
+					}
+					float nearestExposureTime = [exposureTimeNumberList[nearestIndex] floatValue];
+					float distanceFromNearest = fabsf(exposureTime - nearestExposureTime);
+					float distanceFromBoundaryLong = fabsf(exposureTime - boundaryLongExposureTime);
+					float distanceFromBoundaryShort = fabsf(exposureTime - boundaryShortExposureTime);
+					if (distanceFromBoundaryLong < distanceFromNearest) {
+						nearestIndex = index;
+					}
+					if (distanceFromBoundaryShort < distanceFromNearest) {
+						nearestIndex = index + 1;
+					}
+				}
+			}
+			// 探したインデックスに対応するカメラプロパティのシャッター速度で決定します。
+			NSString *shutterValue = shutterPropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyShutter] = shutterValue;
+		}
+	}
+
+	// 露出パラメータ/露出補正値を決定します。
+	NSNumber *exifExposureBiasValue = exifDictionary[(NSString *)kCGImagePropertyExifExposureBiasValue];
+	if (exifExposureBiasValue) {
+		// 露出補正値のカメラプロパティ値リストを取得します。
+#if 0 // FIXME: SDK 1.1.1では、撮影モード以外では露出補正値のカメラプロパティ値の正しいリストが取得できない。
+		NSArray *exprevPropertyValueList = [super cameraPropertyValueList:CameraPropertyExprev error:nil];
+#else
+		NSArray *exprevPropertyValueList = @[
+			@"<EXPREV/-5.0>", @"<EXPREV/-4.7>", @"<EXPREV/-4.3>",
+			@"<EXPREV/-4.0>", @"<EXPREV/-3.7>", @"<EXPREV/-3.3>",
+			@"<EXPREV/-3.0>", @"<EXPREV/-2.7>", @"<EXPREV/-2.3>",
+			@"<EXPREV/-2.0>", @"<EXPREV/-1.7>", @"<EXPREV/-1.3>",
+			@"<EXPREV/-1.0>", @"<EXPREV/-0.7>", @"<EXPREV/-0.3>",
+			@"<EXPREV/0.0>",
+			@"<EXPREV/+0.3>", @"<EXPREV/+0.7>", @"<EXPREV/+1.0>",
+			@"<EXPREV/+1.3>", @"<EXPREV/+1.7>", @"<EXPREV/+2.0>",
+			@"<EXPREV/+2.3>", @"<EXPREV/+2.7>", @"<EXPREV/+3.0>",
+			@"<EXPREV/+3.3>", @"<EXPREV/+3.7>", @"<EXPREV/+4.0>",
+			@"<EXPREV/+4.3>", @"<EXPREV/+4.7>", @"<EXPREV/+5.0>",
+		];
+#endif
+		if (exprevPropertyValueList) {
+			// 露出補正値リストを作成します。
+			NSMutableArray *exposureCompensationNumberList = [[NSMutableArray alloc] init];
+			[exprevPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *apertureNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+				[exposureCompensationNumberList addObject:apertureNumber];
+			}];
+			// 露出補正値リストの中で絞り値がもっとも近い値のインデックスを検索します。
+			// MARK: 露出補正値リストは並びが値の小さい順に並んでいます。
+			float exposureCompensation = [exifExposureBiasValue floatValue];
+			NSInteger nearestIndex;
+			if (exposureCompensation < [exposureCompensationNumberList[0] floatValue]) {
+				nearestIndex = 0;
+			} else if (exposureCompensation > [exposureCompensationNumberList[exposureCompensationNumberList.count - 1] floatValue]) {
+				nearestIndex = exposureCompensationNumberList.count - 1;
+			} else {
+				nearestIndex = 0;
+				for (NSInteger index = 0; index < exposureCompensationNumberList.count - 1; index++) {
+					float boundarySmallExposureCompensation = [exposureCompensationNumberList[index] floatValue];
+					float boundaryLargeExposureCompensation = [exposureCompensationNumberList[index + 1] floatValue];
+					if (fabsf(boundarySmallExposureCompensation - exposureCompensation) < FLT_EPSILON) {
+						nearestIndex = index;
+						break;
+					}
+					if (fabsf(boundaryLargeExposureCompensation - exposureCompensation) < FLT_EPSILON) {
+						nearestIndex = index + 1;
+						break;
+					}
+					float nearestExposureCompensation = [exposureCompensationNumberList[nearestIndex] floatValue];
+					float distanceFromNearest = fabsf(exposureCompensation - nearestExposureCompensation);
+					float distanceFromBoundarySmall = fabsf(exposureCompensation - boundarySmallExposureCompensation);
+					float distanceFromBoundaryLarge = fabsf(exposureCompensation - boundaryLargeExposureCompensation);
+					if (distanceFromBoundarySmall < distanceFromNearest) {
+						nearestIndex = index;
+					}
+					if (distanceFromBoundaryLarge < distanceFromNearest) {
+						nearestIndex = index + 1;
+					}
+				}
+			}
+			// 探したインデックスに対応するカメラプロパティの露出補正値で決定します。
+			NSString *exprevValue = exprevPropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyExprev] = exprevValue;
+		}
+	}
+
+	// 露出パラメータ/ISO感度を決定します。
+	// MARK: ISO感度を自動で撮影した場合は正しい設定値を決定することはできません。
+	NSNumber *exifISOSpeedValue = nil;
+	NSArray *exifISOSpeedRatings = exifDictionary[(NSString *)kCGImagePropertyExifISOSpeedRatings];
+	if (exifISOSpeedRatings && exifISOSpeedRatings.count > 0) {
+		exifISOSpeedValue = exifISOSpeedRatings[0];
+	}
+	if (exifISOSpeedValue) {
+		// ISO感度のカメラプロパティ値リストを取得します。
+#if 0 // FIXME: SDK 1.1.1では、撮影モード以外ではISO感度のカメラプロパティ値の正しいリストが取得できない。
+		NSArray *isoPropertyValueList = [super cameraPropertyValueList:CameraPropertyIso error:nil];
+#else
+		NSArray *isoPropertyValueList = @[
+			@"<ISO/Auto>",
+			@"<ISO/Low>", @"<ISO/200>", @"<ISO/250>", @"<ISO/320>",
+			@"<ISO/400>", @"<ISO/500>", @"<ISO/640>", @"<ISO/800>",
+			@"<ISO/1000>", @"<ISO/1250>", @"<ISO/1600>", @"<ISO/2000>",
+			@"<ISO/2500>", @"<ISO/3200>", @"<ISO/4000>", @"<ISO/5000>",
+			@"<ISO/6400>", @"<ISO/8000>", @"<ISO/10000>", @"<ISO/12800>",
+		];
+#endif
+		if (isoPropertyValueList) {
+			// ISO感度リストを作成します。
+			NSMutableArray *isoSensitivityNumberList = [[NSMutableArray alloc] init];
+			[isoPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *isoSensitivityNumber;
+				if ([strippedValue isEqualToString:@"Auto"]) {
+					isoSensitivityNumber = @0;
+				} else if ([strippedValue isEqualToString:@"Low"]) {
+					isoSensitivityNumber = @100;
+				} else {
+					isoSensitivityNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+				}
+				[isoSensitivityNumberList addObject:isoSensitivityNumber];
+			}];
+			// ISO感度リストの中でISO感度がもっとも近い値のインデックスを検索します。
+			// MARK: ISO感度リストは並びが値の小さい順に並んでいます。
+			NSInteger isoSensitivity = [exifISOSpeedValue integerValue];
+			NSInteger nearestIndex;
+			if (isoSensitivity < [isoSensitivityNumberList[0] integerValue]) {
+				nearestIndex = 0;
+			} else if (isoSensitivity > [isoSensitivityNumberList[isoSensitivityNumberList.count - 1] integerValue]) {
+				nearestIndex = isoSensitivityNumberList.count - 1;
+			} else {
+				nearestIndex = 0;
+				for (NSInteger index = 0; index < isoSensitivityNumberList.count - 1; index++) {
+					NSInteger boundarySmallIsoSensitivity = [isoSensitivityNumberList[index] integerValue];
+					NSInteger boundaryLargeIsoSensitivity = [isoSensitivityNumberList[index + 1] integerValue];
+					if (boundarySmallIsoSensitivity == isoSensitivity) {
+						nearestIndex = index;
+						break;
+					}
+					if (boundaryLargeIsoSensitivity == isoSensitivity) {
+						nearestIndex = index + 1;
+						break;
+					}
+					NSInteger nearestIsoSensitivity = [isoSensitivityNumberList[nearestIndex] integerValue];
+					NSInteger distanceFromNearest = labs(isoSensitivity - nearestIsoSensitivity);
+					NSInteger distanceFromBoundarySmall = labs(isoSensitivity - boundarySmallIsoSensitivity);
+					NSInteger distanceFromBoundaryLarge = labs(isoSensitivity - boundaryLargeIsoSensitivity);
+					if (distanceFromBoundarySmall < distanceFromNearest) {
+						nearestIndex = index;
+					}
+					if (distanceFromBoundaryLarge < distanceFromNearest) {
+						nearestIndex = index + 1;
+					}
+				}
+			}
+			// 探したインデックスに対応するカメラプロパティのISO感度で決定します。
+			NSString *isoValue = isoPropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyIso] = isoValue;
+		}
+	}
+
+	// TODO: ホワイトバランスを決定します。
+	// TODO: ホワイトバランス/カスタムWB用色温度を決定します。
+	// TODO: ホワイトバランス/WB補正(琥珀色-青色)を決定します。
+	// TODO: ホワイトバランス/WB補正(緑色-赤紫色)を決定します。
+	// TODO: ホワイトバランス/電球色残しを決定します。
+	// TODO: ピクチャーモードを決定します。
+	// TODO: 色彩/コントラストを決定します。
+	// TODO: 色彩/シャープネスを決定します。
+	// TODO: 色彩/彩度を決定します。
+	// TODO: 色彩/階調を決定します。
+	// TODO: 色彩/効果強弱を決定します。
+	// TODO: 色彩/階調補正シャドー部を決定します。
+	// TODO: 色彩/階調補正中間部を決定します。
+	// TODO: 色彩/階調補正ハイライト部を決定します。
+	// TODO: 色彩/調色効果を決定します。
+	// TODO: 色彩/モノクロフィルター効果を決定します。
+	// TODO: 色彩/カラークリエーター用彩度を決定します。
+	// TODO: 色彩/カラークリエーター用色相を決定します。
+	// TODO: 効果/パートカラー用色相を決定します。
+	// TODO: 効果/フィルターバリエーションを決定します。
+	// TODO: 効果/追加エフェクトを決定します。
+	// TODO: 保存設定/写真アスペクト比を決定します。
+	
+	// スナップショットにする情報を集約します。
+	NSDictionary *snapshot = @{
+		CameraSettingSnapshotFormatVersionKey: CameraSettingSnapshotFormatVersion,
+		CameraSettingSnapshotPropertyValuesKey: propertyValues,
+#if 0
+		CameraSettingSnapshotLiveViewSizeKey: liveViewSize,
+		CameraSettingSnapshotAutoBracketingModeKey: autoBracketingMode,
+		CameraSettingSnapshotAutoBracketingCountKey: autoBracketingCount,
+		CameraSettingSnapshotAutoBracketingStepKey: autoBracketingStep,
+		CameraSettingSnapshotIntervalTimerModeKey: intervalTimerMode,
+		CameraSettingSnapshotIntervalTimerCountKey: intervalTimerCount,
+		CameraSettingSnapshotIntervalTimerTimeKey: intervalTimerTime,
+		CameraSettingSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
+#endif
+	};
+	DEBUG_LOG(@"snapshot=%@", snapshot);
+	
+	return nil; // TODO: remove!
+	return snapshot;
 }
 
 - (AppCameraFocusMode)focusMode:(NSError **)error {
@@ -2800,6 +3133,22 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (self.recordingElapsedTime != time) {
 		self.recordingElapsedTime = time;
 	}
+}
+
+/// カメラプロパティ値の冗長で不要な部分("<プロパティ名/"と">")を取り除きます。
+- (NSString *)stripCameraPropertyValue:(NSString *)value {
+	DEBUG_DETAIL_LOG(@"value=%@", value);
+	
+	NSRange delimitterRange = [value rangeOfString:@"/" options:NSBackwardsSearch];
+	if (delimitterRange.location == NSNotFound) {
+		return nil;
+	}
+	NSUInteger valueLocation = delimitterRange.location + 1;
+	NSUInteger valueLength = value.length - valueLocation - 1;
+	NSRange valueRange = NSMakeRange(valueLocation, valueLength);
+	NSString *strippedValue = [value substringWithRange:valueRange];
+	
+	return strippedValue;
 }
 
 @end

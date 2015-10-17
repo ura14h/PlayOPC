@@ -1,11 +1,29 @@
 /* Class = "UINavigationItem"; title = "Video Content"; ObjectID = "2GU-oX-8V1"; */
 "2GU-oX-8V1.title" = "動画";
 
+/* Class = "UILabel"; text = "Name"; ObjectID = "4gT-XY-6Ni"; */
+"4gT-XY-6Ni.text" = "名前";
+
+/* Class = "UITableViewSection"; footerTitle = "There is a case that can not be converted to the exactly original camera setting."; ObjectID = "A9p-7f-hUt"; */
+"A9p-7f-hUt.footerTitle" = "正確に撮影時のカメラ設定に変換できない場合があります。";
+
+/* Class = "UITableViewSection"; headerTitle = "Translate into Favorite Setting"; ObjectID = "A9p-7f-hUt"; */
+"A9p-7f-hUt.headerTitle" = "お気に入りに変換";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "CB6-sO-dnN"; */
+"CB6-sO-dnN.title" = "戻る";
+
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "CeT-MK-x1D"; */
 "CeT-MK-x1D.title" = "戻る";
 
 /* Class = "UINavigationItem"; title = "Content Detail"; ObjectID = "FiO-Wa-eH8"; */
 "FiO-Wa-eH8.title" = "コンテンツ詳細";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "JDw-ZQ-X5f"; */
+"JDw-ZQ-X5f.title" = "戻る";
+
+/* Class = "UINavigationItem"; title = "Content Detail"; ObjectID = "MTf-q7-R4i"; */
+"MTf-q7-R4i.title" = "コンテンツ詳細";
 
 /* Class = "UINavigationItem"; title = "Picture Content"; ObjectID = "WVD-xc-HaF"; */
 "WVD-xc-HaF.title" = "写真";
@@ -33,6 +51,12 @@
 
 /* Class = "UILabel"; text = "$attributes"; ObjectID = "lGt-Fa-3pH"; */
 "lGt-Fa-3pH.text" = "$attributes";
+
+/* Class = "UITextField"; placeholder = "Enter New Name"; ObjectID = "slH-UU-2cf"; */
+"slH-UU-2cf.placeholder" = "新しいお気に入り名";
+
+/* Class = "UITextField"; text = "$favoriteSettingName"; ObjectID = "slH-UU-2cf"; */
+"slH-UU-2cf.text" = "$favoriteSettingName";
 
 /* Class = "UILabel"; text = "$footerLabelText"; ObjectID = "yVY-Ub-XSc"; */
 "yVY-Ub-XSc.text" = "$footerLabelText";

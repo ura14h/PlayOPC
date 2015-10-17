@@ -450,6 +450,12 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotDiscoverWifiConnection" = "The camera did wake up, but Wi-Fi connection was not found. This device is in condition not to be connected automatically, or other devices may be already connected.";
 
+/* FavoriteForgingViewController.didTapSaveButton */
+"$desc:CouldNotForgeFavoriteSnapshotOfSetting" = "Could not translate information to a favorite setting.";
+
+/* ContentDetailViewController.didTapShareButton */
+"$desc:CouldNotForgeSnapshotOfSetting" = "Could not translate information to a camera setting.";
+
 /* RecordingLocationManager.currentLocation */
 "$desc:CouldNotGetCurrentGeolocation" = "Could not get current geolocation.";
 
@@ -470,7 +476,8 @@
 /* WifiConnector.startMonitoring */
 "$desc:CouldNotStartMonitoring" = "Could not start monitoring a status of Wi-Fi connection.";
 
-/* FavoriteSavingViewController.didTapSaveButton */
+/* FavoriteForgingViewController.didTapSaveButton
+   FavoriteSavingViewController.didTapSaveButton */
 "$desc:CouldNotWriteFavoriteSettingFile" = "Could not write a favorite setting file.";
 
 /* RecordingLocationManager.currentLocation */
@@ -673,8 +680,7 @@
 /* VideoContentViewController.downloadScreennail */
 "$title:CouldNotGetScreennail" = "Could not get screennail";
 
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath
-   FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
 "$title:CouldNotLoadFavoriteSetting" = "Could not load favorite setting";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
@@ -705,7 +711,8 @@
 /* RecordingViewController.didReceiveCapturedImage */
 "$title:CouldNotSaveCapturedImage" = "Could not save captured image";
 
-/* FavoriteSavingViewController.didTapSaveButton */
+/* FavoriteForgingViewController.didTapSaveButton
+   FavoriteSavingViewController.didTapSaveButton */
 "$title:CouldNotSaveFavoriteSetting" = "Could not save favorite setting";
 
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
@@ -714,6 +721,12 @@
 
 /* VPanelViewController.didSelectRowAtSetCurrentGeolocationCell */
 "$title:CouldNotSetCurrentGeolocation" = "Could not set current geolocation";
+
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$title:CouldNotShareFavoriteSetting" = "Could not share favorite setting";
+
+/* ContentDetailViewController.didTapShareButton */
+"$title:CouldNotShareForgedSetting" = "Could not share camera setting";
 
 /* VideoContentViewController.shareVideo */
 "$title:CouldNotShareVideo" = "Could not share video";

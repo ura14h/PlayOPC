@@ -450,6 +450,12 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotDiscoverWifiConnection" = "カメラの電源は入れましたが、Wi-Fi接続は見つかりませんでした。このデバイスが自動で接続しない状態か、他のデバイスがすでに接続中かもしれません。";
 
+/* FavoriteForgingViewController.didTapSaveButton */
+"$desc:CouldNotForgeFavoriteSnapshotOfSetting" = "詳細情報をお気に入りに変換できませんでした。";
+
+/* ContentDetailViewController.didTapShareButton */
+"$desc:CouldNotForgeSnapshotOfSetting" = "詳細情報をカメラ設定に変換できませんでした。";
+
 /* RecordingLocationManager.currentLocation */
 "$desc:CouldNotGetCurrentGeolocation" = "現在地が取得できません。";
 
@@ -470,7 +476,8 @@
 /* WifiConnector.startMonitoring */
 "$desc:CouldNotStartMonitoring" = "Wi-Fi接続の状態監視を開始できません。";
 
-/* FavoriteSavingViewController.didTapSaveButton */
+/* FavoriteForgingViewController.didTapSaveButton
+   FavoriteSavingViewController.didTapSaveButton */
 "$desc:CouldNotWriteFavoriteSettingFile" = "お気に入りファイルに書き込めません。";
 
 /* RecordingLocationManager.currentLocation */
@@ -673,8 +680,7 @@
 /* VideoContentViewController.downloadScreennail */
 "$title:CouldNotGetScreennail" = "動画の代表画像が取得できません";
 
-/* FavoriteLoadingViewController.didSelectRowAtIndexPath
-   FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+/* FavoriteLoadingViewController.didSelectRowAtIndexPath */
 "$title:CouldNotLoadFavoriteSetting" = "お気に入り設定が読み込めません";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
@@ -705,7 +711,8 @@
 /* RecordingViewController.didReceiveCapturedImage */
 "$title:CouldNotSaveCapturedImage" = "撮影した画像を保存できません";
 
-/* FavoriteSavingViewController.didTapSaveButton */
+/* FavoriteForgingViewController.didTapSaveButton
+   FavoriteSavingViewController.didTapSaveButton */
 "$title:CouldNotSaveFavoriteSetting" = "お気に入り設定を保存できません";
 
 /* ArtbktPanelViewController.didSelectRowAtIndexPath
@@ -714,6 +721,12 @@
 
 /* VPanelViewController.didSelectRowAtSetCurrentGeolocationCell */
 "$title:CouldNotSetCurrentGeolocation" = "現在地を設定できません";
+
+/* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
+"$title:CouldNotShareFavoriteSetting" = "お気に入りを共有できません";
+
+/* ContentDetailViewController.didTapShareButton */
+"$title:CouldNotShareForgedSetting" = "カメラ設定を共有できません";
 
 /* VideoContentViewController.shareVideo */
 "$title:CouldNotShareVideo" = "動画を共有できません";

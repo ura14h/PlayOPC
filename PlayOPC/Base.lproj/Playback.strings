@@ -2,11 +2,29 @@
 /* Class = "UINavigationItem"; title = "Video Content"; ObjectID = "2GU-oX-8V1"; */
 "2GU-oX-8V1.title" = "Video Content";
 
+/* Class = "UILabel"; text = "Name"; ObjectID = "4gT-XY-6Ni"; */
+"4gT-XY-6Ni.text" = "Name";
+
+/* Class = "UITableViewSection"; footerTitle = "There is a case that can not be converted to the exactly original camera setting."; ObjectID = "A9p-7f-hUt"; */
+"A9p-7f-hUt.footerTitle" = "There is a case that can not be converted to the exactly original camera setting.";
+
+/* Class = "UITableViewSection"; headerTitle = "Translate into Favorite Setting"; ObjectID = "A9p-7f-hUt"; */
+"A9p-7f-hUt.headerTitle" = "Translate into Favorite Setting";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "CB6-sO-dnN"; */
+"CB6-sO-dnN.title" = "Back";
+
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "CeT-MK-x1D"; */
 "CeT-MK-x1D.title" = "Back";
 
 /* Class = "UINavigationItem"; title = "Content Detail"; ObjectID = "FiO-Wa-eH8"; */
 "FiO-Wa-eH8.title" = "Content Detail";
+
+/* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "JDw-ZQ-X5f"; */
+"JDw-ZQ-X5f.title" = "Back";
+
+/* Class = "UINavigationItem"; title = "Content Detail"; ObjectID = "MTf-q7-R4i"; */
+"MTf-q7-R4i.title" = "Content Detail";
 
 /* Class = "UINavigationItem"; title = "Picture Content"; ObjectID = "WVD-xc-HaF"; */
 "WVD-xc-HaF.title" = "Picture Content";
@@ -34,6 +52,12 @@
 
 /* Class = "UILabel"; text = "$attributes"; ObjectID = "lGt-Fa-3pH"; */
 "lGt-Fa-3pH.text" = "$attributes";
+
+/* Class = "UITextField"; placeholder = "Enter New Name"; ObjectID = "slH-UU-2cf"; */
+"slH-UU-2cf.placeholder" = "Enter New Name";
+
+/* Class = "UITextField"; text = "$favoriteSettingName"; ObjectID = "slH-UU-2cf"; */
+"slH-UU-2cf.text" = "$favoriteSettingName";
 
 /* Class = "UILabel"; text = "$footerLabelText"; ObjectID = "yVY-Ub-XSc"; */
 "yVY-Ub-XSc.text" = "$footerLabelText";

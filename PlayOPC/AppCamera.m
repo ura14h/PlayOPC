@@ -2222,9 +2222,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		CameraSettingSnapshotMagnifyingLiveViewScaleKey: magnifyingLiveViewScale,
 #endif
 	};
-	DEBUG_LOG(@"snapshot=%@", snapshot);
-	
-	return nil; // TODO: remove!
 	return snapshot;
 }
 

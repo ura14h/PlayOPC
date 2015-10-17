@@ -30,6 +30,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 
 @interface ContentDetailViewController ()
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *shareButton;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *showForgingButton;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
@@ -51,6 +52,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 	[super viewDidLoad];
 
 	// ツールバーボタンセットを初期設定します。
+	self.shareButton.enabled = NO;
 	self.showForgingButton.enabled = NO;
 	
 	// ビューコントローラーの活動状態を初期化します。
@@ -194,8 +196,11 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			// ツールバーを更新します。
 			if (weakSelf.originalInformation && weakSelf.originalMetadata) {
-				weakSelf.showForgingButton.enabled = YES; // 情報が揃っていてお気に入りへの変換ができそうです。
+				// 情報が揃っていてお気に入りへの変換ができそうです。
+				weakSelf.shareButton.enabled = YES;
+				weakSelf.showForgingButton.enabled = YES;
 			} else {
+				weakSelf.shareButton.enabled = NO;
 				weakSelf.showForgingButton.enabled = NO;
 			}
 			
@@ -333,6 +338,42 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 	}
 	
 	return cell;
+}
+
+#pragma mark -
+
+/// 共有ボタンがタップされた時に呼び出されます。
+- (IBAction)didTapShareButton:(id)sender {
+	DEBUG_LOG(@"");
+	
+	__weak ContentDetailViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+		// それっぽくカメラ設定のスナップショットを作成します。
+		AppCamera *camera = GetAppCamera();
+		NSDictionary *snapshot = [camera forgeSnapshotOfSettingWithContentInformation:weakSelf.originalInformation metadata:weakSelf.originalMetadata];
+		if (!snapshot) {
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotForgeSnapshotOfSetting", @"ContentDetailViewController.didTapShareButton") title:NSLocalizedString(@"$title:CouldNotShareForgedSetting", @"ContentDetailViewController.didTapShareButton")];
+			return;
+		}
+		
+		// お気に入り設定を共有できるようにフォーマット変換します。
+		NSString *snapshotText = [snapshot description];
+		DEBUG_LOG(@"snapshotText=%@", snapshotText);
+		
+		// 共有ダイアログを表示します。
+		// 一番最初だけ表示されるまでとても時間がかかるようです。
+		NSArray *shareItems = @[ snapshotText ];
+		UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+		shareController.popoverPresentationController.sourceView = weakSelf.view;
+		shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
+		
+		// 画面表示を更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			[weakSelf presentViewController:shareController animated:YES completion:nil];
+		}];
+	}];
 }
 
 #pragma mark -

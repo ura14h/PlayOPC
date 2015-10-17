@@ -403,6 +403,11 @@
                         </connections>
                     </tableView>
                     <toolbarItems>
+                        <barButtonItem systemItem="action" id="2bG-FE-Kvh">
+                            <connections>
+                                <action selector="didTapShareButton:" destination="XpH-rm-Hqa" id="wwI-yh-4FF"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem style="plain" systemItem="flexibleSpace" id="o9i-Ym-iNg"/>
                         <barButtonItem systemItem="bookmarks" id="H8K-l6-Zbj">
                             <connections>
@@ -415,6 +420,7 @@
                     </navigationItem>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="shareButton" destination="2bG-FE-Kvh" id="u28-kG-p23"/>
                         <outlet property="showForgingButton" destination="H8K-l6-Zbj" id="3fg-ez-KHW"/>
                     </connections>
                 </tableViewController>

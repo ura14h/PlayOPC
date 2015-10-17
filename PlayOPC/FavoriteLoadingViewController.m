@@ -272,7 +272,7 @@
 			// 共有ドキュメントフォルダからお気に入り設定を読み込みます。
 			AppFavoriteSetting *setting = [AppFavoriteSetting favoriteSettingWithContentsOfFile:filePath];
 			if (!setting) {
-				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath")];
+				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotShareFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath")];
 				return;
 			}
 			

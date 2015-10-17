@@ -147,6 +147,7 @@
 			
 			// 選択されているカメラプロパティ値を表示領域の中央になるようにスクロールします。
 			NSUInteger row = weakSelf.selectedItemIndex;
+#if 0 // iOS9では正しく動作するようになった気がします。
 			if (weakSelf.navigationController.navigationController) {
 				// MARK: ナビゲーションコントローラーが入れ子になっているレイアウトでは、UITableViewScrollPositionMiddleでを指定してスクロールすると表示領域の計算に間違うようです。
 				// FIXME: 使いにくいので、暫定処置として特殊なレイアウトの時は1つ上の行を指定してスクロールします。
@@ -154,6 +155,7 @@
 					row--;
 				}
 			}
+#endif
 			NSIndexPath *indexPath = [NSIndexPath indexPathForRow:row inSection:0];
 			[weakSelf.tableView scrollToRowAtIndexPath:indexPath atScrollPosition:UITableViewScrollPositionMiddle animated:NO];
 			[weakSelf.tableView flashScrollIndicators];

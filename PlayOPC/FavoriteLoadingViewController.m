@@ -196,7 +196,7 @@
 		NSArray *exclude = @[
 			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 		];
-		if (![camera restoreSnapshotOfSetting:setting.snapshot exclude:exclude error:&error]) {
+		if (![camera restoreSnapshotOfSetting:setting.snapshot exclude:exclude fallback:NO error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}

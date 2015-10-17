@@ -398,7 +398,8 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 
 /// 指定されたスナップショットを用いて当時のカメラ設定を復元します。
 /// 復元しないカメラプロパティのリストを指定することもできます。
-- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error;
+/// スナップショットにないいくつかの設定はデフォルト値を設定することもできます。
+- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude fallback:(BOOL)fallback error:(NSError **)error;
 
 /// スナップショットがカメラ設定として妥当かを確認します。
 - (BOOL)validateSnapshotOfSetting:(NSDictionary *)snapshot;

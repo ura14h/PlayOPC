@@ -1599,7 +1599,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return snapshot;
 }
 
-- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude error:(NSError **)error {
+- (BOOL)restoreSnapshotOfSetting:(NSDictionary *)snapshot exclude:(NSArray *)exclude fallback:(BOOL)fallback error:(NSError **)error {
 	DEBUG_LOG(@"exclude=%@", exclude);
 
 	/// スナップショットがカメラ設定として妥当かを確認します。
@@ -1637,57 +1637,64 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// 読み込んだライブビューサイズの設定値をカメラに反映します。
-	OLYCameraLiveViewSize liveViewSize = OLYCameraLiveViewSizeQVGA;
 	if (snapshot[CameraSettingSnapshotLiveViewSizeKey]) {
-		liveViewSize = CGSizeFromString(snapshot[CameraSettingSnapshotLiveViewSizeKey]);
-	}
-	if (![super changeLiveViewSize:liveViewSize error:error]) {
-		return NO;
+		OLYCameraLiveViewSize liveViewSize = CGSizeFromString(snapshot[CameraSettingSnapshotLiveViewSizeKey]);
+		if (![super changeLiveViewSize:liveViewSize error:error]) {
+			return NO;
+		}
+	} else if (fallback) {
+		if (![super changeLiveViewSize:OLYCameraLiveViewSizeQVGA error:error]) {
+			return NO;
+		}
 	}
 	
 	// 読み込んだオートブラケット撮影を設定します。
-	AppCameraAutoBracketingMode autoBracketingMode = AppCameraAutoBracketingModeDisabled;
 	if (snapshot[CameraSettingSnapshotAutoBracketingModeKey]) {
 		NSInteger modeValue = [snapshot[CameraSettingSnapshotAutoBracketingModeKey] integerValue];
-		autoBracketingMode = (AppCameraAutoBracketingMode)modeValue;
+		self.autoBracketingMode = (AppCameraAutoBracketingMode)modeValue;
+	} else if (fallback) {
+		self.autoBracketingMode = AppCameraAutoBracketingModeDisabled;
 	}
-	self.autoBracketingMode = autoBracketingMode;
-	NSInteger autoBracketingCount = 3;
 	if (snapshot[CameraSettingSnapshotAutoBracketingCountKey]) {
-		autoBracketingCount = [snapshot[CameraSettingSnapshotAutoBracketingCountKey] integerValue];
+		NSInteger autoBracketingCount = [snapshot[CameraSettingSnapshotAutoBracketingCountKey] integerValue];
+		self.autoBracketingCount = autoBracketingCount;
+	} else if (fallback) {
+		self.autoBracketingCount = 3;
 	}
-	self.autoBracketingCount = autoBracketingCount;
-	NSInteger autoBracketingStep = 1;
 	if (snapshot[CameraSettingSnapshotAutoBracketingStepKey]) {
-		autoBracketingStep = [snapshot[CameraSettingSnapshotAutoBracketingStepKey] integerValue];
+		NSInteger autoBracketingStep = [snapshot[CameraSettingSnapshotAutoBracketingStepKey] integerValue];
+		self.autoBracketingStep = autoBracketingStep;
+	} else if (fallback) {
+		self.autoBracketingStep = 1;
 	}
-	self.autoBracketingStep = autoBracketingStep;
 	
 	// 読み込んだインターバルタイマー撮影を設定します。
-	AppCameraIntervalTimerMode intervalTimerMode = AppCameraIntervalTimerModeDisabled;
 	if (snapshot[CameraSettingSnapshotIntervalTimerModeKey]) {
 		NSInteger modeValue = [snapshot[CameraSettingSnapshotIntervalTimerModeKey] integerValue];
-		intervalTimerMode = (AppCameraIntervalTimerMode)modeValue;
+		self.intervalTimerMode = (AppCameraIntervalTimerMode)modeValue;
+	} else if (fallback) {
+		self.intervalTimerMode = AppCameraIntervalTimerModeDisabled;
 	}
-	self.intervalTimerMode = intervalTimerMode;
-	NSInteger intervalTimerCount = 3;
 	if (snapshot[CameraSettingSnapshotIntervalTimerCountKey]) {
-		intervalTimerCount = [snapshot[CameraSettingSnapshotIntervalTimerCountKey] integerValue];
+		NSInteger intervalTimerCount = [snapshot[CameraSettingSnapshotIntervalTimerCountKey] integerValue];
+		self.intervalTimerCount = intervalTimerCount;
+	} else if (fallback) {
+		self.intervalTimerCount = 3;
 	}
-	self.intervalTimerCount = intervalTimerCount;
-	NSInteger intervalTimerTime = 1.0;
 	if (snapshot[CameraSettingSnapshotIntervalTimerTimeKey]) {
-		intervalTimerTime = [snapshot[CameraSettingSnapshotIntervalTimerTimeKey] doubleValue];
+		NSInteger intervalTimerTime = [snapshot[CameraSettingSnapshotIntervalTimerTimeKey] doubleValue];
+		self.intervalTimerTime = intervalTimerTime;
+	} else if (fallback) {
+		self.intervalTimerTime = 1.0;
 	}
-	self.intervalTimerTime = intervalTimerTime;
 
 	// 読み込んだライブビュー拡大倍率を設定します。
-	OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
 	if (snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey]) {
 		NSInteger scaleValue = [snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] integerValue];
-		magnifyingLiveViewScale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
+		self.magnifyingLiveViewScale = (OLYCameraMagnifyingLiveViewScale)scaleValue;
+	} else if (fallback) {
+		self.magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
 	}
-	self.magnifyingLiveViewScale = magnifyingLiveViewScale;
 	
 	// ライブビューを再開します。
 	if (needToStartLiveView) {
@@ -1825,7 +1832,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// ライブビュー拡大倍率
+	// ライブビュー拡大倍率は任意ですが、設定する場合は変換可能でなければなりません。
 	if (snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey]) {
 		if ([snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] isKindOfClass:[NSNumber class]] ||
 			[snapshot[CameraSettingSnapshotMagnifyingLiveViewScaleKey] isKindOfClass:[NSString class]]) {
@@ -2205,6 +2212,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// TODO: 効果/パートカラー用色相を決定します。
 	// TODO: 効果/フィルターバリエーションを決定します。
 	// TODO: 効果/追加エフェクトを決定します。
+	// TODO: AE設定/測光方式を決定します。
 	// TODO: 保存設定/写真アスペクト比を決定します。
 	
 	// スナップショットにする情報を集約します。

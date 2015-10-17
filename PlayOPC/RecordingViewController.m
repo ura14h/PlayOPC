@@ -291,7 +291,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 				NSArray *exclude = @[
 					CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 				];
-				if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude error:&error]) {
+				if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude fallback:YES error:&error]) {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotRestoreLastestCameraSetting", @"RecordingViewController.didStartActivity")];
 					// エラーを無視して続行します。
 					DEBUG_LOG(@"An error occurred, but ignores it.");

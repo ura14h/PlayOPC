@@ -1391,7 +1391,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// MARK: MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 	// MARK: MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 	// MARK: WhiteBalance(ホワイトバランス)が自動の時にWB補正を伴うと通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
-	if ([name isEqualToString:@"DateTime"]) {
+	if ([name isEqualToString:@"DateTime"] ||
+		[name isEqualToString:@"shootingdatetime"]) {
 		// 撮影年月日は書式化し直します。
 		NSString *pattern = @"^(....)(..)(..)T(..)(..)$";
 		NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:pattern options:0 error:nil];

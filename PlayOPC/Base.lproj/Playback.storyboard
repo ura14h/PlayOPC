@@ -312,6 +312,7 @@
                         </barButtonItem>
                     </toolbarItems>
                     <navigationItem key="navigationItem" title="Video Content" id="2GU-oX-8V1">
+                        <barButtonItem key="backBarButtonItem" title="Back" id="CB6-sO-dnN"/>
                         <barButtonItem key="rightBarButtonItem" id="iit-6T-bvF">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" id="eCA-vS-Nup">
                                 <rect key="frame" x="282" y="11" width="22" height="22"/>

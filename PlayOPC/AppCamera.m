@@ -680,7 +680,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (!recentlyArtFilter) {
 		// アートフィルター種別に設定する値がプロパティ一括設定に含まれない場合はカメラに設定されている値を取得して代用します。
 		recentlyArtFilter = [super cameraPropertyValue:CameraPropertyRecentlyArtFilter error:error];
-		if (recentlyArtFilter) {
+		if (!recentlyArtFilter) {
 			return NO;
 		}
 	}

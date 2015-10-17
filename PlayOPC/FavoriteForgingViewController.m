@@ -147,13 +147,18 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
-		// TODO: カメラ設定のスナップショットを捏造します。
-		NSDictionary *snapshot = nil;
+		// それっぽくカメラ設定のスナップショットを作成します。
+		AppCamera *camera = GetAppCamera();
+		NSDictionary *snapshot = [camera forgeSnapshotOfSettingWithContentInformation:weakSelf.information metadata:weakSelf.metadata];
+		if (!snapshot) {
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotForgeFavoriteSettingFile", @"FavoriteForgingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveAsFavoriteSetting", @"FavoriteForgingViewController.didTapSaveButton")];
+			return;
+		}
 		
 		// 捏造したカメラプロパティの設定値を共有ドキュメントフォルダのファイルとして保存します。
 		AppFavoriteSetting *setting = [[AppFavoriteSetting alloc] initWithSnapshot:snapshot name:name];
 		if (![setting writeToFile]) {
-			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotWriteFavoriteSettingFile", @"FavoriteForgingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteForgingViewController.didTapSaveButton")];
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotWriteFavoriteSettingFile", @"FavoriteForgingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveAsFavoriteSetting", @"FavoriteForgingViewController.didTapSaveButton")];
 			return;
 		}
 

@@ -1887,6 +1887,14 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return YES;
 }
 
+- (NSDictionary *)forgeSnapshotOfSettingWithContentInformation:(NSDictionary *)information metadata:(NSDictionary *)metadata {
+	DEBUG_LOG(@"information=%@, metadata=%@", information, metadata);
+	
+	// TODO: 作ろう。
+	
+	return nil;
+}
+
 - (AppCameraFocusMode)focusMode:(NSError **)error {
 	DEBUG_LOG(@"");
 

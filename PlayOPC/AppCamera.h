@@ -401,6 +401,9 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// スナップショットがカメラ設定として妥当かを確認します。
 - (BOOL)validateSnapshotOfSetting:(NSDictionary *)snapshot;
 
+/// コンテンツ情報とメタデータからそれっぽいカメラ設定のスナップショットを作成します。
+- (NSDictionary *)forgeSnapshotOfSettingWithContentInformation:(NSDictionary *)information metadata:(NSDictionary *)metadata;
+
 /// 動作ステータスを示します。
 - (AppCameraActionStatus)cameraActionStatus;
 

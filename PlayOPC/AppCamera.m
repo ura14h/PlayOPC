@@ -1931,10 +1931,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	
 	// 操作モード/動画撮影モード ... 扱いません。
 	propertyValues[CameraPropertyExposeMovieSelect] = nil;
-	
-	// 操作モード/ドライブモード ... 単写にします。
-	propertyValues[CameraPropertyTakeDrive] = CameraPropertyTakeDriveDriveNormal;
-	
+	// 操作モード/ドライブモード ... 扱いません。
+	propertyValues[CameraPropertyTakeDrive] = nil;
 	// 操作モード/連写速度 ... 扱いません。
 	propertyValues[CameraPropertyContinuousShootingVelocity] = nil;
 
@@ -1952,38 +1950,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				[apertureNumberList addObject:apertureNumber];
 			}];
 			// 絞り値リストの中で絞り値がもっとも近い値のインデックスを検索します。
-			// MARK: 絞り値リストは並びが値の小さい順に並んでいます。
-			float aperture = [exifFNumber floatValue];
-			NSInteger nearestIndex;
-			if (aperture < [apertureNumberList[0] floatValue]) {
-				nearestIndex = 0;
-			} else if (aperture > [apertureNumberList[apertureNumberList.count - 1] floatValue]) {
-				nearestIndex = apertureNumberList.count - 1;
-			} else {
-				nearestIndex = 0;
-				for (NSInteger index = 0; index < apertureNumberList.count - 1; index++) {
-					float boundarySmallAperture = [apertureNumberList[index] floatValue];
-					float boundaryLargeAperture = [apertureNumberList[index + 1] floatValue];
-					if (fabsf(boundarySmallAperture - aperture) < FLT_EPSILON) {
-						nearestIndex = index;
-						break;
-					}
-					if (fabsf(boundaryLargeAperture - aperture) < FLT_EPSILON) {
-						nearestIndex = index + 1;
-						break;
-					}
-					float nearestAperture = [apertureNumberList[nearestIndex] floatValue];
-					float distanceFromNearest = fabsf(aperture - nearestAperture);
-					float distanceFromBoundarySmall = fabsf(aperture - boundarySmallAperture);
-					float distanceFromBoundaryLarge = fabsf(aperture - boundaryLargeAperture);
-					if (distanceFromBoundarySmall < distanceFromNearest) {
-						nearestIndex = index;
-					}
-					if (distanceFromBoundaryLarge < distanceFromNearest) {
-						nearestIndex = index + 1;
-					}
-				}
-			}
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:exifFNumber numberList:apertureNumberList];
 			// 探したインデックスに対応するカメラプロパティの絞り値で決定します。
 			NSString *apertureValue = aperturePropertyValueList[nearestIndex];
 			propertyValues[CameraPropertyAperture] = apertureValue;
@@ -1994,7 +1961,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	NSNumber *exifExposureTime = exifDictionary[(NSString *)kCGImagePropertyExifExposureTime];
 	if (exifExposureTime) {
 		// シャッター速度のカメラプロパティ値リストを取得します。
+		// MARK: 露光時間リストは並びが値の大きい順に並んでいます。のでひっくり返します。
 		NSArray *shutterPropertyValueList = [super cameraPropertyValueList:CameraPropertyShutter error:nil];
+		shutterPropertyValueList = [[shutterPropertyValueList reverseObjectEnumerator] allObjects];
 		if (shutterPropertyValueList) {
 			// 露光時間リストを作成します。
 			NSMutableArray *exposureTimeNumberList = [[NSMutableArray alloc] init];
@@ -2010,38 +1979,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				[exposureTimeNumberList addObject:exposureTimeNumber];
 			}];
 			// 露光時間リストの中で露光時間がもっとも近い値のインデックスを検索します。
-			// MARK: 露光時間リストは並びが値の大きい順に並んでいます。
-			float exposureTime = [exifExposureTime floatValue];
-			NSInteger nearestIndex;
-			if (exposureTime > [exposureTimeNumberList[0] floatValue]) {
-				nearestIndex = 0;
-			} else if (exposureTime < [exposureTimeNumberList[exposureTimeNumberList.count - 1] floatValue]) {
-				nearestIndex = exposureTimeNumberList.count - 1;
-			} else {
-				nearestIndex = 0;
-				for (NSInteger index = 0; index < exposureTimeNumberList.count - 1; index++) {
-					float boundaryLongExposureTime = [exposureTimeNumberList[index] floatValue];
-					float boundaryShortExposureTime = [exposureTimeNumberList[index + 1] floatValue];
-					if (fabsf(boundaryLongExposureTime - exposureTime) < FLT_EPSILON) {
-						nearestIndex = index;
-						break;
-					}
-					if (fabsf(boundaryShortExposureTime - exposureTime) < FLT_EPSILON) {
-						nearestIndex = index + 1;
-						break;
-					}
-					float nearestExposureTime = [exposureTimeNumberList[nearestIndex] floatValue];
-					float distanceFromNearest = fabsf(exposureTime - nearestExposureTime);
-					float distanceFromBoundaryLong = fabsf(exposureTime - boundaryLongExposureTime);
-					float distanceFromBoundaryShort = fabsf(exposureTime - boundaryShortExposureTime);
-					if (distanceFromBoundaryLong < distanceFromNearest) {
-						nearestIndex = index;
-					}
-					if (distanceFromBoundaryShort < distanceFromNearest) {
-						nearestIndex = index + 1;
-					}
-				}
-			}
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:exifExposureTime numberList:exposureTimeNumberList];
 			// 探したインデックスに対応するカメラプロパティのシャッター速度で決定します。
 			NSString *shutterValue = shutterPropertyValueList[nearestIndex];
 			propertyValues[CameraPropertyShutter] = shutterValue;
@@ -2078,38 +2016,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				[exposureCompensationNumberList addObject:apertureNumber];
 			}];
 			// 露出補正値リストの中で絞り値がもっとも近い値のインデックスを検索します。
-			// MARK: 露出補正値リストは並びが値の小さい順に並んでいます。
-			float exposureCompensation = [exifExposureBiasValue floatValue];
-			NSInteger nearestIndex;
-			if (exposureCompensation < [exposureCompensationNumberList[0] floatValue]) {
-				nearestIndex = 0;
-			} else if (exposureCompensation > [exposureCompensationNumberList[exposureCompensationNumberList.count - 1] floatValue]) {
-				nearestIndex = exposureCompensationNumberList.count - 1;
-			} else {
-				nearestIndex = 0;
-				for (NSInteger index = 0; index < exposureCompensationNumberList.count - 1; index++) {
-					float boundarySmallExposureCompensation = [exposureCompensationNumberList[index] floatValue];
-					float boundaryLargeExposureCompensation = [exposureCompensationNumberList[index + 1] floatValue];
-					if (fabsf(boundarySmallExposureCompensation - exposureCompensation) < FLT_EPSILON) {
-						nearestIndex = index;
-						break;
-					}
-					if (fabsf(boundaryLargeExposureCompensation - exposureCompensation) < FLT_EPSILON) {
-						nearestIndex = index + 1;
-						break;
-					}
-					float nearestExposureCompensation = [exposureCompensationNumberList[nearestIndex] floatValue];
-					float distanceFromNearest = fabsf(exposureCompensation - nearestExposureCompensation);
-					float distanceFromBoundarySmall = fabsf(exposureCompensation - boundarySmallExposureCompensation);
-					float distanceFromBoundaryLarge = fabsf(exposureCompensation - boundaryLargeExposureCompensation);
-					if (distanceFromBoundarySmall < distanceFromNearest) {
-						nearestIndex = index;
-					}
-					if (distanceFromBoundaryLarge < distanceFromNearest) {
-						nearestIndex = index + 1;
-					}
-				}
-			}
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:exifExposureBiasValue numberList:exposureCompensationNumberList];
 			// 探したインデックスに対応するカメラプロパティの露出補正値で決定します。
 			NSString *exprevValue = exprevPropertyValueList[nearestIndex];
 			propertyValues[CameraPropertyExprev] = exprevValue;
@@ -2153,46 +2060,61 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				[isoSensitivityNumberList addObject:isoSensitivityNumber];
 			}];
 			// ISO感度リストの中でISO感度がもっとも近い値のインデックスを検索します。
-			// MARK: ISO感度リストは並びが値の小さい順に並んでいます。
-			NSInteger isoSensitivity = [exifISOSpeedValue integerValue];
-			NSInteger nearestIndex;
-			if (isoSensitivity < [isoSensitivityNumberList[0] integerValue]) {
-				nearestIndex = 0;
-			} else if (isoSensitivity > [isoSensitivityNumberList[isoSensitivityNumberList.count - 1] integerValue]) {
-				nearestIndex = isoSensitivityNumberList.count - 1;
-			} else {
-				nearestIndex = 0;
-				for (NSInteger index = 0; index < isoSensitivityNumberList.count - 1; index++) {
-					NSInteger boundarySmallIsoSensitivity = [isoSensitivityNumberList[index] integerValue];
-					NSInteger boundaryLargeIsoSensitivity = [isoSensitivityNumberList[index + 1] integerValue];
-					if (boundarySmallIsoSensitivity == isoSensitivity) {
-						nearestIndex = index;
-						break;
-					}
-					if (boundaryLargeIsoSensitivity == isoSensitivity) {
-						nearestIndex = index + 1;
-						break;
-					}
-					NSInteger nearestIsoSensitivity = [isoSensitivityNumberList[nearestIndex] integerValue];
-					NSInteger distanceFromNearest = labs(isoSensitivity - nearestIsoSensitivity);
-					NSInteger distanceFromBoundarySmall = labs(isoSensitivity - boundarySmallIsoSensitivity);
-					NSInteger distanceFromBoundaryLarge = labs(isoSensitivity - boundaryLargeIsoSensitivity);
-					if (distanceFromBoundarySmall < distanceFromNearest) {
-						nearestIndex = index;
-					}
-					if (distanceFromBoundaryLarge < distanceFromNearest) {
-						nearestIndex = index + 1;
-					}
-				}
-			}
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:exifISOSpeedValue numberList:isoSensitivityNumberList];
 			// 探したインデックスに対応するカメラプロパティのISO感度で決定します。
 			NSString *isoValue = isoPropertyValueList[nearestIndex];
 			propertyValues[CameraPropertyIso] = isoValue;
 		}
 	}
 
-	// TODO: ホワイトバランスを決定します。
-	// TODO: ホワイトバランス/カスタムWB用色温度を決定します。
+	// ホワイトバランスを決定します。
+	NSString *whiteBalance = information[@"WhiteBalance"];
+	if (whiteBalance) {
+		// ホワイトバランスのカメラプロパティ値リストを取得します。
+		NSArray *wbPropertyValueList = [super cameraPropertyValueList:CameraPropertyWb error:nil];
+		if (wbPropertyValueList) {
+			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+			NSDictionary *wbPropertyValueMap = @{
+				@"AUTO": CameraPropertyWbWbAuto,
+				@"FINE": CameraPropertyWbMwbFine,
+				@"SHADE": CameraPropertyWbMwbShade,
+				@"CLOUD": CameraPropertyWbMwbCloud,
+				@"LAMP": CameraPropertyWbMwbLamp,
+				@"FLUORESCENCE1": CameraPropertyWbMwbFluorescence1,
+				@"WATER1": CameraPropertyWbMwbWater1,
+				@"CUSTOM1": CameraPropertyWbWbCustom1,
+			};
+			NSString *wbValue = CameraPropertyWbWbAuto;
+			if (wbPropertyValueMap[whiteBalance]) {
+				wbValue = wbPropertyValueMap[whiteBalance];
+			}
+			propertyValues[CameraPropertyWb] = wbValue;
+		}
+	}
+	
+	// ホワイトバランス/カスタムWB用色温度を決定します。
+	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
+		NSNumber *customWBBiasValue = information[@"CustomWBBias"];
+		if (customWBBiasValue) {
+			// カスタムWB用色温度のカメラプロパティ値リストを取得します。
+			NSArray *customWbKelvin1PropertyValueList = [super cameraPropertyValueList:CameraPropertyCustomWbKelvin1 error:nil];
+			if (customWbKelvin1PropertyValueList) {
+				// カスタムWB用色温度リストを作成します。
+				NSMutableArray *customWBBiasNumberList = [[NSMutableArray alloc] init];
+				[customWbKelvin1PropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+					NSString *strippedValue = [self stripCameraPropertyValue:value];
+					NSNumber *customWBBiasNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+					[customWBBiasNumberList addObject:customWBBiasNumber];
+				}];
+				// カスタムWB用色温度リストの中で色温度がもっとも近い値のインデックスを検索します。
+				NSInteger nearestIndex = [self findNearestIndexOfNumberList:customWBBiasValue numberList:customWbKelvin1PropertyValueList];
+				// 探したインデックスに対応するカメラプロパティのカスタムWB用色温度で決定します。
+				NSString *wbrevValue = customWbKelvin1PropertyValueList[nearestIndex];
+				propertyValues[CameraPropertyWbRev] = wbrevValue;
+			}
+		}
+	}
+	
 	// TODO: ホワイトバランス/WB補正(琥珀色-青色)を決定します。
 	// TODO: ホワイトバランス/WB補正(緑色-赤紫色)を決定します。
 	// TODO: ホワイトバランス/電球色残しを決定します。
@@ -3154,6 +3076,48 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	NSString *strippedValue = [value substringWithRange:valueRange];
 	
 	return strippedValue;
+}
+
+/// リスト上のもっとも近い値のインデックスを返します。
+- (NSInteger)findNearestIndexOfNumberList:(NSNumber *)number numberList:(NSArray *)numberList {
+	DEBUG_DETAIL_LOG(@"");
+	
+	NSInteger nearestIndex;
+	
+	float numberValue = [number floatValue];
+	if (numberValue < [numberList[0] floatValue]) {
+		nearestIndex = 0;
+		
+	} else if (numberValue > [numberList[numberList.count - 1] floatValue]) {
+		nearestIndex = numberList.count - 1;
+		
+	} else {
+		nearestIndex = 0;
+		for (NSInteger index = 0; index < numberList.count - 1; index++) {
+			float boundaryLowValue = [numberList[index] floatValue];
+			float boundaryHighValue = [numberList[index + 1] floatValue];
+			if (fabsf(boundaryLowValue - numberValue) < FLT_EPSILON) {
+				nearestIndex = index;
+				break;
+			}
+			if (fabsf(boundaryHighValue - numberValue) < FLT_EPSILON) {
+				nearestIndex = index + 1;
+				break;
+			}
+			float nearestValue = [numberList[nearestIndex] floatValue];
+			float distanceFromNearestValue = fabsf(numberValue - nearestValue);
+			float distanceFromBoundaryLowValue = fabsf(numberValue - boundaryLowValue);
+			float distanceFromBoundaryHighValue = fabsf(numberValue - boundaryHighValue);
+			if (distanceFromBoundaryLowValue < distanceFromNearestValue) {
+				nearestIndex = index;
+			}
+			if (distanceFromBoundaryHighValue < distanceFromNearestValue) {
+				nearestIndex = index + 1;
+			}
+		}
+	}
+	
+	return nearestIndex;
 }
 
 @end

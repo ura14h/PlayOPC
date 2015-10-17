@@ -13,6 +13,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Taking a picture with using the camera
 * Recording a video with using the camera
 * Displaying various states of the camera
+* Exchanging a camera setting with the pasteboard
 * Preserving a favorite camera setting to the device
 * Changing a shooting mode
 * Coordinating some exposure parameters
@@ -27,6 +28,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Changing sound volume
 * Registering the current geolocation as the photography place
 * Watching and sharing a picture or a video which stored in the camera
+* Converting a photo's information to parameters of camera setting
 * Protecting or unprotecting pictures and videos which stored in the camera
 * Deleting pictures and videos which stored in the camera
 * Setting the current time at the camera automatically
@@ -37,7 +39,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 
 * If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.
 * The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.
-* The app cannot initialize media cards in the camera.
+* The app cannot initialize media cards in the camera. Please use [OA.Central](app.olympus-imaging.com/oacentral/) provided by OLYMPUS.
 
 ## Runs Immediately
 
@@ -48,8 +50,8 @@ You may find the binary version of application in [iTunes App Store](https://itu
 Building this application requires:
 
 * iOS 8.1 (Recommended 8.4 and later)
-* Mac OS X Yosemite (Recommended 10.10.5 and later)
-* Xcode 7.0
+* Mac OS X Yosemite (Recommended 10.11 and later)
+* Xcode 7.0 (Recommended 7.0.1 and later)
 
 When the project that you downloaded does not seem to be able to build, please read the trouble-shooting section of [Wiki](https://github.com/ura14h/PlayOPC/wiki).
 

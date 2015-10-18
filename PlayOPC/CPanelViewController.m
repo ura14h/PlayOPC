@@ -125,13 +125,13 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 		WhiteBalanceMapWbRevKey: CameraPropertyWbRevAutoUnderWater,
 		WhiteBalanceMapWbRevGKey: CameraPropertyWbRevGAutoUnderWater,
 	};
-	[whiteBalanceMap setObject:wbRevAuto forKey:CameraPropertyWbWbAuto];
-	[whiteBalanceMap setObject:wbRev5300k forKey:CameraPropertyWbMwbFine];
-	[whiteBalanceMap setObject:wbRev7500k forKey:CameraPropertyWbMwbShade];
-	[whiteBalanceMap setObject:wbRev6000k forKey:CameraPropertyWbMwbCloud];
-	[whiteBalanceMap setObject:wbRev3000k forKey:CameraPropertyWbMwbLamp];
-	[whiteBalanceMap setObject:wbRev4000k forKey:CameraPropertyWbMwbFluorescence1];
-	[whiteBalanceMap setObject:wbRevAutoUnderWater forKey:CameraPropertyWbMwbWater1];
+	[whiteBalanceMap setObject:wbRevAuto forKey:CameraPropertyValueWbWbAuto];
+	[whiteBalanceMap setObject:wbRev5300k forKey:CameraPropertyValueWbMwbFine];
+	[whiteBalanceMap setObject:wbRev7500k forKey:CameraPropertyValueWbMwbShade];
+	[whiteBalanceMap setObject:wbRev6000k forKey:CameraPropertyValueWbMwbCloud];
+	[whiteBalanceMap setObject:wbRev3000k forKey:CameraPropertyValueWbMwbLamp];
+	[whiteBalanceMap setObject:wbRev4000k forKey:CameraPropertyValueWbMwbFluorescence1];
+	[whiteBalanceMap setObject:wbRevAutoUnderWater forKey:CameraPropertyValueWbMwbWater1];
 	self.whiteBalanceMap = whiteBalanceMap;
 	
 	// 現在選択されているホワイトバランスのプロパティ値を初期化します。
@@ -238,42 +238,42 @@ static NSString *const ArtFilterArtEffectHybridKey = @"ArtFilterArtEffectHybridK
 		ArtFilterArtEffectTypeKey: CameraPropertyArtEffectTypePartcolor,
 		ArtFilterArtEffectHybridKey: CameraPropertyArtEffectHybridPartcolor,
 	};
-	[artFilterMap setObject:filterFlat forKey:CameraPropertyColortoneFlat];
-	[artFilterMap setObject:filterNatural forKey:CameraPropertyColortoneNatural];
-	[artFilterMap setObject:filterMonotone forKey:CameraPropertyColortoneMonotone];
-	[artFilterMap setObject:filterPortrait forKey:CameraPropertyColortonePortrait];
-	[artFilterMap setObject:filterIFinish forKey:CameraPropertyColortoneIFinish];
-	[artFilterMap setObject:filterVivid forKey:CameraPropertyColortoneVivid];
-	[artFilterMap setObject:filterEportrait forKey:CameraPropertyColortoneEportrait];
-	[artFilterMap setObject:filterColorCreator forKey:CameraPropertyColortoneColorCreator];
-	[artFilterMap setObject:filterPopart forKey:CameraPropertyColortonePopart];
-	[artFilterMap setObject:filterFantasicFocus forKey:CameraPropertyColortoneFantasicFocus];
-	[artFilterMap setObject:filterDaydream forKey:CameraPropertyColortoneDaydream];
-	[artFilterMap setObject:filterLightTone forKey:CameraPropertyColortoneLightTone];
-	[artFilterMap setObject:filterRoughMonochrome forKey:CameraPropertyColortoneRoughMonochrome];
-	[artFilterMap setObject:filterToyPhoto forKey:CameraPropertyColortoneToyPhoto];
-	[artFilterMap setObject:filterMiniature forKey:CameraPropertyColortoneMiniature];
-	[artFilterMap setObject:filterCrossProcess forKey:CameraPropertyColortoneCrossProcess];
-	[artFilterMap setObject:filterGentleSepia forKey:CameraPropertyColortoneGentleSepia];
-	[artFilterMap setObject:filterDramaticTone forKey:CameraPropertyColortoneDramaticTone];
-	[artFilterMap setObject:filterLigneClair forKey:CameraPropertyColortoneLigneClair];
-	[artFilterMap setObject:filterPastel forKey:CameraPropertyColortonePastel];
-	[artFilterMap setObject:filterVintage forKey:CameraPropertyColortoneVintage];
-	[artFilterMap setObject:filterPartcolor forKey:CameraPropertyColortonePartcolor];
-	[artFilterMap setObject:filterPopart forKey:CameraPropertyRecentlyArtFilterPopart];
-	[artFilterMap setObject:filterFantasicFocus forKey:CameraPropertyRecentlyArtFilterFantasicFocus];
-	[artFilterMap setObject:filterDaydream forKey:CameraPropertyRecentlyArtFilterDaydream];
-	[artFilterMap setObject:filterLightTone forKey:CameraPropertyRecentlyArtFilterLightTone];
-	[artFilterMap setObject:filterRoughMonochrome forKey:CameraPropertyRecentlyArtFilterRoughMonochrome];
-	[artFilterMap setObject:filterToyPhoto forKey:CameraPropertyRecentlyArtFilterToyPhoto];
-	[artFilterMap setObject:filterMiniature forKey:CameraPropertyRecentlyArtFilterMiniature];
-	[artFilterMap setObject:filterCrossProcess forKey:CameraPropertyRecentlyArtFilterCrossProcess];
-	[artFilterMap setObject:filterGentleSepia forKey:CameraPropertyRecentlyArtFilterGentleSepia];
-	[artFilterMap setObject:filterDramaticTone forKey:CameraPropertyRecentlyArtFilterDramaticTone];
-	[artFilterMap setObject:filterLigneClair forKey:CameraPropertyRecentlyArtFilterLigneClair];
-	[artFilterMap setObject:filterPastel forKey:CameraPropertyRecentlyArtFilterPastel];
-	[artFilterMap setObject:filterVintage forKey:CameraPropertyRecentlyArtFilterVintage];
-	[artFilterMap setObject:filterPartcolor forKey:CameraPropertyRecentlyArtFilterPartcolor];
+	[artFilterMap setObject:filterFlat forKey:CameraPropertyValueColortoneFlat];
+	[artFilterMap setObject:filterNatural forKey:CameraPropertyValueColortoneNatural];
+	[artFilterMap setObject:filterMonotone forKey:CameraPropertyValueColortoneMonotone];
+	[artFilterMap setObject:filterPortrait forKey:CameraPropertyValueColortonePortrait];
+	[artFilterMap setObject:filterIFinish forKey:CameraPropertyValueColortoneIFinish];
+	[artFilterMap setObject:filterVivid forKey:CameraPropertyValueColortoneVivid];
+	[artFilterMap setObject:filterEportrait forKey:CameraPropertyValueColortoneEportrait];
+	[artFilterMap setObject:filterColorCreator forKey:CameraPropertyValueColortoneColorCreator];
+	[artFilterMap setObject:filterPopart forKey:CameraPropertyValueColortonePopart];
+	[artFilterMap setObject:filterFantasicFocus forKey:CameraPropertyValueColortoneFantasicFocus];
+	[artFilterMap setObject:filterDaydream forKey:CameraPropertyValueColortoneDaydream];
+	[artFilterMap setObject:filterLightTone forKey:CameraPropertyValueColortoneLightTone];
+	[artFilterMap setObject:filterRoughMonochrome forKey:CameraPropertyValueColortoneRoughMonochrome];
+	[artFilterMap setObject:filterToyPhoto forKey:CameraPropertyValueColortoneToyPhoto];
+	[artFilterMap setObject:filterMiniature forKey:CameraPropertyValueColortoneMiniature];
+	[artFilterMap setObject:filterCrossProcess forKey:CameraPropertyValueColortoneCrossProcess];
+	[artFilterMap setObject:filterGentleSepia forKey:CameraPropertyValueColortoneGentleSepia];
+	[artFilterMap setObject:filterDramaticTone forKey:CameraPropertyValueColortoneDramaticTone];
+	[artFilterMap setObject:filterLigneClair forKey:CameraPropertyValueColortoneLigneClair];
+	[artFilterMap setObject:filterPastel forKey:CameraPropertyValueColortonePastel];
+	[artFilterMap setObject:filterVintage forKey:CameraPropertyValueColortoneVintage];
+	[artFilterMap setObject:filterPartcolor forKey:CameraPropertyValueColortonePartcolor];
+	[artFilterMap setObject:filterPopart forKey:CameraPropertyValueRecentlyArtFilterPopart];
+	[artFilterMap setObject:filterFantasicFocus forKey:CameraPropertyValueRecentlyArtFilterFantasicFocus];
+	[artFilterMap setObject:filterDaydream forKey:CameraPropertyValueRecentlyArtFilterDaydream];
+	[artFilterMap setObject:filterLightTone forKey:CameraPropertyValueRecentlyArtFilterLightTone];
+	[artFilterMap setObject:filterRoughMonochrome forKey:CameraPropertyValueRecentlyArtFilterRoughMonochrome];
+	[artFilterMap setObject:filterToyPhoto forKey:CameraPropertyValueRecentlyArtFilterToyPhoto];
+	[artFilterMap setObject:filterMiniature forKey:CameraPropertyValueRecentlyArtFilterMiniature];
+	[artFilterMap setObject:filterCrossProcess forKey:CameraPropertyValueRecentlyArtFilterCrossProcess];
+	[artFilterMap setObject:filterGentleSepia forKey:CameraPropertyValueRecentlyArtFilterGentleSepia];
+	[artFilterMap setObject:filterDramaticTone forKey:CameraPropertyValueRecentlyArtFilterDramaticTone];
+	[artFilterMap setObject:filterLigneClair forKey:CameraPropertyValueRecentlyArtFilterLigneClair];
+	[artFilterMap setObject:filterPastel forKey:CameraPropertyValueRecentlyArtFilterPastel];
+	[artFilterMap setObject:filterVintage forKey:CameraPropertyValueRecentlyArtFilterVintage];
+	[artFilterMap setObject:filterPartcolor forKey:CameraPropertyValueRecentlyArtFilterPartcolor];
 	self.artFilterMap = artFilterMap;
 	
 	// 現在選択されているアートフィルターを初期化します。

@@ -1529,7 +1529,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
 		if (progress == OLYCameraTakingProgressEndFocusing) {
 			// この撮影中にフォーカスロックした場合はオートフォーカス枠を表示します。
-			if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 				// オートフォーカスの結果を取得します。
 				NSString *focusResult = info[OLYCameraTakingPictureProgressInfoFocusResultKey];
 				NSValue *focusRectValue = info[OLYCameraTakingPictureProgressInfoFocusRectKey];
@@ -1563,7 +1563,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1574,7 +1574,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1611,7 +1611,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
 		if (progress == OLYCameraTakingProgressEndFocusing) {
 			// この撮影中にフォーカスロックした場合はオートフォーカス枠を表示します。
-			if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 				// オートフォーカスの結果を取得します。
 				NSString *focusResult = info[OLYCameraTakingPictureProgressInfoFocusResultKey];
 				NSValue *focusRectValue = info[OLYCameraTakingPictureProgressInfoFocusRectKey];
@@ -1639,7 +1639,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"error=%p", error);
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1681,7 +1681,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// シャッターボタンの状態を待機中にします。
 		weakSelf.takeButton.selected = NO;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1690,7 +1690,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// 撮影に失敗しました。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1729,7 +1729,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
 		if (progress == OLYCameraTakingProgressEndFocusing) {
 			// この撮影中にフォーカスロックした場合はオートフォーカス枠を表示します。
-			if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+			if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 				// オートフォーカスの結果を取得します。
 				NSString *focusResult = info[OLYCameraTakingPictureProgressInfoFocusResultKey];
 				NSValue *focusRectValue = info[OLYCameraTakingPictureProgressInfoFocusRectKey];
@@ -1761,7 +1761,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1804,7 +1804,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// MARK: シャッターボタンの状態変更はオートブラケット＋インターバルタイマー撮影の完了通知にお任せします。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}
@@ -1816,7 +1816,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		weakSelf.takeButton.enabled = YES;
 		// 撮影に失敗しました。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
 			[weakSelf.liveImageView hideFocusFrame:YES];
 		}

@@ -383,8 +383,8 @@
 		31E81A541B5B9645003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingVPanel.strings; sourceTree = "<group>"; };
 		31E81A561B5B964B003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Playback.strings; sourceTree = "<group>"; };
 		31E81A581B5B9651003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = PlayOPC/ja.lproj/System.strings; sourceTree = "<group>"; };
-		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppCamera.h; sourceTree = "<group>"; };
-		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppCamera.m; sourceTree = "<group>"; };
+		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */

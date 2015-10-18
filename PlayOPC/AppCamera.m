@@ -17,34 +17,34 @@
 
 NSString *const CameraPropertyAperture = @"APERTURE";
 NSString *const CameraPropertyAe = @"AE";
-NSString *const CameraPropertyAeAeCenter = @"<AE/AE_CENTER>";
-NSString *const CameraPropertyAeAeEsp = @"<AE/AE_ESP>";
-NSString *const CameraPropertyAeAePinpoint = @"<AE/AE_PINPOINT>";
+NSString *const CameraPropertyValueAeAeCenter = @"<AE/AE_CENTER>";
+NSString *const CameraPropertyValueAeAeEsp = @"<AE/AE_ESP>";
+NSString *const CameraPropertyValueAeAePinpoint = @"<AE/AE_PINPOINT>";
 NSString *const CameraPropertyTakemode = @"TAKEMODE";
-NSString *const CameraPropertyTakemodeIAuto = @"<TAKEMODE/iAuto>";
-NSString *const CameraPropertyTakemodeP = @"<TAKEMODE/P>";
-NSString *const CameraPropertyTakemodeA = @"<TAKEMODE/A>";
-NSString *const CameraPropertyTakemodeS = @"<TAKEMODE/S>";
-NSString *const CameraPropertyTakemodeM = @"<TAKEMODE/M>";
-NSString *const CameraPropertyTakemodeArt = @"<TAKEMODE/ART>";
-NSString *const CameraPropertyTakemodeMovie = @"<TAKEMODE/movie>";
+NSString *const CameraPropertyValueTakemodeIAuto = @"<TAKEMODE/iAuto>";
+NSString *const CameraPropertyValueTakemodeP = @"<TAKEMODE/P>";
+NSString *const CameraPropertyValueTakemodeA = @"<TAKEMODE/A>";
+NSString *const CameraPropertyValueTakemodeS = @"<TAKEMODE/S>";
+NSString *const CameraPropertyValueTakemodeM = @"<TAKEMODE/M>";
+NSString *const CameraPropertyValueTakemodeArt = @"<TAKEMODE/ART>";
+NSString *const CameraPropertyValueTakemodeMovie = @"<TAKEMODE/movie>";
 NSString *const CameraPropertyIso = @"ISO";
 NSString *const CameraPropertyExprev = @"EXPREV";
 NSString *const CameraPropertyTakeDrive = @"TAKE_DRIVE";
-NSString *const CameraPropertyTakeDriveDriveNormal = @"<TAKE_DRIVE/DRIVE_NORMAL>";
-NSString *const CameraPropertyTakeDriveDriveContinue = @"<TAKE_DRIVE/DRIVE_CONTINUE>";
+NSString *const CameraPropertyValueTakeDriveDriveNormal = @"<TAKE_DRIVE/DRIVE_NORMAL>";
+NSString *const CameraPropertyValueTakeDriveDriveContinue = @"<TAKE_DRIVE/DRIVE_CONTINUE>";
 NSString *const CameraPropertyAspectRatio = @"ASPECT_RATIO";
-NSString *const CameraPropertyAspectRatio0403 = @"<ASPECT_RATIO/04_03>";
-NSString *const CameraPropertyAspectRatio0302 = @"<ASPECT_RATIO/03_02>";
-NSString *const CameraPropertyAspectRatio1609 = @"<ASPECT_RATIO/16_09>";
-NSString *const CameraPropertyAspectRatio0304 = @"<ASPECT_RATIO/03_04>";
-NSString *const CameraPropertyAspectRatio0606 = @"<ASPECT_RATIO/06_06>";
+NSString *const CameraPropertyValueAspectRatio0403 = @"<ASPECT_RATIO/04_03>";
+NSString *const CameraPropertyValueAspectRatio0302 = @"<ASPECT_RATIO/03_02>";
+NSString *const CameraPropertyValueAspectRatio1609 = @"<ASPECT_RATIO/16_09>";
+NSString *const CameraPropertyValueAspectRatio0304 = @"<ASPECT_RATIO/03_04>";
+NSString *const CameraPropertyValueAspectRatio0606 = @"<ASPECT_RATIO/06_06>";
 NSString *const CameraPropertyShutter = @"SHUTTER";
 NSString *const CameraPropertyContinuousShootingVelocity = @"CONTINUOUS_SHOOTING_VELOCITY";
 NSString *const CameraPropertyExposeMovieSelect = @"EXPOSE_MOVIE_SELECT";
 NSString *const CameraPropertyAeLockState = @"AE_LOCK_STATE";
-NSString *const CameraPropertyAeLockStateLock = @"<AE_LOCK_STATE/LOCK>";
-NSString *const CameraPropertyAeLockStateUnlock = @"<AE_LOCK_STATE/UNLOCK>";
+NSString *const CameraPropertyValueAeLockStateLock = @"<AE_LOCK_STATE/LOCK>";
+NSString *const CameraPropertyValueAeLockStateUnlock = @"<AE_LOCK_STATE/UNLOCK>";
 NSString *const CameraPropertyImagesize = @"IMAGESIZE";
 NSString *const CameraPropertyRaw = @"RAW";
 NSString *const CameraPropertyCompressibilityRatio = @"COMPRESSIBILITY_RATIO";
@@ -52,41 +52,41 @@ NSString *const CameraPropertyQualityMovie = @"QUALITY_MOVIE";
 NSString *const CameraPropertyDestinationFile = @"DESTINATION_FILE";
 NSString *const CameraPropertyQualityMovieShortMovieRecordTime = @"QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME";
 NSString *const CameraPropertyFocusStill = @"FOCUS_STILL";
-NSString *const CameraPropertyFocusStillMf = @"<FOCUS_STILL/FOCUS_MF>";
-NSString *const CameraPropertyFocusStillSaf = @"<FOCUS_STILL/FOCUS_SAF>";
+NSString *const CameraPropertyValueFocusStillMf = @"<FOCUS_STILL/FOCUS_MF>";
+NSString *const CameraPropertyValueFocusStillSaf = @"<FOCUS_STILL/FOCUS_SAF>";
 NSString *const CameraPropertyAfLockState = @"AF_LOCK_STATE";
-NSString *const CameraPropertyAfLockStateLock = @"<AF_LOCK_STATE/LOCK>";
-NSString *const CameraPropertyAfLockStateUnlock = @"<AF_LOCK_STATE/UNLOCK>";
+NSString *const CameraPropertyValueAfLockStateLock = @"<AF_LOCK_STATE/LOCK>";
+NSString *const CameraPropertyValueAfLockStateUnlock = @"<AF_LOCK_STATE/UNLOCK>";
 NSString *const CameraPropertyFocusMovie = @"FOCUS_MOVIE";
-NSString *const CameraPropertyFocusMovieMf = @"<FOCUS_MOVIE/FOCUS_MF>";
-NSString *const CameraPropertyFocusMovieSaf = @"<FOCUS_MOVIE/FOCUS_SAF>";
-NSString *const CameraPropertyFocusMovieCaf = @"<FOCUS_MOVIE/FOCUS_CAF>";
+NSString *const CameraPropertyValueFocusMovieMf = @"<FOCUS_MOVIE/FOCUS_MF>";
+NSString *const CameraPropertyValueFocusMovieSaf = @"<FOCUS_MOVIE/FOCUS_SAF>";
+NSString *const CameraPropertyValueFocusMovieCaf = @"<FOCUS_MOVIE/FOCUS_CAF>";
 NSString *const CameraPropertyFullTimeAf = @"FULL_TIME_AF";
 NSString *const CameraPropertyBatteryLevel = @"BATTERY_LEVEL";
 NSString *const CameraPropertyFaceScan = @"FACE_SCAN";
 NSString *const CameraPropertyAntiShakeFocalLength = @"ANTI_SHAKE_FOCAL_LENGTH";
 NSString *const CameraPropertyRecview = @"RECVIEW";
-NSString *const CameraPropertyRecviewOn = @"<RECVIEW/ON>";
-NSString *const CameraPropertyRecviewOff = @"<RECVIEW/OFF>";
+NSString *const CameraPropertyValueRecviewOn = @"<RECVIEW/ON>";
+NSString *const CameraPropertyValueRecviewOff = @"<RECVIEW/OFF>";
 NSString *const CameraPropertyAntiShakeMovie = @"ANTI_SHAKE_MOVIE";
 NSString *const CameraPropertySoundVolumeLevel = @"SOUND_VOLUME_LEVEL";
 NSString *const CameraPropertyGps = @"GPS";
 NSString *const CameraPropertyWifiCh = @"WIFI_CH";
 NSString *const CameraPropertyRecentlyArtFilter = @"RECENTLY_ART_FILTER";
-NSString *const CameraPropertyRecentlyArtFilterPopart = @"<RECENTLY_ART_FILTER/POPART>";
-NSString *const CameraPropertyRecentlyArtFilterFantasicFocus = @"<RECENTLY_ART_FILTER/FANTASIC_FOCUS>";
-NSString *const CameraPropertyRecentlyArtFilterDaydream = @"<RECENTLY_ART_FILTER/DAYDREAM>";
-NSString *const CameraPropertyRecentlyArtFilterLightTone = @"<RECENTLY_ART_FILTER/LIGHT_TONE>";
-NSString *const CameraPropertyRecentlyArtFilterRoughMonochrome = @"<RECENTLY_ART_FILTER/ROUGH_MONOCHROME>";
-NSString *const CameraPropertyRecentlyArtFilterToyPhoto = @"<RECENTLY_ART_FILTER/TOY_PHOTO>";
-NSString *const CameraPropertyRecentlyArtFilterMiniature = @"<RECENTLY_ART_FILTER/MINIATURE>";
-NSString *const CameraPropertyRecentlyArtFilterCrossProcess = @"<RECENTLY_ART_FILTER/CROSS_PROCESS>";
-NSString *const CameraPropertyRecentlyArtFilterGentleSepia = @"<RECENTLY_ART_FILTER/GENTLE_SEPIA>";
-NSString *const CameraPropertyRecentlyArtFilterDramaticTone = @"<RECENTLY_ART_FILTER/DRAMATIC_TONE>";
-NSString *const CameraPropertyRecentlyArtFilterLigneClair = @"<RECENTLY_ART_FILTER/LIGNE_CLAIR>";
-NSString *const CameraPropertyRecentlyArtFilterPastel = @"<RECENTLY_ART_FILTER/PASTEL>";
-NSString *const CameraPropertyRecentlyArtFilterVintage = @"<RECENTLY_ART_FILTER/VINTAGE>";
-NSString *const CameraPropertyRecentlyArtFilterPartcolor = @"<RECENTLY_ART_FILTER/PARTCOLOR>";
+NSString *const CameraPropertyValueRecentlyArtFilterPopart = @"<RECENTLY_ART_FILTER/POPART>";
+NSString *const CameraPropertyValueRecentlyArtFilterFantasicFocus = @"<RECENTLY_ART_FILTER/FANTASIC_FOCUS>";
+NSString *const CameraPropertyValueRecentlyArtFilterDaydream = @"<RECENTLY_ART_FILTER/DAYDREAM>";
+NSString *const CameraPropertyValueRecentlyArtFilterLightTone = @"<RECENTLY_ART_FILTER/LIGHT_TONE>";
+NSString *const CameraPropertyValueRecentlyArtFilterRoughMonochrome = @"<RECENTLY_ART_FILTER/ROUGH_MONOCHROME>";
+NSString *const CameraPropertyValueRecentlyArtFilterToyPhoto = @"<RECENTLY_ART_FILTER/TOY_PHOTO>";
+NSString *const CameraPropertyValueRecentlyArtFilterMiniature = @"<RECENTLY_ART_FILTER/MINIATURE>";
+NSString *const CameraPropertyValueRecentlyArtFilterCrossProcess = @"<RECENTLY_ART_FILTER/CROSS_PROCESS>";
+NSString *const CameraPropertyValueRecentlyArtFilterGentleSepia = @"<RECENTLY_ART_FILTER/GENTLE_SEPIA>";
+NSString *const CameraPropertyValueRecentlyArtFilterDramaticTone = @"<RECENTLY_ART_FILTER/DRAMATIC_TONE>";
+NSString *const CameraPropertyValueRecentlyArtFilterLigneClair = @"<RECENTLY_ART_FILTER/LIGNE_CLAIR>";
+NSString *const CameraPropertyValueRecentlyArtFilterPastel = @"<RECENTLY_ART_FILTER/PASTEL>";
+NSString *const CameraPropertyValueRecentlyArtFilterVintage = @"<RECENTLY_ART_FILTER/VINTAGE>";
+NSString *const CameraPropertyValueRecentlyArtFilterPartcolor = @"<RECENTLY_ART_FILTER/PARTCOLOR>";
 NSString *const CameraPropertyColorPhase = @"COLOR_PHASE";
 NSString *const CameraPropertyArtEffectTypePopart = @"ART_EFFECT_TYPE_POPART";
 NSString *const CameraPropertyArtEffectTypeDaydream = @"ART_EFFECT_TYPE_DAYDREAM";
@@ -128,28 +128,28 @@ NSString *const CameraPropertyBracketPictPastel = @"BRACKET_PICT_PASTEL";
 NSString *const CameraPropertyBracketPictVintage = @"BRACKET_PICT_VINTAGE";
 NSString *const CameraPropertyBracketPictPartcolor = @"BRACKET_PICT_PARTCOLOR";
 NSString *const CameraPropertyColortone = @"COLORTONE";
-NSString *const CameraPropertyColortoneFlat = @"<COLORTONE/FLAT>";
-NSString *const CameraPropertyColortoneNatural = @"<COLORTONE/NATURAL>";
-NSString *const CameraPropertyColortoneMonotone = @"<COLORTONE/Monotone>";
-NSString *const CameraPropertyColortonePortrait = @"<COLORTONE/Portrait>";
-NSString *const CameraPropertyColortoneIFinish = @"<COLORTONE/I_FINISH>";
-NSString *const CameraPropertyColortoneVivid = @"<COLORTONE/VIVID>";
-NSString *const CameraPropertyColortoneEportrait = @"<COLORTONE/ePortrait>";
-NSString *const CameraPropertyColortoneColorCreator = @"<COLORTONE/COLOR_CREATOR>";
-NSString *const CameraPropertyColortonePopart = @"<COLORTONE/POPART>";
-NSString *const CameraPropertyColortoneFantasicFocus = @"<COLORTONE/FANTASIC_FOCUS>";
-NSString *const CameraPropertyColortoneDaydream = @"<COLORTONE/DAYDREAM>";
-NSString *const CameraPropertyColortoneLightTone = @"<COLORTONE/LIGHT_TONE>";
-NSString *const CameraPropertyColortoneRoughMonochrome = @"<COLORTONE/ROUGH_MONOCHROME>";
-NSString *const CameraPropertyColortoneToyPhoto = @"<COLORTONE/TOY_PHOTO>";
-NSString *const CameraPropertyColortoneMiniature = @"<COLORTONE/MINIATURE>";
-NSString *const CameraPropertyColortoneCrossProcess = @"<COLORTONE/CROSS_PROCESS>";
-NSString *const CameraPropertyColortoneGentleSepia = @"<COLORTONE/GENTLE_SEPIA>";
-NSString *const CameraPropertyColortoneDramaticTone = @"<COLORTONE/DRAMATIC_TONE>";
-NSString *const CameraPropertyColortoneLigneClair = @"<COLORTONE/LIGNE_CLAIR>";
-NSString *const CameraPropertyColortonePastel = @"<COLORTONE/PASTEL>";
-NSString *const CameraPropertyColortoneVintage = @"<COLORTONE/VINTAGE>";
-NSString *const CameraPropertyColortonePartcolor = @"<COLORTONE/PARTCOLOR>";
+NSString *const CameraPropertyValueColortoneFlat = @"<COLORTONE/FLAT>";
+NSString *const CameraPropertyValueColortoneNatural = @"<COLORTONE/NATURAL>";
+NSString *const CameraPropertyValueColortoneMonotone = @"<COLORTONE/Monotone>";
+NSString *const CameraPropertyValueColortonePortrait = @"<COLORTONE/Portrait>";
+NSString *const CameraPropertyValueColortoneIFinish = @"<COLORTONE/I_FINISH>";
+NSString *const CameraPropertyValueColortoneVivid = @"<COLORTONE/VIVID>";
+NSString *const CameraPropertyValueColortoneEportrait = @"<COLORTONE/ePortrait>";
+NSString *const CameraPropertyValueColortoneColorCreator = @"<COLORTONE/COLOR_CREATOR>";
+NSString *const CameraPropertyValueColortonePopart = @"<COLORTONE/POPART>";
+NSString *const CameraPropertyValueColortoneFantasicFocus = @"<COLORTONE/FANTASIC_FOCUS>";
+NSString *const CameraPropertyValueColortoneDaydream = @"<COLORTONE/DAYDREAM>";
+NSString *const CameraPropertyValueColortoneLightTone = @"<COLORTONE/LIGHT_TONE>";
+NSString *const CameraPropertyValueColortoneRoughMonochrome = @"<COLORTONE/ROUGH_MONOCHROME>";
+NSString *const CameraPropertyValueColortoneToyPhoto = @"<COLORTONE/TOY_PHOTO>";
+NSString *const CameraPropertyValueColortoneMiniature = @"<COLORTONE/MINIATURE>";
+NSString *const CameraPropertyValueColortoneCrossProcess = @"<COLORTONE/CROSS_PROCESS>";
+NSString *const CameraPropertyValueColortoneGentleSepia = @"<COLORTONE/GENTLE_SEPIA>";
+NSString *const CameraPropertyValueColortoneDramaticTone = @"<COLORTONE/DRAMATIC_TONE>";
+NSString *const CameraPropertyValueColortoneLigneClair = @"<COLORTONE/LIGNE_CLAIR>";
+NSString *const CameraPropertyValueColortonePastel = @"<COLORTONE/PASTEL>";
+NSString *const CameraPropertyValueColortoneVintage = @"<COLORTONE/VINTAGE>";
+NSString *const CameraPropertyValueColortonePartcolor = @"<COLORTONE/PARTCOLOR>";
 NSString *const CameraPropertyContrastFlat = @"CONTRAST_FLAT";
 NSString *const CameraPropertyContrastNatural = @"CONTRAST_NATURAL";
 NSString *const CameraPropertyContrastMonochrome = @"CONTRAST_MONOCHROME";
@@ -186,14 +186,14 @@ NSString *const CameraPropertyMonotonecolorDramaticTone = @"MONOTONECOLOR_DRAMAT
 NSString *const CameraPropertyColorCreatorColor = @"COLOR_CREATOR_COLOR";
 NSString *const CameraPropertyColorCreatorVivid = @"COLOR_CREATOR_VIVID";
 NSString *const CameraPropertyWb = @"WB";
-NSString *const CameraPropertyWbWbAuto = @"<WB/WB_AUTO>";
-NSString *const CameraPropertyWbMwbFine = @"<WB/MWB_FINE>";
-NSString *const CameraPropertyWbMwbShade = @"<WB/MWB_SHADE>";
-NSString *const CameraPropertyWbMwbCloud = @"<WB/MWB_CLOUD>";
-NSString *const CameraPropertyWbMwbLamp = @"<WB/MWB_LAMP>";
-NSString *const CameraPropertyWbMwbFluorescence1 = @"<WB/MWB_FLUORESCENCE1>";
-NSString *const CameraPropertyWbMwbWater1 = @"<WB/MWB_WATER_1>";
-NSString *const CameraPropertyWbWbCustom1 = @"<WB/WB_CUSTOM1>";
+NSString *const CameraPropertyValueWbWbAuto = @"<WB/WB_AUTO>";
+NSString *const CameraPropertyValueWbMwbFine = @"<WB/MWB_FINE>";
+NSString *const CameraPropertyValueWbMwbShade = @"<WB/MWB_SHADE>";
+NSString *const CameraPropertyValueWbMwbCloud = @"<WB/MWB_CLOUD>";
+NSString *const CameraPropertyValueWbMwbLamp = @"<WB/MWB_LAMP>";
+NSString *const CameraPropertyValueWbMwbFluorescence1 = @"<WB/MWB_FLUORESCENCE1>";
+NSString *const CameraPropertyValueWbMwbWater1 = @"<WB/MWB_WATER_1>";
+NSString *const CameraPropertyValueWbWbCustom1 = @"<WB/WB_CUSTOM1>";
 NSString *const CameraPropertyCustomWbKelvin1 = @"CUSTOM_WB_KELVIN_1";
 NSString *const CameraPropertyWbRevAuto = @"WB_REV_AUTO";
 NSString *const CameraPropertyWbRevGAuto = @"WB_REV_G_AUTO";
@@ -436,7 +436,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// 撮影モード以外に遷移してから再び撮影モードに入ると、カメラ側はiAuto、ライブラリ側はmovieと認識しているようです。
 	// このため、全体としてちぐはぐな動作になります。
 	if (result && self.runMode == OLYCameraRunModeRecording) {
-		if (![super setCameraPropertyValue:CameraPropertyTakemode value:CameraPropertyTakemodeIAuto error:error]) {
+		if (![super setCameraPropertyValue:CameraPropertyTakemode value:CameraPropertyValueTakemodeIAuto error:error]) {
 			return NO;
 		}
 	}
@@ -1923,16 +1923,16 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	switch ([exifExposureMode longValue]) {
 		case 1: // マニュアル
-			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeM;
+			propertyValues[CameraPropertyTakemode] = CameraPropertyValueTakemodeM;
 			break;
 		case 2: // ノーマルプログラム
-			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeP;
+			propertyValues[CameraPropertyTakemode] = CameraPropertyValueTakemodeP;
 			break;
 		case 3: // 絞り優先
-			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeA;
+			propertyValues[CameraPropertyTakemode] = CameraPropertyValueTakemodeA;
 			break;
 		case 4: // シャッター優先
-			propertyValues[CameraPropertyTakemode] = CameraPropertyTakemodeS;
+			propertyValues[CameraPropertyTakemode] = CameraPropertyValueTakemodeS;
 			break;
 		default:
 			DEBUG_LOG(@"not supported exif exposure mode.");
@@ -2085,16 +2085,16 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (wbPropertyValueList) {
 			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 			NSDictionary *wbPropertyValueMap = @{
-				@"AUTO": CameraPropertyWbWbAuto,
-				@"FINE": CameraPropertyWbMwbFine,
-				@"SHADE": CameraPropertyWbMwbShade,
-				@"CLOUD": CameraPropertyWbMwbCloud,
-				@"LAMP": CameraPropertyWbMwbLamp,
-				@"FLUORESCENCE1": CameraPropertyWbMwbFluorescence1,
-				@"WATER1": CameraPropertyWbMwbWater1,
-				@"CUSTOM1": CameraPropertyWbWbCustom1,
+				@"AUTO": CameraPropertyValueWbWbAuto,
+				@"FINE": CameraPropertyValueWbMwbFine,
+				@"SHADE": CameraPropertyValueWbMwbShade,
+				@"CLOUD": CameraPropertyValueWbMwbCloud,
+				@"LAMP": CameraPropertyValueWbMwbLamp,
+				@"FLUORESCENCE1": CameraPropertyValueWbMwbFluorescence1,
+				@"WATER1": CameraPropertyValueWbMwbWater1,
+				@"CUSTOM1": CameraPropertyValueWbWbCustom1,
 			};
-			NSString *wbValue = CameraPropertyWbWbAuto;
+			NSString *wbValue = CameraPropertyValueWbWbAuto;
 			if (wbPropertyValueMap[infoWhiteBalanceValue]) {
 				wbValue = wbPropertyValueMap[infoWhiteBalanceValue];
 			}
@@ -2103,7 +2103,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// ホワイトバランス/カスタムWB用色温度を決定します。
-	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
+	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
 		NSNumber *infoCustomWBBiasValue = nil;
 		if (information[@"CustomWBBias"]) {
 			infoCustomWBBiasValue = [NSNumber numberWithFloat:[information[@"CustomWBBias"] floatValue]];
@@ -2129,7 +2129,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// ホワイトバランス/WB補正を決定します。
-	if (propertyValues[CameraPropertyWb] && ![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
+	if (propertyValues[CameraPropertyWb] && ![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
 		// WB補正(琥珀色-青色)を決定します。
 		NSNumber *infoWbBiasAValue = nil;
 		if (information[@"WBBiasA"]) {
@@ -2142,13 +2142,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (infoWbBiasAValue) {
 			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
 			NSDictionary *wbRevPropertyMap = @{
-				CameraPropertyWbMwbLamp: CameraPropertyWbRev3000k,
-				CameraPropertyWbMwbFluorescence1: CameraPropertyWbRev4000k,
-				CameraPropertyWbMwbFine: CameraPropertyWbRev5300k,
-				CameraPropertyWbMwbCloud: CameraPropertyWbRev6000k,
-				CameraPropertyWbMwbShade: CameraPropertyWbRev7500k,
-				CameraPropertyWbWbAuto: CameraPropertyWbRevAuto,
-				CameraPropertyWbMwbWater1: CameraPropertyWbRevAutoUnderWater,
+				CameraPropertyValueWbMwbLamp: CameraPropertyWbRev3000k,
+				CameraPropertyValueWbMwbFluorescence1: CameraPropertyWbRev4000k,
+				CameraPropertyValueWbMwbFine: CameraPropertyWbRev5300k,
+				CameraPropertyValueWbMwbCloud: CameraPropertyWbRev6000k,
+				CameraPropertyValueWbMwbShade: CameraPropertyWbRev7500k,
+				CameraPropertyValueWbWbAuto: CameraPropertyWbRevAuto,
+				CameraPropertyValueWbMwbWater1: CameraPropertyWbRevAutoUnderWater,
 			};
 			NSString *wbRevProperty = wbRevPropertyMap[propertyValues[CameraPropertyWb]];
 			if (wbRevProperty) {
@@ -2183,13 +2183,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (infoWbBiasGValue) {
 			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
 			NSDictionary *wbRevGPropertyMap = @{
-				CameraPropertyWbMwbLamp: CameraPropertyWbRevG3000k,
-				CameraPropertyWbMwbFluorescence1: CameraPropertyWbRevG4000k,
-				CameraPropertyWbMwbFine: CameraPropertyWbRevG5300k,
-				CameraPropertyWbMwbCloud: CameraPropertyWbRevG6000k,
-				CameraPropertyWbMwbShade: CameraPropertyWbRevG7500k,
-				CameraPropertyWbWbAuto: CameraPropertyWbRevGAuto,
-				CameraPropertyWbMwbWater1: CameraPropertyWbRevGAutoUnderWater,
+				CameraPropertyValueWbMwbLamp: CameraPropertyWbRevG3000k,
+				CameraPropertyValueWbMwbFluorescence1: CameraPropertyWbRevG4000k,
+				CameraPropertyValueWbMwbFine: CameraPropertyWbRevG5300k,
+				CameraPropertyValueWbMwbCloud: CameraPropertyWbRevG6000k,
+				CameraPropertyValueWbMwbShade: CameraPropertyWbRevG7500k,
+				CameraPropertyValueWbWbAuto: CameraPropertyWbRevGAuto,
+				CameraPropertyValueWbMwbWater1: CameraPropertyWbRevGAutoUnderWater,
 			};
 			NSString *wbRevGProperty = wbRevGPropertyMap[propertyValues[CameraPropertyWb]];
 			if (wbRevGProperty) {
@@ -2214,7 +2214,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// ホワイトバランス/電球色残しを決定します。
-	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbAuto]) {
+	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbAuto]) {
 		NSString *infoWbAutoLightBulbColorLeavingValue = information[@"WBAutoLightBulbColorLeaving"];
 		if (infoWbAutoLightBulbColorLeavingValue) {
 			// 電球色残しのカメラプロパティ値リストを取得します。
@@ -2242,28 +2242,28 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (colortonePropertyValueList) {
 			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 			NSDictionary *colortonePropertyValueMap = @{
-				@"I_FINISH": CameraPropertyColortoneIFinish,
-				@"VIVID": CameraPropertyColortoneVivid,
-				@"NATURAL": CameraPropertyColortoneNatural,
-				@"FLAT": CameraPropertyColortoneFlat,
-				@"Portrait": CameraPropertyColortonePortrait,
-				@"Monotone": CameraPropertyColortoneMonotone,
-				@"ePortrait": CameraPropertyColortoneEportrait,
-				@"COLOR_CREATOR": CameraPropertyColortoneColorCreator,
-				@"POPART": CameraPropertyColortonePopart,
-				@"FANTASIC_FOCUS": CameraPropertyColortoneFantasicFocus,
-				@"DAYDREAM": CameraPropertyColortoneDaydream,
-				@"LIGHT_TONE": CameraPropertyColortoneLightTone,
-				@"ROUGH_MONOCHROME": CameraPropertyColortoneRoughMonochrome,
-				@"TOY_PHOTO": CameraPropertyColortoneToyPhoto,
-				@"MINIATURE": CameraPropertyColortoneMiniature,
-				@"CROSS_PROCESS": CameraPropertyColortoneCrossProcess,
-				@"GENTLE_SEPIA": CameraPropertyColortoneGentleSepia,
-				@"DRAMATIC_TONE": CameraPropertyColortoneDramaticTone,
-				@"LIGNE_CLAIR": CameraPropertyColortoneLightTone,
-				@"PASTEL": CameraPropertyColortonePastel,
-				@"VINTAGE": CameraPropertyColortoneVintage,
-				@"PARTCOLOR": CameraPropertyColortonePartcolor,
+				@"I_FINISH": CameraPropertyValueColortoneIFinish,
+				@"VIVID": CameraPropertyValueColortoneVivid,
+				@"NATURAL": CameraPropertyValueColortoneNatural,
+				@"FLAT": CameraPropertyValueColortoneFlat,
+				@"Portrait": CameraPropertyValueColortonePortrait,
+				@"Monotone": CameraPropertyValueColortoneMonotone,
+				@"ePortrait": CameraPropertyValueColortoneEportrait,
+				@"COLOR_CREATOR": CameraPropertyValueColortoneColorCreator,
+				@"POPART": CameraPropertyValueColortonePopart,
+				@"FANTASIC_FOCUS": CameraPropertyValueColortoneFantasicFocus,
+				@"DAYDREAM": CameraPropertyValueColortoneDaydream,
+				@"LIGHT_TONE": CameraPropertyValueColortoneLightTone,
+				@"ROUGH_MONOCHROME": CameraPropertyValueColortoneRoughMonochrome,
+				@"TOY_PHOTO": CameraPropertyValueColortoneToyPhoto,
+				@"MINIATURE": CameraPropertyValueColortoneMiniature,
+				@"CROSS_PROCESS": CameraPropertyValueColortoneCrossProcess,
+				@"GENTLE_SEPIA": CameraPropertyValueColortoneGentleSepia,
+				@"DRAMATIC_TONE": CameraPropertyValueColortoneDramaticTone,
+				@"LIGNE_CLAIR": CameraPropertyValueColortoneLightTone,
+				@"PASTEL": CameraPropertyValueColortonePastel,
+				@"VINTAGE": CameraPropertyValueColortoneVintage,
+				@"PARTCOLOR": CameraPropertyValueColortonePartcolor,
 			};
 			NSString *colortoneValue = nil;
 			if (colortonePropertyValueMap[infoColortoneValue]) {
@@ -2282,12 +2282,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (infoContrastValue) {
 			// ピクチャーモードの値に対応する、コントラストのカメラプロパティ名を取得します。
 			NSDictionary *contrastPropertyMap = @{
-				CameraPropertyColortoneIFinish: CameraPropertyContrastIFinish,
-				CameraPropertyColortoneVivid: CameraPropertyContrastVivid,
-				CameraPropertyColortoneNatural: CameraPropertyContrastNatural,
-				CameraPropertyColortoneFlat: CameraPropertyContrastFlat,
-				CameraPropertyColortonePortrait: CameraPropertyContrastSoft,
-				CameraPropertyColortoneMonotone: CameraPropertyContrastMonochrome,
+				CameraPropertyValueColortoneIFinish: CameraPropertyContrastIFinish,
+				CameraPropertyValueColortoneVivid: CameraPropertyContrastVivid,
+				CameraPropertyValueColortoneNatural: CameraPropertyContrastNatural,
+				CameraPropertyValueColortoneFlat: CameraPropertyContrastFlat,
+				CameraPropertyValueColortonePortrait: CameraPropertyContrastSoft,
+				CameraPropertyValueColortoneMonotone: CameraPropertyContrastMonochrome,
 			};
 			NSString *contrastProperty = contrastPropertyMap[propertyValues[CameraPropertyColortone]];
 			if (contrastProperty) {
@@ -2320,12 +2320,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (infoSharpnessValue) {
 			// ピクチャーモードの値に対応する、シャープネスのカメラプロパティ名を取得します。
 			NSDictionary *sharpPropertyMap = @{
-				CameraPropertyColortoneIFinish: CameraPropertySharpIFinish,
-				CameraPropertyColortoneVivid: CameraPropertySharpVivid,
-				CameraPropertyColortoneNatural: CameraPropertySharpNatural,
-				CameraPropertyColortoneFlat: CameraPropertySharpFlat,
-				CameraPropertyColortonePortrait: CameraPropertySharpSoft,
-				CameraPropertyColortoneMonotone: CameraPropertySharpMonochrome,
+				CameraPropertyValueColortoneIFinish: CameraPropertySharpIFinish,
+				CameraPropertyValueColortoneVivid: CameraPropertySharpVivid,
+				CameraPropertyValueColortoneNatural: CameraPropertySharpNatural,
+				CameraPropertyValueColortoneFlat: CameraPropertySharpFlat,
+				CameraPropertyValueColortonePortrait: CameraPropertySharpSoft,
+				CameraPropertyValueColortoneMonotone: CameraPropertySharpMonochrome,
 			};
 			NSString *sharpProperty = sharpPropertyMap[propertyValues[CameraPropertyColortone]];
 			if (sharpProperty) {
@@ -2358,11 +2358,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (infoSaturationValue) {
 			// ピクチャーモードの値に対応する、彩度のカメラプロパティ名を取得します。
 			NSDictionary *saturationLevelPropertyMap = @{
-				CameraPropertyColortoneIFinish: CameraPropertySaturationLevelIFinish,
-				CameraPropertyColortoneVivid: CameraPropertySaturationLevelVivid,
-				CameraPropertyColortoneNatural: CameraPropertySaturationLevelNatural,
-				CameraPropertyColortoneFlat: CameraPropertySaturationLevelFlat,
-				CameraPropertyColortonePortrait: CameraPropertySaturationLevelSoft,
+				CameraPropertyValueColortoneIFinish: CameraPropertySaturationLevelIFinish,
+				CameraPropertyValueColortoneVivid: CameraPropertySaturationLevelVivid,
+				CameraPropertyValueColortoneNatural: CameraPropertySaturationLevelNatural,
+				CameraPropertyValueColortoneFlat: CameraPropertySaturationLevelFlat,
+				CameraPropertyValueColortonePortrait: CameraPropertySaturationLevelSoft,
 			};
 			NSString *saturationLevelProperty = saturationLevelPropertyMap[propertyValues[CameraPropertyColortone]];
 			if (saturationLevelProperty) {
@@ -2405,13 +2405,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		NSString *aeValue;
 		switch ([exifMeteringModeValue longValue]) {
 			case 2: // 中央重点
-				aeValue = CameraPropertyAeAeCenter;
+				aeValue = CameraPropertyValueAeAeCenter;
 				break;
 			case 3: // スポット
-				aeValue = CameraPropertyAeAePinpoint;
+				aeValue = CameraPropertyValueAeAePinpoint;
 				break;
 			default:
-				aeValue = CameraPropertyAeAeEsp;
+				aeValue = CameraPropertyValueAeAeEsp;
 				break;
 		}
 		propertyValues[CameraPropertyAe] = aeValue;
@@ -2425,11 +2425,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		if (aspectRatioPropertyValueList) {
 			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 			NSDictionary *aspectRatioPropertyValueMap = @{
-				@"04_03": CameraPropertyAspectRatio0403,
-				@"16_09": CameraPropertyAspectRatio1609,
-				@"03_02": CameraPropertyAspectRatio0302,
-				@"06_06": CameraPropertyAspectRatio0606,
-				@"03_04": CameraPropertyAspectRatio0304,
+				@"04_03": CameraPropertyValueAspectRatio0403,
+				@"16_09": CameraPropertyValueAspectRatio1609,
+				@"03_02": CameraPropertyValueAspectRatio0302,
+				@"06_06": CameraPropertyValueAspectRatio0606,
+				@"03_04": CameraPropertyValueAspectRatio0304,
 			};
 			NSString *aspectRatioValue = nil;
 			if (aspectRatioPropertyValueMap[infoAspectRatioValue]) {
@@ -2482,15 +2482,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// 取得したフォーカスモードから統合的なフォーカスモードに変換します。
 	if (!focusMode) {
 		return AppCameraFocusModeUnknown;
-	} else if ([focusMode isEqualToString:CameraPropertyFocusStillMf] ||
-			   [focusMode isEqualToString:CameraPropertyFocusMovieMf]) {
+	} else if ([focusMode isEqualToString:CameraPropertyValueFocusStillMf] ||
+			   [focusMode isEqualToString:CameraPropertyValueFocusMovieMf]) {
 		// マニュアルフォーカス
 		return AppCameraFocusModeMF;
-	} else if ([focusMode isEqualToString:CameraPropertyFocusStillSaf] ||
-			   [focusMode isEqualToString:CameraPropertyFocusMovieSaf]) {
+	} else if ([focusMode isEqualToString:CameraPropertyValueFocusStillSaf] ||
+			   [focusMode isEqualToString:CameraPropertyValueFocusMovieSaf]) {
 		// シングルオートフォーカス
 		return AppCameraFocusModeSAF;
-	} else if ([focusMode isEqualToString:CameraPropertyFocusMovieCaf]) {
+	} else if ([focusMode isEqualToString:CameraPropertyValueFocusMovieCaf]) {
 		// コンティニュアスオートフォーカス
 		return AppCameraFocusModeCAF;
 	} else {
@@ -2574,10 +2574,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (self.autoBracketingMode != AppCameraAutoBracketingModeDisabled) {
 		NSError *error = nil;
 		NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-		if ([takemode isEqualToString:CameraPropertyTakemodeP] ||
-			[takemode isEqualToString:CameraPropertyTakemodeA] ||
-			[takemode isEqualToString:CameraPropertyTakemodeS] ||
-			[takemode isEqualToString:CameraPropertyTakemodeM]) {
+		if ([takemode isEqualToString:CameraPropertyValueTakemodeP] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeA] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeS] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeM]) {
 			autoBracketingModeEnabled = YES;
 		}
 	}
@@ -2587,12 +2587,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	if (self.intervalTimerMode != AppCameraIntervalTimerModeDisabled) {
 		NSError *error = nil;
 		NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-		if ([takemode isEqualToString:CameraPropertyTakemodeIAuto] ||
-			[takemode isEqualToString:CameraPropertyTakemodeP] ||
-			[takemode isEqualToString:CameraPropertyTakemodeA] ||
-			[takemode isEqualToString:CameraPropertyTakemodeS] ||
-			[takemode isEqualToString:CameraPropertyTakemodeM] ||
-			[takemode isEqualToString:CameraPropertyTakemodeArt]) {
+		if ([takemode isEqualToString:CameraPropertyValueTakemodeIAuto] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeP] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeA] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeS] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeM] ||
+			[takemode isEqualToString:CameraPropertyValueTakemodeArt]) {
 			intervalTimerModeEnabled = YES;
 		}
 	}
@@ -2632,10 +2632,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// オートブラケット撮影が有効かを検査します。
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-	if ([takemode isEqualToString:CameraPropertyTakemodeP] ||
-		[takemode isEqualToString:CameraPropertyTakemodeA] ||
-		[takemode isEqualToString:CameraPropertyTakemodeS] ||
-		[takemode isEqualToString:CameraPropertyTakemodeM]) {
+	if ([takemode isEqualToString:CameraPropertyValueTakemodeP] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeA] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeS] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeM]) {
 		return YES;
 	}
 	return NO;
@@ -2665,12 +2665,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// インターバルタイマー撮影が有効かを検査します。
 	NSError *error = nil;
 	NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-	if ([takemode isEqualToString:CameraPropertyTakemodeIAuto] ||
-		[takemode isEqualToString:CameraPropertyTakemodeP] ||
-		[takemode isEqualToString:CameraPropertyTakemodeA] ||
-		[takemode isEqualToString:CameraPropertyTakemodeS] ||
-		[takemode isEqualToString:CameraPropertyTakemodeM] ||
-		[takemode isEqualToString:CameraPropertyTakemodeArt]) {
+	if ([takemode isEqualToString:CameraPropertyValueTakemodeIAuto] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeP] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeA] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeS] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeM] ||
+		[takemode isEqualToString:CameraPropertyValueTakemodeArt]) {
 		return YES;
 	}
 	return NO;
@@ -2769,12 +2769,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// オートブラケットするプロパティを撮影モードから決定します。
 				NSError *error = nil;
 				NSString *takemode = [super cameraPropertyValue:CameraPropertyTakemode error:&error];
-				if ([takemode isEqualToString:CameraPropertyTakemodeP] ||
-					[takemode isEqualToString:CameraPropertyTakemodeA] ||
-					[takemode isEqualToString:CameraPropertyTakemodeS]) {
+				if ([takemode isEqualToString:CameraPropertyValueTakemodeP] ||
+					[takemode isEqualToString:CameraPropertyValueTakemodeA] ||
+					[takemode isEqualToString:CameraPropertyValueTakemodeS]) {
 					// 露出補正値
 					autoBracketingProperty = CameraPropertyExprev;
-				} else if ([takemode isEqualToString:CameraPropertyTakemodeM]) {
+				} else if ([takemode isEqualToString:CameraPropertyValueTakemodeM]) {
 					// シャッター速度
 					autoBracketingProperty = CameraPropertyShutter;
 				} else {
@@ -2855,7 +2855,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 		
 		// 自動測光ロックをしていない場合は、複数枚撮影中に露出が揺れないようにロックします。
-		if ([aeLockState isEqualToString:CameraPropertyAeLockStateUnlock]) {
+		if ([aeLockState isEqualToString:CameraPropertyValueAeLockStateUnlock]) {
 			if (![super lockAutoExposure:&error]) {
 				weakSelf.runningTakingPluralPictures = NO;
 				dispatch_async(dispatch_get_main_queue(), ^{
@@ -2865,7 +2865,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 		}
 		// フォーカスロックしていない場合は、複数枚撮影中にピント位置が揺れないようにロックします。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			// オートフォーカスを開始しました。
 			dispatch_async(dispatch_get_main_queue(), ^{
 				progressHandler(OLYCameraTakingProgressBeginFocusing, nil);
@@ -2901,8 +2901,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		// 撮影後確認画像を非表示にします。
 		// MARK: 非表示にしておかないと、露出を変えながらの撮影で調子が悪くなる傾向があるようです。
 		NSString *recview = [super cameraPropertyValue:CameraPropertyRecview error:&error];
-		if ([recview isEqualToString:CameraPropertyRecviewOn]) {
-			if (![super setCameraPropertyValue:CameraPropertyRecview value:CameraPropertyRecviewOff error:&error]) {
+		if ([recview isEqualToString:CameraPropertyValueRecviewOn]) {
+			if (![super setCameraPropertyValue:CameraPropertyRecview value:CameraPropertyValueRecviewOff error:&error]) {
 				weakSelf.runningTakingPluralPictures = NO;
 				dispatch_async(dispatch_get_main_queue(), ^{
 					errorHandler(error);
@@ -3235,7 +3235,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 		
 		// この処理でフォーカスをロックした場合はそのロックを解除します。
-		if ([afLockState isEqualToString:CameraPropertyAfLockStateUnlock]) {
+		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			if (![self unlockAutoFocus:&error]) {
 				// エラーを無視して続行します。
 				if (!takingError) {
@@ -3245,7 +3245,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 		}
 		// この処理で自動測光をロックした場合はそのロックを解除します。
-		if ([aeLockState isEqualToString:CameraPropertyAeLockStateUnlock]) {
+		if ([aeLockState isEqualToString:CameraPropertyValueAeLockStateUnlock]) {
 			if (![super unlockAutoExposure:&error]) {
 				// エラーを無視して続行します。
 				if (!takingError) {
@@ -3267,7 +3267,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 		
 		// 撮影後確認画像を元に戻します。
-		if ([recview isEqualToString:CameraPropertyRecviewOn]) {
+		if ([recview isEqualToString:CameraPropertyValueRecviewOn]) {
 			if (![super setCameraPropertyValue:CameraPropertyRecview value:recview error:&error]) {
 				// エラーを無視して続行します。
 				if (!takingError) {

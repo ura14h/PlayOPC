@@ -470,7 +470,7 @@
 	__weak APanelViewController *weakSelf = self;
 	[self updateCameraPropertyCell:self.afLockStateCell name:CameraPropertyAfLockState completion:^(NSString *value) {
 		// 表示したフォーカス固定(AFロック)の値に応じて、'Unlock AF'セルの有効無効も設定します。
-		BOOL unlockAfEnabled = [value isEqualToString:CameraPropertyAfLockStateLock];
+		BOOL unlockAfEnabled = [value isEqualToString:CameraPropertyValueAfLockStateLock];
 		[weakSelf tableViewCell:weakSelf.unlockAfCell enabled:unlockAfEnabled];
 	}];
 }
@@ -482,7 +482,7 @@
 	__weak APanelViewController *weakSelf = self;
 	[self updateCameraPropertyCell:self.aeLockStateCell name:CameraPropertyAeLockState completion:^(NSString *value) {
 		// 表示した露出固定(AEロック)の値に応じて、'Unlock AE'セルの有効無効も設定します。
-		BOOL unlockAeEnabled = [value isEqualToString:CameraPropertyAeLockStateLock];
+		BOOL unlockAeEnabled = [value isEqualToString:CameraPropertyValueAeLockStateLock];
 		[weakSelf tableViewCell:weakSelf.unlockAeCell enabled:unlockAeEnabled];
 	}];
 }

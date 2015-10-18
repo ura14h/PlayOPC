@@ -202,6 +202,8 @@ NSString *const CameraPropertyWbRevG4000k = @"WB_REV_G_4000K";
 NSString *const CameraPropertyWbRevAutoUnderWater = @"WB_REV_AUTO_UNDER_WATER";
 NSString *const CameraPropertyWbRevGAutoUnderWater = @"WB_REV_G_AUTO_UNDER_WATER";
 NSString *const CameraPropertyAutoWbDenkyuColoredLeaving = @"AUTO_WB_DENKYU_COLORED_LEAVING";
+NSString *const CameraPropertyAutoWbDenkyuColoredLeavingOff = @"<AUTO_WB_DENKYU_COLORED_LEAVING/OFF>";
+NSString *const CameraPropertyAutoWbDenkyuColoredLeavingOn = @"<AUTO_WB_DENKYU_COLORED_LEAVING/ON>";
 
 NSString *const CameraPropertyHighTemperatureWarning = @"highTemperatureWarning";
 NSString *const CameraPropertyLensMountStatus = @"lensMountStatus";
@@ -2200,7 +2202,27 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: ホワイトバランス/電球色残しを決定します。
+	// ホワイトバランス/電球色残しを決定します。
+	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbAuto]) {
+		NSString *wbAutoLightBulbColorLeavingValue = information[@"WBAutoLightBulbColorLeaving"];
+		if (wbAutoLightBulbColorLeavingValue) {
+			// 電球色残しのカメラプロパティ値リストを取得します。
+			NSArray *autoWbDenkyuColoredLeavingPropertyValueList = [super cameraPropertyValueList:CameraPropertyAutoWbDenkyuColoredLeaving error:nil];
+			if (autoWbDenkyuColoredLeavingPropertyValueList) {
+				// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+				NSDictionary *autoWbDenkyuColoredLeavingPropertyValueMap = @{
+					@"OFF": CameraPropertyAutoWbDenkyuColoredLeavingOff,
+					@"ON": CameraPropertyAutoWbDenkyuColoredLeavingOn,
+				};
+				NSString *autoWbDenkyuColoredLeavingValue = CameraPropertyAutoWbDenkyuColoredLeavingOff;
+				if (autoWbDenkyuColoredLeavingPropertyValueMap[wbAutoLightBulbColorLeavingValue]) {
+					autoWbDenkyuColoredLeavingValue = autoWbDenkyuColoredLeavingPropertyValueMap[whiteBalance];
+				}
+				propertyValues[CameraPropertyAutoWbDenkyuColoredLeaving] = autoWbDenkyuColoredLeavingValue;
+			}
+		}
+	}
+	
 	// TODO: ピクチャーモードを決定します。
 	// TODO: 色彩/コントラストを決定します。
 	// TODO: 色彩/シャープネスを決定します。

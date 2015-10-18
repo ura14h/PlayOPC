@@ -2109,14 +2109,97 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// カスタムWB用色温度リストの中で色温度がもっとも近い値のインデックスを検索します。
 				NSInteger nearestIndex = [self findNearestIndexOfNumberList:customWBBiasValue numberList:customWbKelvin1PropertyValueList];
 				// 探したインデックスに対応するカメラプロパティのカスタムWB用色温度で決定します。
-				NSString *wbrevValue = customWbKelvin1PropertyValueList[nearestIndex];
-				propertyValues[CameraPropertyWbRev] = wbrevValue;
+				NSString *customWbKelvin1Value = customWbKelvin1PropertyValueList[nearestIndex];
+				propertyValues[CameraPropertyCustomWbKelvin1] = customWbKelvin1Value;
 			}
 		}
 	}
 	
-	// TODO: ホワイトバランス/WB補正(琥珀色-青色)を決定します。
-	// TODO: ホワイトバランス/WB補正(緑色-赤紫色)を決定します。
+	// ホワイトバランス/WB補正を決定します。
+	if (propertyValues[CameraPropertyWb] && ![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
+		// WB補正(琥珀色-青色)を決定します。
+		NSNumber *wbBiasAValue = nil;
+		if (information[@"WBBiasA"]) {
+			NSScanner *scanner = [NSScanner scannerWithString:information[@"WBBiasA"]];
+			int unsingedInt = 0;
+			[scanner scanInt:&unsingedInt];
+			SInt16 signedInt16 = (SInt16)unsingedInt;
+			wbBiasAValue = [NSNumber numberWithInteger:(long)signedInt16];
+		}
+		if (wbBiasAValue) {
+			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
+			NSDictionary *wbRevPropertyMap = @{
+				CameraPropertyWbMwbLamp: CameraPropertyWbRev3000k,
+				CameraPropertyWbMwbFluorescence1: CameraPropertyWbRev4000k,
+				CameraPropertyWbMwbFine: CameraPropertyWbRev5300k,
+				CameraPropertyWbMwbCloud: CameraPropertyWbRev6000k,
+				CameraPropertyWbMwbShade: CameraPropertyWbRev7500k,
+				CameraPropertyWbWbAuto: CameraPropertyWbRevAuto,
+				CameraPropertyWbMwbWater1: CameraPropertyWbRevAutoUnderWater,
+			};
+			NSString *wbRevProperty = wbRevPropertyMap[propertyValues[CameraPropertyWb]];
+			if (wbRevProperty) {
+				// WB補正(琥珀色-青色)のカメラプロパティ値リストを取得します。
+				NSArray *wbRevPropertyValueList = [super cameraPropertyValueList:wbRevProperty error:nil];
+				if (wbRevPropertyValueList) {
+					// WB補正値リストを作成します。
+					NSMutableArray *wbRevNumberList = [[NSMutableArray alloc] init];
+					[wbRevPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+						NSString *strippedValue = [self stripCameraPropertyValue:value];
+						NSNumber *wbRevNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+						[wbRevNumberList addObject:wbRevNumber];
+					}];
+					// WB補正値リストの中で補正値がもっとも近い値のインデックスを検索します。
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:wbBiasAValue numberList:wbRevNumberList];
+					// 探したインデックスに対応するカメラプロパティのWB補正(琥珀色-青色)で決定します。
+					NSString *wbrevValue = wbRevPropertyValueList[nearestIndex];
+					propertyValues[wbRevProperty] = wbrevValue;
+				}
+			}
+		}
+		
+		// WB補正(緑色-赤紫色)を決定します。
+		NSNumber *wbBiasGValue = nil;
+		if (information[@"WBBiasG"]) {
+			NSScanner *scanner = [NSScanner scannerWithString:information[@"WBBiasG"]];
+			int unsingedInt = 0;
+			[scanner scanInt:&unsingedInt];
+			SInt16 signedInt16 = (SInt16)unsingedInt;
+			wbBiasGValue = [NSNumber numberWithInteger:(long)signedInt16];
+		}
+		if (wbBiasGValue) {
+			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
+			NSDictionary *wbRevGPropertyMap = @{
+				CameraPropertyWbMwbLamp: CameraPropertyWbRevG3000k,
+				CameraPropertyWbMwbFluorescence1: CameraPropertyWbRevG4000k,
+				CameraPropertyWbMwbFine: CameraPropertyWbRevG5300k,
+				CameraPropertyWbMwbCloud: CameraPropertyWbRevG6000k,
+				CameraPropertyWbMwbShade: CameraPropertyWbRevG7500k,
+				CameraPropertyWbWbAuto: CameraPropertyWbRevGAuto,
+				CameraPropertyWbMwbWater1: CameraPropertyWbRevGAutoUnderWater,
+			};
+			NSString *wbRevGProperty = wbRevGPropertyMap[propertyValues[CameraPropertyWb]];
+			if (wbRevGProperty) {
+				// WB補正(琥珀色-青色)のカメラプロパティ値リストを取得します。
+				NSArray *wbRevGPropertyValueList = [super cameraPropertyValueList:wbRevGProperty error:nil];
+				if (wbRevGPropertyValueList) {
+					// WB補正値リストを作成します。
+					NSMutableArray *wbRevGNumberList = [[NSMutableArray alloc] init];
+					[wbRevGPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+						NSString *strippedValue = [self stripCameraPropertyValue:value];
+						NSNumber *wbRevGNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+						[wbRevGNumberList addObject:wbRevGNumber];
+					}];
+					// WB補正値リストの中で補正値がもっとも近い値のインデックスを検索します。
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:wbBiasGValue numberList:wbRevGNumberList];
+					// 探したインデックスに対応するカメラプロパティのWB補正(琥珀色-青色)で決定します。
+					NSString *wbrevGValue = wbRevGPropertyValueList[nearestIndex];
+					propertyValues[wbRevGProperty] = wbrevGValue;
+				}
+			}
+		}
+	}
+	
 	// TODO: ホワイトバランス/電球色残しを決定します。
 	// TODO: ピクチャーモードを決定します。
 	// TODO: 色彩/コントラストを決定します。

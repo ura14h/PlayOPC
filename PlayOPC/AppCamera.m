@@ -31,6 +31,11 @@ NSString *const CameraPropertyTakeDrive = @"TAKE_DRIVE";
 NSString *const CameraPropertyTakeDriveDriveNormal = @"<TAKE_DRIVE/DRIVE_NORMAL>";
 NSString *const CameraPropertyTakeDriveDriveContinue = @"<TAKE_DRIVE/DRIVE_CONTINUE>";
 NSString *const CameraPropertyAspectRatio = @"ASPECT_RATIO";
+NSString *const CameraPropertyAspectRatio0403 = @"<ASPECT_RATIO/04_03>";
+NSString *const CameraPropertyAspectRatio0302 = @"<ASPECT_RATIO/03_02>";
+NSString *const CameraPropertyAspectRatio1609 = @"<ASPECT_RATIO/16_09>";
+NSString *const CameraPropertyAspectRatio0304 = @"<ASPECT_RATIO/03_04>";
+NSString *const CameraPropertyAspectRatio0606 = @"<ASPECT_RATIO/06_06>";
 NSString *const CameraPropertyShutter = @"SHUTTER";
 NSString *const CameraPropertyContinuousShootingVelocity = @"CONTINUOUS_SHOOTING_VELOCITY";
 NSString *const CameraPropertyExposeMovieSelect = @"EXPOSE_MOVIE_SELECT";
@@ -2070,8 +2075,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 
 	// ホワイトバランスを決定します。
-	NSString *whiteBalance = information[@"WhiteBalance"];
-	if (whiteBalance) {
+	NSString *infoWhiteBalanceValue = information[@"WhiteBalance"];
+	if (infoWhiteBalanceValue) {
 		// ホワイトバランスのカメラプロパティ値リストを取得します。
 		NSArray *wbPropertyValueList = [super cameraPropertyValueList:CameraPropertyWb error:nil];
 		if (wbPropertyValueList) {
@@ -2087,8 +2092,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				@"CUSTOM1": CameraPropertyWbWbCustom1,
 			};
 			NSString *wbValue = CameraPropertyWbWbAuto;
-			if (wbPropertyValueMap[whiteBalance]) {
-				wbValue = wbPropertyValueMap[whiteBalance];
+			if (wbPropertyValueMap[infoWhiteBalanceValue]) {
+				wbValue = wbPropertyValueMap[infoWhiteBalanceValue];
 			}
 			propertyValues[CameraPropertyWb] = wbValue;
 		}
@@ -2096,8 +2101,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	
 	// ホワイトバランス/カスタムWB用色温度を決定します。
 	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
-		NSNumber *customWBBiasValue = information[@"CustomWBBias"];
-		if (customWBBiasValue) {
+		NSNumber *infoCustomWBBiasValue = information[@"CustomWBBias"];
+		if (infoCustomWBBiasValue) {
 			// カスタムWB用色温度のカメラプロパティ値リストを取得します。
 			NSArray *customWbKelvin1PropertyValueList = [super cameraPropertyValueList:CameraPropertyCustomWbKelvin1 error:nil];
 			if (customWbKelvin1PropertyValueList) {
@@ -2109,7 +2114,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					[customWBBiasNumberList addObject:customWBBiasNumber];
 				}];
 				// カスタムWB用色温度リストの中で色温度がもっとも近い値のインデックスを検索します。
-				NSInteger nearestIndex = [self findNearestIndexOfNumberList:customWBBiasValue numberList:customWbKelvin1PropertyValueList];
+				NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoCustomWBBiasValue numberList:customWbKelvin1PropertyValueList];
 				// 探したインデックスに対応するカメラプロパティのカスタムWB用色温度で決定します。
 				NSString *customWbKelvin1Value = customWbKelvin1PropertyValueList[nearestIndex];
 				propertyValues[CameraPropertyCustomWbKelvin1] = customWbKelvin1Value;
@@ -2120,15 +2125,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// ホワイトバランス/WB補正を決定します。
 	if (propertyValues[CameraPropertyWb] && ![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
 		// WB補正(琥珀色-青色)を決定します。
-		NSNumber *wbBiasAValue = nil;
+		NSNumber *infoWbBiasAValue = nil;
 		if (information[@"WBBiasA"]) {
 			NSScanner *scanner = [NSScanner scannerWithString:information[@"WBBiasA"]];
 			int unsingedInt = 0;
 			[scanner scanInt:&unsingedInt];
 			SInt16 signedInt16 = (SInt16)unsingedInt;
-			wbBiasAValue = [NSNumber numberWithInteger:(long)signedInt16];
+			infoWbBiasAValue = [NSNumber numberWithInteger:(long)signedInt16];
 		}
-		if (wbBiasAValue) {
+		if (infoWbBiasAValue) {
 			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
 			NSDictionary *wbRevPropertyMap = @{
 				CameraPropertyWbMwbLamp: CameraPropertyWbRev3000k,
@@ -2152,7 +2157,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[wbRevNumberList addObject:wbRevNumber];
 					}];
 					// WB補正値リストの中で補正値がもっとも近い値のインデックスを検索します。
-					NSInteger nearestIndex = [self findNearestIndexOfNumberList:wbBiasAValue numberList:wbRevNumberList];
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoWbBiasAValue numberList:wbRevNumberList];
 					// 探したインデックスに対応するカメラプロパティのWB補正(琥珀色-青色)で決定します。
 					NSString *wbrevValue = wbRevPropertyValueList[nearestIndex];
 					propertyValues[wbRevProperty] = wbrevValue;
@@ -2161,15 +2166,15 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 		
 		// WB補正(緑色-赤紫色)を決定します。
-		NSNumber *wbBiasGValue = nil;
+		NSNumber *infoWbBiasGValue = nil;
 		if (information[@"WBBiasG"]) {
 			NSScanner *scanner = [NSScanner scannerWithString:information[@"WBBiasG"]];
 			int unsingedInt = 0;
 			[scanner scanInt:&unsingedInt];
 			SInt16 signedInt16 = (SInt16)unsingedInt;
-			wbBiasGValue = [NSNumber numberWithInteger:(long)signedInt16];
+			infoWbBiasGValue = [NSNumber numberWithInteger:(long)signedInt16];
 		}
-		if (wbBiasGValue) {
+		if (infoWbBiasGValue) {
 			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
 			NSDictionary *wbRevGPropertyMap = @{
 				CameraPropertyWbMwbLamp: CameraPropertyWbRevG3000k,
@@ -2193,7 +2198,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						[wbRevGNumberList addObject:wbRevGNumber];
 					}];
 					// WB補正値リストの中で補正値がもっとも近い値のインデックスを検索します。
-					NSInteger nearestIndex = [self findNearestIndexOfNumberList:wbBiasGValue numberList:wbRevGNumberList];
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoWbBiasGValue numberList:wbRevGNumberList];
 					// 探したインデックスに対応するカメラプロパティのWB補正(琥珀色-青色)で決定します。
 					NSString *wbrevGValue = wbRevGPropertyValueList[nearestIndex];
 					propertyValues[wbRevGProperty] = wbrevGValue;
@@ -2204,8 +2209,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	
 	// ホワイトバランス/電球色残しを決定します。
 	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbAuto]) {
-		NSString *wbAutoLightBulbColorLeavingValue = information[@"WBAutoLightBulbColorLeaving"];
-		if (wbAutoLightBulbColorLeavingValue) {
+		NSString *infoWbAutoLightBulbColorLeavingValue = information[@"WBAutoLightBulbColorLeaving"];
+		if (infoWbAutoLightBulbColorLeavingValue) {
 			// 電球色残しのカメラプロパティ値リストを取得します。
 			NSArray *autoWbDenkyuColoredLeavingPropertyValueList = [super cameraPropertyValueList:CameraPropertyAutoWbDenkyuColoredLeaving error:nil];
 			if (autoWbDenkyuColoredLeavingPropertyValueList) {
@@ -2215,15 +2220,53 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					@"ON": CameraPropertyAutoWbDenkyuColoredLeavingOn,
 				};
 				NSString *autoWbDenkyuColoredLeavingValue = CameraPropertyAutoWbDenkyuColoredLeavingOff;
-				if (autoWbDenkyuColoredLeavingPropertyValueMap[wbAutoLightBulbColorLeavingValue]) {
-					autoWbDenkyuColoredLeavingValue = autoWbDenkyuColoredLeavingPropertyValueMap[whiteBalance];
+				if (autoWbDenkyuColoredLeavingPropertyValueMap[infoWbAutoLightBulbColorLeavingValue]) {
+					autoWbDenkyuColoredLeavingValue = autoWbDenkyuColoredLeavingPropertyValueMap[infoWhiteBalanceValue];
 				}
 				propertyValues[CameraPropertyAutoWbDenkyuColoredLeaving] = autoWbDenkyuColoredLeavingValue;
 			}
 		}
 	}
 	
-	// TODO: ピクチャーモードを決定します。
+	// ピクチャーモードを決定します。
+	NSString *infoColortoneValue = information[@"COLORTONE"];
+	if (infoColortoneValue) {
+		// ピクチャーモードのカメラプロパティ値リストを取得します。
+		NSArray *colortonePropertyValueList = [super cameraPropertyValueList:CameraPropertyColortone error:nil];
+		if (colortonePropertyValueList) {
+			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+			NSDictionary *colortonePropertyValueMap = @{
+				@"I_FINISH": CameraPropertyColortoneIFinish,
+				@"VIVID": CameraPropertyColortoneVivid,
+				@"NATURAL": CameraPropertyColortoneNatural,
+				@"FLAT": CameraPropertyColortoneFlat,
+				@"Portrait": CameraPropertyColortonePortrait,
+				@"Monotone": CameraPropertyColortoneMonotone,
+				@"ePortrait": CameraPropertyColortoneEportrait,
+				@"COLOR_CREATOR": CameraPropertyColortoneColorCreator,
+				@"POPART": CameraPropertyColortonePopart,
+				@"FANTASIC_FOCUS": CameraPropertyColortoneFantasicFocus,
+				@"DAYDREAM": CameraPropertyColortoneDaydream,
+				@"LIGHT_TONE": CameraPropertyColortoneLightTone,
+				@"ROUGH_MONOCHROME": CameraPropertyColortoneRoughMonochrome,
+				@"TOY_PHOTO": CameraPropertyColortoneToyPhoto,
+				@"MINIATURE": CameraPropertyColortoneMiniature,
+				@"CROSS_PROCESS": CameraPropertyColortoneCrossProcess,
+				@"GENTLE_SEPIA": CameraPropertyColortoneGentleSepia,
+				@"DRAMATIC_TONE": CameraPropertyColortoneDramaticTone,
+				@"LIGNE_CLAIR": CameraPropertyColortoneLightTone,
+				@"PASTEL": CameraPropertyColortonePastel,
+				@"VINTAGE": CameraPropertyColortoneVintage,
+				@"PARTCOLOR": CameraPropertyColortonePartcolor,
+			};
+			NSString *colortoneValue = nil;
+			if (colortonePropertyValueMap[infoColortoneValue]) {
+				colortoneValue = colortonePropertyValueMap[infoColortoneValue];
+			}
+			propertyValues[CameraPropertyColortone] = colortoneValue;
+		}
+	}
+	
 	// TODO: 色彩/コントラストを決定します。
 	// TODO: 色彩/シャープネスを決定します。
 	// TODO: 色彩/彩度を決定します。
@@ -2240,7 +2283,28 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// TODO: 効果/フィルターバリエーションを決定します。
 	// TODO: 効果/追加エフェクトを決定します。
 	// TODO: AE設定/測光方式を決定します。
-	// TODO: 保存設定/写真アスペクト比を決定します。
+	
+	// 保存設定/写真アスペクト比を決定します。
+	NSString *infoAspectRatioValue = information[@"AspectRatio"];
+	if (infoAspectRatioValue) {
+		// 写真アスペクト比のカメラプロパティ値リストを取得します。
+		NSArray *aspectRatioPropertyValueList = [super cameraPropertyValueList:CameraPropertyAspectRatio error:nil];
+		if (aspectRatioPropertyValueList) {
+			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+			NSDictionary *aspectRatioPropertyValueMap = @{
+				@"04_03": CameraPropertyAspectRatio0403,
+				@"16_09": CameraPropertyAspectRatio1609,
+				@"03_02": CameraPropertyAspectRatio0302,
+				@"06_06": CameraPropertyAspectRatio0606,
+				@"03_04": CameraPropertyAspectRatio0304,
+			};
+			NSString *aspectRatioValue = nil;
+			if (aspectRatioPropertyValueMap[infoAspectRatioValue]) {
+				aspectRatioValue = aspectRatioPropertyValueMap[infoAspectRatioValue];
+			}
+			propertyValues[CameraPropertyAspectRatio] = aspectRatioValue;
+		}
+	}
 	
 	// スナップショットにする情報を集約します。
 	NSDictionary *snapshot = @{

@@ -17,6 +17,9 @@
 
 NSString *const CameraPropertyAperture = @"APERTURE";
 NSString *const CameraPropertyAe = @"AE";
+NSString *const CameraPropertyAeAeCenter = @"<AE/AE_CENTER>";
+NSString *const CameraPropertyAeAeEsp = @"<AE/AE_ESP>";
+NSString *const CameraPropertyAeAePinpoint = @"<AE/AE_PINPOINT>";
 NSString *const CameraPropertyTakemode = @"TAKEMODE";
 NSString *const CameraPropertyTakemodeIAuto = @"<TAKEMODE/iAuto>";
 NSString *const CameraPropertyTakemodeP = @"<TAKEMODE/P>";
@@ -2282,7 +2285,24 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// TODO: 効果/パートカラー用色相を決定します。
 	// TODO: 効果/フィルターバリエーションを決定します。
 	// TODO: 効果/追加エフェクトを決定します。
-	// TODO: AE設定/測光方式を決定します。
+	
+	// AE設定/測光方式を決定します。
+	NSNumber *exifMeteringModeValue = exifDictionary[(NSString *)kCGImagePropertyExifMeteringMode];
+	if (exifMeteringModeValue) {
+		NSString *aeValue;
+		switch ([exifMeteringModeValue longValue]) {
+			case 2: // 中央重点
+				aeValue = CameraPropertyAeAeCenter;
+				break;
+			case 3: // スポット
+				aeValue = CameraPropertyAeAePinpoint;
+				break;
+			default:
+				aeValue = CameraPropertyAeAeEsp;
+				break;
+		}
+		propertyValues[CameraPropertyAe] = aeValue;
+	}
 	
 	// 保存設定/写真アスペクト比を決定します。
 	NSString *infoAspectRatioValue = information[@"AspectRatio"];

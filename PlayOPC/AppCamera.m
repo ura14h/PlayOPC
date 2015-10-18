@@ -2104,7 +2104,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	
 	// ホワイトバランス/カスタムWB用色温度を決定します。
 	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyWbWbCustom1]) {
-		NSNumber *infoCustomWBBiasValue = information[@"CustomWBBias"];
+		NSNumber *infoCustomWBBiasValue = nil;
+		if (information[@"CustomWBBias"]) {
+			infoCustomWBBiasValue = [NSNumber numberWithFloat:[information[@"CustomWBBias"] floatValue]];
+		}
 		if (infoCustomWBBiasValue) {
 			// カスタムWB用色温度のカメラプロパティ値リストを取得します。
 			NSArray *customWbKelvin1PropertyValueList = [super cameraPropertyValueList:CameraPropertyCustomWbKelvin1 error:nil];
@@ -2270,9 +2273,119 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: 色彩/コントラストを決定します。
-	// TODO: 色彩/シャープネスを決定します。
-	// TODO: 色彩/彩度を決定します。
+	// 色彩/コントラストを決定します。
+	if (propertyValues[CameraPropertyColortone]) {
+		NSNumber *infoContrastValue = nil;
+		if (information[@"Contrast"]) {
+			infoContrastValue = [NSNumber numberWithFloat:[information[@"Contrast"] floatValue]];
+		}
+		if (infoContrastValue) {
+			// ピクチャーモードの値に対応する、コントラストのカメラプロパティ名を取得します。
+			NSDictionary *contrastPropertyMap = @{
+				CameraPropertyColortoneIFinish: CameraPropertyContrastIFinish,
+				CameraPropertyColortoneVivid: CameraPropertyContrastVivid,
+				CameraPropertyColortoneNatural: CameraPropertyContrastNatural,
+				CameraPropertyColortoneFlat: CameraPropertyContrastFlat,
+				CameraPropertyColortonePortrait: CameraPropertyContrastSoft,
+				CameraPropertyColortoneMonotone: CameraPropertyContrastMonochrome,
+			};
+			NSString *contrastProperty = contrastPropertyMap[propertyValues[CameraPropertyColortone]];
+			if (contrastProperty) {
+				// コントラストのカメラプロパティ値リストを取得します。
+				NSArray *contrastPropertyValueList = [super cameraPropertyValueList:contrastProperty error:nil];
+				if (contrastPropertyValueList) {
+					// コントラスト値リストを作成します。
+					NSMutableArray *contrastNumberList = [[NSMutableArray alloc] init];
+					[contrastPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+						NSString *strippedValue = [self stripCameraPropertyValue:value];
+						NSNumber *contrastNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+						[contrastNumberList addObject:contrastNumber];
+					}];
+					// コントラスト値リストの中でコントラスト値がもっとも近い値のインデックスを検索します。
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoContrastValue numberList:contrastNumberList];
+					// 探したインデックスに対応するカメラプロパティのコントラストで決定します。
+					NSString *contrastValue = contrastPropertyValueList[nearestIndex];
+					propertyValues[contrastProperty] = contrastValue;
+				}
+			}
+		}
+	}
+	
+	// 色彩/シャープネスを決定します。
+	if (propertyValues[CameraPropertyColortone]) {
+		NSNumber *infoSharpnessValue = nil;
+		if (information[@"Sharpness"]) {
+			infoSharpnessValue = [NSNumber numberWithFloat:[information[@"Sharpness"] floatValue]];
+		}
+		if (infoSharpnessValue) {
+			// ピクチャーモードの値に対応する、シャープネスのカメラプロパティ名を取得します。
+			NSDictionary *sharpPropertyMap = @{
+				CameraPropertyColortoneIFinish: CameraPropertySharpIFinish,
+				CameraPropertyColortoneVivid: CameraPropertySharpVivid,
+				CameraPropertyColortoneNatural: CameraPropertySharpNatural,
+				CameraPropertyColortoneFlat: CameraPropertySharpFlat,
+				CameraPropertyColortonePortrait: CameraPropertySharpSoft,
+				CameraPropertyColortoneMonotone: CameraPropertySharpMonochrome,
+			};
+			NSString *sharpProperty = sharpPropertyMap[propertyValues[CameraPropertyColortone]];
+			if (sharpProperty) {
+				// シャープネスのカメラプロパティ値リストを取得します。
+				NSArray *sharpPropertyValueList = [super cameraPropertyValueList:sharpProperty error:nil];
+				if (sharpPropertyValueList) {
+					// シャープネス値リストを作成します。
+					NSMutableArray *sharpnessNumberList = [[NSMutableArray alloc] init];
+					[sharpPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+						NSString *strippedValue = [self stripCameraPropertyValue:value];
+						NSNumber *sharpNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+						[sharpnessNumberList addObject:sharpNumber];
+					}];
+					// シャープネス値リストの中でシャープネス値がもっとも近い値のインデックスを検索します。
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoSharpnessValue numberList:sharpnessNumberList];
+					// 探したインデックスに対応するカメラプロパティのシャープネスで決定します。
+					NSString *sharpValue = sharpPropertyValueList[nearestIndex];
+					propertyValues[sharpProperty] = sharpValue;
+				}
+			}
+		}
+	}
+	
+	// 色彩/彩度を決定します。
+	if (propertyValues[CameraPropertyColortone]) {
+		NSNumber *infoSaturationValue = nil;
+		if (information[@"Saturation"]) {
+			infoSaturationValue = [NSNumber numberWithFloat:[information[@"Saturation"] floatValue]];
+		}
+		if (infoSaturationValue) {
+			// ピクチャーモードの値に対応する、彩度のカメラプロパティ名を取得します。
+			NSDictionary *saturationLevelPropertyMap = @{
+				CameraPropertyColortoneIFinish: CameraPropertySaturationLevelIFinish,
+				CameraPropertyColortoneVivid: CameraPropertySaturationLevelVivid,
+				CameraPropertyColortoneNatural: CameraPropertySaturationLevelNatural,
+				CameraPropertyColortoneFlat: CameraPropertySaturationLevelFlat,
+				CameraPropertyColortonePortrait: CameraPropertySaturationLevelSoft,
+			};
+			NSString *saturationLevelProperty = saturationLevelPropertyMap[propertyValues[CameraPropertyColortone]];
+			if (saturationLevelProperty) {
+				// 彩度のカメラプロパティ値リストを取得します。
+				NSArray *saturationLevelPropertyValueList = [super cameraPropertyValueList:saturationLevelProperty error:nil];
+				if (saturationLevelPropertyValueList) {
+					// 彩度値リストを作成します。
+					NSMutableArray *saturationNumberList = [[NSMutableArray alloc] init];
+					[saturationLevelPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+						NSString *strippedValue = [self stripCameraPropertyValue:value];
+						NSNumber *saturationNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+						[saturationNumberList addObject:saturationNumber];
+					}];
+					// 彩度値リストの中で彩度値がもっとも近い値のインデックスを検索します。
+					NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoSaturationValue numberList:saturationNumberList];
+					// 探したインデックスに対応するカメラプロパティの彩度で決定します。
+					NSString *saturationLevelValue = saturationLevelPropertyValueList[nearestIndex];
+					propertyValues[saturationLevelProperty] = saturationLevelValue;
+				}
+			}
+		}
+	}
+	
 	// TODO: 色彩/階調を決定します。
 	// TODO: 色彩/効果強弱を決定します。
 	// TODO: 色彩/階調補正シャドー部を決定します。

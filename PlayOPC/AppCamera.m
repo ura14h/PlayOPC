@@ -2386,7 +2386,40 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: 色彩/階調を決定します。
+	// 色彩/階調を決定します。
+	if (propertyValues[CameraPropertyColortone]) {
+		NSString *infoToneValue = information[@"Tone"];
+		if (infoToneValue) {
+			// ピクチャーモードの値に対応する、階調のカメラプロパティ名を取得します。
+			NSDictionary *tonePropertyMap = @{
+				CameraPropertyValueColortoneIFinish: CameraPropertyToneIFinish,
+				CameraPropertyValueColortoneVivid: CameraPropertyToneVivid,
+				CameraPropertyValueColortoneNatural: CameraPropertyToneNatural,
+				CameraPropertyValueColortoneFlat: CameraPropertyToneFlat,
+				CameraPropertyValueColortonePortrait: CameraPropertyToneSoft,
+				CameraPropertyValueColortoneMonotone: CameraPropertyToneMonochrome,
+			};
+			NSString *toneProperty = tonePropertyMap[propertyValues[CameraPropertyColortone]];
+			if (toneProperty) {
+				// 階調のカメラプロパティ値リストを取得します。
+				NSArray *tonePropertyValueList = [super cameraPropertyValueList:toneProperty error:nil];
+				if (tonePropertyValueList) {
+					NSDictionary *tonePropertyValueMap = @{ // もう少しリファクタリングしたほうが。
+						@"Auto": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"AUTO"],
+						@"Normal": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"NORMAL"],
+						@"HighKey": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"HIGHKEY"],
+						@"LowKey": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"LOWKEY"],
+					};
+					NSString *tonePropertyValue = tonePropertyValueMap[@"Auto"];
+					if (tonePropertyValueMap[infoToneValue]) {
+						tonePropertyValue = tonePropertyValueMap[infoToneValue];
+					}
+					propertyValues[toneProperty] = tonePropertyValue;
+				}
+			}
+		}
+	}
+	
 	// TODO: 色彩/効果強弱を決定します。
 	// TODO: 色彩/階調補正シャドー部を決定します。
 	// TODO: 色彩/階調補正中間部を決定します。

@@ -2061,11 +2061,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				NSString *strippedValue = [self stripCameraPropertyValue:value];
 				NSNumber *isoSensitivityNumber;
 				if ([strippedValue isEqualToString:@"Auto"]) {
-					isoSensitivityNumber = @0;
+					isoSensitivityNumber = @(0.0f);
 				} else if ([strippedValue isEqualToString:@"Low"]) {
-					isoSensitivityNumber = @100;
+					isoSensitivityNumber = @(100.0f);
 				} else {
-					isoSensitivityNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+					isoSensitivityNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
 				}
 				[isoSensitivityNumberList addObject:isoSensitivityNumber];
 			}];
@@ -2116,11 +2116,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				NSMutableArray *customWBBiasNumberList = [[NSMutableArray alloc] init];
 				[customWbKelvin1PropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
 					NSString *strippedValue = [self stripCameraPropertyValue:value];
-					NSNumber *customWBBiasNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+					NSNumber *customWBBiasNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
 					[customWBBiasNumberList addObject:customWBBiasNumber];
 				}];
 				// カスタムWB用色温度リストの中で色温度がもっとも近い値のインデックスを検索します。
-				NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoCustomWBBiasValue numberList:customWbKelvin1PropertyValueList];
+				NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoCustomWBBiasValue numberList:customWBBiasNumberList];
 				// 探したインデックスに対応するカメラプロパティのカスタムWB用色温度で決定します。
 				NSString *customWbKelvin1Value = customWbKelvin1PropertyValueList[nearestIndex];
 				propertyValues[CameraPropertyCustomWbKelvin1] = customWbKelvin1Value;
@@ -2133,11 +2133,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		// WB補正(琥珀色-青色)を決定します。
 		NSNumber *infoWbBiasAValue = nil;
 		if (information[@"WBBiasA"]) {
+			// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にプラス記号がついている)
 			NSScanner *scanner = [NSScanner scannerWithString:information[@"WBBiasA"]];
 			int unsingedInt = 0;
 			[scanner scanInt:&unsingedInt];
 			SInt16 signedInt16 = (SInt16)unsingedInt;
-			infoWbBiasAValue = [NSNumber numberWithInteger:(long)signedInt16];
+			infoWbBiasAValue = [NSNumber numberWithFloat:(float)signedInt16];
 		}
 		if (infoWbBiasAValue) {
 			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
@@ -2159,7 +2160,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					NSMutableArray *wbRevNumberList = [[NSMutableArray alloc] init];
 					[wbRevPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
 						NSString *strippedValue = [self stripCameraPropertyValue:value];
-						NSNumber *wbRevNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+						NSNumber *wbRevNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
 						[wbRevNumberList addObject:wbRevNumber];
 					}];
 					// WB補正値リストの中で補正値がもっとも近い値のインデックスを検索します。
@@ -2174,11 +2175,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		// WB補正(緑色-赤紫色)を決定します。
 		NSNumber *infoWbBiasGValue = nil;
 		if (information[@"WBBiasG"]) {
+			// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にプラス記号がついている)
 			NSScanner *scanner = [NSScanner scannerWithString:information[@"WBBiasG"]];
 			int unsingedInt = 0;
 			[scanner scanInt:&unsingedInt];
 			SInt16 signedInt16 = (SInt16)unsingedInt;
-			infoWbBiasGValue = [NSNumber numberWithInteger:(long)signedInt16];
+			infoWbBiasGValue = [NSNumber numberWithFloat:(float)signedInt16];
 		}
 		if (infoWbBiasGValue) {
 			// ホワイトバランスの値に対応する、WB補正(琥珀色-青色)のカメラプロパティ名を取得します。
@@ -2200,7 +2202,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 					NSMutableArray *wbRevGNumberList = [[NSMutableArray alloc] init];
 					[wbRevGPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
 						NSString *strippedValue = [self stripCameraPropertyValue:value];
-						NSNumber *wbRevGNumber = [NSNumber numberWithFloat:[strippedValue integerValue]];
+						NSNumber *wbRevGNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
 						[wbRevGNumberList addObject:wbRevGNumber];
 					}];
 					// WB補正値リストの中で補正値がもっとも近い値のインデックスを検索します。
@@ -2404,25 +2406,111 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// 階調のカメラプロパティ値リストを取得します。
 				NSArray *tonePropertyValueList = [super cameraPropertyValueList:toneProperty error:nil];
 				if (tonePropertyValueList) {
-					NSDictionary *tonePropertyValueMap = @{ // もう少しリファクタリングしたほうが。
-						@"Auto": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"AUTO"],
-						@"Normal": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"NORMAL"],
-						@"HighKey": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"HIGHKEY"],
-						@"LowKey": [NSString stringWithFormat:@"<%@/%@>", toneProperty, @"LOWKEY"],
+					NSDictionary *tonePropertyValueMap = @{
+						@"Auto": @"AUTO",
+						@"Normal": @"NORMAL",
+						@"HighKey": @"HIGHKEY",
+						@"LowKey": @"LOWKEY",
 					};
 					NSString *tonePropertyValue = tonePropertyValueMap[@"Auto"];
 					if (tonePropertyValueMap[infoToneValue]) {
 						tonePropertyValue = tonePropertyValueMap[infoToneValue];
 					}
-					propertyValues[toneProperty] = tonePropertyValue;
+					propertyValues[toneProperty] = [NSString stringWithFormat:@"<%@/%@>", toneProperty, tonePropertyValue];
 				}
 			}
 		}
 	}
 	
-	// TODO: 色彩/階調補正シャドー部を決定します。
-	// TODO: 色彩/階調補正中間部を決定します。
-	// TODO: 色彩/階調補正ハイライト部を決定します。
+	// 色彩/効果強弱 ... 扱いません。
+	
+	// 色彩/階調補正シャドー部を決定します。
+	NSNumber *infoToneControlShadowValue = nil;
+	if (information[@"ToneControlShadow"]) {
+		// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にはプラス記号がついていない)
+		NSScanner *scanner = [NSScanner scannerWithString:information[@"ToneControlShadow"]];
+		int unsingedInt = 0;
+		[scanner scanInt:&unsingedInt];
+		SInt16 signedInt16 = (SInt16)unsingedInt;
+		infoToneControlShadowValue = [NSNumber numberWithFloat:(float)signedInt16];
+	}
+	if (infoToneControlShadowValue) {
+		// 階調補正のカメラプロパティ値リストを取得します。
+		NSArray *toneControlLowPropertyValueList = [super cameraPropertyValueList:CameraPropertyToneControlLow error:nil];
+		if (toneControlLowPropertyValueList) {
+			// 階調補正リストを作成します。
+			NSMutableArray *toneControlShadowNumberList = [[NSMutableArray alloc] init];
+			[toneControlLowPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *toneControlShadowNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+				[toneControlShadowNumberList addObject:toneControlShadowNumber];
+			}];
+			// 階調補正リストの中で階調補正値がもっとも近い値のインデックスを検索します。
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoToneControlShadowValue numberList:toneControlShadowNumberList];
+			// 探したインデックスに対応するカメラプロパティの階調補正シャドー部で決定します。
+			NSString *toneControlLowValue = toneControlLowPropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyToneControlLow] = toneControlLowValue;
+		}
+	}
+	
+	// 色彩/階調補正中間部を決定します。
+	NSNumber *infoToneControlMiddleValue = nil;
+	if (information[@"ToneControlMiddle"]) {
+		// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にはプラス記号がついていない)
+		NSScanner *scanner = [NSScanner scannerWithString:information[@"ToneControlMiddle"]];
+		int unsingedInt = 0;
+		[scanner scanInt:&unsingedInt];
+		SInt16 signedInt16 = (SInt16)unsingedInt;
+		infoToneControlMiddleValue = [NSNumber numberWithFloat:(float)signedInt16];
+	}
+	if (infoToneControlMiddleValue) {
+		// 階調補正のカメラプロパティ値リストを取得します。
+		NSArray *toneControlMiddlePropertyValueList = [super cameraPropertyValueList:CameraPropertyToneControlMiddle error:nil];
+		if (toneControlMiddlePropertyValueList) {
+			// 階調補正リストを作成します。
+			NSMutableArray *toneControlMiddleNumberList = [[NSMutableArray alloc] init];
+			[toneControlMiddlePropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *toneControlMiddleNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+				[toneControlMiddleNumberList addObject:toneControlMiddleNumber];
+			}];
+			// 階調補正リストの中で階調補正値がもっとも近い値のインデックスを検索します。
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoToneControlMiddleValue numberList:toneControlMiddleNumberList];
+			// 探したインデックスに対応するカメラプロパティの階調補正シャドー部で決定します。
+			NSString *toneControlMiddleValue = toneControlMiddlePropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyToneControlMiddle] = toneControlMiddleValue;
+		}
+	}
+	
+	// 色彩/階調補正ハイライト部を決定します。
+	NSNumber *infoToneControlHighValue = nil;
+	if (information[@"ToneControlMiddle"]) {
+		// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にはプラス記号がついていない)
+		NSScanner *scanner = [NSScanner scannerWithString:information[@"ToneControlHigh"]];
+		int unsingedInt = 0;
+		[scanner scanInt:&unsingedInt];
+		SInt16 signedInt16 = (SInt16)unsingedInt;
+		infoToneControlHighValue = [NSNumber numberWithFloat:(float)signedInt16];
+	}
+	if (infoToneControlHighValue) {
+		// 階調補正のカメラプロパティ値リストを取得します。
+		NSArray *toneControlHighPropertyValueList = [super cameraPropertyValueList:CameraPropertyToneControlHigh error:nil];
+		if (toneControlHighPropertyValueList) {
+			// 階調補正リストを作成します。
+			NSMutableArray *toneControlHighNumberList = [[NSMutableArray alloc] init];
+			[toneControlHighPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+				NSString *strippedValue = [self stripCameraPropertyValue:value];
+				NSNumber *toneControlHighNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+				[toneControlHighNumberList addObject:toneControlHighNumber];
+			}];
+			// 階調補正リストの中で階調補正値がもっとも近い値のインデックスを検索します。
+			NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoToneControlHighValue numberList:toneControlHighNumberList];
+			// 探したインデックスに対応するカメラプロパティの階調補正シャドー部で決定します。
+			NSString *toneControlHighValue = toneControlHighPropertyValueList[nearestIndex];
+			propertyValues[CameraPropertyToneControlHigh] = toneControlHighValue;
+		}
+	}
+	
 	// TODO: 色彩/調色効果を決定します。
 	// TODO: 色彩/モノクロフィルター効果を決定します。
 	// TODO: 色彩/カラークリエーター用彩度を決定します。

@@ -2420,7 +2420,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: 色彩/効果強弱を決定します。
 	// TODO: 色彩/階調補正シャドー部を決定します。
 	// TODO: 色彩/階調補正中間部を決定します。
 	// TODO: 色彩/階調補正ハイライト部を決定します。

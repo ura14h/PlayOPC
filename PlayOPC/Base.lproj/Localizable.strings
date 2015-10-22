@@ -621,10 +621,10 @@
 "$title:CanNotSetCameraPropertyInTaking" = "Cannot change camera property";
 
 /* ContentDetailViewController.tabeView:titleForHeaderInSection */
-"$title:ContentDetail" = "Info";
+"$title:ContentDetail" = "Content Detail Information";
 
 /* ContentDetailViewController.tabeView:titleForHeaderInSection */
-"$title:ContentMetadata" = "EXIF";
+"$title:ContentMetadata" = "Content Metadata";
 
 /* ZPanelViewController.didChangeDigitalZoomingSliderValue */
 "$title:CouldNotChangeDigitalZoomScale" = "Could not change zooming scale";

@@ -2511,8 +2511,66 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: 色彩/調色効果を決定します。
-	// TODO: 色彩/モノクロフィルター効果を決定します。
+	// 色彩/モノクロフィルター効果を決定します。
+	NSString *infoMonotoneFilterValue = information[@"MonotoneFilter"];
+	if (infoMonotoneFilterValue) {
+			// ピクチャーモードの値に対応する、モノクロフィルター効果のカメラプロパティ名を取得します。
+			NSDictionary *monotonefilterPropertyMap = @{
+				CameraPropertyValueColortoneMonotone: CameraPropertyMonotonefilterMonochrome,
+				CameraPropertyValueColortoneRoughMonochrome: CameraPropertyMonotonefilterRoughMonochrome,
+				CameraPropertyValueColortoneDramaticTone: CameraPropertyMonotonefilterDramaticTone,
+			};
+			NSString *monotonefilterProperty = monotonefilterPropertyMap[infoMonotoneFilterValue];
+			if (monotonefilterProperty) {
+				// モノクロフィルター効果のカメラプロパティ値リストを取得します。
+				NSArray *monotonefilterPropertyValueList = [super cameraPropertyValueList:monotonefilterProperty error:nil];
+				if (monotonefilterPropertyValueList) {
+					NSDictionary *monotonefilterPropertyValueMap = @{
+						@"NORMAL": @"NORMAL",
+						@"YELLOW": @"YELLOW",
+						@"ORANGE": @"ORANGE",
+						@"RED": @"RED",
+						@"GREEN": @"GREEN",
+					};
+					NSString *monotonefilterPropertyValue = monotonefilterPropertyValueMap[@"NORMAL"];
+					if (monotonefilterPropertyValueMap[infoMonotoneFilterValue]) {
+						monotonefilterPropertyValue = monotonefilterPropertyValueMap[infoMonotoneFilterValue];
+					}
+					propertyValues[monotonefilterProperty] = [NSString stringWithFormat:@"<%@/%@>", monotonefilterProperty, monotonefilterPropertyValue];
+				}
+			}
+	}
+	
+	// 色彩/調色効果を決定します。
+	NSString *infoMonotoneColorValue = information[@"MonotoneColor"];
+	if (infoMonotoneColorValue) {
+			// ピクチャーモードの値に対応する、調色効果のカメラプロパティ名を取得します。
+			NSDictionary *monotonecolorPropertyMap = @{
+				CameraPropertyValueColortoneMonotone: CameraPropertyMonotonecolorMonochrome,
+				CameraPropertyValueColortoneRoughMonochrome: CameraPropertyMonotonecolorRoughMonochrome,
+				CameraPropertyValueColortoneDramaticTone: CameraPropertyMonotonecolorDramaticTone,
+			};
+			NSString *monotonecolorProperty = monotonecolorPropertyMap[infoMonotoneFilterValue];
+			if (monotonecolorProperty) {
+				// 調色効果のカメラプロパティ値リストを取得します。
+				NSArray *monotonecolorPropertyValueList = [super cameraPropertyValueList:monotonecolorProperty error:nil];
+				if (monotonecolorPropertyValueList) {
+					NSDictionary *monotonecolorPropertyValueMap = @{
+						@"NORMAL": @"NORMAL",
+						@"LIKE_SEPIA": @"LIKE_SEPIA",
+						@"LIKE_BLUE": @"LIKE_BLUE",
+						@"LIKE_PURPLE": @"LIKE_PURPLE",
+						@"LIKE_GREEN": @"LIKE_GREEN",
+					};
+					NSString *monotonecolorPropertyValue = monotonecolorPropertyValueMap[@"NORMAL"];
+					if (monotonecolorPropertyValueMap[infoMonotoneFilterValue]) {
+						monotonecolorPropertyValue = monotonecolorPropertyValueMap[infoMonotoneFilterValue];
+					}
+					propertyValues[monotonecolorProperty] = [NSString stringWithFormat:@"<%@/%@>", monotonecolorProperty, monotonecolorPropertyValue];
+				}
+			}
+	}
+
 	// TODO: 色彩/カラークリエーター用彩度を決定します。
 	// TODO: 色彩/カラークリエーター用色相を決定します。
 	// TODO: 効果/パートカラー用色相を決定します。

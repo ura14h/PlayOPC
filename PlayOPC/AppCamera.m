@@ -2093,11 +2093,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				@"FLUORESCENCE1": CameraPropertyValueWbMwbFluorescence1,
 				@"WATER1": CameraPropertyValueWbMwbWater1,
 				@"CUSTOM1": CameraPropertyValueWbWbCustom1,
+				@"ERROR": CameraPropertyValueWbWbAuto,
 			};
-			NSString *wbValue = CameraPropertyValueWbWbAuto;
-			if (wbPropertyValueMap[infoWhiteBalanceValue]) {
-				wbValue = wbPropertyValueMap[infoWhiteBalanceValue];
-			}
+			NSString *wbValue = wbPropertyValueMap[infoWhiteBalanceValue];
+			// 変換したカメラプロパティ値で決定します。
 			propertyValues[CameraPropertyWb] = wbValue;
 		}
 	}
@@ -2267,10 +2266,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				@"VINTAGE": CameraPropertyValueColortoneVintage,
 				@"PARTCOLOR": CameraPropertyValueColortonePartcolor,
 			};
-			NSString *colortoneValue = nil;
-			if (colortonePropertyValueMap[infoColortoneValue]) {
-				colortoneValue = colortonePropertyValueMap[infoColortoneValue];
-			}
+			NSString *colortoneValue = colortonePropertyValueMap[infoColortoneValue];
+			// 変換したカメラプロパティ値で決定します。
 			propertyValues[CameraPropertyColortone] = colortoneValue;
 		}
 	}
@@ -2406,17 +2403,19 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// 階調のカメラプロパティ値リストを取得します。
 				NSArray *tonePropertyValueList = [super cameraPropertyValueList:toneProperty error:nil];
 				if (tonePropertyValueList) {
+					// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 					NSDictionary *tonePropertyValueMap = @{
 						@"Auto": @"AUTO",
 						@"Normal": @"NORMAL",
 						@"HighKey": @"HIGHKEY",
 						@"LowKey": @"LOWKEY",
 					};
-					NSString *tonePropertyValue = tonePropertyValueMap[@"Auto"];
-					if (tonePropertyValueMap[infoToneValue]) {
-						tonePropertyValue = tonePropertyValueMap[infoToneValue];
+					NSString *tonePropertyValue = tonePropertyValueMap[infoToneValue];
+					if (tonePropertyValue) {
+						tonePropertyValue = [NSString stringWithFormat:@"<%@/%@>", toneProperty, tonePropertyValue];
 					}
-					propertyValues[toneProperty] = [NSString stringWithFormat:@"<%@/%@>", toneProperty, tonePropertyValue];
+					// 変換したカメラプロパティ値で決定します。
+					propertyValues[toneProperty] = tonePropertyValue;
 				}
 			}
 		}
@@ -2525,6 +2524,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// モノクロフィルター効果のカメラプロパティ値リストを取得します。
 				NSArray *monotonefilterPropertyValueList = [super cameraPropertyValueList:monotonefilterProperty error:nil];
 				if (monotonefilterPropertyValueList) {
+					// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 					NSDictionary *monotonefilterPropertyValueMap = @{
 						@"NORMAL": @"NORMAL",
 						@"YELLOW": @"YELLOW",
@@ -2532,11 +2532,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 						@"RED": @"RED",
 						@"GREEN": @"GREEN",
 					};
-					NSString *monotonefilterPropertyValue = monotonefilterPropertyValueMap[@"NORMAL"];
-					if (monotonefilterPropertyValueMap[infoMonotoneFilterValue]) {
-						monotonefilterPropertyValue = monotonefilterPropertyValueMap[infoMonotoneFilterValue];
+					NSString *monotonefilterPropertyValue = monotonefilterPropertyValueMap[infoMonotoneFilterValue];
+					if (monotonefilterPropertyValue) {
+						monotonefilterPropertyValue = [NSString stringWithFormat:@"<%@/%@>", monotonefilterProperty, monotonefilterPropertyValue];
 					}
-					propertyValues[monotonefilterProperty] = [NSString stringWithFormat:@"<%@/%@>", monotonefilterProperty, monotonefilterPropertyValue];
+					// 変換したカメラプロパティ値で決定します。
+					propertyValues[monotonefilterProperty] = monotonefilterPropertyValue;
 				}
 			}
 	}
@@ -2555,18 +2556,20 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				// 調色効果のカメラプロパティ値リストを取得します。
 				NSArray *monotonecolorPropertyValueList = [super cameraPropertyValueList:monotonecolorProperty error:nil];
 				if (monotonecolorPropertyValueList) {
+					// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 					NSDictionary *monotonecolorPropertyValueMap = @{
 						@"NORMAL": @"NORMAL",
-						@"LIKE_SEPIA": @"LIKE_SEPIA",
-						@"LIKE_BLUE": @"LIKE_BLUE",
-						@"LIKE_PURPLE": @"LIKE_PURPLE",
-						@"LIKE_GREEN": @"LIKE_GREEN",
+						@"SEPIA": @"LIKE_SEPIA",
+						@"BLUE": @"LIKE_BLUE",
+						@"PURPLE": @"LIKE_PURPLE",
+						@"GREEN": @"LIKE_GREEN",
 					};
-					NSString *monotonecolorPropertyValue = monotonecolorPropertyValueMap[@"NORMAL"];
-					if (monotonecolorPropertyValueMap[infoMonotoneFilterValue]) {
-						monotonecolorPropertyValue = monotonecolorPropertyValueMap[infoMonotoneFilterValue];
+					NSString *monotonecolorPropertyValue = monotonecolorPropertyValueMap[infoMonotoneFilterValue];
+					if (monotonecolorPropertyValue) {
+						monotonecolorPropertyValue = [NSString stringWithFormat:@"<%@/%@>", monotonecolorProperty, monotonecolorPropertyValue];
 					}
-					propertyValues[monotonecolorProperty] = [NSString stringWithFormat:@"<%@/%@>", monotonecolorProperty, monotonecolorPropertyValue];
+					// 変換したカメラプロパティ値で決定します。
+					propertyValues[monotonecolorProperty] = monotonecolorPropertyValue;
 				}
 			}
 	}

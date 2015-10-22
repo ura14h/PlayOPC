@@ -705,10 +705,10 @@
 "[MonotoneColor]" = "Colorization";
 "[MonotoneColor/ERROR]" = "Unuse";
 "[MonotoneColor/NORMAL]" = "Neutral";
-"[MonotoneColor/LIKE_SEPIA]" = "Sepia";
-"[MonotoneColor/LIKE_BLUE]" = "Blue";
-"[MonotoneColor/LIKE_PURPLE]" = "Purple";
-"[MonotoneColor/LIKE_GREEN]" = "Green";
+"[MonotoneColor/SEPIA]" = "Sepia";
+"[MonotoneColor/BLUE]" = "Blue";
+"[MonotoneColor/PURPLE]" = "Purple";
+"[MonotoneColor/GREEN]" = "Green";
 "[ColorCreatorColor]" = "Hue for Color Creator";
 "[ColorCreatorVivid]" = "Chroma for Color Creator";
 "[ColorPhase]" = "Hue for Partcolor";

@@ -705,10 +705,10 @@
 "[MonotoneColor]" = "調色効果";
 "[MonotoneColor/ERROR]" = "無効";
 "[MonotoneColor/NORMAL]" = "効果なし";
-"[MonotoneColor/LIKE_SEPIA]" = "セピア色";
-"[MonotoneColor/LIKE_BLUE]" = "青色";
-"[MonotoneColor/LIKE_PURPLE]" = "紫色";
-"[MonotoneColor/LIKE_GREEN]" = "緑色";
+"[MonotoneColor/SEPIA]" = "セピア色";
+"[MonotoneColor/BLUE]" = "青色";
+"[MonotoneColor/PURPLE]" = "紫色";
+"[MonotoneColor/GREEN]" = "緑色";
 "[ColorCreatorColor]" = "カラークリエーター用色相";
 "[ColorCreatorVivid]" = "カラークリエーター用彩度";
 "[ColorPhase]" = "パートカラー用色相";

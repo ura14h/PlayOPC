@@ -1400,8 +1400,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	// MARK: 補正値や角度などの数値型で値の符号がおかしい場合があります。(2の補数を正しく変換できていないようです)
 	// MARK: DigitalTelecon(デジタルテレコン有無)は通信仕様書の記述と異なり"ON"または"OFF"で返されるようです。
 	// MARK: Location(本体の位置)の値は通信仕様書の記述と異なり実際には"0x0"から"0x5"までの値で返されるようです。
-	// MARK: MonotoneFilter(￼モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
-	// MARK: MonotoneColor(￼調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	// MARK: MonotoneFilter(モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	// MARK: MonotoneColor(調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+	// MARK: MonotoneColor(調色効果)は先頭の"LIKE_"が取り除かれた形式で返されるようです。
 	// MARK: WhiteBalance(ホワイトバランス)が自動の時にWB補正を伴うと通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 	if ([name isEqualToString:@"DateTime"] ||
 		[name isEqualToString:@"shootingdatetime"]) {
@@ -2000,10 +2001,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	NSNumber *exifExposureBiasValue = exifDictionary[(NSString *)kCGImagePropertyExifExposureBiasValue];
 	if (exifExposureBiasValue) {
 		// 露出補正値のカメラプロパティ値リストを取得します。
-#if 0 // FIXME: SDK 1.1.1では、撮影モード以外では露出補正値のカメラプロパティ値の正しいリストが取得できない。
 		NSArray *exprevPropertyValueList = [super cameraPropertyValueList:CameraPropertyExprev error:nil];
-#else
-		NSArray *exprevPropertyValueList = @[
+		// MARK: SDK 1.1.1では、撮影モード以外では露出補正値のカメラプロパティ値の正しいリストが取得できないようです。
+		exprevPropertyValueList = @[
 			@"<EXPREV/-5.0>", @"<EXPREV/-4.7>", @"<EXPREV/-4.3>",
 			@"<EXPREV/-4.0>", @"<EXPREV/-3.7>", @"<EXPREV/-3.3>",
 			@"<EXPREV/-3.0>", @"<EXPREV/-2.7>", @"<EXPREV/-2.3>",
@@ -2016,7 +2016,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			@"<EXPREV/+3.3>", @"<EXPREV/+3.7>", @"<EXPREV/+4.0>",
 			@"<EXPREV/+4.3>", @"<EXPREV/+4.7>", @"<EXPREV/+5.0>",
 		];
-#endif
 		if (exprevPropertyValueList) {
 			// 露出補正値リストを作成します。
 			NSMutableArray *exposureCompensationNumberList = [[NSMutableArray alloc] init];
@@ -2042,10 +2041,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	if (exifISOSpeedValue) {
 		// ISO感度のカメラプロパティ値リストを取得します。
-#if 0 // FIXME: SDK 1.1.1では、撮影モード以外ではISO感度のカメラプロパティ値の正しいリストが取得できない。
 		NSArray *isoPropertyValueList = [super cameraPropertyValueList:CameraPropertyIso error:nil];
-#else
-		NSArray *isoPropertyValueList = @[
+		// MARK: SDK 1.1.1では、撮影モード以外ではISO感度のカメラプロパティ値の正しいリストが取得できなようです。
+		isoPropertyValueList = @[
 			@"<ISO/Auto>",
 			@"<ISO/Low>", @"<ISO/200>", @"<ISO/250>", @"<ISO/320>",
 			@"<ISO/400>", @"<ISO/500>", @"<ISO/640>", @"<ISO/800>",
@@ -2053,7 +2051,6 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			@"<ISO/2500>", @"<ISO/3200>", @"<ISO/4000>", @"<ISO/5000>",
 			@"<ISO/6400>", @"<ISO/8000>", @"<ISO/10000>", @"<ISO/12800>",
 		];
-#endif
 		if (isoPropertyValueList) {
 			// ISO感度リストを作成します。
 			NSMutableArray *isoSensitivityNumberList = [[NSMutableArray alloc] init];
@@ -2084,6 +2081,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		NSArray *wbPropertyValueList = [super cameraPropertyValueList:CameraPropertyWb error:nil];
 		if (wbPropertyValueList) {
 			// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+			// MARK: WhiteBalance(ホワイトバランス)が自動の時にWB補正を伴うと通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 			NSDictionary *wbPropertyValueMap = @{
 				@"AUTO": CameraPropertyValueWbWbAuto,
 				@"FINE": CameraPropertyValueWbMwbFine,
@@ -2525,6 +2523,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				NSArray *monotonefilterPropertyValueList = [super cameraPropertyValueList:monotonefilterProperty error:nil];
 				if (monotonefilterPropertyValueList) {
 					// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+					// MARK: MonotoneFilter(モノクロフィルター効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
 					NSDictionary *monotonefilterPropertyValueMap = @{
 						@"NORMAL": @"NORMAL",
 						@"YELLOW": @"YELLOW",
@@ -2557,6 +2556,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				NSArray *monotonecolorPropertyValueList = [super cameraPropertyValueList:monotonecolorProperty error:nil];
 				if (monotonecolorPropertyValueList) {
 					// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+					// MARK: MonotoneColor(調色効果)は通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
+					// MARK: MonotoneColor(調色効果)は先頭の"LIKE_"が取り除かれた形式で返されるようです。
 					NSDictionary *monotonecolorPropertyValueMap = @{
 						@"NORMAL": @"NORMAL",
 						@"SEPIA": @"LIKE_SEPIA",

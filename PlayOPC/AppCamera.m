@@ -2658,8 +2658,30 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: 効果/パートカラー用色相を決定します。
+	// 効果/パートカラー用色相を決定します。
 	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePartcolor]) {
+		NSNumber *infoColorPhaseValue = nil;
+		if (information[@"ColorPhase"]) {
+			infoColorPhaseValue = [NSNumber numberWithFloat:[information[@"ColorPhase"] floatValue]];
+		}
+		if (infoColorPhaseValue) {
+			// パートカラー用色相のカメラプロパティ値リストを取得します。
+			NSArray *colorPhasePropertyValueList = [super cameraPropertyValueList:CameraPropertyColorPhase error:nil];
+			if (colorPhasePropertyValueList) {
+				// パートカラー用色相リストを作成します。
+				NSMutableArray *colorPhaseNumberList = [[NSMutableArray alloc] init];
+				[colorPhasePropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+					NSString *strippedValue = [self stripCameraPropertyValue:value];
+					NSNumber *colorPhaseNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+					[colorPhaseNumberList addObject:colorPhaseNumber];
+				}];
+				// パートカラー用色相リストの中で色相がもっとも近い値のインデックスを検索します。
+				NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoColorPhaseValue numberList:colorPhaseNumberList];
+				// 探したインデックスに対応するカメラプロパティのパートカラー用色相で決定します。
+				NSString *colorPhaseValue = colorPhasePropertyValueList[nearestIndex];
+				propertyValues[CameraPropertyColorPhase] = colorPhaseValue;
+			}
+		}
 	}
 	
 	// TODO: 効果/フィルターバリエーションを決定します。

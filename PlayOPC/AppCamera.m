@@ -2719,10 +2719,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				@"06_06": CameraPropertyValueAspectRatio0606,
 				@"03_04": CameraPropertyValueAspectRatio0304,
 			};
-			NSString *aspectRatioValue = nil;
-			if (aspectRatioPropertyValueMap[infoAspectRatioValue]) {
-				aspectRatioValue = aspectRatioPropertyValueMap[infoAspectRatioValue];
-			}
+			NSString *aspectRatioValue = aspectRatioPropertyValueMap[infoAspectRatioValue];
+			// 変換したカメラプロパティ値で決定します。
 			propertyValues[CameraPropertyAspectRatio] = aspectRatioValue;
 		}
 	}

@@ -2575,9 +2575,93 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			}
 	}
 
-	// TODO: 色彩/カラークリエーター用彩度を決定します。
-	// TODO: 色彩/カラークリエーター用色相を決定します。
+	// 色彩/カラークリエーター用色相を決定します。
+	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
+		NSNumber *infoColorCreatorColorValue = nil;
+		if (information[@"ColorCreatorColor"]) {
+			infoColorCreatorColorValue = [NSNumber numberWithFloat:[information[@"ColorCreatorColor"] floatValue]];
+		}
+		if (infoColorCreatorColorValue) {
+			// カラークリエーター用色相のカメラプロパティ値リストを取得します。
+			NSArray *colorCreatorColorPropertyValueList = [super cameraPropertyValueList:CameraPropertyColorCreatorColor error:nil];
+			// MARK: SDK 1.1.1では、撮影モード以外ではカラークリエーター用色相のカメラプロパティ値の正しいリストが取得できないようです。
+			colorCreatorColorPropertyValueList = @[
+				@"<COLOR_CREATOR_COLOR/0>", @"<COLOR_CREATOR_COLOR/1>", @"<COLOR_CREATOR_COLOR/2>",
+				@"<COLOR_CREATOR_COLOR/3>", @"<COLOR_CREATOR_COLOR/4>", @"<COLOR_CREATOR_COLOR/5>",
+				@"<COLOR_CREATOR_COLOR/6>", @"<COLOR_CREATOR_COLOR/7>", @"<COLOR_CREATOR_COLOR/8>",
+				@"<COLOR_CREATOR_COLOR/9>",
+				@"<COLOR_CREATOR_COLOR/10>", @"<COLOR_CREATOR_COLOR/11>", @"<COLOR_CREATOR_COLOR/12>",
+				@"<COLOR_CREATOR_COLOR/13>", @"<COLOR_CREATOR_COLOR/14>", @"<COLOR_CREATOR_COLOR/15>",
+				@"<COLOR_CREATOR_COLOR/16>", @"<COLOR_CREATOR_COLOR/17>", @"<COLOR_CREATOR_COLOR/18>",
+				@"<COLOR_CREATOR_COLOR/19>",
+				@"<COLOR_CREATOR_COLOR/20>", @"<COLOR_CREATOR_COLOR/21>", @"<COLOR_CREATOR_COLOR/22>",
+				@"<COLOR_CREATOR_COLOR/23>", @"<COLOR_CREATOR_COLOR/24>", @"<COLOR_CREATOR_COLOR/25>",
+				@"<COLOR_CREATOR_COLOR/26>", @"<COLOR_CREATOR_COLOR/27>", @"<COLOR_CREATOR_COLOR/28>",
+				@"<COLOR_CREATOR_COLOR/29>",
+			];
+			if (colorCreatorColorPropertyValueList) {
+				// カラークリエーター用色相リストを作成します。
+				NSMutableArray *colorCreatorColorNumberList = [[NSMutableArray alloc] init];
+				[colorCreatorColorPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+					NSString *strippedValue = [self stripCameraPropertyValue:value];
+					NSNumber *colorCreatorColorNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+					[colorCreatorColorNumberList addObject:colorCreatorColorNumber];
+				}];
+				// カラークリエーター用色相リストの中で色相がもっとも近い値のインデックスを検索します。
+				NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoColorCreatorColorValue numberList:colorCreatorColorNumberList];
+				// 探したインデックスに対応するカメラプロパティのカラークリエーター用色相で決定します。
+				NSString *colorCreatorColorValue = colorCreatorColorPropertyValueList[nearestIndex];
+				propertyValues[CameraPropertyColorCreatorColor] = colorCreatorColorValue;
+			}
+		}
+	}
+	
+	// 色彩/カラークリエーター用彩度を決定します。
+	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
+		NSNumber *infoColorCreatorVividValue = nil;
+		if (information[@"ColorCreatorVivid"]) {
+			// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にはプラス記号がついていない)
+			NSScanner *scanner = [NSScanner scannerWithString:information[@"ColorCreatorVivid"]];
+			int unsingedInt = 0;
+			[scanner scanInt:&unsingedInt];
+			SInt16 signedInt16 = (SInt16)unsingedInt;
+			infoColorCreatorVividValue = [NSNumber numberWithFloat:(float)signedInt16];
+		}
+		if (infoColorCreatorVividValue) {
+			// カラークリエーター用彩度のカメラプロパティ値リストを取得します。
+			NSArray *colorCreatorVividPropertyValueList = [super cameraPropertyValueList:CameraPropertyColorCreatorVivid error:nil];
+			// MARK: SDK 1.1.1では、撮影モード以外ではカラークリエーター用彩度のカメラプロパティ値の正しいリストが取得できないようです。
+			colorCreatorVividPropertyValueList = @[
+				@"<COLOR_CREATOR_VIVID/-4>",
+				@"<COLOR_CREATOR_VIVID/-3>",
+				@"<COLOR_CREATOR_VIVID/-2>",
+				@"<COLOR_CREATOR_VIVID/-1>",
+				@"<COLOR_CREATOR_VIVID/0>",
+				@"<COLOR_CREATOR_VIVID/+1>",
+				@"<COLOR_CREATOR_VIVID/+2>",
+				@"<COLOR_CREATOR_VIVID/+3>",
+			];
+			if (colorCreatorVividPropertyValueList) {
+				// カラークリエーター用彩度リストを作成します。
+				NSMutableArray *colorCreatorVividNumberList = [[NSMutableArray alloc] init];
+				[colorCreatorVividPropertyValueList enumerateObjectsUsingBlock:^(NSString *value, NSUInteger index, BOOL *stop) {
+					NSString *strippedValue = [self stripCameraPropertyValue:value];
+					NSNumber *colorCreatorVividNumber = [NSNumber numberWithFloat:[strippedValue floatValue]];
+					[colorCreatorVividNumberList addObject:colorCreatorVividNumber];
+				}];
+				// カラークリエーター用彩度リストの中で彩度がもっとも近い値のインデックスを検索します。
+				NSInteger nearestIndex = [self findNearestIndexOfNumberList:infoColorCreatorVividValue numberList:colorCreatorVividNumberList];
+				// 探したインデックスに対応するカメラプロパティのカラークリエーター用彩度で決定します。
+				NSString *colorCreatorVividValue = colorCreatorVividPropertyValueList[nearestIndex];
+				propertyValues[CameraPropertyColorCreatorVivid] = colorCreatorVividValue;
+			}
+		}
+	}
+	
 	// TODO: 効果/パートカラー用色相を決定します。
+	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePartcolor]) {
+	}
+	
 	// TODO: 効果/フィルターバリエーションを決定します。
 	// TODO: 効果/追加エフェクトを決定します。
 	

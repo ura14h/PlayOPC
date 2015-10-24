@@ -15,6 +15,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Displaying various states of the camera
 * Exchanging a camera setting with the pasteboard
 * Preserving a favorite camera setting to the device
+* Sharing favorite camera settings
 * Changing a shooting mode
 * Coordinating some exposure parameters
 * Shooting supports auto bracketing mode
@@ -27,7 +28,8 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Changing a quality of picture to store at the camera
 * Changing sound volume
 * Registering the current geolocation as the photography place
-* Watching and sharing a picture or a video which stored in the camera
+* Viewing and sharing a picture or a video which stored in the camera
+* Browsing a photo's information
 * Converting a photo's information to parameters of camera setting
 * Protecting or unprotecting pictures and videos which stored in the camera
 * Deleting pictures and videos which stored in the camera

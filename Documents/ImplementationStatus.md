@@ -12,7 +12,7 @@
 ### OLYCamera(CameraConnection)
 
 * bluetoothServices
-* ~~connect:~~
+* ~~connect: (〜1.1.1)~~
 * connect:error:
 * connectingRequiresBluetoothPassword:
 * disconnectWithPowerOff:error:
@@ -107,6 +107,7 @@
 * drivingZoomLens
 * levelGauge
 * magnifyingLiveView (1.1.0)
+* *magnifyingLiveViewArea: (1.1.1)*
 * recordingSupportsDelegate
 
 ### OLYCamera(Playback)
@@ -310,5 +311,6 @@
 ## 凡例
 
 * 末尾の(1.1.0)は、初めてライブラリに登場した時のバージョン番号。省略時は1.0.0。
+* 末尾の(〜1.1.0)は、ライブラリから消えた時のバージョン番号。
 * *斜体* - 現バージョンのアプリでは未使用。
 * ~~打消線~~ - アプリで使用する予定なし。

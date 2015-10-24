@@ -105,37 +105,33 @@ static void ReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkReach
 
 + (instancetype)reachabilityWithHostName:(NSString *)hostName
 {
-	Reachability* returnValue = NULL;
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]);
-	if (reachability != NULL)
+	Reachability* returnValue = [[self alloc] init];
+	if (returnValue != NULL)
 	{
-		returnValue= [[self alloc] init];
-		if (returnValue != NULL)
+		SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithName(NULL, [hostName UTF8String]);
+		if (reachability != NULL)
 		{
 			returnValue->_reachabilityRef = reachability;
 			returnValue->_alwaysReturnLocalWiFiStatus = NO;
 		}
 	}
-	return returnValue; // FIXME: Analyzer warns that Potential leak of an object stored into 'reachability'.
+	return returnValue;
 }
 
 
 + (instancetype)reachabilityWithAddress:(const struct sockaddr_in *)hostAddress
 {
-	SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
-
-	Reachability* returnValue = NULL;
-
-	if (reachability != NULL)
+	Reachability* returnValue = [[self alloc] init];
+	if (returnValue != NULL)
 	{
-		returnValue = [[self alloc] init];
-		if (returnValue != NULL)
+		SCNetworkReachabilityRef reachability = SCNetworkReachabilityCreateWithAddress(kCFAllocatorDefault, (const struct sockaddr *)hostAddress);
+		if (reachability != NULL)
 		{
 			returnValue->_reachabilityRef = reachability;
 			returnValue->_alwaysReturnLocalWiFiStatus = NO;
 		}
 	}
-	return returnValue; // FIXME: Analyzer warns that Potential leak of an object stored into 'reachability'.
+	return returnValue;
 }
 
 

@@ -2001,9 +2001,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	NSNumber *exifExposureBiasValue = exifDictionary[(NSString *)kCGImagePropertyExifExposureBiasValue];
 	if (exifExposureBiasValue) {
 		// 露出補正値のカメラプロパティ値リストを取得します。
-		NSArray *exprevPropertyValueList = [super cameraPropertyValueList:CameraPropertyExprev error:nil];
 		// MARK: SDK 1.1.1では、撮影モード以外では露出補正値のカメラプロパティ値の正しいリストが取得できないようです。
-		exprevPropertyValueList = @[
+		//NSArray *exprevPropertyValueList = [super cameraPropertyValueList:CameraPropertyExprev error:nil];
+		NSArray *exprevPropertyValueList = @[
 			@"<EXPREV/-5.0>", @"<EXPREV/-4.7>", @"<EXPREV/-4.3>",
 			@"<EXPREV/-4.0>", @"<EXPREV/-3.7>", @"<EXPREV/-3.3>",
 			@"<EXPREV/-3.0>", @"<EXPREV/-2.7>", @"<EXPREV/-2.3>",
@@ -2041,9 +2041,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	if (exifISOSpeedValue) {
 		// ISO感度のカメラプロパティ値リストを取得します。
-		NSArray *isoPropertyValueList = [super cameraPropertyValueList:CameraPropertyIso error:nil];
 		// MARK: SDK 1.1.1では、撮影モード以外ではISO感度のカメラプロパティ値の正しいリストが取得できなようです。
-		isoPropertyValueList = @[
+		//NSArray *isoPropertyValueList = [super cameraPropertyValueList:CameraPropertyIso error:nil];
+		NSArray *isoPropertyValueList = @[
 			@"<ISO/Auto>",
 			@"<ISO/Low>", @"<ISO/200>", @"<ISO/250>", @"<ISO/320>",
 			@"<ISO/400>", @"<ISO/500>", @"<ISO/640>", @"<ISO/800>",
@@ -2590,9 +2590,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 		if (infoColorCreatorColorValue) {
 			// カラークリエーター用色相のカメラプロパティ値リストを取得します。
-			NSArray *colorCreatorColorPropertyValueList = [super cameraPropertyValueList:CameraPropertyColorCreatorColor error:nil];
 			// MARK: SDK 1.1.1では、撮影モード以外ではカラークリエーター用色相のカメラプロパティ値の正しいリストが取得できないようです。
-			colorCreatorColorPropertyValueList = @[
+			//NSArray *colorCreatorColorPropertyValueList = [super cameraPropertyValueList:CameraPropertyColorCreatorColor error:nil];
+			NSArray *colorCreatorColorPropertyValueList = @[
 				@"<COLOR_CREATOR_COLOR/0>", @"<COLOR_CREATOR_COLOR/1>", @"<COLOR_CREATOR_COLOR/2>",
 				@"<COLOR_CREATOR_COLOR/3>", @"<COLOR_CREATOR_COLOR/4>", @"<COLOR_CREATOR_COLOR/5>",
 				@"<COLOR_CREATOR_COLOR/6>", @"<COLOR_CREATOR_COLOR/7>", @"<COLOR_CREATOR_COLOR/8>",
@@ -2637,9 +2637,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 		if (infoColorCreatorVividValue) {
 			// カラークリエーター用彩度のカメラプロパティ値リストを取得します。
-			NSArray *colorCreatorVividPropertyValueList = [super cameraPropertyValueList:CameraPropertyColorCreatorVivid error:nil];
 			// MARK: SDK 1.1.1では、撮影モード以外ではカラークリエーター用彩度のカメラプロパティ値の正しいリストが取得できないようです。
-			colorCreatorVividPropertyValueList = @[
+			//NSArray *colorCreatorVividPropertyValueList = [super cameraPropertyValueList:CameraPropertyColorCreatorVivid error:nil];
+			NSArray *colorCreatorVividPropertyValueList = @[
 				@"<COLOR_CREATOR_VIVID/-4>",
 				@"<COLOR_CREATOR_VIVID/-3>",
 				@"<COLOR_CREATOR_VIVID/-2>",

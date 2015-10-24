@@ -140,6 +140,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	NSMutableDictionary *cameraPropertyObserver = [[NSMutableDictionary alloc] init];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAfLockState)) forKey:CameraPropertyAfLockState];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAeLockState)) forKey:CameraPropertyAeLockState];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAspectRatio)) forKey:CameraPropertyAspectRatio];
 	self.cameraPropertyObserver = cameraPropertyObserver;
 	// カメラプロパティ、カメラのプロパティを監視開始します。
 	AppCamera *camera = GetAppCamera();
@@ -147,6 +148,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera addObserver:self forKeyPath:CameraPropertyDetectedHumanFaces options:0 context:@selector(didChangeDetectedHumanFaces:)];
 	[camera addObserver:self forKeyPath:CameraPropertyRecordingElapsedTime options:0 context:@selector(didChangeRecordingElapsedTime:)];
 	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveView options:0 context:@selector(didChangeMagnifyingLiveView:)];
+	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveViewScale options:0 context:@selector(didChangeMagnifyingLiveViewScale:)];
 	
 	// 画面表示を初期設定します。
 	BOOL moveButtonAlpha = camera.magnifyingLiveView ? 1.0 : 0.0;
@@ -185,6 +187,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera removeObserver:self forKeyPath:CameraPropertyDetectedHumanFaces];
 	[camera removeObserver:self forKeyPath:CameraPropertyRecordingElapsedTime];
 	[camera removeObserver:self forKeyPath:CameraPropertyMagnifyingLiveView];
+	[camera removeObserver:self forKeyPath:CameraPropertyMagnifyingLiveViewScale];
 	[camera removeCameraPropertyDelegate:self];
 	_cameraPropertyObserver = nil;
 	_latestRecImage = nil;
@@ -860,6 +863,35 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self.liveImageView hideExposureFrame:YES];
 }
 
+/// アスペクト比の値が変わった時に呼び出されます。
+- (void)didChangeAspectRatio {
+	DEBUG_LOG(@"");
+
+	__weak RecordingViewController *weakSelf = self;
+	[self executeAsynchronousBlock:^{
+		AppCamera *camera = GetAppCamera();
+		if (camera.magnifyingLiveView) {
+			// 拡大率変更後の表示位置を取得します。
+			NSError *error = nil;
+			NSDictionary *area = [camera magnifyingLiveViewArea:&error];
+			if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+				// FIXME: エラーを無視します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+				return;
+			}
+			CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+			CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+			DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
+			DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
+
+			// ライブビュー拡大表示コントローラを更新します。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				// TODO:
+			}];
+		}
+	}];
+}
+
 /// 顔認識情報の状態が変わった時に呼び出されます。
 - (void)didChangeDetectedHumanFaces:(NSDictionary *)change {
 	DEBUG_LOG(@"");
@@ -896,20 +928,72 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)didChangeMagnifyingLiveView:(NSDictionary *)change {
 	DEBUG_LOG(@"");
 
-	BOOL moveButtonAlpha;
-	AppCamera *camera = GetAppCamera();
-	if (camera.magnifyingLiveView) {
-		// ライブビュー拡大表示コントローラを表示します。
-		moveButtonAlpha = 1.0;
-	} else {
-		// ライブビュー拡大表示コントローラを消去します。
-		moveButtonAlpha = 0.0;
-	}
-	[UIView animateWithDuration:0.25 animations:^{
-		self.moveToUpButton.alpha = moveButtonAlpha;
-		self.moveToLeftButton.alpha = moveButtonAlpha;
-		self.moveToRightButton.alpha = moveButtonAlpha;
-		self.moveToDownButton.alpha = moveButtonAlpha;
+	__weak RecordingViewController *weakSelf = self;
+	[self executeAsynchronousBlock:^{
+		AppCamera *camera = GetAppCamera();
+		if (camera.magnifyingLiveView) {
+			// 最初の表示位置を取得します。
+			NSError *error = nil;
+			NSDictionary *area = [camera magnifyingLiveViewArea:&error];
+			if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+				// FIXME: エラーを無視します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+				return;
+			}
+			CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+			CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+			DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
+			DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
+			
+			// ライブビュー拡大表示コントローラを表示します。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				[UIView animateWithDuration:0.25 animations:^{
+					weakSelf.moveToUpButton.alpha = 1.0;
+					weakSelf.moveToLeftButton.alpha = 1.0;
+					weakSelf.moveToRightButton.alpha = 1.0;
+					weakSelf.moveToDownButton.alpha = 1.0;
+				}];
+			}];
+		} else {
+			// ライブビュー拡大表示コントローラを消去します。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				[UIView animateWithDuration:0.25 animations:^{
+					weakSelf.moveToUpButton.alpha = 0.0;
+					weakSelf.moveToLeftButton.alpha = 0.0;
+					weakSelf.moveToRightButton.alpha = 0.0;
+					weakSelf.moveToDownButton.alpha = 0.0;
+				}];
+			}];
+		}
+	}];
+}
+
+/// ライブビュー拡大の拡大率が変わった時に呼び出されます。
+- (void)didChangeMagnifyingLiveViewScale:(NSDictionary *)change {
+	DEBUG_LOG(@"");
+	
+	__weak RecordingViewController *weakSelf = self;
+	[self executeAsynchronousBlock:^{
+		AppCamera *camera = GetAppCamera();
+		if (camera.magnifyingLiveView) {
+			// 拡大率変更後の表示位置を取得します。
+			NSError *error = nil;
+			NSDictionary *area = [camera magnifyingLiveViewArea:&error];
+			if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+				// FIXME: エラーを無視します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+				return;
+			}
+			CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+			CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+			DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
+			DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
+			
+			// ライブビュー拡大表示コントローラを更新します。
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				// TODO:
+			}];
+		}
 	}];
 }
 
@@ -1985,6 +2069,23 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (![camera changeMagnifyingLiveViewArea:direction error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotChangeMagnifyingViewArea", @"RecordingViewController.changeMagnifyingLiveViewArea")];
 		}
+		
+		// 移動後の表示位置を取得します。
+		NSDictionary *area = [camera magnifyingLiveViewArea:&error];
+		if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+			// FIXME: エラーを無視します。
+			DEBUG_LOG(@"An error occurred, but ignores it.");
+			return;
+		}
+		CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+		CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+		DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
+		DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
+		
+		// ライブビュー拡大表示コントローラを更新します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// TODO:
+		}];
 	}];
 }
 

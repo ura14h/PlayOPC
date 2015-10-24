@@ -2684,8 +2684,106 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// TODO: 効果/フィルターバリエーションを決定します。
-	// TODO: 効果/追加エフェクトを決定します。
+	// 効果/フィルターバリエーションを決定します。
+	if (propertyValues[CameraPropertyColortone]) {
+		NSString *infoEffectTypeValue = information[@"EffectType"];
+		if (infoEffectTypeValue) {
+			// ピクチャーモードの値に対応する、フィルターバリエーションのカメラプロパティ名を取得します。
+			NSDictionary *artEffectTypePropertyMap = @{
+				CameraPropertyValueColortonePopart: CameraPropertyArtEffectTypePopart,
+				CameraPropertyValueColortoneDaydream: CameraPropertyArtEffectTypeDaydream,
+				CameraPropertyValueColortoneRoughMonochrome: CameraPropertyArtEffectTypeRoughMonochrome,
+				CameraPropertyValueColortoneToyPhoto: CameraPropertyArtEffectTypeToyPhoto,
+				CameraPropertyValueColortoneMiniature: CameraPropertyArtEffectTypeMiniature,
+				CameraPropertyValueColortoneCrossProcess: CameraPropertyArtEffectTypeCrossProcess,
+				CameraPropertyValueColortoneDramaticTone: CameraPropertyArtEffectTypeDramaticTone,
+				CameraPropertyValueColortoneLigneClair: CameraPropertyArtEffectTypeLigneClair,
+				CameraPropertyValueColortonePastel: CameraPropertyArtEffectTypePastel,
+				CameraPropertyValueColortoneVintage: CameraPropertyArtEffectTypeVintage,
+				CameraPropertyValueColortonePartcolor: CameraPropertyArtEffectTypePartcolor,
+			};
+			NSString *artEffectTypeProperty = artEffectTypePropertyMap[propertyValues[CameraPropertyColortone]];
+			if (artEffectTypeProperty) {
+				// フィルターバリエーションのカメラプロパティ値リストを取得します。
+				NSArray *artEffectTypePropertyValueList = [super cameraPropertyValueList:artEffectTypeProperty error:nil];
+				if (artEffectTypePropertyValueList) {
+					// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
+					NSDictionary *artEffectTypePropertyValueMap = @{
+						@"TYPE1": @"TYPE1",
+						@"TYPE2": @"TYPE2",
+						@"TYPE3": @"TYPE3",
+					};
+					NSString *artEffectTypePropertyValue = artEffectTypePropertyValueMap[infoEffectTypeValue];
+					if (artEffectTypePropertyValue) {
+						artEffectTypePropertyValue = [NSString stringWithFormat:@"<%@/%@>", artEffectTypeProperty, artEffectTypePropertyValue];
+					}
+					// 変換したカメラプロパティ値で決定します。
+					propertyValues[artEffectTypeProperty] = artEffectTypePropertyValue;
+				}
+			}
+		}
+	}
+	
+	// 効果/追加エフェクトを決定します。
+	if (propertyValues[CameraPropertyColortone]) {
+		// ピクチャーモードの値に対応する、フィルターバリエーションのカメラプロパティ名を取得します。
+		NSDictionary *artEffectHybridPropertyMap = @{
+			CameraPropertyValueColortonePopart: CameraPropertyArtEffectHybridPopart,
+			CameraPropertyValueColortoneFantasicFocus: CameraPropertyArtEffectHybridFantasicFocus,
+			CameraPropertyValueColortoneDaydream: CameraPropertyArtEffectHybridDaydream,
+			CameraPropertyValueColortoneLightTone: CameraPropertyArtEffectHybridLightTone,
+			CameraPropertyValueColortoneRoughMonochrome: CameraPropertyArtEffectHybridRoughMonochrome,
+			CameraPropertyValueColortoneToyPhoto: CameraPropertyArtEffectHybridToyPhoto,
+			CameraPropertyValueColortoneMiniature: CameraPropertyArtEffectHybridMiniature,
+			CameraPropertyValueColortoneCrossProcess: CameraPropertyArtEffectHybridCrossProcess,
+			CameraPropertyValueColortoneGentleSepia: CameraPropertyArtEffectHybridGentleSepia,
+			CameraPropertyValueColortoneDramaticTone: CameraPropertyArtEffectHybridDramaticTone,
+			CameraPropertyValueColortoneLigneClair: CameraPropertyArtEffectHybridLigneClair,
+			CameraPropertyValueColortonePastel: CameraPropertyArtEffectHybridPastel,
+			CameraPropertyValueColortoneVintage: CameraPropertyArtEffectHybridVintage,
+			CameraPropertyValueColortonePartcolor: CameraPropertyArtEffectHybridPartcolor,
+		};
+		NSString *artEffectHybridProperty = artEffectHybridPropertyMap[propertyValues[CameraPropertyColortone]];
+		if (artEffectHybridProperty) {
+			// フィルターバリエーションのカメラプロパティ値リストを取得します。
+			NSArray *artEffectHybridPropertyValueList = [super cameraPropertyValueList:artEffectHybridProperty error:nil];
+			if (artEffectHybridPropertyValueList) {
+				// カメラプロパティ値リストに存在する値だけを使って、フィルターバリエーションリストを作成します。
+				NSDictionary *artEffectHybridPropertyValueReverseMap = @{
+					@"FANTASIC_FOCUS": @"FantasicFocus",
+					@"TOY_PHOTO": @"ToyPhoto",
+					@"WHITE_EDGE": @"WhiteEdge",
+					@"FRAME_JAGGY": @"FrameJaggy",
+					@"STARLIGHT": @"Starlight",
+					@"MINIATURE_VERTICAL": @"MiniatureVertical",
+					@"MINIATURE_HORIZON": @"MiniatureHorizon",
+					@"SHADING_VERTICAL": @"ShadingVertical",
+					@"SHADING_HORIZON": @"ShadingHorizon",
+				};
+				NSMutableDictionary *artEffectHybridPropertyValueMap = [[NSMutableDictionary alloc] init];
+				[artEffectHybridPropertyValueList enumerateObjectsUsingBlock:^(NSString *propertyValue, NSUInteger index, BOOL *stop) {
+					NSString *strippedValue = [self stripCameraPropertyValue:propertyValue];
+					if (artEffectHybridPropertyValueReverseMap[strippedValue]) {
+						[artEffectHybridPropertyValueMap setObject:strippedValue forKey:artEffectHybridPropertyValueReverseMap[strippedValue]];
+					}
+				}];
+				// フィルターバリエーションリストを検索します。
+				__block NSString *artEffectHybridPropertyValue = nil;
+				[artEffectHybridPropertyValueMap enumerateKeysAndObjectsUsingBlock:^(NSString *informationKey, NSString *propertyValue, BOOL *stop) {
+					if ([information[informationKey] isEqualToString:@"ON"]) {
+						artEffectHybridPropertyValue = propertyValue;
+						*stop = YES;
+					}
+				}];
+				if (!artEffectHybridPropertyValue) {
+					artEffectHybridPropertyValue = @"OFF";
+				}
+				artEffectHybridPropertyValue = [NSString stringWithFormat:@"<%@/%@>", artEffectHybridProperty, artEffectHybridPropertyValue];
+				// 検索したカメラプロパティ値で決定します。
+				propertyValues[artEffectHybridProperty] = artEffectHybridPropertyValue;
+			}
+		}
+	}
 	
 	// AE設定/測光方式を決定します。
 	NSNumber *exifMeteringModeValue = exifDictionary[(NSString *)kCGImagePropertyExifMeteringMode];

@@ -38,7 +38,7 @@ NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACen
 
 	// Storyboardで設定しても有効にならないので、ここで規定の色合いをハードコーディングして変更します。
 	[UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor whiteColor]};
-	[UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.0 green:1.0 blue:0.6 alpha:1.0];
+	[UINavigationBar appearance].tintColor = [UIColor colorWithRed:0.902f green:0.933f blue:0.902f alpha:1.00f];
 	
 	// カメラログインスタンスをカメラインスタンスより先に生成しておかないと、カメラの初期化に関わるログが記録されません。
 	self.setting = [[AppSetting alloc] init];

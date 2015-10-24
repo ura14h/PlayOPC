@@ -1633,6 +1633,14 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
+	// ライブビュー拡大中だった場合はそれを解除します。
+	// (読み込んだカメラプロパティの設定値を反映すると元の拡大中の状況に戻せない可能性があるため)
+	if (self.magnifyingLiveView) {
+		if (![super stopMagnifyingLiveView:error]) {
+			return NO;
+		}
+	}
+	
 	// 読み込んだカメラプロパティの設定値をカメラに反映します。
 	NSMutableDictionary *propertyValues = [snapshot[CameraSettingSnapshotPropertyValuesKey] mutableCopy];
 	if (exclude) {

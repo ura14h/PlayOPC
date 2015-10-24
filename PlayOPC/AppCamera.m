@@ -2100,7 +2100,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// ホワイトバランス/カスタムWB用色温度を決定します。
-	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
+	if (propertyValues[CameraPropertyWb] &&
+		[propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
 		NSNumber *infoCustomWBBiasValue = nil;
 		if (information[@"CustomWBBias"]) {
 			infoCustomWBBiasValue = [NSNumber numberWithFloat:[information[@"CustomWBBias"] floatValue]];
@@ -2125,9 +2126,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		}
 	}
 	
-	// ホワイトバランス/WB補正を決定します。
-	if (propertyValues[CameraPropertyWb] && ![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
-		// WB補正(琥珀色-青色)を決定します。
+	// ホワイトバランス/WB補正(琥珀色-青色)を決定します。
+	if (propertyValues[CameraPropertyWb] &&
+		![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
 		NSNumber *infoWbBiasAValue = nil;
 		if (information[@"WBBiasA"]) {
 			// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にプラス記号がついている)
@@ -2168,8 +2169,11 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 				}
 			}
 		}
-		
-		// WB補正(緑色-赤紫色)を決定します。
+	}
+	
+	// ホワイトバランス/WB補正(緑色-赤紫色)を決定します。
+	if (propertyValues[CameraPropertyWb] &&
+		![propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
 		NSNumber *infoWbBiasGValue = nil;
 		if (information[@"WBBiasG"]) {
 			// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にプラス記号がついている)
@@ -2213,7 +2217,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// ホワイトバランス/電球色残しを決定します。
-	if (propertyValues[CameraPropertyWb] && [propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbAuto]) {
+	if (propertyValues[CameraPropertyWb] &&
+		[propertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbAuto]) {
 		NSString *infoWbAutoLightBulbColorLeavingValue = information[@"WBAutoLightBulbColorLeaving"];
 		if (infoWbAutoLightBulbColorLeavingValue) {
 			// 電球色残しのカメラプロパティ値リストを取得します。
@@ -2420,6 +2425,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// 色彩/効果強弱 ... 扱いません。
+	propertyValues[CameraPropertyEffectLevel] = nil;
 	
 	// 色彩/階調補正シャドー部を決定します。
 	NSNumber *infoToneControlShadowValue = nil;
@@ -2576,7 +2582,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 
 	// 色彩/カラークリエーター用色相を決定します。
-	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
+	if (propertyValues[CameraPropertyColortone] &&
+		[propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
 		NSNumber *infoColorCreatorColorValue = nil;
 		if (information[@"ColorCreatorColor"]) {
 			infoColorCreatorColorValue = [NSNumber numberWithFloat:[information[@"ColorCreatorColor"] floatValue]];
@@ -2617,7 +2624,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// 色彩/カラークリエーター用彩度を決定します。
-	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
+	if (propertyValues[CameraPropertyColortone] &&
+		[propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
 		NSNumber *infoColorCreatorVividValue = nil;
 		if (information[@"ColorCreatorVivid"]) {
 			// 16ビット符号なし10進数になっているので書式化し直します。(しかも先頭にはプラス記号がついていない)
@@ -2659,7 +2667,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	// 効果/パートカラー用色相を決定します。
-	if (propertyValues[CameraPropertyColortone] && [propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePartcolor]) {
+	if (propertyValues[CameraPropertyColortone] &&
+		[propertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePartcolor]) {
 		NSNumber *infoColorPhaseValue = nil;
 		if (information[@"ColorPhase"]) {
 			infoColorPhaseValue = [NSNumber numberWithFloat:[information[@"ColorPhase"] floatValue]];

@@ -107,7 +107,7 @@
 * drivingZoomLens
 * levelGauge
 * magnifyingLiveView (1.1.0)
-* *magnifyingLiveViewArea: (1.1.1)*
+* magnifyingLiveViewArea: (1.1.1)
 * recordingSupportsDelegate
 
 ### OLYCamera(Playback)

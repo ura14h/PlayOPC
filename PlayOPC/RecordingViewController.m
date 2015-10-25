@@ -15,6 +15,7 @@
 #import "AppCamera.h"
 #import "RecordingLocationManager.h"
 #import "LiveImageView.h"
+#import "LiveImageOverallView.h"
 #import "RecImageButton.h"
 #import "MarginedLabel.h"
 #import "RecImageViewController.h"
@@ -56,6 +57,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 //    |-- finderPanelView
 //    |    |-- cameraPanelView
 //    |    |    |-- liveImageView ... ライブビュー表示
+//    |    |    |-- liveImageOverallView ... ライブビュー拡大表示の全体図
 //    |    |    |-- moveToUpButton ... ライブビュー拡大表示の上移動
 //    |    |    |-- moveToLeftButton ... ライブビュー拡大表示の左移動
 //    |    |    |-- moveToRightButton ... ライブビュー拡大表示の右移動
@@ -81,6 +83,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIView *finderPanelView;
 @property (weak, nonatomic) IBOutlet UIView *cameraPanelView;
 @property (weak, nonatomic) IBOutlet LiveImageView *liveImageView;
+@property (weak, nonatomic) IBOutlet LiveImageOverallView *liveImageOverallView;
 @property (weak, nonatomic) IBOutlet UIButton *moveToUpButton;
 @property (weak, nonatomic) IBOutlet UIButton *moveToLeftButton;
 @property (weak, nonatomic) IBOutlet UIButton *moveToRightButton;
@@ -151,11 +154,12 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveViewScale options:0 context:@selector(didChangeMagnifyingLiveViewScale:)];
 	
 	// 画面表示を初期設定します。
-	BOOL moveButtonAlpha = camera.magnifyingLiveView ? 1.0 : 0.0;
-	self.moveToUpButton.alpha = moveButtonAlpha;
-	self.moveToLeftButton.alpha = moveButtonAlpha;
-	self.moveToRightButton.alpha = moveButtonAlpha;
-	self.moveToDownButton.alpha = moveButtonAlpha;
+	BOOL magnifyingLiveViewAlpha = camera.magnifyingLiveView ? 1.0 : 0.0;
+	self.liveImageOverallView.alpha = magnifyingLiveViewAlpha;
+	self.moveToUpButton.alpha = magnifyingLiveViewAlpha;
+	self.moveToLeftButton.alpha = magnifyingLiveViewAlpha;
+	self.moveToRightButton.alpha = magnifyingLiveViewAlpha;
+	self.moveToDownButton.alpha = magnifyingLiveViewAlpha;
 	self.progressLabel.layer.cornerRadius = 5.0;
 	self.progressLabel.clipsToBounds = true;
 	self.progressLabel.alpha = 0.0;
@@ -560,6 +564,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// ライブビューの表示を最新の画像で更新します。
 	UIImage *image = OLYCameraConvertDataToImage(data, metadata);
 	self.liveImageView.image = image;
+
+	// ライブビューの回転方向をライブビュー拡大表示の全体図に反映します。
+	self.liveImageOverallView.orientation = self.liveImageView.image.imageOrientation;
 }
 
 - (void)cameraDidStartRecordingVideo:(OLYCamera *)camera {
@@ -886,7 +893,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 			// ライブビュー拡大表示コントローラを更新します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
-				// TODO:
+				weakSelf.liveImageOverallView.overallViewSize = overallViewSize;
+				[weakSelf.liveImageOverallView setDisplayAreaRect:displayAreaRect animated:YES];
+				weakSelf.liveImageOverallView.orientation = weakSelf.liveImageView.image.imageOrientation;
 			}];
 		}
 	}];
@@ -947,7 +956,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			
 			// ライブビュー拡大表示コントローラを表示します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakSelf.liveImageOverallView.overallViewSize = overallViewSize;
+				weakSelf.liveImageOverallView.displayAreaRect = displayAreaRect;
+				weakSelf.liveImageOverallView.orientation = weakSelf.liveImageView.image.imageOrientation;
 				[UIView animateWithDuration:0.25 animations:^{
+					weakSelf.liveImageOverallView.alpha = 1.0;
 					weakSelf.moveToUpButton.alpha = 1.0;
 					weakSelf.moveToLeftButton.alpha = 1.0;
 					weakSelf.moveToRightButton.alpha = 1.0;
@@ -958,6 +971,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			// ライブビュー拡大表示コントローラを消去します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				[UIView animateWithDuration:0.25 animations:^{
+					weakSelf.liveImageOverallView.alpha = 0.0;
 					weakSelf.moveToUpButton.alpha = 0.0;
 					weakSelf.moveToLeftButton.alpha = 0.0;
 					weakSelf.moveToRightButton.alpha = 0.0;
@@ -991,7 +1005,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			
 			// ライブビュー拡大表示コントローラを更新します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
-				// TODO:
+				weakSelf.liveImageOverallView.overallViewSize = overallViewSize;
+				[weakSelf.liveImageOverallView setDisplayAreaRect:displayAreaRect animated:YES];
+				weakSelf.liveImageOverallView.orientation = weakSelf.liveImageView.image.imageOrientation;
 			}];
 		}
 	}];
@@ -2084,7 +2100,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		
 		// ライブビュー拡大表示コントローラを更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
-			// TODO:
+			weakSelf.liveImageOverallView.overallViewSize = overallViewSize;
+			[weakSelf.liveImageOverallView setDisplayAreaRect:displayAreaRect animated:YES];
+			weakSelf.liveImageOverallView.orientation = weakSelf.liveImageView.image.imageOrientation;
 		}];
 	}];
 }

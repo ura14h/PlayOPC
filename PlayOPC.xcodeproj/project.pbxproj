@@ -36,7 +36,7 @@
 		311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C51ABC287C00A7D38C /* Main.storyboard */; };
 		311B75C91ABC287C00A7D38C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 311B75C81ABC287C00A7D38C /* Images.xcassets */; };
 		311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75D71ABC287C00A7D38C /* PlayOPCTests.m */; };
-		311CF4D41BB7861E00366493 /* ContentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */; settings = {ASSET_TAGS = (); }; };
+		311CF4D41BB7861E00366493 /* ContentDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C3683C1B47BEB00057A390 /* ContentDetailViewController.m */; };
 		311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
 		311F081D1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311F081B1ADFEE2F00318028 /* ItemSelectionViewController.m */; };
 		312689581B56AA0E00183C1E /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3126895B1B56AA0E00183C1E /* Localizable.strings */; };
@@ -89,8 +89,8 @@
 		3164EA0B1B5C833C00B4C3EC /* FavoriteSavingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164EA091B5C833C00B4C3EC /* FavoriteSavingViewController.m */; };
 		3165E5E51ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
 		3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
-		316859B21BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; settings = {ASSET_TAGS = (); }; };
-		316859B31BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; settings = {ASSET_TAGS = (); }; };
+		316859B21BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; };
+		316859B31BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; };
 		31731EB91AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
 		31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
 		31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EBC1AEB886A0094193A /* APanelViewController.m */; };
@@ -172,7 +172,9 @@
 		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
 		31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
-		31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */; settings = {ASSET_TAGS = (); }; };
+		31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */; };
+		31E1B9DD1BDC5C190069198B /* LiveImageOverallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */; };
+		31E1B9DE1BDC5C190069198B /* LiveImageOverallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */; };
 		31E81A2C1B5B7A9E003685A9 /* Recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */; };
 		31E81A2F1B5B7B08003685A9 /* Playback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2D1B5B7B08003685A9 /* Playback.storyboard */; };
 		31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A301B5B7B1F003685A9 /* System.storyboard */; };
@@ -364,6 +366,8 @@
 		31DB84031AD101C900E50B03 /* UIViewController+Alert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Alert.m"; sourceTree = "<group>"; };
 		31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteForgingViewController.m; sourceTree = "<group>"; };
 		31E0DAFC1BCFC8F1002B690C /* FavoriteForgingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteForgingViewController.h; sourceTree = "<group>"; };
+		31E1B9DB1BDC5C190069198B /* LiveImageOverallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LiveImageOverallView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LiveImageOverallView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		31E81A2B1B5B7A9E003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recording.storyboard; sourceTree = "<group>"; };
 		31E81A2E1B5B7B08003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Playback.storyboard; sourceTree = "<group>"; };
 		31E81A311B5B7B1F003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PlayOPC/Base.lproj/System.storyboard; sourceTree = "<group>"; };
@@ -463,6 +467,8 @@
 				314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */,
 				3165E5E31ADBC21200D4A680 /* LiveImageView.h */,
 				3165E5E41ADBC21200D4A680 /* LiveImageView.m */,
+				31E1B9DB1BDC5C190069198B /* LiveImageOverallView.h */,
+				31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */,
 				3103FEA01B23F29E008244C9 /* RecImageButton.h */,
 				3103FEA11B23F29E008244C9 /* RecImageButton.m */,
 				3142ACD41B23D44F008B2754 /* RecImageViewController.h */,
@@ -968,6 +974,7 @@
 				314D7A541ACFE265004C2644 /* CameraLogViewController.m in Sources */,
 				311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */,
 				3103FEA21B23F29E008244C9 /* RecImageButton.m in Sources */,
+				31E1B9DD1BDC5C190069198B /* LiveImageOverallView.m in Sources */,
 				311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
 				314E1DB31B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,
@@ -1021,6 +1028,7 @@
 				314D7A551ACFE265004C2644 /* CameraLogViewController.m in Sources */,
 				3162EB0C1ABE78B100C71BE7 /* AppDelegate.m in Sources */,
 				3103FEA31B23F29E008244C9 /* RecImageButton.m in Sources */,
+				31E1B9DE1BDC5C190069198B /* LiveImageOverallView.m in Sources */,
 				3162EB0B1ABE78A900C71BE7 /* ConnectionViewController.m in Sources */,
 				314E1DB41B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B51B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,

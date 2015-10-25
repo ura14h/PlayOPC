@@ -24,7 +24,7 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W44-R7-ylK">
                                         <rect key="frame" x="0.0" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
                                                 <rect key="frame" x="0.0" y="14" width="42" height="36"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
@@ -459,6 +459,11 @@
                                                     <outletCollection property="gestureRecognizers" destination="Gqq-dB-tCI" appends="YES" id="Aoy-PY-x5l"/>
                                                 </connections>
                                             </imageView>
+                                            <view opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="64" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="Fbc-ft-QAG" customClass="LiveImageOverallView">
+                                                <rect key="frame" x="8" y="8" width="64" height="64"/>
+                                                <animations/>
+                                                <color key="backgroundColor" red="0.40392156862745099" green="0.41960784313725491" blue="0.98431372549019602" alpha="0.5" colorSpace="calibratedRGB"/>
+                                            </view>
                                             <button opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="64" placeholderIntrinsicHeight="64" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zjO-Vu-jx4" userLabel="Rec Image Button" customClass="RecImageButton">
                                                 <rect key="frame" x="248" y="8" width="64" height="64"/>
                                                 <animations/>
@@ -546,6 +551,7 @@
                                         <constraints>
                                             <constraint firstAttribute="centerX" secondItem="77O-Ii-WQH" secondAttribute="centerX" id="3Df-tK-zXk"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="5bp-ZD-veE"/>
+                                            <constraint firstItem="Fbc-ft-QAG" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" constant="8" id="Cb8-8b-il1"/>
                                             <constraint firstAttribute="trailing" secondItem="AJr-e7-fHh" secondAttribute="trailing" id="EJu-WK-r5s"/>
                                             <constraint firstAttribute="trailing" secondItem="zjO-Vu-jx4" secondAttribute="trailing" constant="8" id="FdD-jn-l1i"/>
                                             <constraint firstItem="Egu-Zq-VuS" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="Lld-Jp-l2x"/>
@@ -557,6 +563,7 @@
                                             <constraint firstAttribute="centerY" secondItem="Egu-Zq-VuS" secondAttribute="centerY" id="ddO-g2-Sf8"/>
                                             <constraint firstAttribute="centerX" secondItem="a6R-h1-Iap" secondAttribute="centerX" id="fGi-M6-qAU"/>
                                             <constraint firstAttribute="centerY" secondItem="9oC-LX-B0l" secondAttribute="centerY" id="l3h-kp-WDZ"/>
+                                            <constraint firstItem="Fbc-ft-QAG" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="qDw-Ux-M6T"/>
                                             <constraint firstItem="77O-Ii-WQH" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="sWS-Of-zAQ"/>
                                             <constraint firstAttribute="bottom" secondItem="5u4-rp-8Ro" secondAttribute="bottom" constant="8" id="w3k-8y-taE"/>
                                             <constraint firstAttribute="bottom" secondItem="a6R-h1-Iap" secondAttribute="bottom" id="xHZ-Fa-lRJ"/>
@@ -757,6 +764,7 @@
                         <outlet property="controlPanelViewHeightConstraints" destination="NEj-Up-RLe" id="bzZ-qg-ZqS"/>
                         <outlet property="controlPanelViewWidthConstraints" destination="dV3-Nl-DZ8" id="kau-8v-wwp"/>
                         <outlet property="finderPanelView" destination="mWa-4Q-MUL" id="OfG-N2-RJg"/>
+                        <outlet property="liveImageOverallView" destination="Fbc-ft-QAG" id="W1x-Lj-zLF"/>
                         <outlet property="liveImageView" destination="AJr-e7-fHh" id="tis-Mh-mcY"/>
                         <outlet property="moveToDownButton" destination="a6R-h1-Iap" id="CxC-ya-x5k"/>
                         <outlet property="moveToLeftButton" destination="Egu-Zq-VuS" id="v2O-0V-A7z"/>

@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Status & Favorites-->
@@ -540,14 +541,14 @@ Paste command is not available when the data format of the pasteboard content is
                         <sections>
                             <tableViewSection footerTitle="Current camera setting will be stored to a file in the application document folder as a new favorite setting." id="116-X0-wUo">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FavoriteSettingName" id="GSQ-Ni-zP8">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FavoriteSettingName" id="GSQ-Ni-zP8">
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GSQ-Ni-zP8" id="zgd-zO-PQA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="GSQ-Ni-zP8" id="zgd-zO-PQA">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCD-5d-ebj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LCD-5d-ebj">
                                                     <rect key="frame" x="15" y="12" width="80" height="20"/>
                                                     <animations/>
                                                     <constraints>
@@ -573,7 +574,7 @@ Paste command is not available when the data format of the pasteboard content is
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="LCD-5d-ebj" firstAttribute="centerY" secondItem="Lpp-CV-j1C" secondAttribute="centerY" id="8JF-1W-taA"/>
-                                                <constraint firstItem="LCD-5d-ebj" firstAttribute="leading" secondItem="zgd-zO-PQA" secondAttribute="leading" constant="15" id="Jrg-8h-S7D"/>
+                                                <constraint firstItem="LCD-5d-ebj" firstAttribute="leading" secondItem="zgd-zO-PQA" secondAttribute="leadingMargin" id="Jrg-8h-S7D"/>
                                                 <constraint firstItem="Lpp-CV-j1C" firstAttribute="leading" secondItem="LCD-5d-ebj" secondAttribute="trailing" constant="8" id="Nyo-UU-7Ta"/>
                                                 <constraint firstAttribute="trailing" secondItem="Lpp-CV-j1C" secondAttribute="trailing" constant="15" id="hMG-fi-o96"/>
                                                 <constraint firstAttribute="centerY" secondItem="LCD-5d-ebj" secondAttribute="centerY" id="qpJ-OO-FNm"/>

@@ -4,6 +4,7 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Playback-->
@@ -440,14 +441,14 @@
                         <sections>
                             <tableViewSection headerTitle="Translate into Favorite Setting" footerTitle="There is a case that can not be converted to the exactly original camera setting." id="A9p-7f-hUt">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="FavoriteSettingName" id="giu-Ke-dLa">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="FavoriteSettingName" id="giu-Ke-dLa">
                                         <rect key="frame" x="0.0" y="114" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="giu-Ke-dLa" id="USn-AQ-VdB">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="giu-Ke-dLa" id="USn-AQ-VdB">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gT-XY-6Ni">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" preservesSuperviewLayoutMargins="YES" text="Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gT-XY-6Ni">
                                                     <rect key="frame" x="15" y="12" width="80" height="20"/>
                                                     <animations/>
                                                     <constraints>
@@ -475,7 +476,7 @@
                                                 <constraint firstItem="4gT-XY-6Ni" firstAttribute="centerY" secondItem="slH-UU-2cf" secondAttribute="centerY" id="XiO-la-6PZ"/>
                                                 <constraint firstItem="slH-UU-2cf" firstAttribute="leading" secondItem="4gT-XY-6Ni" secondAttribute="trailing" constant="8" id="dxe-xh-u9V"/>
                                                 <constraint firstAttribute="trailing" secondItem="slH-UU-2cf" secondAttribute="trailing" constant="15" id="qle-WQ-mH5"/>
-                                                <constraint firstItem="4gT-XY-6Ni" firstAttribute="leading" secondItem="USn-AQ-VdB" secondAttribute="leading" constant="15" id="sFL-TM-Y1G"/>
+                                                <constraint firstItem="4gT-XY-6Ni" firstAttribute="leading" secondItem="USn-AQ-VdB" secondAttribute="leadingMargin" id="sFL-TM-Y1G"/>
                                                 <constraint firstAttribute="centerY" secondItem="4gT-XY-6Ni" secondAttribute="centerY" id="tPu-yl-Z16"/>
                                             </constraints>
                                         </tableViewCellContentView>

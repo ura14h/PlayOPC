@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--App Navigation Controller-->
@@ -305,22 +306,22 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="App Preferences" id="owG-pU-UuJ">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="KeepLastCameraSetting" id="aJs-La-lrd">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="KeepLastCameraSetting" id="aJs-La-lrd">
                                         <rect key="frame" x="0.0" y="770" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="aJs-La-lrd" id="Tnq-5p-5Dh">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="aJs-La-lrd" id="Tnq-5p-5Dh">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Keep Last Camera Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-dB-th3">
-                                                    <rect key="frame" x="15" y="0.0" width="240" height="43"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" preservesSuperviewLayoutMargins="YES" text="Keep Last Camera Setting" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3A1-dB-th3">
+                                                    <rect key="frame" x="15" y="0.0" width="233" height="43"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zdq-h5-uaS">
-                                                    <rect key="frame" x="263" y="6" width="51" height="31"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" preservesSuperviewLayoutMargins="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Zdq-h5-uaS">
+                                                    <rect key="frame" x="256" y="6" width="51" height="31"/>
                                                     <animations/>
                                                     <connections>
                                                         <action selector="didChangeKeepLastCameraSettingSwitchState:" destination="ncL-9e-CV0" eventType="valueChanged" id="KsQ-6z-0Id"/>
@@ -329,12 +330,12 @@
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstItem="3A1-dB-th3" firstAttribute="leading" secondItem="Tnq-5p-5Dh" secondAttribute="leading" constant="15" id="0n2-8l-Kgo"/>
+                                                <constraint firstItem="3A1-dB-th3" firstAttribute="leading" secondItem="Tnq-5p-5Dh" secondAttribute="leadingMargin" id="0n2-8l-Kgo"/>
                                                 <constraint firstItem="3A1-dB-th3" firstAttribute="top" secondItem="Tnq-5p-5Dh" secondAttribute="top" id="GWF-5Q-JUo"/>
                                                 <constraint firstItem="Zdq-h5-uaS" firstAttribute="leading" secondItem="3A1-dB-th3" secondAttribute="trailing" constant="8" id="HLD-zX-V7r"/>
                                                 <constraint firstAttribute="bottom" secondItem="3A1-dB-th3" secondAttribute="bottom" id="P6t-ht-fQL"/>
                                                 <constraint firstAttribute="centerY" secondItem="Zdq-h5-uaS" secondAttribute="centerY" id="URb-jD-hwt"/>
-                                                <constraint firstAttribute="trailing" secondItem="Zdq-h5-uaS" secondAttribute="trailing" constant="8" id="lmX-Xs-hMV"/>
+                                                <constraint firstAttribute="trailing" secondItem="Zdq-h5-uaS" secondAttribute="trailing" constant="15" id="lmX-Xs-hMV"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -568,10 +569,10 @@
                         <sections>
                             <tableViewSection id="dB8-bj-FSH">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocalName" id="C3F-3Z-vYn">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocalName" id="C3F-3Z-vYn">
                                         <rect key="frame" x="0.0" y="99" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="C3F-3Z-vYn" id="rLg-qO-fF0">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="C3F-3Z-vYn" id="rLg-qO-fF0">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -603,16 +604,16 @@
                                                 <constraint firstAttribute="centerY" secondItem="WuQ-WW-j4D" secondAttribute="centerY" id="9AL-kj-vZ2"/>
                                                 <constraint firstAttribute="trailing" secondItem="20e-sY-7p1" secondAttribute="trailing" constant="15" id="Awv-ci-ihf"/>
                                                 <constraint firstItem="WuQ-WW-j4D" firstAttribute="centerY" secondItem="20e-sY-7p1" secondAttribute="centerY" id="B6z-CK-UqP"/>
-                                                <constraint firstItem="WuQ-WW-j4D" firstAttribute="leading" secondItem="rLg-qO-fF0" secondAttribute="leading" constant="15" id="ZWk-Bf-sZM"/>
+                                                <constraint firstItem="WuQ-WW-j4D" firstAttribute="leading" secondItem="rLg-qO-fF0" secondAttribute="leadingMargin" id="ZWk-Bf-sZM"/>
                                                 <constraint firstItem="20e-sY-7p1" firstAttribute="leading" secondItem="WuQ-WW-j4D" secondAttribute="trailing" constant="8" id="tDg-Wd-ntS"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="Passcode" id="zee-kN-kX8">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Passcode" id="zee-kN-kX8">
                                         <rect key="frame" x="0.0" y="143" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zee-kN-kX8" id="dEf-uq-lgu">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="zee-kN-kX8" id="dEf-uq-lgu">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -645,7 +646,7 @@
                                                 <constraint firstItem="M37-av-fFz" firstAttribute="centerY" secondItem="lDM-at-apr" secondAttribute="centerY" id="6GO-5Z-Jbs"/>
                                                 <constraint firstAttribute="centerY" secondItem="lDM-at-apr" secondAttribute="centerY" id="TLk-5K-4BG"/>
                                                 <constraint firstAttribute="trailing" secondItem="M37-av-fFz" secondAttribute="trailing" constant="15" id="xd4-A9-DIK"/>
-                                                <constraint firstItem="lDM-at-apr" firstAttribute="leading" secondItem="dEf-uq-lgu" secondAttribute="leading" constant="15" id="z8f-Bq-6hd"/>
+                                                <constraint firstItem="lDM-at-apr" firstAttribute="leading" secondItem="dEf-uq-lgu" secondAttribute="leadingMargin" id="z8f-Bq-6hd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>

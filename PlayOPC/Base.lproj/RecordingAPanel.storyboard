@@ -18,22 +18,22 @@
                         <sections>
                             <tableViewSection headerTitle="Action Modes" id="3bg-mT-FjB">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="idR-p7-Lhq">
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" id="idR-p7-Lhq">
                                         <rect key="frame" x="0.0" y="114" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="idR-p7-Lhq" id="qns-aD-9gF">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="idR-p7-Lhq" id="qns-aD-9gF">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Tapping Live View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXB-cg-i5u">
-                                                    <rect key="frame" x="15" y="0.0" width="169" height="43"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" preservesSuperviewLayoutMargins="YES" text="Tapping Live View" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SXB-cg-i5u">
+                                                    <rect key="frame" x="15" y="0.0" width="162" height="43"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Kne-3f-kN0">
-                                                    <rect key="frame" x="192" y="8" width="120" height="29"/>
+                                                    <rect key="frame" x="185" y="8" width="120" height="29"/>
                                                     <animations/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" priority="250" constant="120" id="GCT-fo-ETr"/>
@@ -51,8 +51,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="bottom" secondItem="SXB-cg-i5u" secondAttribute="bottom" id="4vn-SO-fnt"/>
                                                 <constraint firstItem="SXB-cg-i5u" firstAttribute="top" secondItem="qns-aD-9gF" secondAttribute="top" id="6we-yG-Zvc"/>
-                                                <constraint firstItem="SXB-cg-i5u" firstAttribute="leading" secondItem="qns-aD-9gF" secondAttribute="leading" constant="15" id="Egp-62-TUD"/>
-                                                <constraint firstAttribute="trailing" secondItem="Kne-3f-kN0" secondAttribute="trailing" priority="750" constant="8" id="EwY-gB-dON"/>
+                                                <constraint firstItem="SXB-cg-i5u" firstAttribute="leading" secondItem="qns-aD-9gF" secondAttribute="leadingMargin" id="Egp-62-TUD"/>
                                                 <constraint firstItem="Kne-3f-kN0" firstAttribute="leading" secondItem="SXB-cg-i5u" secondAttribute="trailing" constant="8" id="NiT-q4-3Du"/>
                                                 <constraint firstItem="Kne-3f-kN0" firstAttribute="trailing" secondItem="qns-aD-9gF" secondAttribute="trailingMargin" id="cMS-kS-xTw"/>
                                                 <constraint firstAttribute="centerY" secondItem="Kne-3f-kN0" secondAttribute="centerY" id="nec-Yx-BKz"/>

@@ -1172,7 +1172,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 	
 	// 拡大表示中のライブビューを表示範囲を移動します。
-	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionUp];
+	__weak RecordingViewController *weakSelf = self;
+	weakSelf.moveToUpButton.selected = YES;
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionUp completion:^{
+		weakSelf.moveToUpButton.selected = NO;
+	}];
 }
 
 /// 'L'ボタンがタップされた時に呼び出されます。
@@ -1180,7 +1184,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 	
 	// 拡大表示中のライブビューを表示範囲を移動します。
-	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionLeft];
+	__weak RecordingViewController *weakSelf = self;
+	weakSelf.moveToLeftButton.selected = YES;
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionLeft completion:^{
+		weakSelf.moveToLeftButton.selected = NO;
+	}];
 }
 
 /// 'R'ボタンがタップされた時に呼び出されます。
@@ -1188,7 +1196,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 	
 	// 拡大表示中のライブビューを表示範囲を移動します。
-	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionRight];
+	__weak RecordingViewController *weakSelf = self;
+	weakSelf.moveToRightButton.selected = YES;
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionRight completion:^{
+		weakSelf.moveToRightButton.selected = NO;
+	}];
 }
 
 /// 'D'ボタンがタップされた時に呼び出されます。
@@ -1196,7 +1208,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 	
 	// 拡大表示中のライブビューを表示範囲を移動します。
-	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionDown];
+	__weak RecordingViewController *weakSelf = self;
+	weakSelf.moveToDownButton.selected = YES;
+	[self changeMagnifyingLiveViewArea:OLYCameraMagnifyingLiveViewScrollDirectionDown completion:^{
+		weakSelf.moveToDownButton.selected = NO;
+	}];
 }
 
 /// 撮影後確認画像ボタンがタップされた時に呼び出されます。
@@ -1997,7 +2013,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 }
 
 /// 拡大表示中のライブビューを表示範囲を移動します。
-- (void)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction {
+- (void)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction completion:(void (^)())completionHandler {
 	DEBUG_LOG(@"direction=%ld", (long)direction);
 	
 	// 撮影中の時は何もできません。
@@ -2103,6 +2119,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			weakSelf.liveImageOverallView.overallViewSize = overallViewSize;
 			[weakSelf.liveImageOverallView setDisplayAreaRect:displayAreaRect animated:YES];
 			weakSelf.liveImageOverallView.orientation = weakSelf.liveImageView.image.imageOrientation;
+			
+			// 移動完了です。
+			if (completionHandler) {
+				completionHandler();
+			}
 		}];
 	}];
 }

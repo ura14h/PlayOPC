@@ -485,6 +485,7 @@
                                                 <state key="normal" image="MoveToUpButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="MoveToUpButtonSelected"/>
                                                 <state key="highlighted" image="MoveToUpButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToUpButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="4AP-Av-aaA"/>
@@ -501,6 +502,7 @@
                                                 <state key="normal" image="MoveToLeftButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="MoveToLeftButtonSelected"/>
                                                 <state key="highlighted" image="MoveToLeftButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToLeftButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="xvA-KX-1KJ"/>
@@ -517,6 +519,7 @@
                                                 <state key="normal" image="MoveToDownButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="MoveToDownButtonSelected"/>
                                                 <state key="highlighted" image="MoveToDownButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToDownButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="R0w-nC-MuF"/>
@@ -533,6 +536,7 @@
                                                 <state key="normal" image="MoveToRightButtonNormal">
                                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <state key="selected" image="MoveToRightButtonSelected"/>
                                                 <state key="highlighted" image="MoveToRightButtonSelected"/>
                                                 <connections>
                                                     <action selector="didTapMoveToRightButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="IQJ-C6-jbb"/>

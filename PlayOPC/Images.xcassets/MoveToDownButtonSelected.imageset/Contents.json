@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "MoveToDownButtonSelected.pdf"
+      "filename" : "MoveToDownButtonSelected.pdf",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

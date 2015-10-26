@@ -1943,6 +1943,9 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		case 4: // シャッター優先
 			propertyValues[CameraPropertyTakemode] = CameraPropertyValueTakemodeS;
 			break;
+		case 5: // クリエイティブ
+			propertyValues[CameraPropertyTakemode] = CameraPropertyValueTakemodeArt;
+			break;
 		default:
 			DEBUG_LOG(@"not supported exif exposure mode.");
 			return nil;

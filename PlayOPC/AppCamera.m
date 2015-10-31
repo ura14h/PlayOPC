@@ -210,8 +210,8 @@ NSString *const CameraPropertyWbRevG4000k = @"WB_REV_G_4000K";
 NSString *const CameraPropertyWbRevAutoUnderWater = @"WB_REV_AUTO_UNDER_WATER";
 NSString *const CameraPropertyWbRevGAutoUnderWater = @"WB_REV_G_AUTO_UNDER_WATER";
 NSString *const CameraPropertyAutoWbDenkyuColoredLeaving = @"AUTO_WB_DENKYU_COLORED_LEAVING";
-NSString *const CameraPropertyAutoWbDenkyuColoredLeavingOff = @"<AUTO_WB_DENKYU_COLORED_LEAVING/OFF>";
-NSString *const CameraPropertyAutoWbDenkyuColoredLeavingOn = @"<AUTO_WB_DENKYU_COLORED_LEAVING/ON>";
+NSString *const CameraPropertyValueAutoWbDenkyuColoredLeavingOff = @"<AUTO_WB_DENKYU_COLORED_LEAVING/OFF>";
+NSString *const CameraPropertyValueAutoWbDenkyuColoredLeavingOn = @"<AUTO_WB_DENKYU_COLORED_LEAVING/ON>";
 
 NSString *const CameraPropertyHighTemperatureWarning = @"highTemperatureWarning";
 NSString *const CameraPropertyLensMountStatus = @"lensMountStatus";

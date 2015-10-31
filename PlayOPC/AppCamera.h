@@ -251,8 +251,8 @@ extern NSString *const CameraPropertyWbRevG4000k;
 extern NSString *const CameraPropertyWbRevAutoUnderWater;
 extern NSString *const CameraPropertyWbRevGAutoUnderWater;
 extern NSString *const CameraPropertyAutoWbDenkyuColoredLeaving;
-extern NSString *const CameraPropertyAutoWbDenkyuColoredLeavingOff;
-extern NSString *const CameraPropertyAutoWbDenkyuColoredLeavingOn;
+extern NSString *const CameraPropertyValueAutoWbDenkyuColoredLeavingOff;
+extern NSString *const CameraPropertyValueAutoWbDenkyuColoredLeavingOn;
 
 // 正式なカメラプロパティではない、アプリで便宜上用意した仮想カメラプロパティ
 extern NSString *const CameraPropertyHighTemperatureWarning;

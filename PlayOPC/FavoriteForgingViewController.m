@@ -149,15 +149,21 @@
 		
 		// それっぽくカメラ設定のスナップショットを作成します。
 		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
 		NSDictionary *snapshot = [camera forgeSnapshotOfSettingWithContentInformation:weakSelf.information metadata:weakSelf.metadata];
 		if (!snapshot) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotForgeFavoriteSnapshotOfSetting", @"FavoriteForgingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteForgingViewController.didTapSaveButton")];
 			return;
 		}
-		DEBUG_LOG(@"snapshot=%@", snapshot);
+		NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+		if (!optimizedSnapshot) {
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotForgeFavoriteSnapshotOfSetting", @"FavoriteForgingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteForgingViewController.didTapSaveButton")];
+			return;
+		}
+		DEBUG_LOG(@"optimizedSnapshot=%@", optimizedSnapshot);
 		
 		// 捏造したカメラプロパティの設定値を共有ドキュメントフォルダのファイルとして保存します。
-		AppFavoriteSetting *setting = [[AppFavoriteSetting alloc] initWithSnapshot:snapshot name:name];
+		AppFavoriteSetting *setting = [[AppFavoriteSetting alloc] initWithSnapshot:optimizedSnapshot name:name];
 		if (![setting writeToFile]) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotWriteFavoriteSettingFile", @"FavoriteForgingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteForgingViewController.didTapSaveButton")];
 			return;

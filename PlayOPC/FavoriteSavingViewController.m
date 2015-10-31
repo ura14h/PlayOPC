@@ -148,9 +148,15 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteSavingViewController.didTapSaveButton")];
 			return;
 		}
+		NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+		if (!optimizedSnapshot) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteSavingViewController.didTapSaveButton")];
+			return;
+		}
+		DEBUG_LOG(@"optimizedSnapshot=%@", optimizedSnapshot);
 		
 		// 取得したカメラプロパティの設定値を共有ドキュメントフォルダのファイルとして保存します。
-		AppFavoriteSetting *setting = [[AppFavoriteSetting alloc] initWithSnapshot:snapshot name:name];
+		AppFavoriteSetting *setting = [[AppFavoriteSetting alloc] initWithSnapshot:optimizedSnapshot name:name];
 		if (![setting writeToFile]) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotWriteFavoriteSettingFile", @"FavoriteSavingViewController.didTapSaveButton") title:NSLocalizedString(@"$title:CouldNotSaveFavoriteSetting", @"FavoriteSavingViewController.didTapSaveButton")];
 			return;

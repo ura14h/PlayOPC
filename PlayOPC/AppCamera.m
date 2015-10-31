@@ -2895,7 +2895,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return snapshot;
 }
 
-- (NSDictionary *)optimizeSnapshotOfSetting:(NSDictionary *)snapshot {
+- (NSDictionary *)optimizeSnapshotOfSetting:(NSDictionary *)snapshot error:(NSError **)error {
 	DEBUG_LOG(@"snapshot=%@", snapshot);
 
 	// カメラプロパティ値の辞書がない場合は最適化できません。そのまま返します。

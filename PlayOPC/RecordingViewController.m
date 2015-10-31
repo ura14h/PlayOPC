@@ -294,16 +294,23 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if (setting.keepLastCameraSetting) {
 			NSDictionary *snapshot = setting.latestSnapshotOfCameraSetting;
 			if (snapshot) {
-				[weakSelf reportBlockSettingToProgress:progressView];
-				NSArray *exclude = @[
-					CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
-				];
-				if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude fallback:YES error:&error]) {
+				NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+				if (optimizedSnapshot) {
+					NSArray *exclude = @[
+						CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
+					];
+					[weakSelf reportBlockSettingToProgress:progressView];
+					if (![camera restoreSnapshotOfSetting:optimizedSnapshot exclude:exclude fallback:YES error:&error]) {
+						[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotRestoreLastestCameraSetting", @"RecordingViewController.didStartActivity")];
+						// エラーを無視して続行します。
+						DEBUG_LOG(@"An error occurred, but ignores it.");
+					}
+					progressView.mode = MBProgressHUDModeIndeterminate;
+				} else {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotRestoreLastestCameraSetting", @"RecordingViewController.didStartActivity")];
 					// エラーを無視して続行します。
 					DEBUG_LOG(@"An error occurred, but ignores it.");
 				}
-				progressView.mode = MBProgressHUDModeIndeterminate;
 			} else {
 				DEBUG_LOG(@"No snapshots.");
 			}
@@ -390,17 +397,25 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
 		AppSetting *setting = GetAppSetting();
 		if (setting.keepLastCameraSetting) {
+			[weakSelf reportBlockSettingToProgress:progressView];
 			NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
 			if (snapshot) {
-				// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
-				// (接続画面側の画面更新がとても遅れる)
-				[weakSelf executeAsynchronousBlockOnMainThread:^{
-					setting.latestSnapshotOfCameraSetting = snapshot;
-				}];
+				NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+				if (optimizedSnapshot) {
+					// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
+					// (接続画面側の画面更新がとても遅れる)
+					[weakSelf executeAsynchronousBlockOnMainThread:^{
+						setting.latestSnapshotOfCameraSetting = optimizedSnapshot;
+					}];
+				} else {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
 			} else {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
+			progressView.mode = MBProgressHUDModeIndeterminate;
 		}
 		
 		// カメラを以前のモードに移行します。

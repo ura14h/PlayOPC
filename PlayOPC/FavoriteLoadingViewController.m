@@ -188,15 +188,20 @@
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.didSelectRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
-		
-		// 気に入り設定のスナップショットからカメラの設定を復元します。
-		[weakSelf reportBlockSettingToProgress:progressView];
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
+		NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:setting.snapshot error:&error];
+		if (!optimizedSnapshot) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
+			return;
+		}
+		
+		// 気に入り設定のスナップショットからカメラの設定を復元します。
 		NSArray *exclude = @[
 			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 		];
-		if (![camera restoreSnapshotOfSetting:setting.snapshot exclude:exclude fallback:NO error:&error]) {
+		[weakSelf reportBlockSettingToProgress:progressView];
+		if (![camera restoreSnapshotOfSetting:optimizedSnapshot exclude:exclude fallback:NO error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotLoadFavoriteSetting", @"FavoriteLoadingViewController.didSelectRowAtIndexPath")];
 			return;
 		}
@@ -275,9 +280,16 @@
 				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotShareFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath")];
 				return;
 			}
+			AppCamera *camera = GetAppCamera();
+			NSError *error = nil;
+			NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:setting.snapshot error:&error];
+			if (!optimizedSnapshot) {
+				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotReadFavoriteSettingFile", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath") title:NSLocalizedString(@"$title:CouldNotShareFavoriteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath")];
+				return;
+			}
 			
 			// お気に入り設定を共有できるようにフォーマット変換します。
-			NSString *snapshotText = [setting.snapshot description];
+			NSString *snapshotText = [optimizedSnapshot description];
 			DEBUG_LOG(@"snapshotText=%@", snapshotText);
 			
 			// 共有ダイアログを表示します。

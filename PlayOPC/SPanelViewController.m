@@ -379,10 +379,16 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotCopyCameraSetting", @"SPanelViewController.didSelectRowAtDoCopyCameraSetting")];
 			return;
 		}
+		NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+		if (!optimizedSnapshot) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotCopyCameraSetting", @"SPanelViewController.didSelectRowAtDoCopyCameraSetting")];
+			return;
+		}
+		DEBUG_LOG(@"optimizedSnapshot=%@", optimizedSnapshot);
 		
 		// 取得したカメラプロパティの設定値をペーストボードにテキストとして保存します。
 		UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
-		NSString *snapshotText = [snapshot description];
+		NSString *snapshotText = [optimizedSnapshot description];
 		[pasteboard setValue:snapshotText forPasteboardType:@"public.text"];
 		
 		// 画面表示を更新します。
@@ -411,15 +417,20 @@
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:PasteboardTextIsNotCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting") title:NSLocalizedString(@"$title:CouldNotPasteCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting")];
 			return;
 		}
-
-		// スナップショットからカメラの設定を復元します。
-		[weakSelf reportBlockSettingToProgress:progressView];
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
+		NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+		if (!optimizedSnapshot) {
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotPasteCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting")];
+			return;
+		}
+
+		// スナップショットからカメラの設定を復元します。
 		NSArray *exclude = @[
 			CameraPropertyWifiCh, // Wi-Fiチャンネルの設定は復元しません。
 		];
-		if (![camera restoreSnapshotOfSetting:snapshot exclude:exclude fallback:NO error:&error]) {
+		[weakSelf reportBlockSettingToProgress:progressView];
+		if (![camera restoreSnapshotOfSetting:optimizedSnapshot exclude:exclude fallback:NO error:&error]) {
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotPasteCameraSetting", @"SPanelViewController.didSelectRowAtDoPasteCameraSetting")];
 			return;
 		}

@@ -452,7 +452,7 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 - (NSDictionary *)forgeSnapshotOfSettingWithContentInformation:(NSDictionary *)information metadata:(NSDictionary *)metadata;
 
 /// カメラ設定のスナップショットを最適化します。
-- (NSDictionary *)optimizeSnapshotOfSetting:(NSDictionary *)snapshot;
+- (NSDictionary *)optimizeSnapshotOfSetting:(NSDictionary *)snapshot error:(NSError **)error;
 
 /// 動作ステータスを示します。
 - (AppCameraActionStatus)cameraActionStatus;

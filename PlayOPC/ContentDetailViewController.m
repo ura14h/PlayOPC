@@ -352,14 +352,21 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 
 		// それっぽくカメラ設定のスナップショットを作成します。
 		AppCamera *camera = GetAppCamera();
+		NSError *error = nil;
 		NSDictionary *snapshot = [camera forgeSnapshotOfSettingWithContentInformation:weakSelf.originalInformation metadata:weakSelf.originalMetadata];
 		if (!snapshot) {
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotForgeSnapshotOfSetting", @"ContentDetailViewController.didTapShareButton") title:NSLocalizedString(@"$title:CouldNotShareForgedSetting", @"ContentDetailViewController.didTapShareButton")];
 			return;
 		}
+		NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+		if (!optimizedSnapshot) {
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotForgeSnapshotOfSetting", @"ContentDetailViewController.didTapShareButton") title:NSLocalizedString(@"$title:CouldNotShareForgedSetting", @"ContentDetailViewController.didTapShareButton")];
+			return;
+		}
+		DEBUG_LOG(@"optimizedSnapshot=%@", optimizedSnapshot);
 		
 		// お気に入り設定を共有できるようにフォーマット変換します。
-		NSString *snapshotText = [snapshot description];
+		NSString *snapshotText = [optimizedSnapshot description];
 		DEBUG_LOG(@"snapshotText=%@", snapshotText);
 		
 		// 共有ダイアログを表示します。

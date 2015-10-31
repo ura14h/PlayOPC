@@ -42,6 +42,10 @@ NSString *const CameraPropertyValueAspectRatio0606 = @"<ASPECT_RATIO/06_06>";
 NSString *const CameraPropertyShutter = @"SHUTTER";
 NSString *const CameraPropertyContinuousShootingVelocity = @"CONTINUOUS_SHOOTING_VELOCITY";
 NSString *const CameraPropertyExposeMovieSelect = @"EXPOSE_MOVIE_SELECT";
+NSString *const CameraPropertyValueExposeMovieSelectP = @"<EXPOSE_MOVIE_SELECT/P>";
+NSString *const CameraPropertyValueExposeMovieSelectA = @"<EXPOSE_MOVIE_SELECT/A>";
+NSString *const CameraPropertyValueExposeMovieSelectS = @"<EXPOSE_MOVIE_SELECT/S>";
+NSString *const CameraPropertyValueExposeMovieSelectM = @"<EXPOSE_MOVIE_SELECT/M>";
 NSString *const CameraPropertyAeLockState = @"AE_LOCK_STATE";
 NSString *const CameraPropertyValueAeLockStateLock = @"<AE_LOCK_STATE/LOCK>";
 NSString *const CameraPropertyValueAeLockStateUnlock = @"<AE_LOCK_STATE/UNLOCK>";
@@ -49,6 +53,7 @@ NSString *const CameraPropertyImagesize = @"IMAGESIZE";
 NSString *const CameraPropertyRaw = @"RAW";
 NSString *const CameraPropertyCompressibilityRatio = @"COMPRESSIBILITY_RATIO";
 NSString *const CameraPropertyQualityMovie = @"QUALITY_MOVIE";
+NSString *const CameraPropertyValueQualityMovieShortMovie = @"<QUALITY_MOVIE/QUALITY_MOVIE_SHORT_MOVIE>";
 NSString *const CameraPropertyDestinationFile = @"DESTINATION_FILE";
 NSString *const CameraPropertyQualityMovieShortMovieRecordTime = @"QUALITY_MOVIE_SHORT_MOVIE_RECORD_TIME";
 NSString *const CameraPropertyFocusStill = @"FOCUS_STILL";
@@ -2237,10 +2242,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 			if (autoWbDenkyuColoredLeavingPropertyValueList) {
 				// 値リストを取得したものの、コンテンツ情報の値との互換性が保たれていないので固定の変換を行います。
 				NSDictionary *autoWbDenkyuColoredLeavingPropertyValueMap = @{
-					@"OFF": CameraPropertyAutoWbDenkyuColoredLeavingOff,
-					@"ON": CameraPropertyAutoWbDenkyuColoredLeavingOn,
+					@"OFF": CameraPropertyValueAutoWbDenkyuColoredLeavingOff,
+					@"ON": CameraPropertyValueAutoWbDenkyuColoredLeavingOn,
 				};
-				NSString *autoWbDenkyuColoredLeavingValue = CameraPropertyAutoWbDenkyuColoredLeavingOff;
+				NSString *autoWbDenkyuColoredLeavingValue = CameraPropertyValueAutoWbDenkyuColoredLeavingOff;
 				if (autoWbDenkyuColoredLeavingPropertyValueMap[infoWbAutoLightBulbColorLeavingValue]) {
 					autoWbDenkyuColoredLeavingValue = autoWbDenkyuColoredLeavingPropertyValueMap[infoWhiteBalanceValue];
 				}

@@ -92,6 +92,7 @@ NSString *const CameraPropertyValueRecentlyArtFilterLigneClair = @"<RECENTLY_ART
 NSString *const CameraPropertyValueRecentlyArtFilterPastel = @"<RECENTLY_ART_FILTER/PASTEL>";
 NSString *const CameraPropertyValueRecentlyArtFilterVintage = @"<RECENTLY_ART_FILTER/VINTAGE>";
 NSString *const CameraPropertyValueRecentlyArtFilterPartcolor = @"<RECENTLY_ART_FILTER/PARTCOLOR>";
+NSString *const CameraPropertyValueRecentlyArtFilterArtBkt = @"<RECENTLY_ART_FILTER/ART_BKT>";
 NSString *const CameraPropertyColorPhase = @"COLOR_PHASE";
 NSString *const CameraPropertyArtEffectTypePopart = @"ART_EFFECT_TYPE_POPART";
 NSString *const CameraPropertyArtEffectTypeDaydream = @"ART_EFFECT_TYPE_DAYDREAM";
@@ -119,19 +120,47 @@ NSString *const CameraPropertyArtEffectHybridPastel = @"ART_EFFECT_HYBRID_PASTEL
 NSString *const CameraPropertyArtEffectHybridVintage = @"ART_EFFECT_HYBRID_VINTAGE";
 NSString *const CameraPropertyArtEffectHybridPartcolor = @"ART_EFFECT_HYBRID_PARTCOLOR";
 NSString *const CameraPropertyBracketPictPopart = @"BRACKET_PICT_POPART";
+NSString *const CameraPropertyValueBracketPictPopartOn = @"<BRACKET_PICT_POPART/ON>";
+NSString *const CameraPropertyValueBracketPictPopartOff = @"<BRACKET_PICT_POPART/OFF>";
 NSString *const CameraPropertyBracketPictFantasicFocus = @"BRACKET_PICT_FANTASIC_FOCUS";
+NSString *const CameraPropertyValueBracketPictFantasicFocusOn = @"<BRACKET_PICT_FANTASIC_FOCUS/ON>";
+NSString *const CameraPropertyValueBracketPictFantasicFocusOff = @"<BRACKET_PICT_FANTASIC_FOCUS/OFF>";
 NSString *const CameraPropertyBracketPictDaydream = @"BRACKET_PICT_DAYDREAM";
+NSString *const CameraPropertyValueBracketPictDaydreamOn = @"<BRACKET_PICT_DAYDREAM/ON>";
+NSString *const CameraPropertyValueBracketPictDaydreamOff = @"<BRACKET_PICT_DAYDREAM/OFF>";
 NSString *const CameraPropertyBracketPictLightTone = @"BRACKET_PICT_LIGHT_TONE";
+NSString *const CameraPropertyValueBracketPictLightToneOn = @"<BRACKET_PICT_LIGHT_TONE/ON>";
+NSString *const CameraPropertyValueBracketPictLightToneOff = @"<BRACKET_PICT_LIGHT_TONE/OFF>";
 NSString *const CameraPropertyBracketPictRoughMonochrome = @"BRACKET_PICT_ROUGH_MONOCHROME";
+NSString *const CameraPropertyValueBracketPictRoughMonochromeOn = @"<BRACKET_PICT_ROUGH_MONOCHROME/ON>";
+NSString *const CameraPropertyValueBracketPictRoughMonochromeOff = @"<BRACKET_PICT_ROUGH_MONOCHROME/OFF>";
 NSString *const CameraPropertyBracketPictToyPhoto = @"BRACKET_PICT_TOY_PHOTO";
+NSString *const CameraPropertyValueBracketPictToyPhotoOn = @"<BRACKET_PICT_TOY_PHOTO/ON>";
+NSString *const CameraPropertyValueBracketPictToyPhotoOff = @"<BRACKET_PICT_TOY_PHOTO/OFF>";
 NSString *const CameraPropertyBracketPictMiniature = @"BRACKET_PICT_MINIATURE";
+NSString *const CameraPropertyValueBracketPictMiniatureOn = @"<BRACKET_PICT_MINIATURE/ON>";
+NSString *const CameraPropertyValueBracketPictMiniatureOff = @"<BRACKET_PICT_MINIATURE/OFF>";
 NSString *const CameraPropertyBracketPictCrossProcess = @"BRACKET_PICT_CROSS_PROCESS";
+NSString *const CameraPropertyValueBracketPictCrossProcessOn = @"<BRACKET_PICT_CROSS_PROCESS/ON>";
+NSString *const CameraPropertyValueBracketPictCrossProcessOff = @"<BRACKET_PICT_CROSS_PROCESS/OFF>";
 NSString *const CameraPropertyBracketPictGentleSepia = @"BRACKET_PICT_GENTLE_SEPIA";
+NSString *const CameraPropertyValueBracketPictGentleSepiaOn = @"<BRACKET_PICT_GENTLE_SEPIA/ON>";
+NSString *const CameraPropertyValueBracketPictGentleSepiaOff = @"<BRACKET_PICT_GENTLE_SEPIA/OFF>";
 NSString *const CameraPropertyBracketPictDramaticTone = @"BRACKET_PICT_DRAMATIC_TONE";
+NSString *const CameraPropertyValueBracketPictDramaticToneOn = @"<BRACKET_PICT_DRAMATIC_TONE/ON>";
+NSString *const CameraPropertyValueBracketPictDramaticToneOff = @"<BRACKET_PICT_DRAMATIC_TONE/OFF>";
 NSString *const CameraPropertyBracketPictLigneClair = @"BRACKET_PICT_LIGNE_CLAIR";
+NSString *const CameraPropertyValueBracketPictLigneClairOn = @"<BRACKET_PICT_LIGNE_CLAIR/ON>";
+NSString *const CameraPropertyValueBracketPictLigneClairOff = @"<BRACKET_PICT_LIGNE_CLAIR/OFF>";
 NSString *const CameraPropertyBracketPictPastel = @"BRACKET_PICT_PASTEL";
+NSString *const CameraPropertyValueBracketPictPastelOn = @"<BRACKET_PICT_PASTEL/ON>";
+NSString *const CameraPropertyValueBracketPictPastelOff = @"<BRACKET_PICT_PASTEL/OFF>";
 NSString *const CameraPropertyBracketPictVintage = @"BRACKET_PICT_VINTAGE";
+NSString *const CameraPropertyValueBracketPictVintageOn = @"<BRACKET_PICT_VINTAGE/ON>";
+NSString *const CameraPropertyValueBracketPictVintageOff = @"<BRACKET_PICT_VINTAGE/OFF>";
 NSString *const CameraPropertyBracketPictPartcolor = @"BRACKET_PICT_PARTCOLOR";
+NSString *const CameraPropertyValueBracketPictPartcolorOn = @"<BRACKET_PICT_PARTCOLOR/ON>";
+NSString *const CameraPropertyValueBracketPictPartcolorOff = @"<BRACKET_PICT_PARTCOLOR/OFF>";
 NSString *const CameraPropertyColortone = @"COLORTONE";
 NSString *const CameraPropertyValueColortoneFlat = @"<COLORTONE/FLAT>";
 NSString *const CameraPropertyValueColortoneNatural = @"<COLORTONE/NATURAL>";
@@ -2866,6 +2895,626 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return snapshot;
 }
 
+- (NSDictionary *)optimizeSnapshotOfSetting:(NSDictionary *)snapshot {
+	DEBUG_LOG(@"snapshot=%@", snapshot);
+
+	// カメラプロパティ値の辞書がない場合は最適化できません。そのまま返します。
+	NSDictionary *propertyValues = snapshot[CameraSettingSnapshotPropertyValuesKey];
+	if (!propertyValues) {
+		return  snapshot;
+	}
+	
+	// カメラプロパティ値の辞書を最適化を開始します。
+	// 最適化の出力先を準備します。
+	NSMutableDictionary *optimizedPropertyValues = [[NSMutableDictionary alloc] init];
+	
+	// 撮影モード
+	// 動画撮影モード
+	NSString *mode = nil;
+	NSString *takeMode = propertyValues[CameraPropertyTakemode];
+	if (!takeMode) {
+		// 撮影モードが未設定の場合は最適化できません。
+		return  snapshot;
+	}
+	if ([takeMode isEqualToString:CameraPropertyValueTakemodeMovie]) {
+		NSString *exposeMovieSelect = propertyValues[CameraPropertyExposeMovieSelect];
+		if (!exposeMovieSelect) {
+			// 撮影モードが動画で動画撮影モードが未設定の場合は最適化できません。
+			return  snapshot;
+		}
+		optimizedPropertyValues[CameraPropertyTakemode] = takeMode;
+		optimizedPropertyValues[CameraPropertyExposeMovieSelect] = exposeMovieSelect;
+		mode = exposeMovieSelect;
+	} else {
+		optimizedPropertyValues[CameraPropertyTakemode] = takeMode;
+		mode = takeMode;
+	}
+	
+	// 設定可能なカメラプロパティのリストを取得します。
+	NSArray *enabledProperties = [self listEnabledPropertiesForTakeMode:mode];
+
+	// 以下、読み書き可能でかつ設定可能な条件に適合するカメラプロパティのみを選んでそのカメラプロパティ値を出力に送ります。
+	
+	// 絞り値(F値)
+	if ([enabledProperties containsObject:CameraPropertyAperture]) {
+		optimizedPropertyValues[CameraPropertyAperture] = propertyValues[CameraPropertyAperture];
+	}
+	// 測光方式
+	if ([enabledProperties containsObject:CameraPropertyAe]) {
+		optimizedPropertyValues[CameraPropertyAe] = propertyValues[CameraPropertyAe];
+	}
+	// ISO感度
+	if ([enabledProperties containsObject:CameraPropertyIso]) {
+		optimizedPropertyValues[CameraPropertyIso] = propertyValues[CameraPropertyIso];
+	}
+	// 露出補正値
+	if ([enabledProperties containsObject:CameraPropertyExprev]) {
+		optimizedPropertyValues[CameraPropertyExprev] = propertyValues[CameraPropertyExprev];
+	}
+	// ドライブモード
+	if ([enabledProperties containsObject:CameraPropertyTakeDrive]) {
+		optimizedPropertyValues[CameraPropertyTakeDrive] = propertyValues[CameraPropertyTakeDrive];
+	}
+	// 連写速度
+	if ([optimizedPropertyValues[CameraPropertyTakeDrive] isEqualToString:CameraPropertyValueTakeDriveDriveContinue]) {
+		// ドライブモードが連写になっていないと意味がありません。
+		if ([enabledProperties containsObject:CameraPropertyContinuousShootingVelocity]) {
+			optimizedPropertyValues[CameraPropertyContinuousShootingVelocity] = propertyValues[CameraPropertyContinuousShootingVelocity];
+		}
+	}
+	// アスペクト比
+	if ([enabledProperties containsObject:CameraPropertyAspectRatio]) {
+		optimizedPropertyValues[CameraPropertyAspectRatio] = propertyValues[CameraPropertyAspectRatio];
+	}
+	// シャッター速度
+	if ([enabledProperties containsObject:CameraPropertyShutter]) {
+		optimizedPropertyValues[CameraPropertyShutter] = propertyValues[CameraPropertyShutter];
+	}
+	// 静止画サイズ
+	if ([enabledProperties containsObject:CameraPropertyImagesize]) {
+		optimizedPropertyValues[CameraPropertyImagesize] = propertyValues[CameraPropertyImagesize];
+	}
+	// RAW設定
+	if ([enabledProperties containsObject:CameraPropertyRaw]) {
+		optimizedPropertyValues[CameraPropertyRaw] = propertyValues[CameraPropertyRaw];
+	}
+	// 圧縮率
+	if ([enabledProperties containsObject:CameraPropertyCompressibilityRatio]) {
+		optimizedPropertyValues[CameraPropertyCompressibilityRatio] = propertyValues[CameraPropertyCompressibilityRatio];
+	}
+	// クリップ記録時間
+	if ([optimizedPropertyValues[CameraPropertyQualityMovie] isEqualToString:CameraPropertyValueQualityMovieShortMovie]) {
+		// 動画画質モードがクリップになっていないと意味がありません。
+		if ([enabledProperties containsObject:CameraPropertyQualityMovieShortMovieRecordTime]) {
+			optimizedPropertyValues[CameraPropertyQualityMovieShortMovieRecordTime] = propertyValues[CameraPropertyQualityMovieShortMovieRecordTime];
+		}
+	}
+	// 動画画質モード
+	if ([enabledProperties containsObject:CameraPropertyQualityMovie]) {
+		optimizedPropertyValues[CameraPropertyQualityMovie] = propertyValues[CameraPropertyQualityMovie];
+	}
+	// 撮影画像保存先
+	if ([enabledProperties containsObject:CameraPropertyDestinationFile]) {
+		optimizedPropertyValues[CameraPropertyDestinationFile] = propertyValues[CameraPropertyDestinationFile];
+	}
+	// フォーカスモード静止画用
+	if ([enabledProperties containsObject:CameraPropertyFocusStill]) {
+		optimizedPropertyValues[CameraPropertyFocusStill] = propertyValues[CameraPropertyFocusStill];
+	}
+	// フルタイムAF
+	if ([enabledProperties containsObject:CameraPropertyFullTimeAf]) {
+		optimizedPropertyValues[CameraPropertyFullTimeAf] = propertyValues[CameraPropertyFullTimeAf];
+	}
+	// フォーカスモード動画用
+	if ([enabledProperties containsObject:CameraPropertyFocusMovie]) {
+		optimizedPropertyValues[CameraPropertyFocusMovie] = propertyValues[CameraPropertyFocusMovie];
+	}
+	// 顔検出
+	if ([enabledProperties containsObject:CameraPropertyFaceScan]) {
+		optimizedPropertyValues[CameraPropertyFaceScan] = propertyValues[CameraPropertyFaceScan];
+	}
+	// IS焦点距離
+	if ([enabledProperties containsObject:CameraPropertyAntiShakeFocalLength]) {
+		optimizedPropertyValues[CameraPropertyAntiShakeFocalLength] = propertyValues[CameraPropertyAntiShakeFocalLength];
+	}
+	// 撮影結果確認用画像
+	if ([enabledProperties containsObject:CameraPropertyRecview]) {
+		optimizedPropertyValues[CameraPropertyRecview] = propertyValues[CameraPropertyRecview];
+	}
+	// 動画手ぶれ補正
+	if ([enabledProperties containsObject:CameraPropertyAntiShakeMovie]) {
+		optimizedPropertyValues[CameraPropertyAntiShakeMovie] = propertyValues[CameraPropertyAntiShakeMovie];
+	}
+	// 音量レベル
+	if ([enabledProperties containsObject:CameraPropertySoundVolumeLevel]) {
+		optimizedPropertyValues[CameraPropertySoundVolumeLevel] = propertyValues[CameraPropertySoundVolumeLevel];
+	}
+	// Exif位置付与設定
+	if ([enabledProperties containsObject:CameraPropertyGps]) {
+		optimizedPropertyValues[CameraPropertyGps] = propertyValues[CameraPropertyGps];
+	}
+	// Wi-Fiチャンネル
+	if ([enabledProperties containsObject:CameraPropertyWifiCh]) {
+		optimizedPropertyValues[CameraPropertyWifiCh] = propertyValues[CameraPropertyWifiCh];
+	}
+
+	// 仕上がり・ピクチャーモード
+	if ([enabledProperties containsObject:CameraPropertyColortone]) {
+		optimizedPropertyValues[CameraPropertyColortone] = propertyValues[CameraPropertyColortone];
+	}
+	// ピクチャーモード別
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneIFinish]) {
+		// ピクチャーモードの仕上がり設定 i-Finish コントラスト
+		if ([enabledProperties containsObject:CameraPropertyContrastIFinish]) {
+			optimizedPropertyValues[CameraPropertyContrastIFinish] = propertyValues[CameraPropertyContrastIFinish];
+		}
+		// ピクチャーモードの仕上がり設定 i-Finish シャープネス
+		if ([enabledProperties containsObject:CameraPropertySharpIFinish]) {
+			optimizedPropertyValues[CameraPropertySharpIFinish] = propertyValues[CameraPropertySharpIFinish];
+		}
+		// ピクチャーモードの仕上がり設定 i-Finish 彩度
+		if ([enabledProperties containsObject:CameraPropertySaturationLevelIFinish]) {
+			optimizedPropertyValues[CameraPropertySaturationLevelIFinish] = propertyValues[CameraPropertySaturationLevelIFinish];
+		}
+		// ピクチャーモードの仕上がり設定 i-Finish 階調
+		if ([enabledProperties containsObject:CameraPropertyToneIFinish]) {
+			optimizedPropertyValues[CameraPropertyToneIFinish] = propertyValues[CameraPropertyToneIFinish];
+		}
+		// ピクチャーモードの仕上がり設定 i-Finish 効果強弱
+		if ([enabledProperties containsObject:CameraPropertyEffectLevelIFinish]) {
+			optimizedPropertyValues[CameraPropertyEffectLevelIFinish] = propertyValues[CameraPropertyEffectLevelIFinish];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneVivid]) {
+		// ピクチャーモードの仕上がり設定 Vivid コントラスト
+		if ([enabledProperties containsObject:CameraPropertyContrastVivid]) {
+			optimizedPropertyValues[CameraPropertyContrastVivid] = propertyValues[CameraPropertyContrastVivid];
+		}
+		// ピクチャーモードの仕上がり設定 Vivid シャープネス
+		if ([enabledProperties containsObject:CameraPropertySharpVivid]) {
+			optimizedPropertyValues[CameraPropertySharpVivid] = propertyValues[CameraPropertySharpVivid];
+		}
+		// ピクチャーモードの仕上がり設定 Vivid 彩度
+		if ([enabledProperties containsObject:CameraPropertySaturationLevelVivid]) {
+			optimizedPropertyValues[CameraPropertySaturationLevelVivid] = propertyValues[CameraPropertySaturationLevelVivid];
+		}
+		// ピクチャーモードの仕上がり設定 Vivid 階調
+		if ([enabledProperties containsObject:CameraPropertyToneVivid]) {
+			optimizedPropertyValues[CameraPropertyToneVivid] = propertyValues[CameraPropertyToneVivid];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneNatural]) {
+		// ピクチャーモードの仕上がり設定 NATURAL コントラスト
+		if ([enabledProperties containsObject:CameraPropertyContrastNatural]) {
+			optimizedPropertyValues[CameraPropertyContrastNatural] = propertyValues[CameraPropertyContrastNatural];
+		}
+		// ピクチャーモードの仕上がり設定 NATURAL シャープネス
+		if ([enabledProperties containsObject:CameraPropertySharpNatural]) {
+			optimizedPropertyValues[CameraPropertySharpNatural] = propertyValues[CameraPropertySharpNatural];
+		}
+		// ピクチャーモードの仕上がり設定 NATURAL 彩度
+		if ([enabledProperties containsObject:CameraPropertySaturationLevelNatural]) {
+			optimizedPropertyValues[CameraPropertySaturationLevelNatural] = propertyValues[CameraPropertySaturationLevelNatural];
+		}
+		// ピクチャーモードの仕上がり設定 NATURAL 階調
+		if ([enabledProperties containsObject:CameraPropertyToneNatural]) {
+			optimizedPropertyValues[CameraPropertyToneNatural] = propertyValues[CameraPropertyToneNatural];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneFlat]) {
+		// ピクチャーモードの仕上がり設定 FLAT コントラスト
+		if ([enabledProperties containsObject:CameraPropertyContrastFlat]) {
+			optimizedPropertyValues[CameraPropertyContrastFlat] = propertyValues[CameraPropertyContrastFlat];
+		}
+		// ピクチャーモードの仕上がり設定 FLAT シャープネス
+		if ([enabledProperties containsObject:CameraPropertySharpFlat]) {
+			optimizedPropertyValues[CameraPropertySharpFlat] = propertyValues[CameraPropertySharpFlat];
+		}
+		// ピクチャーモードの仕上がり設定 FLAT 彩度
+		if ([enabledProperties containsObject:CameraPropertySaturationLevelFlat]) {
+			optimizedPropertyValues[CameraPropertySaturationLevelFlat] = propertyValues[CameraPropertySaturationLevelFlat];
+		}
+		// ピクチャーモードの仕上がり設定 FLAT 階調
+		if ([enabledProperties containsObject:CameraPropertyToneFlat]) {
+			optimizedPropertyValues[CameraPropertyToneFlat] = propertyValues[CameraPropertyToneFlat];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePopart]) {
+		// ピクチャーモードの仕上がり設定 SOFT コントラスト
+		if ([enabledProperties containsObject:CameraPropertyContrastSoft]) {
+			optimizedPropertyValues[CameraPropertyContrastSoft] = propertyValues[CameraPropertyContrastSoft];
+		}
+		// ピクチャーモードの仕上がり設定 SOFT シャープネス
+		if ([enabledProperties containsObject:CameraPropertySharpSoft]) {
+			optimizedPropertyValues[CameraPropertySharpSoft] = propertyValues[CameraPropertySharpSoft];
+		}
+		// ピクチャーモードの仕上がり設定 SOFT 彩度
+		if ([enabledProperties containsObject:CameraPropertySaturationLevelSoft]) {
+			optimizedPropertyValues[CameraPropertySaturationLevelSoft] = propertyValues[CameraPropertySaturationLevelSoft];
+		}
+		// ピクチャーモードの仕上がり設定 SOFT 階調
+		if ([enabledProperties containsObject:CameraPropertyToneSoft]) {
+			optimizedPropertyValues[CameraPropertyToneSoft] = propertyValues[CameraPropertyToneSoft];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneMonotone]) {
+		// ピクチャーモードの仕上がり設定 モノトーン コントラスト
+		if ([enabledProperties containsObject:CameraPropertyContrastMonochrome]) {
+			optimizedPropertyValues[CameraPropertyContrastMonochrome] = propertyValues[CameraPropertyContrastMonochrome];
+		}
+		// ピクチャーモードの仕上がり設定 モノトーン シャープネス
+		if ([enabledProperties containsObject:CameraPropertySharpMonochrome]) {
+			optimizedPropertyValues[CameraPropertySharpMonochrome] = propertyValues[CameraPropertySharpMonochrome];
+		}
+		// ピクチャーモードの仕上がり設定 モノトーン 階調
+		if ([enabledProperties containsObject:CameraPropertyToneMonochrome]) {
+			optimizedPropertyValues[CameraPropertyToneMonochrome] = propertyValues[CameraPropertyToneMonochrome];
+		}
+		// モノクロフィルター効果 ピクチャーモード モノトーン
+		if ([enabledProperties containsObject:CameraPropertyMonotonefilterMonochrome]) {
+			optimizedPropertyValues[CameraPropertyMonotonefilterMonochrome] = propertyValues[CameraPropertyMonotonefilterMonochrome];
+		}
+		// 調色効果 ピクチャーモード モノトーン
+		if ([enabledProperties containsObject:CameraPropertyMonotonecolorMonochrome]) {
+			optimizedPropertyValues[CameraPropertyMonotonecolorMonochrome] = propertyValues[CameraPropertyMonotonecolorMonochrome];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneColorCreator]) {
+		// カラークリエーター用　色相
+		if ([enabledProperties containsObject:CameraPropertyColorCreatorColor]) {
+			optimizedPropertyValues[CameraPropertyColorCreatorColor] = propertyValues[CameraPropertyColorCreatorColor];
+		}
+		// カラークリエーター用　彩度
+		if ([enabledProperties containsObject:CameraPropertyColorCreatorVivid]) {
+			optimizedPropertyValues[CameraPropertyColorCreatorVivid] = propertyValues[CameraPropertyColorCreatorVivid];
+		}
+	}
+	// アートフィルター種別
+	if ([enabledProperties containsObject:CameraPropertyRecentlyArtFilter]) {
+		optimizedPropertyValues[CameraPropertyRecentlyArtFilter] = propertyValues[CameraPropertyRecentlyArtFilter];
+	}
+	// ART-BKT別
+	if ([optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterArtBkt]) {
+		// ART-BKT ポップアート
+		if ([enabledProperties containsObject:CameraPropertyBracketPictPopart]) {
+			optimizedPropertyValues[CameraPropertyBracketPictPopart] = propertyValues[CameraPropertyBracketPictPopart];
+		}
+		// ART-BKT ファンタジックフォーカス
+		if ([enabledProperties containsObject:CameraPropertyBracketPictFantasicFocus]) {
+			optimizedPropertyValues[CameraPropertyBracketPictFantasicFocus] = propertyValues[CameraPropertyBracketPictFantasicFocus];
+		}
+		// ART-BKT デイドリーム
+		if ([enabledProperties containsObject:CameraPropertyBracketPictDaydream]) {
+			optimizedPropertyValues[CameraPropertyBracketPictDaydream] = propertyValues[CameraPropertyBracketPictDaydream];
+		}
+		// ART-BKT ライトトーン
+		if ([enabledProperties containsObject:CameraPropertyBracketPictLightTone]) {
+			optimizedPropertyValues[CameraPropertyBracketPictLightTone] = propertyValues[CameraPropertyBracketPictLightTone];
+		}
+		// ART-BKT ラフモノクローム
+		if ([enabledProperties containsObject:CameraPropertyBracketPictRoughMonochrome]) {
+			optimizedPropertyValues[CameraPropertyBracketPictRoughMonochrome] = propertyValues[CameraPropertyBracketPictRoughMonochrome];
+		}
+		// ART-BKT トイフォト
+		if ([enabledProperties containsObject:CameraPropertyBracketPictToyPhoto]) {
+			optimizedPropertyValues[CameraPropertyBracketPictToyPhoto] = propertyValues[CameraPropertyBracketPictToyPhoto];
+		}
+		// ART-BKT ジオラマ
+		if ([enabledProperties containsObject:CameraPropertyBracketPictMiniature]) {
+			optimizedPropertyValues[CameraPropertyBracketPictMiniature] = propertyValues[CameraPropertyBracketPictMiniature];
+		}
+		// ART-BKT クロスプロセス
+		if ([enabledProperties containsObject:CameraPropertyBracketPictCrossProcess]) {
+			optimizedPropertyValues[CameraPropertyBracketPictCrossProcess] = propertyValues[CameraPropertyBracketPictCrossProcess];
+		}
+		// ART-BKT ジェントルセピア
+		if ([enabledProperties containsObject:CameraPropertyBracketPictGentleSepia]) {
+			optimizedPropertyValues[CameraPropertyBracketPictGentleSepia] = propertyValues[CameraPropertyBracketPictGentleSepia];
+		}
+		// ART-BKT ドラマチックトーン
+		if ([enabledProperties containsObject:CameraPropertyBracketPictDramaticTone]) {
+			optimizedPropertyValues[CameraPropertyBracketPictDramaticTone] = propertyValues[CameraPropertyBracketPictDramaticTone];
+		}
+		// ART-BKT リーニュークレール
+		if ([enabledProperties containsObject:CameraPropertyBracketPictLigneClair]) {
+			optimizedPropertyValues[CameraPropertyBracketPictLigneClair] = propertyValues[CameraPropertyBracketPictLigneClair];
+		}
+		// ART-BKT ウォーターカラー
+		if ([enabledProperties containsObject:CameraPropertyBracketPictPastel]) {
+			optimizedPropertyValues[CameraPropertyBracketPictPastel] = propertyValues[CameraPropertyBracketPictPastel];
+		}
+		// ART-BKT ヴィンテージ
+		if ([enabledProperties containsObject:CameraPropertyBracketPictVintage]) {
+			optimizedPropertyValues[CameraPropertyBracketPictVintage] = propertyValues[CameraPropertyBracketPictVintage];
+		}
+		// ART-BKT パートカラー
+		if ([enabledProperties containsObject:CameraPropertyBracketPictPartcolor]) {
+			optimizedPropertyValues[CameraPropertyBracketPictPartcolor] = propertyValues[CameraPropertyBracketPictPartcolor];
+		}
+	}
+	// アートフィルター ポップアート
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePopart] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterPopart] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictPopartOn]) {
+		// アートフィルターバリエーション ポップアート
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypePopart]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypePopart] = propertyValues[CameraPropertyArtEffectTypePopart];
+		}
+		// アートエフェクト ポップアート
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridPopart]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridPopart] = propertyValues[CameraPropertyArtEffectHybridPopart];
+		}
+	}
+	// アートフィルター デイドリーム
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneDaydream] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterDaydream] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictDaydreamOn]) {
+		// アートフィルターバリエーション デイドリーム
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeDaydream]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeDaydream] = propertyValues[CameraPropertyArtEffectTypeDaydream];
+		}
+		// アートエフェクト デイドリーム
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridDaydream]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridDaydream] = propertyValues[CameraPropertyArtEffectHybridDaydream];
+		}
+	}
+	// アートフィルター ラフモノクローム
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneRoughMonochrome] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterRoughMonochrome] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictRoughMonochromeOn]) {
+		// アートフィルターバリエーション ラフモノクローム
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeRoughMonochrome]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeRoughMonochrome] = propertyValues[CameraPropertyArtEffectTypeRoughMonochrome];
+		}
+		// アートエフェクト ラフモノクローム
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridRoughMonochrome]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridRoughMonochrome] = propertyValues[CameraPropertyArtEffectHybridRoughMonochrome];
+		}
+		// モノクロフィルター効果 アートフィルター ラフモノクローム
+		if ([enabledProperties containsObject:CameraPropertyMonotonefilterRoughMonochrome]) {
+			optimizedPropertyValues[CameraPropertyMonotonefilterRoughMonochrome] = propertyValues[CameraPropertyMonotonefilterRoughMonochrome];
+		}
+		// 調色効果 アートフィルター ラフモノクローム
+		if ([enabledProperties containsObject:CameraPropertyMonotonecolorRoughMonochrome]) {
+			optimizedPropertyValues[CameraPropertyMonotonecolorRoughMonochrome] = propertyValues[CameraPropertyMonotonecolorRoughMonochrome];
+		}
+	}
+	// アートフィルター トイフォト
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneToyPhoto] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterToyPhoto] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictToyPhotoOn]) {
+		// アートフィルターバリエーション トイフォト
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeToyPhoto]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeToyPhoto] = propertyValues[CameraPropertyArtEffectTypeToyPhoto];
+		}
+		// アートエフェクト トイフォト
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridToyPhoto]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridToyPhoto] = propertyValues[CameraPropertyArtEffectHybridToyPhoto];
+		}
+	}
+	// アートフィルター トイフォト
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneMiniature] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterMiniature] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictMiniatureOn]) {
+		// アートフィルターバリエーション ジオラマ
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeMiniature]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeMiniature] = propertyValues[CameraPropertyArtEffectTypeMiniature];
+		}
+		// アートエフェクト ジオラマ
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridMiniature]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridMiniature] = propertyValues[CameraPropertyArtEffectHybridMiniature];
+		}
+	}
+	// アートフィルター クロスプロセス
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneCrossProcess] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterCrossProcess] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictCrossProcessOn]) {
+		// アートフィルターバリエーション クロスプロセス
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeCrossProcess]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeCrossProcess] = propertyValues[CameraPropertyArtEffectTypeCrossProcess];
+		}
+		// アートエフェクト クロスプロセス
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridCrossProcess]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridCrossProcess] = propertyValues[CameraPropertyArtEffectHybridCrossProcess];
+		}
+	}
+	// アートフィルター ドラマチックトーン
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneDramaticTone] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterDramaticTone] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictDramaticToneOn]) {
+		// アートフィルターバリエーション ドラマチックトーン
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeDramaticTone]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeDramaticTone] = propertyValues[CameraPropertyArtEffectTypeDramaticTone];
+		}
+		// アートエフェクト ドラマチックトーン
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridDramaticTone]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridDramaticTone] = propertyValues[CameraPropertyArtEffectHybridDramaticTone];
+		}
+		// モノクロフィルター効果 アートフィルター ドラマチックトーン
+		if ([enabledProperties containsObject:CameraPropertyMonotonefilterDramaticTone]) {
+			optimizedPropertyValues[CameraPropertyMonotonefilterDramaticTone] = propertyValues[CameraPropertyMonotonefilterDramaticTone];
+		}
+		// 調色効果 アートフィルター ドラマチックトーン
+		if ([enabledProperties containsObject:CameraPropertyMonotonecolorDramaticTone]) {
+			optimizedPropertyValues[CameraPropertyMonotonecolorDramaticTone] = propertyValues[CameraPropertyMonotonecolorDramaticTone];
+		}
+	}
+	// アートフィルター ドラマチックトーン
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneLigneClair] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterLigneClair] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictLigneClairOn]) {
+		// アートフィルターバリエーション リーニュクレール
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeLigneClair]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeLigneClair] = propertyValues[CameraPropertyArtEffectTypeLigneClair];
+		}
+		// アートエフェクト リーニュクレール
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridLigneClair]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridLigneClair] = propertyValues[CameraPropertyArtEffectHybridLigneClair];
+		}
+	}
+	// アートフィルター ウォーターカラー
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePastel] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterPastel] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictPastelOn]) {
+		// アートフィルターバリエーション ウォーターカラー
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypePastel]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypePastel] = propertyValues[CameraPropertyArtEffectTypePastel];
+		}
+		// アートエフェクト ウォーターカラー
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridPastel]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridPastel] = propertyValues[CameraPropertyArtEffectHybridPastel];
+		}
+	}
+	// アートフィルター ヴィンテージ
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneVintage] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterVintage] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictVintageOn]) {
+		// アートフィルターバリエーション ヴィンテージ
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypeVintage]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypeVintage] = propertyValues[CameraPropertyArtEffectTypeVintage];
+		}
+		// アートエフェクト ヴィンテージ
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridVintage]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridVintage] = propertyValues[CameraPropertyArtEffectHybridVintage];
+		}
+	}
+	// アートフィルター パートカラー
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortonePartcolor] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterPartcolor] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictPartcolorOn]) {
+		// アートフィルターバリエーション パートカラー
+		if ([enabledProperties containsObject:CameraPropertyArtEffectTypePartcolor]) {
+			optimizedPropertyValues[CameraPropertyArtEffectTypePartcolor] = propertyValues[CameraPropertyArtEffectTypePartcolor];
+		}
+		// アートエフェクト パートカラー
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridPartcolor]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridPartcolor] = propertyValues[CameraPropertyArtEffectHybridPartcolor];
+		}
+		// パートカラー用色相
+		if ([enabledProperties containsObject:CameraPropertyColorPhase]) {
+			optimizedPropertyValues[CameraPropertyColorPhase] = propertyValues[CameraPropertyColorPhase];
+		}
+	}
+	// アートフィルター ファンタジックフォーカス
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneFantasicFocus] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterFantasicFocus] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictFantasicFocusOn]) {
+		// アートエフェクト ファンタジックフォーカス
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridFantasicFocus]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridFantasicFocus] = propertyValues[CameraPropertyArtEffectHybridFantasicFocus];
+		}
+	}
+	// アートフィルター ライトトーン
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneLightTone] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterLightTone] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictLightToneOn]) {
+		// アートエフェクト ライトトーン
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridLightTone]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridLightTone] = propertyValues[CameraPropertyArtEffectHybridLightTone];
+		}
+	}
+	// アートフィルター ジェントルセピア
+	if ([optimizedPropertyValues[CameraPropertyColortone] isEqualToString:CameraPropertyValueColortoneGentleSepia] ||
+		[optimizedPropertyValues[CameraPropertyRecentlyArtFilter] isEqualToString:CameraPropertyValueRecentlyArtFilterGentleSepia] ||
+		[optimizedPropertyValues[CameraPropertyBracketPictPopart] isEqualToString:CameraPropertyValueBracketPictGentleSepiaOn]) {
+		// アートエフェクト ジェントルセピア
+		if ([enabledProperties containsObject:CameraPropertyArtEffectHybridGentleSepia]) {
+			optimizedPropertyValues[CameraPropertyArtEffectHybridGentleSepia] = propertyValues[CameraPropertyArtEffectHybridGentleSepia];
+		}
+	}
+	// トーンコントロール シャドー部
+	if ([enabledProperties containsObject:CameraPropertyToneControlLow]) {
+		optimizedPropertyValues[CameraPropertyToneControlLow] = propertyValues[CameraPropertyToneControlLow];
+	}
+	// トーンコントロール 中間部
+	if ([enabledProperties containsObject:CameraPropertyToneControlMiddle]) {
+		optimizedPropertyValues[CameraPropertyToneControlMiddle] = propertyValues[CameraPropertyToneControlMiddle];
+	}
+	// トーンコントロール ハイライト部
+	if ([enabledProperties containsObject:CameraPropertyToneControlHigh]) {
+		optimizedPropertyValues[CameraPropertyToneControlHigh] = propertyValues[CameraPropertyToneControlHigh];
+	}
+	
+	// ホワイトバランス
+	if ([enabledProperties containsObject:CameraPropertyWb]) {
+		optimizedPropertyValues[CameraPropertyWb] = propertyValues[CameraPropertyWb];
+	}
+	// ホワイトバランス別
+	if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbAuto]) {
+		// Auto WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRevAuto]) {
+			optimizedPropertyValues[CameraPropertyWbRevAuto] = propertyValues[CameraPropertyWbRevAuto];
+		}
+		// Auto WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevGAuto]) {
+			optimizedPropertyValues[CameraPropertyWbRevGAuto] = propertyValues[CameraPropertyWbRevGAuto];
+		}
+		// WBオート 電球色残し
+		if ([enabledProperties containsObject:CameraPropertyAutoWbDenkyuColoredLeaving]) {
+			optimizedPropertyValues[CameraPropertyAutoWbDenkyuColoredLeaving] = propertyValues[CameraPropertyAutoWbDenkyuColoredLeaving];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbMwbFine]) {
+		// 晴天 WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRev5300k]) {
+			optimizedPropertyValues[CameraPropertyWbRev5300k] = propertyValues[CameraPropertyWbRev5300k];
+		}
+		// 晴天 WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevG5300k]) {
+			optimizedPropertyValues[CameraPropertyWbRevG5300k] = propertyValues[CameraPropertyWbRevG5300k];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbMwbShade]) {
+		// 日陰 WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRev7500k]) {
+			optimizedPropertyValues[CameraPropertyWbRev7500k] = propertyValues[CameraPropertyWbRev7500k];
+		}
+		// 日陰 WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevG7500k]) {
+			optimizedPropertyValues[CameraPropertyWbRevG7500k] = propertyValues[CameraPropertyWbRevG7500k];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbMwbCloud]) {
+		// 雲天 WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRev6000k]) {
+			optimizedPropertyValues[CameraPropertyWbRev6000k] = propertyValues[CameraPropertyWbRev6000k];
+		}
+		// 雲天 WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevG6000k]) {
+			optimizedPropertyValues[CameraPropertyWbRevG6000k] = propertyValues[CameraPropertyWbRevG6000k];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbMwbLamp]) {
+		// 電球 WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRev3000k]) {
+			optimizedPropertyValues[CameraPropertyWbRev3000k] = propertyValues[CameraPropertyWbRev3000k];
+		}
+		// 電球 WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevG3000k]) {
+			optimizedPropertyValues[CameraPropertyWbRevG3000k] = propertyValues[CameraPropertyWbRevG3000k];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbMwbFluorescence1]) {
+		// 蛍光灯 WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRev4000k]) {
+			optimizedPropertyValues[CameraPropertyWbRev4000k] = propertyValues[CameraPropertyWbRev4000k];
+		}
+		// 蛍光灯 WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevG4000k]) {
+			optimizedPropertyValues[CameraPropertyWbRevG4000k] = propertyValues[CameraPropertyWbRevG4000k];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbMwbWater1]) {
+		// 水中 WB補正A
+		if ([enabledProperties containsObject:CameraPropertyWbRevAutoUnderWater]) {
+			optimizedPropertyValues[CameraPropertyWbRevAutoUnderWater] = propertyValues[CameraPropertyWbRevAutoUnderWater];
+		}
+		// 水中 WB補正G
+		if ([enabledProperties containsObject:CameraPropertyWbRevGAutoUnderWater]) {
+			optimizedPropertyValues[CameraPropertyWbRevGAutoUnderWater] = propertyValues[CameraPropertyWbRevGAutoUnderWater];
+		}
+	} else if ([optimizedPropertyValues[CameraPropertyWb] isEqualToString:CameraPropertyValueWbWbCustom1]) {
+		// カスタムWB K指定
+		if ([enabledProperties containsObject:CameraPropertyCustomWbKelvin1]) {
+			optimizedPropertyValues[CameraPropertyCustomWbKelvin1] = propertyValues[CameraPropertyCustomWbKelvin1];
+		}
+	}
+	
+	// 最適化したカメラプロパティ値の辞書に入れ替えます。
+	NSMutableDictionary *optimizedSnapshot = [snapshot mutableCopy];
+	optimizedSnapshot[CameraSettingSnapshotPropertyValuesKey] = optimizedPropertyValues;
+	
+	return optimizedSnapshot;
+}
+
 - (AppCameraFocusMode)focusMode:(NSError **)error {
 	DEBUG_LOG(@"");
 
@@ -3829,6 +4478,145 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 	
 	return nearestIndex;
+}
+
+/// 指定された撮影モードで使用可能なカメラプロパティのリストを返します。
+- (NSArray *)listEnabledPropertiesForTakeMode:(NSString *)mode {
+	
+	// カメラプロパティの使用可否を撮影モード別に調べるための辞書を構築します。
+	// SDKのリファレンスマニュアルにあるカメラプロパティセクションを読み取って表計算ソフトで機械的に生成しました。
+	NSDictionary *enabledPropertiesByMode = @{
+		CameraPropertyAperture: @[CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyAe: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyTakemode: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyIso: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyExprev: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS],
+		CameraPropertyTakeDrive: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyAspectRatio: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyShutter: @[CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContinuousShootingVelocity: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyExposeMovieSelect: @[CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyAeLockState: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyImagesize: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyRaw: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyCompressibilityRatio: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyQualityMovie: @[CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyDestinationFile: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyQualityMovieShortMovieRecordTime: @[CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyFocusStill: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyAfLockState: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyFullTimeAf: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyFocusMovie: @[CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyFaceScan: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyAntiShakeFocalLength: @[CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyRecview: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyAntiShakeMovie: @[CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySoundVolumeLevel: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyGps: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWifiCh: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyRecentlyArtFilter: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyColorPhase: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypePopart: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeDaydream: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeRoughMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeToyPhoto: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeMiniature: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeCrossProcess: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeDramaticTone: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeLigneClair: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypePastel: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypeVintage: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectTypePartcolor: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridPopart: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridFantasicFocus: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridDaydream: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridLightTone: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridRoughMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridToyPhoto: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridMiniature: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridCrossProcess: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridGentleSepia: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridDramaticTone: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridLigneClair: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridPastel: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridVintage: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyArtEffectHybridPartcolor: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyBracketPictPopart: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictFantasicFocus: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictDaydream: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictLightTone: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictRoughMonochrome: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictToyPhoto: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictMiniature: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictCrossProcess: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictGentleSepia: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictDramaticTone: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictLigneClair: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictPastel: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictVintage: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyBracketPictPartcolor: @[CameraPropertyValueTakemodeArt],
+		CameraPropertyColortone: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContrastFlat: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContrastNatural: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContrastMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContrastSoft: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContrastIFinish: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyContrastVivid: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySharpFlat: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySharpNatural: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySharpMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySharpSoft: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySharpIFinish: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySharpVivid: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySaturationLevelFlat: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySaturationLevelNatural: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySaturationLevelSoft: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySaturationLevelIFinish: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertySaturationLevelVivid: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneFlat: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneNatural: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneSoft: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneIFinish: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneVivid: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyEffectLevelIFinish: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyToneControlLow: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyToneControlMiddle: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyToneControlHigh: @[CameraPropertyValueTakemodeIAuto, CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt],
+		CameraPropertyMonotonefilterMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyMonotonefilterRoughMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyMonotonefilterDramaticTone: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyMonotonecolorMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyMonotonecolorRoughMonochrome: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyMonotonecolorDramaticTone: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyColorCreatorColor: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyColorCreatorVivid: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWb: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyCustomWbKelvin1: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevAuto: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevGAuto: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRev5300k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevG5300k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRev7500k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevG7500k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRev6000k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevG6000k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRev3000k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevG3000k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRev4000k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevG4000k: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevAutoUnderWater: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyWbRevGAutoUnderWater: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+		CameraPropertyAutoWbDenkyuColoredLeaving: @[CameraPropertyValueTakemodeP, CameraPropertyValueTakemodeA, CameraPropertyValueTakemodeS, CameraPropertyValueTakemodeM, CameraPropertyValueTakemodeArt, CameraPropertyValueExposeMovieSelectP, CameraPropertyValueExposeMovieSelectA, CameraPropertyValueExposeMovieSelectS, CameraPropertyValueExposeMovieSelectM],
+	};
+	NSMutableArray *enableProperties = [[NSMutableArray alloc] init];
+	[enabledPropertiesByMode enumerateKeysAndObjectsUsingBlock:^(NSString *property, NSArray *modes, BOOL *stop) {
+		if ([modes containsObject:mode]) {
+			[enableProperties addObject:property];
+		}
+	}];
+	
+	return enableProperties;
 }
 
 @end

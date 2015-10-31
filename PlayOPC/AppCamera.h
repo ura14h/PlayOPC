@@ -133,6 +133,7 @@ extern NSString *const CameraPropertyValueRecentlyArtFilterLigneClair;
 extern NSString *const CameraPropertyValueRecentlyArtFilterPastel;
 extern NSString *const CameraPropertyValueRecentlyArtFilterVintage;
 extern NSString *const CameraPropertyValueRecentlyArtFilterPartcolor;
+extern NSString *const CameraPropertyValueRecentlyArtFilterArtBkt;
 extern NSString *const CameraPropertyColorPhase;
 extern NSString *const CameraPropertyArtEffectTypePopart;
 extern NSString *const CameraPropertyArtEffectTypeDaydream;
@@ -160,19 +161,47 @@ extern NSString *const CameraPropertyArtEffectHybridPastel;
 extern NSString *const CameraPropertyArtEffectHybridVintage;
 extern NSString *const CameraPropertyArtEffectHybridPartcolor;
 extern NSString *const CameraPropertyBracketPictPopart;
+extern NSString *const CameraPropertyValueBracketPictPopartOn;
+extern NSString *const CameraPropertyValueBracketPictPopartOff;
 extern NSString *const CameraPropertyBracketPictFantasicFocus;
+extern NSString *const CameraPropertyValueBracketPictFantasicFocusOn;
+extern NSString *const CameraPropertyValueBracketPictFantasicFocusOff;
 extern NSString *const CameraPropertyBracketPictDaydream;
+extern NSString *const CameraPropertyValueBracketPictDaydreamOn;
+extern NSString *const CameraPropertyValueBracketPictDaydreamOff;
 extern NSString *const CameraPropertyBracketPictLightTone;
+extern NSString *const CameraPropertyValueBracketPictLightToneOn;
+extern NSString *const CameraPropertyValueBracketPictLightToneOff;
 extern NSString *const CameraPropertyBracketPictRoughMonochrome;
+extern NSString *const CameraPropertyValueBracketPictRoughMonochromeOn;
+extern NSString *const CameraPropertyValueBracketPictRoughMonochromeOff;
 extern NSString *const CameraPropertyBracketPictToyPhoto;
+extern NSString *const CameraPropertyValueBracketPictToyPhotoOn;
+extern NSString *const CameraPropertyValueBracketPictToyPhotoOff;
 extern NSString *const CameraPropertyBracketPictMiniature;
+extern NSString *const CameraPropertyValueBracketPictMiniatureOn;
+extern NSString *const CameraPropertyValueBracketPictMiniatureOff;
 extern NSString *const CameraPropertyBracketPictCrossProcess;
+extern NSString *const CameraPropertyValueBracketPictCrossProcessOn;
+extern NSString *const CameraPropertyValueBracketPictCrossProcessOff;
 extern NSString *const CameraPropertyBracketPictGentleSepia;
+extern NSString *const CameraPropertyValueBracketPictGentleSepiaOn;
+extern NSString *const CameraPropertyValueBracketPictGentleSepiaOff;
 extern NSString *const CameraPropertyBracketPictDramaticTone;
+extern NSString *const CameraPropertyValueBracketPictDramaticToneOn;
+extern NSString *const CameraPropertyValueBracketPictDramaticToneOff;
 extern NSString *const CameraPropertyBracketPictLigneClair;
+extern NSString *const CameraPropertyValueBracketPictLigneClairOn;
+extern NSString *const CameraPropertyValueBracketPictLigneClairOff;
 extern NSString *const CameraPropertyBracketPictPastel;
+extern NSString *const CameraPropertyValueBracketPictPastelOn;
+extern NSString *const CameraPropertyValueBracketPictPastelOff;
 extern NSString *const CameraPropertyBracketPictVintage;
+extern NSString *const CameraPropertyValueBracketPictVintageOn;
+extern NSString *const CameraPropertyValueBracketPictVintageOff;
 extern NSString *const CameraPropertyBracketPictPartcolor;
+extern NSString *const CameraPropertyValueBracketPictPartcolorOn;
+extern NSString *const CameraPropertyValueBracketPictPartcolorOff;
 extern NSString *const CameraPropertyColortone;
 extern NSString *const CameraPropertyValueColortoneFlat;
 extern NSString *const CameraPropertyValueColortoneNatural;
@@ -421,6 +450,9 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 
 /// コンテンツ情報とメタデータからそれっぽいカメラ設定のスナップショットを作成します。
 - (NSDictionary *)forgeSnapshotOfSettingWithContentInformation:(NSDictionary *)information metadata:(NSDictionary *)metadata;
+
+/// カメラ設定のスナップショットを最適化します。
+- (NSDictionary *)optimizeSnapshotOfSetting:(NSDictionary *)snapshot;
 
 /// 動作ステータスを示します。
 - (AppCameraActionStatus)cameraActionStatus;

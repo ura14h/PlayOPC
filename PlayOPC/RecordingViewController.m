@@ -575,9 +575,16 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 - (void)camera:(OLYCamera *)camera didUpdateLiveView:(NSData *)data metadata:(NSDictionary *)metadata {
 	DEBUG_DETAIL_LOG(@"");
-	
+
 	// ライブビューの表示を最新の画像で更新します。
 	UIImage *image = OLYCameraConvertDataToImage(data, metadata);
+	if (!self.liveImageView.image && image) {
+		// 初めての表示更新の場合はフェードインアニメーションを伴います。
+		self.liveImageView.alpha = 0.0;
+		[UIView animateWithDuration:0.5 animations:^{
+			self.liveImageView.alpha = 1.0;
+		}];
+	}
 	self.liveImageView.image = image;
 
 	// ライブビューの回転方向をライブビュー拡大表示の全体図に反映します。

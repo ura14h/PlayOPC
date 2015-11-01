@@ -350,6 +350,18 @@
 /* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationUnknown" = "Unknown";
 
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsHoursAgo(%ld)" = "%ld hours ago";
+
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsMinutesAgo(%ld)" = "%ld minutes ago";
+
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsNow" = "Now";
+
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsSecondsAgo(%ld)" = "%ld seconds ago";
+
 /* CPanelViewController.updateShowSharpCell */
 "$cell:SharpNotAvailable" = "N/A";
 

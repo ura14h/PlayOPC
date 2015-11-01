@@ -350,6 +350,18 @@
 /* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationUnknown" = "不明";
 
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsHoursAgo(%ld)" = "%ld 時間前";
+
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsMinutesAgo(%ld)" = "%ld 分前";
+
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsNow" = "たった今";
+
+/* FavoriteLoadingViewController.cellForRowAtIndexPath */
+"$cell:SavingFavoriteSettingIsSecondsAgo(%ld)" = "%ld 秒前";
+
 /* CPanelViewController.updateShowSharpCell */
 "$cell:SharpNotAvailable" = "無効";
 

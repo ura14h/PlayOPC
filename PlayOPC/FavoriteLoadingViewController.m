@@ -152,13 +152,21 @@
 
 	// お気に入り設定の更新日時を表示します。
 	NSDate *date = favoriteSetting[AppFavoriteSettingListDateKey];
+	double sinceSec = -[date timeIntervalSinceNow];
+	double sinceMin = round(sinceSec / 60.0);
+	double sinceHour = round(sinceSec / 60.0 / 60.0);
+	double sinceDay = round(sinceSec / 60.0 / 60.0 / 24.0);
 	NSString *dateText;
-	NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-	NSTimeInterval past = [date timeIntervalSinceDate:[NSDate date]];
-	if (past < 24 * 60 * 60) {
-		[dateFormatter setDateFormat:@"HH:mm:ss"];
-		dateText = [dateFormatter stringFromDate:date];
+	if (sinceSec < 1.25) {
+		dateText = NSLocalizedString(@"$cell:SavingFavoriteSettingIsNow", @"FavoriteLoadingViewController.cellForRowAtIndexPath");
+	} else if (sinceMin < 1.25) {
+		dateText = [NSString stringWithFormat:NSLocalizedString(@"$cell:SavingFavoriteSettingIsSecondsAgo(%ld)", @"FavoriteLoadingViewController.cellForRowAtIndexPath"), (long)sinceSec];
+	} else if (sinceHour < 1.25) {
+		dateText = [NSString stringWithFormat:NSLocalizedString(@"$cell:SavingFavoriteSettingIsMinutesAgo(%ld)", @"FavoriteLoadingViewController.cellForRowAtIndexPath"), (long)sinceMin];
+	} else if (sinceDay < 1.25) {
+		dateText = [NSString stringWithFormat:NSLocalizedString(@"$cell:SavingFavoriteSettingIsHoursAgo(%ld)", @"FavoriteLoadingViewController.cellForRowAtIndexPath"), (long)sinceHour];
 	} else {
+		NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
 		[dateFormatter setDateFormat:@"yyyy-MM-dd"];
 		dateText = [dateFormatter stringFromDate:date];
 	}

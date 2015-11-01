@@ -11,5 +11,8 @@
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "VB8-9s-G3D"; */
 "VB8-9s-G3D.title" = "Back";
 
+/* Class = "UILabel"; text = "NO LIVE IMAGE"; ObjectID = "d1V-bd-lyc"; */
+"d1V-bd-lyc.text" = "NO LIVE IMAGE";
+
 /* Class = "UIBarButtonItem"; title = "Back"; ObjectID = "uQh-LP-Yxa"; */
 "uQh-LP-Yxa.title" = "Back";

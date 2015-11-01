@@ -57,12 +57,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 //    |-- finderPanelView
 //    |    |-- cameraPanelView
 //    |    |    |-- liveImageView ... ライブビュー表示
+//    |    |    |-- noLiveImageLabel ... ライブビューなしメッセージ
 //    |    |    |-- liveImageOverallView ... ライブビュー拡大表示の全体図
+//    |    |    |-- recImageButton ... レックビュー(撮影後確認画像)表示
 //    |    |    |-- moveToUpButton ... ライブビュー拡大表示の上移動
 //    |    |    |-- moveToLeftButton ... ライブビュー拡大表示の左移動
 //    |    |    |-- moveToRightButton ... ライブビュー拡大表示の右移動
 //    |    |    |-- moveToDownButton ... ライブビュー拡大表示の下移動
-//    |    |    |-- recImageButton ... レックビュー(撮影後確認画像)表示
+//    |    |    |-- progressLabel ... 撮影進捗メッセージ
 //    |    |-- controlPanelView
 //    |         |-- SPanelView ... ステータス全般と設定全体の保存と呼び出し
 //    |         |-- EPanelView ... 露出と撮影モード
@@ -83,6 +85,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIView *finderPanelView;
 @property (weak, nonatomic) IBOutlet UIView *cameraPanelView;
 @property (weak, nonatomic) IBOutlet LiveImageView *liveImageView;
+@property (weak, nonatomic) IBOutlet UILabel *noLiveImageLabel;
 @property (weak, nonatomic) IBOutlet LiveImageOverallView *liveImageOverallView;
 @property (weak, nonatomic) IBOutlet UIButton *moveToUpButton;
 @property (weak, nonatomic) IBOutlet UIButton *moveToLeftButton;
@@ -154,6 +157,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveViewScale options:0 context:@selector(didChangeMagnifyingLiveViewScale:)];
 	
 	// 画面表示を初期設定します。
+	self.noLiveImageLabel.alpha = 0.0;
 	BOOL magnifyingLiveViewAlpha = camera.magnifyingLiveView ? 1.0 : 0.0;
 	self.liveImageOverallView.alpha = magnifyingLiveViewAlpha;
 	self.moveToUpButton.alpha = magnifyingLiveViewAlpha;
@@ -344,6 +348,16 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			return;
 		}
 
+		// Bluetooth接続の場合はライブビュー画像は送信されてこないのでライブビュー画像なしのメッセージを表示します。
+		if (camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakSelf.noLiveImageLabel.alpha = 0.0;
+				[UIView animateWithDuration:0.5 animations:^{
+					weakSelf.noLiveImageLabel.alpha = 1.0;
+				}];
+			}];
+		}
+		
 		// デバイスのスリープを禁止します。
 		// MARK: Xcodeでケーブル接続してデバッグ実行しているとスリープは発動しないようです。
 		[UIApplication sharedApplication].idleTimerDisabled = YES;

@@ -24,7 +24,7 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W44-R7-ylK">
                                         <rect key="frame" x="0.0" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
                                                 <rect key="frame" x="0.0" y="14" width="42" height="36"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
@@ -459,6 +459,13 @@
                                                     <outletCollection property="gestureRecognizers" destination="Gqq-dB-tCI" appends="YES" id="Aoy-PY-x5l"/>
                                                 </connections>
                                             </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO LIVE IMAGE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1V-bd-lyc">
+                                                <rect key="frame" x="100" y="99" width="120" height="21"/>
+                                                <animations/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view opaque="NO" contentMode="scaleToFill" placeholderIntrinsicWidth="64" placeholderIntrinsicHeight="64" translatesAutoresizingMaskIntoConstraints="NO" id="Fbc-ft-QAG" customClass="LiveImageOverallView">
                                                 <rect key="frame" x="8" y="8" width="64" height="64"/>
                                                 <animations/>
@@ -561,6 +568,7 @@
                                             <constraint firstItem="Egu-Zq-VuS" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" id="Lld-Jp-l2x"/>
                                             <constraint firstItem="AJr-e7-fHh" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="MKe-Ce-YFP"/>
                                             <constraint firstAttribute="trailing" secondItem="9oC-LX-B0l" secondAttribute="trailing" id="NLe-qm-2ee"/>
+                                            <constraint firstItem="d1V-bd-lyc" firstAttribute="centerY" secondItem="pmY-fA-6RK" secondAttribute="centerY" id="P8y-wg-N6y"/>
                                             <constraint firstItem="5u4-rp-8Ro" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="leading" constant="8" id="ZbX-yt-gc7"/>
                                             <constraint firstAttribute="bottom" secondItem="AJr-e7-fHh" secondAttribute="bottom" id="Zf8-AQ-zgg"/>
                                             <constraint firstItem="zjO-Vu-jx4" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="dUG-U2-3gu"/>
@@ -570,6 +578,7 @@
                                             <constraint firstItem="Fbc-ft-QAG" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" constant="8" id="qDw-Ux-M6T"/>
                                             <constraint firstItem="77O-Ii-WQH" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="top" id="sWS-Of-zAQ"/>
                                             <constraint firstAttribute="bottom" secondItem="5u4-rp-8Ro" secondAttribute="bottom" constant="8" id="w3k-8y-taE"/>
+                                            <constraint firstItem="d1V-bd-lyc" firstAttribute="centerX" secondItem="pmY-fA-6RK" secondAttribute="centerX" id="w8J-tL-t45"/>
                                             <constraint firstAttribute="bottom" secondItem="a6R-h1-Iap" secondAttribute="bottom" id="xHZ-Fa-lRJ"/>
                                         </constraints>
                                     </view>
@@ -774,6 +783,7 @@
                         <outlet property="moveToLeftButton" destination="Egu-Zq-VuS" id="v2O-0V-A7z"/>
                         <outlet property="moveToRightButton" destination="9oC-LX-B0l" id="itL-xc-6DQ"/>
                         <outlet property="moveToUpButton" destination="77O-Ii-WQH" id="zIW-xm-UJA"/>
+                        <outlet property="noLiveImageLabel" destination="d1V-bd-lyc" id="use-Aa-dAv"/>
                         <outlet property="progressLabel" destination="5u4-rp-8Ro" id="lCq-Wp-4fi"/>
                         <outlet property="recImageButton" destination="zjO-Vu-jx4" id="l4x-3G-UtX"/>
                         <outlet property="showAPanelButton" destination="ZQQ-QB-tBG" id="sYW-rV-4dd"/>

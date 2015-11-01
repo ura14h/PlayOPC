@@ -1060,19 +1060,23 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 
 	// ライブビューパネルでタップした時の動作を取得します。
+	AppCamera *camera = GetAppCamera();
 	AppSetting *setting = GetAppSetting();
 	AppSettingLiveViewTappingAction action = setting.liveViewTappingAction;
-
 	if (action == AppSettingLiveViewTappingActionUnknown) {
 		// 何もしません。
 	} else if (action == AppSettingLiveViewTappingActionAF) {
-		// タップされた座標にオートフォーカスロックします。
-		CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
-		[self lockAutoFocusPoint:point];
+		if (camera.connectionType == OLYCameraConnectionTypeWiFi) {
+			// タップされた座標にオートフォーカスロックします。
+			CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
+			[self lockAutoFocusPoint:point];
+		}
 	} else if (action == AppSettingLiveViewTappingActionAE) {
-		// タップされた座標に自動露出ロックします。
-		CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
-		[self lockAutoExposurePoint:point];
+		if (camera.connectionType == OLYCameraConnectionTypeWiFi) {
+			// タップされた座標に自動露出ロックします。
+			CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
+			[self lockAutoExposurePoint:point];
+		}
 	} else {
 		// 何もしません。
 	}
@@ -1092,9 +1096,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	if (camera.magnifyingLiveView) {
 		[self stopMagnifyingLiveView];
 	} else {
-		// MARK: ライブビュー拡大開始の座標はオートフォーカスロックや自動露出ロックのような制限範囲がないようです。
-		CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
-		[self startMagnifyingLiveView:point];
+		if (camera.connectionType == OLYCameraConnectionTypeWiFi) {
+			// MARK: ライブビュー拡大開始の座標はオートフォーカスロックや自動露出ロックのような制限範囲がないようです。
+			CGPoint point = [self.liveImageView pointWithGestureRecognizer:sender];
+			[self startMagnifyingLiveView:point];
+		}
 	}
 }
 

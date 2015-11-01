@@ -664,6 +664,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)camera:(OLYCamera *)camera didFailToReceiveCapturedImagePreviewWithError:(NSError *)error {
 	DEBUG_LOG(@"error=%@", error);
 
+	// Bluetooth接続で未サポートエラーの場合は無視します。
+	if (camera.connectionType == OLYCameraConnectionTypeBluetoothLE &&
+		[error.domain isEqualToString:OLYCameraErrorDomain] &&
+		error.code == OLYCameraErrorUnsupportedOperations) {
+		DEBUG_LOG(@"An error occurred, but ignores it.");
+		return;
+	}
+	
 	// レックビューの取得に失敗しました。
 	self.latestRecImage = nil;
 	[self.recImageButton setImage:nil];

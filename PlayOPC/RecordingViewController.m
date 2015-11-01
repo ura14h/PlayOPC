@@ -397,7 +397,6 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
 		AppSetting *setting = GetAppSetting();
 		if (setting.keepLastCameraSetting) {
-			[weakSelf reportBlockSettingToProgress:progressView];
 			NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
 			if (snapshot) {
 				NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
@@ -415,7 +414,6 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			progressView.mode = MBProgressHUDModeIndeterminate;
 		}
 		
 		// カメラを以前のモードに移行します。

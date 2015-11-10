@@ -108,8 +108,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1pC-3O-bdM">
-                                                    <rect key="frame" x="30" y="17" width="260" height="31"/>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" minimumValueImage="SliderZoomOut" maximumValueImage="SliderZoomIn" translatesAutoresizingMaskIntoConstraints="NO" id="1pC-3O-bdM">
+                                                    <rect key="frame" x="13" y="17" width="294" height="31"/>
                                                     <animations/>
                                                     <connections>
                                                         <action selector="didChangeOpticalZoomingSliderValue:" destination="CjU-n5-pzc" eventType="valueChanged" id="kSs-ei-tkI"/>
@@ -119,8 +119,8 @@
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="1pC-3O-bdM" secondAttribute="centerY" id="9UJ-YZ-m0r"/>
-                                                <constraint firstAttribute="trailing" secondItem="1pC-3O-bdM" secondAttribute="trailing" priority="750" constant="32" id="PXj-vp-6Jh"/>
-                                                <constraint firstItem="1pC-3O-bdM" firstAttribute="leading" secondItem="VuW-Ex-zuT" secondAttribute="leading" constant="32" id="QwH-0m-Vgc"/>
+                                                <constraint firstAttribute="trailing" secondItem="1pC-3O-bdM" secondAttribute="trailing" priority="750" constant="15" id="PXj-vp-6Jh"/>
+                                                <constraint firstItem="1pC-3O-bdM" firstAttribute="leading" secondItem="VuW-Ex-zuT" secondAttribute="leading" constant="15" id="QwH-0m-Vgc"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -291,8 +291,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="63"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OW8-6h-N0f">
-                                                    <rect key="frame" x="30" y="17" width="260" height="31"/>
+                                                <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" continuous="NO" minimumValueImage="SliderZoomOut" maximumValueImage="SliderZoomIn" translatesAutoresizingMaskIntoConstraints="NO" id="OW8-6h-N0f">
+                                                    <rect key="frame" x="13" y="17" width="294" height="31"/>
                                                     <animations/>
                                                     <connections>
                                                         <action selector="didChangeDigitalZoomingSliderValue:" destination="CjU-n5-pzc" eventType="valueChanged" id="ATf-cb-I7l"/>
@@ -302,8 +302,8 @@
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="centerY" secondItem="OW8-6h-N0f" secondAttribute="centerY" id="ATN-aq-veP"/>
-                                                <constraint firstItem="OW8-6h-N0f" firstAttribute="leading" secondItem="dol-gC-0Em" secondAttribute="leading" constant="32" id="Cqg-yk-Lp6"/>
-                                                <constraint firstAttribute="trailing" secondItem="OW8-6h-N0f" secondAttribute="trailing" priority="750" constant="32" id="c8D-5B-pEk"/>
+                                                <constraint firstItem="OW8-6h-N0f" firstAttribute="leading" secondItem="dol-gC-0Em" secondAttribute="leading" constant="15" id="Cqg-yk-Lp6"/>
+                                                <constraint firstAttribute="trailing" secondItem="OW8-6h-N0f" secondAttribute="trailing" priority="750" constant="15" id="c8D-5B-pEk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -463,6 +463,10 @@
             <point key="canvasLocation" x="2028" y="528"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="SliderZoomIn" width="20" height="20"/>
+        <image name="SliderZoomOut" width="20" height="20"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LHa-ox-X6r"/>
     </inferredMetricsTieBreakers>

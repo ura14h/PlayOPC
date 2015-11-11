@@ -475,6 +475,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanNavigationBarInControlPanel:)];
 		[navigationController.navigationBar addGestureRecognizer:gestureRecognizer];
 		// コントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
+		navigationController.navigationBar.barTintColor = nil;
 		UIFont *titleFont = [UIFont systemFontOfSize:17.0]; // FIXME: ナビゲーションバータイトルの省略時のフォントサイズがわからなかったのでハードコーディングしました。
 		UIColor *titleColor = [UIColor colorWithWhite:0.5 alpha:1.0];
 		NSDictionary *titleAttributes = @{

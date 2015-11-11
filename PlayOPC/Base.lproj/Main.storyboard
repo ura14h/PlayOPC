@@ -15,7 +15,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="barTintColor" red="0.20392156862745098" green="0.70980392156862748" blue="0.42352941176470588" alpha="1" colorSpace="deviceRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="ncL-9e-CV0" kind="relationship" relationship="rootViewController" id="O2z-iF-eMV"/>

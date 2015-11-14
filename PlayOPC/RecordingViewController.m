@@ -601,11 +601,15 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	if (!self.liveImageView.image && image) {
 		// 初めての表示更新の場合はフェードインアニメーションを伴います。
 		self.liveImageView.alpha = 0.0;
+		self.liveImageView.image = image;
 		[UIView animateWithDuration:0.5 animations:^{
 			self.liveImageView.alpha = 1.0;
+		} completion:^(BOOL finished) {
+			[self.liveImageView showGridLines:YES];
 		}];
+	} else {
+		self.liveImageView.image = image;
 	}
-	self.liveImageView.image = image;
 
 	// ライブビューの回転方向をライブビュー拡大表示の全体図に反映します。
 	self.liveImageOverallView.orientation = self.liveImageView.image.imageOrientation;

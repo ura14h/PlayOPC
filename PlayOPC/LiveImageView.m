@@ -11,9 +11,16 @@
 //  このクラスはImageCaptureSampleのCameraLiveImageViewクラスを元にして再構成したものです。
 
 #import "LiveImageView.h"
+#import "LiveImageGridLayer.h"
 #import <OLYCameraKit/OLYCamera.h>
 
 @interface LiveImageView ()
+
+// フラッシュ表現関連
+@property (assign, nonatomic) CGFloat flashingOpacity; ///< フラッシュ表現の不透明度
+@property (strong, nonatomic) UIColor *flashingColor; ///< フラッシュ表現の色
+@property (assign, nonatomic) BOOL showingFlashing; ///< フラッシュ表現を表示しているか否か
+@property (strong, nonatomic) CALayer *flashingLayer; ///< フラッシュ表現の描画レイヤー
 
 // オートフォーカス枠関連
 @property (assign, nonatomic) CGFloat focusFrameBorderWidth; ///< オートフォーカス枠の幅
@@ -65,11 +72,14 @@
 @property (strong, nonatomic) CALayer *autoExposureEffectiveAreaLayer; ///< AE有効枠の描画レイヤー
 @property (strong, nonatomic) NSTimer *autoExposureEffectiveAreaHideTimer; ///< AE有効枠の消去待ちタイマー
 
-// フラッシュ表現関連
-@property (assign, nonatomic) CGFloat flashingOpacity; ///< フラッシュ表現の不透明度
-@property (strong, nonatomic) UIColor *flashingColor; ///< フラッシュ表現の色
-@property (assign, nonatomic) BOOL showingFlashing; ///< フラッシュ表現を表示しているか否か
-@property (strong, nonatomic) CALayer *flashingLayer; ///< フラッシュ表現の描画レイヤー
+// グリッド表示関連
+@property (assign, nonatomic) NSUInteger gridLines; ///< グリッドの分割数
+@property (assign, nonatomic) CGFloat gridLineWidth; ///< グリッド線の幅
+@property (assign, nonatomic) CGFloat gridLineOpacity; ///< グリッド線の不透明度
+@property (strong, nonatomic) UIColor *gridLineColor; ///< グリッド線の色
+@property (assign, nonatomic) BOOL showingGrid; ///< グリッドを表示しているか否か
+@property (assign, nonatomic) CGRect gridRect; ///< グリッドの位置
+@property (strong, nonatomic) LiveImageGridLayer *gridLayer; ///< グリッド線の描画レイヤー
 
 @end
 
@@ -104,6 +114,8 @@
 - (void)initComponent {
 	DEBUG_LOG(@"");
 
+	_flashingOpacity = 1.0;
+	_flashingColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	_focusFrameBorderWidth = 2.0;
 	_focusFrameBorderOpacity = 1.0;
 	_focusFrameBorderColorStatusRunning = [UIColor colorWithRed:0.75 green:1.0 blue:0.75 alpha:1.0];
@@ -123,15 +135,32 @@
 	_autoExposureEffectiveAreaBorderWidth = 2.0;
 	_autoExposureEffectiveAreaBorderOpacity = 0.5;
 	_autoExposureEffectiveAreaBorderColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-	_flashingOpacity = 1.0;
-	_flashingColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-	
+	_gridLines = 3;
+	_gridLineWidth = 1.0;
+	_gridLineOpacity = 1.0;
+	_gridLineColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
 	
 	[CATransaction begin];
 	[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
 
 	// 後から追加したレイヤーの方が手前に現れます。
 	// フラッシュ表現のレイヤーを一番手前に表示したいので一番最後にビューに追加します。
+
+	// グリッドに関する情報を初期化します。
+	_showingGrid = NO;
+	_gridRect = CGRectMake(0.0, 0.0, 1.0, 1.0);
+	LiveImageGridLayer *gridLayer = [LiveImageGridLayer layer];
+	gridLayer.gridLines = _gridLines;
+	gridLayer.gridLineWidth = _gridLineWidth;
+	gridLayer.gridLineColor = _gridLineColor;
+	gridLayer.opacity = _gridLineOpacity;
+	gridLayer.frame = _gridRect;
+	gridLayer.shadowColor = [[UIColor blackColor] CGColor];
+	gridLayer.shadowOpacity = _gridLineOpacity * 0.5;
+	gridLayer.shadowRadius = _gridLineWidth + 1.0;
+	gridLayer.shadowOffset = CGSizeZero;
+	[self.layer addSublayer:gridLayer];
+	_gridLayer = gridLayer;
 	
 	// AF有効枠に関する情報を初期化します。
 	_showingAutoFocusEffectiveArea = NO;
@@ -222,6 +251,9 @@
 	_exposureFrameBorderColorStatusLocked = nil;
 	_exposureFrameBorderColorStatusFailed = nil;
 	_exposureFrameLayer = nil;
+
+	_flashingColor = nil;
+	_flashingLayer = nil;
 	
 	_faceFrameBorderColor = nil;
 	_showingFaceFrames = nil;
@@ -237,9 +269,8 @@
 	[_autoExposureEffectiveAreaHideTimer invalidate];
 	_autoExposureEffectiveAreaBorderColor = nil;
 	_autoExposureEffectiveAreaLayer = nil;
-	
-	_flashingColor = nil;
-	_flashingLayer = nil;
+
+	_gridLayer = nil;
 }
 
 - (void)setFrame:(CGRect)rect {
@@ -689,6 +720,42 @@
 	self.showingFlashing = YES;
 }
 
+/// グリッド線の表示を終了します。
+- (void)hideGridLines:(BOOL)animated {
+	DEBUG_DETAIL_LOG(@"");
+	
+	if (!animated) {
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	}
+	self.gridLayer.opacity = 0.0;
+	if (!animated) {
+		[CATransaction commit];
+	}
+	
+	self.showingGrid = NO;
+}
+
+/// グリッド線の表示を開始します。
+- (void)showGridLines:(BOOL)animated {
+	DEBUG_DETAIL_LOG(@"");
+	
+	if (!self.image) {
+		return;
+	}
+	
+	if (!animated) {
+		[CATransaction begin];
+		[CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+	}
+	self.gridLayer.opacity = self.gridLineOpacity;
+	if (!animated) {
+		[CATransaction commit];
+	}
+	
+	self.showingGrid = YES;
+}
+
 #pragma mark -
 
 - (void)updateAllFramesPosition {
@@ -696,6 +763,14 @@
 
 	if (!self.image) {
 		return;
+	}
+
+	// フラッシュ表現の位置を更新します。
+	{
+		CGRect rect = CGRectMake(0, 0, 1, 1);
+		CGRect rectOnImage = OLYCameraConvertRectOnViewfinderIntoLiveImage(rect, self.image);
+		CGRect rectOnImageView = [self convertRectFromImageArea:rectOnImage];
+		self.flashingLayer.frame = rectOnImageView;
 	}
 
 	// オートフォーカス枠の位置を更新します。
@@ -736,12 +811,11 @@
 		self.autoExposureEffectiveAreaLayer.frame = rectOnImageView;
 	}
 	
-	// フラッシュ表現の位置を更新します。
+	// グリッド線の位置を更新します。
 	{
-		CGRect rect = CGRectMake(0, 0, 1, 1);
-		CGRect rectOnImage = OLYCameraConvertRectOnViewfinderIntoLiveImage(rect, self.image);
+		CGRect rectOnImage = OLYCameraConvertRectOnViewfinderIntoLiveImage(self.gridRect, self.image);
 		CGRect rectOnImageView = [self convertRectFromImageArea:rectOnImage];
-		self.flashingLayer.frame = rectOnImageView;
+		self.gridLayer.frame = rectOnImageView;
 	}
 }
 

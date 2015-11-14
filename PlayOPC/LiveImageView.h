@@ -76,4 +76,10 @@ typedef enum : NSInteger {
 /// 撮影中を示すフラッシュの表示を開始します。
 - (void)showFlashing:(BOOL)animated;
 
+/// グリッド線の表示を終了します。
+- (void)hideGridLines:(BOOL)animated;
+
+/// グリッド線の表示を開始します。
+- (void)showGridLines:(BOOL)animated;
+
 @end

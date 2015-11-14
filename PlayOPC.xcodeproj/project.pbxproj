@@ -186,6 +186,8 @@
 		31E81A3E1B5B8C39003685A9 /* RecordingAPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A3C1B5B8C39003685A9 /* RecordingAPanel.storyboard */; };
 		31E81A411B5B8C48003685A9 /* RecordingZPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A3F1B5B8C48003685A9 /* RecordingZPanel.storyboard */; };
 		31E81A441B5B8C75003685A9 /* RecordingVPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */; };
+		31EA27211BF737B4003402C4 /* LiveImageGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */; };
+		31EA27221BF737B4003402C4 /* LiveImageGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */; };
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 /* End PBXBuildFile section */
@@ -391,6 +393,8 @@
 		31E81A541B5B9645003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/RecordingVPanel.strings; sourceTree = "<group>"; };
 		31E81A561B5B964B003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Playback.strings; sourceTree = "<group>"; };
 		31E81A581B5B9651003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = PlayOPC/ja.lproj/System.strings; sourceTree = "<group>"; };
+		31EA271F1BF737B4003402C4 /* LiveImageGridLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveImageGridLayer.h; sourceTree = "<group>"; };
+		31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveImageGridLayer.m; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -471,6 +475,8 @@
 				314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */,
 				3165E5E31ADBC21200D4A680 /* LiveImageView.h */,
 				3165E5E41ADBC21200D4A680 /* LiveImageView.m */,
+				31EA271F1BF737B4003402C4 /* LiveImageGridLayer.h */,
+				31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */,
 				31E1B9DB1BDC5C190069198B /* LiveImageOverallView.h */,
 				31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */,
 				3103FEA01B23F29E008244C9 /* RecImageButton.h */,
@@ -1000,6 +1006,7 @@
 				3164EA061B5C832100B4C3EC /* FavoriteLoadingViewController.m in Sources */,
 				314D7A481ACF87AE004C2644 /* WifiConnector.m in Sources */,
 				319284401AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
+				31EA27211BF737B4003402C4 /* LiveImageGridLayer.m in Sources */,
 				311268F81AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
 				313870A41AC7D27600B00309 /* BluetoothConnector.m in Sources */,
 				3165A30B1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m in Sources */,
@@ -1055,6 +1062,7 @@
 				3164EA071B5C832100B4C3EC /* FavoriteLoadingViewController.m in Sources */,
 				313870A51AC7D27600B00309 /* BluetoothConnector.m in Sources */,
 				3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
+				31EA27221BF737B4003402C4 /* LiveImageGridLayer.m in Sources */,
 				314D7A511ACFDA03004C2644 /* AppCameraLog.m in Sources */,
 				319284411AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
 				3165A30C1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m in Sources */,

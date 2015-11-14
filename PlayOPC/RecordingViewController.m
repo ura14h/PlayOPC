@@ -605,7 +605,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[UIView animateWithDuration:0.5 animations:^{
 			self.liveImageView.alpha = 1.0;
 		} completion:^(BOOL finished) {
+#if 0 // FIXME: グリッド表示機能は画面から設定できるようになるまで一旦無効にしてきます。
 			[self.liveImageView showGridLines:YES];
+#endif
 		}];
 	} else {
 		self.liveImageView.image = image;

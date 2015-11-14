@@ -153,7 +153,7 @@
 	gridLayer.gridLines = _gridLines;
 	gridLayer.gridLineWidth = _gridLineWidth;
 	gridLayer.gridLineColor = _gridLineColor;
-	gridLayer.opacity = _gridLineOpacity;
+	gridLayer.opacity = 0.0;
 	gridLayer.frame = _gridRect;
 	gridLayer.shadowColor = [[UIColor blackColor] CGColor];
 	gridLayer.shadowOpacity = _gridLineOpacity * 0.5;

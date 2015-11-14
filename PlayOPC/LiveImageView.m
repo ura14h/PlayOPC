@@ -196,6 +196,10 @@
 		faceFrameLayer.borderColor = _faceFrameBorderColor.CGColor;
 		faceFrameLayer.opacity = 0.0;
 		faceFrameLayer.frame = CGRectZero;
+		faceFrameLayer.shadowColor = [[UIColor blackColor] CGColor];
+		faceFrameLayer.shadowOpacity = _faceFrameBorderOpacity * 0.5;
+		faceFrameLayer.shadowRadius = _faceFrameBorderWidth + 1.0;
+		faceFrameLayer.shadowOffset = CGSizeZero;
 		[self.layer addSublayer:faceFrameLayer];
 		[faceFrameLayers addObject:faceFrameLayer];
 	}
@@ -210,6 +214,10 @@
 	exposureFrameLayer.borderWidth = _exposureFrameBorderWidth;
 	exposureFrameLayer.opacity = 0.0;
 	exposureFrameLayer.frame = CGRectZero;
+	exposureFrameLayer.shadowColor = [[UIColor blackColor] CGColor];
+	exposureFrameLayer.shadowOpacity = _exposureFrameBorderOpacity * 0.5;
+	exposureFrameLayer.shadowRadius = _exposureFrameBorderWidth + 1.0;
+	exposureFrameLayer.shadowOffset = CGSizeZero;
 	[self.layer addSublayer:exposureFrameLayer];
 	_exposureFrameLayer = exposureFrameLayer;
 	
@@ -220,6 +228,10 @@
 	focusFrameLayer.borderWidth = _focusFrameBorderWidth;
 	focusFrameLayer.opacity = 0.0;
 	focusFrameLayer.frame = CGRectZero;
+	focusFrameLayer.shadowColor = [[UIColor blackColor] CGColor];
+	focusFrameLayer.shadowOpacity = _focusFrameBorderOpacity * 0.5;
+	focusFrameLayer.shadowRadius = _focusFrameBorderWidth + 1.0;
+	focusFrameLayer.shadowOffset = CGSizeZero;
 	[self.layer addSublayer:focusFrameLayer];
 	_focusFrameLayer = focusFrameLayer;
 

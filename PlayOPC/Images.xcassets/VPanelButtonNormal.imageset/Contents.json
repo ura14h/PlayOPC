@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "VPanelButtonNormal.pdf"
+      "filename" : "VPanelButtonNormal.pdf",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

@@ -608,6 +608,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 	
 	// シャッターボタンの状態を撮影中にします。
+	UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelectedWithStoppable"];
+	[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
 	self.takeButton.selected = YES;
 	self.takeButton.enabled = YES;
 
@@ -737,6 +739,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	DEBUG_LOG(@"");
 
 	// シャッターボタンの状態を撮影中にします。
+	UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelectedWithStoppable"];
+	[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
 	self.takeButton.selected = YES;
 	self.takeButton.enabled = YES;
 	
@@ -1713,6 +1717,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			}
 		} else if (progress == OLYCameraTakingProgressReadyCapturing) {
 			// シャッターボタンの状態を撮影中にします。
+			UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelected"];
+			[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
 			weakSelf.takeButton.selected = YES;
 			weakSelf.takeButton.enabled = YES;
 			// 撮影を開始する時にフラッシュ表現を開始します。
@@ -1798,6 +1804,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"");
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// シャッターボタンの状態を撮影中にします。
+		UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelected"];
+		[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
 		weakSelf.takeButton.selected = YES;
 		// 連写撮影を継続します。
 	} errorHandler:^(NSError *error) {
@@ -1916,6 +1924,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		DEBUG_LOG(@"");
 		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
 		// シャッターボタンの状態を撮影中にします。
+		UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelectedWithStoppable"];
+		[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
 		weakSelf.takeButton.selected = YES;
 		weakSelf.takeButton.enabled = YES;
 		// オートブラケット＋インターバルタイマー撮影を継続します。

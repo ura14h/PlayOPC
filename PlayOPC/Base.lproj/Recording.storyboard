@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="y4w-Py-USg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="y4w-Py-USg">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
@@ -35,7 +35,7 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="SPanelButtonSelected"/>
-                                                <state key="highlighted" image="SPanelButtonHighlighted">
+                                                <state key="highlighted" image="SPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <variation key="heightClass=compact-widthClass=regular" misplaced="YES">
@@ -55,7 +55,7 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWW-35-Whv">
                                         <rect key="frame" x="43" y="0.0" width="42" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
                                                 <rect key="frame" x="0.0" y="14" width="42" height="36"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
@@ -66,9 +66,12 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="EPanelButtonSelected"/>
-                                                <state key="highlighted" image="EPanelButtonHighlighted">
+                                                <state key="highlighted" image="EPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="11" y="15" width="42" height="36"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowEPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="aw6-58-D1y"/>
                                                 </connections>
@@ -79,11 +82,14 @@
                                             <constraint firstAttribute="centerX" secondItem="RuL-RO-ACs" secondAttribute="centerX" id="1YI-P9-P6C"/>
                                             <constraint firstAttribute="centerY" secondItem="RuL-RO-ACs" secondAttribute="centerY" id="qRX-ET-CJs"/>
                                         </constraints>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="370" width="64" height="67"/>
+                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQN-Pl-abN">
                                         <rect key="frame" x="85" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
                                                 <rect key="frame" x="1" y="14" width="42" height="36"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
@@ -94,9 +100,12 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="CPanelButtonSelected"/>
-                                                <state key="highlighted" image="CPanelButtonHighlighted">
+                                                <state key="highlighted" image="CPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="12" y="16" width="42" height="36"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowCPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="iSy-a3-Aoh"/>
                                                 </connections>
@@ -107,6 +116,9 @@
                                             <constraint firstAttribute="centerY" secondItem="VqA-pW-FV9" secondAttribute="centerY" id="9WC-Kn-jgL"/>
                                             <constraint firstAttribute="centerX" secondItem="VqA-pW-FV9" secondAttribute="centerX" id="HQM-LK-oho"/>
                                         </constraints>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="302" width="64" height="68"/>
+                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUz-or-nvI">
                                         <rect key="frame" x="128" y="0.0" width="64" height="64"/>
@@ -143,7 +155,7 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9l-OL-5vM">
                                         <rect key="frame" x="192" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
+                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
                                                 <rect key="frame" x="0.0" y="14" width="42" height="36"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
@@ -154,9 +166,12 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="APanelButtonSelected"/>
-                                                <state key="highlighted" image="APanelButtonHighlighted">
+                                                <state key="highlighted" image="APanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="11" y="16" width="42" height="36"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowAPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="cFh-2M-Vst"/>
                                                 </connections>
@@ -167,12 +182,15 @@
                                             <constraint firstAttribute="centerY" secondItem="ZQQ-QB-tBG" secondAttribute="centerY" id="2ZP-5h-cEU"/>
                                             <constraint firstAttribute="centerX" secondItem="ZQQ-QB-tBG" secondAttribute="centerX" id="BRh-5Q-ak8"/>
                                         </constraints>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="134" width="64" height="68"/>
+                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwJ-AF-aVt">
                                         <rect key="frame" x="235" y="0.0" width="42" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-qt-gfv">
-                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                                <rect key="frame" x="-4" y="10" width="50" height="44"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="ZPanelButtonNormal">
@@ -182,9 +200,12 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="ZPanelButtonSelected"/>
-                                                <state key="highlighted" image="ZPanelButtonHighlighted">
+                                                <state key="highlighted" image="ZPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="11" y="16" width="42" height="36"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowZPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="6LF-nO-mkO"/>
                                                 </connections>
@@ -195,12 +216,15 @@
                                             <constraint firstAttribute="centerY" secondItem="Vee-qt-gfv" secondAttribute="centerY" id="OaO-9V-l9Z"/>
                                             <constraint firstAttribute="centerX" secondItem="Vee-qt-gfv" secondAttribute="centerX" id="y9k-L0-uPF"/>
                                         </constraints>
+                                        <variation key="heightClass=compact" misplaced="YES">
+                                            <rect key="frame" x="0.0" y="67" width="64" height="67"/>
+                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loJ-QR-bft">
                                         <rect key="frame" x="277" y="0.0" width="43" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vso-DW-Pa1">
-                                                <rect key="frame" x="1" y="14" width="42" height="36"/>
+                                                <rect key="frame" x="-3" y="10" width="50" height="44"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="VPanelButtonNormal">
@@ -210,9 +234,12 @@
                                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
                                                 <state key="selected" image="VPanelButtonSelected"/>
-                                                <state key="highlighted" image="VPanelButtonHighlighted">
+                                                <state key="highlighted" image="VPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
+                                                <variation key="heightClass=compact" misplaced="YES">
+                                                    <rect key="frame" x="12" y="16" width="42" height="36"/>
+                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowVPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="IzP-iC-sgO"/>
                                                 </connections>
@@ -984,15 +1011,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="APanelButtonHighlighted" width="24" height="24"/>
-        <image name="APanelButtonNormal" width="24" height="24"/>
-        <image name="APanelButtonSelected" width="24" height="24"/>
-        <image name="CPanelButtonHighlighted" width="24" height="24"/>
-        <image name="CPanelButtonNormal" width="24" height="24"/>
-        <image name="CPanelButtonSelected" width="24" height="24"/>
-        <image name="EPanelButtonHighlighted" width="24" height="24"/>
-        <image name="EPanelButtonNormal" width="24" height="24"/>
-        <image name="EPanelButtonSelected" width="24" height="24"/>
+        <image name="APanelButtonNormal" width="32" height="32"/>
+        <image name="APanelButtonSelected" width="32" height="32"/>
+        <image name="CPanelButtonNormal" width="32" height="32"/>
+        <image name="CPanelButtonSelected" width="32" height="32"/>
+        <image name="EPanelButtonNormal" width="32" height="32"/>
+        <image name="EPanelButtonSelected" width="32" height="32"/>
         <image name="MoveToDownButtonNormal" width="32" height="32"/>
         <image name="MoveToDownButtonSelected" width="32" height="32"/>
         <image name="MoveToLeftButtonNormal" width="32" height="32"/>
@@ -1001,18 +1025,15 @@
         <image name="MoveToRightButtonSelected" width="32" height="32"/>
         <image name="MoveToUpButtonNormal" width="32" height="32"/>
         <image name="MoveToUpButtonSelected" width="32" height="32"/>
-        <image name="SPanelButtonHighlighted" width="24" height="24"/>
-        <image name="SPanelButtonNormal" width="24" height="24"/>
-        <image name="SPanelButtonSelected" width="24" height="24"/>
+        <image name="SPanelButtonNormal" width="32" height="32"/>
+        <image name="SPanelButtonSelected" width="32" height="32"/>
         <image name="TakeButtonDefault" width="52" height="52"/>
         <image name="TakeButtonDisabled" width="52" height="52"/>
         <image name="TakeButtonHighlighted" width="52" height="52"/>
         <image name="TakeButtonSelected" width="52" height="52"/>
-        <image name="VPanelButtonHighlighted" width="24" height="24"/>
-        <image name="VPanelButtonNormal" width="24" height="24"/>
-        <image name="VPanelButtonSelected" width="24" height="24"/>
-        <image name="ZPanelButtonHighlighted" width="24" height="24"/>
-        <image name="ZPanelButtonNormal" width="24" height="24"/>
-        <image name="ZPanelButtonSelected" width="24" height="24"/>
+        <image name="VPanelButtonNormal" width="32" height="32"/>
+        <image name="VPanelButtonSelected" width="32" height="32"/>
+        <image name="ZPanelButtonNormal" width="32" height="32"/>
+        <image name="ZPanelButtonSelected" width="32" height="32"/>
     </resources>
 </document>

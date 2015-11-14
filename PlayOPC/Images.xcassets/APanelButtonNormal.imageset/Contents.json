@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "APanelButtonNormal.pdf"
+      "filename" : "APanelButtonNormal.pdf",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

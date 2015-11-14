@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "EPanelButtonSelected.pdf"
+      "filename" : "EPanelButtonSelected.pdf",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

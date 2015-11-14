@@ -2,8 +2,8 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x",
-      "filename" : "ZPanelButtonNormal.pdf"
+      "filename" : "ZPanelButtonNormal.pdf",
+      "scale" : "1x"
     },
     {
       "idiom" : "universal",

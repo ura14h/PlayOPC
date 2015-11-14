@@ -18,6 +18,7 @@
 #import "LiveImageOverallView.h"
 #import "RecImageButton.h"
 #import "MarginedLabel.h"
+#import "ImmediatelyPanGestureRecognizer.h"
 #import "RecImageViewController.h"
 #import "SPanelViewController.h"
 #import "EPanelViewController.h"
@@ -66,12 +67,14 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 //    |    |    |-- moveToDownButton ... ライブビュー拡大表示の下移動
 //    |    |    |-- progressLabel ... 撮影進捗メッセージ
 //    |    |-- controlPanelView
-//    |         |-- SPanelView ... ステータス全般と設定全体の保存と呼び出し
-//    |         |-- EPanelView ... 露出と撮影モード
-//    |         |-- CPanelView ... 色味と画像エフェクト
-//    |         |-- APanelView ... オートフォーカスと自動露出
-//    |         |-- ZPanelView ... 光学ズームとデジタルズーム
-//    |         |-- VPanelView ... 画面表示と音量と画像保存
+//    |    |    |-- SPanelView ... ステータス全般と設定全体の保存と呼び出し
+//    |    |    |-- EPanelView ... 露出と撮影モード
+//    |    |    |-- CPanelView ... 色味と画像エフェクト
+//    |    |    |-- APanelView ... オートフォーカスと自動露出
+//    |    |    |-- ZPanelView ... 光学ズームとデジタルズーム
+//    |    |    |-- VPanelView ... 画面表示と音量と画像保存
+//    |    |-- controlPanelVerticalDragImageView ... コントロールパネルのリサイズ表示(縦移動用)
+//    |    |-- controlPanelHorizontalDragImageView ... コントロールパネルのリサイズ表示(横移動用)
 //    |-- toolPanelView
 //         |-- showSPanelButton
 //         |-- showEPanelButton
@@ -96,6 +99,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIView *controlPanelView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewHeightConstraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewWidthConstraints;
+@property (weak, nonatomic) IBOutlet UIImageView *controlPanelVerticalDragImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *controlPanelHorizontalDragImageView;
 @property (weak, nonatomic) IBOutlet UIView *SPanelView;
 @property (weak, nonatomic) IBOutlet UIView *EPanelView;
 @property (weak, nonatomic) IBOutlet UIView *CPanelView;
@@ -171,6 +176,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	self.controlPanelVisibleStatus = ControlPanelVisibleStatusUnknown;
 	self.controlPanelWidthRatio = 0.5;
 	self.controlPanelHeightRatio = 0.5;
+	self.controlPanelHorizontalDragImageView.alpha = 0.0;
+	self.controlPanelVerticalDragImageView.alpha = 0.0;
 	self.toolPanelView.layer.borderWidth = 0.5;
 	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
 	self.takeButton.selected = NO;
@@ -472,7 +479,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// セグエは埋め込み用セグエでかつ埋め込んであるのはナビゲーションコントローラーしか許しません。
 		UINavigationController *navigationController = segue.destinationViewController;
 		// コントロールパネルのナビゲーションバーのドラッグを検知します。
-		UIPanGestureRecognizer *gestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanNavigationBarInControlPanel:)];
+		ImmediatelyPanGestureRecognizer *gestureRecognizer = [[ImmediatelyPanGestureRecognizer alloc] initWithTarget:self action:@selector(didPanNavigationBarInControlPanel:)];
 		[navigationController.navigationBar addGestureRecognizer:gestureRecognizer];
 		// コントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
 		navigationController.navigationBar.barTintColor = nil;
@@ -1345,6 +1352,17 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	AppCamera *camera = GetAppCamera();
 	if (sender.state == UIGestureRecognizerStateBegan) {
 		// ドラッグを開始しました。
+		
+		// ナビゲーションバーの戻るボタンや完了ボタンにドラッグ操作が被ると気持ち悪いので、
+		// 中央にあるタイトル付近をドラッグする時だけ反応させます。
+		CGPoint point = [sender locationInView:sender.view];
+		CGFloat areaWidth = CGRectGetWidth(sender.view.frame) * 0.333;
+		CGFloat areaLeftEdge = CGRectGetMidX(sender.view.frame) - areaWidth * 0.5;
+		CGFloat areaRightEdge = CGRectGetMidX(sender.view.frame) + areaWidth * 0.5;
+		if (point.x < areaLeftEdge || point.x > areaRightEdge) {
+			sender.enabled = NO;
+			return;
+		}
 
 		// 一時的にライブビューを止めて表示のチラツキを食い止めます。
 		NSError *error = nil;
@@ -1352,6 +1370,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			// エラーは無視して続行します。
 		}
 		[UIView animateWithDuration:0.25 animations:^{
+			self.controlPanelHorizontalDragImageView.alpha = 1.0;
+			self.controlPanelVerticalDragImageView.alpha = 1.0;
 			self.cameraPanelView.alpha = 0.5;
 		}];
 		
@@ -1399,6 +1419,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		
 	} else if (sender.state == UIGestureRecognizerStateEnded || sender.state == UIGestureRecognizerStateCancelled) {
 		// ドラッグを終了しました。
+		sender.enabled = YES;
 		
 		// ライブビューを再開します。
 		NSError *error = nil;
@@ -1406,6 +1427,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			// エラーは無視して続行します。
 		}
 		[UIView animateWithDuration:0.25 animations:^{
+			self.controlPanelHorizontalDragImageView.alpha = 0.0;
+			self.controlPanelVerticalDragImageView.alpha = 0.0;
 			self.cameraPanelView.alpha = 1.0;
 		}];
 	}

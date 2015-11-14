@@ -24,8 +24,8 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W44-R7-ylK">
                                         <rect key="frame" x="0.0" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
-                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
+                                                <rect key="frame" x="-5" y="9" width="52" height="46"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="SPanelButtonNormal">
@@ -55,8 +55,8 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oWW-35-Whv">
                                         <rect key="frame" x="43" y="0.0" width="42" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
-                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
+                                                <rect key="frame" x="-5" y="9" width="52" height="46"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="EPanelButtonNormal">
@@ -69,9 +69,6 @@
                                                 <state key="highlighted" image="EPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="11" y="15" width="42" height="36"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowEPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="aw6-58-D1y"/>
                                                 </connections>
@@ -82,15 +79,12 @@
                                             <constraint firstAttribute="centerX" secondItem="RuL-RO-ACs" secondAttribute="centerX" id="1YI-P9-P6C"/>
                                             <constraint firstAttribute="centerY" secondItem="RuL-RO-ACs" secondAttribute="centerY" id="qRX-ET-CJs"/>
                                         </constraints>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="370" width="64" height="67"/>
-                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GQN-Pl-abN">
                                         <rect key="frame" x="85" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
-                                                <rect key="frame" x="1" y="14" width="42" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
+                                                <rect key="frame" x="-4" y="9" width="52" height="46"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="CPanelButtonNormal">
@@ -103,9 +97,6 @@
                                                 <state key="highlighted" image="CPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="12" y="16" width="42" height="36"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowCPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="iSy-a3-Aoh"/>
                                                 </connections>
@@ -116,9 +107,6 @@
                                             <constraint firstAttribute="centerY" secondItem="VqA-pW-FV9" secondAttribute="centerY" id="9WC-Kn-jgL"/>
                                             <constraint firstAttribute="centerX" secondItem="VqA-pW-FV9" secondAttribute="centerX" id="HQM-LK-oho"/>
                                         </constraints>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="302" width="64" height="68"/>
-                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QUz-or-nvI">
                                         <rect key="frame" x="128" y="0.0" width="64" height="64"/>
@@ -155,8 +143,8 @@
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="y9l-OL-5vM">
                                         <rect key="frame" x="192" y="0.0" width="43" height="64"/>
                                         <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
-                                                <rect key="frame" x="0.0" y="14" width="42" height="36"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
+                                                <rect key="frame" x="-5" y="9" width="52" height="46"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="APanelButtonNormal">
@@ -169,9 +157,6 @@
                                                 <state key="highlighted" image="APanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="11" y="16" width="42" height="36"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowAPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="cFh-2M-Vst"/>
                                                 </connections>
@@ -182,15 +167,12 @@
                                             <constraint firstAttribute="centerY" secondItem="ZQQ-QB-tBG" secondAttribute="centerY" id="2ZP-5h-cEU"/>
                                             <constraint firstAttribute="centerX" secondItem="ZQQ-QB-tBG" secondAttribute="centerX" id="BRh-5Q-ak8"/>
                                         </constraints>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="134" width="64" height="68"/>
-                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AwJ-AF-aVt">
                                         <rect key="frame" x="235" y="0.0" width="42" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-qt-gfv">
-                                                <rect key="frame" x="-4" y="10" width="50" height="44"/>
+                                                <rect key="frame" x="-5" y="9" width="52" height="46"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="ZPanelButtonNormal">
@@ -203,9 +185,6 @@
                                                 <state key="highlighted" image="ZPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="11" y="16" width="42" height="36"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowZPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="6LF-nO-mkO"/>
                                                 </connections>
@@ -216,15 +195,12 @@
                                             <constraint firstAttribute="centerY" secondItem="Vee-qt-gfv" secondAttribute="centerY" id="OaO-9V-l9Z"/>
                                             <constraint firstAttribute="centerX" secondItem="Vee-qt-gfv" secondAttribute="centerX" id="y9k-L0-uPF"/>
                                         </constraints>
-                                        <variation key="heightClass=compact" misplaced="YES">
-                                            <rect key="frame" x="0.0" y="67" width="64" height="67"/>
-                                        </variation>
                                     </view>
                                     <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="loJ-QR-bft">
                                         <rect key="frame" x="277" y="0.0" width="43" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vso-DW-Pa1">
-                                                <rect key="frame" x="-3" y="10" width="50" height="44"/>
+                                                <rect key="frame" x="-4" y="9" width="52" height="46"/>
                                                 <animations/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="VPanelButtonNormal">
@@ -237,9 +213,6 @@
                                                 <state key="highlighted" image="VPanelButtonSelected">
                                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </state>
-                                                <variation key="heightClass=compact" misplaced="YES">
-                                                    <rect key="frame" x="12" y="16" width="42" height="36"/>
-                                                </variation>
                                                 <connections>
                                                     <action selector="didTapShowVPanelButton:" destination="y4w-Py-USg" eventType="touchUpInside" id="IzP-iC-sgO"/>
                                                 </connections>
@@ -702,31 +675,94 @@
                                             </mask>
                                         </variation>
                                     </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Id5-rg-miO">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="32" id="USI-Fo-vpA"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="USI-Fo-vpA"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=compact">
+                                            <mask key="constraints">
+                                                <include reference="USI-Fo-vpA"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular">
+                                            <mask key="constraints">
+                                                <exclude reference="USI-Fo-vpA"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="s1M-Vy-wev">
+                                        <rect key="frame" x="0.0" y="204" width="320" height="32"/>
+                                        <animations/>
+                                        <color key="backgroundColor" red="0.0" green="1" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="32" id="MDc-FG-5Q4"/>
+                                        </constraints>
+                                        <variation key="heightClass=compact">
+                                            <mask key="constraints">
+                                                <exclude reference="MDc-FG-5Q4"/>
+                                            </mask>
+                                        </variation>
+                                        <variation key="heightClass=regular">
+                                            <mask key="constraints">
+                                                <include reference="MDc-FG-5Q4"/>
+                                            </mask>
+                                        </variation>
+                                    </imageView>
                                 </subviews>
                                 <animations/>
                                 <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Id5-rg-miO" secondAttribute="bottom" id="3VN-HK-Hf9"/>
                                     <constraint firstAttribute="bottom" secondItem="pmY-fA-6RK" secondAttribute="bottom" id="3uI-IO-jSw"/>
                                     <constraint firstItem="pmY-fA-6RK" firstAttribute="top" secondItem="mWa-4Q-MUL" secondAttribute="top" id="AZv-LS-QUg"/>
+                                    <constraint firstAttribute="trailing" secondItem="s1M-Vy-wev" secondAttribute="trailing" id="CuJ-91-kil"/>
+                                    <constraint firstItem="Id5-rg-miO" firstAttribute="top" secondItem="mWa-4Q-MUL" secondAttribute="top" id="Df7-Qh-Fcr"/>
+                                    <constraint firstItem="s1M-Vy-wev" firstAttribute="leading" secondItem="mWa-4Q-MUL" secondAttribute="leading" id="Hz3-No-NEz"/>
                                     <constraint firstAttribute="trailing" secondItem="pmY-fA-6RK" secondAttribute="trailing" id="Jbr-Uh-DqJ"/>
+                                    <constraint firstItem="Id5-rg-miO" firstAttribute="leading" secondItem="CRA-Yr-lpp" secondAttribute="leading" constant="-16" id="M4z-mB-8s6"/>
                                     <constraint firstItem="CRA-Yr-lpp" firstAttribute="top" secondItem="mWa-4Q-MUL" secondAttribute="top" id="M9P-gH-lDi"/>
                                     <constraint firstAttribute="bottom" secondItem="CRA-Yr-lpp" secondAttribute="bottom" id="P5e-oW-g8P"/>
                                     <constraint firstItem="pmY-fA-6RK" firstAttribute="leading" secondItem="mWa-4Q-MUL" secondAttribute="leading" id="TyO-oo-UNg"/>
                                     <constraint firstItem="CRA-Yr-lpp" firstAttribute="leading" secondItem="mWa-4Q-MUL" secondAttribute="leading" id="W2D-ZO-mfJ"/>
+                                    <constraint firstItem="s1M-Vy-wev" firstAttribute="top" secondItem="CRA-Yr-lpp" secondAttribute="top" constant="-16" id="Y8H-nL-hep"/>
                                     <constraint firstItem="CRA-Yr-lpp" firstAttribute="top" secondItem="pmY-fA-6RK" secondAttribute="bottom" id="byW-n7-uCP"/>
                                     <constraint firstAttribute="trailing" secondItem="CRA-Yr-lpp" secondAttribute="trailing" id="ciO-8U-5RY"/>
                                     <constraint firstItem="CRA-Yr-lpp" firstAttribute="leading" secondItem="pmY-fA-6RK" secondAttribute="trailing" id="iiJ-59-i0i"/>
                                 </constraints>
                                 <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="Id5-rg-miO"/>
+                                    </mask>
                                     <mask key="constraints">
                                         <exclude reference="3uI-IO-jSw"/>
+                                        <exclude reference="3VN-HK-Hf9"/>
+                                        <exclude reference="Df7-Qh-Fcr"/>
+                                        <exclude reference="M4z-mB-8s6"/>
                                         <exclude reference="M9P-gH-lDi"/>
                                         <exclude reference="iiJ-59-i0i"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="Id5-rg-miO"/>
+                                        <exclude reference="s1M-Vy-wev"/>
+                                    </mask>
                                     <mask key="constraints">
+                                        <exclude reference="CuJ-91-kil"/>
+                                        <exclude reference="Hz3-No-NEz"/>
+                                        <exclude reference="Y8H-nL-hep"/>
                                         <include reference="3uI-IO-jSw"/>
                                         <exclude reference="Jbr-Uh-DqJ"/>
+                                        <include reference="3VN-HK-Hf9"/>
+                                        <include reference="Df7-Qh-Fcr"/>
+                                        <include reference="M4z-mB-8s6"/>
                                         <include reference="M9P-gH-lDi"/>
                                         <exclude reference="W2D-ZO-mfJ"/>
                                         <exclude reference="byW-n7-uCP"/>
@@ -734,9 +770,19 @@
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
+                                    <mask key="subviews">
+                                        <exclude reference="Id5-rg-miO"/>
+                                        <include reference="s1M-Vy-wev"/>
+                                    </mask>
                                     <mask key="constraints">
+                                        <include reference="CuJ-91-kil"/>
+                                        <include reference="Hz3-No-NEz"/>
+                                        <include reference="Y8H-nL-hep"/>
                                         <exclude reference="3uI-IO-jSw"/>
                                         <include reference="Jbr-Uh-DqJ"/>
+                                        <exclude reference="3VN-HK-Hf9"/>
+                                        <exclude reference="Df7-Qh-Fcr"/>
+                                        <exclude reference="M4z-mB-8s6"/>
                                         <exclude reference="M9P-gH-lDi"/>
                                         <include reference="W2D-ZO-mfJ"/>
                                         <include reference="byW-n7-uCP"/>
@@ -800,6 +846,8 @@
                         <outlet property="VPanelView" destination="ktu-lN-UoL" id="JPH-jZ-lVt"/>
                         <outlet property="ZPanelView" destination="HgU-cN-4Z9" id="tgu-Qb-HqO"/>
                         <outlet property="cameraPanelView" destination="pmY-fA-6RK" id="3hh-Vg-UOR"/>
+                        <outlet property="controlPanelHorizontalDragImageView" destination="Id5-rg-miO" id="vQK-Ka-1mg"/>
+                        <outlet property="controlPanelVerticalDragImageView" destination="s1M-Vy-wev" id="pE3-04-1ke"/>
                         <outlet property="controlPanelView" destination="CRA-Yr-lpp" id="fSn-IV-GLM"/>
                         <outlet property="controlPanelViewHeightConstraints" destination="NEj-Up-RLe" id="bzZ-qg-ZqS"/>
                         <outlet property="controlPanelViewWidthConstraints" destination="dV3-Nl-DZ8" id="kau-8v-wwp"/>
@@ -846,7 +894,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1396" y="-1298"/>
+            <point key="canvasLocation" x="1396" y="-1298.25"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="fc1-2M-j5f">
@@ -1011,12 +1059,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="APanelButtonNormal" width="32" height="32"/>
-        <image name="APanelButtonSelected" width="32" height="32"/>
-        <image name="CPanelButtonNormal" width="32" height="32"/>
-        <image name="CPanelButtonSelected" width="32" height="32"/>
-        <image name="EPanelButtonNormal" width="32" height="32"/>
-        <image name="EPanelButtonSelected" width="32" height="32"/>
+        <image name="APanelButtonNormal" width="34" height="34"/>
+        <image name="APanelButtonSelected" width="34" height="34"/>
+        <image name="CPanelButtonNormal" width="34" height="34"/>
+        <image name="CPanelButtonSelected" width="34" height="34"/>
+        <image name="EPanelButtonNormal" width="34" height="34"/>
+        <image name="EPanelButtonSelected" width="34" height="34"/>
         <image name="MoveToDownButtonNormal" width="32" height="32"/>
         <image name="MoveToDownButtonSelected" width="32" height="32"/>
         <image name="MoveToLeftButtonNormal" width="32" height="32"/>
@@ -1025,15 +1073,15 @@
         <image name="MoveToRightButtonSelected" width="32" height="32"/>
         <image name="MoveToUpButtonNormal" width="32" height="32"/>
         <image name="MoveToUpButtonSelected" width="32" height="32"/>
-        <image name="SPanelButtonNormal" width="32" height="32"/>
-        <image name="SPanelButtonSelected" width="32" height="32"/>
+        <image name="SPanelButtonNormal" width="34" height="34"/>
+        <image name="SPanelButtonSelected" width="34" height="34"/>
         <image name="TakeButtonDefault" width="52" height="52"/>
         <image name="TakeButtonDisabled" width="52" height="52"/>
         <image name="TakeButtonHighlighted" width="52" height="52"/>
         <image name="TakeButtonSelected" width="52" height="52"/>
-        <image name="VPanelButtonNormal" width="32" height="32"/>
-        <image name="VPanelButtonSelected" width="32" height="32"/>
-        <image name="ZPanelButtonNormal" width="32" height="32"/>
-        <image name="ZPanelButtonSelected" width="32" height="32"/>
+        <image name="VPanelButtonNormal" width="34" height="34"/>
+        <image name="VPanelButtonSelected" width="34" height="34"/>
+        <image name="ZPanelButtonNormal" width="34" height="34"/>
+        <image name="ZPanelButtonSelected" width="34" height="34"/>
     </resources>
 </document>

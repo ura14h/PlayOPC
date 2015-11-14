@@ -87,6 +87,8 @@
 		3164EA071B5C832100B4C3EC /* FavoriteLoadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164EA051B5C832100B4C3EC /* FavoriteLoadingViewController.m */; };
 		3164EA0A1B5C833C00B4C3EC /* FavoriteSavingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164EA091B5C833C00B4C3EC /* FavoriteSavingViewController.m */; };
 		3164EA0B1B5C833C00B4C3EC /* FavoriteSavingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3164EA091B5C833C00B4C3EC /* FavoriteSavingViewController.m */; };
+		3165A30B1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165A30A1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m */; };
+		3165A30C1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165A30A1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m */; };
 		3165E5E51ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
 		3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
 		316859B21BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; };
@@ -276,6 +278,8 @@
 		3164EA051B5C832100B4C3EC /* FavoriteLoadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteLoadingViewController.m; sourceTree = "<group>"; };
 		3164EA081B5C833C00B4C3EC /* FavoriteSavingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteSavingViewController.h; sourceTree = "<group>"; };
 		3164EA091B5C833C00B4C3EC /* FavoriteSavingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FavoriteSavingViewController.m; sourceTree = "<group>"; };
+		3165A3091BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImmediatelyPanGestureRecognizer.h; sourceTree = "<group>"; };
+		3165A30A1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImmediatelyPanGestureRecognizer.m; sourceTree = "<group>"; };
 		3165E5E31ADBC21200D4A680 /* LiveImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LiveImageView.h; sourceTree = "<group>"; };
 		3165E5E41ADBC21200D4A680 /* LiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LiveImageView.m; sourceTree = "<group>"; };
 		316859B01BB61847007CFE1E /* AppFavoriteSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppFavoriteSetting.h; sourceTree = "<group>"; };
@@ -574,6 +578,8 @@
 				3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */,
 				31C80DEF1B6DD0E900E77BA4 /* MarginedLabel.h */,
 				31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */,
+				3165A3091BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.h */,
+				3165A30A1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m */,
 				311199C01B08702100538FA0 /* Extended Classes */,
 				311199B71B086F5E00538FA0 /* Imported Classes */,
 				311B75C81ABC287C00A7D38C /* Images.xcassets */,
@@ -996,6 +1002,7 @@
 				319284401AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
 				311268F81AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
 				313870A41AC7D27600B00309 /* BluetoothConnector.m in Sources */,
+				3165A30B1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m in Sources */,
 				31C80DF11B6DD0E900E77BA4 /* MarginedLabel.m in Sources */,
 				31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */,
 				311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
@@ -1050,6 +1057,7 @@
 				3147538F1ABD4BE700FF462E /* AcknowledgementViewController.m in Sources */,
 				314D7A511ACFDA03004C2644 /* AppCameraLog.m in Sources */,
 				319284411AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m in Sources */,
+				3165A30C1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m in Sources */,
 				31C80DF21B6DD0E900E77BA4 /* MarginedLabel.m in Sources */,
 				311268F91AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */,
 				3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */,

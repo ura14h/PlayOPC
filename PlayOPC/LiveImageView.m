@@ -116,17 +116,17 @@
 
 	_flashingOpacity = 1.0;
 	_flashingColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
-	_focusFrameBorderWidth = 2.0;
+	_focusFrameBorderWidth = 1.0;
 	_focusFrameBorderOpacity = 1.0;
 	_focusFrameBorderColorStatusRunning = [UIColor colorWithRed:0.75 green:1.0 blue:0.75 alpha:1.0];
 	_focusFrameBorderColorStatusLocked = [UIColor colorWithRed:0.0 green:1.0 blue:0.0 alpha:1.0];
 	_focusFrameBorderColorStatusFailed = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-	_exposureFrameBorderWidth = 2;
+	_exposureFrameBorderWidth = 1.0;
 	_exposureFrameBorderOpacity = 1.0;
 	_exposureFrameBorderColorStatusRunning = [UIColor colorWithRed:1.0 green:1.0 blue:0.75 alpha:1.0];
 	_exposureFrameBorderColorStatusLocked = [UIColor colorWithRed:1.0 green:1.0 blue:0.0 alpha:1.0];
 	_exposureFrameBorderColorStatusFailed = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-	_faceFrameBorderWidth = 2.0;
+	_faceFrameBorderWidth = 1.0;
 	_faceFrameBorderOpacity = 1.0;
 	_faceFrameBorderColor = [UIColor colorWithRed:0.0 green:0.0 blue:1.0 alpha:1.0];
 	_autoFocusEffectiveAreaBorderWidth = 2.0;

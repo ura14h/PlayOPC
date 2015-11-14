@@ -73,8 +73,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 //    |    |    |-- APanelView ... オートフォーカスと自動露出
 //    |    |    |-- ZPanelView ... 光学ズームとデジタルズーム
 //    |    |    |-- VPanelView ... 画面表示と音量と画像保存
-//    |    |-- controlPanelVerticalDragImageView ... コントロールパネルのリサイズ表示(縦移動用)
-//    |    |-- controlPanelHorizontalDragImageView ... コントロールパネルのリサイズ表示(横移動用)
+//    |    |-- controlPanelVerticalDraggIngIndicatorView ... コントロールパネルのリサイズ表示(縦移動用)
+//    |    |-- controlPanelHorizontalDraggIngIndicatorView ... コントロールパネルのリサイズ表示(横移動用)
 //    |-- toolPanelView
 //         |-- showSPanelButton
 //         |-- showEPanelButton
@@ -99,8 +99,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 @property (weak, nonatomic) IBOutlet UIView *controlPanelView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewHeightConstraints;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *controlPanelViewWidthConstraints;
-@property (weak, nonatomic) IBOutlet UIImageView *controlPanelVerticalDragImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *controlPanelHorizontalDragImageView;
+@property (weak, nonatomic) IBOutlet UIView *controlPanelVerticalDraggIngIndicatorView;
+@property (weak, nonatomic) IBOutlet UIView *controlPanelHorizontalDraggIngIndicatorView;
 @property (weak, nonatomic) IBOutlet UIView *SPanelView;
 @property (weak, nonatomic) IBOutlet UIView *EPanelView;
 @property (weak, nonatomic) IBOutlet UIView *CPanelView;
@@ -176,8 +176,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	self.controlPanelVisibleStatus = ControlPanelVisibleStatusUnknown;
 	self.controlPanelWidthRatio = 0.5;
 	self.controlPanelHeightRatio = 0.5;
-	self.controlPanelHorizontalDragImageView.alpha = 0.0;
-	self.controlPanelVerticalDragImageView.alpha = 0.0;
+	self.controlPanelHorizontalDraggIngIndicatorView.alpha = 0.0;
+	self.controlPanelVerticalDraggIngIndicatorView.alpha = 0.0;
 	self.toolPanelView.layer.borderWidth = 0.5;
 	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
 	self.takeButton.selected = NO;
@@ -1370,8 +1370,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			// エラーは無視して続行します。
 		}
 		[UIView animateWithDuration:0.25 animations:^{
-			self.controlPanelHorizontalDragImageView.alpha = 1.0;
-			self.controlPanelVerticalDragImageView.alpha = 1.0;
+			self.controlPanelHorizontalDraggIngIndicatorView.alpha = 1.0;
+			self.controlPanelVerticalDraggIngIndicatorView.alpha = 1.0;
 			self.cameraPanelView.alpha = 0.5;
 		}];
 		
@@ -1427,8 +1427,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			// エラーは無視して続行します。
 		}
 		[UIView animateWithDuration:0.25 animations:^{
-			self.controlPanelHorizontalDragImageView.alpha = 0.0;
-			self.controlPanelVerticalDragImageView.alpha = 0.0;
+			self.controlPanelHorizontalDraggIngIndicatorView.alpha = 0.0;
+			self.controlPanelVerticalDraggIngIndicatorView.alpha = 0.0;
 			self.cameraPanelView.alpha = 1.0;
 		}];
 	}

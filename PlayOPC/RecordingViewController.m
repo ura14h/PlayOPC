@@ -606,7 +606,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			self.liveImageView.alpha = 1.0;
 		} completion:^(BOOL finished) {
 #if 0 // FIXME: グリッド表示機能は画面から設定できるようになるまで一旦無効にしてきます。
-			[self.liveImageView showGridLines:YES];
+			[self.liveImageView showGridBands:YES];
 #endif
 		}];
 	} else {

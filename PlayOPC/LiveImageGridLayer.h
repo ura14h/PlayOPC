@@ -15,7 +15,7 @@
 /// グリッド分割線を表示するレイヤーです。
 @interface LiveImageGridLayer : CALayer
 
-@property (assign, nonatomic) NSUInteger gridLines; ///< グリッドの分割数
+@property (assign, nonatomic) NSUInteger gridBands; ///< グリッドの分割数
 @property (assign, nonatomic) CGFloat gridLineWidth; ///< グリッド線の幅
 @property (strong, nonatomic) UIColor *gridLineColor; ///< グリッド線の色
 

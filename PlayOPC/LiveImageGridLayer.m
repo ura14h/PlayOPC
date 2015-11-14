@@ -38,7 +38,7 @@
 - (void)initComponent {
 	DEBUG_LOG(@"");
 
-	_gridLines = 3;
+	_gridBands = 3;
 	_gridLineWidth = 1.0;
 	_gridLineColor = [UIColor whiteColor];
 	
@@ -62,11 +62,11 @@
 - (void)drawInContext:(CGContextRef)context {
 	DEBUG_DETAIL_LOG(@"");
 
-	if (self.gridLines == 0 || !self.gridLineColor) {
+	if (self.gridBands == 0 || !self.gridLineColor) {
 		return;
 	}
 	CGSize size = self.bounds.size;
-	CGFloat step = 1.0 / (CGFloat)self.gridLines;
+	CGFloat step = 1.0 / (CGFloat)self.gridBands;
 	
 	for (CGFloat y = 0.0; y < 1.0; y += step) {
 		if (y > 0.0 && y < 1.0) {
@@ -99,10 +99,10 @@
 	CGContextDrawPath(context, kCGPathStroke);
 }
 
-- (void)setGridLines:(NSUInteger)lines {
+- (void)setGridBands:(NSUInteger)lines {
 	DEBUG_DETAIL_LOG(@"");
 
-	_gridLines = lines;
+	_gridBands = lines;
 	[self setNeedsDisplay];
 }
 

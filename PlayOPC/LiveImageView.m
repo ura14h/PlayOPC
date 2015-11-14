@@ -73,7 +73,7 @@
 @property (strong, nonatomic) NSTimer *autoExposureEffectiveAreaHideTimer; ///< AE有効枠の消去待ちタイマー
 
 // グリッド表示関連
-@property (assign, nonatomic) NSUInteger gridLines; ///< グリッドの分割数
+@property (assign, nonatomic) NSUInteger gridBands; ///< グリッドの分割数
 @property (assign, nonatomic) CGFloat gridLineWidth; ///< グリッド線の幅
 @property (assign, nonatomic) CGFloat gridLineOpacity; ///< グリッド線の不透明度
 @property (strong, nonatomic) UIColor *gridLineColor; ///< グリッド線の色
@@ -135,7 +135,7 @@
 	_autoExposureEffectiveAreaBorderWidth = 2.0;
 	_autoExposureEffectiveAreaBorderOpacity = 0.5;
 	_autoExposureEffectiveAreaBorderColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:1.0];
-	_gridLines = 3;
+	_gridBands = 3;
 	_gridLineWidth = 1.0;
 	_gridLineOpacity = 1.0;
 	_gridLineColor = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:1.0];
@@ -150,7 +150,7 @@
 	_showingGrid = NO;
 	_gridRect = CGRectMake(0.0, 0.0, 1.0, 1.0);
 	LiveImageGridLayer *gridLayer = [LiveImageGridLayer layer];
-	gridLayer.gridLines = _gridLines;
+	gridLayer.gridBands = _gridBands;
 	gridLayer.gridLineWidth = _gridLineWidth;
 	gridLayer.gridLineColor = _gridLineColor;
 	gridLayer.opacity = 0.0;
@@ -733,7 +733,7 @@
 }
 
 /// グリッド線の表示を終了します。
-- (void)hideGridLines:(BOOL)animated {
+- (void)hideGridBands:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
 	
 	if (!animated) {
@@ -749,7 +749,7 @@
 }
 
 /// グリッド線の表示を開始します。
-- (void)showGridLines:(BOOL)animated {
+- (void)showGridBands:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
 	
 	if (!self.image) {

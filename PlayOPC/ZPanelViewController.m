@@ -680,6 +680,7 @@
 	// 表示を更新します。
 	self.opticalZoomingMinimumFocalLengthCell.detailTextLabel.text = opticalZoomingMinimumFocalLength;
 	[self updateOpticalZoomingSliderValue];
+	[self updateOpticalZoomingSliderEnabled:YES];
 }
 
 /// カメラに装着されたズームレンズのテレ端での焦点距離の状態を表示します。
@@ -697,6 +698,7 @@
 	// 表示を更新します。
 	self.opticalZoomingMaximumFocalLengthCell.detailTextLabel.text = opticalZoomingMaximumFocalLength;
 	[self updateOpticalZoomingSliderValue];
+	[self updateOpticalZoomingSliderEnabled:YES];
 }
 
 /// カメラに装着されたレンズの現在の焦点距離の状態を表示します。
@@ -706,7 +708,7 @@
 	// プロパティの値を表示用の文言に変換します。
 	AppCamera *camera = GetAppCamera();
 	NSString *opticalZoomingCurrentFocalLength;
-	if (!isnan(camera.actualFocalLength)) {
+	if (!isnan(camera.actualFocalLength) && camera.actualFocalLength > 0.0) {
 		opticalZoomingCurrentFocalLength =  [NSString stringWithFormat:NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLength(%1.1f mm)", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell"), camera.actualFocalLength];
 	} else {
 		opticalZoomingCurrentFocalLength = NSLocalizedString(@"$cell:OpticalZoomingCurrentFocalLengthNotAvailable", @"ZPanelViewController.updateOpticalZoomingCurrentFocalLengthCell");
@@ -738,7 +740,7 @@
 	}
 }
 
-/// デジタルズームの倍率スライダーの有効無効を設定します。
+/// 光学ズームの倍率スライダーの有効無効を設定します。
 - (void)updateOpticalZoomingSliderEnabled:(BOOL)enabled {
 	DEBUG_LOG(@"enabled=%@", (enabled ? @"YES" : @"NO"));
 	
@@ -746,7 +748,17 @@
 	if (!isnan(camera.minimumFocalLength) &&
 		!isnan(camera.maximumFocalLength) &&
 		!isnan(camera.actualFocalLength)) {
-		self.opticalZoomingSlider.enabled = enabled;
+		// 電動ズーム付きレンズが装着されている場合のみ有効です。
+		NSString *lensMountStatus = camera.lensMountStatus;
+		if ([lensMountStatus hasPrefix:@"normal"]) {
+			if ([lensMountStatus rangeOfString:@"+electriczoom"].location != NSNotFound) {
+				self.opticalZoomingSlider.enabled = enabled;
+			} else {
+				self.opticalZoomingSlider.enabled = NO;
+			}
+		} else {
+			self.opticalZoomingSlider.enabled = NO;
+		}
 	} else {
 		self.opticalZoomingSlider.enabled = NO;
 	}

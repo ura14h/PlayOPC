@@ -102,6 +102,7 @@
 		31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
 		31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
 		31841A2D1BC6771A0081C9EF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */; };
+		31888C651BF83D3800258AEC /* ReferenceToolbarDescription.png in Resources */ = {isa = PBXBuildFile; fileRef = 31888C671BF83D3800258AEC /* ReferenceToolbarDescription.png */; };
 		3190B3461B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
 		3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
 		319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 319284331AD8E7E0003BC78F /* RecordingViewController.m */; };
@@ -295,6 +296,8 @@
 		31731EC31AEB88AB0094193A /* VPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VPanelViewController.h; sourceTree = "<group>"; };
 		31731EC41AEB88AB0094193A /* VPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = VPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		31888C661BF83D3800258AEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Base; path = Base.lproj/ReferenceToolbarDescription.png; sourceTree = "<group>"; };
+		31888C681BF83E3100258AEC /* ja */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ja; path = ja.lproj/ReferenceToolbarDescription.png; sourceTree = "<group>"; };
 		3190B3451B34F61C006B0A16 /* UserDefaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = UserDefaults.plist; sourceTree = "<group>"; };
 		319284321AD8E7E0003BC78F /* RecordingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordingViewController.h; sourceTree = "<group>"; };
 		319284331AD8E7E0003BC78F /* RecordingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RecordingViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -612,6 +615,7 @@
 				3116E8711B9A6D470075046D /* IntervalTimerTimeList.plist */,
 				31392FD71B14BECE0097FF1B /* Acknowledgement.html */,
 				31392FD31B14BEC40097FF1B /* Reference.html */,
+				31888C671BF83D3800258AEC /* ReferenceToolbarDescription.png */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -873,6 +877,7 @@
 				31C71DC21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-1.png in Resources */,
 				31392FD81B14BED40097FF1B /* AppCamera.strings in Resources */,
 				31C71DAA1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-15.png in Resources */,
+				31888C651BF83D3800258AEC /* ReferenceToolbarDescription.png in Resources */,
 				31E81A411B5B8C48003685A9 /* RecordingZPanel.storyboard in Resources */,
 				31C71DD11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png in Resources */,
 				31C71DCF1AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-6.png in Resources */,
@@ -1157,6 +1162,15 @@
 				319D8DBC1BAE695D005F8DB8 /* ja */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		31888C671BF83D3800258AEC /* ReferenceToolbarDescription.png */ = {
+			isa = PBXVariantGroup;
+			children = (
+				31888C661BF83D3800258AEC /* Base */,
+				31888C681BF83E3100258AEC /* ja */,
+			);
+			name = ReferenceToolbarDescription.png;
 			sourceTree = "<group>";
 		};
 		31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */ = {

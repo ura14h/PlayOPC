@@ -15,6 +15,7 @@ static NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
 static NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetting";
 static NSString *const UserDefaultsLatestSnapshotOfCameraSetting = @"LatestSnapshotOfCameraSetting";
 static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingAction";
+static NSString *const UserDefaultsShowLiveImageGrid = @"ShowLiveImageGrid";
 
 @interface AppSetting ()
 @end
@@ -165,6 +166,26 @@ static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingActi
 	// ユーザー設定に保存します。
 	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
 	[userDefaults setInteger:action forKey:UserDefaultsLiveViewTappingAction];
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (BOOL)showLiveImageGrid {
+	DEBUG_DETAIL_LOG(@"");
+	
+	// ユーザー設定から読み出します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults boolForKey:UserDefaultsShowLiveImageGrid];
+}
+
+- (void)setShowLiveImageGrid:(BOOL)show {
+	DEBUG_DETAIL_LOG(@"show=%ld", (long)show);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	[userDefaults setBool:show forKey:UserDefaultsShowLiveImageGrid];
 	
 	// アプリケーションの設定が変更されたことを通知します。
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

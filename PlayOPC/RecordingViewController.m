@@ -160,6 +160,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[camera addObserver:self forKeyPath:CameraPropertyRecordingElapsedTime options:0 context:@selector(didChangeRecordingElapsedTime:)];
 	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveView options:0 context:@selector(didChangeMagnifyingLiveView:)];
 	[camera addObserver:self forKeyPath:CameraPropertyMagnifyingLiveViewScale options:0 context:@selector(didChangeMagnifyingLiveViewScale:)];
+	AppSetting *setting = GetAppSetting();
+	[setting addObserver:self forKeyPath:@"showLiveImageGrid" options:0 context:@selector(didChangeShowLiveImageGrid:)];
 	
 	// 画面表示を初期設定します。
 	self.noLiveImageLabel.alpha = 0.0;
@@ -198,6 +200,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)dealloc {
 	DEBUG_LOG(@"");
 
+	AppSetting *setting = GetAppSetting();
+	[setting removeObserver:self forKeyPath:@"showLiveImageGrid"];
 	AppCamera *camera = GetAppCamera();
 	[camera removeObserver:self forKeyPath:CameraPropertyDetectedHumanFaces];
 	[camera removeObserver:self forKeyPath:CameraPropertyRecordingElapsedTime];
@@ -605,9 +609,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[UIView animateWithDuration:0.5 animations:^{
 			self.liveImageView.alpha = 1.0;
 		} completion:^(BOOL finished) {
-#if 0 // FIXME: グリッド表示機能は画面から設定できるようになるまで一旦無効にしてきます。
-			[self.liveImageView showGridBands:YES];
-#endif
+			// ライブビューの表示が始まったらグリッド表示を設定します。
+			AppSetting *setting = GetAppSetting();
+			if (setting.showLiveImageGrid) {
+				[self.liveImageView showGrid:YES];
+			} else {
+				[self.liveImageView hideGrid:NO];
+			}
 		}];
 	} else {
 		self.liveImageView.image = image;
@@ -1071,6 +1079,19 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			}];
 		}
 	}];
+}
+
+/// グリッド表示非表示の設定値が変わった時に呼び出されます。
+- (void)didChangeShowLiveImageGrid:(NSDictionary *)change {
+	DEBUG_LOG(@"");
+
+	// ライブビューのグリッド表示非表示を切り替えます。
+	AppSetting *setting = GetAppSetting();
+	if (setting.showLiveImageGrid) {
+		[self.liveImageView showGrid:YES];
+	} else {
+		[self.liveImageView hideGrid:YES];
+	}
 }
 
 /// ライブビューがタップされた時に呼び出されます。

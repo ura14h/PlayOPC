@@ -77,9 +77,9 @@ typedef enum : NSInteger {
 - (void)showFlashing:(BOOL)animated;
 
 /// グリッド線の表示を終了します。
-- (void)hideGridBands:(BOOL)animated;
+- (void)hideGrid:(BOOL)animated;
 
 /// グリッド線の表示を開始します。
-- (void)showGridBands:(BOOL)animated;
+- (void)showGrid:(BOOL)animated;
 
 @end

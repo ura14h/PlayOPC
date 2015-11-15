@@ -35,4 +35,7 @@ extern NSString *const AppSettingChangedNotification; ///< アプリケーショ
 /// ライブビューパネルでタップした時の動作
 @property (assign, nonatomic) AppSettingLiveViewTappingAction liveViewTappingAction;
 
+/// ライブビューパネルにグリッドを表示するか否か
+@property (assign, nonatomic) BOOL showLiveImageGrid;
+
 @end

@@ -733,7 +733,7 @@
 }
 
 /// グリッド線の表示を終了します。
-- (void)hideGridBands:(BOOL)animated {
+- (void)hideGrid:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
 	
 	if (!animated) {
@@ -749,7 +749,7 @@
 }
 
 /// グリッド線の表示を開始します。
-- (void)showGridBands:(BOOL)animated {
+- (void)showGrid:(BOOL)animated {
 	DEBUG_DETAIL_LOG(@"");
 	
 	if (!self.image) {

@@ -11,6 +11,7 @@
 
 #import "VPanelViewController.h"
 #import "AppDelegate.h"
+#import "AppSetting.h"
 #import "AppCamera.h"
 #import "CameraPropertyValueSelectionViewController.h"
 #import "RecordingLocationManager.h"
@@ -20,6 +21,7 @@
 
 @interface VPanelViewController () <OLYCameraPropertyDelegate, ItemSelectionViewControllerDelegate, CLLocationManagerDelegate>
 
+@property (weak, nonatomic) IBOutlet UISwitch *showLiveViewGridSwitch;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showLiveViewSizeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showSoundVolumeLevelCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showFaceScanCell;
@@ -135,6 +137,7 @@
 	self.showQualityMovieShortMovieRecordTimeCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showGpsCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showDestinationFileCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showLiveViewGridSwitch.enabled = NO;
 	[self tableViewCell:self.showLiveViewSizeCell enabled:NO];
 	[self tableViewCell:self.showFaceScanCell enabled:NO];
 	[self tableViewCell:self.showRecviewCell enabled:NO];
@@ -203,6 +206,7 @@
 	}
 	
 	// 表示を更新します。
+	[self updateShowLiveViewGridSwitch];
 	[self updateShowLiveViewSizeCell];
 	[self updateShowSoundVolumeLevelCell];
 	[self updateShowFaceScanCell];
@@ -232,6 +236,7 @@
 	}
 
 	// 表示を更新します。
+	self.showLiveViewGridSwitch.enabled = NO;
 	[self tableViewCell:self.showLiveViewSizeCell enabled:NO];
 	[self tableViewCell:self.showFaceScanCell enabled:NO];
 	[self tableViewCell:self.showRecviewCell enabled:NO];
@@ -413,6 +418,15 @@
 
 #pragma mark -
 
+/// ライブビューのグリッドスイッチが変わった時に呼び出されます。
+- (IBAction)didChangeLiveViewGridSwithValue:(UISwitch *)sender {
+	DEBUG_LOG(@"");
+
+	// グリッド表示非表示の設定値を変更します。
+	AppSetting *setting = GetAppSetting();
+	setting.showLiveImageGrid = sender.on;
+}
+
 /// 音量レベルの値が変わった時に呼び出されます。
 - (void)didChangeSoundVolumeLevel {
 	DEBUG_LOG(@"");
@@ -590,6 +604,15 @@
 }
 
 #pragma mark -
+
+/// ライブビューのグリッド表示非表示設定を表示します。
+- (void)updateShowLiveViewGridSwitch {
+	DEBUG_LOG(@"");
+	
+	AppSetting *setting = GetAppSetting();
+	self.showLiveViewGridSwitch.enabled = YES;
+	self.showLiveViewGridSwitch.on = setting.showLiveImageGrid;
+}
 
 /// ライブビューのピクセルサイズを表示します。
 - (void)updateShowLiveViewSizeCell {

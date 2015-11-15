@@ -7,6 +7,9 @@
 /* Class = "UILabel"; text = "$compressibilityRatio"; ObjectID = "2pG-O6-FiK"; */
 "2pG-O6-FiK.text" = "$compressibilityRatio";
 
+/* Class = "UILabel"; text = "Live View Grid"; ObjectID = "34r-Yc-fu8"; */
+"34r-Yc-fu8.text" = "ライブビューグリッド";
+
 /* Class = "UILabel"; text = "<RAW>"; ObjectID = "3DU-Qu-SqB"; */
 "3DU-Qu-SqB.text" = "<RAW>";
 

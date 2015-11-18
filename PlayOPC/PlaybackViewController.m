@@ -580,9 +580,17 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	__weak PlaybackViewController *weakSelf = self;
 	[camera downloadContentList:^(NSMutableArray *list, NSError *error) {
 		if (error) {
-			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotDownloadContentList", @"PlaybackViewController.downloadContentList")];
-			return;
+			if ([error.domain isEqualToString:OLYCameraErrorDomain] &&
+				error.code == OLYCameraErrorCommandFailed &&
+				[error.localizedDescription containsString:@"status 404"]) {
+				// MARK: カードをフォーマットした直後など、DCIMディレクトリが存在しない時はこのエラーが発生するようです。
+				// 一覧が空っぽであるものとして扱います。
+				list = [[NSMutableArray alloc] init];
+			} else {
+				downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotDownloadContentList", @"PlaybackViewController.downloadContentList")];
+				return;
+			}
 		}
 		downloadedList = list;
 		downloadCompleted = YES;

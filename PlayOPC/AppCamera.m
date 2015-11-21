@@ -4376,13 +4376,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (BOOL)startMagnifyingLiveView:(NSError **)error {
 	DEBUG_LOG(@"");
 	
-	return [super startMagnifyingLiveView:self.magnifyingLiveViewScale error:error];
+	return [self startMagnifyingLiveView:self.magnifyingLiveViewScale error:error];
 }
 
 - (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point error:(NSError **)error {
 	DEBUG_LOG(@"point=%@", NSStringFromCGPoint(point));
 	
-	return [super startMagnifyingLiveViewAtPoint:point scale:self.magnifyingLiveViewScale error:error];
+	return [self startMagnifyingLiveViewAtPoint:point scale:self.magnifyingLiveViewScale error:error];
 }
 
 #pragma mark -

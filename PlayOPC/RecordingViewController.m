@@ -946,16 +946,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[self executeAsynchronousBlock:^{
 		AppCamera *camera = GetAppCamera();
 		if (camera.magnifyingLiveView) {
-			// 拡大率変更後の表示位置を取得します。
-			NSError *error = nil;
-			NSDictionary *area = [camera magnifyingLiveViewArea:&error];
-			if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
-				// FIXME: エラーを無視します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-				return;
-			}
-			CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
-			CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+			// アスペクト比変更後の表示位置を取得します。
+			CGSize overallViewSize = camera.magnifyingOverallViewSize;
+			CGRect displayAreaRect = camera.magnifyingDisplayAreaRect;
 			DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
 			DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
 
@@ -1010,15 +1003,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		AppCamera *camera = GetAppCamera();
 		if (camera.magnifyingLiveView) {
 			// 最初の表示位置を取得します。
-			NSError *error = nil;
-			NSDictionary *area = [camera magnifyingLiveViewArea:&error];
-			if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
-				// FIXME: エラーを無視します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-				return;
-			}
-			CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
-			CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+			CGSize overallViewSize = camera.magnifyingOverallViewSize;
+			CGRect displayAreaRect = camera.magnifyingDisplayAreaRect;
 			DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
 			DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
 			
@@ -1059,15 +1045,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		AppCamera *camera = GetAppCamera();
 		if (camera.magnifyingLiveView) {
 			// 拡大率変更後の表示位置を取得します。
-			NSError *error = nil;
-			NSDictionary *area = [camera magnifyingLiveViewArea:&error];
-			if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
-				// FIXME: エラーを無視します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-				return;
-			}
-			CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
-			CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+			CGSize overallViewSize = camera.magnifyingOverallViewSize;
+			CGRect displayAreaRect = camera.magnifyingDisplayAreaRect;
 			DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
 			DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
 			
@@ -2212,14 +2191,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 		
 		// 移動後の表示位置を取得します。
-		NSDictionary *area = [camera magnifyingLiveViewArea:&error];
-		if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
-			// FIXME: エラーを無視します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-			return;
-		}
-		CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
-		CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+		CGSize overallViewSize = camera.magnifyingOverallViewSize;
+		CGRect displayAreaRect = camera.magnifyingDisplayAreaRect;
 		DEBUG_LOG(@"overallViewSize=%@", NSStringFromCGSize(overallViewSize));
 		DEBUG_LOG(@"displayAreaRect=%@", NSStringFromCGRect(displayAreaRect));
 		

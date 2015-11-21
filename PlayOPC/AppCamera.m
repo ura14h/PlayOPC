@@ -317,6 +317,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 @property (assign, nonatomic, readwrite) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readwrite) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
 @property (assign, nonatomic, readwrite) OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale;	///< 現在のライブビュー拡大の倍率
+@property (assign, nonatomic, readwrite) CGSize magnifyingOverallViewSize; ///< 現在のライブビュー拡大の全体サイズ
+@property (assign, nonatomic, readwrite) CGRect magnifyingDisplayAreaRect; ///< 現在のライブビュー拡大の表示範囲
 
 // MARK: このプロパティ群は複数スレッドが参照するのでatomicにしておかないとタイミングによってはクラッシュしてしまいます。
 @property (strong, atomic) NSHashTable *connectionDelegates; ///< connectionDelegateの集合
@@ -394,6 +396,8 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	_maximumDigitalZoomScale = NAN;
 	_currentDigitalZoomScale = NAN;
 	_magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
+	_magnifyingOverallViewSize = CGSizeZero;
+	_magnifyingDisplayAreaRect = CGRectZero;
 	_runningLockingAutoFocus = NO;
 	_runningLockingAutoExposure = NO;
 	_runningTakingPluralPictures = NO;
@@ -522,10 +526,12 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		self.currentDigitalZoomScale = currentDigitalZoomScale;
 	}
 
-#if 0 // 以前の状態に復帰しなくても問題ないようなので実装を無効にしておきます。
 	// ライブビュー拡大のプロパティを更新します。
-	_magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
+#if 0 // 以前の状態に復帰しなくても問題ないようなので実装を無効にしておきます。
+	self.magnifyingLiveViewScale = OLYCameraMagnifyingLiveViewScaleX5;
 #endif
+	self.magnifyingOverallViewSize = CGSizeZero;
+	self.magnifyingDisplayAreaRect = CGRectZero;
 	
 	// オートフォーカスと自動測光のフラグを初期化します。
 	self.runningLockingAutoFocus = NO;
@@ -838,23 +844,47 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (BOOL)startMagnifyingLiveView:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error {
 	DEBUG_LOG(@"scale=%ld", (long)scale);
 	
-	// ライブビュー拡大が成功したらその時の倍率を保持しておきます。
+	// ライブビュー拡大が成功したらその時の倍率と表示範囲を保持しておきます。
 	BOOL result = [super startMagnifyingLiveView:scale error:error];
-	if (result) {
-		self.magnifyingLiveViewScale = scale;
+	if (!result) {
+		return NO;
 	}
-	return result;
+	NSDictionary *area = [super magnifyingLiveViewArea:error];
+	if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+		return NO;
+	}
+	CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+	CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+
+	// MARK: 設定する順序がシビア。今このアプリでは、magnifyingLiveViewScaleをKVOしているので、それを一番最後に変更します。
+	self.magnifyingOverallViewSize = overallViewSize;
+	self.magnifyingDisplayAreaRect = displayAreaRect;
+	self.magnifyingLiveViewScale = scale;
+
+	return YES;
 }
 
 - (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point scale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error {
 	DEBUG_LOG(@"scale=%ld", (long)scale);
 
-	// ライブビュー拡大が成功したらその時の倍率を保持しておきます。
+	// ライブビュー拡大が成功したらその時の倍率と表示範囲を保持しておきます。
 	BOOL result = [super startMagnifyingLiveViewAtPoint:point scale:scale error:error];
-	if (result) {
-		self.magnifyingLiveViewScale = scale;
+	if (!result) {
+		return NO;
 	}
-	return result;
+	NSDictionary *area = [super magnifyingLiveViewArea:error];
+	if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+		return NO;
+	}
+	CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+	CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+
+	// MARK: 設定する順序がシビア。今このアプリでは、magnifyingLiveViewScaleをKVOしているので、それを一番最後に変更します。
+	self.magnifyingOverallViewSize = overallViewSize;
+	self.magnifyingDisplayAreaRect = displayAreaRect;
+	self.magnifyingLiveViewScale = scale;
+
+	return YES;
 }
 
 - (BOOL)changeMagnifyingLiveViewScale:(OLYCameraMagnifyingLiveViewScale)scale error:(NSError **)error {
@@ -866,12 +896,62 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		return YES;
 	}
 	
-	// ライブビュー拡大の倍率変更が成功したらその時の倍率を保持しておきます。
+	// ライブビュー拡大の倍率変更が成功したらその時の倍率と表示範囲を保持しておきます。
 	BOOL result = [super changeMagnifyingLiveViewScale:scale error:error];
-	if (result) {
-		self.magnifyingLiveViewScale = scale;
+	if (!result) {
+		return NO;
 	}
-	return result;
+	NSDictionary *area = [super magnifyingLiveViewArea:error];
+	if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+		return NO;
+	}
+	CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+	CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+
+	// MARK: 設定する順序がシビア。今このアプリでは、magnifyingLiveViewScaleをKVOしているので、それを一番最後に変更します。
+	self.magnifyingOverallViewSize = overallViewSize;
+	self.magnifyingDisplayAreaRect = displayAreaRect;
+	self.magnifyingLiveViewScale = scale;
+	
+	return YES;
+}
+
+- (BOOL)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction error:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"direction=%ld", (long)direction);
+
+	// ライブビュー拡大の表示範囲移動が成功したらその時の表示範囲を保持しておきます。
+	BOOL result = [super changeMagnifyingLiveViewArea:direction error:error];
+	if (!result) {
+		return NO;
+	}
+	NSDictionary *area = [super magnifyingLiveViewArea:error];
+	if (!area[OLYCameraMagnifyingOverallViewSizeKey] || !area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+		return NO;
+	}
+	CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+	CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+
+	// MARK: 設定する順序がシビア。今このアプリでは、magnifyingLiveViewScaleをKVOしているので、それを一番最後に変更します。
+	self.magnifyingOverallViewSize = overallViewSize;
+	self.magnifyingDisplayAreaRect = displayAreaRect;
+	
+	return YES;
+}
+
+- (BOOL)stopMagnifyingLiveView:(NSError *__autoreleasing *)error {
+	DEBUG_LOG(@"");
+
+	// ライブビュー拡大を止めます。
+	BOOL result = [super stopMagnifyingLiveView:error];
+	if (!result) {
+		return NO;
+	}
+	
+	// ライブビュー拡大の表示範囲を初期化しておきます。
+	self.magnifyingOverallViewSize = CGSizeZero;
+	self.magnifyingDisplayAreaRect = CGRectZero;
+	
+	return YES;
 }
 
 #pragma mark -
@@ -919,6 +999,19 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		return;
 	}
 
+	// アスペクト比の変更でライブビュー拡大中なら表示範囲を再取得しておく必要があります。
+	if ([name isEqualToString:CameraPropertyAspectRatio]) {
+		if (self.magnifyingLiveView) {
+			NSDictionary *area = [super magnifyingLiveViewArea:nil];
+			if (area[OLYCameraMagnifyingOverallViewSizeKey] && area[OLYCameraMagnifyingDisplayAreaRectKey]) {
+				CGSize overallViewSize = [area[OLYCameraMagnifyingOverallViewSizeKey] CGSizeValue];
+				CGRect displayAreaRect = [area[OLYCameraMagnifyingDisplayAreaRectKey] CGRectValue];
+				self.magnifyingOverallViewSize = overallViewSize;
+				self.magnifyingDisplayAreaRect = displayAreaRect;
+			}
+		}
+	}
+	
 	// デリゲート集合を取得します。
 	// 別スレッドでイベントハンドラの追加削除を行っている可能性があるのでスナップショットを取り出します。
 	// FIXME: 処理効率が悪いですが他に良い方法が見つからず。

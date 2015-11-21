@@ -357,6 +357,8 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 @property (assign, nonatomic, readonly) float maximumDigitalZoomScale;	///< デジタルズームの最大倍率
 @property (assign, nonatomic, readonly) float currentDigitalZoomScale;	///< 現在のデジタルズームの倍率
 @property (assign, nonatomic, readonly) OLYCameraMagnifyingLiveViewScale magnifyingLiveViewScale;	///< 現在のライブビュー拡大の倍率
+@property (assign, nonatomic, readonly) CGSize magnifyingOverallViewSize; ///< 現在のライブビュー拡大の全体サイズ
+@property (assign, nonatomic, readonly) CGRect magnifyingDisplayAreaRect; ///< 現在のライブビュー拡大の表示範囲
 
 /// connectionDelegateのリストに登録します。
 /// connectionDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。

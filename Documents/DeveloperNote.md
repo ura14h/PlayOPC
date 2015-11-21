@@ -86,9 +86,10 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 * カメラプロパティの動画手ぶれ補正(ANTI\_SHAKE\_MOVIE)のプロパティ値タイトルを取得(cameraPropertyValueTitle:)すると、OFFとONの表示文言がそれぞれ"M-I.S. On"と"M-I.S. Off"となっていて、実際の動作とは逆の内容で返ってきます。 #reported-sdk-1.1.0
 * カメラプロパティの動画用フォーカスモード(FOCUS\_MOVIE)をコンティニュアスオートフォーカスに設定している状態でオートフォーカスをロック(lockAutoFocus:)すると、完了コールバックで合焦結果は得られません。その後に呼び出されるデリゲート(camera:didChangeAutoFocusResult:)に合焦結果が入っているようです。さらにその後は、ピントの変更が検出されてフォーカス動作が落ち着くたびに同じデリゲートが呼び出されます。
 * カメラプロパティの静止画用フォーカスモード(FOCUS\_STILL)や動画用フォーカスモード(FOCUS\_MOVIE)をマニュアルフォーカスに変更する前にオートフォーカスをロック解除する必要があるようです。ロック解除せずにマニュアルフォーカスに設定するとレンズのフォーカスリングが機能しません。 #avoided-app-1.2.1975
-* ライブビュー拡大中のAFロック(lockAutoFocus:errorHandler:)はAF位置指定(setAutoFocusPoint:error:)で指定した座標ではなく拡大表示している領域(magnifyingLiveViewArea:)に対して働いているようです。
-* ライブビュー拡大中のAE位置指定(setAutoExposurePoint:error:)やAEロック(lockAutoExposure:)は無視されているようです。
+* ライブビュー拡大表示中のAFロック(lockAutoFocus:errorHandler:)はAF位置指定(setAutoFocusPoint:error:)で指定した座標ではなく拡大表示している領域(magnifyingLiveViewArea:)に対して働いているようです。
+* ライブビュー拡大表示中のAE位置指定(setAutoExposurePoint:error:)やAEロック(lockAutoExposure:)は無視されているようです。
 * 測光方式(AE)が位置指定(AE_PINPOINT)に設定されている時にしかAEロックが働かないようです。
+* カメラプロパティの撮影モード(TAKEMODE)をmovieにかつライブビューを拡大表示して、撮影を開始すると自動的にライブビュー拡大が解除されて、オートフォーカスなどの座標系のつじつまが合わなくなるようです。
 
 ### ズーム
 

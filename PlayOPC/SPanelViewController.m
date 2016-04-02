@@ -605,8 +605,13 @@
 	AppCamera *camera = GetAppCamera();
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-	NSString *remainingVideoCapacityFormattedNumber = [numberFormatter stringFromNumber:@(camera.remainingVideoCapacity)];
-	NSString *remainingVideoCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:remainingVideoCapacity(%@ Seconds)", @"SPanelViewController.updateRemainingVideoCapacityCell"), remainingVideoCapacityFormattedNumber];
+    
+    NSInteger dt = camera.remainingVideoCapacity;
+    NSInteger s = dt % 60;
+    NSInteger m = (dt - s) / 60 % 60;
+    NSInteger h = (dt - s - m * 60) / 3600 % 3600;
+    NSString *remainingVideoCapacity = [NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)h,(long)m,(long)s];
+    
 	// 表示を更新します。
 	self.remainingVideoCapacityCell.detailTextLabel.text = remainingVideoCapacity;
 }

@@ -896,7 +896,7 @@
 "$title:ReceiveCapturedImagePreviewFailed" = "Could not receive preview of captured image";
 
 /* RecordingViewController.didChangeRecordingElapsedTime */
-"$title:RecordingVideo(%ld,%ld)" = "Recording: %1$ld:%2$02ld";
+"$title:RecordingVideo(%ld,%ld,%ld)" = "Recording: %1$ld:%2$02ld:%3$02ld";
 
 /* RecordingViewController.cameraDidStartRecordingVideo */
 "$title:RecordingVideoStart" = "Recording";

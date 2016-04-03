@@ -896,7 +896,7 @@
 "$title:ReceiveCapturedImagePreviewFailed" = "撮影後確認画像を受信できませんでした";
 
 /* RecordingViewController.didChangeRecordingElapsedTime */
-"$title:RecordingVideo(%ld,%ld)" = "録画中: %1$ld:%2$02ld";
+"$title:RecordingVideo(%ld,%ld,%ld)" = "録画中: %1$ld:%2$02ld:%3$02ld";
 
 /* RecordingViewController.cameraDidStartRecordingVideo */
 "$title:RecordingVideoStart" = "録画中";

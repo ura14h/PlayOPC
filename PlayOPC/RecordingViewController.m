@@ -986,11 +986,12 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	// 動画撮影経過時間を取得します。
 	AppCamera *camera = GetAppCamera();
 	NSInteger time = (NSInteger)camera.recordingElapsedTime;
-	NSInteger minutes = time / 60;
+	NSInteger hours = time / (60 * 60);
+	NSInteger minutes = (time / 60) % 60;
 	NSInteger seconds = time % 60;
 
 	// 撮影進捗ラベルを表示更新します。
-	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:RecordingVideo(%ld,%ld)", @"RecordingViewController.didChangeRecordingElapsedTime"), (long)minutes, (long)seconds];
+	NSString *text = [NSString stringWithFormat:NSLocalizedString(@"$title:RecordingVideo(%ld,%ld,%ld)", @"RecordingViewController.didChangeRecordingElapsedTime"), (long)hours, (long)minutes, (long)seconds];
 	self.progressLabel.text = text;
 }
 

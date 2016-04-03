@@ -484,6 +484,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * to current exposure value.
  * When shooting during the warning, the image may be underexposed or overexposed.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 @property (assign, nonatomic, readonly) BOOL exposureWarning;	
@@ -494,6 +497,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  *
  * Subject is too dark or too bright to be measured by the camera's exposure meter.
  * When shooting during the warning, the image may be underexposed or overexposed.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -806,6 +812,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::lockAutoFocus:errorHandler:
  * @see OLYCamera::autoFocusEffectiveArea:
  * @see OLYCameraRecordingDelegate::camera:didChangeAutoFocusResult:
@@ -824,6 +833,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::setAutoFocusPoint:error:
  *
@@ -887,6 +899,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::clearAutoExposurePoint:
  * @see OLYCamera::autoExposureEffectiveArea:
  *
@@ -906,6 +921,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::setAutoExposurePoint:error:
  *
@@ -928,6 +946,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::setAutoFocusPoint:error:
  *
  * 
@@ -948,6 +969,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::setAutoExposurePoint:error:
  *
@@ -978,6 +1002,9 @@ extern NSString *const OLYCameraTakingPictureProgressInfoFocusRectKey;
  * @param camera Instance that detects change in live view.
  * @param data Image of the new live view.
  * @param metadata Metadata of the image of the new live view.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */

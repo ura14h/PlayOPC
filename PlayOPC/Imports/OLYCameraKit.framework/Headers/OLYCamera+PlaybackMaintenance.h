@@ -41,6 +41,9 @@
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModePlaymaintenance
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::unprotectContent:error:
  * @see OLYCamera::unprotectAllContents:completionHandler:errorHandler:
  *
@@ -63,6 +66,9 @@
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModePlaymaintenance
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::protectContent:error:
  *
@@ -88,6 +94,9 @@
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModePlaymaintenance
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::protectContent:error:
  *
  * 
@@ -109,6 +118,9 @@
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModePlaymaintenance
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */

@@ -128,6 +128,50 @@ CGRect OLYCameraConvertRectOnViewfinderIntoLiveImage(CGRect rect, UIImage *liveI
 
 /** @} */
 
+#pragma mark Camera Property Value Conversion Utilities
+
+/**
+ * 
+ * @name Camera property value conversion utilities
+ *
+ * 
+ * @{
+ */
+
+/**
+ * 
+ * Get internal representation of camera property value for a name-value pair.
+ *
+ * @param name Camera property name. (e.g. "APERTURE", "SHUTTER", "ISO", "WB")
+ * @param data Camera property value. (e.g. "3.5", "250", "Auto", "WB_AUTO")
+ * @return Pair of property name and value set in the property.  (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>", "<WB/WB_AUTO>")
+ *
+ * @see OLYCamera::cameraPropertyValue:error:
+ * @see OLYCamera::setCameraPropertyValue:value:error:
+ *
+ * 
+ */
+NSString *OLYCameraEncodeCameraPropertyValue(NSString *name, NSString *data);	
+
+/**
+ * 
+ * Get a camera property name and a camera property value
+ * from internal representation of camera property value.
+ *
+ * @param value Pair of property name and value set in the property. (e.g. "<APERTURE/3.5>", "<SHUTTER/250>", "<ISO/Auto>", "<WB/WB_AUTO>")
+ * @param name Camera property name. (e.g. "APERTURE", "SHUTTER", "ISO", "WB")
+ * @param data Camera property value. (e.g. "3.5", "250", "Auto", "WB_AUTO")
+ * @return If true, the operation was successful. If false, the operation was abnormally terminated.
+ *
+ * @see OLYCamera::cameraPropertyValue:error:
+ * @see OLYCamera::setCameraPropertyValue:value:error:
+ *
+ * 
+ */
+BOOL OLYCameraDecodeDataFromCameraPropertyValue(NSString *value, NSString **name, NSString **data);	
+
+/** @} */
+
 /** @} */
 
 // EOF

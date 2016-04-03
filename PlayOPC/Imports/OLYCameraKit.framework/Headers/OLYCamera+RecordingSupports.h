@@ -278,6 +278,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 @property (strong, nonatomic, readonly) NSDictionary *levelGauge;	
@@ -293,6 +296,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * This property is set only if the following conditions are met.
  *   - Run mode is set to recording mode.
  *   - SDK has started receiving live view information. (App does not have to use delegate method.)
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -403,6 +409,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModeRecording
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::digitalZoomScaleRange:
  *
  * 
@@ -422,6 +431,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::magnifyingLiveView
  * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
@@ -447,6 +459,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * This method call is allowed only in following run mode and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::magnifyingLiveView
  * @see OLYCamera::startMagnifyingLiveView:error:
  * @see OLYCamera::stopMagnifyingLiveView:
@@ -467,6 +482,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::magnifyingLiveView
  * @see OLYCamera::startMagnifyingLiveView:error:
@@ -490,6 +508,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * This method call is allowed only in following run mode and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::magnifyingLiveView
  * @see OLYCamera::startMagnifyingLiveView:error:
  * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
@@ -512,6 +533,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run mode and otherwise causes an error. 
  *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::magnifyingLiveView
  * @see OLYCamera::startMagnifyingLiveView:error:
@@ -541,6 +565,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * @par Availability
  *   - Camera firmware: Version 1.1 or later.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::magnifyingLiveView
  * @see OLYCamera::startMagnifyingLiveView:error:
  * @see OLYCamera::startMagnifyingLiveViewAtPoint:scale:error:
@@ -551,7 +578,41 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  */
 - (NSDictionary *)magnifyingLiveViewArea:(NSError **)error;	
 
-// ;-)
+/**
+ * 
+ * Download the last captured image.
+ *
+ * Download the still image in the original size captured that was saved through the last shooting process.
+ * This API may not return an expected image if the camera does not finish writing the image to the memory card.
+ * Call this API after the camera finishes writing the image to the memory card.
+ *
+ * Only the last one image is returned even if continuous shooting is enabled.
+ *
+ * @param progressHandler Callback used when download progress changes.
+ * @param completionHandler Callback used when download is complete.
+ * @param errorHandler Callback used when download is aborted.
+ *
+ * Argument of progress callback
+ *   - progress ... Progress rate ranges from 0.0 when starting to 1.0 when complete.
+ *   - stop ... If true, download is canceled, and errorHandler is invoked.
+ *
+ * Argument of download completion callback
+ *   - data ... Binary data of the captured image.
+ *   - metadata ... Meta data of the captured image.
+ *
+ * Argument of abnormal termination callback
+ *   - error ... Error details are set when operation is abnormally terminated.
+ *
+ * @par Supported run mode(s)
+ * This method call is allowed only in following run modes and otherwise causes an error.
+ *   - #OLYCameraRunModeRecording
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
+ * 
+ */
+- (void)downloadLastCapturedImage:(void (^)(float progress, BOOL *stop))progressHandler completionHandler:(void (^)(NSData *data))completionHandler errorHandler:(void (^)(NSError *error))errorHandler;	
 
 @end
 
@@ -581,6 +642,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  *
  * @param camera Instance that receives the image.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)cameraWillReceiveCapturedImagePreview:(OLYCamera *)camera;	
@@ -604,6 +668,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  *     - "detectversion" ... Reserved for vendor.
  *     - "detectid" ... Reserved for vendor.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)camera:(OLYCamera *)camera didReceiveCapturedImagePreview:(NSData *)data metadata:(NSDictionary *)metadata;	
@@ -614,6 +681,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  *
  * @param camera Instance that fails to receive the preview image.
  * @param error Error details.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -627,6 +697,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * Please refer to the documentation of the list of camera properties for more information.
  *
  * @param camera Instance that receives the image data.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -642,6 +715,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  * @param camera Instance that receives the image data.
  * @param data Captured image for storage.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)camera:(OLYCamera *)camera didReceiveCapturedImage:(NSData *)data;	
@@ -652,6 +728,9 @@ extern NSString *const OLYCameraMagnifyingDisplayAreaRectKey;
  *
  * @param camera Instance that fails to receive the image.
  * @param error Error details.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */

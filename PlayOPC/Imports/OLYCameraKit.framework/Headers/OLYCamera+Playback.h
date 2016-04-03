@@ -215,6 +215,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)downloadContentList:(void (^)(NSMutableArray *list, NSError *error))handler;	
@@ -252,6 +255,8 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -282,6 +287,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -314,6 +322,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)downloadImage:(NSString *)path withResize:(OLYCameraImageResize)resize progressHandler:(void (^)(float progress, BOOL *stop))progressHandler completionHandler:(void (^)(NSData *data))completionHandler errorHandler:(void (^)(NSError *error))errorHandler;	
@@ -344,6 +355,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)downloadContent:(NSString *)path progressHandler:(void (^)(float progress, BOOL *stop))progressHandler completionHandler:(void (^)(NSData *data))completionHandler errorHandler:(void (^)(NSError *error))errorHandler;	
@@ -372,6 +386,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * This method call is allowed only in following run mode and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 - (void)downloadLargeContent:(NSString *)path progressHandler:(void (^)(NSData *data, float progress, BOOL *stop))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *error))errorHandler;	
@@ -390,6 +407,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -418,6 +438,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -454,6 +477,9 @@ extern NSString *const OLYCameraContentListExtensionKey;
  * @par Supported run mode(s)
  * This method call is allowed only in following run modes and otherwise causes an error.
  *   - #OLYCameraRunModePlayback
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */

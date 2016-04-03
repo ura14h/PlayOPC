@@ -1,13 +1,9 @@
-﻿/**
- * @~english
+/**
+ * 
  * @file	OLYCamera+CameraConnection.h
  * @brief	OLYCamera(CameraConnection) class interface file.
  *
- * @~japanese
- * @file	OLYCamera+CameraConnection.h
- * @brief	OLYCamera(CameraConnection) クラスインターフェースファイル
- *
- * @~
+ * 
  */
 /*
  * Copyright (c) Olympus Imaging Corporation. All rights reserved.
@@ -75,16 +71,60 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  */
 @interface OLYCamera(CameraConnection)
 
-// This is reserved for vendors. Please do not use.
+/**
+ * 
+ * IP address of the camera.
+ *
+ * Value is used when you connect to the camera via Wi-Fi.
+ * Set value only if specific IP address is needed. Default is 192.168.0.10.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
+ * 
+ */
 @property (strong, nonatomic) NSString *host;	
 
-// This is reserved for vendors. Please do not use.
-@property (assign, nonatomic, readonly) NSInteger commandPort;	
+/**
+ * 
+ * Port number where the camera receives commands.
+ *
+ * Value is used when you connect to the camera via Wi-Fi.
+ * Set value only if specific port number is needed. Default is TCP/80.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
+ * 
+ */
+@property (assign, nonatomic) NSInteger commandPort;	
 
-// This is reserved for vendors. Please do not use.
+/**
+ * 
+ * Port number where Camera Kit receives live view images.
+ *
+ * Value is used when you connect to the camera via Wi-Fi.
+ * Set value only if specific port number is needed. Default is UDP/5555.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
+ * 
+ */
 @property (assign, nonatomic) NSInteger liveViewStreamingPort;	
 
-// This is reserved for vendors. Please do not use.
+/**
+ * 
+ * Port number where Camera Kit receives events issued by the camera.
+ *
+ * Value is used when you connect to the camera via Wi-Fi.
+ * Set value only if specific port number is needed. Default is TCP/65000.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
+ * 
+ */
 @property (assign, nonatomic) NSInteger eventPort;	
 
 /**
@@ -93,6 +133,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  *
  * The value is used when you connect via Bluetooth Smart to the camera.
  * Configure this value before starting connection via Bluetooth Smart.
+ *
+ * @attention
+ * This API is only for Bluetooth Smart.
  *
  * 
  */
@@ -105,6 +148,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  * The value may be used when you connect via Bluetooth Smart to the camera.
  * Configure this value before starting connection via Bluetooth Smart.
  *
+ * @attention
+ * This API is only for Bluetooth Smart.
+ *
  * 
  */
 
@@ -116,6 +162,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  *
  * The value may be used when you connect via Bluetooth Smart to the camera.
  * Configure this value before starting connection via Bluetooth Smart.
+ *
+ * @attention
+ * This API is only for Bluetooth Smart.
  *
  * 
  */
@@ -151,6 +200,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  *
  * @return List of Bluetooth service ID.
  *
+ * @attention
+ * This API is only for Bluetooth Smart.
+ *
  * 
  */
 + (NSArray *)bluetoothServices;	
@@ -161,6 +213,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  *
  * @param error Error details will be set when operation is abnormally terminated.
  * @return If true, password is required.
+ *
+ * @attention
+ * This API is only for Bluetooth Smart.
  *
  * 
  */
@@ -176,6 +231,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  * @param error Error details will be set when operation is abnormally terminated.
  * @return If true, the operation was successful. If false, the operation had an abnormal termination.
  *
+ * @attention
+ * This API is only for Bluetooth Smart.
+ *
  * @see OLYCamera::bluetoothPeripheral
  * @see OLYCamera::bluetoothPassword
  * @see OLYCamera::connectingRequiresBluetoothPassword:
@@ -184,6 +242,23 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  * 
  */
 - (BOOL)wakeup:(NSError **)error;	
+
+/**
+ * 
+ * Indicate if the application can connect to the camera.
+ * If the application is connected to the camera, the application will get an error.
+ *
+ * @param connectionType Type of connection. You specify 'Wi-Fi'.
+ * @param timeout Number of seconds for timeout. If 0 is specified, default value is set.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, the application can connect to the camera.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
+ * 
+ */
+- (BOOL)canConnect:(OLYCameraConnectionType)connectionType timeout:(NSTimeInterval)timeout error:(NSError **)error;	
 
 /**
  * 
@@ -237,6 +312,9 @@ typedef enum OLYCameraConnectionType OLYCameraConnectionType;
  *
  * @param camera Instance that has lost a communication path with the camera.
  * @param error Error contents.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */

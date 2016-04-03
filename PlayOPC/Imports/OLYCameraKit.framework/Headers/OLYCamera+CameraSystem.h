@@ -286,6 +286,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * You can also check in the lighting state of the LED on the camera body.
  * While the camera is writing to the media, you will see API response is slow.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::startTakingPicture:progressHandler:completionHandler:errorHandler:
  * @see OLYCamera::stopTakingPicture:completionHandler:errorHandler:
  * @see OLYCamera::takePicture:progressHandler:completionHandler:errorHandler:
@@ -303,6 +306,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * There is a possibility that the media is broken.
  * Please replace with a new media if it occurs frequently.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * 
  */
 @property (assign, nonatomic, readonly) BOOL mediaError;	
@@ -310,6 +316,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
 /**
  * 
  * Free space of the media (memory card) attached to the camera. Unit is byte.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * 
  */
@@ -321,6 +330,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  *
  * The exact value depends on the data for the compression ratio of the captured image.
  * Sometimes the value does not change after capturing.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::startTakingPicture:progressHandler:completionHandler:errorHandler:
  * @see OLYCamera::stopTakingPicture:completionHandler:errorHandler:
@@ -335,6 +347,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * The maximum number of seconds a movie that can be stored in the media (memory card).
  *
  * The exact value depends on the data for the compression ratio of the captured video.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::startRecordingVideo:completionHandler:errorHandler:
  * @see OLYCamera::stopRecordingVideo:errorHandler:
@@ -452,6 +467,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * The dictionary key is the camera property name.
  * Setting of the camera property is stored in value corresponding to the key.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::cameraPropertyNames
  * @see OLYCamera::setCameraPropertyValues:error:
  *
@@ -554,6 +572,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  *   - #OLYCameraRunModeRecording
  *   - #OLYCameraRunModeMaintenance
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::cameraPropertyNames
  * @see OLYCamera::cameraPropertyValues:error:
  * @see OLYCamera::setCameraPropertyValue:value:error:
@@ -622,6 +643,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  * @param error Error details will be set when the operation is abnormally terminated.
  * @return If true, the operation was successful. If false, the operation was abnormally terminated.
  *
+ * @attention
+ * This API is only for Wi-Fi.
+ *
  * @see OLYCamera::clearGeolocation:
  *
  * 
@@ -634,6 +658,9 @@ extern NSString *const OLYCameraHardwareInformationAccessoryFirmwareVersionKey;
  *
  * @param error Error details are set when operation is abnormally terminated.
  * @return If true, the operation was successful. If false, the operation was abnormally terminated.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
  *
  * @see OLYCamera::setGeolocation:error:
  *

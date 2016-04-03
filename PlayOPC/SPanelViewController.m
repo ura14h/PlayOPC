@@ -603,12 +603,10 @@
 	
 	// プロパティの値を表示用の文言に変換します。
 	AppCamera *camera = GetAppCamera();
-	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
-	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
-    NSInteger time = camera.remainingVideoCapacity;
+	NSInteger time = camera.remainingVideoCapacity;
 	NSInteger hours = time / (60 * 60);
 	NSInteger minutes = (time / 60) % 60;
-    NSInteger seconds = time % 60;
+	NSInteger seconds = time % 60;
 	NSString *remainingVideoCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:RemainingImageCapacity(%ld,%ld,%ld)", @"SPanelViewController.updateRemainingVideoCapacityCell"), (long)hours, (long)minutes, (long)seconds];
     
 	// 表示を更新します。

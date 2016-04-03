@@ -338,11 +338,11 @@
 /* SPanelViewController.updateRemainingImageCapacityCell */
 "$cell:RemainingImageCapacity(%@ Images)" = "%@ images";
 
+/* SPanelViewController.updateRemainingVideoCapacityCell */
+"$cell:RemainingImageCapacity(%ld,%ld,%ld)" = "%1$ld:%2$02ld:%3$02ld";
+
 /* SPanelViewController.updateRemainingMediaCapacityCell */
 "$cell:RemainingMediaCapacity(%@ Bytes)" = "%@ bytes";
-
-/* SPanelViewController.updateRemainingVideoCapacityCell */
-"$cell:remainingVideoCapacity(%@ Seconds)" = "%@ seconds";
 
 /* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationNotAvailable" = "N/A";

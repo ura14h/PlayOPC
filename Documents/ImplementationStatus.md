@@ -23,6 +23,11 @@
 * connected
 * connectionDelegate
 * connectionType
+* *host (1.1.2)*
+* *commandPort (1.1.2)*
+* *liveViewStreamingPort (1.1.2)*
+* *eventPort (1.1.2)*
+* canConnect:timeout:error: (1.1.2)
 
 ### OLYCamera(CameraSystem)
 
@@ -109,6 +114,7 @@
 * magnifyingLiveView (1.1.0)
 * magnifyingLiveViewArea: (1.1.1)
 * recordingSupportsDelegate
+* *downloadLastCapturedImage:completionHandler:errorHandler: (1.1.2)*
 
 ### OLYCamera(Playback)
 
@@ -199,12 +205,14 @@
 * RECVIEW - 撮影結果確認用画像
 * ~~TOUCH\_AE\_EFFECTIVE\_AREA\_UPPER\_LEFT - タッチAE可能範囲（左上座標）~~ (autoExposureEffectiveArea:の内部で呼ばれるらしい)
 * ~~TOUCH\_AE_EFFECTIVE\_AREA\_LOWER\_RIGHT - タッチAE可能範囲（右下座標）~~ (autoExposureEffectiveArea:の内部で呼ばれるらしい)
+* *LENS\_PRIORITY\_ANTI\_SHAKE - レンズ手振れ補正優先 (1.1.2)*
 * ANTI\_SHAKE\_MOVIE - 動画手ぶれ補正 (1.1.0)
 
 ### そのほか
 
 * BATTERY\_LEVEL - バッテリーレベル
 * SOUND\_VOLUME\_LEVEL - 音量レベル
+* *SSID - Wi-Fi SSID (1.1.2)*
 * GPS - Exif位置付与設定
 * WIFI\_CH - Wi-Fiチャンネル (1.1.0)
 

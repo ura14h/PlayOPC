@@ -50,7 +50,7 @@
 - (NSArray *)messages {
 	DEBUG_LOG(@"");
 	
-	return [self.mutableMessages copy];
+	return [NSArray arrayWithArray:self.mutableMessages];
 }
 
 - (BOOL)clearMessages {

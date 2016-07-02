@@ -23,10 +23,10 @@
 * connected
 * connectionDelegate
 * connectionType
-* *host (1.1.2)*
-* *commandPort (1.1.2)*
-* *liveViewStreamingPort (1.1.2)*
-* *eventPort (1.1.2)*
+* host (1.1.2)
+* commandPort (1.1.2)
+* liveViewStreamingPort (1.1.2)
+* eventPort (1.1.2)
 * canConnect:timeout:error: (1.1.2)
 
 ### OLYCamera(CameraSystem)

@@ -319,7 +319,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="App Information" footerTitle="© 2015 Hiroki Ishiura" id="ANk-sQ-l0P">
+                            <tableViewSection headerTitle="App Information" footerTitle="© 2015-2016 Hiroki Ishiura" id="ANk-sQ-l0P">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ApplicationVersion" textLabel="6Wj-7V-u00" detailTextLabel="22F-XF-7J9" style="IBUITableViewCellStyleValue1" id="VwO-YV-bSd">
                                         <rect key="frame" x="0.0" y="901" width="320" height="44"/>

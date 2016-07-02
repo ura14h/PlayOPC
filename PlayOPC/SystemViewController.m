@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *cameraFirmwareVersionCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensModelIdCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensFirmwareVersionCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *ssidCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWifiChCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
@@ -61,6 +62,8 @@
 	// 画面表示を初期表示します。
 	NSString *batteryLevelTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyBatteryLevel];
 	self.batteryLevelCell.textLabel.text = batteryLevelTitle;
+	NSString *ssidTitle = [camera cameraPropertyLocalizedTitle:CameraPropertySsid];
+	self.ssidCell.textLabel.text = ssidTitle;
 	NSString *showWifiChTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyWifiCh];
 	self.showWifiChCell.textLabel.text = showWifiChTitle;
 	NSString *emptyDetailTextLabel = @" "; // テーブルセルのラベルを空欄にしょうとしてnilとか@""とかを設定するとなぜか不具合が起きます。
@@ -71,6 +74,7 @@
 	self.cameraFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensModelIdCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.ssidCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showWifiChCell.detailTextLabel.text = emptyDetailTextLabel;
 }
 
@@ -152,6 +156,7 @@
 			[weakSelf updateLensMountStatusCell];
 			[weakSelf updateMediaMountStatusCell];
 			[weakSelf updateHardwareInformationCells];
+			[weakSelf updateSsidCell];
 			[weakSelf updateShowWifiChCell];
 		}];
 		
@@ -474,6 +479,13 @@
 			weakSelf.lensFirmwareVersionCell.detailTextLabel.text = lensFirmwareVersion;
 		}];
 	}];
+}
+
+/// Wi-FiのSSIDを表示します。
+- (void)updateSsidCell {
+	DEBUG_LOG(@"");
+
+	[self updateCameraPropertyCell:self.ssidCell name:CameraPropertySsid completion:nil];
 }
 
 /// Wi-Fiチャンネルを表示します。

@@ -75,6 +75,7 @@ NSString *const CameraPropertyValueRecviewOn = @"<RECVIEW/ON>";
 NSString *const CameraPropertyValueRecviewOff = @"<RECVIEW/OFF>";
 NSString *const CameraPropertyAntiShakeMovie = @"ANTI_SHAKE_MOVIE";
 NSString *const CameraPropertySoundVolumeLevel = @"SOUND_VOLUME_LEVEL";
+NSString *const CameraPropertySsid = @"SSID";
 NSString *const CameraPropertyGps = @"GPS";
 NSString *const CameraPropertyWifiCh = @"WIFI_CH";
 NSString *const CameraPropertyRecentlyArtFilter = @"RECENTLY_ART_FILTER";

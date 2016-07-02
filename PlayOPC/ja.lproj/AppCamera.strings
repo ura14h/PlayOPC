@@ -234,6 +234,7 @@
 "<SOUND_VOLUME_LEVEL/3>" = "60 %";
 "<SOUND_VOLUME_LEVEL/4>" = "80 %";
 "<SOUND_VOLUME_LEVEL/5>" = "100 %";
+"<SSID>" = "Wi-Fi SSID";
 "<GPS>" = "GPSタグ付与";
 "<GPS/OFF>" = "しない";
 "<GPS/ON>" = "する";

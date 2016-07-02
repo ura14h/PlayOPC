@@ -116,6 +116,7 @@ extern NSString *const CameraPropertyValueRecviewOn;
 extern NSString *const CameraPropertyValueRecviewOff;
 extern NSString *const CameraPropertyAntiShakeMovie;
 extern NSString *const CameraPropertySoundVolumeLevel;
+extern NSString *const CameraPropertySsid;
 extern NSString *const CameraPropertyGps;
 extern NSString *const CameraPropertyWifiCh;
 extern NSString *const CameraPropertyRecentlyArtFilter;

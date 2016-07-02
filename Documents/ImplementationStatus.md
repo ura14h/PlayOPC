@@ -212,7 +212,7 @@
 
 * BATTERY\_LEVEL - バッテリーレベル
 * SOUND\_VOLUME\_LEVEL - 音量レベル
-* *SSID - Wi-Fi SSID (1.1.2)*
+* SSID - Wi-Fi SSID (1.1.2)
 * GPS - Exif位置付与設定
 * WIFI\_CH - Wi-Fiチャンネル (1.1.0)
 

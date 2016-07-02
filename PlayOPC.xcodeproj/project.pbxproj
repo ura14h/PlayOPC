@@ -189,6 +189,8 @@
 		31E81A441B5B8C75003685A9 /* RecordingVPanel.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A421B5B8C75003685A9 /* RecordingVPanel.storyboard */; };
 		31EA27211BF737B4003402C4 /* LiveImageGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */; };
 		31EA27221BF737B4003402C4 /* LiveImageGridLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */; };
+		31EBDED21D277969004B9F88 /* WifiSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EBDED11D277969004B9F88 /* WifiSettingViewController.m */; };
+		31EBDED31D277975004B9F88 /* WifiSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EBDED11D277969004B9F88 /* WifiSettingViewController.m */; };
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 /* End PBXBuildFile section */
@@ -398,6 +400,8 @@
 		31E81A581B5B9651003685A9 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = PlayOPC/ja.lproj/System.strings; sourceTree = "<group>"; };
 		31EA271F1BF737B4003402C4 /* LiveImageGridLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LiveImageGridLayer.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31EA27201BF737B4003402C4 /* LiveImageGridLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LiveImageGridLayer.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31EBDED01D277969004B9F88 /* WifiSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WifiSettingViewController.h; sourceTree = "<group>"; };
+		31EBDED11D277969004B9F88 /* WifiSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiSettingViewController.m; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 /* End PBXFileReference section */
@@ -460,6 +464,8 @@
 				311B75C31ABC287C00A7D38C /* ConnectionViewController.m */,
 				3162EB071ABE789B00C71BE7 /* BluetoothSettingViewController.h */,
 				3162EB081ABE789B00C71BE7 /* BluetoothSettingViewController.m */,
+				31EBDED01D277969004B9F88 /* WifiSettingViewController.h */,
+				31EBDED11D277969004B9F88 /* WifiSettingViewController.m */,
 				313870A21AC7D27600B00309 /* BluetoothConnector.h */,
 				313870A31AC7D27600B00309 /* BluetoothConnector.m */,
 				314D7A461ACF87AE004C2644 /* WifiConnector.h */,
@@ -1022,6 +1028,7 @@
 				31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */,
 				31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */,
 				314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */,
+				31EBDED21D277969004B9F88 /* WifiSettingViewController.m in Sources */,
 				31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */,
 				311199BE1B086FB200538FA0 /* Reachability.m in Sources */,
 				3154BA631ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
@@ -1078,6 +1085,7 @@
 				31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */,
 				311199BD1B086FB200538FA0 /* MBProgressHUD.m in Sources */,
 				31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */,
+				31EBDED31D277975004B9F88 /* WifiSettingViewController.m in Sources */,
 				319284391AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
 				3154BA641ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
 				31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */,

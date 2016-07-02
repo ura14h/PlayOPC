@@ -12,6 +12,10 @@ NSString *const AppSettingChangedNotification = @"AppSettingChangedNotification"
 
 static NSString *const UserDefaultsBluetoothLocalName = @"BluetoothLocalName";
 static NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
+static NSString *const UserDefaultsWifiHost = @"WifiHost";
+static NSString *const UserDefaultsWifiCommandPort = @"WifiCommandPort";
+static NSString *const UserDefaultsWifiEventPort = @"WifiEventPort";
+static NSString *const UserDefaultsWifiLiveViewStreamingPort = @"WifiLiveViewStreamingPort";
 static NSString *const UserDefaultsKeepLastCameraSetting = @"KeepLastCameraSetting";
 static NSString *const UserDefaultsLatestSnapshotOfCameraSetting = @"LatestSnapshotOfCameraSetting";
 static NSString *const UserDefaultsLiveViewTappingAction = @"LiveViewTappingAction";
@@ -101,6 +105,102 @@ static NSString *const UserDefaultsShowLiveImageGrid = @"ShowLiveImageGrid";
 		[userDefaults setObject:passcode forKey:UserDefaultsBluetoothPasscode];
 	} else {
 		[userDefaults removeObjectForKey:UserDefaultsBluetoothPasscode];
+	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (NSString *)wifiHost {
+	DEBUG_DETAIL_LOG(@"");
+	
+	// ユーザー設定から読み出します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults objectForKey:UserDefaultsWifiHost];
+}
+
+- (void)setWifiHost:(NSString *)host {
+	DEBUG_DETAIL_LOG(@"host=%@", host);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (host) {
+		[userDefaults setObject:host forKey:UserDefaultsWifiHost];
+	} else {
+		[userDefaults removeObjectForKey:UserDefaultsWifiHost];
+	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (NSInteger)wifiCommandPort {
+	DEBUG_DETAIL_LOG(@"");
+	
+	// ユーザー設定から読み出します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults integerForKey:UserDefaultsWifiCommandPort];
+}
+
+- (void)setWifiCommandPort:(NSInteger)port {
+	DEBUG_DETAIL_LOG(@"port=%@", port);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (port > 0) {
+		[userDefaults setInteger:port forKey:UserDefaultsWifiCommandPort];
+	} else {
+		[userDefaults removeObjectForKey:UserDefaultsWifiCommandPort];
+	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (NSInteger)wifiEventPort {
+	DEBUG_DETAIL_LOG(@"");
+	
+	// ユーザー設定から読み出します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults integerForKey:UserDefaultsWifiEventPort];
+}
+
+- (void)setWifiEventPort:(NSInteger)port {
+	DEBUG_DETAIL_LOG(@"port=%@", port);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (port > 0) {
+		[userDefaults setInteger:port forKey:UserDefaultsWifiEventPort];
+	} else {
+		[userDefaults removeObjectForKey:UserDefaultsWifiEventPort];
+	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (NSInteger)wifiLiveViewStreamingPort {
+	DEBUG_DETAIL_LOG(@"");
+	
+	// ユーザー設定から読み出します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults integerForKey:UserDefaultsWifiLiveViewStreamingPort];
+}
+
+- (void)setWifiLiveViewStreamingPort:(NSInteger)port {
+	DEBUG_DETAIL_LOG(@"port=%@", port);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (port > 0) {
+		[userDefaults setInteger:port forKey:UserDefaultsWifiLiveViewStreamingPort];
+	} else {
+		[userDefaults removeObjectForKey:UserDefaultsWifiLiveViewStreamingPort];
 	}
 	
 	// アプリケーションの設定が変更されたことを通知します。

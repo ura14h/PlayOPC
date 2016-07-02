@@ -297,6 +297,8 @@
 	NSString *segueIdentifier = segue.identifier;
 	if ([segueIdentifier isEqualToString:@"DoneBluetoothSetting"]) {
 		[self didChangeBluetoothSetting];
+	} else if ([segueIdentifier isEqualToString:@"DoneWifiSetting"]) {
+		[self didChangeWifiSetting];
 	} else {
 		// 何もしません。
 	}
@@ -469,6 +471,20 @@
 	[self updateShowBluetoothSettingCell];
 }
 
+/// Wi-Fi接続の設定が変更されたときに呼び出されます。
+- (void)didChangeWifiSetting {
+	DEBUG_LOG(@"");
+	
+	AppCamera *camera = GetAppCamera();
+	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeWiFi) {
+		// 次回の接続から有効です。
+		[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewWifiSetting", @"ConnectionViewController.didChangeWifiSetting") title:NSLocalizedString(@"$title:DelayNewWifiSetting", @"ConnectionViewController.didChangeWifiSetting")];
+	}
+	
+	// 画面表示を更新します。
+	[self updateShowWifiSettingCell];
+}
+
 /// 'Connect with using Bluetooth'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtConnectWithUsingBluetoothCell {
 	DEBUG_LOG(@"");
@@ -607,6 +623,13 @@
 		}
 	}
 	
+	// カメラのWi=Fi設定を更新します。
+	AppCamera *camera = GetAppCamera();
+	camera.host = setting.wifiHost;
+	camera.commandPort = setting.wifiCommandPort;
+	camera.eventPort = setting.wifiEventPort;
+	camera.liveViewStreamingPort = setting.wifiLiveViewStreamingPort;
+	
 	// カメラの電源を投入し接続を開始します。
 	// 作者の環境ではiPhone 4Sだと電源投入から接続確率まで20秒近くかかっています。
 	__weak ConnectionViewController *weakSelf = self;
@@ -708,7 +731,6 @@
 		}
 		
 		// カメラにアプリ接続します。
-		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera connect:OLYCameraConnectionTypeWiFi error:&error]) {
 			// カメラにアプリ接続できませんでした。

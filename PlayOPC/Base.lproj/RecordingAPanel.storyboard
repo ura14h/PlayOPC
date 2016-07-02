@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PPm-Ej-s2a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PPm-Ej-s2a">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -264,8 +264,35 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="Image Stabilization Settings" id="Nkr-o0-t1M">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAntiShakeMovie" textLabel="9eO-x3-CyU" detailTextLabel="LTJ-SG-5td" style="IBUITableViewCellStyleValue1" id="yRM-Ya-J8N">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowLensPriorityAntiShake" textLabel="xzg-zu-aYQ" detailTextLabel="T40-Nn-n22" style="IBUITableViewCellStyleValue1" id="94L-ls-EkZ">
                                         <rect key="frame" x="0.0" y="725" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="94L-ls-EkZ" id="mYa-jl-8Wz">
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="&lt;LENS_PRIORITY_ANTI_SHAKE&gt;" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xzg-zu-aYQ">
+                                                    <rect key="frame" x="15" y="12" width="236" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="$lensPriorityAntiShake" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="T40-Nn-n22">
+                                                    <rect key="frame" x="257" y="12" width="28" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="0cO-j7-jPj" kind="show" identifier="ShowLensPriorityAntiShake" id="gbX-5L-FRM"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAntiShakeMovie" textLabel="9eO-x3-CyU" detailTextLabel="LTJ-SG-5td" style="IBUITableViewCellStyleValue1" id="yRM-Ya-J8N">
+                                        <rect key="frame" x="0.0" y="769" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yRM-Ya-J8N" id="coY-NF-p0F">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -292,7 +319,7 @@
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ShowAntiShakeFocalLength" textLabel="uyY-7n-fse" detailTextLabel="bfG-iS-0zG" style="IBUITableViewCellStyleValue1" id="cWf-Jk-pfK">
-                                        <rect key="frame" x="0.0" y="769" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="813" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cWf-Jk-pfK" id="fLy-ow-lrX">
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -342,6 +369,7 @@
                         <outlet property="showFocusMovieCell" destination="mIV-Qd-x8C" id="gjG-WY-P8b"/>
                         <outlet property="showFocusStillCell" destination="DIN-R4-3Nz" id="J7Y-b6-Ic3"/>
                         <outlet property="showFullTimeAfCell" destination="gdd-Kc-P6X" id="d0C-oz-w5V"/>
+                        <outlet property="showLensPriorityAntiShakeCell" destination="94L-ls-EkZ" id="BBh-Q9-T3c"/>
                         <outlet property="unlockAeCell" destination="3VJ-7X-nIF" id="oeC-yh-7ej"/>
                         <outlet property="unlockAfCell" destination="nbx-vL-07T" id="Oxz-8Y-9mH"/>
                     </connections>
@@ -391,6 +419,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="6fb-GS-WAc"/>
+        <segue reference="gbX-5L-FRM"/>
     </inferredMetricsTieBreakers>
 </document>

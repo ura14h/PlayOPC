@@ -213,6 +213,9 @@
 "<RECVIEW>" = "Rec View";
 "<RECVIEW/OFF>" = "Off";
 "<RECVIEW/ON>" = "On";
+"<LENS_PRIORITY_ANTI_SHAKE>" = "Lens IS Priority";
+"<LENS_PRIORITY_ANTI_SHAKE/OFF>" = "Off";
+"<LENS_PRIORITY_ANTI_SHAKE/ON>" = "On";
 "<ANTI_SHAKE_MOVIE>" = "Image Stabilization for Video";
 "<ANTI_SHAKE_MOVIE/OFF>" = "Off";
 "<ANTI_SHAKE_MOVIE/ON>" = "On";

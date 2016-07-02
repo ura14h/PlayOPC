@@ -29,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *showFocusStillCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showFocusMovieCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAeCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *showLensPriorityAntiShakeCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAntiShakeMovieCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAntiShakeFocalLengthCell;
 
@@ -59,6 +60,7 @@
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeFocusStill)) forKey:CameraPropertyFocusStill];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeFocusMovie)) forKey:CameraPropertyFocusMovie];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAe)) forKey:CameraPropertyAe];
+	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeLensPriorityAntiShake)) forKey:CameraPropertyLensPriorityAntiShake];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAntiShakeMovie)) forKey:CameraPropertyAntiShakeMovie];
 	[cameraPropertyObserver setObject:NSStringFromSelector(@selector(didChangeAntiShakeFocalLength)) forKey:CameraPropertyAntiShakeFocalLength];
 	self.cameraPropertyObserver = cameraPropertyObserver;
@@ -74,6 +76,7 @@
 	NSString *focusStillTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyFocusStill];
 	NSString *focusMovieTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyFocusMovie];
 	NSString *aeTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAe];
+	NSString *lensPriorityAntiShakeTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyLensPriorityAntiShake];
 	NSString *antiShakeMovieTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAntiShakeMovie];
 	NSString *antiShakeFocalLengthTitle = [camera cameraPropertyLocalizedTitle:CameraPropertyAntiShakeFocalLength];
 	self.afLockStateCell.textLabel.text = afLockStateTitle;
@@ -82,6 +85,7 @@
 	self.showFocusStillCell.textLabel.text = focusStillTitle;
 	self.showFocusMovieCell.textLabel.text = focusMovieTitle;
 	self.showAeCell.textLabel.text = aeTitle;
+	self.showLensPriorityAntiShakeCell.textLabel.text = lensPriorityAntiShakeTitle;
 	self.showAntiShakeMovieCell.textLabel.text = antiShakeMovieTitle;
 	self.showAntiShakeFocalLengthCell.textLabel.text = antiShakeFocalLengthTitle;
 	NSString *emptyDetailTextLabel = @" "; // テーブルセルのラベルを空欄にしょうとしてnilとか@""とかを設定するとなぜか不具合が起きます。
@@ -91,6 +95,7 @@
 	self.showFocusStillCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showFocusMovieCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAeCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.showLensPriorityAntiShakeCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAntiShakeMovieCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showAntiShakeFocalLengthCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.liveViewTappingActionSegment.enabled = NO;
@@ -100,6 +105,7 @@
 	[self tableViewCell:self.showFocusStillCell enabled:NO];
 	[self tableViewCell:self.showFocusMovieCell enabled:NO];
 	[self tableViewCell:self.showAeCell enabled:NO];
+	[self tableViewCell:self.showLensPriorityAntiShakeCell enabled:NO];
 	[self tableViewCell:self.showAntiShakeMovieCell enabled:NO];
 	[self tableViewCell:self.showAntiShakeFocalLengthCell enabled:NO];
 }
@@ -162,6 +168,7 @@
 	[self updateShowFocusStillCell];
 	[self updateShowFocusMovieCell];
 	[self updateShowAeCell];
+	[self updateShowLensPriorityAntiShakeCell];
 	[self updateShowAntiShakeMovieCell];
 	[self updateShowAntiShakeFocalLengthCell];
 
@@ -202,6 +209,7 @@
 	[self tableViewCell:self.showFocusStillCell enabled:NO];
 	[self tableViewCell:self.showFocusMovieCell enabled:NO];
 	[self tableViewCell:self.showAeCell enabled:NO];
+	[self tableViewCell:self.showLensPriorityAntiShakeCell enabled:NO];
 	[self tableViewCell:self.showAntiShakeMovieCell enabled:NO];
 	[self tableViewCell:self.showAntiShakeFocalLengthCell enabled:NO];
 	
@@ -232,6 +240,10 @@
 	} else if ([segueIdentifier isEqualToString:@"ShowAe"]) {
 		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
 		viewController.property = CameraPropertyAe;
+		viewController.itemSelectionDeleage = self;
+	} else if ([segueIdentifier isEqualToString:@"ShowLensPriorityAntiShake"]) {
+		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
+		viewController.property = CameraPropertyLensPriorityAntiShake;
 		viewController.itemSelectionDeleage = self;
 	} else if ([segueIdentifier isEqualToString:@"ShowAntiShakeMovie"]) {
 		CameraPropertyValueSelectionViewController *viewController = segue.destinationViewController;
@@ -283,6 +295,8 @@
 		[self didChangeAe];
 	} else if ([property isEqualToString:CameraPropertyAntiShakeMovie]) {
 		[self didChangeAntiShakeMovie];
+	} else if ([property isEqualToString:CameraPropertyLensPriorityAntiShake]) {
+		[self didChangeLensPriorityAntiShake];
 	} else if ([property isEqualToString:CameraPropertyAntiShakeFocalLength]) {
 		[self didChangeAntiShakeFocalLength];
 	} else {
@@ -383,6 +397,14 @@
 	
 	// 画面表示を更新します。
 	[self updateShowAeCell];
+}
+
+/// レンズ手振れ補正優先の値が変わった時に呼び出されます。
+- (void)didChangeLensPriorityAntiShake {
+	DEBUG_LOG(@"");
+	
+	// 画面表示を更新します。
+	[self updateShowLensPriorityAntiShakeCell];
 }
 
 /// 動画手ぶれ補正の値が変わった時に呼び出されます。
@@ -513,6 +535,13 @@
 	DEBUG_LOG(@"");
 	
 	[self updateCameraPropertyCell:self.showAeCell name:CameraPropertyAe completion:nil];
+}
+
+/// レンズ手振れ補正優先を表示します。
+- (void)updateShowLensPriorityAntiShakeCell {
+	DEBUG_LOG(@"");
+	
+	[self updateCameraPropertyCell:self.showLensPriorityAntiShakeCell name:CameraPropertyLensPriorityAntiShake completion:nil];
 }
 
 /// 動画手ぶれ補正を表示します。

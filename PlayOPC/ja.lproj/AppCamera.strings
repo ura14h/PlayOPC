@@ -213,6 +213,9 @@
 "<RECVIEW>" = "撮影後確認画像";
 "<RECVIEW/OFF>" = "表示しない";
 "<RECVIEW/ON>" = "表示する";
+"<LENS_PRIORITY_ANTI_SHAKE>" = "レンズ手振れ補正優先";
+"<LENS_PRIORITY_ANTI_SHAKE/OFF>" = "無効";
+"<LENS_PRIORITY_ANTI_SHAKE/ON>" = "有効";
 "<ANTI_SHAKE_MOVIE>" = "動画用手ぶれ補正モード";
 "<ANTI_SHAKE_MOVIE/OFF>" = "無効";
 "<ANTI_SHAKE_MOVIE/ON>" = "有効";

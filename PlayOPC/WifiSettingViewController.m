@@ -89,7 +89,11 @@
 /// キーボードから入力されるたびに呼び出されます。
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
 	DEBUG_LOG(@"string=%@", string);
-	
+
+	// テキストフィールドを更新します。
+	textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+
+	// 入力されている値をチェックします。
 	BOOL enable = YES;
 	if (enable) {
 		NSString *host = self.wifiHostText.text;
@@ -128,7 +132,7 @@
 	}
 	self.doneButton.enabled = enable;
 	
-	return YES;
+	return NO; // この処理でテキストフィールドを更新したので、OSの既定処理は実行させません。
 }
 
 /// キーボードでリターンキーをタップした時に呼び出されます。

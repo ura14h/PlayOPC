@@ -114,7 +114,7 @@
 * magnifyingLiveView (1.1.0)
 * magnifyingLiveViewArea: (1.1.1)
 * recordingSupportsDelegate
-* *downloadLastCapturedImage:completionHandler:errorHandler: (1.1.2)*
+* downloadLastCapturedImage:completionHandler:errorHandler: (1.1.2)
 
 ### OLYCamera(Playback)
 

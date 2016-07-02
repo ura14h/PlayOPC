@@ -540,7 +540,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		if ([segueIdentifier isEqualToString:@"ShowRecImageViewController"]) {
 			RecImageViewController *viewController = segue.destinationViewController;
 			viewController.delegate = self;
-			viewController.image = self.latestRecImage;
+			viewController.latestRecImage = self.latestRecImage;
 		} else {
 			// 何もしません。
 		}

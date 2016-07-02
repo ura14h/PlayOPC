@@ -17,7 +17,7 @@
 @interface RecImageViewController : UIViewController
 
 @property (weak, nonatomic) id<RecImageViewControllerControllerDelegate> delegate; ///< 撮影後確認画像表示中に発生した通知を受け取るためのデリゲート
-@property (strong, nonatomic) UIImage *image; ///< 表示する撮影後確認画像
+@property (strong, nonatomic) UIImage *latestRecImage; ///< 表示する'撮影後確認画像'
 
 @end
 

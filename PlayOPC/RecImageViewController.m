@@ -21,6 +21,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
+@property (strong, nonatomic) UIImage *image; ///< 表示している画像('撮影後確認画像'もしくは'最後に撮影された画像')
+@property (strong, nonatomic) UIImage *lastCapturedImage; ///< '最後に撮影された画像'
+@property (assign, nonatomic) BOOL imageIsLastCapturedImage; ///< '最後に撮影された画像'を表示しているか
+@property (strong, nonatomic) NSArray *latestRecImageToolbarItems; ///< '撮影後確認画像'を表示するときのツールバーボタンセット
+@property (strong, nonatomic) NSArray *lastCapturedImageToolbarItems; ///< '最後に撮影された画像'を表示するときのツールバーボタンセット
 
 @end
 
@@ -36,6 +41,20 @@
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
+
+	// ツールバーボタンセットを初期設定します。
+	NSArray *designedToolbarItems = self.toolbarItems;
+	self.latestRecImageToolbarItems = @[
+		designedToolbarItems[0], // リサイズボタン(小さい方の絵がアクティブ)
+		designedToolbarItems[2], // スペーサー
+		designedToolbarItems[3], // 削除ボタン
+	];
+	self.lastCapturedImageToolbarItems = @[
+		designedToolbarItems[1], // リサイズボタン(大きい方の絵がアクティブ)
+		designedToolbarItems[2], // スペーサー
+		designedToolbarItems[3], // 削除ボタン
+	];
+	self.toolbarItems = @[];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -45,8 +64,12 @@
 
 - (void)dealloc {
 	DEBUG_LOG(@"");
-	
+
 	_image = nil;
+	_latestRecImage = nil;
+	_lastCapturedImage = nil;
+	_latestRecImageToolbarItems = nil;
+	_lastCapturedImageToolbarItems = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -105,8 +128,12 @@
 	[camera addRecordingSupportsDelegate:self];
 	
 	// 撮影後確認画像を表示します。
+	self.image = self.latestRecImage;
+	self.lastCapturedImage = nil;
+	self.imageIsLastCapturedImage = NO;
 	[self updateImageView];
-
+	[self updateToolbarItems:YES];
+	
 	// ビューコントローラーが活動を開始しました。
 	self.startingActivity = YES;
 }
@@ -143,11 +170,15 @@
 	
 	// レックビューの表示を最新の画像で更新します。
 	UIImage *image = OLYCameraConvertDataToImage(data, metadata);
-	self.image = image;
+	self.latestRecImage = image;
 	
 	// 撮影後確認画像を表示します。
+	self.image = self.latestRecImage;
+	self.lastCapturedImage = nil;
+	self.imageIsLastCapturedImage = NO;
 	[self updateImageView];
-
+	[self updateToolbarItems:YES];
+	
 	// 進捗表示用のビューを消去します。
 	[self hideProgress:YES];
 }
@@ -212,6 +243,90 @@
 		// スクロールビューを最小倍率までズームアウトします。
 		[self.scrollView setZoomScale:minimumZoomScale animated:YES];
 	}
+}
+
+/// リサイズボタンがタップされた時に呼び出されます。
+- (IBAction)didTapResizeButton:(id)sender {
+	DEBUG_LOG(@"");
+
+	// 現在は'撮影後確認画像'が表示されているはずなので、
+	// '最後に撮影された画像'を表示します。
+	if (self.lastCapturedImage) {
+		self.imageIsLastCapturedImage = YES;
+		self.image = self.lastCapturedImage;
+		[self updateImageView];
+		[self updateToolbarItems:YES];
+		return;
+	}
+	
+	// 初めて'最後に撮影された画像'を表示するときはカメラからダウンロードしてこなければなりません。
+	// '最後に撮影された画像'のダウンロードを開始します。
+	__weak RecImageViewController *weakSelf = self;
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		
+		// '最後に撮影された画像'をダウンロードします。
+		AppCamera *camera = GetAppCamera();
+		__block BOOL downloadCompleted = NO;
+		__block BOOL downloadFailed = NO;
+		__block NSData *downloadData = nil;
+		[camera downloadLastCapturedImage:^(float progress, BOOL *stop) {
+			// ビューコントローラーが活動が停止しているようならダウンロードは必要ないのでキャンセルします。
+			if (!weakSelf.startingActivity) {
+				*stop = YES;
+				downloadCompleted = YES;
+				return;
+			}
+			// 進捗率表示モードに変更します。
+			if (progressView.mode == MBProgressHUDModeIndeterminate) {
+				progressView.mode = MBProgressHUDModeAnnularDeterminate;
+			}
+			// 進捗率の表示を更新します。
+			progressView.progress = progress;
+		} completionHandler:^(NSData *data) {
+			DEBUG_LOG(@"data=%p", data);
+			downloadData = data;
+			downloadCompleted = YES;
+		} errorHandler:^(NSError *error) {
+			DEBUG_LOG(@"error=%p", error);
+			downloadFailed = YES; // 下の方で待っている人がいるので、すぐにダウンロードが終わったことにします。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotResizePicture", @"RecImageViewController.didTapResizeButton")];
+		}];
+
+		// '最後に撮影された画像'のダウンロードが完了するのを待ちます。
+		while (!downloadCompleted && !downloadFailed) {
+			[NSThread sleepForTimeInterval:0.05];
+		}
+		if (downloadFailed) {
+			// ダウンロードに失敗したようです。
+			return;
+		}
+		
+		// バイナリデータから画像データを抽出します。
+		weakSelf.imageIsLastCapturedImage = YES;
+		weakSelf.lastCapturedImage = [UIImage imageWithData:downloadData];
+		
+		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
+		
+		// '最後に撮影された画像'を表示します。
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			weakSelf.image = weakSelf.lastCapturedImage;
+			[weakSelf updateImageView];
+			[weakSelf updateToolbarItems:YES];
+		}];
+	}];
+}
+
+/// リサイズボタンがタップされた時に呼び出されます。
+- (IBAction)didTapInvertedResizeButton:(id)sender {
+	DEBUG_LOG(@"");
+
+	// 現在は'最後に撮影された画像'が表示されているはずなので、
+	// '撮影後確認画像'を表示します。
+	self.imageIsLastCapturedImage = NO;
+	self.image = self.latestRecImage;
+	[self updateImageView];
+	[self updateToolbarItems:YES];
 }
 
 /// 削除ボタンがタップされた時に呼び出されます。
@@ -330,6 +445,17 @@
 				weakSelf.imageView.alpha = 1.0;
 			}];
 		}];
+	}
+}
+
+// ツールバーの表示を更新します。
+- (void)updateToolbarItems:(BOOL)animated {
+	DEBUG_LOG(@"");
+	
+	if (self.imageIsLastCapturedImage) {
+		[self setToolbarItems:self.lastCapturedImageToolbarItems animated:animated];
+	} else {
+		[self setToolbarItems:self.latestRecImageToolbarItems animated:animated];
 	}
 }
 

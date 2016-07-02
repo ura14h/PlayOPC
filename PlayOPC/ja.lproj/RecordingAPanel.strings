@@ -49,6 +49,9 @@
 /* Class = "UILabel"; text = "$afLockState"; ObjectID = "Se0-Xm-bRZ"; */
 "Se0-Xm-bRZ.text" = "$afLockState";
 
+/* Class = "UILabel"; text = "$lensPriorityAntiShake"; ObjectID = "T40-Nn-n22"; */
+"T40-Nn-n22.text" = "$lensPriorityAntiShake";
+
 /* Class = "UITableViewSection"; headerTitle = "Auto Exposure Settings"; ObjectID = "bEZ-mJ-Ca9"; */
 "bEZ-mJ-Ca9.headerTitle" = "AE設定";
 
@@ -84,4 +87,7 @@
 
 /* Class = "UITableViewSection"; headerTitle = "Auto Focus Settings"; ObjectID = "wt5-st-q46"; */
 "wt5-st-q46.headerTitle" = "AF設定";
+
+/* Class = "UILabel"; text = "<LENS_PRIORITY_ANTI_SHAKE>"; ObjectID = "xzg-zu-aYQ"; */
+"xzg-zu-aYQ.text" = "<LENS_PRIORITY_ANTI_SHAKE>";
 

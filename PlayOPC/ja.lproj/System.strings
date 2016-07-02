@@ -1,3 +1,6 @@
+/* Class = "UILabel"; text = "<SSID>"; ObjectID = "0Ue-6y-Fow"; */
+"0Ue-6y-Fow.text" = "<SSID>";
+
 /* Class = "UILabel"; text = "$lensModelId"; ObjectID = "5Lp-FM-ehJ"; */
 "5Lp-FM-ehJ.text" = "$lensModelId";
 
@@ -45,6 +48,9 @@
 
 /* Class = "UILabel"; text = "Lens Mount Status"; ObjectID = "hH8-Ob-V1S"; */
 "hH8-Ob-V1S.text" = "レンズ装着状態";
+
+/* Class = "UILabel"; text = "$ssid"; ObjectID = "igi-b3-p26"; */
+"igi-b3-p26.text" = "$ssid";
 
 /* Class = "UITableViewSection"; headerTitle = "Hardware Information"; ObjectID = "kr7-R6-DZl"; */
 "kr7-R6-DZl.headerTitle" = "ハードウェア情報";

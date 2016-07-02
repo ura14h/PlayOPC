@@ -12,6 +12,7 @@
 #import "WifiSettingViewController.h"
 #import "AppDelegate.h"
 #import "AppSetting.h"
+#import "AppCamera.h"
 #import "UIViewController+Alert.h"
 
 @interface WifiSettingViewController () <UITextFieldDelegate>
@@ -165,8 +166,17 @@
 	setting.wifiEventPort = [self.wifiEventPortText.text integerValue];
 	setting.wifiLiveViewStreamingPort = [self.wifiLiveViewStreamingPortText.text integerValue];
 
-	// 前の画面に戻ります。
-	[self performSegueWithIdentifier:@"DoneWifiSetting" sender:self];
+	AppCamera *camera = GetAppCamera();
+	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeWiFi) {
+		// 次回の接続から有効です。
+		[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewWifiHostSetting", @"WifiSettingViewController.didTapDoneButton") title:NSLocalizedString(@"$title:DelayNewWifiHostSetting", @"WifiSettingViewController.didTapDoneButton") handler:^(UIAlertAction *action) {
+			// 前の画面に戻ります。
+			[self performSegueWithIdentifier:@"DoneWifiSetting" sender:self];
+		}];
+	} else {
+		// 前の画面に戻ります。
+		[self performSegueWithIdentifier:@"DoneWifiSetting" sender:self];
+	}
 }
 
 /// 'Host'のセルが選択されたときに呼び出されます。
@@ -230,9 +240,13 @@
 	setting.wifiCommandPort = 0;
 	setting.wifiEventPort = 0;
 	setting.wifiLiveViewStreamingPort = 0;
-	
-	// 前の画面に戻ります。
-	[self performSegueWithIdentifier:@"DoneWifiSetting" sender:self];
+
+	// リセットされたWi-Fi接続の設定値を表示します。
+	self.wifiHostText.text = setting.wifiHost;
+	self.wifiCommandPortText.text = [NSString stringWithFormat:@"%ld", (long)setting.wifiCommandPort];
+	self.wifiEventPortText.text = [NSString stringWithFormat:@"%ld", (long)setting.wifiEventPort];
+	self.wifiLiveViewStreamingPortText.text = [NSString stringWithFormat:@"%ld", (long)setting.wifiLiveViewStreamingPort];
+	self.doneButton.enabled = YES;
 }
 
 @end

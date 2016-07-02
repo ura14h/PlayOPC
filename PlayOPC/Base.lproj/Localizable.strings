@@ -498,8 +498,11 @@
 /* AppCamera.restoreSnapshotOfSetting */
 "$desc:DataFormatIsNotSnapshotOfSetting" = "Data format is not snapshot of setting.";
 
-/* ConnectionViewController.didChangeBluetoothSetting */
+/* BluetoothSettingViewController.didTapDoneButton */
 "$desc:DelayNewBluetoothSetting" = "The new Bluetooth setting will be applied at the next connecting.";
+
+/* WifiSettingViewController.didTapDoneButton */
+"$desc:DelayNewWifiHostSetting" = "The new Wi-Fi setting will be applied at the next connecting.";
 
 /* SystemViewController.didChangeWifiCh */
 "$desc:DelayNewWifiSetting" = "The new Wi-Fi setting will be applied at the next waking-up.";
@@ -802,8 +805,11 @@
 /* VideoContentViewController.unprotectVideo */
 "$title:CouldNotUnprotectVideo" = "Could not unprotect video";
 
-/* ConnectionViewController.didChangeBluetoothSetting */
+/* BluetoothSettingViewController.didTapDoneButton */
 "$title:DelayNewBluetoothSetting" = "This setting is not applied immediately";
+
+/* WifiSettingViewController.didTapDoneButton */
+"$title:DelayNewWifiHostSetting" = "This setting is not applied immediately";
 
 /* SystemViewController.didChangeWifiCh */
 "$title:DelayNewWifiSetting" = "This setting is not applied immediately";

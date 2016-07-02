@@ -13,6 +13,7 @@
 #import <OLYCameraKit/OACentralConfiguration.h>
 #import "AppDelegate.h"
 #import "AppSetting.h"
+#import "AppCamera.h"
 #import "UIViewController+Alert.h"
 
 @interface BluetoothSettingViewController () <UITextFieldDelegate>
@@ -121,9 +122,18 @@
 	AppSetting *setting = GetAppSetting();
 	setting.bluetoothLocalName = self.bluetoothLocalNameText.text;
 	setting.bluetoothPasscode = self.bluetoothPasscodeText.text;
-	
-	// 前の画面に戻ります。
-	[self performSegueWithIdentifier:@"DoneBluetoothSetting" sender:self];
+
+	AppCamera *camera = GetAppCamera();
+	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
+		// 次回の接続から有効です。
+		[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewBluetoothSetting", @"BluetoothSettingViewController.didTapDoneButton") title:NSLocalizedString(@"$title:DelayNewBluetoothSetting", @"BluetoothSettingViewController.didTapDoneButton") handler:^(UIAlertAction *action) {
+			// 前の画面に戻ります。
+			[self performSegueWithIdentifier:@"DoneBluetoothSetting" sender:self];
+		}];
+	} else {
+		// 前の画面に戻ります。
+		[self performSegueWithIdentifier:@"DoneBluetoothSetting" sender:self];
+	}
 }
 
 /// 'Local Name'のセルが選択されたときに呼び出されます。

@@ -498,8 +498,11 @@
 /* AppCamera.restoreSnapshotOfSetting */
 "$desc:DataFormatIsNotSnapshotOfSetting" = "データフォーマットがカメラ設定のスナップショットではありません。";
 
-/* ConnectionViewController.didChangeBluetoothSetting */
+/* BluetoothSettingViewController.didTapDoneButton */
 "$desc:DelayNewBluetoothSetting" = "新しいBluetooth設定は次のカメラ接続から適用されます。";
+
+/* WifiSettingViewController.didTapDoneButton */
+"$desc:DelayNewWifiHostSetting" = "新しいWi-Fi設定は次のカメラ接続から適用されます。";
 
 /* SystemViewController.didChangeWifiCh */
 "$desc:DelayNewWifiSetting" = "新しいWi-Fi設定は次のカメラ電源投入から適用されます。";
@@ -802,8 +805,11 @@
 /* VideoContentViewController.unprotectVideo */
 "$title:CouldNotUnprotectVideo" = "動画をプロテクト解除できません";
 
-/* ConnectionViewController.didChangeBluetoothSetting */
+/* BluetoothSettingViewController.didTapDoneButton */
 "$title:DelayNewBluetoothSetting" = "設定はすぐに適用されません";
+
+/* WifiSettingViewController.didTapDoneButton */
+"$title:DelayNewWifiHostSetting" = "設定はすぐに適用されません";
 
 /* SystemViewController.didChangeWifiCh */
 "$title:DelayNewWifiSetting" = "設定はすぐに適用されません";

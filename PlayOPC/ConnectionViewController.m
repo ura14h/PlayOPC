@@ -461,12 +461,6 @@
 - (void)didChangeBluetoothSetting {
 	DEBUG_LOG(@"");
 	
-	AppCamera *camera = GetAppCamera();
-	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
-		// 次回の接続から有効です。
-		[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewBluetoothSetting", @"ConnectionViewController.didChangeBluetoothSetting") title:NSLocalizedString(@"$title:DelayNewBluetoothSetting", @"ConnectionViewController.didChangeBluetoothSetting")];
-	}
-	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
 }
@@ -474,12 +468,6 @@
 /// Wi-Fi接続の設定が変更されたときに呼び出されます。
 - (void)didChangeWifiSetting {
 	DEBUG_LOG(@"");
-	
-	AppCamera *camera = GetAppCamera();
-	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeWiFi) {
-		// 次回の接続から有効です。
-		[self showAlertMessage:NSLocalizedString(@"$desc:DelayNewWifiSetting", @"ConnectionViewController.didChangeWifiSetting") title:NSLocalizedString(@"$title:DelayNewWifiSetting", @"ConnectionViewController.didChangeWifiSetting")];
-	}
 	
 	// 画面表示を更新します。
 	[self updateShowWifiSettingCell];

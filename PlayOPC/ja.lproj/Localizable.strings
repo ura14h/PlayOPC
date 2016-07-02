@@ -711,7 +711,8 @@
 /* VideoContentViewController.protectVideo */
 "$title:CouldNotProtectVideo" = "動画をプロテクトできません";
 
-/* PictureContentViewController.downloadResizedImage */
+/* PictureContentViewController.downloadResizedImage
+   RecImageViewController.didTapResizeButton */
 "$title:CouldNotResizePicture" = "写真をリサイズできません";
 
 /* VideoContentViewController.resizeVideo */

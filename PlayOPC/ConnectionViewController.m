@@ -46,6 +46,7 @@
 @property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報へアクセスする権限があるか調べるための位置情報マネージャ
 @property (strong, nonatomic) BluetoothConnector *bluetoothConnector; ///< Bluetooth接続の監視
 @property (strong, nonatomic) WifiConnector *wifiConnector; ///< Wi-Fi接続の監視
+@property (strong, nonatomic) NSTimer *wifiConnectorTimer; ///< Wi-Fi接続の監視を定期的に更新させるためのタイマー
 @property (strong, nonatomic) NSIndexPath *visibleWhenConnected; ///< アプリ接続が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenDisconnected; ///< アプリ接続の切断が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenSleeped; ///< カメラの電源オフが完了した後のスクロール位置
@@ -141,6 +142,10 @@
 	[notificationCenter removeObserver:self name:WifiStatusChangedNotification object:nil];
 	_bluetoothConnector = nil;
 	_wifiConnector = nil;
+	if (_wifiConnectorTimer) {
+		[_wifiConnectorTimer invalidate];
+	}
+	_wifiConnectorTimer = nil;
 
 	[notificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
@@ -212,10 +217,26 @@
 			DEBUG_LOG(@"Using location service is restricted.");
 			break;
 	}
+
+	// カメラのWi=Fi設定を更新します。
+	AppSetting *setting = GetAppSetting();
+	AppCamera *camera = GetAppCamera();
+	camera.host = setting.wifiHost;
+	camera.commandPort = setting.wifiCommandPort;
+	camera.eventPort = setting.wifiEventPort;
+	camera.liveViewStreamingPort = setting.wifiLiveViewStreamingPort;
 	
 	// BluetoothとWi-Fiの接続状態を監視開始します。
 	self.bluetoothConnector.peripheral = nil;
 	[self.wifiConnector startMonitoring];
+	
+	// Wi-Fiの接続状態を定期的かつ強制的に更新します。
+	//   デバイスがカメラのアクセスポイントに直接接続していないような特殊なネットワーク構成の環境では、
+	//   iOSのWi-Fiの状態変化をトリガーにしてカメラの存在を確認しに行くことができないので、
+	//   (デバイスのWi-Fiはカメラとは別のアクセスポイントに繋がりっ放しなので、Wi-Fiの状態が変化しない)、
+	//   これを力技で解決するために、カメラに接続可能か否かを定期的に確認しかつ強制的に更新します。
+	NSTimeInterval wifiConnectorTimerInterval = 15.0; // 15秒間隔
+	self.wifiConnectorTimer = [NSTimer scheduledTimerWithTimeInterval:wifiConnectorTimerInterval target:self selector:@selector(didFireWifiConnectorTimer:) userInfo:nil repeats:YES];
 	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
@@ -249,6 +270,8 @@
 	// BluetoothとWi-Fiの接続状態を監視停止します。
 	self.bluetoothConnector.peripheral = nil;
 	[self.wifiConnector stopMonitoring];
+	[self.wifiConnectorTimer invalidate];
+	self.wifiConnectorTimer = nil;
 	
 	// カメラ操作の子画面を表示している場合は、この画面に戻します。
 	[self backToConnectionView:NO];
@@ -382,6 +405,14 @@
 	[self backToConnectionView:YES];
 }
 
+/// Wi-Fi接続の監視を強制更新するタイマーがタイムアウトした時に呼び出されます。
+- (void)didFireWifiConnectorTimer:(NSTimer *)timer {
+	DEBUG_LOG(@"");
+
+	/// 接続状態の監視を更新します。
+	[self.wifiConnector pokeMonitoring];
+}
+
 #pragma mark -
 
 /// アプリケーション設定が変化した時に呼び出されます。
@@ -468,6 +499,18 @@
 /// Wi-Fi接続の設定が変更されたときに呼び出されます。
 - (void)didChangeWifiSetting {
 	DEBUG_LOG(@"");
+
+	// カメラのWi=Fi設定を更新します。
+	AppSetting *setting = GetAppSetting();
+	AppCamera *camera = GetAppCamera();
+	camera.host = setting.wifiHost;
+	camera.commandPort = setting.wifiCommandPort;
+	camera.eventPort = setting.wifiEventPort;
+	camera.liveViewStreamingPort = setting.wifiLiveViewStreamingPort;
+	
+	// Wi-Fiの接続状態の監視を再起動します。
+	[self.wifiConnector stopMonitoring];
+	[self.wifiConnector startMonitoring];
 	
 	// 画面表示を更新します。
 	[self updateShowWifiSettingCell];
@@ -611,13 +654,6 @@
 		}
 	}
 	
-	// カメラのWi=Fi設定を更新します。
-	AppCamera *camera = GetAppCamera();
-	camera.host = setting.wifiHost;
-	camera.commandPort = setting.wifiCommandPort;
-	camera.eventPort = setting.wifiEventPort;
-	camera.liveViewStreamingPort = setting.wifiLiveViewStreamingPort;
-	
 	// カメラの電源を投入し接続を開始します。
 	// 作者の環境ではiPhone 4Sだと電源投入から接続確率まで20秒近くかかっています。
 	__weak ConnectionViewController *weakSelf = self;
@@ -719,6 +755,7 @@
 		}
 		
 		// カメラにアプリ接続します。
+		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
 		if (![camera connect:OLYCameraConnectionTypeWiFi error:&error]) {
 			// カメラにアプリ接続できませんでした。

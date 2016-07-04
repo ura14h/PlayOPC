@@ -144,6 +144,19 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	self.monitoring = NO;
 }
 
+- (void)pokeMonitoring {
+	DEBUG_LOG(@"");
+	
+	if (!self.monitoring) {
+		return;
+	}
+	
+	__weak WifiConnector *weakSelf = self;
+	dispatch_async(weakSelf.reachabilityQueue, ^{
+		[weakSelf updateStatusWithToKnockOnCamera:YES];
+	});
+}
+
 - (BOOL)waitForConnected:(NSTimeInterval)timeout {
 	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 

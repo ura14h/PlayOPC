@@ -53,6 +53,9 @@ extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態�
 /// 接続状態の監視を終了します。
 - (void)stopMonitoring;
 
+/// 接続状態の監視を更新します。
+- (void)pokeMonitoring;
+
 /// カメラへのアクセスが可能になるまで待ちます。
 - (BOOL)waitForConnected:(NSTimeInterval)timeout;
 

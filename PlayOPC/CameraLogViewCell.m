@@ -19,6 +19,7 @@
 
 - (void)awakeFromNib {
 	DEBUG_DETAIL_LOG(@"");
+	[super awakeFromNib];
 
 	NSString *emptyLabel = @" ";
 	self.messageLabel.text = emptyLabel;

@@ -45,8 +45,8 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 
 	_SSID = nil;
 	_BSSID = nil;
-	_reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
-	_reachability = [Reachability reachabilityForLocalWiFi];
+	_reachabilityQueue = nil;
+	_reachability = nil;
 	_networkStatus = NotReachable;
 	_cameraResponded = NO;
 	
@@ -108,6 +108,12 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		return;
 	}
 
+	if (!self.reachability) {
+		AppCamera *camera = GetAppCamera();
+		self.reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
+		self.reachability = [Reachability reachabilityWithHostName:camera.host];
+	}
+	
 	__weak WifiConnector *weakSelf = self;
 	dispatch_async(weakSelf.reachabilityQueue, ^{
 		[weakSelf updateStatusWithToKnockOnCamera:YES];

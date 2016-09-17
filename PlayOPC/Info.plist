@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.8.3082</string>
+	<string>1.8.3101</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleURLTypes</key>
@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3091</string>
+	<string>3103</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>jp.olympus-imaging.oacentral</string>
@@ -45,12 +45,14 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This application uses Bluetooth to wake up a camera.</string>
 	<key>NSLocationUsageDescription</key>
-	<string>This application use the current location to set the camera.</string>
+	<string>This application uses the current location to set the camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application use the current location to set the camera.</string>
+	<string>This application uses the current location to set the camera.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This application use the photo library to save a captured image.</string>
+	<string>This application uses the photo library to save a captured image.</string>
 	<key>UIFileSharingEnabled</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

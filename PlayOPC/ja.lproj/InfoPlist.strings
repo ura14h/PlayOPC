@@ -9,3 +9,4 @@
 NSLocationUsageDescription = "このアプリケーションは現在地をカメラに設定します。";
 NSLocationWhenInUseUsageDescription = "このアプリケーションは現在地をカメラに設定します。";
 NSPhotoLibraryUsageDescription = "このアプリケーションは撮影した画像を写真アルバムに保存します。";
+NSBluetoothPeripheralUsageDescription = "このアプリケーションはカメラを起動するためにBluetoothを使用します。";

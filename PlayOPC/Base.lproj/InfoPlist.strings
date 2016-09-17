@@ -6,6 +6,7 @@
   Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 */
 
-NSLocationUsageDescription = "This application use the current location to set the camera.";
-NSLocationWhenInUseUsageDescription = "This application use the current location to set the camera.";
-NSPhotoLibraryUsageDescription = "This application use the photo library to save a captured image.";
+NSLocationUsageDescription = "This application uses the current location to set the camera.";
+NSLocationWhenInUseUsageDescription = "This application uses the current location to set the camera.";
+NSPhotoLibraryUsageDescription = "This application uses the photo library to save a captured image.";
+NSBluetoothPeripheralUsageDescription = "This application uses Bluetooth to wake up a camera.";

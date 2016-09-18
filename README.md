@@ -51,9 +51,9 @@ You may find the binary version of application in [iTunes App Store](https://itu
 
 Building this application requires:
 
-* iOS 8.1 (Recommended 8.4 and later)
-* Mac OS X Yosemite (Recommended 10.11 and later)
-* Xcode 7.0 (Recommended 7.0.1 and later)
+* iOS 8.1 and later (Recommended 10.0 and later)
+* OS X 10.11 and later
+* Xcode 8.0 and later
 
 When the project that you downloaded does not seem to be able to build, please read the trouble-shooting section of [Wiki](https://github.com/ura14h/PlayOPC/wiki).
 

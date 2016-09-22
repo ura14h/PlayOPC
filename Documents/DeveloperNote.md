@@ -142,4 +142,34 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
 
 * OLYCameraKit.framworkの最新バージョン(1.1.1)をアプリのプロジェクトに組み込むとビルド時に警告が大量に発生する場合があるようです。なお、プロジェクトのビルド設定でDebug Information FormatをDWARF with dSYMからDWARFに変えると警告は消えるようです。 #reported-sdk-1.1.1 #avoided-app-1.5.2477
 
+## iOS 10 への移行
+
+* カメラ起動(wakeup:)メソッドなどのBluetoothLE接続を利用するアプリでは、Info.plistに以下の設定が必要になるようです。UIRequiredDeviceCapabilitiesキーの内容とNSBluetoothPeripheralUsageDescriptionキー有無の組み合わせによっては、iTunes Connectへの審査申請時にアプリバイナリがリジェクトされる場合があります。
+
+```
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+	        :
+		<string>bluetooth-le</string>
+	</array>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>This application uses Bluetooth to wake up a camera.</string>
+```
+
+* 上記以外にもカメラへの位置情報設定やダウンロードした画像をデバイスのアルバムに保存するなどのを備えているアプリでは、Info.plistに以下の設定が必要になるようです。例えば、NSPhotoLibraryUsageDescriptionキーを忘れるとアプリがクラッシュする場合があります。
+
+```
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This application uses the current location to set the camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This application uses the photo library to save a captured image.</string>
+```
+
+* Appleが提供している[Reachability](https://developer.apple.com/library/content/samplecode/Reachability/Introduction/Intro.html)の古いバージョンでかつreachabilityForLocalWiFiメソッドを使用している場合は、Wi-Fi接続の状態変化を正しく検知できません。代替策としてreachabilityWithHostName:メソッドかreachabilityWithAddress:メソッドを使用する必要があるようです。
+
+## iTunes Connectへの審査申請
+
+* Appleのアプリ審査部門ではOLYMPUS AIRを所有していないので(これは憶測です)、アプリが動作している様子を動画に撮ってインターネットで閲覧できる場所にアップロードし、そのURLを審査用フォームのメモ欄に追記する必要があります。
+* 審査用の動画には、カメラの電源が入ってからデバイスに接続しアプリが正しく起動するシーン、および審査フォームの概要欄に記述された機能がアプリを使ってカメラが実際に動作しているシーンが映っている必要があります。
+
 以上

@@ -197,6 +197,17 @@ extern NSString *const OLYCameraKitBuildNumber;
  */
 @interface OLYCamera : NSObject
 
+/**
+ * 
+ * Initialize new camera instance.
+ *
+ * @param dispatchQueue Dispatch queue for callback.
+ * @return Initialized instance.
+ *
+ * 
+ */
+- (id)initWithDispatchQueue:(dispatch_queue_t)dispatchQueue;	
+
 // See categories.
 
 @end

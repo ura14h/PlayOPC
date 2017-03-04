@@ -1,0 +1,7 @@
+framework module OLYCameraKit {
+	umbrella header "OLYCamera.h"
+	header "OLYCameraVideoPlayer.h"
+	header "OACentralConfiguration.h"
+	export *
+	module * { export * }
+}

@@ -10,7 +10,7 @@
 //
 
 #import "ConnectionViewController.h"
-#import <AssetsLibrary/AssetsLibrary.h>
+#import <Photos/Photos.h>
 #import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
 #import "AppSetting.h"
@@ -188,16 +188,16 @@
 	DEBUG_LOG(@"");
 
 	// 写真アルバム利用の権限があるか確認します。
-	switch ([ALAssetsLibrary authorizationStatus]) {
-		case ALAuthorizationStatusNotDetermined:
+	switch ([PHPhotoLibrary authorizationStatus]) {
+		case PHAuthorizationStatusNotDetermined:
 			DEBUG_LOG(@"Using assets library isn't determind.");
 			[self assetsLibraryRequestWhenInUseAuthorization];
 			break;
-		case ALAuthorizationStatusAuthorized:
+		case PHAuthorizationStatusAuthorized:
 			DEBUG_LOG(@"Using assets library is already authorized.");
 			break;
-		case ALAuthorizationStatusDenied:
-		case ALAuthorizationStatusRestricted:
+		case PHAuthorizationStatusDenied:
+		case PHAuthorizationStatusRestricted:
 			DEBUG_LOG(@"Using assets library is restricted.");
 			break;
 	}
@@ -982,13 +982,11 @@
 /// 写真アルバムの利用してよいか問い合わせます。
 - (void)assetsLibraryRequestWhenInUseAuthorization {
 	DEBUG_LOG(@"");
-	
-	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-	[library enumerateGroupsWithTypes:ALAssetsGroupAll usingBlock:^(ALAssetsGroup *group, BOOL *stop) {
-		DEBUG_LOG(@"group=%@", [group valueForProperty:ALAssetsGroupPropertyName]);
-	} failureBlock:^(NSError *error) {
-		DEBUG_LOG(@"error=%@", error.localizedDescription);
-	}];
+
+	PHFetchResult<PHAssetCollection *> *collectionResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
+	for (PHAssetCollection *collection in collectionResult) {
+		DEBUG_LOG(@"group=%@", collection.localizedTitle);
+	}
 }
 
 /// カメラ操作の子画面を表示している場合は、この画面に戻します。

@@ -436,8 +436,8 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$favoriteSettingName" placeholder="Enter New Name" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="slH-UU-2cf">
-                                                    <rect key="frame" x="103" y="12" width="202" height="20"/>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$favoriteSettingName" placeholder="Enter New Name" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="slH-UU-2cf">
+                                                    <rect key="frame" x="103" y="12" width="257" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="KvM-fs-X1k"/>
                                                     </constraints>

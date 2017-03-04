@@ -76,7 +76,11 @@
 	}
 	
 	// このWebViewでは開かずに、代わりにWebブラウザで開きます。
-	[[UIApplication sharedApplication] openURL:request.URL];
+	if (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber10_0) {
+		[[UIApplication sharedApplication] openURL:[request URL] options:@{} completionHandler:nil];
+	} else {
+		[[UIApplication sharedApplication] openURL:[request URL]];
+	}
 	return NO;
 }
 

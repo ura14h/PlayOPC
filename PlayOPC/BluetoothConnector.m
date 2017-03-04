@@ -94,10 +94,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	// MARK: セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
 	NSDate *managerStartTime = [NSDate date];
-	while (self.centralManager.state != CBCentralManagerStatePoweredOn && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
+	while (![self managerIsPoweredOn] && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
 		[NSThread sleepForTimeInterval:0.05];
 	}
-	if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
+	if (![self managerIsPoweredOn]) {
 		// Bluetoothデバイスは利用できません。
 		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.discoverPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
@@ -163,10 +163,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	// MARK: セントラルマネージャを生成してすぐにステータスを参照するとまだ電源オンしていない場合があります。
 	NSDate *managerStartTime = [NSDate date];
-	while (self.centralManager.state != CBCentralManagerStatePoweredOn && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
+	while (![self managerIsPoweredOn] && [[NSDate date] timeIntervalSinceDate:managerStartTime] < self.timeout) {
 		[NSThread sleepForTimeInterval:0.05];
 	}
-	if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
+	if (![self managerIsPoweredOn]) {
 		// Bluetoothデバイスは利用できません。
 		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.connectPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
@@ -238,7 +238,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 		return NO;
 	}
-	if (self.centralManager.state != CBCentralManagerStatePoweredOn) {
+	if (![self managerIsPoweredOn]) {
 		// Bluetoothデバイスは利用できません。
 		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.disconnectPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
@@ -349,6 +349,17 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	};
 	NSError *error = [[NSError alloc] initWithDomain:BluetoothConnectorErrorDomain code:code userInfo:userInfo];
 	return error;
+}
+
+// セントラルマネージャが電源オンしているか否かを取得します。
+- (BOOL)managerIsPoweredOn {
+	BOOL on;
+	if (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber10_0) {
+		on = (self.centralManager.state == CBManagerStatePoweredOn);
+	} else {
+		on = (self.centralManager.state == CBCentralManagerStatePoweredOn);
+	}
+	return on;
 }
 
 @end

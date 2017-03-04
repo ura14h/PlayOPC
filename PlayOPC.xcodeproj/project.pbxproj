@@ -101,7 +101,6 @@
 		31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC01AEB888B0094193A /* ZPanelViewController.m */; };
 		31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
 		31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EC41AEB88AB0094193A /* VPanelViewController.m */; };
-		31841A2D1BC6771A0081C9EF /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */; };
 		31888C651BF83D3800258AEC /* ReferenceToolbarDescription.png in Resources */ = {isa = PBXBuildFile; fileRef = 31888C671BF83D3800258AEC /* ReferenceToolbarDescription.png */; };
 		3190B3461B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
 		3190B3471B34F61C006B0A16 /* UserDefaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3190B3451B34F61C006B0A16 /* UserDefaults.plist */; };
@@ -367,8 +366,6 @@
 		31C71DA21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-8.png"; sourceTree = "<group>"; };
 		31C71DA31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_PHASE-9.png"; sourceTree = "<group>"; };
 		31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-0.png"; sourceTree = "<group>"; };
-		31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ALAssetsLibrary+CustomAlbum.h"; sourceTree = "<group>"; };
-		31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ALAssetsLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
 		31C80DEF1B6DD0E900E77BA4 /* MarginedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginedLabel.h; sourceTree = "<group>"; };
 		31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginedLabel.m; sourceTree = "<group>"; };
 		31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
@@ -416,7 +413,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */,
-				31841A2D1BC6771A0081C9EF /* AssetsLibrary.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
 				311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */,
@@ -456,8 +452,6 @@
 				3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */,
 				3106392E1B46B16800BE8597 /* UIImageView+Animation.h */,
 				3106392F1B46B16800BE8597 /* UIImageView+Animation.m */,
-				31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */,
-				31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */,
 				31E48B8B1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.h */,
 				31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */,
 			);

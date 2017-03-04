@@ -28,7 +28,7 @@
 #import "VPanelViewController.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
-#import "ALAssetsLibrary+CustomAlbum.h"
+#import "PHPhotoLibrary+CustomAlbum.h"
 
 /// コントロールパネルの表示状態
 typedef enum : NSInteger {
@@ -728,17 +728,18 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// ダウンロードした画像を保存します。
 	__weak RecordingViewController *weakSelf = self;
-	ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-	[library writeImageDataToSavedPhotosAlbum:data metadata:nil groupName:PhotosAlbumGroupName completionBlock:^(NSURL *assetURL, NSError *error) {
+	PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
+	[library writeImageDataToSavedPhotosAlbum:data metadata:nil groupName:PhotosAlbumGroupName completionBlock:^(BOOL success, NSError *error) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
-		// 進捗表示用のビューを消去します。
-		[weakSelf hideProgress:YES];
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// 進捗表示用のビューを消去します。
+			[weakSelf hideProgress:YES];
 
-		// 撮影画像の保存に失敗しました。
-		if (error) {
-			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
-		}
+			// 撮影画像の保存に失敗しました。
+			if (error) {
+				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
+			}
+		}];
 	}];
 }
 

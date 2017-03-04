@@ -167,8 +167,6 @@
 		31C71DD11AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DA21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-8.png */; };
 		31C71DD21AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DA31AF9D1260088C2A6 /* CameraProperty-COLOR_PHASE-9.png */; };
 		31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */; };
-		31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
-		31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */; };
 		31C80DF11B6DD0E900E77BA4 /* MarginedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */; };
 		31C80DF21B6DD0E900E77BA4 /* MarginedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */; };
 		31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
@@ -178,6 +176,9 @@
 		31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */; };
 		31E1B9DD1BDC5C190069198B /* LiveImageOverallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */; };
 		31E1B9DE1BDC5C190069198B /* LiveImageOverallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */; };
+		31E48B8D1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */; };
+		31E48B8E1E6A55BF00FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */; };
+		31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E48B8F1E6A563800FF25B5 /* Photos.framework */; };
 		31E81A2C1B5B7A9E003685A9 /* Recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */; };
 		31E81A2F1B5B7B08003685A9 /* Playback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2D1B5B7B08003685A9 /* Playback.storyboard */; };
 		31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A301B5B7B1F003685A9 /* System.storyboard */; };
@@ -379,6 +380,9 @@
 		31E0DAFC1BCFC8F1002B690C /* FavoriteForgingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteForgingViewController.h; sourceTree = "<group>"; };
 		31E1B9DB1BDC5C190069198B /* LiveImageOverallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LiveImageOverallView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LiveImageOverallView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31E48B8B1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHPhotoLibrary+CustomAlbum.h"; sourceTree = "<group>"; };
+		31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
+		31E48B8F1E6A563800FF25B5 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		31E81A2B1B5B7A9E003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recording.storyboard; sourceTree = "<group>"; };
 		31E81A2E1B5B7B08003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Playback.storyboard; sourceTree = "<group>"; };
 		31E81A311B5B7B1F003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = PlayOPC/Base.lproj/System.storyboard; sourceTree = "<group>"; };
@@ -411,6 +415,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */,
 				31841A2D1BC6771A0081C9EF /* AssetsLibrary.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
@@ -453,6 +458,8 @@
 				3106392F1B46B16800BE8597 /* UIImageView+Animation.m */,
 				31C71DD51AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.h */,
 				31C71DD61AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m */,
+				31E48B8B1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.h */,
+				31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */,
 			);
 			name = "Extended Classes";
 			sourceTree = "<group>";
@@ -647,6 +654,7 @@
 		313870A81AC7D3C900B00309 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31E48B8F1E6A563800FF25B5 /* Photos.framework */,
 				31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */,
 				311199B41B086F4800538FA0 /* OLYCameraKit.framework */,
 				3199797C1AD2C9D300AE5A5F /* CoreLocation.framework */,
@@ -990,7 +998,7 @@
 			files = (
 				319396941B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
 				314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
-				31C71DD71AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */,
+				31E48B8D1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */,
 				3142ACD61B23D44F008B2754 /* RecImageViewController.m in Sources */,
 				31731EB91AEB88140094193A /* EPanelViewController.m in Sources */,
 				311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */,
@@ -1047,7 +1055,7 @@
 			files = (
 				319396951B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
 				314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
-				31C71DD81AF9DEDD0088C2A6 /* ALAssetsLibrary+CustomAlbum.m in Sources */,
+				31E48B8E1E6A55BF00FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */,
 				3142ACD71B23D44F008B2754 /* RecImageViewController.m in Sources */,
 				31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
 				3162EB0A1ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,

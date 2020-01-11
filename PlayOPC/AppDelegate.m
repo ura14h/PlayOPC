@@ -106,7 +106,14 @@ UIApplication *GetApp() {
 }
 
 AppDelegate *GetAppDelegate() {
-	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
+	__block AppDelegate *delegate = nil;
+	if ([NSThread isMainThread]) {
+		delegate = (AppDelegate *)(GetApp().delegate);
+	} else {
+		dispatch_sync(dispatch_get_main_queue(), ^{
+			delegate = (AppDelegate *)(GetApp().delegate);
+		});
+	}
 	if (!delegate) {
 		return nil;
 	}
@@ -114,7 +121,7 @@ AppDelegate *GetAppDelegate() {
 }
 
 AppSetting *GetAppSetting() {
-	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
+	AppDelegate *delegate = GetAppDelegate();
 	if (!delegate) {
 		return nil;
 	}
@@ -122,7 +129,7 @@ AppSetting *GetAppSetting() {
 }
 
 AppCamera *GetAppCamera() {
-	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
+	AppDelegate *delegate = GetAppDelegate();
 	if (!delegate) {
 		return nil;
 	}
@@ -130,7 +137,7 @@ AppCamera *GetAppCamera() {
 }
 
 AppCameraLog *GetAppCameraLog() {
-	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
+	AppDelegate *delegate = GetAppDelegate();
 	if (!delegate) {
 		return nil;
 	}

@@ -9,14 +9,15 @@
 //  http://opensource.org/licenses/mit-license.php
 //
 
+#import <WebKit/WebKit.h>
 #import "AppDelegate.h"
 #import "ReferenceViewController.h"
 #import "Reachability.h"
 #import "UIViewController+Alert.h"
 
-@interface ReferenceViewController () <UIWebViewDelegate>
+@interface ReferenceViewController () <WKNavigationDelegate>
 
-@property (weak, nonatomic) IBOutlet UIWebView *webView;
+@property (weak, nonatomic) IBOutlet WKWebView *webView;
 
 @end
 
@@ -31,7 +32,7 @@
 	[super viewDidLoad];
 	
 	// ビューを初期化します。
-	self.webView.delegate = self;
+	self.webView.navigationDelegate = self;
 	
 	// リファレンスマニュアルを表示します。
 	NSString *htmlFilePath = [[NSBundle mainBundle] pathForResource:@"Reference" ofType:@"html"];
@@ -47,7 +48,7 @@
 - (void)dealloc {
 	DEBUG_LOG(@"");
 	
-	self.webView.delegate = nil;
+	self.webView.navigationDelegate = nil;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -60,12 +61,12 @@
 
 #pragma mark -
 
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-	DEBUG_LOG(@"request=%@", request);
+-(void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+	DEBUG_LOG(@"request=%@", navigationAction.request);
 
 	// 内蔵ドキュメントなら常に許可します。
-	if ([request.URL.scheme isEqualToString:@"file"]) {
-		return YES;
+	if ([navigationAction.request.URL.scheme isEqualToString:@"file"]) {
+		return decisionHandler(WKNavigationActionPolicyAllow);
 	}
 	
 	// 外部コンテンツならインターネットに接続されているかを確認します。
@@ -73,16 +74,13 @@
 	NetworkStatus status = [reachability currentReachabilityStatus];
 	if (status == NotReachable) {
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotOpenWebLinkByNoInternet", @"ReferenceViewController.shouldStartLoadWithRequest") title:NSLocalizedString(@"$title:CouldNotOpenWebLink",  @"ReferenceViewController.shouldStartLoadWithRequest")];
-		return NO;
+		return decisionHandler(WKNavigationActionPolicyCancel);
 	}
 	
 	// このWebViewでは開かずに、代わりにWebブラウザで開きます。
-	if (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber10_0) {
-		[GetApp() openURL:[request URL] options:@{} completionHandler:nil];
-	} else {
-		[GetApp() openURL:[request URL]];
-	}
-	return NO;
+	[GetApp() openURL:navigationAction.request.URL options:@{} completionHandler:nil];
+
+	return decisionHandler(WKNavigationActionPolicyCancel);
 }
 
 @end

@@ -746,7 +746,7 @@ static const CGFloat kDetailsLabelFontSize = 12.f;
     BOOL iOS8OrLater = kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0;
     if (iOS8OrLater || ![self.superview isKindOfClass:[UIWindow class]]) return;
 
-	UIInterfaceOrientation orientation = [UIApplication sharedApplication].statusBarOrientation;
+	UIInterfaceOrientation orientation = GetApp().statusBarOrientation;
 	CGFloat radians = 0;
 	if (UIInterfaceOrientationIsLandscape(orientation)) {
 		if (orientation == UIInterfaceOrientationLandscapeLeft) { radians = -(CGFloat)M_PI_2; } 

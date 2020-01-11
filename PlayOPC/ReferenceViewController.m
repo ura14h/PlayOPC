@@ -9,6 +9,7 @@
 //  http://opensource.org/licenses/mit-license.php
 //
 
+#import "AppDelegate.h"
 #import "ReferenceViewController.h"
 #import "Reachability.h"
 #import "UIViewController+Alert.h"
@@ -77,9 +78,9 @@
 	
 	// このWebViewでは開かずに、代わりにWebブラウザで開きます。
 	if (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber10_0) {
-		[[UIApplication sharedApplication] openURL:[request URL] options:@{} completionHandler:nil];
+		[GetApp() openURL:[request URL] options:@{} completionHandler:nil];
 	} else {
-		[[UIApplication sharedApplication] openURL:[request URL]];
+		[GetApp() openURL:[request URL]];
 	}
 	return NO;
 }

@@ -32,8 +32,11 @@ extern NSString *const AppOACentralConfigurationDidGetNotificationUserInfo;
 
 @end
 
+/// アプリケーションインスタンスを取得します。
+extern UIApplication *GetApp();
+
 /// アプリ内で唯一のアプリケーションデリゲートインスタンスを取得します。
-extern AppDelegate *GetApp();
+extern AppDelegate *GetAppDelegate();
 
 /// アプリ内で唯一のアプリケーション設定インスタンスを取得します。
 extern AppSetting *GetAppSetting();

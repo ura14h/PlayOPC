@@ -101,8 +101,12 @@ NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACen
 
 #pragma mark -
 
-AppDelegate *GetApp() {
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+UIApplication *GetApp() {
+	return UIApplication.sharedApplication;
+}
+
+AppDelegate *GetAppDelegate() {
+	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
 	if (!delegate) {
 		return nil;
 	}
@@ -110,7 +114,7 @@ AppDelegate *GetApp() {
 }
 
 AppSetting *GetAppSetting() {
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
 	if (!delegate) {
 		return nil;
 	}
@@ -118,7 +122,7 @@ AppSetting *GetAppSetting() {
 }
 
 AppCamera *GetAppCamera() {
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
 	if (!delegate) {
 		return nil;
 	}
@@ -126,7 +130,7 @@ AppCamera *GetAppCamera() {
 }
 
 AppCameraLog *GetAppCameraLog() {
-	AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
+	AppDelegate *delegate = (AppDelegate *)(GetApp().delegate);
 	if (!delegate) {
 		return nil;
 	}

@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3152</string>
+	<string>3162</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>jp.olympus-imaging.oacentral</string>
@@ -45,6 +45,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSBluetoothAlwaysUsageDescription</key>
+	<string>This application uses Bluetooth to wake up a camera.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>This application uses Bluetooth to wake up a camera.</string>
 	<key>NSLocationUsageDescription</key>

@@ -371,7 +371,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		
 		// デバイスのスリープを禁止します。
 		// MARK: Xcodeでケーブル接続してデバッグ実行しているとスリープは発動しないようです。
-		[UIApplication sharedApplication].idleTimerDisabled = YES;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			GetApp().idleTimerDisabled = YES;
+		}];
 	}];
 
 	// ビューコントローラーが活動を開始しました。
@@ -448,7 +450,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 
 		// デバイスのスリープを許可します。
-		[UIApplication sharedApplication].idleTimerDisabled = NO;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			GetApp().idleTimerDisabled = NO;
+		}];
 
 		// 画面操作の後始末が完了しました。
 		weakSelf = nil;
@@ -1479,9 +1483,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// オートフォーカスする座標を設定します。
 	NSError *error = nil;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	if (![camera setAutoFocusPoint:point error:&error]) {
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// 座標の設定に失敗しました。
 		DEBUG_LOG(@"error=%@", error);
 		// AF有効枠を表示します。
@@ -1509,7 +1513,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	__weak RecordingViewController *weakSelf = self;
 	[camera lockAutoFocus:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// オートフォーカスの結果を取得します。
 		NSString *focusResult = info[OLYCameraTakingPictureProgressInfoFocusResultKey];
 		NSValue *focusRectValue = info[OLYCameraTakingPictureProgressInfoFocusRectKey];
@@ -1538,7 +1542,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera camera:camera notifyDidChangeCameraProperty:CameraPropertyAfLockState sender:weakSelf];
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// オートフォーカスまたはフォーカスロックに失敗しました。
 		DEBUG_LOG(@"error=%@", error);
 		[camera clearAutoFocusPoint:nil];
@@ -1582,9 +1586,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 自動露出する座標を設定します。
 	NSError *error = nil;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	if (![camera setAutoExposurePoint:point error:&error]) {
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// 座標の設定に失敗しました。
 		DEBUG_LOG(@"error=%@", error);
 		// AE有効枠を表示します。
@@ -1612,7 +1616,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	__weak RecordingViewController *weakSelf = self;
 	[camera lockAutoExposure:^{
 		DEBUG_LOG(@"");
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// 自動露出および露出ロックに成功しました。結果の自動露出枠を表示します。
 		CGFloat exposureWidth = 0.1;		// この値は大雑把なものです。
 		CGFloat exposureHeight = 0.1;		// この値は大雑把なものです。
@@ -1625,7 +1629,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		[camera camera:camera notifyDidChangeCameraProperty:CameraPropertyAeLockState sender:self];
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// 自動露出できませんでした。
 		DEBUG_LOG(@"error=%@", error);
 		[camera clearAutoFocusPoint:nil];
@@ -1721,7 +1725,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 単写撮影します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	// シャッターボタンの状態を準備中にします。
 	weakSelf.takeButton.selected = NO;
 	weakSelf.takeButton.enabled = NO;
@@ -1760,7 +1764,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 	} completionHandler:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を待機中にします。
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
@@ -1771,7 +1775,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を待機中にします。
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
@@ -1808,7 +1812,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 連写撮影を開始します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	[camera startTakingPicture:nil progressHandler:^(OLYCameraTakingProgress progress, NSDictionary *info) {
 		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
 		if (progress == OLYCameraTakingProgressEndFocusing) {
@@ -1833,7 +1837,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 	} completionHandler:^{
 		DEBUG_LOG(@"");
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を撮影中にします。
 		UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelected"];
 		[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
@@ -1841,7 +1845,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// 連写撮影を継続します。
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
 			[camera clearAutoFocusPoint:nil];
@@ -1875,13 +1879,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// 連写撮影を終了します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	[camera stopTakingPicture:^(OLYCameraTakingProgress progress, NSDictionary *info) {
 		DEBUG_LOG(@"progress=%ld, info=%p", (long)progress, info);
 		// 特に何もしません。
 	} completionHandler:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を待機中にします。
 		weakSelf.takeButton.selected = NO;
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
@@ -1891,7 +1895,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// 撮影に失敗しました。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
@@ -1925,7 +1929,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// オートブラケット＋インターバルタイマー撮影を開始します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	// シャッターボタンの状態を準備中にします。
 	weakSelf.takeButton.selected = NO;
 	weakSelf.takeButton.enabled = NO;
@@ -1953,7 +1957,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 	} completionHandler:^{
 		DEBUG_LOG(@"");
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を撮影中にします。
 		UIImage *takeButtonImage = [UIImage imageNamed:@"TakeButtonSelectedWithStoppable"];
 		[self.takeButton setImage:takeButtonImage forState:UIControlStateSelected];
@@ -1962,7 +1966,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// オートブラケット＋インターバルタイマー撮影を継続します。
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を待機中にします。
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
@@ -2001,13 +2005,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// オートブラケット＋インターバルタイマー撮影を終了します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	// シャッターボタンの状態を準備中にします。
 	weakSelf.takeButton.selected = NO;
 	weakSelf.takeButton.enabled = NO;
 	[camera stopTakingPluralPictures:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// MARK: シャッターボタンの状態変更はオートブラケット＋インターバルタイマー撮影の完了通知にお任せします。
 		// この撮影中にフォーカスロックした場合はそのロックを解除します。
 		if ([afLockState isEqualToString:CameraPropertyValueAfLockStateUnlock]) {
@@ -2016,7 +2020,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を撮影中にします。
 		weakSelf.takeButton.selected = YES;
 		weakSelf.takeButton.enabled = YES;
@@ -2044,18 +2048,18 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 動画撮影を開始します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	// シャッターボタンの状態を準備中にします。
 	weakSelf.takeButton.selected = NO;
 	weakSelf.takeButton.enabled = NO;
 	[camera startRecordingVideo:nil completionHandler:^{
 		DEBUG_LOG(@"");
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// MARK: 動画撮影を開始しても動画撮影開始通知は呼び出されないようなので自力で呼び出します。
 		[weakSelf cameraDidStartRecordingVideo:camera];
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を待機中にします。
 		weakSelf.takeButton.selected = NO;
 		weakSelf.takeButton.enabled = YES;
@@ -2078,13 +2082,13 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 	// 動画撮影を終了します。
 	__weak RecordingViewController *weakSelf = self;
-	[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+	[GetApp() beginIgnoringInteractionEvents];
 	// シャッターボタンの状態を準備中にします。
 	weakSelf.takeButton.selected = NO;
 	weakSelf.takeButton.enabled = NO;
 	[camera stopRecordingVideo:^(NSDictionary *info) {
 		DEBUG_LOG(@"info=%p", info);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// MARK: カメラ側の録画終了の合図が遅れるようなので、アプリの録画終了も少し遅延させます。
 		dispatch_time_t delay = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.75 * NSEC_PER_SEC));
 		dispatch_after(delay, dispatch_get_main_queue(), ^{
@@ -2093,7 +2097,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		});
 	} errorHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%p", error);
-		[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+		[GetApp() endIgnoringInteractionEvents];
 		// シャッターボタンの状態を撮影中にします。
 		weakSelf.takeButton.selected = YES;
 		weakSelf.takeButton.enabled = YES;
@@ -2324,11 +2328,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 				nextPanel.alpha = 1.0;
 				[self.controlPanelView bringSubviewToFront:currentPanel];
 				// バシバシ切り替えられると困るのでアニメーションが完了するまでタッチ禁止にしておきます。
-				[[UIApplication sharedApplication] beginIgnoringInteractionEvents];
+				[GetApp() beginIgnoringInteractionEvents];
 				[UIView animateWithDuration:0.25 animations:^{
 					currentPanel.alpha = 0.0;
 				} completion:^(BOOL finished) {
-					[[UIApplication sharedApplication] endIgnoringInteractionEvents];
+					[GetApp() endIgnoringInteractionEvents];
 					currentPanel.hidden = YES;
 					currentPanel.alpha = 1.0;
 				}];

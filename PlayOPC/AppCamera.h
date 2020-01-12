@@ -413,7 +413,7 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 - (void)removeTakingPictureDelegate:(id<AppCameraTakingPictureDelegate>)delegate;
 
 /// 自動露光制御の動作をロックします。 非同期実行バージョンです。
-- (void)lockAutoExposure:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
+- (void)lockAutoExposure:(void (^)(void))completionHandler errorHandler:(void (^)(NSError *))errorHandler;
 
 /// カメラプロパティに変化があったことをデリゲート集合のそれぞれに通知します。(ただし通知元は除きます)
 - (void)camera:(OLYCamera *)camera notifyDidChangeCameraProperty:(NSString *)name sender:(id<OLYCameraPropertyDelegate>)sender;
@@ -473,7 +473,7 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 - (BOOL)canSetIntervalTimer;
 
 /// オートブラケット＋インターバルタイマー撮影を開始します。
-- (void)startTakingPluralPictures:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler;
+- (void)startTakingPluralPictures:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)(void))completionHandler errorHandler:(void (^)(NSError *))errorHandler;
 
 /// オートブラケット＋インターバルタイマー撮影終了します。
 - (void)stopTakingPluralPictures:(void (^)(NSDictionary *))completionHandler errorHandler:(void (^)(NSError *))errorHandler;

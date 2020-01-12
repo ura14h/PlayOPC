@@ -569,7 +569,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 }
 
 /// コンテンツ一覧をダウンロードします。
-- (void)downloadContentList:(void (^)())completion {
+- (void)downloadContentList:(void (^)(void))completion {
 	DEBUG_LOG(@"%@", [NSThread isMainThread] ? @"App will get hang up!" : @"");
 
 	// コンテンツ一覧をダウンロードます。

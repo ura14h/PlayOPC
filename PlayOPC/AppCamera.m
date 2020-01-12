@@ -767,7 +767,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return YES;
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)startRecordingVideo:(NSDictionary *)options completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+#pragma clang diagnostic pop
 	DEBUG_LOG(@"");
 	
 	[super startRecordingVideo:options completionHandler:^() {
@@ -1430,7 +1433,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	}
 }
 
-- (void)lockAutoExposure:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+- (void)lockAutoExposure:(void (^)(void))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
 	DEBUG_LOG(@"");
 
 	// AEロックはAFロックと異なり同期式なので、AFロックと同様の非同期式APIに拡張します。
@@ -3831,7 +3834,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return NO;
 }
 
-- (void)startTakingPluralPictures:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
+- (void)startTakingPluralPictures:(NSDictionary *)options progressHandler:(void (^)(OLYCameraTakingProgress, NSDictionary *))progressHandler completionHandler:(void (^)(void))completionHandler errorHandler:(void (^)(NSError *))errorHandler {
 	DEBUG_LOG(@"");
 	
 	// 撮影モードが妥当か検査します。
@@ -4068,15 +4071,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 
 		// 呼び出し元に撮影開始の完了を伝えます。
 		dispatch_async(dispatch_get_main_queue(), ^{
-			NSDictionary *info = nil;
-			if (actionType == AppCameraActionTypeTakingPictureAutoBracketing ||
-				actionType == AppCameraActionTypeTakingPictureCombination) {
-				info = @{
-					@"autoBracketingProperty": autoBracketingProperty,
-					@"autoBracketingPropertyValues": autoBracketingPropertyValues,
-				};
-			}
-			completionHandler(info);
+			completionHandler();
 		});
 		
 		// オートブラケット＋インターバルタイマー撮影を開始します。

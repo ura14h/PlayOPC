@@ -15,7 +15,7 @@
 
 @implementation UIViewController (Threading)
 
-- (void)executeSynchronousBlock:(void (^)())block {
+- (void)executeSynchronousBlock:(void (^)(void))block {
 	DEBUG_DETAIL_LOG(@"");
 
 	/// メインスレッド以外で処理ブロックを実行して呼び出したスレッドで実行完了を待ち合わせします。
@@ -25,7 +25,7 @@
 	});
 }
 
-- (void)executeAsynchronousBlock:(void (^)())block {
+- (void)executeAsynchronousBlock:(void (^)(void))block {
 	DEBUG_DETAIL_LOG(@"");
 
 	/// メインスレッド以外で非同期に処理ブロックを実行します。
@@ -35,7 +35,7 @@
 	});
 }
 
-- (void)executeAsynchronousBlockOnMainThread:(void (^)())block {
+- (void)executeAsynchronousBlockOnMainThread:(void (^)(void))block {
 	DEBUG_DETAIL_LOG(@"");
 	
 	/// メインスレッドで非同期に処理ブロックを実行します。
@@ -75,7 +75,7 @@
 	progressHUD.removeFromSuperViewOnHide = YES;
 
 	// ビューを最前面に表示して処理ブロックを実行開始します。
-	void (^progressBlock)() = ^{
+	void (^progressBlock)(void) = ^{
 		if (block) {
 			block(progressHUD);
 		}

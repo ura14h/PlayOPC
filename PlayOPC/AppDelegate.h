@@ -33,22 +33,22 @@ extern NSString *const AppOACentralConfigurationDidGetNotificationUserInfo;
 @end
 
 /// アプリケーションインスタンスを取得します。
-extern UIApplication *GetApp();
+extern UIApplication *GetApp(void);
 
 /// アプリ内で唯一のアプリケーションデリゲートインスタンスを取得します。
-extern AppDelegate *GetAppDelegate();
+extern AppDelegate *GetAppDelegate(void);
 
 /// アプリ内で唯一のアプリケーション設定インスタンスを取得します。
-extern AppSetting *GetAppSetting();
+extern AppSetting *GetAppSetting(void);
 
 /// アプリ内で唯一のカメラインスタンスを取得します。
-extern AppCamera *GetAppCamera();
+extern AppCamera *GetAppCamera(void);
 
 /// アプリ内で唯一のカメラログインスタンスを取得します。
-extern AppCameraLog *GetAppCameraLog();
+extern AppCameraLog *GetAppCameraLog(void);
 
 /// アプリのタッチ操作を無効にします。
-extern void AppBeginIgnoringInteractionEvents();
+extern void AppBeginIgnoringInteractionEvents(void);
 
 /// アプリのタッチ操作を有効にします。
-extern void AppEndIgnoringInteractionEvents();
+extern void AppEndIgnoringInteractionEvents(void);

@@ -2107,7 +2107,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 }
 
 /// 拡大表示中のライブビューを表示範囲を移動します。
-- (void)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction completion:(void (^)())completionHandler {
+- (void)changeMagnifyingLiveViewArea:(OLYCameraMagnifyingLiveViewScrollDirection)direction completion:(void (^)(void))completionHandler {
 	DEBUG_LOG(@"direction=%ld", (long)direction);
 	
 	// 撮影中の時は何もできません。

@@ -353,13 +353,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 
 // セントラルマネージャが電源オンしているか否かを取得します。
 - (BOOL)managerIsPoweredOn {
-	BOOL on;
-	if (floor(NSFoundationVersionNumber) >= NSFoundationVersionNumber10_0) {
-		on = (self.centralManager.state == CBManagerStatePoweredOn);
-	} else {
-		on = (self.centralManager.state == CBCentralManagerStatePoweredOn);
-	}
-	return on;
+	return (self.centralManager.state == CBManagerStatePoweredOn);
 }
 
 @end

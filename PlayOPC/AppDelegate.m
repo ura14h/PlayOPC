@@ -143,3 +143,19 @@ AppCameraLog *GetAppCameraLog() {
 	}
 	return delegate.cameraLog;
 }
+
+void AppBeginIgnoringInteractionEvents() {
+	// 画面全体を透明なビューで覆って、イベントに反応しないようにします。
+	UIWindow *window = GetAppDelegate().window;
+	UIView *view = [[UIView alloc] initWithFrame:window.bounds];
+	view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+	view.tag = 0x12345678;
+	[window addSubview:view];
+}
+
+void AppEndIgnoringInteractionEvents() {
+	// 画面全体を覆っている透明なビューを取り除きます。
+	UIWindow *window = GetAppDelegate().window;
+	UIView *view = [window viewWithTag:0x12345678];
+	[view removeFromSuperview];
+}

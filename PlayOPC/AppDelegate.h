@@ -46,3 +46,9 @@ extern AppCamera *GetAppCamera();
 
 /// アプリ内で唯一のカメラログインスタンスを取得します。
 extern AppCameraLog *GetAppCameraLog();
+
+/// アプリのタッチ操作を無効にします。
+extern void AppBeginIgnoringInteractionEvents();
+
+/// アプリのタッチ操作を有効にします。
+extern void AppEndIgnoringInteractionEvents();

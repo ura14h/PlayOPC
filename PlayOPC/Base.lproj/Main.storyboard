@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="qKY-Ma-50d">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="qKY-Ma-50d">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -628,25 +629,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pmX-A3-Pqm" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="dPb-zm-MkU" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2114" y="101"/>
+            <point key="canvasLocation" x="2199" y="100"/>
         </scene>
         <!--Acknowledgement-->
         <scene sceneID="bZb-SI-zoC">
             <objects>
                 <viewController storyboardIdentifier="AcknowledgementViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="m25-YW-LMX" customClass="AcknowledgementViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Jbt-V3-1dl"/>
-                        <viewControllerLayoutGuide type="bottom" id="Kk8-ir-Egr"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="qwf-gf-Kox">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KPa-7T-NDA">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
-                                    <dataDetectorTypes key="dataDetectorTypes"/>
+                                    <dataDetectorTypes key="dataDetectorTypes" none="YES"/>
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
@@ -654,11 +651,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="KPa-7T-NDA" firstAttribute="top" secondItem="qwf-gf-Kox" secondAttribute="top" id="5gO-oW-ex5"/>
-                            <constraint firstItem="KPa-7T-NDA" firstAttribute="leading" secondItem="qwf-gf-Kox" secondAttribute="leading" id="Cby-gX-mig"/>
-                            <constraint firstAttribute="bottom" secondItem="KPa-7T-NDA" secondAttribute="bottom" id="gVD-CW-Gyn"/>
-                            <constraint firstAttribute="trailing" secondItem="KPa-7T-NDA" secondAttribute="trailing" id="pTf-xH-8xh"/>
+                            <constraint firstItem="KPa-7T-NDA" firstAttribute="leading" secondItem="cys-Nx-ECG" secondAttribute="leading" id="8aX-IN-6Sh"/>
+                            <constraint firstItem="KPa-7T-NDA" firstAttribute="top" secondItem="cys-Nx-ECG" secondAttribute="top" id="Wn5-pl-cWw"/>
+                            <constraint firstItem="KPa-7T-NDA" firstAttribute="trailing" secondItem="cys-Nx-ECG" secondAttribute="trailing" id="cYW-Lx-ccc"/>
+                            <constraint firstItem="KPa-7T-NDA" firstAttribute="bottom" secondItem="cys-Nx-ECG" secondAttribute="bottom" id="sr1-Fe-wsg"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="cys-Nx-ECG"/>
                     </view>
                     <navigationItem key="navigationItem" title="Acknowledgement" id="Q4I-W6-Ih2"/>
                     <connections>
@@ -667,25 +665,21 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RxG-md-m4h" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1447.8260869565217" y="1279.6875"/>
+            <point key="canvasLocation" x="1446.376811594203" y="1279.6875"/>
         </scene>
         <!--Reference-->
         <scene sceneID="JiK-se-0Ud">
             <objects>
                 <viewController storyboardIdentifier="AppManualViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eg6-hY-lmj" customClass="ReferenceViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QIl-cQ-adr"/>
-                        <viewControllerLayoutGuide type="bottom" id="R8b-8Q-MEq"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ZJl-ia-H0S">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" allowsLinkPreview="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BVC-9G-JLN">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <wkWebViewConfiguration key="configuration" allowsAirPlayForMediaPlayback="NO" allowsPictureInPictureMediaPlayback="NO">
-                                    <dataDetectorTypes key="dataDetectorTypes"/>
+                                    <dataDetectorTypes key="dataDetectorTypes" none="YES"/>
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
                                     <wkPreferences key="preferences"/>
                                 </wkWebViewConfiguration>
@@ -693,11 +687,12 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="BVC-9G-JLN" secondAttribute="trailing" id="48c-6a-vcC"/>
-                            <constraint firstItem="BVC-9G-JLN" firstAttribute="leading" secondItem="ZJl-ia-H0S" secondAttribute="leading" id="T6d-hb-HzH"/>
-                            <constraint firstItem="BVC-9G-JLN" firstAttribute="top" secondItem="ZJl-ia-H0S" secondAttribute="top" id="ocS-Wc-yiw"/>
-                            <constraint firstAttribute="bottom" secondItem="BVC-9G-JLN" secondAttribute="bottom" id="rUj-vj-WR4"/>
+                            <constraint firstItem="BVC-9G-JLN" firstAttribute="top" secondItem="MTl-rd-WfD" secondAttribute="top" id="19V-nK-Wkg"/>
+                            <constraint firstItem="BVC-9G-JLN" firstAttribute="bottom" secondItem="MTl-rd-WfD" secondAttribute="bottom" id="1ft-5P-uSO"/>
+                            <constraint firstItem="BVC-9G-JLN" firstAttribute="leading" secondItem="MTl-rd-WfD" secondAttribute="leading" id="Lcc-Io-Z0T"/>
+                            <constraint firstItem="BVC-9G-JLN" firstAttribute="trailing" secondItem="MTl-rd-WfD" secondAttribute="trailing" id="bb9-1a-vm7"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="MTl-rd-WfD"/>
                     </view>
                     <navigationItem key="navigationItem" title="Reference" id="7Cl-Ri-ocM"/>
                     <connections>
@@ -706,7 +701,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XVQ-sd-JgZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2113.0434782608695" y="1278.3482142857142"/>
+            <point key="canvasLocation" x="2198.5507246376815" y="1279.6875"/>
         </scene>
         <!--Wi-Fi-->
         <scene sceneID="s4C-jW-weh">
@@ -911,7 +906,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H3k-ee-teV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="U2k-ik-OfT" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2786" y="194"/>
+            <point key="canvasLocation" x="2933" y="435"/>
         </scene>
     </scenes>
     <resources>

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Pje-zS-uDr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Pje-zS-uDr">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -154,10 +155,6 @@
         <scene sceneID="SMu-h5-K0e">
             <objects>
                 <viewController id="1id-jg-7ng" customClass="PictureContentViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="SgN-g7-sxS"/>
-                        <viewControllerLayoutGuide type="bottom" id="Nev-2j-3KU"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="CuS-KX-w1f">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -185,10 +182,11 @@
                         <color key="backgroundColor" red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="bottom" secondItem="6GD-gB-KPG" secondAttribute="bottom" id="32V-cr-Egb"/>
-                            <constraint firstAttribute="trailing" secondItem="6GD-gB-KPG" secondAttribute="trailing" id="SlT-v1-XwP"/>
+                            <constraint firstItem="yRv-bT-O8i" firstAttribute="trailing" secondItem="6GD-gB-KPG" secondAttribute="trailing" id="SlT-v1-XwP"/>
                             <constraint firstItem="6GD-gB-KPG" firstAttribute="top" secondItem="CuS-KX-w1f" secondAttribute="top" id="toj-FB-MZu"/>
-                            <constraint firstItem="6GD-gB-KPG" firstAttribute="leading" secondItem="CuS-KX-w1f" secondAttribute="leading" id="uek-nz-OCY"/>
+                            <constraint firstItem="6GD-gB-KPG" firstAttribute="leading" secondItem="yRv-bT-O8i" secondAttribute="leading" id="uek-nz-OCY"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="yRv-bT-O8i"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="Mq2-ko-Klt">
@@ -260,10 +258,6 @@
         <scene sceneID="1dK-th-2gB">
             <objects>
                 <viewController id="JDn-Ab-rR9" customClass="VideoContentViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="h2E-EP-aPm"/>
-                        <viewControllerLayoutGuide type="bottom" id="vK8-ye-d81"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="yai-sc-2kY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -274,11 +268,12 @@
                         </subviews>
                         <color key="backgroundColor" red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="8KU-vD-ebk" firstAttribute="leading" secondItem="yai-sc-2kY" secondAttribute="leading" id="Cfi-Tg-Axv"/>
-                            <constraint firstItem="8KU-vD-ebk" firstAttribute="top" secondItem="h2E-EP-aPm" secondAttribute="bottom" id="XwQ-gw-AfV"/>
-                            <constraint firstAttribute="trailing" secondItem="8KU-vD-ebk" secondAttribute="trailing" id="eJp-tF-hSV"/>
-                            <constraint firstItem="vK8-ye-d81" firstAttribute="top" secondItem="8KU-vD-ebk" secondAttribute="bottom" id="eQp-Uf-7bn"/>
+                            <constraint firstItem="8KU-vD-ebk" firstAttribute="leading" secondItem="wzN-8D-JVZ" secondAttribute="leading" id="Cfi-Tg-Axv"/>
+                            <constraint firstItem="8KU-vD-ebk" firstAttribute="top" secondItem="wzN-8D-JVZ" secondAttribute="top" id="XwQ-gw-AfV"/>
+                            <constraint firstItem="wzN-8D-JVZ" firstAttribute="trailing" secondItem="8KU-vD-ebk" secondAttribute="trailing" id="eJp-tF-hSV"/>
+                            <constraint firstItem="wzN-8D-JVZ" firstAttribute="bottom" secondItem="8KU-vD-ebk" secondAttribute="bottom" id="eQp-Uf-7bn"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="wzN-8D-JVZ"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem systemItem="action" id="o2l-pX-4oR">

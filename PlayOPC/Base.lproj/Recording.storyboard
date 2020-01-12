@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="y4w-Py-USg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y4w-Py-USg">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,10 +11,6 @@
         <scene sceneID="xqm-NM-VI5">
             <objects>
                 <viewController storyboardIdentifier="RecordingViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="y4w-Py-USg" customClass="RecordingViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Ql4-O2-KDx"/>
-                        <viewControllerLayoutGuide type="bottom" id="SUH-Fo-0sG"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="ozq-UE-5aM">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -705,11 +702,11 @@
                                             </mask>
                                             <mask key="constraints">
                                                 <exclude reference="Rcs-Do-H4b"/>
+                                                <exclude reference="1bq-Fg-emZ"/>
+                                                <exclude reference="yOX-kX-MCX"/>
                                                 <exclude reference="7ZH-SY-amc"/>
                                                 <exclude reference="BJ2-b0-DKr"/>
                                                 <exclude reference="k7K-AK-Y3t"/>
-                                                <exclude reference="1bq-Fg-emZ"/>
-                                                <exclude reference="yOX-kX-MCX"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=compact">
@@ -719,21 +716,21 @@
                                             </mask>
                                             <mask key="constraints">
                                                 <include reference="Rcs-Do-H4b"/>
+                                                <include reference="1bq-Fg-emZ"/>
+                                                <include reference="yOX-kX-MCX"/>
                                                 <include reference="7ZH-SY-amc"/>
                                                 <include reference="BJ2-b0-DKr"/>
                                                 <include reference="k7K-AK-Y3t"/>
-                                                <include reference="1bq-Fg-emZ"/>
-                                                <include reference="yOX-kX-MCX"/>
                                             </mask>
                                         </variation>
                                         <variation key="heightClass=regular">
                                             <mask key="constraints">
                                                 <exclude reference="Rcs-Do-H4b"/>
+                                                <exclude reference="1bq-Fg-emZ"/>
+                                                <exclude reference="yOX-kX-MCX"/>
                                                 <exclude reference="7ZH-SY-amc"/>
                                                 <exclude reference="BJ2-b0-DKr"/>
                                                 <exclude reference="k7K-AK-Y3t"/>
-                                                <exclude reference="1bq-Fg-emZ"/>
-                                                <exclude reference="yOX-kX-MCX"/>
                                             </mask>
                                         </variation>
                                     </view>
@@ -763,12 +760,12 @@
                                         <exclude reference="9TP-0E-Sfy"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="EfV-oL-RLQ"/>
-                                        <exclude reference="LhX-ok-ze3"/>
-                                        <exclude reference="Set-xS-uaW"/>
                                         <exclude reference="3uI-IO-jSw"/>
                                         <exclude reference="M9P-gH-lDi"/>
                                         <exclude reference="iiJ-59-i0i"/>
+                                        <exclude reference="EfV-oL-RLQ"/>
+                                        <exclude reference="LhX-ok-ze3"/>
+                                        <exclude reference="Set-xS-uaW"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact">
@@ -777,9 +774,6 @@
                                         <include reference="9TP-0E-Sfy"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <include reference="EfV-oL-RLQ"/>
-                                        <include reference="LhX-ok-ze3"/>
-                                        <include reference="Set-xS-uaW"/>
                                         <include reference="3uI-IO-jSw"/>
                                         <exclude reference="Jbr-Uh-DqJ"/>
                                         <exclude reference="AhM-n3-cjc"/>
@@ -789,6 +783,9 @@
                                         <exclude reference="W2D-ZO-mfJ"/>
                                         <exclude reference="byW-n7-uCP"/>
                                         <include reference="iiJ-59-i0i"/>
+                                        <include reference="EfV-oL-RLQ"/>
+                                        <include reference="LhX-ok-ze3"/>
+                                        <include reference="Set-xS-uaW"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=regular">
@@ -797,9 +794,6 @@
                                         <exclude reference="9TP-0E-Sfy"/>
                                     </mask>
                                     <mask key="constraints">
-                                        <exclude reference="EfV-oL-RLQ"/>
-                                        <exclude reference="LhX-ok-ze3"/>
-                                        <exclude reference="Set-xS-uaW"/>
                                         <exclude reference="3uI-IO-jSw"/>
                                         <include reference="Jbr-Uh-DqJ"/>
                                         <include reference="AhM-n3-cjc"/>
@@ -809,23 +803,27 @@
                                         <include reference="W2D-ZO-mfJ"/>
                                         <include reference="byW-n7-uCP"/>
                                         <exclude reference="iiJ-59-i0i"/>
+                                        <exclude reference="EfV-oL-RLQ"/>
+                                        <exclude reference="LhX-ok-ze3"/>
+                                        <exclude reference="Set-xS-uaW"/>
                                     </mask>
                                 </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="leading" secondItem="ozq-UE-5aM" secondAttribute="leading" id="0GM-IL-6jJ"/>
-                            <constraint firstItem="mWa-4Q-MUL" firstAttribute="top" secondItem="Ql4-O2-KDx" secondAttribute="bottom" id="6Pr-4e-fHb"/>
-                            <constraint firstAttribute="trailing" secondItem="Uhi-Ra-5Lp" secondAttribute="trailing" id="Aeb-1n-KLk"/>
-                            <constraint firstItem="SUH-Fo-0sG" firstAttribute="top" secondItem="Uhi-Ra-5Lp" secondAttribute="bottom" id="R8v-Or-UZX"/>
-                            <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="top" secondItem="Ql4-O2-KDx" secondAttribute="bottom" id="Wx3-Ce-FS9"/>
+                            <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="leading" secondItem="2I0-e2-3Sh" secondAttribute="leading" id="0GM-IL-6jJ"/>
+                            <constraint firstItem="mWa-4Q-MUL" firstAttribute="top" secondItem="2I0-e2-3Sh" secondAttribute="top" id="6Pr-4e-fHb"/>
+                            <constraint firstItem="2I0-e2-3Sh" firstAttribute="trailing" secondItem="Uhi-Ra-5Lp" secondAttribute="trailing" id="Aeb-1n-KLk"/>
+                            <constraint firstItem="2I0-e2-3Sh" firstAttribute="bottom" secondItem="Uhi-Ra-5Lp" secondAttribute="bottom" id="R8v-Or-UZX"/>
+                            <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="top" secondItem="2I0-e2-3Sh" secondAttribute="top" id="Wx3-Ce-FS9"/>
                             <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="leading" secondItem="mWa-4Q-MUL" secondAttribute="trailing" id="Xhu-oi-7Pc"/>
                             <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="top" secondItem="mWa-4Q-MUL" secondAttribute="bottom" id="aEM-np-LEm"/>
-                            <constraint firstItem="SUH-Fo-0sG" firstAttribute="top" secondItem="mWa-4Q-MUL" secondAttribute="bottom" id="o9n-8v-b8t"/>
-                            <constraint firstItem="mWa-4Q-MUL" firstAttribute="leading" secondItem="ozq-UE-5aM" secondAttribute="leading" id="t8g-5K-tNe"/>
-                            <constraint firstAttribute="trailing" secondItem="mWa-4Q-MUL" secondAttribute="trailing" id="zzf-IF-yw5"/>
+                            <constraint firstItem="2I0-e2-3Sh" firstAttribute="bottom" secondItem="mWa-4Q-MUL" secondAttribute="bottom" id="o9n-8v-b8t"/>
+                            <constraint firstItem="mWa-4Q-MUL" firstAttribute="leading" secondItem="2I0-e2-3Sh" secondAttribute="leading" id="t8g-5K-tNe"/>
+                            <constraint firstItem="2I0-e2-3Sh" firstAttribute="trailing" secondItem="mWa-4Q-MUL" secondAttribute="trailing" id="zzf-IF-yw5"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="2I0-e2-3Sh"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="Wx3-Ce-FS9"/>
@@ -1004,10 +1002,6 @@
         <scene sceneID="BuU-pT-dgP">
             <objects>
                 <viewController storyboardIdentifier="RecImageViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ATI-Lf-Tbo" customClass="RecImageViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="IPj-sn-cRY"/>
-                        <viewControllerLayoutGuide type="bottom" id="sQY-VB-9Tr"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="wF6-zq-te7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1036,9 +1030,10 @@
                         <constraints>
                             <constraint firstItem="aw8-Ul-KHw" firstAttribute="top" secondItem="wF6-zq-te7" secondAttribute="top" id="1zc-73-7MT"/>
                             <constraint firstAttribute="bottom" secondItem="aw8-Ul-KHw" secondAttribute="bottom" id="GaE-OZ-bXf"/>
-                            <constraint firstItem="aw8-Ul-KHw" firstAttribute="leading" secondItem="wF6-zq-te7" secondAttribute="leading" id="SvB-m7-Ib4"/>
-                            <constraint firstAttribute="trailing" secondItem="aw8-Ul-KHw" secondAttribute="trailing" id="fqj-gR-N0P"/>
+                            <constraint firstItem="aw8-Ul-KHw" firstAttribute="leading" secondItem="4OH-hR-0YM" secondAttribute="leading" id="SvB-m7-Ib4"/>
+                            <constraint firstItem="4OH-hR-0YM" firstAttribute="trailing" secondItem="aw8-Ul-KHw" secondAttribute="trailing" id="fqj-gR-N0P"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="4OH-hR-0YM"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem image="ResizeBarButton" id="yoH-qt-uyc">

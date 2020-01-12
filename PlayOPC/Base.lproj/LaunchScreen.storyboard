@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
     <device id="retina6_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -10,40 +11,23 @@
         <scene sceneID="EHf-IW-A2E">
             <objects>
                 <viewController id="01J-lp-oVM" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="Llm-lL-Icb"/>
-                        <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="OMW-oZ-8Bt">
-                                <rect key="frame" x="0.0" y="64" width="414" height="798"/>
-                                <color key="backgroundColor" red="0.90293419361114502" green="0.93275612592697144" blue="0.90216374397277832" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </tableView>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9W-c9-HnS">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
-                                <color key="backgroundColor" red="0.27879345420000001" green="0.68535691499999996" blue="0.41169896719999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="64" id="DCc-st-Zw5"/>
-                                </constraints>
-                                <color key="barTintColor" red="0.18025708198547363" green="0.66613703966140747" blue="0.34887731075286865" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <items>
-                                    <navigationItem id="fKg-3g-1vi"/>
-                                </items>
-                            </navigationBar>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PLAY OPC" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJs-Qg-9Z4">
+                                <rect key="frame" x="125" y="431.66666666666669" width="164" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
-                        <color key="backgroundColor" red="0.92156231399999999" green="0.92156261210000001" blue="0.92156094310000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="backgroundColor" red="0.1803921568627451" green="0.66666666666666663" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
-                            <constraint firstItem="p9W-c9-HnS" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="Dk1-aF-Byo"/>
-                            <constraint firstItem="p9W-c9-HnS" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="GB7-8n-yy8"/>
-                            <constraint firstAttribute="trailing" secondItem="OMW-oZ-8Bt" secondAttribute="trailing" id="aDS-9d-9A7"/>
-                            <constraint firstItem="OMW-oZ-8Bt" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="bAV-wn-IFs"/>
-                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="OMW-oZ-8Bt" secondAttribute="bottom" id="cf8-sR-4Cc"/>
-                            <constraint firstAttribute="trailing" secondItem="p9W-c9-HnS" secondAttribute="trailing" id="xh2-at-MkU"/>
-                            <constraint firstItem="OMW-oZ-8Bt" firstAttribute="top" secondItem="p9W-c9-HnS" secondAttribute="bottom" id="ywD-wz-od9"/>
+                            <constraint firstItem="wJs-Qg-9Z4" firstAttribute="centerY" secondItem="epy-px-4GX" secondAttribute="centerY" id="5z4-d0-JhN"/>
+                            <constraint firstItem="wJs-Qg-9Z4" firstAttribute="centerX" secondItem="epy-px-4GX" secondAttribute="centerX" id="bu1-n2-4Hj"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="epy-px-4GX"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -451,8 +451,8 @@
 	// スクロールビューの表示領域を求めます。
 	CGFloat width = self.scrollView.frame.size.width;
 	CGFloat height = self.scrollView.frame.size.height;
-	height -= [self.topLayoutGuide length];
-	height -= [self.bottomLayoutGuide length];
+	height -= self.view.safeAreaInsets.top;
+	height -= self.view.safeAreaInsets.bottom;
 
 	// スクロールビューの表示領域に最適な最小倍率を求めます。
 	CGFloat minimumZoomScaleX = width / self.imageView.intrinsicContentSize.width;
@@ -480,8 +480,8 @@
 	// スクロールビューの表示領域を求めます。
 	CGFloat width = self.scrollView.frame.size.width;
 	CGFloat height = self.scrollView.frame.size.height;
-	height -= [self.topLayoutGuide length];
-	height -= [self.bottomLayoutGuide length];
+	height -= self.view.safeAreaInsets.top;
+	height -= self.view.safeAreaInsets.bottom;
 	
 	// スクロールビューに画像表示ビューを表示するときのマージンをもとめます。
 	CGFloat insetHorizontal = (width - self.scrollView.contentSize.width) / 2.0f;
@@ -492,8 +492,8 @@
 	insetVertical = MAX(0.0, insetVertical);
 	
 	// マージンをスクロールビューに適用します。
-	CGFloat insetTop = insetVertical + [self.topLayoutGuide length];
-	CGFloat insetBottom = insetVertical + [self.bottomLayoutGuide length];
+	CGFloat insetTop = insetVertical + self.view.safeAreaInsets.top;
+	CGFloat insetBottom = insetVertical + self.view.safeAreaInsets.bottom;
 	UIEdgeInsets insets = UIEdgeInsetsMake(insetTop, insetHorizontal, insetBottom, insetHorizontal);
 	if (animated) {
 		[UIView animateWithDuration:0.25 animations:^{

@@ -140,7 +140,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");
-    [super viewDidLoad];
+	[super viewDidLoad];
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;

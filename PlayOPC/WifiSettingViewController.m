@@ -33,8 +33,8 @@
 
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");
-    [super viewDidLoad];
-    
+	[super viewDidLoad];
+	
 	// 現在のWi-Fi接続の設定値を表示します。
 	AppSetting *setting = GetAppSetting();
 	self.wifiHostText.text = setting.wifiHost;
@@ -46,7 +46,7 @@
 
 - (void)didReceiveMemoryWarning {
 	DEBUG_LOG(@"");
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {

@@ -48,11 +48,11 @@ static NSString *const UserDefaultsShowLiveImageGrid = @"ShowLiveImageGrid";
 	DEBUG_LOG(@"");
 
 	self = [super init];
-    if (!self) {
+	if (!self) {
 		return nil;
-    }
+	}
 	
-    return self;
+	return self;
 }
 
 - (void)dealloc {

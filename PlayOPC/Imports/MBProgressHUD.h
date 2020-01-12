@@ -37,36 +37,36 @@
 extern CGFloat const MBProgressMaxOffset;
 
 typedef NS_ENUM(NSInteger, MBProgressHUDMode) {
-    /// UIActivityIndicatorView.
-    MBProgressHUDModeIndeterminate,
-    /// A round, pie-chart like, progress view.
-    MBProgressHUDModeDeterminate,
-    /// Horizontal progress bar.
-    MBProgressHUDModeDeterminateHorizontalBar,
-    /// Ring-shaped progress view.
-    MBProgressHUDModeAnnularDeterminate,
-    /// Shows a custom view.
-    MBProgressHUDModeCustomView,
-    /// Shows only labels.
-    MBProgressHUDModeText
+	/// UIActivityIndicatorView.
+	MBProgressHUDModeIndeterminate,
+	/// A round, pie-chart like, progress view.
+	MBProgressHUDModeDeterminate,
+	/// Horizontal progress bar.
+	MBProgressHUDModeDeterminateHorizontalBar,
+	/// Ring-shaped progress view.
+	MBProgressHUDModeAnnularDeterminate,
+	/// Shows a custom view.
+	MBProgressHUDModeCustomView,
+	/// Shows only labels.
+	MBProgressHUDModeText
 };
 
 typedef NS_ENUM(NSInteger, MBProgressHUDAnimation) {
-    /// Opacity animation
-    MBProgressHUDAnimationFade,
-    /// Opacity + scale animation (zoom in when appearing zoom out when disappearing)
-    MBProgressHUDAnimationZoom,
-    /// Opacity + scale animation (zoom out style)
-    MBProgressHUDAnimationZoomOut,
-    /// Opacity + scale animation (zoom in style)
-    MBProgressHUDAnimationZoomIn
+	/// Opacity animation
+	MBProgressHUDAnimationFade,
+	/// Opacity + scale animation (zoom in when appearing zoom out when disappearing)
+	MBProgressHUDAnimationZoom,
+	/// Opacity + scale animation (zoom out style)
+	MBProgressHUDAnimationZoomOut,
+	/// Opacity + scale animation (zoom in style)
+	MBProgressHUDAnimationZoomIn
 };
 
 typedef NS_ENUM(NSInteger, MBProgressHUDBackgroundStyle) {
-    /// Solid color background
-    MBProgressHUDBackgroundStyleSolidColor,
-    /// UIVisualEffectView or UIToolbar.layer background view
-    MBProgressHUDBackgroundStyleBlur
+	/// Solid color background
+	MBProgressHUDBackgroundStyleSolidColor,
+	/// UIVisualEffectView or UIToolbar.layer background view
+	MBProgressHUDBackgroundStyleBlur
 };
 
 typedef void (^MBProgressHUDCompletionBlock)(void);

@@ -31,7 +31,7 @@
 
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");
-    [super viewDidLoad];
+	[super viewDidLoad];
 
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
@@ -49,7 +49,7 @@
 
 - (void)didReceiveMemoryWarning {
 	DEBUG_LOG(@"");
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {
@@ -144,7 +144,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_DETAIL_LOG(@"indexPath.row=%ld", (long)indexPath.row);
 	
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoriteSettingCell" forIndexPath:indexPath];
+	UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FavoriteSettingCell" forIndexPath:indexPath];
 	NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
 	
 	// お気に入り設定の名前を表示します。
@@ -172,7 +172,7 @@
 	}
 	cell.detailTextLabel.text = dateText;
 	
-    return cell;
+	return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

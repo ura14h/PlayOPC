@@ -354,10 +354,10 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 - (instancetype)init {
 	DEBUG_LOG(@"");
 	
-    self = [super init];
-    if (!self) {
+	self = [super init];
+	if (!self) {
 		return nil;
-    }
+	}
 
 	// 設定ファイルから初期化に使用するリストを構築します。
 	NSString *autoBracketingCountListPath = [[NSBundle mainBundle] pathForResource:@"AutoBracketingCountList" ofType:@"plist"];
@@ -428,7 +428,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	self.recordingDelegate = self;
 	self.recordingSupportsDelegate = self;
 	
-    return self;
+	return self;
 }
 
 - (void)dealloc {

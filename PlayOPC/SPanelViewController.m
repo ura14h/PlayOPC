@@ -608,7 +608,7 @@
 	NSInteger minutes = (time / 60) % 60;
 	NSInteger seconds = time % 60;
 	NSString *remainingVideoCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:RemainingImageCapacity(%ld,%ld,%ld)", @"SPanelViewController.updateRemainingVideoCapacityCell"), (long)hours, (long)minutes, (long)seconds];
-    
+	
 	// 表示を更新します。
 	self.remainingVideoCapacityCell.detailTextLabel.text = remainingVideoCapacity;
 }

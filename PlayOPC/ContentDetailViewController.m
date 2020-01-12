@@ -61,7 +61,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 
 - (void)didReceiveMemoryWarning {
 	DEBUG_LOG(@"");
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {

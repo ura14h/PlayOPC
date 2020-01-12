@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");
-    [super viewDidLoad];
+	[super viewDidLoad];
 	
 	// MARK: iPad用に縦置きと横置きでSize Classが変わるようにします。
 	// StoryboardでデザインしただけだとiPadで実行した時に横置きにしても縦置きにしてもSize ClassがwAny*hAnyのまま変わらないので、
@@ -47,7 +47,7 @@
 
 - (void)didReceiveMemoryWarning {
 	DEBUG_LOG(@"");
-    [super didReceiveMemoryWarning];
+	[super didReceiveMemoryWarning];
 }
 
 - (void)dealloc {

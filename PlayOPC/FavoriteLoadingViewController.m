@@ -235,14 +235,14 @@
 
 /// セルを左スワイプした時に表示されるアクション群を返します。
 /// 編集モードに入った時にも呼び出されます。
-- (NSArray<UITableViewRowAction *> *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UISwipeActionsConfiguration *)tableView:(UITableView *)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_LOG(@"indexPath.row=%ld", (long)indexPath.row);
 
 	// 削除アクションを構築します。
 	__weak FavoriteLoadingViewController *weakSelf = self;
 	NSString *deleteActionTitle = NSLocalizedString(@"$title:DeleteFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
-	UITableViewRowActionStyle deleteActionStyle = UITableViewRowActionStyleDestructive;
-	void (^deleteActionHandler)(UITableViewRowAction *action, NSIndexPath *indexPath) = ^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+	UIContextualActionStyle deleteActionStyle = UIContextualActionStyleDestructive;
+	UIContextualAction *deleteAction = [UIContextualAction contextualActionWithStyle:deleteActionStyle title:deleteActionTitle handler:^(UIContextualAction *action,UIView *sourceView, void (^completionHandler)(BOOL)) {
 		
 		// カメラに設定するお気に入り設定ファイルのパスを取得します。
 		NSDictionary *favoriteSetting = weakSelf.favoriteSettingList[indexPath.row];
@@ -266,13 +266,14 @@
 				[weakSelf.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 			}];
 		}];
-	};
-	UITableViewRowAction *deleteAction = [UITableViewRowAction rowActionWithStyle:deleteActionStyle title:deleteActionTitle handler:deleteActionHandler];
+
+		completionHandler(YES);
+	}];
 
 	// 共有アクションを構築します。
 	NSString *shareActionTitle = NSLocalizedString(@"$title:ShareFavroiteSetting", @"FavoriteLoadingViewController.editActionsForRowAtIndexPath");
-	UITableViewRowActionStyle shareActionStyle = UITableViewRowActionStyleNormal;
-	void (^shareActionHandler)(UITableViewRowAction *action, NSIndexPath *indexPath) = ^(UITableViewRowAction *action, NSIndexPath *indexPath) {
+	UIContextualActionStyle shareActionStyle = UIContextualActionStyleNormal;
+	UIContextualAction *shareAction = [UIContextualAction contextualActionWithStyle:shareActionStyle title:shareActionTitle handler:^(UIContextualAction *action,UIView *sourceView, void (^completionHandler)(BOOL)) {
 		
 		// カメラに設定するお気に入り設定ファイルのパスを取得します。
 		NSDictionary *favoriteSetting = self.favoriteSettingList[indexPath.row];
@@ -301,27 +302,28 @@
 			DEBUG_LOG(@"snapshotText=%@", snapshotText);
 			
 			// 共有ダイアログを表示します。
-			// 一番最初だけ表示されるまでとても時間がかかるようです。
-			NSArray *shareItems = @[ snapshotText ];
-			UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
-			shareController.popoverPresentationController.sourceView = weakSelf.view;
-			CGRect cellRect = [tableView rectForRowAtIndexPath:indexPath];
-			[weakSelf.tableView convertRect:cellRect toView:weakSelf.view];
-			shareController.popoverPresentationController.sourceRect = cellRect;
-			shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-				DEBUG_LOG(@"sharing completed.");
-			};
-			
-			// 画面表示を更新します。
+			// 出現位置を設定するためには、メインスレッドで実行する必要があります。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				NSArray *shareItems = @[ snapshotText ];
+				UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+				shareController.popoverPresentationController.sourceView = weakSelf.view;
+				CGRect cellRect = [tableView rectForRowAtIndexPath:indexPath];
+				[weakSelf.tableView convertRect:cellRect toView:weakSelf.view];
+				shareController.popoverPresentationController.sourceRect = cellRect;
+				shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+					DEBUG_LOG(@"sharing completed.");
+				};
+			
 				[weakSelf presentViewController:shareController animated:YES completion:nil];
 			}];
 		}];
-	};
-	UITableViewRowAction *shareAction = [UITableViewRowAction rowActionWithStyle:shareActionStyle title:shareActionTitle handler:shareActionHandler];
+		
+		completionHandler(YES);
+	}];
 
 	// 左スワイプで使用できるアクションを返します。
-	return @[deleteAction, shareAction];
+	UISwipeActionsConfiguration *actions = [UISwipeActionsConfiguration configurationWithActions:@[deleteAction, shareAction]];
+	return actions;
 }
 
 #pragma mark -

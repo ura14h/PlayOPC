@@ -76,8 +76,8 @@ NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACen
 	self.cameraLog = nil;
 }
 
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation {
-	DEBUG_LOG(@"url=%@, sourceApplication=%@, annotation=%@", url, sourceApplication, annotation);
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+	DEBUG_LOG(@"url=%@, options=%@", url, options);
 	
 	if ([[url scheme] isEqualToString:AppUrlSchemeGetFromOacentral]) {
 		// OA.Centralから呼び出されました。

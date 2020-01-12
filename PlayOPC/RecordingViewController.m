@@ -320,7 +320,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 						// エラーを無視して続行します。
 						DEBUG_LOG(@"An error occurred, but ignores it.");
 					}
-					progressView.mode = MBProgressHUDModeIndeterminate;
+					[weakSelf executeAsynchronousBlockOnMainThread:^{
+						progressView.mode = MBProgressHUDModeIndeterminate;
+					}];
 				} else {
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotRestoreLastestCameraSetting", @"RecordingViewController.didStartActivity")];
 					// エラーを無視して続行します。
@@ -1664,7 +1666,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// ライブビュー拡大開始を開始します。
 	__weak RecordingViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
 		// ライブビュー拡大を開始します。
@@ -1686,7 +1688,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	
 	// ライブビュー拡大終了を開始します。
 	__weak RecordingViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		
 		// ライブビュー拡大を終了します。
@@ -2420,9 +2422,9 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		progressImageView = [[UIImageView alloc] initWithImage:image];
 		progressImageView.tintColor = [UIColor whiteColor];
 		progressImageView.alpha = 0.75;
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
 	});
-	progress.customView = progressImageView;
-	progress.mode = MBProgressHUDModeCustomView;
 
 	// 回転アニメーションを付け加えます。
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];

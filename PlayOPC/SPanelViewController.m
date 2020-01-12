@@ -797,9 +797,9 @@
 		progressImageView = [[UIImageView alloc] initWithImage:image];
 		progressImageView.tintColor = [UIColor whiteColor];
 		progressImageView.alpha = 0.75;
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
 	});
-	progress.customView = progressImageView;
-	progress.mode = MBProgressHUDModeCustomView;
 	
 	// 回転アニメーションを付け加えます。
 	CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.rotation"];
@@ -821,9 +821,9 @@
 		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
 		progressImageView.tintColor = [UIColor whiteColor];
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
 	});
-	progress.customView = progressImageView;
-	progress.mode = MBProgressHUDModeCustomView;
 	[NSThread sleepForTimeInterval:0.5];
 }
 

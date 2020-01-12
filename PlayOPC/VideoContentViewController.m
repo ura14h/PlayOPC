@@ -405,12 +405,14 @@
 				downloadCompleted = YES;
 				return;
 			}
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				// 進捗率表示モードに変更します。
+				if (progressView.mode == MBProgressHUDModeIndeterminate) {
+					progressView.mode = MBProgressHUDModeAnnularDeterminate;
+				}
+				// 進捗率の表示を更新します。
+				progressView.progress = progress;
+			}];
 		} completionHandler:^(NSData *data) {
 			DEBUG_LOG(@"data=%p", data);
 			image = [UIImage imageWithData:data];
@@ -502,12 +504,14 @@
 				downloadCompleted = YES;
 				return;
 			}
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				// 進捗率表示モードに変更します。
+				if (progressView.mode == MBProgressHUDModeIndeterminate) {
+					progressView.mode = MBProgressHUDModeAnnularDeterminate;
+				}
+				// 進捗率の表示を更新します。
+				progressView.progress = progress;
+			}];
 			// ファイルに保存します。
 			@try {
 				[videoFileHandle writeData:data];
@@ -545,8 +549,10 @@
 			}
 			return;
 		}
-		// 進捗率の表示を止めます。
-		progressView.mode = MBProgressHUDModeIndeterminate;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// 進捗率の表示を止めます。
+			progressView.mode = MBProgressHUDModeIndeterminate;
+		}];
 		
 		// 共有ダイアログを表示します。
 		// 一番最初だけ表示されるまでとても時間がかかるようです。
@@ -596,12 +602,14 @@
 				resizeCompleted = YES;
 				return;
 			}
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				// 進捗率表示モードに変更します。
+				if (progressView.mode == MBProgressHUDModeIndeterminate) {
+					progressView.mode = MBProgressHUDModeAnnularDeterminate;
+				}
+				// 進捗率の表示を更新します。
+				progressView.progress = progress;
+			}];
 		} completionHandler:^{
 			DEBUG_LOG(@"");
 			resizeCompleted = YES;
@@ -619,8 +627,10 @@
 			// リサイズに失敗したようです。
 			return;
 		}
-		// 進捗率の表示を止めます。
-		progressView.mode = MBProgressHUDModeIndeterminate;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// 進捗率の表示を止めます。
+			progressView.mode = MBProgressHUDModeIndeterminate;
+		}];
 		
 		// 通知先にお知らせします。
 		if (weakSelf.delegate) {
@@ -791,9 +801,9 @@
 		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
 		progressImageView.tintColor = [UIColor whiteColor];
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
 	});
-	progress.customView = progressImageView;
-	progress.mode = MBProgressHUDModeCustomView;
 	[NSThread sleepForTimeInterval:0.5];
 }
 

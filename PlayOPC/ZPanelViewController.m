@@ -594,7 +594,7 @@
 
 	// ライブビュー拡大開始を開始します。
 	__weak ZPanelViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
 		// ライブビュー拡大を開始します。
@@ -617,7 +617,7 @@
 	
 	// ライブビュー拡大終了を開始します。
 	__weak ZPanelViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
 		// ライブビュー拡大を終了します。
@@ -640,7 +640,7 @@
 
 	// ライブビュー拡大倍率の変更を開始します。
 	__weak ZPanelViewController *weakSelf = self;
-	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progress) {
+	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
 		// 選択された倍率を取得します。

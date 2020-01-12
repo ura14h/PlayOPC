@@ -583,12 +583,14 @@
 					downloadCompleted = YES;
 					return;
 				}
-				// 進捗率表示モードに変更します。
-				if (progressView.mode == MBProgressHUDModeIndeterminate) {
-					progressView.mode = MBProgressHUDModeAnnularDeterminate;
-				}
-				// 進捗率の表示を更新します。
-				progressView.progress = progress;
+				[weakSelf executeAsynchronousBlockOnMainThread:^{
+					// 進捗率表示モードに変更します。
+					if (progressView.mode == MBProgressHUDModeIndeterminate) {
+						progressView.mode = MBProgressHUDModeAnnularDeterminate;
+					}
+					// 進捗率の表示を更新します。
+					progressView.progress = progress;
+				}];
 			} completionHandler:^(NSData *data) {
 				DEBUG_LOG(@"data=%p", data);
 				weakSelf.contentData = data;
@@ -606,12 +608,14 @@
 					downloadCompleted = YES;
 					return;
 				}
-				// 進捗率表示モードに変更します。
-				if (progressView.mode == MBProgressHUDModeIndeterminate) {
-					progressView.mode = MBProgressHUDModeAnnularDeterminate;
-				}
-				// 進捗率の表示を更新します。
-				progressView.progress = progress;
+				[weakSelf executeAsynchronousBlockOnMainThread:^{
+					// 進捗率表示モードに変更します。
+					if (progressView.mode == MBProgressHUDModeIndeterminate) {
+						progressView.mode = MBProgressHUDModeAnnularDeterminate;
+					}
+					// 進捗率の表示を更新します。
+					progressView.progress = progress;
+				}];
 			} completionHandler:^(NSData *data) {
 				DEBUG_LOG(@"data=%p", data);
 				weakSelf.contentData = data;

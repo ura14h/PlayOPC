@@ -751,7 +751,9 @@
 			}
 
 			// 電源投入が完了しました。
-			progressView.mode = MBProgressHUDModeIndeterminate;
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				progressView.mode = MBProgressHUDModeIndeterminate;
+			}];
 			DEBUG_LOG(@"To wake the camera up is success.");
 		}
 		
@@ -1030,11 +1032,11 @@
 		__weak ConnectionViewController *weakSelf = self;
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			DEBUG_LOG(@"weakSelf=%p", weakSelf);
-			[weakSelf hideAllProgresses:YES];
+			[weakSelf hideProgress:YES];
 			[weakSelf.navigationController popToViewController:weakSelf animated:YES];
 		}];
 	} else {
-		[self hideAllProgresses:NO];
+		[self hideProgress:NO];
 		[self.navigationController popToViewController:self animated:NO];
 	}
 }
@@ -1291,9 +1293,9 @@
 		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
 		progressImageView.tintColor = [UIColor whiteColor];
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
 	});
-	progress.customView = progressImageView;
-	progress.mode = MBProgressHUDModeCustomView;
 	[NSThread sleepForTimeInterval:0.5];
 }
 

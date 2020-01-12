@@ -683,12 +683,14 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		__block BOOL unprotectCompleted = NO;
 		__block BOOL unprotectFailed = NO;
 		[camera unprotectAllContents:^(float progress) {
-			// 進捗率表示モードに変更します。
-			if (progressView.mode == MBProgressHUDModeIndeterminate) {
-				progressView.mode = MBProgressHUDModeAnnularDeterminate;
-			}
-			// 進捗率の表示を更新します。
-			progressView.progress = progress;
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				// 進捗率表示モードに変更します。
+				if (progressView.mode == MBProgressHUDModeIndeterminate) {
+					progressView.mode = MBProgressHUDModeAnnularDeterminate;
+				}
+				// 進捗率の表示を更新します。
+				progressView.progress = progress;
+			}];
 		} completionHandler:^{
 			unprotectCompleted = YES;
 		} errorHandler:^(NSError *error) {
@@ -701,7 +703,9 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 		while (!unprotectCompleted && !unprotectFailed) {
 			[NSThread sleepForTimeInterval:0.05];
 		}
-		progressView.mode = MBProgressHUDModeIndeterminate;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			progressView.mode = MBProgressHUDModeIndeterminate;
+		}];
 		
 		// カメラを再生モードに戻します。
 		if (![camera changeRunMode:OLYCameraRunModePlayback error:nil]) {

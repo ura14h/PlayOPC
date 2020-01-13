@@ -764,7 +764,7 @@
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
-		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.tintColor = [UIColor labelColor];
 		progress.customView = progressImageView;
 		progress.mode = MBProgressHUDModeCustomView;
 	});

@@ -1222,7 +1222,7 @@
 		];
 		UIImageView *progressImageView;
 		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
-		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.tintColor = [UIColor labelColor];
 		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
@@ -1247,7 +1247,7 @@
 		];
 		UIImageView *progressImageView;
 		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
-		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.tintColor = [UIColor labelColor];
 		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
@@ -1272,7 +1272,7 @@
 		];
 		UIImageView *progressImageView;
 		progressImageView = [[UIImageView alloc] initWithImage:images[0]];
-		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.tintColor = [UIColor labelColor];
 		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
@@ -1292,7 +1292,7 @@
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
-		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.tintColor = [UIColor labelColor];
 		progress.customView = progressImageView;
 		progress.mode = MBProgressHUDModeCustomView;
 	});

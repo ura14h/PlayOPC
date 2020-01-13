@@ -168,6 +168,7 @@
 		31C71DD41AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png in Resources */ = {isa = PBXBuildFile; fileRef = 31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */; };
 		31C80DF11B6DD0E900E77BA4 /* MarginedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */; };
 		31C80DF21B6DD0E900E77BA4 /* MarginedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */; };
+		31CA6F9123CC508E00F15B14 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 31CA6F9023CC508E00F15B14 /* Colors.xcassets */; };
 		31D366CC1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31D366CD1B23045D00B2C6D7 /* AppNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */; };
 		31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */ = {isa = PBXBuildFile; fileRef = 31DB84031AD101C900E50B03 /* UIViewController+Alert.m */; };
@@ -368,6 +369,7 @@
 		31C71DD31AF9D2580088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "CameraProperty-COLOR_CREATOR_COLOR-0.png"; sourceTree = "<group>"; };
 		31C80DEF1B6DD0E900E77BA4 /* MarginedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MarginedLabel.h; sourceTree = "<group>"; };
 		31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MarginedLabel.m; sourceTree = "<group>"; };
+		31CA6F9023CC508E00F15B14 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		31D366CA1B23045D00B2C6D7 /* AppNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppNavigationController.h; sourceTree = "<group>"; };
 		31D366CB1B23045D00B2C6D7 /* AppNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppNavigationController.m; sourceTree = "<group>"; };
 		31D5EDA41B5A340B004DF3AD /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/AppCamera.strings; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 				311199C01B08702100538FA0 /* Extended Classes */,
 				311199B71B086F5E00538FA0 /* Imported Classes */,
 				311B75C81ABC287C00A7D38C /* Images.xcassets */,
+				31CA6F9023CC508E00F15B14 /* Colors.xcassets */,
 				31C71D721AF9D1260088C2A6 /* CameraProperty Images */,
 				314BDFA41BAD3F4A00EF8D91 /* LaunchScreen.storyboard */,
 				311B75BB1ABC287C00A7D38C /* Supporting Files */,
@@ -922,6 +925,7 @@
 				31C71DA61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-11.png in Resources */,
 				3116E8781B9A6EA60075046D /* AutoBracketingStepList.plist in Resources */,
 				311B75C71ABC287C00A7D38C /* Main.storyboard in Resources */,
+				31CA6F9123CC508E00F15B14 /* Colors.xcassets in Resources */,
 				31C71DAD1AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-18.png in Resources */,
 				31C71DB61AF9D1260088C2A6 /* CameraProperty-COLOR_CREATOR_COLOR-26.png in Resources */,
 				31E81A321B5B7B1F003685A9 /* System.storyboard in Resources */,

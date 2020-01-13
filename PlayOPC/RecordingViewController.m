@@ -180,8 +180,6 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	self.controlPanelHeightRatio = 0.5;
 	self.controlPanelHorizontalDraggIngIndicatorView.alpha = 0.0;
 	self.controlPanelVerticalDraggIngIndicatorView.alpha = 0.0;
-	self.toolPanelView.layer.borderWidth = 0.5;
-	self.toolPanelView.layer.borderColor = [[UIColor colorWithRed:0.75 green:0.75 blue:0.75 alpha:1.0] CGColor];
 	self.takeButton.selected = NO;
 	self.takeButton.enabled = YES;
 	self.showSPanelButton.selected = NO;
@@ -494,7 +492,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		// コントロールパネルのナビゲーションバーのタイトルも装飾を変更します。
 		navigationController.navigationBar.barTintColor = nil;
 		UIFont *titleFont = [UIFont systemFontOfSize:17.0]; // FIXME: ナビゲーションバータイトルの省略時のフォントサイズがわからなかったのでハードコーディングしました。
-		UIColor *titleColor = [UIColor colorWithWhite:0.5 alpha:1.0];
+		UIColor *titleColor = [UIColor secondaryLabelColor];
 		NSDictionary *titleAttributes = @{
 			NSFontAttributeName: titleFont,
 			NSForegroundColorAttributeName: titleColor,
@@ -2420,7 +2418,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		UIImage *image = [UIImage imageNamed:@"Progress-Setting"];
 		progressImageView = [[UIImageView alloc] initWithImage:image];
-		progressImageView.tintColor = [UIColor whiteColor];
+		progressImageView.tintColor = [UIColor labelColor];
 		progressImageView.alpha = 0.75;
 		progress.customView = progressImageView;
 		progress.mode = MBProgressHUDModeCustomView;

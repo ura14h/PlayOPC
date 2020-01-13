@@ -12,7 +12,7 @@
 
 #import "LiveImageView.h"
 #import "LiveImageGridLayer.h"
-#import <OLYCameraKit/OLYCamera.h>
+#import "AppCamera.h"
 
 @interface LiveImageView ()
 

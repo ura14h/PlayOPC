@@ -555,22 +555,21 @@
 		}];
 		
 		// 共有ダイアログを表示します。
-		// 一番最初だけ表示されるまでとても時間がかかるようです。
-		NSArray *shareItems = @[ videoUrl ];
-		UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
-		shareController.popoverPresentationController.sourceView = weakSelf.view;
-		shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
-		shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
-			// 完了したので動画ファイルを破棄します。
-			NSError *error = nil;
-			if (![manager removeItemAtPath:videoUrl.path error:&error]) {
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-			}
-		};
-		
-		// 画面表示を更新します。
+		// 出現位置を設定するためには、メインスレッドで実行する必要があります。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			NSArray *shareItems = @[ videoUrl ];
+			UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+			shareController.popoverPresentationController.sourceView = weakSelf.view;
+			shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
+			shareController.completionWithItemsHandler = ^(NSString *activityType, BOOL completed, NSArray *returnedItems, NSError *activityError) {
+				// 完了したので動画ファイルを破棄します。
+				NSError *error = nil;
+				if (![manager removeItemAtPath:videoUrl.path error:&error]) {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
+			};
+		
 			[weakSelf presentViewController:shareController animated:YES completion:nil];
 		}];
 	}];

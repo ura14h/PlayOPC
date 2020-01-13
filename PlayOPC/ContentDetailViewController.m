@@ -370,14 +370,13 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 		DEBUG_LOG(@"snapshotText=%@", snapshotText);
 		
 		// 共有ダイアログを表示します。
-		// 一番最初だけ表示されるまでとても時間がかかるようです。
-		NSArray *shareItems = @[ snapshotText ];
-		UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
-		shareController.popoverPresentationController.sourceView = weakSelf.view;
-		shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
-		
-		// 画面表示を更新します。
+		// 出現位置を設定するためには、メインスレッドで実行する必要があります。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			NSArray *shareItems = @[ snapshotText ];
+			UIActivityViewController *shareController = [[UIActivityViewController alloc] initWithActivityItems:shareItems applicationActivities:nil];
+			shareController.popoverPresentationController.sourceView = weakSelf.view;
+			shareController.popoverPresentationController.barButtonItem = weakSelf.shareButton;
+		
 			[weakSelf presentViewController:shareController animated:YES completion:nil];
 		}];
 	}];

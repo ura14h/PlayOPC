@@ -899,7 +899,7 @@
     <resources>
         <image name="LatestBarButton" width="21" height="24"/>
         <namedColor name="ToolPanelBackColor">
-            <color red="0.879" green="0.91900000000000004" blue="0.878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92199999094009399" green="0.9649999737739563" blue="0.92199999094009399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

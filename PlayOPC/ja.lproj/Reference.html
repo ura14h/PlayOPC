@@ -7,6 +7,8 @@
 		<style>
 		body {
 			font-size: 9pt;
+			background-color: white;
+			color: black;
 			-webkit-text-size-adjust: none;
 		}
 		h1 {
@@ -35,6 +37,24 @@
 		div.section {
 			margin-left: 4pt;
 			margin-bottom: 18pt;
+		}
+		@media (prefers-color-scheme: dark) {
+			body {
+				background-color: #202020;
+				color: silver;
+			}
+			h1 {
+				background-color: #278751;
+			}
+			h2 {
+				border-bottom: 1px solid darkgray;
+			}
+			h1 a.jump {
+				color: #E6EEE6;
+			}
+			img {
+				background-color: white;
+			}
 		}
 		</style>
 	</head>

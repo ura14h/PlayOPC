@@ -49,8 +49,8 @@
 /* Class = "UITableViewSection"; headerTitle = "Camera Operation"; ObjectID = "A7s-4K-E0s"; */
 "A7s-4K-E0s.headerTitle" = "カメラ操作";
 
-/* Class = "UITableViewSection"; footerTitle = "© 2015-2016 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
-"ANk-sQ-l0P.footerTitle" = "© 2015-2016 Hiroki Ishiura";
+/* Class = "UITableViewSection"; footerTitle = "© 2015-2020 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
+"ANk-sQ-l0P.footerTitle" = "© 2015-2020 Hiroki Ishiura";
 
 /* Class = "UITableViewSection"; headerTitle = "App Information"; ObjectID = "ANk-sQ-l0P"; */
 "ANk-sQ-l0P.headerTitle" = "アプリ情報";

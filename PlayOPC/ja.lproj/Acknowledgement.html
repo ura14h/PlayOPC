@@ -5,10 +5,27 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
+		:root {
+			color-scheme: light dark;
+			--body-color: black;
+			--body-background-color: white;
+			--header-color: #FFFFFF;
+			--header-background-color: #34B56C;
+			--border-color: lightgrey
+		}
+		@media (prefers-color-scheme: dark) {
+			:root {
+				--body-color: silver;
+				--body-background-color: #202020;
+				--header-color: #FFFFFF;
+				--header-background-color: #278751;
+				--border-color: darkgray
+			}
+		}
 		body {
 			font-size: 9pt;
-			background-color: white;
-			color: black;
+			color: var(--body-color);
+			background-color: var(--body-background-color);
 			-webkit-text-size-adjust: none;
 		}
 		h1 {
@@ -16,30 +33,18 @@
 			margin-top: 0;
 			margin-bottom: 1pt;
 			padding-left: 4pt;
-			color: #FFFFFF;
-			background-color: #34B56C;
+			color: var(--header-color);
+			background-color: var(--header-background-color);
 		}
 		h2 {
 			font-family: sans-serif;
-			border-bottom: 1px solid lightgrey;
+			border-bottom: 1px solid var(--border-color);
 		}
 		h3 {
 			font-family: sans-serif;
 		}
 		p {
 			margin: 5pt 0 5pt 0;
-		}
-		@media (prefers-color-scheme: dark) {
-			body {
-				background-color: #202020;
-				color: silver;
-			}
-			h1 {
-				background-color: #278751;
-			}
-			h2 {
-				border-bottom: 1px solid darkgray;
-			}
 		}
 		</style>
 	</head>

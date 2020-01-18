@@ -112,8 +112,8 @@
 /* Class = "UILabel"; text = "Host"; ObjectID = "boY-NV-bEP"; */
 "boY-NV-bEP.text" = "ホスト";
 
-/* Class = "UITableViewSection"; footerTitle = "The Bluetooth passcode  is \"000000\" after resetting AIR-A01 to factory preset."; ObjectID = "dB8-bj-FSH"; */
-"dB8-bj-FSH.footerTitle" = "AIR-A01を工場出荷時のプリセットにリセットすると、Bluetoothパスコードは「000000」になります。";
+/* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the Bluetooth passcode will be \"000000\"."; ObjectID = "dB8-bj-FSH"; */
+"dB8-bj-FSH.footerTitle" = "AIR-A01を工場出荷時のデフォルト設定にリセットすると、Bluetoothパスコードは「000000」になります。";
 
 /* Class = "UILabel"; text = "$ssid"; ObjectID = "eJy-PI-TGK"; */
 "eJy-PI-TGK.text" = "$ssid";

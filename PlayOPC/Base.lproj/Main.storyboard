@@ -496,7 +496,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ToolPanelBackColor"/>
                         <sections>
-                            <tableViewSection id="dB8-bj-FSH">
+                            <tableViewSection footerTitle="The Bluetooth passcode  is &quot;000000&quot; after resetting AIR-A01 to factory preset." id="dB8-bj-FSH">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocalName" id="C3F-3Z-vYn">
                                         <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -577,7 +577,7 @@
                             <tableViewSection headerTitle="Autocompletion" id="hyp-WF-Jbx">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GetFromOacentral" textLabel="MEY-Jy-aKE" style="IBUITableViewCellStyleDefault" id="EYb-Fu-D3t">
-                                        <rect key="frame" x="0.0" y="146" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="182" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EYb-Fu-D3t" id="oZX-Ek-mqO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>

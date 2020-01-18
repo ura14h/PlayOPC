@@ -50,8 +50,8 @@
 /* Class = "UITableViewSection"; headerTitle = "Camera Operation"; ObjectID = "A7s-4K-E0s"; */
 "A7s-4K-E0s.headerTitle" = "Camera Operation";
 
-/* Class = "UITableViewSection"; footerTitle = "© 2015 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
-"ANk-sQ-l0P.footerTitle" = "© 2015 Hiroki Ishiura";
+/* Class = "UITableViewSection"; footerTitle = "© 2015-2020 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
+"ANk-sQ-l0P.footerTitle" = "© 2015-2020 Hiroki Ishiura";
 
 /* Class = "UITableViewSection"; headerTitle = "App Information"; ObjectID = "ANk-sQ-l0P"; */
 "ANk-sQ-l0P.headerTitle" = "App Information";
@@ -112,6 +112,9 @@
 
 /* Class = "UILabel"; text = "Host"; ObjectID = "boY-NV-bEP"; */
 "boY-NV-bEP.text" = "Host";
+
+/* Class = "UITableViewSection"; footerTitle = "The Bluetooth passcode  is \"000000\" after resetting AIR-A01 to factory preset."; ObjectID = "dB8-bj-FSH"; */
+"dB8-bj-FSH.footerTitle" = "The Bluetooth passcode  is \"000000\" after resetting AIR-A01 to factory preset.";
 
 /* Class = "UILabel"; text = "$ssid"; ObjectID = "eJy-PI-TGK"; */
 "eJy-PI-TGK.text" = "$ssid";

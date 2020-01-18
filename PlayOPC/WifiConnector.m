@@ -113,7 +113,10 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		self.reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
 		self.reachability = [Reachability reachabilityWithHostName:camera.host];
 	}
-	
+
+	self.networkStatus = NotReachable;
+	self.cameraResponded = NO;
+
 	__weak WifiConnector *weakSelf = self;
 	dispatch_async(weakSelf.reachabilityQueue, ^{
 		[weakSelf updateStatusWithToKnockOnCamera:YES];

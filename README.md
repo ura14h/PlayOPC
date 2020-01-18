@@ -51,9 +51,9 @@ You may find the binary version of application in [iTunes App Store](https://itu
 
 Building this application requires:
 
-* iOS 9.0 and later (Recommended 10.0 and later)
-* OS X 10.12 and later
-* Xcode 8.2 and later
+* iOS 13.2 and later
+* OS X 10.15.2 and later
+* Xcode 11.3.1 and later
 
 When the project that you downloaded does not seem to be able to build, please read the trouble-shooting section of [Wiki](https://github.com/ura14h/PlayOPC/wiki).
 
@@ -65,9 +65,9 @@ When the project that you downloaded does not seem to be able to build, please r
 
 Original souce code of PLAY OPC is released under the terms of MIT license. You may find the content of the license [http://opensource.org/licenses/mit-license.php]().
 
-OLYCameraKit.framework is released under the terms of OLYMPUS license. This license is not equal to MIT license. See a content of [Olympus Camera Kit for Developers](https://opc.olympus-imaging.com/tools/sdk/) for details.
+OLYCameraKit.framework is released under the terms of OLYMPUS license. This license is not equal to MIT license.
 
 ## Other Information
 
 * If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. ([http://olympus-imaging.jp/product/opc/a01/]())  
-* If you have an interest in camera functions and camera parameters, please read SDK document in “OPC Hack & Make Project” site. ([https://opc.olympus-imaging.com/sdkdocs/]())  
+* If you have an interest in camera functions and camera parameters, please read SDK document. You may download it from: [https://dl-support.olympus-imaging.com/opc/en/]()

@@ -5715,4 +5715,54 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return enableProperties;
 }
 
+/// 継承元 OLYCameraKit/OLYCamera クラスの canConnect:timeout:error を呼ぶとクラッシュするので、
+/// このクラスに同等のメソッドを独自実装して回避します。
+- (BOOL)canConnect:(OLYCameraConnectionType)connectionType timeout:(NSTimeInterval)timeout error:(NSError **)error {
+	DEBUG_DETAIL_LOG(@"connectionType=%@, timeout=%lf", connectionType, timeout);
+
+	// 通信先URL、パラメータ値、応答内容については「オープンプラットフォームカメラ 通信仕様書 1.0」を参考にしました。
+	
+	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+	config.timeoutIntervalForRequest = timeout * 0.5;
+	config.timeoutIntervalForResource = timeout * 0.5;
+	NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
+	NSMutableURLRequest *request = [NSMutableURLRequest new];
+	request.URL = [NSURL URLWithString:@"http://192.168.0.10/get_connectmode.cgi"];
+	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	request.HTTPMethod = @"GET";
+	[request setValue:@"192.168.0.10" forHTTPHeaderField:@"Host"];
+	[request setValue:@"OlympusCameraKit" forHTTPHeaderField:@"User-Agent"];
+	[request setValue:@"OlympusCameraKit" forHTTPHeaderField:@"X-Protocol"];
+	
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	__block BOOL requestResult = NO;
+	__block NSError *requestError = nil;
+	NSURLSessionDataTask *task =
+		[session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError * error) {
+			if (!error) {
+				NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+				if (httpResponse.statusCode == 200) {
+					NSString *responseBody = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+					requestResult = [responseBody containsString:@"<connectmode>OPC</connectmode>"];
+					requestError = error;
+				} else {
+					requestResult = NO;
+					requestError = error;
+				}
+			} else {
+				requestResult = NO;
+				requestError = error;
+			}
+			dispatch_semaphore_signal(semaphore);
+		}];
+	[task resume];
+	[session finishTasksAndInvalidate];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+	if (error) {
+		*error = requestError;
+	}
+	return requestResult;
+}
+
 @end

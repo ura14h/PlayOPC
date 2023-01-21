@@ -490,6 +490,20 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// 現在設定されている倍率でライブビュー拡大を位置指定で開始します。
 - (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point error:(NSError **)error;
 
+/**
+ * Indicate if the application can connect to the camera.
+ * If the application is connected to the camera, the application will get an error.
+ *
+ * @param connectionType Type of connection. You specify 'Wi-Fi'.
+ * @param timeout Number of seconds for timeout. If 0 is specified, default value is set.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, the application can connect to the camera.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ */
+- (BOOL)canConnect:(OLYCameraConnectionType)connectionType timeout:(NSTimeInterval)timeout error:(NSError **)error;
+
 @end
 
 /// 静止画連続撮影中に起きたイベントを通知します。

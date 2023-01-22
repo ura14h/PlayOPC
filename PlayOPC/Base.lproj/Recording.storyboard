@@ -939,10 +939,16 @@
         <scene sceneID="fc1-2M-j5f">
             <objects>
                 <navigationController id="YuS-ax-BbK" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="AJl-zH-LGo">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="AJl-zH-LGo">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6m-5d-mPK" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -953,10 +959,16 @@
         <scene sceneID="Yfa-em-cDm">
             <objects>
                 <navigationController id="yQL-8N-GRU" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="XfC-vt-3ZQ">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="XfC-vt-3ZQ">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WE4-cG-EnS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -967,10 +979,16 @@
         <scene sceneID="ch1-3b-3kb">
             <objects>
                 <navigationController id="rJA-Es-loc" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="MnE-cv-714">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="MnE-cv-714">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dM7-Cx-Kf5" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -981,10 +999,16 @@
         <scene sceneID="5fg-JK-tjr">
             <objects>
                 <navigationController id="rdd-hq-deq" userLabel="PaneV Navigation" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="v6l-hV-EQy">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="v6l-hV-EQy">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rps-No-aHh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -995,10 +1019,17 @@
         <scene sceneID="x17-hp-z3X">
             <objects>
                 <navigationController storyboardIdentifier="RecordingSPainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="edQ-mq-lx9" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="UkP-6T-Dtk">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="UkP-6T-Dtk">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolPanelBackColor"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                            <textAttributes key="titleTextAttributes"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mJS-r7-a2f" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1009,10 +1040,16 @@
         <scene sceneID="e8Z-eA-Rfu">
             <objects>
                 <navigationController id="2ey-Ud-A89" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="cxy-u5-zZY">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="cxy-u5-zZY">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
+                        <navigationBarAppearance key="standardAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
+                        <navigationBarAppearance key="scrollEdgeAppearance">
+                            <color key="backgroundColor" name="ToolBarColor"/>
+                        </navigationBarAppearance>
                     </navigationBar>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cim-l3-K8q" userLabel="First Responder" sceneMemberID="firstResponder"/>

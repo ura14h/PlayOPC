@@ -198,12 +198,13 @@
 			break;
 		case PHAuthorizationStatusDenied:
 		case PHAuthorizationStatusRestricted:
+		case PHAuthorizationStatusLimited:
 			DEBUG_LOG(@"Using assets library is restricted.");
 			break;
 	}
 	
 	// 現在位置利用の権限があるかを確認します。
-	switch ([CLLocationManager authorizationStatus]) {
+	switch (self.locationManager.authorizationStatus) {
 		case kCLAuthorizationStatusNotDetermined:
 			DEBUG_LOG(@"Using location service isn't determind.");
 			[self.locationManager requestWhenInUseAuthorization];
@@ -328,10 +329,10 @@
 }
 
 /// 現在位置利用の権限が変化した時に呼び出されます。
-- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status {
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
 	DEBUG_LOG(@"");
 	
-	switch ([CLLocationManager authorizationStatus]) {
+	switch (self.locationManager.authorizationStatus) {
 		case kCLAuthorizationStatusNotDetermined:
 			DEBUG_LOG(@"Using location service isn't determind.");
 			break;

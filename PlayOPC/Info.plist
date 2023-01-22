@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3300</string>
+	<string>3302</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>jp.olympus-imaging.oacentral</string>

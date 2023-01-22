@@ -35,11 +35,6 @@ NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACen
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	DEBUG_LOG(@"launchOptions=%@", launchOptions);
-
-	// Storyboardで設定しても有効にならないので、ここで規定の色合いをハードコーディングして変更します。
-	[UINavigationBar appearance].barTintColor = [UIColor colorNamed:@"NaviBarBackColor"];
-	[UINavigationBar appearance].titleTextAttributes = @{NSForegroundColorAttributeName:[UIColor colorNamed:@"NaviBarTextColor"]};
-	[UINavigationBar appearance].tintColor = [UIColor colorNamed:@"NaviBarItemColor"];
 	
 	// カメラログインスタンスをカメラインスタンスより先に生成しておかないと、カメラの初期化に関わるログが記録されません。
 	self.setting = [[AppSetting alloc] init];

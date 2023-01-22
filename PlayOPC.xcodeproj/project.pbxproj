@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -194,6 +194,7 @@
 		31EBDED31D277975004B9F88 /* WifiSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EBDED11D277969004B9F88 /* WifiSettingViewController.m */; };
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
+		31FA1BB9297CBF9A00AAD6FA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -407,6 +408,7 @@
 		31EBDED11D277969004B9F88 /* WifiSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiSettingViewController.m; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +416,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31FA1BB9297CBF9A00AAD6FA /* WebKit.framework in Frameworks */,
 				31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
@@ -651,6 +654,7 @@
 		313870A81AC7D3C900B00309 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */,
 				31E48B8F1E6A563800FF25B5 /* Photos.framework */,
 				31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */,
 				311199B41B086F4800538FA0 /* OLYCameraKit.framework */,
@@ -977,6 +981,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		31EC020F1D2A7F44005C3A1B /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -987,6 +992,7 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/bin/bash\nbuild_number=$(/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$INFOPLIST_FILE\")\nbuild_number=$(($build_number+1))\n/usr/libexec/PlistBuddy -c \"Set :CFBundleVersion $build_number\" \"$INFOPLIST_FILE\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1297,7 +1303,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1325,7 +1331,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
@@ -1356,7 +1362,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = NO;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -1377,7 +1383,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -1395,7 +1401,7 @@
 					"$(PROJECT_DIR)/PlayOPC/Imports",
 				);
 				INFOPLIST_FILE = PlayOPC/Info.plist;
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.homeunix.hio.ipa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1412,7 +1418,7 @@
 					"$(PROJECT_DIR)/PlayOPC/Imports",
 				);
 				INFOPLIST_FILE = PlayOPC/Info.plist;
-				MARKETING_VERSION = 1.9;
+				MARKETING_VERSION = 1.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.homeunix.hio.ipa.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";

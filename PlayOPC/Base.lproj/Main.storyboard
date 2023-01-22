@@ -788,7 +788,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="boY-NV-bEP">
-                                                    <rect key="frame" x="20.000000000000004" y="12" width="34.333333333333343" height="20"/>
+                                                    <rect key="frame" x="19.999999999999996" y="12" width="34.666666666666657" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="Ziq-JI-ICC"/>
                                                     </constraints>
@@ -796,7 +796,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$host" placeholder="192.168.0.10" textAlignment="right" adjustsFontSizeToFit="NO" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="JSM-dq-4oL">
-                                                    <rect key="frame" x="62.333333333333343" y="12" width="336.66666666666663" height="20"/>
+                                                    <rect key="frame" x="62.666666666666657" y="12" width="336.33333333333337" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="1Cx-O3-5Wn"/>
                                                     </constraints>

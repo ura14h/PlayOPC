@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y4w-Py-USg">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="y4w-Py-USg">
     <device id="retina6_5" orientation="portrait" appearance="dark"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -23,7 +24,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="55.333333333333336" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4DG-lg-VzC">
-                                                <rect key="frame" x="-15.333333333333336" y="-8" width="86" height="80"/>
+                                                <rect key="frame" x="1.6666666666666679" y="9" width="52" height="46"/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="SPanelButtonNormal">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -49,7 +50,7 @@
                                         <rect key="frame" x="55.333333333333343" y="0.0" width="55" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RuL-RO-ACs">
-                                                <rect key="frame" x="-15.666666666666671" y="-8" width="86" height="80"/>
+                                                <rect key="frame" x="1.3333333333333286" y="9" width="52" height="46"/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="EPanelButtonNormal">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -75,7 +76,7 @@
                                         <rect key="frame" x="110.33333333333333" y="0.0" width="55.333333333333329" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VqA-pW-FV9">
-                                                <rect key="frame" x="-15.333333333333329" y="-8" width="86" height="80"/>
+                                                <rect key="frame" x="1.6666666666666714" y="9" width="52" height="46"/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="CPanelButtonNormal">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -101,7 +102,7 @@
                                         <rect key="frame" x="165.66666666666666" y="0.0" width="82.666666666666657" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ufl-R2-jWH">
-                                                <rect key="frame" x="-10.666666666666657" y="-20" width="104" height="104"/>
+                                                <rect key="frame" x="15.333333333333343" y="6" width="52" height="52"/>
                                                 <gestureRecognizers/>
                                                 <state key="normal" image="TakeButtonDefault">
                                                     <color key="titleColor" red="0.40000000600000002" green="0.40000000600000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -131,7 +132,7 @@
                                         <rect key="frame" x="248.33333333333334" y="0.0" width="55.333333333333343" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZQQ-QB-tBG">
-                                                <rect key="frame" x="-15.333333333333343" y="-8" width="86" height="80"/>
+                                                <rect key="frame" x="1.6666666666666572" y="9" width="52" height="46"/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="APanelButtonNormal">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -157,7 +158,7 @@
                                         <rect key="frame" x="303.66666666666669" y="0.0" width="55" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vee-qt-gfv">
-                                                <rect key="frame" x="-15.333333333333371" y="-8" width="86" height="80"/>
+                                                <rect key="frame" x="1.6666666666666288" y="9" width="52" height="46"/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="ZPanelButtonNormal">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -183,7 +184,7 @@
                                         <rect key="frame" x="358.66666666666669" y="0.0" width="55.333333333333314" height="64"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vso-DW-Pa1">
-                                                <rect key="frame" x="-15.333333333333371" y="-8" width="86" height="80"/>
+                                                <rect key="frame" x="1.6666666666666288" y="9" width="52" height="46"/>
                                                 <inset key="contentEdgeInsets" minX="9" minY="6" maxX="9" maxY="6"/>
                                                 <state key="normal" image="VPanelButtonNormal">
                                                     <color key="titleShadowColor" red="0.5" green="0.5" blue="0.5" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -439,7 +440,7 @@
                                                 </connections>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="NO LIVE IMAGE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d1V-bd-lyc">
-                                                <rect key="frame" x="147" y="234.66666666666669" width="120" height="21"/>
+                                                <rect key="frame" x="147.66666666666666" y="234.66666666666669" width="118.66666666666666" height="21"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -458,7 +459,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="77O-Ii-WQH">
-                                                <rect key="frame" x="159" y="0.0" width="96" height="88"/>
+                                                <rect key="frame" x="159" y="0.0" width="96" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="96" id="J3X-to-oA3"/>
                                                 </constraints>
@@ -474,7 +475,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Egu-Zq-VuS">
-                                                <rect key="frame" x="0.0" y="197" width="88" height="96"/>
+                                                <rect key="frame" x="0.0" y="197" width="56" height="96"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="96" id="riu-bs-L0m"/>
                                                 </constraints>
@@ -490,7 +491,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a6R-h1-Iap">
-                                                <rect key="frame" x="159" y="402" width="96" height="88"/>
+                                                <rect key="frame" x="159" y="434" width="96" height="56"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="96" id="80e-O0-Q9S"/>
                                                 </constraints>
@@ -506,7 +507,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9oC-LX-B0l">
-                                                <rect key="frame" x="326" y="197" width="88" height="96"/>
+                                                <rect key="frame" x="358" y="197" width="56" height="96"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="96" id="aZ3-hH-WiX"/>
                                                 </constraints>
@@ -643,10 +644,10 @@
                                         <rect key="frame" x="0.0" y="474" width="414" height="32"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VerticalDraggingBar" translatesAutoresizingMaskIntoConstraints="NO" id="s1M-Vy-wev">
-                                                <rect key="frame" x="0.0" y="-16" width="414" height="64"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="32"/>
                                             </imageView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="VerticalDraggingMarker" translatesAutoresizingMaskIntoConstraints="NO" id="6Ez-Fo-KUb">
-                                                <rect key="frame" x="175" y="-16" width="64" height="64"/>
+                                                <rect key="frame" x="191" y="0.0" width="32" height="32"/>
                                             </imageView>
                                         </subviews>
                                         <constraints>
@@ -811,6 +812,7 @@
                                 </variation>
                             </view>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="2I0-e2-3Sh"/>
                         <color key="backgroundColor" red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Uhi-Ra-5Lp" firstAttribute="leading" secondItem="2I0-e2-3Sh" secondAttribute="leading" id="0GM-IL-6jJ"/>
@@ -824,7 +826,6 @@
                             <constraint firstItem="mWa-4Q-MUL" firstAttribute="leading" secondItem="2I0-e2-3Sh" secondAttribute="leading" id="t8g-5K-tNe"/>
                             <constraint firstItem="2I0-e2-3Sh" firstAttribute="trailing" secondItem="mWa-4Q-MUL" secondAttribute="trailing" id="zzf-IF-yw5"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="2I0-e2-3Sh"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="o9n-8v-b8t"/>
@@ -920,7 +921,7 @@
             <objects>
                 <navigationController id="YuS-ax-BbK" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="AJl-zH-LGo">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
                     </navigationBar>
@@ -934,7 +935,7 @@
             <objects>
                 <navigationController id="yQL-8N-GRU" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="XfC-vt-3ZQ">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
                     </navigationBar>
@@ -948,7 +949,7 @@
             <objects>
                 <navigationController id="rJA-Es-loc" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="MnE-cv-714">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
                     </navigationBar>
@@ -962,7 +963,7 @@
             <objects>
                 <navigationController id="rdd-hq-deq" userLabel="PaneV Navigation" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="v6l-hV-EQy">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
                     </navigationBar>
@@ -976,7 +977,7 @@
             <objects>
                 <navigationController storyboardIdentifier="RecordingSPainViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="edQ-mq-lx9" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="UkP-6T-Dtk">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolPanelBackColor"/>
                     </navigationBar>
@@ -990,7 +991,7 @@
             <objects>
                 <navigationController id="2ey-Ud-A89" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="cxy-u5-zZY">
-                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="ToolBarColor"/>
                     </navigationBar>
@@ -1031,6 +1032,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="4OH-hR-0YM"/>
                         <color key="backgroundColor" red="0.10000000149011612" green="0.10000000149011612" blue="0.10000000149011612" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="aw8-Ul-KHw" firstAttribute="top" secondItem="wF6-zq-te7" secondAttribute="top" id="1zc-73-7MT"/>
@@ -1038,7 +1040,6 @@
                             <constraint firstItem="aw8-Ul-KHw" firstAttribute="leading" secondItem="4OH-hR-0YM" secondAttribute="leading" id="SvB-m7-Ib4"/>
                             <constraint firstItem="4OH-hR-0YM" firstAttribute="trailing" secondItem="aw8-Ul-KHw" secondAttribute="trailing" id="fqj-gR-N0P"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="4OH-hR-0YM"/>
                     </view>
                     <toolbarItems>
                         <barButtonItem image="ResizeBarButton" id="yoH-qt-uyc">
@@ -1111,10 +1112,10 @@
         <image name="ZPanelButtonNormal" width="34" height="34"/>
         <image name="ZPanelButtonSelected" width="34" height="34"/>
         <namedColor name="ToolBarColor">
-            <color red="0.879" green="0.91900000000000004" blue="0.878" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.87900000810623169" green="0.91900002956390381" blue="0.87800002098083496" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="ToolPanelBackColor">
-            <color red="0.92200000000000004" green="0.96499999999999997" blue="0.92200000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.92199999094009399" green="0.9649999737739563" blue="0.92199999094009399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

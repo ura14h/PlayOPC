@@ -93,6 +93,7 @@
 		3165E5E61ADBC21200D4A680 /* LiveImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3165E5E41ADBC21200D4A680 /* LiveImageView.m */; };
 		316859B21BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; };
 		316859B31BB61847007CFE1E /* AppFavoriteSetting.m in Sources */ = {isa = PBXBuildFile; fileRef = 316859B11BB61847007CFE1E /* AppFavoriteSetting.m */; };
+		316FDDE9297D008200ADC86B /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 316FDDE8297D008200ADC86B /* NetworkExtension.framework */; };
 		31731EB91AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
 		31731EBA1AEB88140094193A /* EPanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EB81AEB88140094193A /* EPanelViewController.m */; };
 		31731EBD1AEB886A0094193A /* APanelViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31731EBC1AEB886A0094193A /* APanelViewController.m */; };
@@ -291,6 +292,8 @@
 		3165E5E41ADBC21200D4A680 /* LiveImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LiveImageView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		316859B01BB61847007CFE1E /* AppFavoriteSetting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppFavoriteSetting.h; sourceTree = "<group>"; };
 		316859B11BB61847007CFE1E /* AppFavoriteSetting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppFavoriteSetting.m; sourceTree = "<group>"; };
+		316FDDE7297D005C00ADC86B /* PlayOPC.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PlayOPC.entitlements; sourceTree = "<group>"; };
+		316FDDE8297D008200ADC86B /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		31731EB71AEB88140094193A /* EPanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EPanelViewController.h; sourceTree = "<group>"; };
 		31731EB81AEB88140094193A /* EPanelViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EPanelViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		31731EBB1AEB886A0094193A /* APanelViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APanelViewController.h; sourceTree = "<group>"; };
@@ -417,6 +420,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31FA1BB9297CBF9A00AAD6FA /* WebKit.framework in Frameworks */,
+				316FDDE9297D008200ADC86B /* NetworkExtension.framework in Frameworks */,
 				31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
@@ -575,6 +579,7 @@
 		311B75BA1ABC287C00A7D38C /* PlayOPC */ = {
 			isa = PBXGroup;
 			children = (
+				316FDDE7297D005C00ADC86B /* PlayOPC.entitlements */,
 				311B75C51ABC287C00A7D38C /* Main.storyboard */,
 				311B75BF1ABC287C00A7D38C /* AppDelegate.h */,
 				311B75C01ABC287C00A7D38C /* AppDelegate.m */,
@@ -654,6 +659,7 @@
 		313870A81AC7D3C900B00309 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				316FDDE8297D008200ADC86B /* NetworkExtension.framework */,
 				31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */,
 				31E48B8F1E6A563800FF25B5 /* Photos.framework */,
 				31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */,
@@ -1395,6 +1401,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PlayOPC/PlayOPC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1412,6 +1419,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = PlayOPC/PlayOPC.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

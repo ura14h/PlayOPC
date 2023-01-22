@@ -393,6 +393,9 @@
 "$cell:WifiConnected(null)" = "接続済み";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
+"$cell:WifiNoConfiguration" = "未構成";
+
+/* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected" = "未接続";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
@@ -455,6 +458,12 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
    ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-FiのSSID名が空です。Wi-FIの設定でセットアップしてください。";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fiのパスフレーズが空です。Wi-FIの設定でセットアップしてください。";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "アプリのドキュメントフォルダにある、お気に入り設定ファイルを削除できません。";

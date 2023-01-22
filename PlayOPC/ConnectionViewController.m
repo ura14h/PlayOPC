@@ -618,16 +618,8 @@
 		if (self.wifiConnector.cameraStatus == WifiCameraStatusReachable) {
 			// Wi-Fi接続済みで接続先はカメラ
 		} else if (self.wifiConnector.cameraStatus == WifiCameraStatusUnreachable) {
-			// Wi-Fi接続済みで接続先はカメラではない
-			if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
-				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
-				// だが、カメラの電源を入れることぐらいはできるかもしれない
-				demandToWakeUpWithUsingBluetooth = YES;
-			} else {
-				// Wi-Fi接続済みで接続先はカメラ以外なため自動でカメラに接続できる見込みなし
-				[self showAlertMessage:NSLocalizedString(@"$desc:WifiConnectionIsNotCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-				return;
-			}
+			// Wi-Fi接続済みで接続先はカメラではないが、切り替えて接続できる見込みあり
+			demandToWakeUpWithUsingBluetooth = YES;
 		} else {
 			// Wi-Fi接続済みで接続先は確認中
 			// TODO: どうすればよい?
@@ -653,6 +645,19 @@
 			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
+	}
+	
+	// Wi-Fiアクセスポイントの設定を確認します。
+	NSString *wifiSSID = setting.wifiSSID;
+	NSString *wifiPassphrase = setting.wifiPassphrase;
+	if (!wifiSSID || wifiSSID.length == 0) {
+		// Wi-Fiアクセスポイントの設定が不完全です。
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiSsidByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+		return;
+	}
+	if (!wifiPassphrase || wifiPassphrase.length == 0) {
+		// Wi-Fiアクセスポイントの設定が不完全です。
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiPassphraseByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 	}
 	
 	// カメラの電源を投入し接続を開始します。
@@ -726,8 +731,16 @@
 			if (!wokenUp) {
 				return;
 			}
-			
-			// カメラの電源を入れた後にカメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
+
+			// Wi-Fi接続を試みます。
+			weakSelf.wifiConnector.SSID = wifiSSID;
+			weakSelf.wifiConnector.passphrase = wifiPassphrase;
+			if (![weakSelf.wifiConnector connect]) {
+				// WiFi接続の試みをキャンセルしました。
+				return;
+			}
+
+			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
 			// 作者の環境ではiPhone 6S (iOS 13.3) だと30秒程度かかっています。
@@ -896,6 +909,9 @@
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
+			
+			// Wi-Fiの接続情報を削除します。
+			[weakSelf.wifiConnector disconnect];
 		}
 
 		// 画面表示を更新します。
@@ -1046,55 +1062,60 @@
 - (void)updateShowBluetoothSettingCell {
 	DEBUG_LOG(@"");
 	
-	BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.connectionStatus;
-	if (bluetoothStatus == BluetoothConnectionStatusConnected) {
-		// 接続されている場合はローカルネームを表示します。
-		CBPeripheral *peripheral = self.bluetoothConnector.peripheral;
-		self.showBluetoothSettingCell.detailTextLabel.text = peripheral.name;
-	} else {
-		AppSetting *setting = GetAppSetting();
-		NSString *bluetoothLocalName = setting.bluetoothLocalName;
-		if (bluetoothLocalName && bluetoothLocalName.length > 0) {
+	AppSetting *setting = GetAppSetting();
+	NSString *bluetoothLocalName = setting.bluetoothLocalName;
+	if (bluetoothLocalName && bluetoothLocalName.length > 0) {
+		BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.connectionStatus;
+		if (bluetoothStatus == BluetoothConnectionStatusConnected) {
+			// 接続されている場合はローカルネームを表示します。
+			CBPeripheral *peripheral = self.bluetoothConnector.peripheral;
+			self.showBluetoothSettingCell.detailTextLabel.text = peripheral.name;
+		} else {
 			// 接続されていない場合は未接続と表示します。
 			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotConnected", @"ConnectionViewController.updateShowBluetoothSettingCell");
-		} else {
-			// 設定が未構成です。
-			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNoConfiguration", @"ConnectionViewController.updateShowBluetoothSettingCell");
 		}
+	} else {
+		// 設定が未構成です。
+		self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNoConfiguration", @"ConnectionViewController.updateShowBluetoothSettingCell");
 	}
 }
 
 /// Wi-Fi接続の状態を表示します。
 - (void)updateShowWifiSettingCell {
 	DEBUG_LOG(@"");
-	
-	WifiConnectionStatus wifiStatus = self.wifiConnector.connectionStatus;
-	if (wifiStatus == WifiConnectionStatusConnected) {
-		// 接続されている場合はそのSSIDを表示します。
-		WifiCameraStatus cameraStatus = self.wifiConnector.cameraStatus;
-		if (cameraStatus == WifiCameraStatusReachable) {
-			// Wi-Fi接続済みで接続先はカメラ
-			if (self.wifiConnector.SSID) {
-				self.showWifiSettingCell.detailTextLabel.text = self.wifiConnector.SSID;
-			} else {
-				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
-			}
-		} else if (cameraStatus == WifiCameraStatusUnreachable) {
-			// Wi-Fi接続済みで接続先はカメラではない
-			if (self.wifiConnector.SSID) {
-				self.showWifiSettingCell.detailTextLabel.text = [NSString stringWithFormat:NSLocalizedString(@"$cell:WifiNotConnected(%@)", @"ConnectionViewController.updateShowWifiSettingCell"), self.wifiConnector.SSID];
-			} else {
+
+	AppSetting *setting = GetAppSetting();
+	NSString *wifiSSID = setting.wifiSSID;
+	NSString *wifiPassphrase = setting.wifiPassphrase;
+	if (wifiSSID && wifiSSID.length > 0 &&
+		wifiPassphrase && wifiPassphrase.length > 0) {
+		WifiConnectionStatus wifiStatus = self.wifiConnector.connectionStatus;
+		if (wifiStatus == WifiConnectionStatusConnected) {
+			// 接続されている場合はそのSSIDを表示します。
+			WifiCameraStatus cameraStatus = self.wifiConnector.cameraStatus;
+			if (cameraStatus == WifiCameraStatusReachable) {
+				// Wi-Fi接続済みで接続先はカメラ
+				if (self.wifiConnector.SSID) {
+					self.showWifiSettingCell.detailTextLabel.text = self.wifiConnector.SSID;
+				} else {
+					self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
+				}
+			} else if (cameraStatus == WifiCameraStatusUnreachable) {
+				// Wi-Fi接続済みで接続先はカメラではない
 				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected(null)", @"ConnectionViewController.updateShowWifiSettingCell");
+			} else {
+				// Wi-Fi接続済みで接続先は確認中
+				self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
 			}
+		} else if (wifiStatus == WifiConnectionStatusNotConnected) {
+			// 接続されていない場合は未接続と表示します。
+			self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected", @"ConnectionViewController.updateShowWifiSettingCell");
 		} else {
-			// Wi-Fi接続済みで接続先は確認中
 			self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
 		}
-	} else if (wifiStatus == WifiConnectionStatusNotConnected) {
-		// 接続されていない場合は未接続と表示します。
-		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNotConnected", @"ConnectionViewController.updateShowWifiSettingCell");
 	} else {
-		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
+		// 設定が未構成です。
+		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNoConfiguration", @"ConnectionViewController.updateShowWifiSettingCell");
 	}
 }
 

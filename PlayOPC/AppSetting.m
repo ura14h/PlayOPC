@@ -12,6 +12,8 @@ NSString *const AppSettingChangedNotification = @"AppSettingChangedNotification"
 
 static NSString *const UserDefaultsBluetoothLocalName = @"BluetoothLocalName";
 static NSString *const UserDefaultsBluetoothPasscode = @"BluetoothPasscode";
+static NSString *const UserDefaultsWifiSSID = @"WifiSSID";
+static NSString *const UserDefaultsWifiPassphrase = @"WifiPassphrase";
 static NSString *const UserDefaultsWifiHost = @"WifiHost";
 static NSString *const UserDefaultsWifiCommandPort = @"WifiCommandPort";
 static NSString *const UserDefaultsWifiEventPort = @"WifiEventPort";
@@ -105,6 +107,52 @@ static NSString *const UserDefaultsShowLiveImageGrid = @"ShowLiveImageGrid";
 		[userDefaults setObject:passcode forKey:UserDefaultsBluetoothPasscode];
 	} else {
 		[userDefaults removeObjectForKey:UserDefaultsBluetoothPasscode];
+	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (NSString *)wifiSSID {
+	DEBUG_DETAIL_LOG(@"");
+
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults objectForKey:UserDefaultsWifiSSID];
+}
+
+- (void)setWifiSSID:(NSString *)ssid {
+	DEBUG_DETAIL_LOG(@"ssid=%@", ssid);
+
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (ssid) {
+		[userDefaults setObject:ssid forKey:UserDefaultsWifiSSID];
+	} else {
+		[userDefaults removeObjectForKey:UserDefaultsWifiSSID];
+	}
+	
+	// アプリケーションの設定が変更されたことを通知します。
+	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+	[notificationCenter postNotificationName:AppSettingChangedNotification object:self];
+}
+
+- (NSString *)wifiPassphrase {
+	DEBUG_DETAIL_LOG(@"");
+
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	return [userDefaults objectForKey:UserDefaultsWifiPassphrase];
+}
+
+- (void)setWifiPassphrase:(NSString *)passphrase {
+	DEBUG_DETAIL_LOG(@"passphrase=%@", passphrase);
+	
+	// ユーザー設定に保存します。
+	NSUserDefaults *userDefaults = [NSUserDefaults standardUserDefaults];
+	if (passphrase) {
+		[userDefaults setObject:passphrase forKey:UserDefaultsWifiPassphrase];
+	} else {
+		[userDefaults removeObjectForKey:UserDefaultsWifiPassphrase];
 	}
 	
 	// アプリケーションの設定が変更されたことを通知します。

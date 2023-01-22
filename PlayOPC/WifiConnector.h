@@ -38,8 +38,8 @@ extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態�
 /// この内部ではReachabilityが動作しています。
 @interface WifiConnector : NSObject
 
-@property (strong, nonatomic, readonly) NSString *SSID; ///< Wi-FiのSSID
-@property (strong, nonatomic, readonly) NSString *BSSID; ///< Wi-FiのBSSID
+@property (strong, nonatomic) NSString *SSID; ///< Wi-FiのSSID
+@property (strong, nonatomic) NSString *passphrase; ///< Wi-Fiのパスフレーズ
 
 /// Wi-Fiの接続状態を取得します。
 - (WifiConnectionStatus)connectionStatus;
@@ -55,6 +55,12 @@ extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態�
 
 /// 接続状態の監視を更新します。
 - (void)pokeMonitoring;
+
+/// カメラのアクセスポイントへの接続を試みます。
+- (BOOL)connect;
+
+/// カメラのアクセスポイントへの接続を切断します。
+- (void)disconnect;
 
 /// カメラへのアクセスが可能になるまで待ちます。
 - (BOOL)waitForConnected:(NSTimeInterval)timeout;

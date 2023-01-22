@@ -390,7 +390,7 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection headerTitle="App Information" footerTitle="© 2015-2020 Hiroki Ishiura" id="ANk-sQ-l0P">
+                            <tableViewSection headerTitle="App Information" footerTitle="© 2015-2023 Hiroki Ishiura" id="ANk-sQ-l0P">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ApplicationVersion" textLabel="6Wj-7V-u00" detailTextLabel="22F-XF-7J9" style="IBUITableViewCellStyleValue1" id="VwO-YV-bSd">
                                         <rect key="frame" x="0.0" y="874.66666221618652" width="320" height="44"/>
@@ -575,7 +575,8 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ToolPanelBackColor"/>
                         <sections>
-                            <tableViewSection footerTitle="If you reset the AIR-A01 to the factory default settings, the Bluetooth passcode will be &quot;000000&quot;." id="dB8-bj-FSH">
+                            <tableViewSection id="dB8-bj-FSH">
+                                <string key="footerTitle">If you reset the AIR-A01 to the factory default settings, the Bluetooth local name and passcode will be "AIR-A01" and "000000" respectively.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocalName" id="C3F-3Z-vYn">
                                         <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -656,7 +657,7 @@
                             <tableViewSection headerTitle="Autocompletion" id="hyp-WF-Jbx">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="GetFromOacentral" textLabel="MEY-Jy-aKE" style="IBUITableViewCellStyleDefault" id="EYb-Fu-D3t">
-                                        <rect key="frame" x="0.0" y="182" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="197.99999809265137" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EYb-Fu-D3t" id="oZX-Ek-mqO">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -778,10 +779,89 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ToolPanelBackColor"/>
                         <sections>
-                            <tableViewSection id="KNP-Pk-6P0">
+                            <tableViewSection headerTitle="Access Point" id="RfJ-yo-pNy">
+                                <string key="footerTitle">If you reset the AIR-A01 to the factory default settings, the  SSID and passphrase will be the values listed on the sticker on the back of the camera.</string>
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SSID" id="QzY-UC-Ik6">
+                                        <rect key="frame" x="0.0" y="55.333332061767578" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="QzY-UC-Ik6" id="3Oe-FM-nhB">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SSID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r0s-V0-v0v">
+                                                    <rect key="frame" x="20" y="12" width="120" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="EEh-hI-qk6"/>
+                                                        <constraint firstAttribute="height" constant="20" id="XYL-22-4y7"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$wifiSSID" placeholder="Enter SSID" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="hmA-ne-8SO">
+                                                    <rect key="frame" x="148" y="12" width="251" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="ABj-gK-96w"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="next"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="VNR-sp-Pub" id="muG-Ja-qOe"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="r0s-V0-v0v" firstAttribute="leading" secondItem="3Oe-FM-nhB" secondAttribute="leadingMargin" id="DAn-Um-blT"/>
+                                                <constraint firstItem="hmA-ne-8SO" firstAttribute="leading" secondItem="r0s-V0-v0v" secondAttribute="trailing" constant="8" id="Dkl-Js-Aa1"/>
+                                                <constraint firstItem="r0s-V0-v0v" firstAttribute="centerY" secondItem="hmA-ne-8SO" secondAttribute="centerY" id="RSa-dx-JU8"/>
+                                                <constraint firstAttribute="centerY" secondItem="r0s-V0-v0v" secondAttribute="centerY" id="TMT-YP-2GS"/>
+                                                <constraint firstAttribute="trailing" secondItem="hmA-ne-8SO" secondAttribute="trailing" constant="15" id="aQ3-wx-xKI"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Passphrase" id="1GM-aN-PbW">
+                                        <rect key="frame" x="0.0" y="99.333332061767578" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="1GM-aN-PbW" id="XEj-bk-oSp">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Passphrase" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEM-qK-XVV">
+                                                    <rect key="frame" x="20" y="12" width="120" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="120" id="Na7-Gv-HzV"/>
+                                                        <constraint firstAttribute="height" constant="20" id="jTa-Hm-tV8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$wifiPassphrase" placeholder="Enter Passphrase" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8il-6K-2dT">
+                                                    <rect key="frame" x="148" y="12" width="251" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="QWL-HL-h9I"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="VNR-sp-Pub" id="zit-bT-YKZ"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="VEM-qK-XVV" secondAttribute="centerY" id="ANe-5F-ew5"/>
+                                                <constraint firstAttribute="trailing" secondItem="8il-6K-2dT" secondAttribute="trailing" constant="15" id="JiN-J2-gFs"/>
+                                                <constraint firstItem="8il-6K-2dT" firstAttribute="leading" secondItem="VEM-qK-XVV" secondAttribute="trailing" constant="8" id="LIq-2n-TfJ"/>
+                                                <constraint firstItem="8il-6K-2dT" firstAttribute="centerY" secondItem="VEM-qK-XVV" secondAttribute="centerY" id="W0l-Ta-Wt4"/>
+                                                <constraint firstItem="VEM-qK-XVV" firstAttribute="leading" secondItem="XEj-bk-oSp" secondAttribute="leadingMargin" id="btu-WW-zgF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection headerTitle="Camera Server" id="KNP-Pk-6P0">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Host" id="XjZ-Ta-rcz">
-                                        <rect key="frame" x="0.0" y="10" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="243.33332824707031" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="XjZ-Ta-rcz" id="lM6-Sk-EPH">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -817,7 +897,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="CommandPort" id="9Ac-Vr-Ekc">
-                                        <rect key="frame" x="0.0" y="54" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="287.33332824707031" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="9Ac-Vr-Ekc" id="fZG-2u-FpJ">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -853,7 +933,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="EventPort" id="LQ5-Gy-4qn">
-                                        <rect key="frame" x="0.0" y="98" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="331.33332824707031" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="LQ5-Gy-4qn" id="976-AF-tko">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -889,7 +969,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LiveViewStreamingPort" id="gp6-vM-MSW">
-                                        <rect key="frame" x="0.0" y="142" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="375.33332824707031" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="gp6-vM-MSW" id="MVu-rg-DHy">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -926,10 +1006,10 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="zIf-sW-tGt">
+                            <tableViewSection footerTitle="Tap “Factory Preset” to restore only camera server parameters to default values. This does not change access point parameters." id="zIf-sW-tGt">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FactoryPreset" textLabel="uaw-L7-VFI" style="IBUITableViewCellStyleDefault" id="81T-wd-XyL">
-                                        <rect key="frame" x="0.0" y="206.00000000000003" width="414" height="44"/>
+                                        <rect key="frame" x="0.0" y="439.33332824707031" width="414" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="81T-wd-XyL" id="3Fp-CR-Ul5">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
@@ -966,6 +1046,8 @@
                         <outlet property="wifiEventPortText" destination="9fK-9p-x1K" id="fW0-gI-XyD"/>
                         <outlet property="wifiHostText" destination="JSM-dq-4oL" id="hBm-GN-rcg"/>
                         <outlet property="wifiLiveViewStreamingPortText" destination="TZ8-Ai-ZcR" id="Tcr-6x-Eyd"/>
+                        <outlet property="wifiPassphraseText" destination="8il-6K-2dT" id="O7z-6c-uyY"/>
+                        <outlet property="wifiSsidText" destination="hmA-ne-8SO" id="2ZO-XH-tmI"/>
                         <segue destination="U2k-ik-OfT" kind="unwind" identifier="DoneWifiSetting" unwindAction="exitToConnectionViewController:" id="k6B-ds-QJ5"/>
                     </connections>
                 </tableViewController>

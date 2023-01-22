@@ -26,6 +26,12 @@ extern NSString *const AppSettingChangedNotification; ///< アプリケーショ
 /// アプリ設定に保存されているBluetoothペリフェラルのパスコード
 @property (strong, nonatomic) NSString *bluetoothPasscode;
 
+///  アプリ設定に保存されているWi-FiアクセスポイントのSSID
+@property (strong, nonatomic) NSString *wifiSSID;
+
+///  アプリ設定に保存されているWi-Fiアクセスポイントのパスフレーズ
+@property (strong, nonatomic) NSString *wifiPassphrase;
+
 /// アプリ設定に保存されているWi-FiのカメラIPアドレス。
 @property (strong, nonatomic) NSString *wifiHost;
 

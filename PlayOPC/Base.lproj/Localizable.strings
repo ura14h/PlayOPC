@@ -393,6 +393,9 @@
 "$cell:WifiConnected(null)" = "Connected";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
+"$cell:WifiNoConfiguration" = "No Configurations";
+
+/* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected" = "Not Connected";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
@@ -455,6 +458,12 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
    ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-Fi SSID is empty. Please configure it at Wi-Fi setting.";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting file in the application's document folder.";

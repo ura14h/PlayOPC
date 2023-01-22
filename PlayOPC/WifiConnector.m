@@ -10,6 +10,7 @@
 //
 
 #import "WifiConnector.h"
+#import <NetworkExtension/NetworkExtension.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import "Reachability.h"
 #import "AppDelegate.h"
@@ -19,8 +20,6 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 
 @interface WifiConnector ()
 
-@property (strong, nonatomic) NSString *SSID;
-@property (strong, nonatomic) NSString *BSSID;
 @property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
 @property (strong, nonatomic) dispatch_queue_t reachabilityQueue; ///< 到達確認性を実行するキュー
 @property (strong, nonatomic) Reachability *reachability;
@@ -44,7 +43,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	}
 
 	_SSID = nil;
-	_BSSID = nil;
+	_passphrase = nil;
 	_reachabilityQueue = nil;
 	_reachability = nil;
 	_networkStatus = NotReachable;
@@ -65,7 +64,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	_reachabilityQueue = nil;
 	_reachability = nil;
 	_SSID = nil;
-	_BSSID = nil;
+	_passphrase = nil;
 }
 
 #pragma mark -
@@ -164,6 +163,37 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	dispatch_async(weakSelf.reachabilityQueue, ^{
 		[weakSelf updateStatusWithToKnockOnCamera:YES];
 	});
+}
+
+- (BOOL)connect {
+	DEBUG_LOG(@"SSID=%@, passphrase=%@", self.SSID, self.passphrase);
+	
+	BOOL monitoring = self.monitoring;
+	self.monitoring = NO;
+	__block BOOL applyResult = NO;
+
+	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
+	NEHotspotConfiguration *config = [[NEHotspotConfiguration alloc] initWithSSIDPrefix:self.SSID passphrase:self.passphrase isWEP:NO];
+	config.joinOnce = YES;
+	config.lifeTimeInDays = [[NSNumber alloc] initWithInt:1];
+
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	[manager applyConfiguration:config completionHandler:^(NSError *error) {
+		DEBUG_LOG(@"error=%@", error);
+		applyResult = (error == nil);
+		dispatch_semaphore_signal(semaphore);
+	}];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+	self.monitoring = monitoring;
+	return applyResult;
+}
+
+- (void)disconnect {
+	DEBUG_LOG(@"SSID=%@", self.SSID);
+	
+	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
+	[manager removeConfigurationForSSID:self.SSID];
 }
 
 - (BOOL)waitForConnected:(NSTimeInterval)timeout {
@@ -275,12 +305,10 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		// Wi-Fi未接続
 		self.networkStatus = NotReachable;
 		self.cameraResponded = NO;
-		[self retreiveSSID];
 	} else if (networkStatus == ReachableViaWiFi) {
 		// Wi-Fi接続済
 		self.networkStatus = ReachableViaWiFi;
 		self.cameraResponded = NO;
-		[self retreiveSSID];
 		if (ping) {
 			AppCamera *camera = GetAppCamera();
 			if (camera.connected) {
@@ -301,28 +329,6 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
 		});
 	}
-}
-
-/// ネットワーク接続情報を更新します。
-- (void)retreiveSSID {
-	DEBUG_DETAIL_LOG(@"");
-	
-	// SSIDとBSSIDを取得します。
-	// MARK: iOSシミュレータでは正しく動作しません。SSIDもBSSIDもnilに設定されます。
-	NSString *currentSSID = nil;
-	NSString *currentBSSID = nil;
-	if (self.networkStatus == ReachableViaWiFi) {
-		NSArray* supportedInterfaces = (__bridge_transfer id)CNCopySupportedInterfaces();
-		for (NSString *interfaceName in supportedInterfaces) {
-			NSDictionary *currentNetworkInfo = (__bridge_transfer id)CNCopyCurrentNetworkInfo((__bridge CFStringRef)interfaceName);
-			if (currentNetworkInfo) {
-				currentSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeySSID];
-				currentBSSID = currentNetworkInfo[(__bridge NSString *)kCNNetworkInfoKeyBSSID];
-			}
-		}
-	}
-	self.SSID = currentSSID;
-	self.BSSID = currentBSSID;
 }
 
 @end

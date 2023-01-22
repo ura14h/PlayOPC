@@ -18,6 +18,8 @@
 @interface WifiSettingViewController () <UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
+@property (weak, nonatomic) IBOutlet UITextField *wifiSsidText;
+@property (weak, nonatomic) IBOutlet UITextField *wifiPassphraseText;
 @property (weak, nonatomic) IBOutlet UITextField *wifiHostText;
 @property (weak, nonatomic) IBOutlet UITextField *wifiCommandPortText;
 @property (weak, nonatomic) IBOutlet UITextField *wifiEventPortText;
@@ -37,6 +39,8 @@
 	
 	// 現在のWi-Fi接続の設定値を表示します。
 	AppSetting *setting = GetAppSetting();
+	self.wifiSsidText.text = setting.wifiSSID;
+	self.wifiPassphraseText.text = setting.wifiPassphrase;
 	self.wifiHostText.text = setting.wifiHost;
 	self.wifiCommandPortText.text = [NSString stringWithFormat:@"%ld", (long)setting.wifiCommandPort];
 	self.wifiEventPortText.text = [NSString stringWithFormat:@"%ld", (long)setting.wifiEventPort];
@@ -72,7 +76,11 @@
 	NSString *cellReuseIdentifier = cell.reuseIdentifier;
 	
 	// セルに応じたカメラ操作処理を呼び出します。
-	if ([cellReuseIdentifier isEqualToString:@"Host"]) {
+	if ([cellReuseIdentifier isEqualToString:@"SSID"]) {
+		[self didSelectRowAtSsidCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"Passphrase"]) {
+		[self didSelectRowAtPassphraseCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"Host"]) {
 		[self didSelectRowAtHostCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"CommandPort"]) {
 		[self didSelectRowAtCommandPortCell];
@@ -95,6 +103,20 @@
 
 	// 入力されている値をチェックします。
 	BOOL enable = YES;
+	if (enable) {
+		NSString *ssid = self.wifiSsidText.text;
+		NSString* trimed = [ssid stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+		if (trimed.length < 1) {
+			enable = FALSE;
+		}
+	}
+	if (enable) {
+		NSString *passphrase = self.wifiPassphraseText.text;
+		NSString* trimed = [passphrase stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+		if (trimed.length < 1) {
+			enable = FALSE;
+		}
+	}
 	if (enable) {
 		NSString *host = self.wifiHostText.text;
 		NSString *hostValidationPattern = @"^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
@@ -140,9 +162,13 @@
 	DEBUG_LOG(@"textField=%@", textField);
 	
 	// フィールドの移動は、
-	//   IPアドレス -> コマンドポート -> イベントポート -> ライブビューストリーミングポート -> キーボードを閉じる
+	//   SSID名 -> パスフレーズ -> IPアドレス -> コマンドポート -> イベントポート -> ライブビューストリーミングポート -> キーボードを閉じる
 	// です。
-	if (textField == self.wifiHostText) {
+	if (textField == self.wifiSsidText) {
+		[self.wifiPassphraseText becomeFirstResponder];
+	} else if (textField == self.wifiPassphraseText) {
+		[self.wifiHostText becomeFirstResponder];
+	} else if (textField == self.wifiHostText) {
 		[self.wifiCommandPortText becomeFirstResponder];
 	} else if (textField == self.wifiCommandPortText) {
 		[self.wifiEventPortText becomeFirstResponder];
@@ -165,6 +191,8 @@
 
 	// 現在入力されている値をWi-Fi接続の設定値として保存します。
 	AppSetting *setting = GetAppSetting();
+	setting.wifiSSID = self.wifiSsidText.text;
+	setting.wifiPassphrase = self.wifiPassphraseText.text;
 	setting.wifiHost = self.wifiHostText.text;
 	setting.wifiCommandPort = [self.wifiCommandPortText.text integerValue];
 	setting.wifiEventPort = [self.wifiEventPortText.text integerValue];
@@ -192,6 +220,30 @@
 		[self.wifiHostText resignFirstResponder];
 	} else {
 		[self.wifiHostText becomeFirstResponder];
+	}
+}
+
+/// 'SSID Name'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtSsidCell {
+	DEBUG_LOG(@"");
+	
+	// キーボードを開閉します。
+	if ([self.wifiSsidText isFirstResponder]) {
+		[self.wifiSsidText resignFirstResponder];
+	} else {
+		[self.wifiSsidText becomeFirstResponder];
+	}
+}
+
+/// 'Passphrase'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtPassphraseCell {
+	DEBUG_LOG(@"");
+	
+	// キーボードを開閉します。
+	if ([self.wifiPassphraseText isFirstResponder]) {
+		[self.wifiPassphraseText resignFirstResponder];
+	} else {
+		[self.wifiPassphraseText becomeFirstResponder];
 	}
 }
 

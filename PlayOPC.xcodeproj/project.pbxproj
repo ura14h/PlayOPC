@@ -194,6 +194,7 @@
 		31EBDED31D277975004B9F88 /* WifiSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31EBDED11D277969004B9F88 /* WifiSettingViewController.m */; };
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
+		31FA1BB9297CBF9A00AAD6FA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -407,6 +408,7 @@
 		31EBDED11D277969004B9F88 /* WifiSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WifiSettingViewController.m; sourceTree = "<group>"; };
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -414,6 +416,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				31FA1BB9297CBF9A00AAD6FA /* WebKit.framework in Frameworks */,
 				31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
@@ -651,6 +654,7 @@
 		313870A81AC7D3C900B00309 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */,
 				31E48B8F1E6A563800FF25B5 /* Photos.framework */,
 				31841A2C1BC6771A0081C9EF /* AssetsLibrary.framework */,
 				311199B41B086F4800538FA0 /* OLYCameraKit.framework */,

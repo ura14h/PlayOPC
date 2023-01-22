@@ -43,6 +43,10 @@
 		self.portraitTrait = nil;
 		self.landscapeTrait = nil;
 	}
+	
+	// MARK: コンテンツの表示範囲が画面をはみ出すとツールバーの背景色が勝手に変わるのを回避します。
+	// Storyboardエディタでナビゲーションバーには設定できますがツールバーに設定する方法がわかりません...
+	self.toolbar.scrollEdgeAppearance = self.toolbar.standardAppearance;
 }
 
 - (void)didReceiveMemoryWarning {

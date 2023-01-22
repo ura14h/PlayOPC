@@ -165,27 +165,42 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	});
 }
 
-- (BOOL)connect {
+- (BOOL)connect:(NSError**)error {
 	DEBUG_LOG(@"SSID=%@, passphrase=%@", self.SSID, self.passphrase);
 	
 	BOOL monitoring = self.monitoring;
 	self.monitoring = NO;
 	__block BOOL applyResult = NO;
+	__block NSError *applyError = nil;
 
+	NSString* ssid = self.SSID;
 	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
-	NEHotspotConfiguration *config = [[NEHotspotConfiguration alloc] initWithSSIDPrefix:self.SSID passphrase:self.passphrase isWEP:NO];
-	config.joinOnce = YES;
+	NEHotspotConfiguration *config = [[NEHotspotConfiguration alloc] initWithSSIDPrefix:ssid passphrase:self.passphrase isWEP:NO];
+	config.joinOnce = NO; // YESにするとiOS15ではエラーになってしまう...
 	config.lifeTimeInDays = [[NSNumber alloc] initWithInt:1];
 
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	[manager applyConfiguration:config completionHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%@", error);
-		applyResult = (error == nil);
+		if (error == nil ||
+			(NEHotspotConfigurationError)error.code == NEHotspotConfigurationErrorAlreadyAssociated) {
+			applyResult = YES;
+			applyError = nil;
+		} else if ((NEHotspotConfigurationError)error.code == NEHotspotConfigurationErrorUserDenied) {
+			applyResult = NO;
+			applyError = nil;
+		} else {
+			applyResult = NO;
+			applyError = error;
+		}
 		dispatch_semaphore_signal(semaphore);
 	}];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 
 	self.monitoring = monitoring;
+	if (error != nil) {
+		*error = applyError;
+	}
 	return applyResult;
 }
 

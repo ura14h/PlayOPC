@@ -735,8 +735,13 @@
 			// Wi-Fi接続を試みます。
 			weakSelf.wifiConnector.SSID = wifiSSID;
 			weakSelf.wifiConnector.passphrase = wifiPassphrase;
-			if (![weakSelf.wifiConnector connect]) {
-				// WiFi接続の試みをキャンセルしました。
+			if (![weakSelf.wifiConnector connect:&error]) {
+				if (error == nil) {
+					// WiFi接続の試みをキャンセルしました。
+				} else {
+					// WiFi接続のパラメータに誤りがあるかもしれません。
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+				}
 				return;
 			}
 

@@ -57,7 +57,7 @@ extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態�
 - (void)pokeMonitoring;
 
 /// カメラのアクセスポイントへの接続を試みます。
-- (BOOL)connect;
+- (BOOL)connect:(NSError**)error;
 
 /// カメラのアクセスポイントへの接続を切断します。
 - (void)disconnect;

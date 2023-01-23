@@ -5722,15 +5722,23 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 
 	// 通信先URL、パラメータ値、応答内容については「オープンプラットフォームカメラ 通信仕様書 1.0」を参考にしました。
 	
+	NSString *urlPrefix = @"http://";
+	NSString *urlPostfix = @"/get_connectmode.cgi";
+	NSString *url = nil;
+	if (self.commandPort == 80) {
+		url = [NSString stringWithFormat:@"%@%@%@", urlPrefix, self.host, urlPostfix];
+	} else {
+		url = [NSString stringWithFormat:@"%@%@:%ld%@", urlPrefix, self.host, self.commandPort, urlPostfix];
+	}
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
 	config.timeoutIntervalForRequest = timeout * 0.5;
 	config.timeoutIntervalForResource = timeout * 0.5;
 	NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
 	NSMutableURLRequest *request = [NSMutableURLRequest new];
-	request.URL = [NSURL URLWithString:@"http://192.168.0.10/get_connectmode.cgi"];
+	request.URL = [NSURL URLWithString:url];
 	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	request.HTTPMethod = @"GET";
-	[request setValue:@"192.168.0.10" forHTTPHeaderField:@"Host"];
+	[request setValue:self.host forHTTPHeaderField:@"Host"];
 	[request setValue:@"OlympusCameraKit" forHTTPHeaderField:@"User-Agent"];
 	[request setValue:@"OlympusCameraKit" forHTTPHeaderField:@"X-Protocol"];
 	

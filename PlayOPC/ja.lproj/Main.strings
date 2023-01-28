@@ -4,8 +4,8 @@
 /* Class = "UILabel"; text = "$message"; ObjectID = "1Fs-so-3HD"; */
 "1Fs-so-3HD.text" = "$message";
 
-/* Class = "UITextField"; placeholder = "Enter Local Name"; ObjectID = "20e-sY-7p1"; */
-"20e-sY-7p1.placeholder" = "OPCのローカルネーム";
+/* Class = "UITextField"; placeholder = "OPC Bluetooth (AIR-A01)"; ObjectID = "20e-sY-7p1"; */
+"20e-sY-7p1.placeholder" = "OPCのBluetooth (AIR-A01)";
 
 /* Class = "UITextField"; text = "$bleName"; ObjectID = "20e-sY-7p1"; */
 "20e-sY-7p1.text" = "$bleName";
@@ -40,8 +40,8 @@
 /* Class = "UILabel"; text = "Bluetooth"; ObjectID = "8Tn-v6-wfL"; */
 "8Tn-v6-wfL.text" = "Bluetooth";
 
-/* Class = "UITextField"; placeholder = "Enter Passphrase"; ObjectID = "8il-6K-2dT"; */
-"8il-6K-2dT.placeholder" = "OPCのパスフレーズ";
+/* Class = "UITextField"; placeholder = "OPC Password (00000000)"; ObjectID = "8il-6K-2dT"; */
+"8il-6K-2dT.placeholder" = "OPCのパスワード (00000000)";
 
 /* Class = "UITextField"; text = "$wifiPassphrase"; ObjectID = "8il-6K-2dT"; */
 "8il-6K-2dT.text" = "$wifiPassphrase";
@@ -61,8 +61,8 @@
 /* Class = "UILabel"; text = "Connect with using Wi-Fi"; ObjectID = "FnT-T3-hOZ"; */
 "FnT-T3-hOZ.text" = "Wi-Fi経由で接続";
 
-/* Class = "UITextField"; placeholder = "Enter Passcode"; ObjectID = "M37-av-fFz"; */
-"M37-av-fFz.placeholder" = "OPCのパスコード";
+/* Class = "UITextField"; placeholder = "OPC Passcode (000000)"; ObjectID = "M37-av-fFz"; */
+"M37-av-fFz.placeholder" = "OPCのパスコード (000000)";
 
 /* Class = "UITextField"; text = "$bleCode"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.text" = "$bleCode";
@@ -109,8 +109,8 @@
 /* Class = "UILabel"; text = "$cameraKitVersion"; ObjectID = "h9Q-FX-6Ga"; */
 "h9Q-FX-6Ga.text" = "$cameraKitVersion";
 
-/* Class = "UITextField"; placeholder = "Enter SSID"; ObjectID = "hmA-ne-8SO"; */
-"hmA-ne-8SO.placeholder" = "OPCのSSID";
+/* Class = "UITextField"; placeholder = "OPC SSID (AIR-A01-S/N)"; ObjectID = "hmA-ne-8SO"; */
+"hmA-ne-8SO.placeholder" = "OPCのSSID (AIR-A01-S/N)";
 
 /* Class = "UITextField"; text = "$wifiSSID"; ObjectID = "hmA-ne-8SO"; */
 "hmA-ne-8SO.text" = "$wifiSSID";

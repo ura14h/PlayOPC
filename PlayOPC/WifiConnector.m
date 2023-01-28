@@ -27,6 +27,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 @property (strong, nonatomic) nw_path_t path; ///< 接続情報
 @property (assign, nonatomic) nw_path_status_t pathStatus; ///< 接続状態
 @property (assign, nonatomic) BOOL cameraResponded; ///< カメラの応答があったか否か
+@property (assign, nonatomic) BOOL cameraDisconnecting; ///< カメラとの接続を解除中か否か
 
 @end
 
@@ -51,6 +52,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	_path = nil;
 	_pathStatus = nw_path_status_invalid;
 	_cameraResponded = NO;
+	_cameraDisconnecting = NO;
 
 	return self;
 }
@@ -125,6 +127,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		weakSelf.path = nil;
 		weakSelf.pathStatus = nw_path_status_invalid;
 		weakSelf.cameraResponded = NO;
+		weakSelf.cameraDisconnecting = NO;
 	});
 	nw_path_monitor_set_update_handler(self.pathMonitor, ^(nw_path_t path) {
 		[weakSelf updatePath:path];
@@ -205,16 +208,15 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		}
 		[NSThread sleepForTimeInterval:0.05];
 	}
-	
+
 	return connected;
 }
 
 - (BOOL)waitForDisconnected:(NSTimeInterval)timeout {
 	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 	
-	// MARK: カメラの電源オフ中にCGIコマンドを送信するとカメラが電源オフにならないようです。
-
 	// 接続状態の変化をポーリングします。
+	self.cameraDisconnecting = YES;
 	BOOL disconnected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
@@ -224,7 +226,8 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		}
 		[NSThread sleepForTimeInterval:0.05];
 	}
-	
+	self.cameraDisconnecting = NO;
+
 	return disconnected;
 }
 
@@ -249,11 +252,15 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 		
 		if (network && [network.SSID isEqualToString:self.SSID]) {
-			AppCamera *camera = GetAppCamera();
-			if (camera.connected) {
-				currentCameraResponded = YES;
-			} else {
-				currentCameraResponded = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:1.0 error:nil];
+			// WiFiの接続解除中はカメラにコマンドを送信しないようにします。
+			// MARK: カメラのWiFiを接続解除中にCGIコマンドを送信すると接続解除が遅延したり電源がオフにならなかったりするようです。
+			if (!self.cameraDisconnecting) {
+				AppCamera *camera = GetAppCamera();
+				if (camera.connected) {
+					currentCameraResponded = YES;
+				} else {
+					currentCameraResponded = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:1.0 error:nil];
+				}
 			}
 		}
 	}

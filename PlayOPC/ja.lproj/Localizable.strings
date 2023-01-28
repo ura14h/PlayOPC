@@ -519,7 +519,8 @@
 /* BluetoothConnector.disconnectPeripheral */
 "$desc:DisconnectingBluetoothPeripheralTimedOut" = "Bluetoothデバイスの切断がタイムアウトしました。";
 
-/* ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
+/* ConnectionViewController.didSelectRowAtDisconnectCell
+   ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
 "$desc:DisconnectingWifi" = "切断中...";
 
 /* BluetoothConnector.disconnectPeripheral */

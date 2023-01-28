@@ -812,6 +812,21 @@
 			weakSelf.bluetoothConnector.peripheral = nil;
 		}
 		
+		// カメラとのWiFi接続を解除します。
+		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
+			// カメラとのWiFi接続を解除します。
+			[weakSelf.wifiConnector disconnect];
+			// Wi-Fi接続が無効(もしくは他SSIDへ再接続)になるまで待ちます。
+			[weakSelf reportBlockDisconnectingWifi:progressView];
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$desc:DisconnectingWifi", @"ConnectionViewController.didSelectRowAtDisconnectCell");
+			}];
+			if ([weakSelf.wifiConnector waitForDisconnected:20.0]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		}
+
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -865,16 +880,13 @@
 		
 		// カメラとのWiFi接続を解除します。
 		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
-			// カメラとのBluetooth接続を解除します。
+			// カメラとのWiFi接続を解除します。
 			[weakSelf.wifiConnector disconnect];
-			
-			// MARK: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
-			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
+			// カメラの電源を切った後にWi-Fi接続が無効(もしくは他SSIDへ再接続)になるまで待ちます。
 			[weakSelf reportBlockDisconnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$desc:DisconnectingWifi", @"ConnectionViewController.didSelectRowAtDisconnectAndSleepCell");
 			}];
-			// カメラの電源を切った後にWi-Fi接続が無効(もしくは他SSIDへ再接続)になるまで待ちます。
 			if ([weakSelf.wifiConnector waitForDisconnected:20.0]) {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");

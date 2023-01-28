@@ -519,7 +519,8 @@
 /* BluetoothConnector.disconnectPeripheral */
 "$desc:DisconnectingBluetoothPeripheralTimedOut" = "Disconnecting Bluetooth peripheral timed out.";
 
-/* ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
+/* ConnectionViewController.didSelectRowAtDisconnectCell
+   ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
 "$desc:DisconnectingWifi" = "Disconnecting...";
 
 /* BluetoothConnector.disconnectPeripheral */

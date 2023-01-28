@@ -216,6 +216,9 @@
 	
 	// BluetoothとWi-Fiの接続状態を監視開始します。
 	self.bluetoothConnector.peripheral = nil;
+	AppSetting *setting = GetAppSetting();
+	self.wifiConnector.SSID = setting.wifiSSID;
+	self.wifiConnector.passphrase = setting.wifiPassphrase;
 	[self.wifiConnector startMonitoring];
 	
 	// 画面表示を更新します。
@@ -709,7 +712,7 @@
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 			}];
-
+			
 			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
@@ -826,7 +829,7 @@
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
 		}
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];

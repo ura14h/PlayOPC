@@ -587,7 +587,7 @@
 "$desc:UnprotectPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:WifiConnectionIsNotCamera" = "カメラの電源は入れましたが、このWi-Fi接続はカメラのものではないようです。「設定」で手動で現在のWi-Fi接続を切断してカメラに接続してください。";
+"$desc:WifiConnectionIsNotCamera" = "カメラの電源を入れましたが、このWi-Fi接続ではカメラと通信できないようです。「設定」で「ローカルネットワーク」を許可するか、現在のWi-Fi接続を手動で切断してカメラに接続してください。";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */

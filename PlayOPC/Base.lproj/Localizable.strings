@@ -587,7 +587,7 @@
 "$desc:UnprotectPicture" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:WifiConnectionIsNotCamera" = "This Wi-Fi connection is not the camera. You have to disconnect current connection and to connect the device to the camera by manual operation at Setting.";
+"$desc:WifiConnectionIsNotCamera" = "Turned on  the camera, however, it seems that this Wi-Fi connection is unable to communicate with the camera. Please allow 'Local Network' in 'Settings' or manually disconnect the current Wi-Fi connection and connect to the camera.";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */

@@ -47,6 +47,7 @@
 			-webkit-padding-start: 20pt;
 		}
 		h1 a.jump {
+			margin-right: 4pt;
 			float: right;
 			text-decoration: none;
 		}
@@ -112,26 +113,29 @@
 			</ul>
 			<h3>Other Information</h3>
 			<ul>
-				<li>If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. (<a href="http://olympus-imaging.jp/product/opc/a01/">http://olympus-imaging.jp/product/opc/a01/</a>)</li>
-				<li>If you have an interest in camera functions and camera parameters, please read SDK document in "OPC Hack &amp; Make Project" site. (<a href="https://dl-support.olympus-imaging.com/opc/en/">https://dl-support.olympus-imaging.com/opc/en/</a>)</li>
+				<li>If you are interested in handling the OLYMPUS AIR A01, please check the published instruction manual. (<a href="http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf">http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf</a>)</li>
+				<li>If you are interested in the details of camera functions and setting values, please check the published SDK document. (<a href="https://dl-support.olympus-imaging.com/opc/en/">https://dl-support.olympus-imaging.com/opc/en/</a>)</li>
 				<li>This application is Open Source. If you want to know what the application does inside, you are able to find almost source codes in GitHub. (<a href="https://github.com/ura14h/PlayOPC">https://github.com/ura14h/PlayOPC</a>)</li>
 			</ul>
 			
 		</div>
-		<h1><a name="Operations">Operations</a><a href="#Introduction" class="jump">&uarr;</a></h1>
+		<h1><a name="Operations">Operations</a>
+			<a href="#Introduction" class="jump">&uarr;</a>
+			<a href="#SpecialAppendix" class="jump">&darr;</a>
+		</h1>
 		<div class="section">
 			
 			<h2>Top Menu</h2>
 			<h3>Camera Access Method</h3>
 			<ul>
 				<li>Bluetooth ... You can change a device to others.</li>
-				<li>Wi-Fi ... You can change the destination IP address and ports.</li>
+				<li>Wi-Fi ... You can change a device to others.</li>
 			</ul>
 			<h3>Camera Connection</h3>
 			<ul>
 				<li>Connect with using Bluetooth ... The camera is automatically woken up.</li>
 				<li>Connect with using Wi-Fi ... The camera is automatically woken up.</li>
-				<li>Disconnect ... The Wi-Fi connection is maintained.</li>
+				<li>Disconnect</li>
 				<li>Disconnect and Sleep</li>
 			</ul>
 			<h3>Camera Operation</h3>
@@ -179,6 +183,7 @@
 				<li>Small red frame ... Area that AF position and AF is failed</li>
 				<li>Large red frame ... Area that tapping and log pressing is effective</li>
 			</ul>
+			<p><b>Live view when connected via Bluetooth is not displayed due to SDK specifications.</b></p>
 			<h3>Thumbnail of Rec-View</h3>
 			<ul>
 				<li>Tapping
@@ -509,8 +514,40 @@
 						<li>Wi-Fi Channel ... The channel which you changed is effective from waking the camera up next.</li>
 					</ul>
 				</li>
+				<li>Server Setting
+					<ul>
+						<li>Host</li>
+						<li>Commandt Port</li>
+						<li>Event Port</li>
+						<li>Live View Streaming Port</li>
+					</ul>
+				</li>
 			</ul>
 			
+		</div>
+		<h1><a name="SpecialAppendix">Special Appendix</a><a href="#Operations" class="jump">&uarr;</a></h1>
+		<div class="section">
+			
+			<h2>Camera</h2>
+			<h3>How to reset AIR A01 network settings to factory default settings</h3>
+			<ol>
+				<li>Turn off the power.</li>
+				<li>Remove the micro SD card.</li>
+				<li>Pull and hold the lens release lever.</li>
+				<li>Press and hold the shutter button.</li>
+				<li>Press the power button once.</li>
+				<li>The LED indicator will turn blue and turn off immediately.</li>
+				<li>Turn on the power again.</li>
+				<li>The network settings are restored to the factory default settings.</li>
+			</ol>
+			<p>If you reset the network settings of the AIR-A01 using the above procedure, the result will be as follows.</p>
+			<ul>
+				<li>Wi-Fi SSID is the value on the sticker on the back of the camera (AIR-A01-<code>Serial Number</code>)</li>
+				<li>Wi-Fi passphrase is the value written on the sticker on the back of the camera (8-digit number)</li>
+				<li>Bluetooth local name is "AIR-A01"</li>
+				<li>Bluetooth passcode is "000000"</li>
+			</ul>
+
 		</div>
 	</body>
 </html>

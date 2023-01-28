@@ -76,8 +76,8 @@
 /* Class = "UILabel"; text = "Recording"; ObjectID = "Q8G-vi-A4n"; */
 "Q8G-vi-A4n.text" = "撮影モード";
 
-/* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the  SSID and passphrase will be the values listed on the sticker on the back of the camera."; ObjectID = "RfJ-yo-pNy"; */
-"RfJ-yo-pNy.footerTitle" = "AIR-A01 を工場出荷時のデフォルト設定にリセットすると、SSID とパスフレーズは、カメラの背面のステッカーに記載されている値になります。";
+/* Class = "UITableViewSection"; footerTitle = "For how to reset the network settings of the AIR A01 to factory settings, please refer to the special appendix at the end of the application reference."; ObjectID = "RfJ-yo-pNy"; */
+"RfJ-yo-pNy.footerTitle" = "AIR A01のネットワーク設定を工場出荷時の設定にリセットする方法については、アプリケーション取扱説明の末尾にある特別付録を参照してください。";
 
 /* Class = "UILabel"; text = "Passphrase"; ObjectID = "VEM-qK-XVV"; */
 "VEM-qK-XVV.text" = "パスフレーズ";
@@ -94,8 +94,8 @@
 /* Class = "UILabel"; text = "Clear Last Camera Setting"; ObjectID = "bgd-Q7-fKi"; */
 "bgd-Q7-fKi.text" = "最後のカメラ設定をクリア";
 
-/* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the Bluetooth local name and passcode will be \"AIR-A01\" and \"000000\" respectively."; ObjectID = "dB8-bj-FSH"; */
-"dB8-bj-FSH.footerTitle" = "AIR-A01 を工場出荷時のデフォルト設定にリセットすると、Bluetooth ローカルネームとパスコードはそれぞれ「AIR-A01」と「000000」になります。";
+/* Class = "UITableViewSection"; footerTitle = "For how to reset the network settings of the AIR A01 to factory settings, please refer to the special appendix at the end of the application reference."; ObjectID = "dB8-bj-FSH"; */
+"dB8-bj-FSH.footerTitle" = "AIR A01のネットワーク設定を工場出荷時の設定にリセットする方法については、アプリケーション取扱説明の末尾にある特別付録を参照してください。";
 
 /* Class = "UILabel"; text = "$ssid"; ObjectID = "eJy-PI-TGK"; */
 "eJy-PI-TGK.text" = "$ssid";

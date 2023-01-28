@@ -47,6 +47,7 @@
 			-webkit-padding-start: 20pt;
 		}
 		h1 a.jump {
+			margin-right: 4pt;
 			float: right;
 			text-decoration: none;
 		}
@@ -112,26 +113,29 @@
 			</ul>
 			<h3>その他</h3>
 			<ul>
-				<li>OLYMPUS AIR A01に興味のある方はオリンパス社の製品情報にてご確認ください。(<a href="http://olympus-imaging.jp/product/opc/a01/">http://olympus-imaging.jp/product/opc/a01/</a>)</li>
-				<li>カメラ機能や設定値の詳細に興味のある方は OPC Hack &amp; Make Project で公開されているSDKドキュメントにてご確認ください。(<a href="https://dl-support.olympus-imaging.com/opc/jp/">https://dl-support.olympus-imaging.com/opc/jp/</a>)</li>
+				<li>OLYMPUS AIR A01の取り扱いに興味のある方は公開されている取扱説明書をご確認ください。(<a href="https://cs2.olympus-imaging.jp/jp/support/dlc/archive/man_a01.pdf">https://cs2.olympus-imaging.jp/jp/support/dlc/archive/man_a01.pdf</a>)</li>
+				<li>カメラ機能や設定値の詳細に興味のある方は公開されているSDKドキュメントをご確認ください。(<a href="https://dl-support.olympus-imaging.com/opc/jp/">https://dl-support.olympus-imaging.com/opc/jp/</a>)</li>
 				<li>このアプリケーションはオープンソースです。アプリが中で何をやっているのかを知りたい方は、GitHubからソースコードを入手できます。 (<a href="https://github.com/ura14h/PlayOPC">https://github.com/ura14h/PlayOPC</a>)</li>
 			</ul>
 		
 		</div>
-		<h1><a name="Operations">操作できる項目</a><a href="#Introduction" class="jump">&uarr;</a></h1>
+		<h1><a name="Operations">操作できる項目</a>
+			<a href="#Introduction" class="jump">&uarr;</a>
+			<a href="#SpecialAppendix" class="jump">&darr;</a>
+		</h1>
 		<div class="section">
 			
 			<h2>トップメニュー</h2>
 			<h3>カメラ接続方法</h3>
 			<ul>
 				<li>Bluetooth ... 現在の接続先が表示されます。接続先デバイスを変更できます。</li>
-				<li>Wi-Fi ... 現在の接続先が表示されます。接続先のIPアドレスとポートを変更できます。</li>
+				<li>Wi-Fi ... 現在の接続先が表示されます。接続先デバイスを変更できます。</li>
 			</ul>
 			<h3>カメラ接続</h3>
 			<ul>
 				<li>Bluetooth経由で接続 ... カメラの電源は自動で入ります。</li>
 				<li>Wi-Fi経由で接続 ... カメラの電源は自動で入ります。</li>
-				<li>接続解除 ... Wi-Fi接続は維持されます。</li>
+				<li>接続解除</li>
 				<li>接続解除と電源オフ</li>
 			</ul>
 			<h3>カメラ操作</h3>
@@ -177,6 +181,7 @@
 				<li>赤色枠(小) 表示 ... AF位置固定/AFロックできなかった領域</li>
 				<li>赤色枠(大) 表示 ... タップや長押しで位置指定できる領域</li>
 			</ul>
+			<p><b>Bluetooth接続時のライブビューはSDKの仕様により表示されません。</b></p>
 			<h3>撮影後確認画像サムネイル</h3>
 			<ul>
 				<li>タップ
@@ -507,8 +512,40 @@
 						<li>Wi-Fiチャンネル ... 変更したチャンネルは次回のカメラ電源投入から有効です。</li>
 					</ul>
 				</li>
+				<li>サーバー設定
+					<ul>
+						<li>ホスト</li>
+						<li>コマンド送信ポート</li>
+						<li>イベント通知受信ポート</li>
+						<li>ライブビューストリーミング受信ポート</li>
+					</ul>
+				</li>
 			</ul>
 			
 		</div>
-	</body>
+		<h1><a name="SpecialAppendix">特別付録</a><a href="#Operations" class="jump">&uarr;</a></h1>
+		<div class="section">
+
+			<h2>カメラ</h2>
+			<h3>AIR A01 のネットワーク設定を購入時の状態にリセットする方法</h3>
+			<ol>
+				<li>電源をオフにします。</li>
+				<li>マイクロSDカードを取り出します。</li>
+				<li>レンズ取り外しレバーを引きっぱなしにします。</li>
+				<li>シャッターボタンを押しっぱなしにします。</li>
+				<li>電源ボタンを一回押します。</li>
+				<li>LEDインジゲーターが青く点灯しすぐに消灯します。</li>
+				<li>再び電源を入れます。</li>
+				<li>ネットワークの設定が工場出荷の状態に復元されます。</li>
+			</ol>
+			<p>上記の手順でAIR-A01のネットワーク設定をリセットすると下記のようになります。</p>
+			<ul>
+				<li>Wi-FiのSSIDはカメラの背面のステッカーに記載されている値 (AIR-A01-<code>シリアル番号</code>)</li>
+				<li>Wi-Fiのパスフレーズはカメラの背面のステッカーに記載されている値 (8桁の数値)</li>
+				<li>Bluetoothのローカルネームは「AIR-A01」</li>
+				<li>Bluetoothのパスコードは「000000」</li>
+			</ul>
+			
+		</div>
+</body>
 </html>

@@ -576,7 +576,7 @@
                         <color key="backgroundColor" name="ToolPanelBackColor"/>
                         <sections>
                             <tableViewSection id="dB8-bj-FSH">
-                                <string key="footerTitle">If you reset the AIR-A01 to the factory default settings, the Bluetooth local name and passcode will be "AIR-A01" and "000000" respectively.</string>
+                                <string key="footerTitle">For how to reset the network settings of the AIR A01 to factory settings, please refer to the special appendix at the end of the application reference.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="LocalName" id="C3F-3Z-vYn">
                                         <rect key="frame" x="0.0" y="10" width="414" height="44"/>
@@ -760,7 +760,7 @@
                         <color key="backgroundColor" name="ToolPanelBackColor"/>
                         <sections>
                             <tableViewSection id="RfJ-yo-pNy">
-                                <string key="footerTitle">If you reset the AIR-A01 to the factory default settings, the  SSID and passphrase will be the values listed on the sticker on the back of the camera.</string>
+                                <string key="footerTitle">For how to reset the network settings of the AIR A01 to factory settings, please refer to the special appendix at the end of the application reference.</string>
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="SSID" id="QzY-UC-Ik6">
                                         <rect key="frame" x="0.0" y="10" width="414" height="44"/>

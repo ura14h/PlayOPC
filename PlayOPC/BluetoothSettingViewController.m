@@ -37,10 +37,6 @@
 	AppSetting *setting = GetAppSetting();
 	self.bluetoothLocalNameText.text = setting.bluetoothLocalName;
 	self.bluetoothPasscodeText.text = setting.bluetoothPasscode;
-	
-	// OA.Centralから接続設定を取得したかを監視します。
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter addObserver:self selector:@selector(didGetAppOACentralConfiguration:) name:AppOACentralConfigurationDidGetNotification object:nil];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,10 +46,6 @@
 
 - (void)dealloc {
 	DEBUG_LOG(@"");
-	
-	// OA.Centralから接続設定を取得したかの監視を終了します。
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter removeObserver:self name:AppOACentralConfigurationDidGetNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -79,8 +71,6 @@
 		[self didSelectRowAtLocalNameCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"Passcode"]) {
 		[self didSelectRowAtPasscodeCell];
-	} else if ([cellReuseIdentifier isEqualToString:@"GetFromOacentral"]) {
-		[self didSelectRowAtFromOacentralCell];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -98,17 +88,6 @@
 		[self.view endEditing:YES];
 	}
 	return YES;
-}
-
-/// OA.CentralからBluetooth接続の設定を取得した時に呼び出されます。
-/// この設定情報はAppDelegateによる通知を経由して届きます。
-- (void)didGetAppOACentralConfiguration:(NSNotification *)notification {
-	DEBUG_LOG(@"notification=%@", notification);
-
-	// OA.Centralから取得した接続設定を現在のBluetooth接続の設定値に入力します。
-	OACentralConfiguration *configuration = notification.userInfo[AppOACentralConfigurationDidGetNotificationUserInfo];
-	self.bluetoothLocalNameText.text = configuration.bleName;
-	self.bluetoothPasscodeText.text = configuration.bleCode;
 }
 
 #pragma mark -
@@ -157,20 +136,6 @@
 		[self.bluetoothPasscodeText resignFirstResponder];
 	} else {
 		[self.bluetoothPasscodeText becomeFirstResponder];
-	}
-}
-
-/// 'Get From OA.Central'のセルが選択されたときに呼び出されます。
-- (void)didSelectRowAtFromOacentralCell {
-	DEBUG_LOG(@"");
-
-	// キーボードを閉じます。
-	[self.view endEditing:YES];
-	
-	// OA.Centralに接続設定の取得を要求します。
-	if (![OACentralConfiguration requestConfigurationURL:AppUrlSchemeGetFromOacentral]) {
-		// OA.Centralの呼び出しに失敗しました。
-		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotOpenOACentralByNoInstalled", @"BluetoothSettingViewController.didSelectRowAtFromOacentralCell") title:NSLocalizedString(@"$title:CouldNotOpenOACentral", @"BluetoothSettingViewController.didSelectRowAtFromOacentralCell")];
 	}
 }
 

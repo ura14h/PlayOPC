@@ -15,16 +15,6 @@
 @class AppCamera;
 @class AppCameraLog;
 
-/// OA.Centralから呼び出してもらうためのこのアプリのURLスキーム
-extern NSString *const AppUrlSchemeGetFromOacentral;
-
-/// OA.Centralから呼び出されたことをアプリ内に知らせるための通知名
-extern NSString *const AppOACentralConfigurationDidGetNotification;
-
-/// OA.Centralから呼び出されたことをアプリ内に知らせるための通知に付属する情報の辞書キー
-/// (格納されている情報はOACentralConfigurationオブジェクト)
-extern NSString *const AppOACentralConfigurationDidGetNotificationUserInfo;
-
 /// アプリケーションデリゲート
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 

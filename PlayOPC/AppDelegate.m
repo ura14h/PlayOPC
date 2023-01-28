@@ -10,12 +10,10 @@
 //
 
 #import "AppDelegate.h"
-#import <OLYCameraKit/OACentralConfiguration.h>
 #import "AppSetting.h"
 #import "AppCamera.h"
 #import "AppCameraLog.h"
 
-NSString *const AppUrlSchemeGetFromOacentral = @"net.homeunix.hio.ipa.PlayOPC.GetFromOacentral";
 NSString *const AppOACentralConfigurationDidGetNotification = @"AppOACentralConfigurationDidGetNotification";
 NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACentralConfigurationDidGetNotificationUserInfo";
 
@@ -73,22 +71,6 @@ NSString *const AppOACentralConfigurationDidGetNotificationUserInfo = @"AppOACen
 
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
 	DEBUG_LOG(@"url=%@, options=%@", url, options);
-	
-	if ([[url scheme] isEqualToString:AppUrlSchemeGetFromOacentral]) {
-		// OA.Centralから呼び出されました。
-		// OA.Centralが保持している設定情報を送り返してきています。
-		OACentralConfiguration *configuration = [[OACentralConfiguration alloc] initWithConfigurationURL:url];
-		DEBUG_LOG(@"configuration.bleName=%@", configuration.bleName);
-		DEBUG_LOG(@"configuration.bleCode=%@", configuration.bleCode);
-
-		// OA.Centralから接続設定を取得したことをお知らせします。
-		// この設定情報を欲しがっているビューコントローラーは、このインスタンスから遠いところにいるので、通知を使って届けます。
-		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-		NSDictionary *userInfo = @{
-			AppOACentralConfigurationDidGetNotificationUserInfo:configuration
-		};
-		[notificationCenter postNotificationName:AppOACentralConfigurationDidGetNotification object:self userInfo:userInfo];
-	}
 	return YES;
 }
 

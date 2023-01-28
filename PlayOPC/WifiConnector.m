@@ -187,13 +187,6 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	return applyResult;
 }
 
-- (void)disconnect {
-	DEBUG_LOG(@"SSID=%@", self.SSID);
-	
-	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
-	[manager removeConfigurationForSSID:self.SSID];
-}
-
 - (BOOL)waitForConnected:(NSTimeInterval)timeout {
 	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 
@@ -210,6 +203,13 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	}
 
 	return connected;
+}
+
+- (void)disconnect {
+	DEBUG_LOG(@"SSID=%@", self.SSID);
+	
+	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
+	[manager removeConfigurationForSSID:self.SSID];
 }
 
 - (BOOL)waitForDisconnected:(NSTimeInterval)timeout {

@@ -56,11 +56,11 @@ extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態�
 /// カメラのアクセスポイントへの接続を試みます。
 - (BOOL)connect:(NSError**)error;
 
-/// カメラのアクセスポイントへの接続を切断します。
-- (void)disconnect;
-
 /// カメラへのアクセスが可能になるまで待ちます。
 - (BOOL)waitForConnected:(NSTimeInterval)timeout;
+
+/// カメラのアクセスポイントへの接続を切断します。
+- (void)disconnect;
 
 /// カメラへのアクセスが不能になるまで待ちます。
 - (BOOL)waitForDisconnected:(NSTimeInterval)timeout;

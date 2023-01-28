@@ -694,6 +694,7 @@
 			}
 			
 			// Wi-Fi接続を試みます。
+			[weakSelf reportBlockConnectingWifi:progressView];
 			weakSelf.wifiConnector.SSID = wifiSSID;
 			weakSelf.wifiConnector.passphrase = wifiPassphrase;
 			if (![weakSelf.wifiConnector connect:&error]) {
@@ -705,15 +706,14 @@
 				}
 				return;
 			}
-			
+			[weakSelf executeAsynchronousBlockOnMainThread:^{
+				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
+			}];
+
 			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
 			// 作者の環境ではiPhone 6S (iOS 13.3) だと30秒程度かかっています。
-			[weakSelf reportBlockConnectingWifi:progressView];
-			[weakSelf executeAsynchronousBlockOnMainThread:^{
-				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
-			}];
 			if (![weakSelf.wifiConnector waitForConnected:40.0]) {
 				// Connecting... を元に戻します。
 				[weakSelf executeAsynchronousBlockOnMainThread:^{

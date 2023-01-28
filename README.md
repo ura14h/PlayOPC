@@ -41,7 +41,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 
 * If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.
 * The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.
-* The app cannot initialize media cards in the camera. Please use [OA.Central](app.olympus-imaging.com/oacentral/) provided by OLYMPUS.
+* The app cannot initialize media cards in the camera. ~~Please use [OA.Central](app.olympus-imaging.com/oacentral/) provided by OLYMPUS.~~
 
 ## Runs Immediately
 
@@ -51,9 +51,9 @@ You may find the binary version of application in [iTunes App Store](https://itu
 
 Building this application requires:
 
-* iOS 13.2 and later
-* OS X 10.15.2 and later
-* Xcode 11.3.1 and later
+* iOS 15.0 and later
+* macOS 13.1 and later
+* Xcode 14.2 and later
 
 When the project that you downloaded does not seem to be able to build, please read the trouble-shooting section of [Wiki](https://github.com/ura14h/PlayOPC/wiki).
 
@@ -69,5 +69,5 @@ OLYCameraKit.framework is released under the terms of OLYMPUS license. This lice
 
 ## Other Information
 
-* If you have an interest in OLYMPUS AIR A01, please confirm the product information of Olympus Corporation. ([http://olympus-imaging.jp/product/opc/a01/]())  
+* If you are interested in handling the OLYMPUS AIR A01, please check the published instruction manual. (http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf]())  
 * If you have an interest in camera functions and camera parameters, please read SDK document. You may download it from: [https://dl-support.olympus-imaging.com/opc/en/]()

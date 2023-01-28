@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3420</string>
+	<string>3421</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>jp.olympus-imaging.oacentral</string>

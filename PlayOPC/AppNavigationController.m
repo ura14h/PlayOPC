@@ -11,6 +11,8 @@
 
 #import "AppNavigationController.h"
 
+NSString *const AppDidChangeStatusBarOrientationNotification = @"AppDidChangeStatusBarOrientationNotification";
+
 @interface AppNavigationController ()
 
 @property (weak, nonatomic) UITraitCollection *currentTrait; ///< 現在のトレイト
@@ -87,6 +89,10 @@
 			self.currentTrait = self.portraitTrait;
 		}
 	}
+	
+	// 画面の回転を通知します。
+	NSNotification *notification = [NSNotification notificationWithName:AppDidChangeStatusBarOrientationNotification object:self userInfo:nil];
+	[[NSNotificationCenter defaultCenter] postNotification:notification];
 }
 
 - (UITraitCollection *)overrideTraitCollectionForChildViewController:(UIViewController *)childViewController {

@@ -11,6 +11,8 @@
 
 #import <UIKit/UIKit.h>
 
+extern NSString *const AppDidChangeStatusBarOrientationNotification; ///< アプリの画面が回転した時の通知名
+
 /// アプリの中核となるナビゲーションコントローラー。
 /// 合わせて、Auto Layoutでの画面サイズの扱いがiPhoneとiPadで異なるのを吸収します。
 @interface AppNavigationController : UINavigationController

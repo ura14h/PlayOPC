@@ -32,7 +32,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>3406</string>
+	<string>3388</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>jp.olympus-imaging.oacentral</string>
@@ -51,6 +51,8 @@
 	<string>This application uses Bluetooth to wake up a camera.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>This application uses Bluetooth to wake up a camera.</string>
+	<key>NSLocalNetworkUsageDescription</key>
+	<string>This application uses the local network to match the camera's SSID.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>This application uses the current location to set the camera.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

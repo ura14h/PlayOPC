@@ -11,3 +11,4 @@ NSLocationWhenInUseUsageDescription = "This application uses the current locatio
 NSPhotoLibraryUsageDescription = "This application uses the photo library to save a captured image.";
 NSBluetoothPeripheralUsageDescription = "This application uses Bluetooth to wake up a camera.";
 NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to wake up a camera.";
+NSLocalNetworkUsageDescription = "This application uses the local network to match the camera's SSID.";

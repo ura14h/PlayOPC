@@ -16,8 +16,6 @@
 		311199B61B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
 		311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199B91B086FB200538FA0 /* MBProgressHUD.m */; };
 		311199BD1B086FB200538FA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199B91B086FB200538FA0 /* MBProgressHUD.m */; };
-		311199BE1B086FB200538FA0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199BB1B086FB200538FA0 /* Reachability.m */; };
-		311199BF1B086FB200538FA0 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199BB1B086FB200538FA0 /* Reachability.m */; };
 		311268F81AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */; };
 		311268F91AFF4A3D00AEA860 /* PlaybackViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */; };
 		311268FC1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311268FB1AFF4A6600AEA860 /* PlaybackViewController.m */; };
@@ -216,8 +214,6 @@
 		311199B41B086F4800538FA0 /* OLYCameraKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OLYCameraKit.framework; path = PlayOPC/Imports/OLYCameraKit.framework; sourceTree = "<group>"; };
 		311199B81B086FB200538FA0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = Imports/MBProgressHUD.h; sourceTree = "<group>"; };
 		311199B91B086FB200538FA0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Imports/MBProgressHUD.m; sourceTree = "<group>"; };
-		311199BA1B086FB200538FA0 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Reachability.h; path = Imports/Reachability.h; sourceTree = "<group>"; };
-		311199BB1B086FB200538FA0 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Reachability.m; path = Imports/Reachability.m; sourceTree = "<group>"; };
 		311268F61AFF4A3D00AEA860 /* PlaybackViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewCell.h; sourceTree = "<group>"; };
 		311268F71AFF4A3D00AEA860 /* PlaybackViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlaybackViewCell.m; sourceTree = "<group>"; };
 		311268FA1AFF4A6600AEA860 /* PlaybackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlaybackViewController.h; sourceTree = "<group>"; };
@@ -444,8 +440,6 @@
 			children = (
 				311199B81B086FB200538FA0 /* MBProgressHUD.h */,
 				311199B91B086FB200538FA0 /* MBProgressHUD.m */,
-				311199BA1B086FB200538FA0 /* Reachability.h */,
-				311199BB1B086FB200538FA0 /* Reachability.m */,
 			);
 			name = "Imported Classes";
 			sourceTree = "<group>";
@@ -1049,7 +1043,6 @@
 				314D7A501ACFDA03004C2644 /* AppCameraLog.m in Sources */,
 				31EBDED21D277969004B9F88 /* WifiSettingViewController.m in Sources */,
 				31731EC11AEB888B0094193A /* ZPanelViewController.m in Sources */,
-				311199BE1B086FB200538FA0 /* Reachability.m in Sources */,
 				3154BA631ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
 				310639301B46B16800BE8597 /* UIImageView+Animation.m in Sources */,
 				319284341AD8E7E0003BC78F /* RecordingViewController.m in Sources */,
@@ -1108,7 +1101,6 @@
 				319284391AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
 				3154BA641ADFDAA000D96EBE /* UITableViewController+Cell.m in Sources */,
 				31731EC61AEB88AB0094193A /* VPanelViewController.m in Sources */,
-				311199BF1B086FB200538FA0 /* Reachability.m in Sources */,
 				311B75D81ABC287C00A7D38C /* PlayOPCTests.m in Sources */,
 				31731EC21AEB888B0094193A /* ZPanelViewController.m in Sources */,
 				31BD00021B3C3D7200F555A7 /* AppCameraTests.m in Sources */,

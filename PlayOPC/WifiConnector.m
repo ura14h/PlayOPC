@@ -12,7 +12,8 @@
 #import "WifiConnector.h"
 #import <NetworkExtension/NetworkExtension.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
-#import "Reachability.h"
+//#import "Reachability.h"
+#import <Network/Network.h>
 #import "AppDelegate.h"
 #import "AppCamera.h"
 
@@ -21,9 +22,10 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 @interface WifiConnector ()
 
 @property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
-@property (strong, nonatomic) dispatch_queue_t reachabilityQueue; ///< 到達確認性を実行するキュー
-@property (strong, nonatomic) Reachability *reachability;
-@property (assign, nonatomic) NetworkStatus networkStatus; ///< 最新のネットワーク状態
+@property (strong, nonatomic) dispatch_queue_t pathMonitorQueue; ///< 接続状態を確認するキュー
+@property (strong, nonatomic) nw_path_monitor_t pathMonitor; ///< 接続状態を監視するモニター
+@property (strong, nonatomic) nw_path_t path; ///< 接続情報
+@property (assign, nonatomic) nw_path_status_t pathStatus; ///< 接続状態
 @property (assign, nonatomic) BOOL cameraResponded; ///< カメラの応答があったか否か
 
 @end
@@ -44,27 +46,23 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 
 	_SSID = nil;
 	_passphrase = nil;
-	_reachabilityQueue = nil;
-	_reachability = nil;
-	_networkStatus = NotReachable;
+	_pathMonitorQueue = nil;
+	_pathMonitor = nil;
+	_path = nil;
+	_pathStatus = nw_path_status_invalid;
 	_cameraResponded = NO;
-	
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
 
 	return self;
 }
 
 - (void)dealloc {
 	DEBUG_LOG(@"");
-
-	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-	[notificationCenter removeObserver:self name:kReachabilityChangedNotification object:nil];
 	
-	_reachabilityQueue = nil;
-	_reachability = nil;
 	_SSID = nil;
 	_passphrase = nil;
+	_pathMonitorQueue = nil;
+	_pathMonitor = nil;
+	_path = nil;
 }
 
 #pragma mark -
@@ -72,11 +70,13 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 - (WifiConnectionStatus)connectionStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
-	switch (self.networkStatus) {
-		case ReachableViaWiFi:
+	switch (self.pathStatus) {
+		case nw_path_status_satisfied:
 			return WifiConnectionStatusConnected;
-		case NotReachable:
+		case nw_path_status_satisfiable:
+		case nw_path_status_unsatisfied:
 			return WifiConnectionStatusNotConnected;
+		case nw_path_status_invalid:
 		default:
 			break;
 	}
@@ -86,9 +86,12 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 - (WifiCameraStatus)cameraStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
-	switch (self.networkStatus) {
-		case ReachableViaWiFi:
+	switch (self.pathStatus) {
+		case nw_path_status_satisfied:
 			break;
+		case nw_path_status_satisfiable:
+		case nw_path_status_unsatisfied:
+		case nw_path_status_invalid:
 		default:
 			return WifiCameraStatusUnreachable;
 	}
@@ -107,28 +110,26 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		return;
 	}
 
-	if (!self.reachability) {
-		AppCamera *camera = GetAppCamera();
-		self.reachabilityQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.reachabilityQueue", DISPATCH_QUEUE_SERIAL);
-		self.reachability = [Reachability reachabilityWithHostName:camera.host];
-	}
-
-	self.networkStatus = NotReachable;
+	self.pathMonitorQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.monitorQueue", DISPATCH_QUEUE_SERIAL);
+	self.pathMonitor = nw_path_monitor_create_with_type(nw_interface_type_wifi);
+	nw_path_monitor_set_queue(self.pathMonitor, self.pathMonitorQueue);
+	self.path = nil;
+	self.pathStatus = nw_path_status_invalid;
 	self.cameraResponded = NO;
 
 	__weak WifiConnector *weakSelf = self;
-	dispatch_async(weakSelf.reachabilityQueue, ^{
-		[weakSelf updateStatusWithToKnockOnCamera:YES];
-		// 監視を開始します。
-		// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
-		dispatch_async(dispatch_get_main_queue(), ^{
-			if (![weakSelf.reachability startNotifier]) {
-				// Reachabilityの通知開始に失敗しました。
-				NSLog(NSLocalizedString(@"$desc:CouldNotStartMonitoring", @"WifiConnector.startMonitoring"));
-				return;
-			}
-		});
+	nw_path_monitor_set_cancel_handler(self.pathMonitor, ^{
+		weakSelf.monitoring = NO;
+		weakSelf.pathMonitorQueue = nil;
+		weakSelf.pathMonitor = nil;
+		weakSelf.path = nil;
+		weakSelf.pathStatus = nw_path_status_invalid;
+		weakSelf.cameraResponded = NO;
 	});
+	nw_path_monitor_set_update_handler(self.pathMonitor, ^(nw_path_t path) {
+		[weakSelf updatePath:path];
+	});
+	nw_path_monitor_start(self.pathMonitor);
 	self.monitoring = YES;
 }
 
@@ -141,28 +142,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		return;
 	}
 	
-	__weak WifiConnector *weakSelf = self;
-	dispatch_async(weakSelf.reachabilityQueue, ^{
-		// 監視を停止します。
-		// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
-		dispatch_async(dispatch_get_main_queue(), ^{
-			[weakSelf.reachability stopNotifier];
-		});
-	});
-	self.monitoring = NO;
-}
-
-- (void)pokeMonitoring {
-	DEBUG_LOG(@"");
-	
-	if (!self.monitoring) {
-		return;
-	}
-	
-	__weak WifiConnector *weakSelf = self;
-	dispatch_async(weakSelf.reachabilityQueue, ^{
-		[weakSelf updateStatusWithToKnockOnCamera:YES];
-	});
+	nw_path_monitor_cancel(self.pathMonitor);
 }
 
 - (BOOL)connect:(NSError**)error {
@@ -214,38 +194,16 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 - (BOOL)waitForConnected:(NSTimeInterval)timeout {
 	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 
-	// 監視を一時的に停止します。
-	if (self.monitoring) {
-		__weak WifiConnector *weakSelf = self;
-		dispatch_sync(weakSelf.reachabilityQueue, ^{
-			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf.reachability stopNotifier];
-			});
-		});
-	}
-
 	// 接続状態の変化をポーリングします。
 	BOOL connected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		[self updateStatusWithToKnockOnCamera:YES];
-		if (self.networkStatus == ReachableViaWiFi && self.cameraResponded) {
+		BOOL isWiFi = nw_path_uses_interface_type(self.path, nw_interface_type_wifi);
+		if (isWiFi && self.cameraResponded) {
 			connected = YES;
 			break;
 		}
 		[NSThread sleepForTimeInterval:0.05];
-	}
-	
-	// 監視を再開します。
-	if (self.monitoring) {
-		__weak WifiConnector *weakSelf = self;
-		dispatch_sync(weakSelf.reachabilityQueue, ^{
-			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf.reachability startNotifier];
-			});
-		});
 	}
 	
 	return connected;
@@ -254,40 +212,17 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 - (BOOL)waitForDisconnected:(NSTimeInterval)timeout {
 	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 	
-	// 監視を一時的に停止します。
-	if (self.monitoring) {
-		__weak WifiConnector *weakSelf = self;
-		dispatch_sync(weakSelf.reachabilityQueue, ^{
-			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf.reachability stopNotifier];
-			});
-		});
-	}
-	
+	// MARK: カメラの電源オフ中にCGIコマンドを送信するとカメラが電源オフにならないようです。
+
 	// 接続状態の変化をポーリングします。
 	BOOL disconnected = NO;
 	NSDate *waitStartTime = [NSDate date];
 	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		// MARK: カメラの電源オフ中にCGIコマンドを送信するとカメラが電源オフにならないようです。
-		// ここでは、カメラへCGIコマンドを送らないように電源オフ(Wi-Fi切断)を待つようにしています。
-		[self updateStatusWithToKnockOnCamera:NO];
-		if (self.networkStatus == NotReachable || !self.cameraResponded) {
+		if (self.pathStatus != nw_path_status_satisfied || !self.cameraResponded) {
 			disconnected = YES;
 			break;
 		}
 		[NSThread sleepForTimeInterval:0.05];
-	}
-	
-	// 監視を再開します。
-	if (self.monitoring) {
-		__weak WifiConnector *weakSelf = self;
-		dispatch_sync(weakSelf.reachabilityQueue, ^{
-			// MARK: メインスレッドで呼び出さないとコールバックが呼び出されないようです。
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[weakSelf.reachability startNotifier];
-			});
-		});
 	}
 	
 	return disconnected;
@@ -295,50 +230,40 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 
 #pragma mark -
 
-/// Wi-Fi接続の状態が変化した時に呼び出されます。
-- (void)reachabilityChanged:(NSNotification *)notification {
-	DEBUG_LOG(@"");
-
-	__weak WifiConnector *weakSelf = self;
-	dispatch_async(weakSelf.reachabilityQueue, ^{
-		[weakSelf updateStatusWithToKnockOnCamera:YES];
-	});
-}
-
-#pragma mark -
-
 /// 接続状態を更新します。
-/// 必要ならば、カメラに接続できるか否かも確かめます。
-- (void)updateStatusWithToKnockOnCamera:(BOOL)ping {
+/// カメラのアクセスポイントに接続している場合はカメラと通信できるか否かも確かめます。
+- (void)updatePath:(nw_path_t)path {
 	DEBUG_DETAIL_LOG(@"");
+
+	nw_path_t currentPath = path;
+	nw_path_status_t currentStatus = nw_path_get_status(path);
+	BOOL currentCameraResponded = NO;
 	
-	NetworkStatus previousNetworkStatus = self.networkStatus;
-	BOOL previousCameraResponded = self.cameraResponded;
-	
-	NetworkStatus networkStatus = self.reachability.currentReachabilityStatus;
-	if (networkStatus == NotReachable) {
-		// Wi-Fi未接続
-		self.networkStatus = NotReachable;
-		self.cameraResponded = NO;
-	} else if (networkStatus == ReachableViaWiFi) {
-		// Wi-Fi接続済
-		self.networkStatus = ReachableViaWiFi;
-		self.cameraResponded = NO;
-		if (ping) {
+	if (currentStatus == nw_path_status_satisfied) {
+		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+		__block NEHotspotNetwork *network;
+		[NEHotspotNetwork fetchCurrentWithCompletionHandler:^(NEHotspotNetwork *current) {
+			network = current;
+			dispatch_semaphore_signal(semaphore);
+		}];
+		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+		
+		if (network && [network.SSID isEqualToString:self.SSID]) {
 			AppCamera *camera = GetAppCamera();
 			if (camera.connected) {
-				self.cameraResponded = YES;
+				currentCameraResponded = YES;
 			} else {
-				self.cameraResponded = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:3.0 error:nil];
+				currentCameraResponded = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:1.0 error:nil];
 			}
 		}
-	} else {
-		// ここにはこないはず...
 	}
 	
-	// 状態に変化があった時にだけ通知します。
-	if (self.networkStatus != previousNetworkStatus ||
-		self.cameraResponded != previousCameraResponded) {
+	BOOL changed = (self.pathStatus != currentStatus) || (self.cameraResponded != currentCameraResponded);
+	self.path = currentPath;
+	self.pathStatus = currentStatus;
+	self.cameraResponded = currentCameraResponded;
+	
+	if (changed) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];

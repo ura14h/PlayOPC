@@ -46,7 +46,6 @@
 @property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報へアクセスする権限があるか調べるための位置情報マネージャ
 @property (strong, nonatomic) BluetoothConnector *bluetoothConnector; ///< Bluetooth接続の監視
 @property (strong, nonatomic) WifiConnector *wifiConnector; ///< Wi-Fi接続の監視
-@property (strong, nonatomic) NSTimer *wifiConnectorTimer; ///< Wi-Fi接続の監視を定期的に更新させるためのタイマー
 @property (strong, nonatomic) NSIndexPath *visibleWhenConnected; ///< アプリ接続が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenDisconnected; ///< アプリ接続の切断が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenSleeped; ///< カメラの電源オフが完了した後のスクロール位置
@@ -62,7 +61,7 @@
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");
 	[super viewDidLoad];
-
+	
 	// ビューコントローラーの活動状態を初期化します。
 	self.startingActivity = NO;
 	
@@ -85,7 +84,7 @@
 	[notificationCenter addObserver:self selector:@selector(didChangeBluetoothConnection:) name:BluetoothConnectionChangedNotification object:nil];
 	self.wifiConnector = [[WifiConnector alloc] init];
 	[notificationCenter addObserver:self selector:@selector(didChangeWifiStatus:) name:WifiStatusChangedNotification object:nil];
-
+	
 	// カメラの接続状態を監視開始します。
 	AppCamera *camera = GetAppCamera();
 	[camera addConnectionDelegate:self];
@@ -105,7 +104,7 @@
 	NSString *cameraKitVersion = OLYCameraKitVersion;
 #endif
 	self.cameraKitVersionCell.detailTextLabel.text = cameraKitVersion;
-
+	
 	// アプリケーションのバージョン情報を表示します。
 	//   - CFBundleShortVersionStringをバージョン番号として使用します。
 	//   - CFBundleVersionをビルド番号として使用します。
@@ -118,7 +117,7 @@
 	NSString *applicationVersion = bundleShortVersion;
 #endif
 	self.applicationVersionCell.detailTextLabel.text = applicationVersion;
-
+	
 	// それぞれの処理が完了した後のスクロール位置を設定します。
 	self.visibleWhenConnected = [NSIndexPath indexPathForRow:0 inSection:2]; // 撮影モードへ
 	self.visibleWhenDisconnected = [NSIndexPath indexPathForRow:1 inSection:1]; // アプリ接続へ
@@ -132,7 +131,7 @@
 
 - (void)dealloc {
 	DEBUG_LOG(@"");
-
+	
 	AppCamera *camera = GetAppCamera();
 	[camera removeConnectionDelegate:self];
 	
@@ -142,16 +141,12 @@
 	[notificationCenter removeObserver:self name:WifiStatusChangedNotification object:nil];
 	_bluetoothConnector = nil;
 	_wifiConnector = nil;
-	if (_wifiConnectorTimer) {
-		[_wifiConnectorTimer invalidate];
-	}
-	_wifiConnectorTimer = nil;
-
+	
 	[notificationCenter removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillResignActiveNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
-
+	
 	_locationManager.delegate = nil;
 	_locationManager = nil;
 	
@@ -186,7 +181,7 @@
 /// アプリケーションがアクティブになる時に呼び出されます。
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-
+	
 	// 写真アルバム利用の権限があるか確認します。
 	switch ([PHPhotoLibrary authorizationStatus]) {
 		case PHAuthorizationStatusNotDetermined:
@@ -218,7 +213,7 @@
 			DEBUG_LOG(@"Using location service is restricted.");
 			break;
 	}
-
+	
 	// カメラのWi=Fi設定を更新します。
 	AppSetting *setting = GetAppSetting();
 	AppCamera *camera = GetAppCamera();
@@ -230,14 +225,6 @@
 	// BluetoothとWi-Fiの接続状態を監視開始します。
 	self.bluetoothConnector.peripheral = nil;
 	[self.wifiConnector startMonitoring];
-	
-	// Wi-Fiの接続状態を定期的かつ強制的に更新します。
-	//   デバイスがカメラのアクセスポイントに直接接続していないような特殊なネットワーク構成の環境では、
-	//   iOSのWi-Fiの状態変化をトリガーにしてカメラの存在を確認しに行くことができないので、
-	//   (デバイスのWi-Fiはカメラとは別のアクセスポイントに繋がりっ放しなので、Wi-Fiの状態が変化しない)、
-	//   これを力技で解決するために、カメラに接続可能か否かを定期的に確認しかつ強制的に更新します。
-	NSTimeInterval wifiConnectorTimerInterval = 15.0; // 15秒間隔
-	self.wifiConnectorTimer = [NSTimer scheduledTimerWithTimeInterval:wifiConnectorTimerInterval target:self selector:@selector(didFireWifiConnectorTimer:) userInfo:nil repeats:YES];
 	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
@@ -271,8 +258,6 @@
 	// BluetoothとWi-Fiの接続状態を監視停止します。
 	self.bluetoothConnector.peripheral = nil;
 	[self.wifiConnector stopMonitoring];
-	[self.wifiConnectorTimer invalidate];
-	self.wifiConnectorTimer = nil;
 	
 	// カメラ操作の子画面を表示している場合は、この画面に戻します。
 	[self backToConnectionView:NO];
@@ -306,8 +291,8 @@
 	} else if ([segueIdentifier isEqualToString:@"ShowPlayback"]) {
 	} else if ([segueIdentifier isEqualToString:@"ShowSystem"]) {
 	} else if ([segueIdentifier isEqualToString:@"ShowCameaLog"]) {
-	} else if ([segueIdentifier isEqualToString:@"ShowAcknowledgement"]) {
 	} else if ([segueIdentifier isEqualToString:@"ShowReference"]) {
+	} else if ([segueIdentifier isEqualToString:@"ShowAcknowledgement"]) {
 	} else {
 		// 何もしません。
 	}
@@ -350,11 +335,11 @@
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_LOG(@"indexPath=%@", indexPath);
-
+	
 	// 選択されたセルが何であったか調べます。
 	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 	NSString *cellReuseIdentifier = cell.reuseIdentifier;
-
+	
 	// セルに応じたカメラ操作処理を呼び出します。
 	if ([cellReuseIdentifier isEqualToString:@"ShowWifiSetting"]) {
 		// iOSの設定画面のWi-Fiセクションを開くことができたら素晴らしいのに。
@@ -377,7 +362,7 @@
 	} else {
 		// 何もしません。
 	}
-
+	
 	// セルの選択を解除します。
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -406,14 +391,6 @@
 	[self backToConnectionView:YES];
 }
 
-/// Wi-Fi接続の監視を強制更新するタイマーがタイムアウトした時に呼び出されます。
-- (void)didFireWifiConnectorTimer:(NSTimer *)timer {
-	DEBUG_LOG(@"");
-
-	/// 接続状態の監視を更新します。
-	[self.wifiConnector pokeMonitoring];
-}
-
 #pragma mark -
 
 /// アプリケーション設定が変化した時に呼び出されます。
@@ -427,7 +404,7 @@
 /// Bluetooth接続の状態が変化した時に呼び出されます。
 - (void)didChangeBluetoothConnection:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-
+	
 	// メインスレッド以外から呼び出された場合は、メインスレッドに投げなおします。
 	if (![NSThread isMainThread]) {
 		__weak ConnectionViewController *weakSelf = self;
@@ -437,7 +414,7 @@
 		}];
 		return;
 	}
-
+	
 	// MARK: カメラキットはBluetoothの切断を検知しないのでアプリが自主的にカメラとの接続を解除しなければならない。
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
@@ -464,7 +441,7 @@
 	[self updateShowBluetoothSettingCell];
 	[self updateCameraConnectionCells];
 	[self updateCameraOperationCells];
-
+	
 	// カメラ操作の子画面を表示している場合は、この画面に戻します。
 	[self backToConnectionView:YES];
 }
@@ -472,7 +449,7 @@
 /// Wi-Fi接続の状態が変化した時に呼び出されます。
 - (void)didChangeWifiStatus:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-
+	
 	// メインスレッド以外から呼び出された場合は、メインスレッドに投げなおします。
 	if (![NSThread isMainThread]) {
 		__weak ConnectionViewController *weakSelf = self;
@@ -500,7 +477,7 @@
 /// Wi-Fi接続の設定が変更されたときに呼び出されます。
 - (void)didChangeWifiSetting {
 	DEBUG_LOG(@"");
-
+	
 	// カメラのWi=Fi設定を更新します。
 	AppSetting *setting = GetAppSetting();
 	AppCamera *camera = GetAppCamera();
@@ -520,7 +497,7 @@
 /// 'Connect with using Bluetooth'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtConnectWithUsingBluetoothCell {
 	DEBUG_LOG(@"");
-
+	
 	// Bluetoothデバイスの設定を確認します。
 	AppSetting *setting = GetAppSetting();
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
@@ -577,7 +554,7 @@
 			weakSelf.bluetoothConnector.peripheral = nil;
 			return;
 		}
-
+		
 		// スマホの現在時刻をカメラに設定します。
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 		if (![camera changeTime:[NSDate date] error:&error]) {
@@ -593,7 +570,7 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -611,7 +588,7 @@
 /// 'Connect with using Wi-Fi'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtConnectWithUsingWifiCell {
 	DEBUG_LOG(@"");
-
+	
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
 	BOOL demandToWakeUpWithUsingBluetooth = NO;
 	if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
@@ -634,7 +611,7 @@
 			return;
 		}
 	}
-
+	
 	// Bluetoothデバイスの設定を確認します。
 	AppSetting *setting = GetAppSetting();
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
@@ -667,7 +644,7 @@
 	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-
+		
 		// カメラに電源投入を試みます。
 		if (demandToWakeUpWithUsingBluetooth) {
 			// カメラを探します。
@@ -731,7 +708,7 @@
 			if (!wokenUp) {
 				return;
 			}
-
+			
 			// Wi-Fi接続を試みます。
 			weakSelf.wifiConnector.SSID = wifiSSID;
 			weakSelf.wifiConnector.passphrase = wifiPassphrase;
@@ -744,7 +721,7 @@
 				}
 				return;
 			}
-
+			
 			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
@@ -768,7 +745,7 @@
 				}
 				return;
 			}
-
+			
 			// 電源投入が完了しました。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				progressView.mode = MBProgressHUDModeIndeterminate;
@@ -784,7 +761,7 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
-
+		
 		// スマホの現在時刻をカメラに設定します。
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 		if (![camera changeTime:[NSDate date] error:&error]) {
@@ -800,7 +777,7 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowWifiSettingCell];
@@ -818,12 +795,12 @@
 /// 'Disconnect'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtDisconnectCell {
 	DEBUG_LOG(@"");
-
+	
 	// カメラの接続解除を開始します。
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenDisconnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -850,7 +827,7 @@
 			}
 			weakSelf.bluetoothConnector.peripheral = nil;
 		}
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -868,12 +845,12 @@
 /// 'Disconnect and Sleep'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtDisconnectAndSleepCell {
 	DEBUG_LOG(@"");
-
+	
 	// カメラの接続解除を開始します。
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenSleeped atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -901,24 +878,25 @@
 			// カメラとのBluetooth接続を解除します。
 			weakSelf.bluetoothConnector.peripheral = nil;
 		}
-
-		// カメラの電源を切った後にWi-Fi接続が無効(もしくは他SSIDへ再接続)になるまで待ちます。
+		
+		// カメラとのWiFi接続を解除します。
 		if (lastConnectionType == OLYCameraConnectionTypeWiFi) {
+			// カメラとのBluetooth接続を解除します。
+			[weakSelf.wifiConnector disconnect];
+			
 			// MARK: カメラ本体のLEDはすぐに消灯するが、iOS側のWi-Fi接続が無効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			[weakSelf reportBlockDisconnectingWifi:progressView];
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$desc:DisconnectingWifi", @"ConnectionViewController.didSelectRowAtDisconnectAndSleepCell");
 			}];
+			// カメラの電源を切った後にWi-Fi接続が無効(もしくは他SSIDへ再接続)になるまで待ちます。
 			if ([weakSelf.wifiConnector waitForDisconnected:20.0]) {
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			
-			// Wi-Fiの接続情報を削除します。
-			[weakSelf.wifiConnector disconnect];
 		}
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -945,7 +923,7 @@
 /// 'Playback'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtPlaybackCell {
 	DEBUG_LOG(@"");
-
+	
 	// 分割されたストーリーボードから読み込んで画面遷移します。
 	UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"Playback" bundle:nil];
 	UIViewController *viewController = [storybard instantiateInitialViewController];
@@ -955,7 +933,7 @@
 /// 'System'のセルが選択されたときに呼び出されます。
 - (void)didSelectRowAtSystemCell {
 	DEBUG_LOG(@"");
-
+	
 	// 分割されたストーリーボードから読み込んで画面遷移します。
 	UIStoryboard *storybard = [UIStoryboard storyboardWithName:@"System" bundle:nil];
 	UIViewController *viewController = [storybard instantiateInitialViewController];
@@ -1007,7 +985,7 @@
 /// 写真アルバムの利用してよいか問い合わせます。
 - (void)assetsLibraryRequestWhenInUseAuthorization {
 	DEBUG_LOG(@"");
-
+	
 	PHFetchResult<PHAssetCollection *> *collectionResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
 	for (PHAssetCollection *collection in collectionResult) {
 		DEBUG_LOG(@"group=%@", collection.localizedTitle);
@@ -1088,7 +1066,7 @@
 /// Wi-Fi接続の状態を表示します。
 - (void)updateShowWifiSettingCell {
 	DEBUG_LOG(@"");
-
+	
 	AppSetting *setting = GetAppSetting();
 	NSString *wifiSSID = setting.wifiSSID;
 	NSString *wifiPassphrase = setting.wifiPassphrase;
@@ -1127,7 +1105,7 @@
 /// アプリ接続の状態を画面に表示します。
 - (void)updateCameraConnectionCells {
 	DEBUG_LOG(@"");
-
+	
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
 		// Bluetoothで接続中です。
@@ -1209,7 +1187,7 @@
 
 - (void)updateKeepLastCameraSettingCell {
 	DEBUG_LOG(@"");
-
+	
 	// 設定値をスイッチの状態に反映します。
 	AppSetting *setting = GetAppSetting();
 	self.keepLastCameraSettingSwitch.on = setting.keepLastCameraSetting;
@@ -1231,7 +1209,7 @@
 /// 進捗画面に電源投入中を報告します。
 - (void)reportBlockWakingUp:(MBProgressHUD *)progress {
 	DEBUG_LOG(@"");
-
+	
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		NSArray *images = @[
 			[UIImage imageNamed:@"Progress-Power-10"],
@@ -1253,7 +1231,7 @@
 		[progressImageView setAnimationTemplateImages:images];
 		progressImageView.animationDuration = 1.0;
 		progressImageView.alpha = 0.75;
-
+		
 		progress.customView = progressImageView;
 		progress.mode = MBProgressHUDModeCustomView;
 		

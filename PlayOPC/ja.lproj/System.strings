@@ -1,20 +1,41 @@
 /* Class = "UILabel"; text = "<SSID>"; ObjectID = "0Ue-6y-Fow"; */
 "0Ue-6y-Fow.text" = "<SSID>";
 
+/* Class = "UITableViewSection"; headerTitle = "Server Setting"; ObjectID = "2AK-9D-MC6"; */
+"2AK-9D-MC6.headerTitle" = "サーバー設定";
+
+/* Class = "UILabel"; text = "Command Port"; ObjectID = "4U4-EM-Qw4"; */
+"4U4-EM-Qw4.text" = "コマンド送信ポート";
+
 /* Class = "UILabel"; text = "$lensModelId"; ObjectID = "5Lp-FM-ehJ"; */
 "5Lp-FM-ehJ.text" = "$lensModelId";
 
 /* Class = "UILabel"; text = "Lens Firmware Version"; ObjectID = "5Pt-G1-YQE"; */
 "5Pt-G1-YQE.text" = "レンズファームウェア";
 
+/* Class = "UILabel"; text = "$eventPort"; ObjectID = "9x6-uE-Hhg"; */
+"9x6-uE-Hhg.text" = "$eventPort";
+
 /* Class = "UILabel"; text = "<WIFI_CH>"; ObjectID = "A1L-2R-WNk"; */
 "A1L-2R-WNk.text" = "<WIFI_CH>";
+
+/* Class = "UILabel"; text = "$liveViewStreamingPort"; ObjectID = "BLI-00-auo"; */
+"BLI-00-auo.text" = "$liveViewStreamingPort";
+
+/* Class = "UILabel"; text = "Live View Streaming Port"; ObjectID = "BPw-ox-ffr"; */
+"BPw-ox-ffr.text" = "ライブビューストリーミング受信ポート";
 
 /* Class = "UILabel"; text = "$batteryLevel"; ObjectID = "FNe-en-CPe"; */
 "FNe-en-CPe.text" = "$batteryLevel";
 
+/* Class = "UILabel"; text = "Event Port"; ObjectID = "H83-11-T2W"; */
+"H83-11-T2W.text" = "イベント通知受信ポート";
+
 /* Class = "UILabel"; text = "Lens Model ID"; ObjectID = "HoF-5E-0dF"; */
 "HoF-5E-0dF.text" = "レンズモデルID";
+
+/* Class = "UILabel"; text = "Host"; ObjectID = "IgU-Pe-S7b"; */
+"IgU-Pe-S7b.text" = "ホスト";
 
 /* Class = "UILabel"; text = "$cameraModelName"; ObjectID = "J3P-uA-fxa"; */
 "J3P-uA-fxa.text" = "$cameraModelName";
@@ -36,6 +57,9 @@
 
 /* Class = "UILabel"; text = "Media Mount Status"; ObjectID = "bAI-DU-YZN"; */
 "bAI-DU-YZN.text" = "メディア装着状態";
+
+/* Class = "UILabel"; text = "$commandPort"; ObjectID = "cvN-XY-mYs"; */
+"cvN-XY-mYs.text" = "$commandPort";
 
 /* Class = "UILabel"; text = "$lensFirmwareVersion"; ObjectID = "enN-ud-mxL"; */
 "enN-ud-mxL.text" = "$lensFirmwareVersion";
@@ -66,4 +90,7 @@
 
 /* Class = "UILabel"; text = "$cameraFirmwareVersion"; ObjectID = "vjR-Uy-zDI"; */
 "vjR-Uy-zDI.text" = "$cameraFirmwareVersion";
+
+/* Class = "UILabel"; text = "$host"; ObjectID = "x8Z-np-bHb"; */
+"x8Z-np-bHb.text" = "$host";
 

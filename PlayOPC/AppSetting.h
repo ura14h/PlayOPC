@@ -32,18 +32,6 @@ extern NSString *const AppSettingChangedNotification; ///< アプリケーショ
 ///  アプリ設定に保存されているWi-Fiアクセスポイントのパスフレーズ
 @property (strong, nonatomic) NSString *wifiPassphrase;
 
-/// アプリ設定に保存されているWi-FiのカメラIPアドレス。
-@property (strong, nonatomic) NSString *wifiHost;
-
-/// アプリ設定に保存されているWi-Fiのカメラコマンド送信先ポート。
-@property (assign, nonatomic) NSInteger wifiCommandPort;
-
-/// アプリ設定に保存されているWi-Fiのカメライベント通知受信ポート。
-@property (assign, nonatomic) NSInteger wifiEventPort;
-
-/// アプリ設定に保存されているWi-Fiのライブビューストリーミング受信ポート。
-@property (assign, nonatomic) NSInteger wifiLiveViewStreamingPort;
-
 /// アプリ設定に保存されているの最後のカメラ設定を記憶するか否か
 @property (assign, nonatomic) BOOL keepLastCameraSetting;
 

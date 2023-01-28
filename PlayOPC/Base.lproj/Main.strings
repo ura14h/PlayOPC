@@ -47,17 +47,11 @@
 /* Class = "UITextField"; text = "$wifiPassphrase"; ObjectID = "8il-6K-2dT"; */
 "8il-6K-2dT.text" = "$wifiPassphrase";
 
-/* Class = "UITextField"; placeholder = "65000"; ObjectID = "9fK-9p-x1K"; */
-"9fK-9p-x1K.placeholder" = "65000";
-
-/* Class = "UITextField"; text = "$eventPort"; ObjectID = "9fK-9p-x1K"; */
-"9fK-9p-x1K.text" = "$eventPort";
-
 /* Class = "UITableViewSection"; headerTitle = "Camera Operation"; ObjectID = "A7s-4K-E0s"; */
 "A7s-4K-E0s.headerTitle" = "Camera Operation";
 
-/* Class = "UITableViewSection"; footerTitle = "© 2015-2020 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
-"ANk-sQ-l0P.footerTitle" = "© 2015-2020 Hiroki Ishiura";
+/* Class = "UITableViewSection"; footerTitle = "© 2015-2023 Hiroki Ishiura"; ObjectID = "ANk-sQ-l0P"; */
+"ANk-sQ-l0P.footerTitle" = "© 2015-2023 Hiroki Ishiura";
 
 /* Class = "UITableViewSection"; headerTitle = "App Information"; ObjectID = "ANk-sQ-l0P"; */
 "ANk-sQ-l0P.headerTitle" = "App Information";
@@ -67,18 +61,6 @@
 
 /* Class = "UILabel"; text = "Connect with using Wi-Fi"; ObjectID = "FnT-T3-hOZ"; */
 "FnT-T3-hOZ.text" = "Connect with using Wi-Fi";
-
-/* Class = "UILabel"; text = "Event Port"; ObjectID = "H1G-NN-80u"; */
-"H1G-NN-80u.text" = "Event Port";
-
-/* Class = "UITextField"; placeholder = "192.168.0.10"; ObjectID = "JSM-dq-4oL"; */
-"JSM-dq-4oL.placeholder" = "192.168.0.10";
-
-/* Class = "UITextField"; text = "$host"; ObjectID = "JSM-dq-4oL"; */
-"JSM-dq-4oL.text" = "$host";
-
-/* Class = "UITableViewSection"; headerTitle = "Camera Server"; ObjectID = "KNP-Pk-6P0"; */
-"KNP-Pk-6P0.headerTitle" = "Camera Server";
 
 /* Class = "UITextField"; placeholder = "Enter Passcode"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.placeholder" = "Enter Passcode";
@@ -98,20 +80,8 @@
 /* Class = "UILabel"; text = "Recording"; ObjectID = "Q8G-vi-A4n"; */
 "Q8G-vi-A4n.text" = "Recording";
 
-/* Class = "UILabel"; text = "Command Port"; ObjectID = "Qgi-c9-oQO"; */
-"Qgi-c9-oQO.text" = "Command Port";
-
 /* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the  SSID and passphrase will be the values listed on the sticker on the back of the camera."; ObjectID = "RfJ-yo-pNy"; */
 "RfJ-yo-pNy.footerTitle" = "If you reset the AIR-A01 to the factory default settings, the  SSID and passphrase will be the values listed on the sticker on the back of the camera.";
-
-/* Class = "UITableViewSection"; headerTitle = "Access Point"; ObjectID = "RfJ-yo-pNy"; */
-"RfJ-yo-pNy.headerTitle" = "Access Point";
-
-/* Class = "UITextField"; placeholder = "5555"; ObjectID = "TZ8-Ai-ZcR"; */
-"TZ8-Ai-ZcR.placeholder" = "5555";
-
-/* Class = "UITextField"; text = "$liveViewStreamingPort"; ObjectID = "TZ8-Ai-ZcR"; */
-"TZ8-Ai-ZcR.text" = "$liveViewStreamingPort";
 
 /* Class = "UILabel"; text = "Passphrase"; ObjectID = "VEM-qK-XVV"; */
 "VEM-qK-XVV.text" = "Passphrase";
@@ -127,9 +97,6 @@
 
 /* Class = "UILabel"; text = "Clear Last Camera Setting"; ObjectID = "bgd-Q7-fKi"; */
 "bgd-Q7-fKi.text" = "Clear Last Camera Setting";
-
-/* Class = "UILabel"; text = "Host"; ObjectID = "boY-NV-bEP"; */
-"boY-NV-bEP.text" = "Host";
 
 /* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the Bluetooth local name and passcode will be \"AIR-A01\" and \"000000\" respectively."; ObjectID = "dB8-bj-FSH"; */
 "dB8-bj-FSH.footerTitle" = "If you reset the AIR-A01 to the factory default settings, the Bluetooth local name and passcode will be \"AIR-A01\" and \"000000\" respectively.";
@@ -173,12 +140,6 @@
 /* Class = "UILabel"; text = "Acknowledgement"; ObjectID = "pQn-x5-3cC"; */
 "pQn-x5-3cC.text" = "Acknowledgement";
 
-/* Class = "UITextField"; placeholder = "80"; ObjectID = "qo0-Hi-YY6"; */
-"qo0-Hi-YY6.placeholder" = "80";
-
-/* Class = "UITextField"; text = "$commandPort"; ObjectID = "qo0-Hi-YY6"; */
-"qo0-Hi-YY6.text" = "$commandPort";
-
 /* Class = "UILabel"; text = "SSID"; ObjectID = "r0s-V0-v0v"; */
 "r0s-V0-v0v.text" = "SSID";
 
@@ -190,12 +151,3 @@
 
 /* Class = "UILabel"; text = "Disconnect"; ObjectID = "tA9-re-tiV"; */
 "tA9-re-tiV.text" = "Disconnect";
-
-/* Class = "UILabel"; text = "Live View Streaming Port"; ObjectID = "tYZ-Pu-cH9"; */
-"tYZ-Pu-cH9.text" = "Live View Streaming Port";
-
-/* Class = "UILabel"; text = "Factory Preset"; ObjectID = "uaw-L7-VFI"; */
-"uaw-L7-VFI.text" = "Factory Preset";
-
-/* Class = "UITableViewSection"; footerTitle = "Tap “Factory Preset” to restore only camera server parameters to default values. This does not change access point parameters."; ObjectID = "zIf-sW-tGt"; */
-"zIf-sW-tGt.footerTitle" = "Tap “Factory Preset” to restore only camera server parameters to default values. This does not change access point parameters.";

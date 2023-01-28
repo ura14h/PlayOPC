@@ -28,6 +28,10 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensFirmwareVersionCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *ssidCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWifiChCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *hostCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *commandPortCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *eventPortCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *liveViewStreamingPortCell;
 
 @property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
 @property (assign, nonatomic) OLYCameraRunMode previousRunMode; ///< この画面に遷移してくる前のカメラ実行モード
@@ -76,6 +80,11 @@
 	self.lensFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.ssidCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showWifiChCell.detailTextLabel.text = emptyDetailTextLabel;
+	
+	self.hostCell.detailTextLabel.text = camera.host;
+	self.commandPortCell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)camera.commandPort];
+	self.eventPortCell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)camera.eventPort];
+	self.liveViewStreamingPortCell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)camera.liveViewStreamingPort];
 }
 
 - (void)didReceiveMemoryWarning {

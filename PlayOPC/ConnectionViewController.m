@@ -214,14 +214,6 @@
 			break;
 	}
 	
-	// カメラのWi=Fi設定を更新します。
-	AppSetting *setting = GetAppSetting();
-	AppCamera *camera = GetAppCamera();
-	camera.host = setting.wifiHost;
-	camera.commandPort = setting.wifiCommandPort;
-	camera.eventPort = setting.wifiEventPort;
-	camera.liveViewStreamingPort = setting.wifiLiveViewStreamingPort;
-	
 	// BluetoothとWi-Fiの接続状態を監視開始します。
 	self.bluetoothConnector.peripheral = nil;
 	[self.wifiConnector startMonitoring];
@@ -477,14 +469,6 @@
 /// Wi-Fi接続の設定が変更されたときに呼び出されます。
 - (void)didChangeWifiSetting {
 	DEBUG_LOG(@"");
-	
-	// カメラのWi=Fi設定を更新します。
-	AppSetting *setting = GetAppSetting();
-	AppCamera *camera = GetAppCamera();
-	camera.host = setting.wifiHost;
-	camera.commandPort = setting.wifiCommandPort;
-	camera.eventPort = setting.wifiEventPort;
-	camera.liveViewStreamingPort = setting.wifiLiveViewStreamingPort;
 	
 	// Wi-Fiの接続状態の監視を再起動します。
 	[self.wifiConnector stopMonitoring];

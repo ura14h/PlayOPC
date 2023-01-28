@@ -46,12 +46,6 @@
 /* Class = "UITextField"; text = "$wifiPassphrase"; ObjectID = "8il-6K-2dT"; */
 "8il-6K-2dT.text" = "$wifiPassphrase";
 
-/* Class = "UITextField"; placeholder = "65000"; ObjectID = "9fK-9p-x1K"; */
-"9fK-9p-x1K.placeholder" = "65000";
-
-/* Class = "UITextField"; text = "$eventPort"; ObjectID = "9fK-9p-x1K"; */
-"9fK-9p-x1K.text" = "$eventPort";
-
 /* Class = "UITableViewSection"; headerTitle = "Camera Operation"; ObjectID = "A7s-4K-E0s"; */
 "A7s-4K-E0s.headerTitle" = "カメラ操作";
 
@@ -66,18 +60,6 @@
 
 /* Class = "UILabel"; text = "Connect with using Wi-Fi"; ObjectID = "FnT-T3-hOZ"; */
 "FnT-T3-hOZ.text" = "Wi-Fi経由で接続";
-
-/* Class = "UILabel"; text = "Event Port"; ObjectID = "H1G-NN-80u"; */
-"H1G-NN-80u.text" = "イベント通知受信ポート";
-
-/* Class = "UITextField"; placeholder = "192.168.0.10"; ObjectID = "JSM-dq-4oL"; */
-"JSM-dq-4oL.placeholder" = "192.168.0.10";
-
-/* Class = "UITextField"; text = "$host"; ObjectID = "JSM-dq-4oL"; */
-"JSM-dq-4oL.text" = "$host";
-
-/* Class = "UITableViewSection"; headerTitle = "Camera Server"; ObjectID = "KNP-Pk-6P0"; */
-"KNP-Pk-6P0.headerTitle" = "カメラサーバー";
 
 /* Class = "UITextField"; placeholder = "Enter Passcode"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.placeholder" = "OPCのパスコード";
@@ -97,20 +79,8 @@
 /* Class = "UILabel"; text = "Recording"; ObjectID = "Q8G-vi-A4n"; */
 "Q8G-vi-A4n.text" = "撮影モード";
 
-/* Class = "UILabel"; text = "Command Port"; ObjectID = "Qgi-c9-oQO"; */
-"Qgi-c9-oQO.text" = "コマンド送信ポート";
-
 /* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the  SSID and passphrase will be the values listed on the sticker on the back of the camera."; ObjectID = "RfJ-yo-pNy"; */
 "RfJ-yo-pNy.footerTitle" = "AIR-A01 を工場出荷時のデフォルト設定にリセットすると、SSID とパスフレーズは、カメラの背面のステッカーに記載されている値になります。";
-
-/* Class = "UITableViewSection"; headerTitle = "Access Point"; ObjectID = "RfJ-yo-pNy"; */
-"RfJ-yo-pNy.headerTitle" = "アクセスポイント";
-
-/* Class = "UITextField"; placeholder = "5555"; ObjectID = "TZ8-Ai-ZcR"; */
-"TZ8-Ai-ZcR.placeholder" = "5555";
-
-/* Class = "UITextField"; text = "$liveViewStreamingPort"; ObjectID = "TZ8-Ai-ZcR"; */
-"TZ8-Ai-ZcR.text" = "$liveViewStreamingPort";
 
 /* Class = "UILabel"; text = "Passphrase"; ObjectID = "VEM-qK-XVV"; */
 "VEM-qK-XVV.text" = "パスフレーズ";
@@ -126,9 +96,6 @@
 
 /* Class = "UILabel"; text = "Clear Last Camera Setting"; ObjectID = "bgd-Q7-fKi"; */
 "bgd-Q7-fKi.text" = "最後のカメラ設定をクリア";
-
-/* Class = "UILabel"; text = "Host"; ObjectID = "boY-NV-bEP"; */
-"boY-NV-bEP.text" = "ホスト";
 
 /* Class = "UITableViewSection"; footerTitle = "If you reset the AIR-A01 to the factory default settings, the Bluetooth local name and passcode will be \"AIR-A01\" and \"000000\" respectively."; ObjectID = "dB8-bj-FSH"; */
 "dB8-bj-FSH.footerTitle" = "AIR-A01 を工場出荷時のデフォルト設定にリセットすると、Bluetooth ローカルネームとパスコードはそれぞれ「AIR-A01」と「000000」になります。";
@@ -172,12 +139,6 @@
 /* Class = "UILabel"; text = "Acknowledgement"; ObjectID = "pQn-x5-3cC"; */
 "pQn-x5-3cC.text" = "謝辞";
 
-/* Class = "UITextField"; placeholder = "80"; ObjectID = "qo0-Hi-YY6"; */
-"qo0-Hi-YY6.placeholder" = "80";
-
-/* Class = "UITextField"; text = "$commandPort"; ObjectID = "qo0-Hi-YY6"; */
-"qo0-Hi-YY6.text" = "$commandPort";
-
 /* Class = "UILabel"; text = "SSID"; ObjectID = "r0s-V0-v0v"; */
 "r0s-V0-v0v.text" = "SSID";
 
@@ -189,13 +150,4 @@
 
 /* Class = "UILabel"; text = "Disconnect"; ObjectID = "tA9-re-tiV"; */
 "tA9-re-tiV.text" = "接続解除";
-
-/* Class = "UILabel"; text = "Live View Streaming Port"; ObjectID = "tYZ-Pu-cH9"; */
-"tYZ-Pu-cH9.text" = "ライブビューストリーミング受信ポート";
-
-/* Class = "UILabel"; text = "Factory Preset"; ObjectID = "uaw-L7-VFI"; */
-"uaw-L7-VFI.text" = "工場出荷設定";
-
-/* Class = "UITableViewSection"; footerTitle = "Tap “Factory Preset” to restore only camera server parameters to default values. This does not change access point parameters."; ObjectID = "zIf-sW-tGt"; */
-"zIf-sW-tGt.footerTitle" = "「工場出荷時設定」をタップして、カメラサーバーのパラメーターのみをデフォルト値に復元します。 これによってアクセス ポイントのパラメータが変更されることはありません。";
 

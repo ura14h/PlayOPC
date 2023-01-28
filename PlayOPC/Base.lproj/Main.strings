@@ -68,9 +68,6 @@
 /* Class = "UITextField"; text = "$bleCode"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.text" = "$bleCode";
 
-/* Class = "UILabel"; text = "Get from OA.Central"; ObjectID = "MEY-Jy-aKE"; */
-"MEY-Jy-aKE.text" = "Get from OA.Central";
-
 /* Class = "UILabel"; text = "Camera Kit Log"; ObjectID = "PQx-Vh-H1S"; */
 "PQx-Vh-H1S.text" = "Camera Kit Log";
 
@@ -118,9 +115,6 @@
 
 /* Class = "UITextField"; text = "$wifiSSID"; ObjectID = "hmA-ne-8SO"; */
 "hmA-ne-8SO.text" = "$wifiSSID";
-
-/* Class = "UITableViewSection"; headerTitle = "Autocompletion"; ObjectID = "hyp-WF-Jbx"; */
-"hyp-WF-Jbx.headerTitle" = "Autocompletion";
 
 /* Class = "UILabel"; text = "Passcode"; ObjectID = "lDM-at-apr"; */
 "lDM-at-apr.text" = "Passcode";

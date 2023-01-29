@@ -46,6 +46,9 @@
 /* Class = "UITextField"; text = "$wifiPassphrase"; ObjectID = "8il-6K-2dT"; */
 "8il-6K-2dT.text" = "$wifiPassphrase";
 
+/* Class = "UINavigationItem"; title = "Scan Sticker"; ObjectID = "9g6-cK-Hoq"; */
+"9g6-cK-Hoq.title" = "ステッカー読み取り";
+
 /* Class = "UITableViewSection"; headerTitle = "Camera Operation"; ObjectID = "A7s-4K-E0s"; */
 "A7s-4K-E0s.headerTitle" = "カメラ操作";
 
@@ -69,6 +72,9 @@
 
 /* Class = "UILabel"; text = "Camera Kit Log"; ObjectID = "PQx-Vh-H1S"; */
 "PQx-Vh-H1S.text" = "Camera Kit 動作ログ";
+
+/* Class = "UILabel"; text = "Scan the rear sticker of AIR A01"; ObjectID = "Pol-1m-l1n"; */
+"Pol-1m-l1n.text" = "AIR A01の背面ステッカーを読み取る";
 
 /* Class = "UINavigationItem"; title = "Acknowledgement"; ObjectID = "Q4I-W6-Ih2"; */
 "Q4I-W6-Ih2.title" = "謝辞";
@@ -96,6 +102,9 @@
 
 /* Class = "UITableViewSection"; footerTitle = "For how to reset the network settings of the AIR A01 to factory settings, please refer to the special appendix at the end of the application reference."; ObjectID = "dB8-bj-FSH"; */
 "dB8-bj-FSH.footerTitle" = "AIR A01のネットワーク設定を工場出荷時の設定にリセットする方法については、アプリケーション取扱説明の末尾にある特別付録を参照してください。";
+
+/* Class = "UILabel"; text = "Scan the rear sticker of AIR A01"; ObjectID = "e6n-PL-GZf"; */
+"e6n-PL-GZf.text" = "AIR A01の背面ステッカーを読み取る";
 
 /* Class = "UILabel"; text = "$ssid"; ObjectID = "eJy-PI-TGK"; */
 "eJy-PI-TGK.text" = "$ssid";

@@ -908,6 +908,9 @@
 /* UIViewController.showAlertMessage */
 "$title:OK" = "OK";
 
+/* UIViewController.showAlertMessage */
+"$title:Cancel" = "取り消し";
+
 /* RecordingViewController.didFailToReceiveCapturedImageWithError */
 "$title:ReceiveCapturedImageFailed" = "撮影した画像を受信できませんでした";
 
@@ -949,3 +952,5 @@
    PlaybackViewController.downloadContentList */
 "$title:TotalOfContentsAndFiles(%ld contents, %ld files)" = "%1$ld コンテンツ (%2$ld ファイル)";
 
+/* ScanStickerViewController.showAlertMessage */
+"$title:ScanResult" = "読み取り結果";

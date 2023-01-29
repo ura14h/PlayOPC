@@ -908,6 +908,9 @@
 /* UIViewController.showAlertMessage */
 "$title:OK" = "OK";
 
+/* UIViewController.showAlertMessage */
+"$title:Cancel" = "Cancel";
+
 /* RecordingViewController.didFailToReceiveCapturedImageWithError */
 "$title:ReceiveCapturedImageFailed" = "Could not receive captured image";
 
@@ -949,3 +952,5 @@
    PlaybackViewController.downloadContentList */
 "$title:TotalOfContentsAndFiles(%ld contents, %ld files)" = "%1$ld contents (%2$ld files)";
 
+/* ScanStickerViewController.showAlertMessage */
+"$title:ScanResult" = "Scan Result";

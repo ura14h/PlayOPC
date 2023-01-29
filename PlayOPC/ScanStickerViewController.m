@@ -86,7 +86,7 @@
 
 - (void)statusBarOrientationDidChange:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-
+	
 	// プレビュー表示エリアの回転方向を画面に合わせます。
 	self.previewLayer.connection.videoOrientation = [self videoOrientation];
 }
@@ -95,7 +95,7 @@
 
 - (AVCaptureVideoOrientation)videoOrientation {
 	DEBUG_LOG(@"");
-
+	
 	UIInterfaceOrientation uiOrientation = self.view.window.windowScene.interfaceOrientation;
 	AVCaptureVideoOrientation avOrientation;
 	switch (uiOrientation) {
@@ -119,13 +119,13 @@
 
 - (void)startScan {
 	DEBUG_LOG(@"");
-
+	
 	// ビデオキャプチャセッションを準備します。
 	self.session = [[AVCaptureSession alloc] init];
 	self.session.sessionPreset = AVCaptureSessionPresetHigh;
 	AVCaptureDevice* device =
-		[AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera
-			mediaType:AVMediaTypeVideo position: AVCaptureDevicePositionBack];
+	[AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera
+									   mediaType:AVMediaTypeVideo position: AVCaptureDevicePositionBack];
 	AVCaptureDeviceInput* deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
 	[self.session addInput:deviceInput];
 	AVCaptureVideoDataOutput* output = [[AVCaptureVideoDataOutput alloc] init];
@@ -146,7 +146,7 @@
 	layer.masksToBounds = YES;
 	[layer addSublayer:self.previewLayer];
 	[self.view layoutIfNeeded];
-
+	
 	// ビデオキャプチャセッションを開始します。
 	self.completed = NO;
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -156,7 +156,7 @@
 
 - (void)stopScan {
 	DEBUG_LOG(@"");
-
+	
 	// ビデオキャプチャセッションを終了します。
 	[self.session stopRunning];
 	self.session = nil;
@@ -248,7 +248,7 @@
 	ssidText = [ssidText stringByReplacingOccurrencesOfString:@" " withString:@""];
 	passwordText = [passwordText stringByReplacingOccurrencesOfString:@" " withString:@""];
 	bluetoothText = [bluetoothText stringByReplacingOccurrencesOfString:@" " withString:@""];
-
+	
 	// 読み取った情報が妥当かを確認します。
 	NSString *aira01= @"AIR-A01";
 	if (snText.length != 9) {
@@ -270,7 +270,7 @@
 	__weak ScanStickerViewController *weakSelf = self;
 	NSString *title = NSLocalizedString(@"$title:ScanResult", @"ScanStickerViewController.showAlertMessage");
 	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"$desc:ScanResult", @"ScanStickerViewController.showAlertMessage"),
-		snText, ssidText, passwordText, bluetoothText];
+						 snText, ssidText, passwordText, bluetoothText];
 	[self showAlertMessage:message title:title okHandler:^(UIAlertAction *action) {
 		// 読み取った情報を保存します。
 		AppSetting *setting = GetAppSetting();

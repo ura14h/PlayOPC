@@ -956,4 +956,4 @@
 "$title:ScanResult" = "読み取り結果";
 
 /* ScanStickerViewController.showAlertMessage */
-"$desc:ScanResult" = "S/N: %1$@\nSSID: %2$@\nPassword: %3$@\nBluetooth: %4$@\n読み取り結果をWi-FiとBluetoothのネットワーク設定に適用しますか?";
+"$desc:ScanResult(%@,%@,%@,%@)" = "S/N: %1$@\nSSID: %2$@\nPassword: %3$@\nBluetooth: %4$@\n読み取り結果をWi-FiとBluetoothのネットワーク設定に適用しますか?";

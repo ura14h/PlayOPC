@@ -269,7 +269,7 @@
 	// 確認ダイアログを表示します。
 	__weak ScanStickerViewController *weakSelf = self;
 	NSString *title = NSLocalizedString(@"$title:ScanResult", @"ScanStickerViewController.showAlertMessage");
-	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"$desc:ScanResult", @"ScanStickerViewController.showAlertMessage"),
+	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"$desc:ScanResult(%@,%@,%@,%@)", @"ScanStickerViewController.showAlertMessage"),
 						 snText, ssidText, passwordText, bluetoothText];
 	[self showAlertMessage:message title:title okHandler:^(UIAlertAction *action) {
 		// 読み取った情報を保存します。

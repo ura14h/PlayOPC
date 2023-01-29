@@ -918,18 +918,40 @@
                     <view key="view" contentMode="scaleToFill" id="Ra8-fa-qqO">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="5cK-l4-I92">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kq9-bn-9vw">
+                                <rect key="frame" x="20" y="696.66666666666663" width="374" height="57.333333333333371"/>
+                                <string key="text">Hold the phone camera so that the AIR A01 back sticker is clearly visible. The app automatically recognizes what is written on the sticker.</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="dGu-k0-bVD"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="5cK-l4-I92" secondAttribute="bottom" id="7qi-u3-La1"/>
+                            <constraint firstAttribute="trailing" secondItem="5cK-l4-I92" secondAttribute="trailing" id="AQ0-2j-VFx"/>
+                            <constraint firstAttribute="trailing" secondItem="Kq9-bn-9vw" secondAttribute="trailing" constant="20" id="D6W-a4-Nxa"/>
+                            <constraint firstItem="dGu-k0-bVD" firstAttribute="bottom" secondItem="Kq9-bn-9vw" secondAttribute="bottom" constant="20" id="MU0-eV-HdW"/>
+                            <constraint firstItem="5cK-l4-I92" firstAttribute="top" secondItem="Ra8-fa-qqO" secondAttribute="top" id="kqU-GR-Nl4"/>
+                            <constraint firstItem="5cK-l4-I92" firstAttribute="leading" secondItem="Ra8-fa-qqO" secondAttribute="leading" id="n7j-6W-29o"/>
+                            <constraint firstItem="Kq9-bn-9vw" firstAttribute="leading" secondItem="dGu-k0-bVD" secondAttribute="leading" constant="20" id="vTf-P1-99d"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scan Sticker" id="9g6-cK-Hoq"/>
                     <connections>
+                        <outlet property="imageView" destination="5cK-l4-I92" id="d1q-zw-sWi"/>
                         <segue destination="hOX-cx-WjK" kind="unwind" identifier="DoneScanSticker" unwindAction="exitToConnectionViewController:" id="X0f-TS-KL1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jgG-eS-Fck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <exit id="hOX-cx-WjK" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3697" y="265"/>
+            <point key="canvasLocation" x="3695.652173913044" y="264.50892857142856"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

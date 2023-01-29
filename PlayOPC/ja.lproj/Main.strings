@@ -64,6 +64,9 @@
 /* Class = "UILabel"; text = "Connect with using Wi-Fi"; ObjectID = "FnT-T3-hOZ"; */
 "FnT-T3-hOZ.text" = "Wi-Fi経由で接続";
 
+/* Class = "UILabel"; text = "Hold the phone camera so that the AIR A01 back sticker is clearly visible. The app automatically recognizes what is written on the sticker."; ObjectID = "Kq9-bn-9vw"; */
+"Kq9-bn-9vw.text" = "AIR A01 の背面ステッカーがはっきりと見えるように携帯電話のカメラを構えてください。 アプリはステッカーに書かれている内容を自動的に認識します。";
+
 /* Class = "UITextField"; placeholder = "OPC Passcode (000000)"; ObjectID = "M37-av-fFz"; */
 "M37-av-fFz.placeholder" = "OPCのパスコード (000000)";
 

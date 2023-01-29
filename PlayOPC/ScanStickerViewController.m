@@ -20,7 +20,7 @@
 
 @interface ScanStickerViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
 
-@property (nonatomic, strong) IBOutlet UIImageView* imageView;
+@property (nonatomic, weak) IBOutlet UILabel *guidanceLabel;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
 @property (nonatomic, assign) BOOL completed;
@@ -145,6 +145,7 @@
 	CALayer *layer = self.view.layer;
 	layer.masksToBounds = YES;
 	[layer addSublayer:self.previewLayer];
+	[self.view bringSubviewToFront:self.guidanceLabel];
 	[self.view layoutIfNeeded];
 	
 	// ビデオキャプチャセッションを開始します。

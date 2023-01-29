@@ -269,7 +269,7 @@
 	// 確認ダイアログを表示します。
 	__weak ScanStickerViewController *weakSelf = self;
 	NSString *title = NSLocalizedString(@"$title:ScanResult", @"ScanStickerViewController.showAlertMessage");
-	NSString *message = [NSString stringWithFormat:@"S/N: %@\nSSID: %@\nPassword: %@\nBluetooth: %@",
+	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"$desc:ScanResult", @"ScanStickerViewController.showAlertMessage"),
 		snText, ssidText, passwordText, bluetoothText];
 	[self showAlertMessage:message title:title okHandler:^(UIAlertAction *action) {
 		// 読み取った情報を保存します。
@@ -277,7 +277,10 @@
 		setting.wifiSSID = ssidText;
 		setting.wifiPassphrase = passwordText;
 		setting.bluetoothLocalName = bluetoothText;
-		setting.bluetoothPasscode = passcodeText;
+		if (!setting.bluetoothPasscode || setting.bluetoothPasscode.length < 1) {
+			// パスコードは未構成の場合だけ保存します。
+			setting.bluetoothPasscode = passcodeText;
+		}
 		// 前の画面に戻ります。
 		[weakSelf performSegueWithIdentifier:@"DoneScanSticker" sender:self];
 	} cancelHandler:^(UIAlertAction *action) {

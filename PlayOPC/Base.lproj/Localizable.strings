@@ -324,7 +324,7 @@
 "$cell:OpticalZoomingMinimumFocalLengthNotAvailable" = "N/A";
 
 /* ZPanelViewController.viewDidLoad */
-"$cell:OpticalZoomingSpeedBusrt" = "Busrt";
+"$cell:OpticalZoomingSpeedBusrt" = "Burst";
 
 /* ZPanelViewController.viewDidLoad */
 "$cell:OpticalZoomingSpeedFast" = "Fast";
@@ -408,10 +408,10 @@
 "$cell:WifiStatusUnknown" = "Unknown";
 
 /* AppCamera.startTakingPluralPictures */
-"$desc:AutoBrackettingCountIsIncorrect" = "Auto bracketting count is incorrect.";
+"$desc:AutoBrackettingCountIsIncorrect" = "Auto bracketing count is incorrect.";
 
 /* AppCamera.startTakingPluralPictures */
-"$desc:AutoBrackettingStepIsIncorrect" = "Auto bracketting step is incorrect.";
+"$desc:AutoBrackettingStepIsIncorrect" = "Auto bracketing step is incorrect.";
 
 /* BluetoothConnector.connectPeripheral */
 "$desc:BluetoothPeripheralConnected" = "Bluetooth device is already connected.";
@@ -453,7 +453,7 @@
 "$desc:ConnectingBluetoothPeripheralTimedOut" = "Connecting Bluetooth peripheral timed out.";
 
 /* BluetoothConnector.connectPeripheral */
-"$desc:ConnectPeripheralIsRunnning" = "Connecting a Bluetooth device is runnning.";
+"$desc:ConnectPeripheralIsRunnning" = "Connecting a Bluetooth device is running.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
    ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
@@ -481,7 +481,7 @@
 "$desc:CouldNotGetCurrentGeolocation" = "Could not get current geolocation.";
 
 /* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
-"$desc:CouldNotOpenOACentralByNoInstalled" = "Olympus OA.Central is not installled.";
+"$desc:CouldNotOpenOACentralByNoInstalled" = "Olympus OA.Central is not installed.";
 
 /* AcknowledgementViewController.shouldStartLoadWithRequest
    ReferenceViewController.shouldStartLoadWithRequest */
@@ -524,10 +524,10 @@
 "$desc:DisconnectingWifi" = "Disconnecting...";
 
 /* BluetoothConnector.disconnectPeripheral */
-"$desc:DisconnectPeripheralIsRunnning" = "Disconnecting a Bluetooth device is runnning.";
+"$desc:DisconnectPeripheralIsRunnning" = "Disconnecting a Bluetooth device is running.";
 
 /* BluetoothConnector.discoverPeripheral */
-"$desc:DiscorverPeripheralIsRunnning" = "Discovering a Bluetooth device is runnning.";
+"$desc:DiscorverPeripheralIsRunnning" = "Discovering a Bluetooth device is running.";
 
 /* BluetoothConnector.discoverPeripheral */
 "$desc:DiscoveringBluetoothPeripheralTimedOut" = "Bluetooth device was not found. A radio switch of camera may be off.";
@@ -581,7 +581,7 @@
 "$desc:ShareVideo" = "The application downloads this video before sharing it. The handling takes a little bit of time.";
 
 /* AppCamera.startTakingPluralPictures */
-"$desc:TakingPluralPicturesIsNotAvailable" = "Auto bracketting or interval timer is not available.";
+"$desc:TakingPluralPicturesIsNotAvailable" = "Auto bracketing or interval timer is not available.";
 
 /* PictureContentViewController.didTapUnprotectButton */
 "$desc:UnprotectPicture" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
@@ -664,7 +664,7 @@
 "$title:CouldNotChangeMagnifyingViewArea" = "Could not change change magnifying area";
 
 /* VPanelViewController.didSelectRowAtClearGelocationCell */
-"$title:CouldNotClearGelocation" = "Could not clear gelocation";
+"$title:CouldNotClearGelocation" = "Could not clear geolocation";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$title:CouldNotConnectBluetooth" = "Could not connect with using Bluetooth";
@@ -732,7 +732,7 @@
 "$title:CouldNotResizeVideo" = "Could not resize video";
 
 /* RecordingViewController.didStartActivity */
-"$title:CouldNotRestoreLastestCameraSetting" = "Could not restore lastest camera setting";
+"$title:CouldNotRestoreLastestCameraSetting" = "Could not restore latest camera setting";
 
 /* RecordingViewController.didReceiveCapturedImage */
 "$title:CouldNotSaveCapturedImage" = "Could not save captured image";
@@ -931,16 +931,16 @@
 "$title:TakingPluralPicturesFailed" = "Could not taking all pictures";
 
 /* RecordingViewController.cameraDidPauseTakingPictureForIntervalTimer */
-"$title:TakingPluralPicturesProgres(%f,%ld,%ld)" = "Interval Bracketting: %2$ld/%3$ld (wait %1$0.0f sec)";
+"$title:TakingPluralPicturesProgres(%f,%ld,%ld)" = "Interval Bracketing: %2$ld/%3$ld (wait %1$0.0f sec)";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraDidTakePictureByIntervalTimer
    RecordingViewController.cameraWillTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByIntervalTimer */
-"$title:TakingPluralPicturesProgres(%ld,%ld)" = "Interval Bracketting: %1$ld/%2$ld";
+"$title:TakingPluralPicturesProgres(%ld,%ld)" = "Interval Bracketing: %1$ld/%2$ld";
 
 /* RecordingViewController.cameraDidStartTakingPluralPictures */
-"$title:TakingPluralPicturesStart" = "Interval Bracketting";
+"$title:TakingPluralPicturesStart" = "Interval Bracketing";
 
 /* PlaybackViewController.commitEditingStyle
    PlaybackViewController.downloadContentList */

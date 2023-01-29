@@ -344,6 +344,9 @@
 /* SPanelViewController.updateRemainingMediaCapacityCell */
 "$cell:RemainingMediaCapacity(%@ Bytes)" = "%@ バイト";
 
+/* SPanelViewController.updateRemainingMediaCapacityCell */
+"$cell:RemainingMediaCapacity(%@ Bytes or more)" = "%@ バイト以上";
+
 /* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationNotAvailable" = "無効";
 

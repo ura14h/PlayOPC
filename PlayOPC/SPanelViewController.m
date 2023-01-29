@@ -578,7 +578,15 @@
 	NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
 	[numberFormatter setNumberStyle:NSNumberFormatterDecimalStyle];
 	NSString *remainingMediaCapacityFormattedNumber = [numberFormatter stringFromNumber:@(camera.remainingMediaCapacity)];
-	NSString *remainingMediaCapacity = [NSString stringWithFormat:NSLocalizedString(@"$cell:RemainingMediaCapacity(%@ Bytes)", @"SPanelViewController.updateRemainingMediaCapacityCell"), remainingMediaCapacityFormattedNumber];
+	NSString *remainingMediaCapacityFormat;
+	if (camera.remainingMediaCapacity < 4294967295) {
+		remainingMediaCapacityFormat = NSLocalizedString(@"$cell:RemainingMediaCapacity(%@ Bytes)", @"SPanelViewController.updateRemainingMediaCapacityCell");
+	} else {
+		// 残り容量は符号なし32ビットの値しか返ってこないので4GBを超える場合は表現をぼかします。
+		remainingMediaCapacityFormat = NSLocalizedString(@"$cell:RemainingMediaCapacity(%@ Bytes or more)", @"SPanelViewController.updateRemainingMediaCapacityCell");
+	}
+	NSString *remainingMediaCapacity = [NSString stringWithFormat:remainingMediaCapacityFormat, remainingMediaCapacityFormattedNumber];
+	
 	// 表示を更新します。
 	self.remainingMediaCapacityCell.detailTextLabel.text = remainingMediaCapacity;
 }

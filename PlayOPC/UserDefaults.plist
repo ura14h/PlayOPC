@@ -2,14 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>WifiHost</key>
-	<string>192.168.0.10</string>
-	<key>WifiCommandPort</key>
-	<integer>80</integer>
-	<key>WifiEventPort</key>
-	<integer>65000</integer>
-	<key>WifiLiveViewStreamingPort</key>
-	<string>5555</string>
 	<key>LiveViewTappingAction</key>
 	<integer>1</integer>
 	<key>KeepLastCameraSetting</key>

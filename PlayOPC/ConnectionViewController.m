@@ -303,6 +303,9 @@
 		[self didChangeBluetoothSetting];
 	} else if ([segueIdentifier isEqualToString:@"DoneWifiSetting"]) {
 		[self didChangeWifiSetting];
+	} else if ([segueIdentifier isEqualToString:@"DoneScanSticker"]) {
+		[self didChangeBluetoothSetting];
+		[self didChangeWifiSetting];
 	} else {
 		// 何もしません。
 	}
@@ -475,6 +478,9 @@
 	
 	// Wi-Fiの接続状態の監視を再起動します。
 	[self.wifiConnector stopMonitoring];
+	AppSetting *setting = GetAppSetting();
+	self.wifiConnector.SSID = setting.wifiSSID;
+	self.wifiConnector.passphrase = setting.wifiPassphrase;
 	[self.wifiConnector startMonitoring];
 	
 	// 画面表示を更新します。

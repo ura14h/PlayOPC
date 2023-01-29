@@ -17,5 +17,6 @@
 /// 警告メッセージを表示します。
 - (void)showAlertMessage:(NSString *)message title:(NSString *)title;
 - (void)showAlertMessage:(NSString *)message title:(NSString *)title handler:(void (^)(UIAlertAction *action))handler;
+- (void)showAlertMessage:(NSString *)message title:(NSString *)title okHandler:(void (^)(UIAlertAction *action))okHandler cancelHandler:(void (^)(UIAlertAction *action))cancelHandler;
 
 @end

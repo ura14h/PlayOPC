@@ -21,7 +21,7 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>3447</string>
+	<string>3474</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -37,6 +37,8 @@
 	<string>This application uses Bluetooth to wake up a camera.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>This application uses Bluetooth to wake up a camera.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>This application uses the camera to scan a network setting.</string>
 	<key>NSLocalNetworkUsageDescription</key>
 	<string>This application uses the local network to match the camera's SSID.</string>
 	<key>NSLocationUsageDescription</key>

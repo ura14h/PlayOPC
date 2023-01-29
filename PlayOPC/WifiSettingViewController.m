@@ -59,6 +59,21 @@
 
 #pragma mark -
 
+/// セグエを準備する(画面が遷移する)時に呼び出されます。
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+	DEBUG_LOG(@"segue=%@", segue);
+	
+	// セグエに応じた画面遷移の準備処理を呼び出します。
+	NSString *segueIdentifier = segue.identifier;
+	if ([segueIdentifier isEqualToString:@"ShowScanStickerByWifiSetting"]) {
+		// TODO:
+	} else {
+		// 何もしません。
+	}
+}
+
+#pragma mark -
+
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_LOG(@"indexPath=%@", indexPath);

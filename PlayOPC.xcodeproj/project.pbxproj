@@ -194,6 +194,9 @@
 		31F3782E1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31F3782F1AE12D23001A7CAD /* AppCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 31F3782D1AE12D23001A7CAD /* AppCamera.m */; };
 		31FA1BB9297CBF9A00AAD6FA /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */; };
+		31FF428A29861AEE004B6818 /* ScanStickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FF428929861AEE004B6818 /* ScanStickerViewController.m */; };
+		31FF428B29861AEE004B6818 /* ScanStickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FF428929861AEE004B6818 /* ScanStickerViewController.m */; };
+		31FF428D298634B7004B6818 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31FF428C298634B7004B6818 /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -408,6 +411,9 @@
 		31F3782C1AE12D23001A7CAD /* AppCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AppCamera.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31F3782D1AE12D23001A7CAD /* AppCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = AppCamera.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		31FF428829861AEE004B6818 /* ScanStickerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanStickerViewController.h; sourceTree = "<group>"; };
+		31FF428929861AEE004B6818 /* ScanStickerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanStickerViewController.m; sourceTree = "<group>"; };
+		31FF428C298634B7004B6818 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -420,6 +426,7 @@
 				31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */,
 				313870A71AC7D3B300B00309 /* CoreBluetooth.framework in Frameworks */,
 				3199797D1AD2C9D300AE5A5F /* CoreLocation.framework in Frameworks */,
+				31FF428D298634B7004B6818 /* AVFoundation.framework in Frameworks */,
 				311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -470,6 +477,8 @@
 				3162EB081ABE789B00C71BE7 /* BluetoothSettingViewController.m */,
 				31EBDED01D277969004B9F88 /* WifiSettingViewController.h */,
 				31EBDED11D277969004B9F88 /* WifiSettingViewController.m */,
+				31FF428829861AEE004B6818 /* ScanStickerViewController.h */,
+				31FF428929861AEE004B6818 /* ScanStickerViewController.m */,
 				313870A21AC7D27600B00309 /* BluetoothConnector.h */,
 				313870A31AC7D27600B00309 /* BluetoothConnector.m */,
 				314D7A461ACF87AE004C2644 /* WifiConnector.h */,
@@ -653,6 +662,7 @@
 		313870A81AC7D3C900B00309 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31FF428C298634B7004B6818 /* AVFoundation.framework */,
 				316FDDE8297D008200ADC86B /* NetworkExtension.framework */,
 				31FA1BB8297CBF9A00AAD6FA /* WebKit.framework */,
 				31E48B8F1E6A563800FF25B5 /* Photos.framework */,
@@ -1050,6 +1060,7 @@
 				31C3683D1B47BEB00057A390 /* ContentDetailViewController.m in Sources */,
 				3152CF1A1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
 				31DB84041AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
+				31FF428A29861AEE004B6818 /* ScanStickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1106,6 +1117,7 @@
 				31BD00021B3C3D7200F555A7 /* AppCameraTests.m in Sources */,
 				3152CF1B1AF859A500E97036 /* ArtbktPanelViewController.m in Sources */,
 				310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */,
+				31FF428B29861AEE004B6818 /* ScanStickerViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

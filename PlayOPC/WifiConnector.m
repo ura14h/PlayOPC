@@ -145,7 +145,11 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		return;
 	}
 	
+	// 監視が停止するまで待ちます。
 	nw_path_monitor_cancel(self.pathMonitor);
+	while (self.monitoring) {
+		[NSThread sleepForTimeInterval:0.05];
+	}
 }
 
 - (BOOL)connect:(NSError**)error {

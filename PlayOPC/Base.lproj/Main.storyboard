@@ -654,6 +654,30 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="XG6-xf-ak0">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ScanSticker" textLabel="e6n-PL-GZf" style="IBUITableViewCellStyleDefault" id="nny-Vc-jA0">
+                                        <rect key="frame" x="0.0" y="169.99999809265137" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="nny-Vc-jA0" id="MZs-vv-edi">
+                                            <rect key="frame" x="0.0" y="0.0" width="383.66666666666669" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Scan the rear sticker of AIR A01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e6n-PL-GZf">
+                                                    <rect key="frame" x="20" y="0.0" width="355.66666666666669" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Ywq-fd-prr" kind="show" identifier="ShowScanStickerByBluetoothSetting" id="R64-ek-bF7"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="NjK-E7-pwO" id="gF7-Wh-cVT"/>
@@ -838,6 +862,30 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
+                            <tableViewSection id="HFm-FA-TTx">
+                                <cells>
+                                    <tableViewCell contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ScanSticker" textLabel="Pol-1m-l1n" style="IBUITableViewCellStyleDefault" id="P8T-pv-F0Z">
+                                        <rect key="frame" x="0.0" y="169.99999809265137" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="P8T-pv-F0Z" id="Yat-O7-ig6">
+                                            <rect key="frame" x="0.0" y="0.0" width="383.66666666666669" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Scan the rear sticker of AIR A01" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Pol-1m-l1n">
+                                                    <rect key="frame" x="20" y="0.0" width="355.66666666666669" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="Ywq-fd-prr" kind="show" identifier="ShowScanStickerByWifiSetting" id="RfL-qO-cSb"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="VNR-sp-Pub" id="GSp-2n-viT"/>
@@ -863,7 +911,30 @@
             </objects>
             <point key="canvasLocation" x="2933" y="435"/>
         </scene>
+        <!--Scan Sticker-->
+        <scene sceneID="uUg-AD-khw">
+            <objects>
+                <viewController id="Ywq-fd-prr" customClass="ScanStickerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Ra8-fa-qqO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dGu-k0-bVD"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Scan Sticker" id="9g6-cK-Hoq"/>
+                    <connections>
+                        <segue destination="hOX-cx-WjK" kind="unwind" identifier="DoneScanSticker" unwindAction="exitToConnectionViewController:" id="X0f-TS-KL1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jgG-eS-Fck" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="hOX-cx-WjK" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="3697" y="265"/>
+        </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="R64-ek-bF7"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="LatestBarButton" width="21" height="24"/>
         <namedColor name="NaviBarBackColor">

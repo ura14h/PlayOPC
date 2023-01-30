@@ -14,7 +14,7 @@
 @implementation UIViewController (Alert)
 
 - (void)showAlertMessage:(NSString *)message title:(NSString *)title {
-	[self showAlertMessage:message title:title handler:nil];
+	[self showAlertMessage:message title:title okHandler:nil cancelHandler:nil];
 }
 
 - (void)showAlertMessage:(NSString *)message title:(NSString *)title handler:(void (^)(UIAlertAction *action))handler {
@@ -41,7 +41,7 @@
 	alertController.popoverPresentationController.sourceView = self.view;
 	alertController.popoverPresentationController.sourceRect = self.view.bounds;
 	alertController.popoverPresentationController.permittedArrowDirections = 0;
-	if (okHandler) {
+	if (okHandler || (okHandler == nil && cancelHandler == nil)) {
 		UIAlertAction *action = [UIAlertAction actionWithTitle:okActionTitle style:UIAlertActionStyleDefault handler:okHandler];
 		[alertController addAction:action];
 	}

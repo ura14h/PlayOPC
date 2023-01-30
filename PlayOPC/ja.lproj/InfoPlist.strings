@@ -6,9 +6,10 @@
   Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 */
 
+NSBluetoothAlwaysUsageDescription = "このアプリケーションはカメラを起動するためにBluetoothを使用します。";
+NSBluetoothPeripheralUsageDescription = "このアプリケーションはカメラを起動するためにBluetoothを使用します。";
+NSCameraUsageDescription = "このアプリケーションは、カメラを使用してネットワーク設定をスキャンします。";
+NSLocalNetworkUsageDescription = "このアプリケーションは、ローカルネットワークを使用してカメラを制御します。";
 NSLocationUsageDescription = "このアプリケーションは現在地をカメラに設定します。";
 NSLocationWhenInUseUsageDescription = "このアプリケーションは現在地をカメラに設定します。";
 NSPhotoLibraryUsageDescription = "このアプリケーションは撮影した画像を写真アルバムに保存します。";
-NSBluetoothPeripheralUsageDescription = "このアプリケーションはカメラを起動するためにBluetoothを使用します。";
-NSBluetoothAlwaysUsageDescription = "このアプリケーションはカメラを起動するためにBluetoothを使用します。";
-NSLocalNetworkUsageDescription = "このアプリケーションは、ローカルネットワークを使用してカメラのSSIDを照合します。";

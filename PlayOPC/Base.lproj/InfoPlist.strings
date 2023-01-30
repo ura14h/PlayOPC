@@ -6,9 +6,10 @@
   Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 */
 
+NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to wake up a camera.";
+NSBluetoothPeripheralUsageDescription = "This application uses Bluetooth to wake up a camera.";
+NSCameraUsageDescription = "This application uses the camera to scan a network setting.";
+NSLocalNetworkUsageDescription = "This application uses the local network to control to the camera.";
 NSLocationUsageDescription = "This application uses the current location to set the camera.";
 NSLocationWhenInUseUsageDescription = "This application uses the current location to set the camera.";
 NSPhotoLibraryUsageDescription = "This application uses the photo library to save a captured image.";
-NSBluetoothPeripheralUsageDescription = "This application uses Bluetooth to wake up a camera.";
-NSBluetoothAlwaysUsageDescription = "This application uses Bluetooth to wake up a camera.";
-NSLocalNetworkUsageDescription = "This application uses the local network to match the camera's SSID.";

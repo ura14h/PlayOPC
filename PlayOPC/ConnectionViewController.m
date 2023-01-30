@@ -190,42 +190,6 @@
 		return;
 	}
 	
-	// 写真アルバム利用の権限があるか確認します。
-	self.pausingActivity = YES;
-	switch ([PHPhotoLibrary authorizationStatus]) {
-		case PHAuthorizationStatusNotDetermined:
-			DEBUG_LOG(@"Using assets library isn't determind.");
-			[self assetsLibraryRequestWhenInUseAuthorization];
-			break;
-		case PHAuthorizationStatusAuthorized:
-			DEBUG_LOG(@"Using assets library is already authorized.");
-			break;
-		case PHAuthorizationStatusDenied:
-		case PHAuthorizationStatusRestricted:
-		case PHAuthorizationStatusLimited:
-			DEBUG_LOG(@"Using assets library is restricted.");
-			break;
-	}
-	self.pausingActivity = NO;
-
-	// 現在位置利用の権限があるかを確認します。
-	self.pausingActivity = YES;
-	switch (self.locationManager.authorizationStatus) {
-		case kCLAuthorizationStatusNotDetermined:
-			DEBUG_LOG(@"Using location service isn't determind.");
-			[self.locationManager requestWhenInUseAuthorization];
-			break;
-		case kCLAuthorizationStatusAuthorizedAlways:
-		case kCLAuthorizationStatusAuthorizedWhenInUse:
-			DEBUG_LOG(@"Using location service is already authorized.");
-			break;
-		case kCLAuthorizationStatusDenied:
-		case kCLAuthorizationStatusRestricted:
-			DEBUG_LOG(@"Using location service is restricted.");
-			break;
-	}
-	self.pausingActivity = NO;
-
 	// BluetoothとWi-Fiの接続状態を監視開始します。
 	self.bluetoothConnector.peripheral = nil;
 	AppSetting *setting = GetAppSetting();
@@ -238,6 +202,12 @@
 	[self updateShowWifiSettingCell];
 	[self updateCameraConnectionCells];
 	[self updateCameraOperationCells];
+	
+	// 写真アルバム利用の権限があるか確認します。
+	[self verifyPhotoAlbumAuthorization];
+
+	// 現在位置利用の権限があるかを確認します。
+	[self verifyLocationAuthorization];
 }
 
 /// アプリケーションが非アクティブになる時に呼び出されます。
@@ -326,6 +296,48 @@
 		[self didChangeWifiSetting];
 	} else {
 		// 何もしません。
+	}
+}
+
+/// 写真アルバムの利用権限があるかを確認します。
+- (void)verifyPhotoAlbumAuthorization {
+	DEBUG_LOG(@"");
+	
+	switch ([PHPhotoLibrary authorizationStatus]) {
+		case PHAuthorizationStatusNotDetermined:
+			DEBUG_LOG(@"Using assets library isn't determind.");
+			[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+				DEBUG_LOG(@"");
+			}];
+			break;
+		case PHAuthorizationStatusAuthorized:
+			DEBUG_LOG(@"Using assets library is already authorized.");
+			break;
+		case PHAuthorizationStatusDenied:
+		case PHAuthorizationStatusRestricted:
+		case PHAuthorizationStatusLimited:
+			DEBUG_LOG(@"Using assets library is restricted.");
+			break;
+	}
+}
+
+/// 現在位置利用の権限があるかを確認します。
+- (void)verifyLocationAuthorization {
+	DEBUG_LOG(@"");
+	
+	switch (self.locationManager.authorizationStatus) {
+		case kCLAuthorizationStatusNotDetermined:
+			DEBUG_LOG(@"Using location service isn't determind.");
+			[self.locationManager requestWhenInUseAuthorization];
+			break;
+		case kCLAuthorizationStatusAuthorizedAlways:
+		case kCLAuthorizationStatusAuthorizedWhenInUse:
+			DEBUG_LOG(@"Using location service is already authorized.");
+			break;
+		case kCLAuthorizationStatusDenied:
+		case kCLAuthorizationStatusRestricted:
+			DEBUG_LOG(@"Using location service is restricted.");
+			break;
 	}
 }
 

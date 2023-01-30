@@ -468,6 +468,9 @@
 - (void)didChangeBluetoothSetting {
 	DEBUG_LOG(@"");
 	
+	// Bluetoothのペリフェラルキャッシュをクリアします。
+	[self.bluetoothConnector clearPeripheralCache];
+	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
 }

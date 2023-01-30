@@ -19,6 +19,8 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 @property (assign, nonatomic) BOOL running; ///< 実行中か否か
 @property (strong, nonatomic) dispatch_queue_t queue; ///< Bluetooth処理専用のディスパッチキュー
 @property (strong, nonatomic) CBCentralManager *centralManager;	///< Bluetoothセントラルマネージャ
+@property (strong, nonatomic) CBPeripheral *cachedPeripheral; ///< キャッシュしたペリフェラル
+
 
 @end
 
@@ -39,12 +41,14 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	_services = nil;
 	_localName = nil;
 	_timeout = 5.0;
+	_peripheral = nil;
 	NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.BluetoothConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
 	_queue = dispatch_queue_create([dispatchQueueName UTF8String], NULL);
 	NSDictionary *managerOptions = @{
 		CBCentralManagerOptionShowPowerAlertKey: @YES
 	};
 	_centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options:managerOptions];
+	_cachedPeripheral = nil;
 	
 	return self;
 }
@@ -57,6 +61,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	_peripheral = nil;
 	_queue = nil;
 	_centralManager = nil;
+	_cachedPeripheral = nil;
 }
 
 #pragma mark -
@@ -80,6 +85,12 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	return BluetoothConnectionStatusUnknown;
 #endif
+}
+
+- (void)clearPeripheralCache {
+	DEBUG_LOG(@"");
+
+	self.cachedPeripheral = nil;
 }
 
 - (BOOL)discoverPeripheral:(NSError **)error {
@@ -118,19 +129,37 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		// エラーは無視して続行します。
 	}
 
-	// ペリフェラルをスキャンします。
+	// ペリフェラルに接続している場合はそれを利用します。
 	self.running = YES;
 	self.peripheral = nil;
-	[self.centralManager stopScan];
-	NSDictionary *scanOptions = @{
-		CBCentralManagerScanOptionAllowDuplicatesKey: @NO
-	};
-	[self.centralManager scanForPeripheralsWithServices:self.services options:scanOptions];
-	NSDate *scanStartTime = [NSDate date];
-	while (!self.peripheral && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.05];
+	if (!self.peripheral) {
+		DEBUG_LOG(@"");
+		NSArray *peripherals = [self.centralManager retrieveConnectedPeripheralsWithServices:self.services];
+		if (peripherals.count > 0) {
+			self.peripheral = [peripherals firstObject];
+		}
 	}
-	[self.centralManager stopScan];
+	// ペリフェラルをキャッシュしている場合は該当するか確認します。
+	if (!self.peripheral && self.cachedPeripheral) {
+		DEBUG_LOG(@"");
+		NSArray *peripherals = [self. centralManager retrievePeripheralsWithIdentifiers:@[self.cachedPeripheral.identifier]];
+		if (peripherals.count > 0) {
+			self.peripheral = [peripherals firstObject];
+		}
+	}
+	// ペリフェラルがキャッシュに該当しない場合はスキャンします。
+	if (!self.peripheral) {
+		DEBUG_LOG(@"");
+		NSDictionary *scanOptions = @{
+			CBCentralManagerScanOptionAllowDuplicatesKey: @NO
+		};
+		[self.centralManager scanForPeripheralsWithServices:self.services options:scanOptions];
+		NSDate *scanStartTime = [NSDate date];
+		while (!self.peripheral && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
+			[NSThread sleepForTimeInterval:0.05];
+		}
+		[self.centralManager stopScan];
+	}
 	BOOL discovered = (self.peripheral != nil);
 	self.running = NO;
 	
@@ -324,11 +353,13 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 /// ペリフェラルに接続した時に呼び出されます。
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
 	DEBUG_LOG(@"peripheral=%@", peripheral);
+	self.cachedPeripheral = peripheral;
 }
 
 /// ペリフェラルに接続失敗した時に呼び出されます。
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
 	DEBUG_LOG(@"peripheral=%@", peripheral);
+	self.cachedPeripheral = nil;
 }
 
 /// ペリフェラルの接続が解除された時に呼び出されます。

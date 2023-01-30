@@ -61,8 +61,10 @@
 	// ツールバーを非表示にします。
 	[self.navigationController setToolbarHidden:YES animated:animated];
 	
+#if !(TARGET_OS_SIMULATOR)
 	// スキャンを開始します。
 	[self startScan];
+#endif
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -72,8 +74,10 @@
 	NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
 	[nc removeObserver:self name:AppDidChangeStatusBarOrientationNotification object:nil];
 	
+#if !(TARGET_OS_SIMULATOR)
 	// スキャンを終了します。
 	[self stopScan];
+#endif
 }
 
 - (void)viewDidLayoutSubviews {

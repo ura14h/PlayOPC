@@ -72,6 +72,9 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 - (WifiConnectionStatus)connectionStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
+#if (TARGET_OS_SIMULATOR)
+	return WifiConnectionStatusConnected;
+#else
 	switch (self.pathStatus) {
 		case nw_path_status_satisfied:
 			return WifiConnectionStatusConnected;
@@ -83,11 +86,15 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 			break;
 	}
 	return WifiConnectionStatusUnknown;
+#endif
 }
 
 - (WifiCameraStatus)cameraStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
+#if (TARGET_OS_SIMULATOR)
+	return WifiCameraStatusReachable;
+#else
 	switch (self.pathStatus) {
 		case nw_path_status_satisfied:
 			break;
@@ -101,6 +108,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		return WifiCameraStatusUnreachable;
 	}
 	return WifiCameraStatusReachable;
+#endif
 }
 
 - (void)startMonitoring {

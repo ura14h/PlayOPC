@@ -64,7 +64,9 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 - (BluetoothConnectionStatus)connectionStatus {
 	DEBUG_DETAIL_LOG(@"");
 	
-#if !(TARGET_IPHONE_SIMULATOR)
+#if (TARGET_OS_SIMULATOR)
+	return BluetoothConnectionStatusConnected;
+#else
 	if (self.centralManager.state == CBManagerStatePoweredOn) {
 		if (self.peripheral) {
 			if (self.peripheral.state == CBPeripheralStateConnected) {
@@ -76,8 +78,8 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 			return BluetoothConnectionStatusNotFound;
 		}
 	}
-#endif
 	return BluetoothConnectionStatusUnknown;
+#endif
 }
 
 - (BOOL)discoverPeripheral:(NSError **)error {

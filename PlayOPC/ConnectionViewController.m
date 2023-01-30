@@ -749,6 +749,14 @@
 		// カメラにアプリ接続します。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
+#if (TARGET_OS_SIMULATOR)
+		// 接続する前にやっておかないと次のSDK-API呼び出しでクラッシュする...
+		if (![camera canConnect:OLYCameraConnectionTypeWiFi timeout:3.0 error:&error]) {
+			// カメラにアプリ接続できませんでした。
+			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+			return;
+		}
+#endif
 		if (![camera connect:OLYCameraConnectionTypeWiFi error:&error]) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];

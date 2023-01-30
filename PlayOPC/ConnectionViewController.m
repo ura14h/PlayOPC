@@ -1062,9 +1062,11 @@
 			// 接続されていない場合は未接続と表示します。
 			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotConnected", @"ConnectionViewController.updateShowBluetoothSettingCell");
 		}
+		self.showBluetoothSettingCell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 	} else {
 		// 設定が未構成です。
 		self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNoConfiguration", @"ConnectionViewController.updateShowBluetoothSettingCell");
+		self.showBluetoothSettingCell.detailTextLabel.textColor = [UIColor systemRedColor];
 	}
 }
 
@@ -1101,9 +1103,11 @@
 		} else {
 			self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
 		}
+		self.showWifiSettingCell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 	} else {
 		// 設定が未構成です。
 		self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiNoConfiguration", @"ConnectionViewController.updateShowWifiSettingCell");
+		self.showWifiSettingCell.detailTextLabel.textColor = [UIColor systemRedColor];
 	}
 }
 

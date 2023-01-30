@@ -27,6 +27,6 @@ for line in master:
         if values[0] in messages:
             print('"', values[0], '" = "', messages[values[0]], '";', sep='')
         else:
-            print(line)
+            print('"', line, '";', sep='')
     else:
         print(line)

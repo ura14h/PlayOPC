@@ -453,8 +453,7 @@
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectPeripheralIsRunnning" = "Bluetoothデバイスへの接続は実行中です。";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
-   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
@@ -462,6 +461,9 @@
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-FiのSSID名が空です。Wi-FIの設定でセットアップしてください。";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiWithBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。 BluetoothはWi-Fi経由でアクセスする前にカメラの電源を入れるために使用されます。";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "アプリのドキュメントフォルダにある、お気に入り設定ファイルを削除できません。";

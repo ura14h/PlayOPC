@@ -453,8 +453,7 @@
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectPeripheralIsRunnning" = "Connecting a Bluetooth device is running.";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
-   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
@@ -462,6 +461,9 @@
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-Fi SSID is empty. Please configure it at Wi-Fi setting.";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiWithBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.  Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting file in the application's document folder.";

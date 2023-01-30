@@ -605,19 +605,8 @@
 		}
 	}
 	
-	// Bluetoothデバイスの設定を確認します。
-	AppSetting *setting = GetAppSetting();
-	NSString *bluetoothLocalName = setting.bluetoothLocalName;
-	NSString *bluetoothPasscode = setting.bluetoothPasscode;
-	if (demandToWakeUpWithUsingBluetooth) {
-		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
-			// Bluetoothデバイスの設定が不完全です。
-			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-			return;
-		}
-	}
-	
 	// Wi-Fiアクセスポイントの設定を確認します。
+	AppSetting *setting = GetAppSetting();
 	NSString *wifiSSID = setting.wifiSSID;
 	NSString *wifiPassphrase = setting.wifiPassphrase;
 	if (!wifiSSID || wifiSSID.length == 0) {
@@ -628,6 +617,17 @@
 	if (!wifiPassphrase || wifiPassphrase.length == 0) {
 		// Wi-Fiアクセスポイントの設定が不完全です。
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiPassphraseByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+	}
+	
+	// Bluetoothデバイスの設定を確認します。
+	NSString *bluetoothLocalName = setting.bluetoothLocalName;
+	NSString *bluetoothPasscode = setting.bluetoothPasscode;
+	if (demandToWakeUpWithUsingBluetooth) {
+		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
+			// Bluetoothデバイスの設定が不完全です。
+			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiWithBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+			return;
+		}
 	}
 	
 	// カメラの電源を投入し接続を開始します。

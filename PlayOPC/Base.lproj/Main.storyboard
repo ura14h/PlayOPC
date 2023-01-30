@@ -927,17 +927,26 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Camera use is not allowed." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gss-AK-xmL">
+                                <rect key="frame" x="110" y="374" width="194" height="20"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <color key="textColor" systemColor="systemRedColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="dGu-k0-bVD"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="gss-AK-xmL" firstAttribute="centerX" secondItem="Ra8-fa-qqO" secondAttribute="centerX" id="0Dl-K5-c9g"/>
                             <constraint firstAttribute="trailing" secondItem="Kq9-bn-9vw" secondAttribute="trailing" constant="20" id="D6W-a4-Nxa"/>
                             <constraint firstItem="dGu-k0-bVD" firstAttribute="bottom" secondItem="Kq9-bn-9vw" secondAttribute="bottom" constant="20" id="MU0-eV-HdW"/>
+                            <constraint firstItem="gss-AK-xmL" firstAttribute="centerY" secondItem="Ra8-fa-qqO" secondAttribute="centerY" constant="-20" id="PPi-or-Zyb"/>
                             <constraint firstItem="Kq9-bn-9vw" firstAttribute="leading" secondItem="dGu-k0-bVD" secondAttribute="leading" constant="20" id="vTf-P1-99d"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Scan Sticker" id="9g6-cK-Hoq"/>
                     <connections>
+                        <outlet property="errorLabel" destination="gss-AK-xmL" id="xI0-Zn-IGo"/>
                         <outlet property="guidanceLabel" destination="Kq9-bn-9vw" id="b3D-i6-k0S"/>
                         <segue destination="hOX-cx-WjK" kind="unwind" identifier="DoneScanSticker" unwindAction="exitToConnectionViewController:" id="X0f-TS-KL1"/>
                     </connections>
@@ -970,6 +979,9 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

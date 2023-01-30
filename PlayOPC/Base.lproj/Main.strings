@@ -119,6 +119,9 @@
 /* Class = "UITableViewSection"; headerTitle = "Camera Connection"; ObjectID = "fHo-6S-Eiu"; */
 "fHo-6S-Eiu.headerTitle" = "Camera Connection";
 
+/* Class = "UILabel"; text = "Camera use is not allowed."; ObjectID = "gss-AK-xmL"; */
+"gss-AK-xmL.text" = "Camera use is not allowed.";
+
 /* Class = "UILabel"; text = "$cameraKitVersion"; ObjectID = "h9Q-FX-6Ga"; */
 "h9Q-FX-6Ga.text" = "$cameraKitVersion";
 

@@ -20,6 +20,7 @@
 
 @interface ScanStickerViewController () <AVCaptureVideoDataOutputSampleBufferDelegate>
 
+@property (nonatomic, weak) IBOutlet UILabel *errorLabel;
 @property (nonatomic, weak) IBOutlet UILabel *guidanceLabel;
 @property (nonatomic, strong) AVCaptureSession *session;
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
@@ -62,8 +63,34 @@
 	[self.navigationController setToolbarHidden:YES animated:animated];
 	
 #if !(TARGET_OS_SIMULATOR)
-	// スキャンを開始します。
-	[self startScan];
+	self.errorLabel.hidden = YES;
+	self.guidanceLabel.hidden = YES;
+	__weak ScanStickerViewController *weakSelf = self;
+	switch ([AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo]) {
+		case AVAuthorizationStatusAuthorized:
+			// 許可済みならスキャンを開始します。
+			self.errorLabel.hidden = YES;
+			self.guidanceLabel.hidden = NO;
+			[self startScan];
+			break;
+		case AVAuthorizationStatusRestricted:
+		case AVAuthorizationStatusDenied:
+		case AVAuthorizationStatusNotDetermined:
+			[AVCaptureDevice requestAccessForMediaType:AVMediaTypeVideo completionHandler:^(BOOL granted) {
+				dispatch_async(dispatch_get_main_queue(), ^{
+					// 許可されたらスキャンを開始します。
+					if (granted) {
+						weakSelf.errorLabel.hidden = YES;
+						weakSelf.guidanceLabel.hidden = NO;
+						[weakSelf startScan];
+					} else {
+						weakSelf.errorLabel.hidden = NO;
+						weakSelf.guidanceLabel.hidden = YES;
+					}
+				});
+			}];
+			break;
+	}
 #endif
 }
 
@@ -173,8 +200,10 @@
 	DEBUG_LOG(@"");
 	
 	// ビデオキャプチャセッションを終了します。
-	[self.session stopRunning];
-	self.session = nil;
+	if (self.session && self.session.running) {
+		[self.session stopRunning];
+		self.session = nil;
+	}
 }
 
 - (void)captureOutput:(AVCaptureOutput *)output didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer fromConnection:(AVCaptureConnection *)connection {
@@ -287,6 +316,10 @@
 	NSString *message = [NSString stringWithFormat:NSLocalizedString(@"$desc:ScanResult(%@,%@,%@,%@)", @"ScanStickerViewController.showAlertMessage"),
 						 snText, ssidText, passwordText, bluetoothText];
 	[self showAlertMessage:message title:title okHandler:^(UIAlertAction *action) {
+#if !(TARGET_OS_SIMULATOR)
+		// スキャンを終了します。
+		[weakSelf stopScan];
+#endif
 		// 読み取った情報を保存します。
 		AppSetting *setting = GetAppSetting();
 		setting.wifiSSID = ssidText;

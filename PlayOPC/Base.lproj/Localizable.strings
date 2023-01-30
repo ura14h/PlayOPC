@@ -1,5 +1,3 @@
-/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
-
 /* EPanelViewController.updateShowApertureCell */
 "$cell:ApertureValueNotAvailable" = "N/A";
 
@@ -342,10 +340,10 @@
 "$cell:RemainingImageCapacity(%ld,%ld,%ld)" = "%1$ld:%2$02ld:%3$02ld";
 
 /* SPanelViewController.updateRemainingMediaCapacityCell */
-"$cell:RemainingMediaCapacity(%@ Bytes)" = "%@ bytes";
+"$cell:RemainingMediaCapacity(%@ Bytes or more)" = "%@ bytes or more";
 
 /* SPanelViewController.updateRemainingMediaCapacityCell */
-"$cell:RemainingMediaCapacity(%@ Bytes or more)" = "%@ bytes or more";
+"$cell:RemainingMediaCapacity(%@ Bytes)" = "%@ bytes";
 
 /* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationNotAvailable" = "N/A";
@@ -400,9 +398,6 @@
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected" = "Not Connected";
-
-/* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiNotConnected(%@)" = "Connected Another (%@)";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected(null)" = "Connected Another";
@@ -463,10 +458,10 @@
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-Fi SSID is empty. Please configure it at Wi-Fi setting.";
+"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";
+"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-Fi SSID is empty. Please configure it at Wi-Fi setting.";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting file in the application's document folder.";
@@ -483,11 +478,7 @@
 /* RecordingLocationManager.currentLocation */
 "$desc:CouldNotGetCurrentGeolocation" = "Could not get current geolocation.";
 
-/* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
-"$desc:CouldNotOpenOACentralByNoInstalled" = "Olympus OA.Central is not installed.";
-
-/* AcknowledgementViewController.shouldStartLoadWithRequest
-   ReferenceViewController.shouldStartLoadWithRequest */
+/* ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "The device does not connect to the Internet. If you want to open the site via Wi-Fi, it is necessary to disconnect camera connection first.";
 
 /* RecordingLocationManager.currentLocation */
@@ -496,9 +487,6 @@
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "Could not read a favorite setting file.";
-
-/* WifiConnector.startMonitoring */
-"$desc:CouldNotStartMonitoring" = "Could not start monitoring a status of Wi-Fi connection.";
 
 /* FavoriteForgingViewController.didTapSaveButton
    FavoriteSavingViewController.didTapSaveButton */
@@ -522,8 +510,8 @@
 /* BluetoothConnector.disconnectPeripheral */
 "$desc:DisconnectingBluetoothPeripheralTimedOut" = "Disconnecting Bluetooth peripheral timed out.";
 
-/* ConnectionViewController.didSelectRowAtDisconnectCell
-   ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
+/* ConnectionViewController.didSelectRowAtDisconnectAndSleepCell
+   ConnectionViewController.didSelectRowAtDisconnectCell */
 "$desc:DisconnectingWifi" = "Disconnecting...";
 
 /* BluetoothConnector.disconnectPeripheral */
@@ -574,6 +562,9 @@
 /* VideoContentViewController.didTapResizeButton */
 "$desc:ResizeVideo(wait %1.0f sec)" = "A new video with a long side pixel size of specified length will be added to camera storage. This processing takes %1.0f seconds at least.";
 
+/* ScanStickerViewController.showAlertMessage */
+"$desc:ScanResult(%@,%@,%@,%@)" = "S/N: %1$@\nSSID: %2$@\nPassword: %3$@\nBluetooth: %4$@\nApply the scan result to Wi-Fi and Bluetooth network settings?";
+
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareLargeVideo" = "The application downloads this long video before sharing it. The handling may take more than several minutes.";
 
@@ -598,6 +589,9 @@
 
 /* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:AutoBracketingStart" = "Auto Bracketing";
+
+/* UIViewController.showAlertMessage */
+"$title:Cancel" = "Cancel";
 
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
 "$title:CancelClearCameraSetting" = "Cancel";
@@ -711,11 +705,7 @@
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath */
 "$title:CouldNotLoadFavoriteSetting" = "Could not load favorite setting";
 
-/* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
-"$title:CouldNotOpenOACentral" = "Could not open OA.Central";
-
-/* AcknowledgementViewController.shouldStartLoadWithRequest
-   ReferenceViewController.shouldStartLoadWithRequest */
+/* ReferenceViewController.shouldStartLoadWithRequest */
 "$title:CouldNotOpenWebLink" = "Could not open link to the Web";
 
 /* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
@@ -908,9 +898,6 @@
 /* UIViewController.showAlertMessage */
 "$title:OK" = "OK";
 
-/* UIViewController.showAlertMessage */
-"$title:Cancel" = "Cancel";
-
 /* RecordingViewController.didFailToReceiveCapturedImageWithError */
 "$title:ReceiveCapturedImageFailed" = "Could not receive captured image";
 
@@ -929,6 +916,9 @@
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ResizeVideo" = "Resize this video";
+
+/* ScanStickerViewController.showAlertMessage */
+"$title:ScanResult" = "Scan Result";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:ShareFavroiteSetting" = "Share";
@@ -952,8 +942,3 @@
    PlaybackViewController.downloadContentList */
 "$title:TotalOfContentsAndFiles(%ld contents, %ld files)" = "%1$ld contents (%2$ld files)";
 
-/* ScanStickerViewController.showAlertMessage */
-"$title:ScanResult" = "Scan Result";
-
-/* ScanStickerViewController.showAlertMessage */
-"$desc:ScanResult(%@,%@,%@,%@)" = "S/N: %1$@\nSSID: %2$@\nPassword: %3$@\nBluetooth: %4$@\nApply the scan result to Wi-Fi and Bluetooth network settings?";

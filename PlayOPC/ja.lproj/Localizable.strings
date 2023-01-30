@@ -1,5 +1,3 @@
-/* Created with Localizable Strings Merge, the swiss-army knife for iOS and OS X localization. */
-
 /* EPanelViewController.updateShowApertureCell */
 "$cell:ApertureValueNotAvailable" = "無効";
 
@@ -342,10 +340,10 @@
 "$cell:RemainingImageCapacity(%ld,%ld,%ld)" = "%1$ld:%2$02ld:%3$02ld";
 
 /* SPanelViewController.updateRemainingMediaCapacityCell */
-"$cell:RemainingMediaCapacity(%@ Bytes)" = "%@ バイト";
+"$cell:RemainingMediaCapacity(%@ Bytes or more)" = "%@ バイト以上";
 
 /* SPanelViewController.updateRemainingMediaCapacityCell */
-"$cell:RemainingMediaCapacity(%@ Bytes or more)" = "%@ バイト以上";
+"$cell:RemainingMediaCapacity(%@ Bytes)" = "%@ バイト";
 
 /* CPanelViewController.updateShowSaturationLevelCell */
 "$cell:SaturationNotAvailable" = "無効";
@@ -400,9 +398,6 @@
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected" = "未接続";
-
-/* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiNotConnected(%@)" = "他に接続 (%@)";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected(null)" = "他に接続";
@@ -463,10 +458,10 @@
 "$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-FiのSSID名が空です。Wi-FIの設定でセットアップしてください。";
+"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fiのパスフレーズが空です。Wi-FIの設定でセットアップしてください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fiのパスフレーズが空です。Wi-FIの設定でセットアップしてください。";
+"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-FiのSSID名が空です。Wi-FIの設定でセットアップしてください。";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "アプリのドキュメントフォルダにある、お気に入り設定ファイルを削除できません。";
@@ -483,11 +478,7 @@
 /* RecordingLocationManager.currentLocation */
 "$desc:CouldNotGetCurrentGeolocation" = "現在地が取得できません。";
 
-/* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
-"$desc:CouldNotOpenOACentralByNoInstalled" = "オリンパスのOA.Centralがインストールされていません。";
-
-/* AcknowledgementViewController.shouldStartLoadWithRequest
-   ReferenceViewController.shouldStartLoadWithRequest */
+/* ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "このデバイスはインターネットに接続していません。Wi-Fi経由で開きたい場合は先にカメラとの接続を解除しておく必要があります。";
 
 /* RecordingLocationManager.currentLocation */
@@ -496,9 +487,6 @@
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "お気に入りファイルが読めません。";
-
-/* WifiConnector.startMonitoring */
-"$desc:CouldNotStartMonitoring" = "Wi-Fi接続の状態監視を開始できません。";
 
 /* FavoriteForgingViewController.didTapSaveButton
    FavoriteSavingViewController.didTapSaveButton */
@@ -522,8 +510,8 @@
 /* BluetoothConnector.disconnectPeripheral */
 "$desc:DisconnectingBluetoothPeripheralTimedOut" = "Bluetoothデバイスの切断がタイムアウトしました。";
 
-/* ConnectionViewController.didSelectRowAtDisconnectCell
-   ConnectionViewController.didSelectRowAtDisconnectAndSleepCell */
+/* ConnectionViewController.didSelectRowAtDisconnectAndSleepCell
+   ConnectionViewController.didSelectRowAtDisconnectCell */
 "$desc:DisconnectingWifi" = "切断中...";
 
 /* BluetoothConnector.disconnectPeripheral */
@@ -574,6 +562,9 @@
 /* VideoContentViewController.didTapResizeButton */
 "$desc:ResizeVideo(wait %1.0f sec)" = "指定したピクセル数に収まるようにリサイズした動画をカメラのストレージに追加します。この処理には少なくとも %1.0f 秒かかります。";
 
+/* ScanStickerViewController.showAlertMessage */
+"$desc:ScanResult(%@,%@,%@,%@)" = "S/N: %1$@\nSSID: %2$@\nPassword: %3$@\nBluetooth: %4$@\n読み取り結果をWi-FiとBluetoothのネットワーク設定に適用しますか?";
+
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareLargeVideo" = "この長い動画をダウンロードし共有します。この処理は数分以上かかるかもしれません。";
 
@@ -598,6 +589,9 @@
 
 /* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:AutoBracketingStart" = "オートブラケット";
+
+/* UIViewController.showAlertMessage */
+"$title:Cancel" = "取り消し";
 
 /* ConnectionViewController.didSelectRowAtClearRememberedCameraSettingCell */
 "$title:CancelClearCameraSetting" = "取り消し";
@@ -711,11 +705,7 @@
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath */
 "$title:CouldNotLoadFavoriteSetting" = "お気に入り設定が読み込めません";
 
-/* BluetoothSettingViewController.didSelectRowAtFromOacentralCell */
-"$title:CouldNotOpenOACentral" = "OA.Centralが開けません";
-
-/* AcknowledgementViewController.shouldStartLoadWithRequest
-   ReferenceViewController.shouldStartLoadWithRequest */
+/* ReferenceViewController.shouldStartLoadWithRequest */
 "$title:CouldNotOpenWebLink" = "リンクが開けません";
 
 /* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
@@ -908,9 +898,6 @@
 /* UIViewController.showAlertMessage */
 "$title:OK" = "OK";
 
-/* UIViewController.showAlertMessage */
-"$title:Cancel" = "取り消し";
-
 /* RecordingViewController.didFailToReceiveCapturedImageWithError */
 "$title:ReceiveCapturedImageFailed" = "撮影した画像を受信できませんでした";
 
@@ -929,6 +916,9 @@
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ResizeVideo" = "この動画をリサイズ";
+
+/* ScanStickerViewController.showAlertMessage */
+"$title:ScanResult" = "読み取り結果";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$title:ShareFavroiteSetting" = "共有";
@@ -952,8 +942,3 @@
    PlaybackViewController.downloadContentList */
 "$title:TotalOfContentsAndFiles(%ld contents, %ld files)" = "%1$ld コンテンツ (%2$ld ファイル)";
 
-/* ScanStickerViewController.showAlertMessage */
-"$title:ScanResult" = "読み取り結果";
-
-/* ScanStickerViewController.showAlertMessage */
-"$desc:ScanResult(%@,%@,%@,%@)" = "S/N: %1$@\nSSID: %2$@\nPassword: %3$@\nBluetooth: %4$@\n読み取り結果をWi-FiとBluetoothのネットワーク設定に適用しますか?";

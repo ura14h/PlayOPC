@@ -100,23 +100,22 @@
 - (AVCaptureVideoOrientation)videoOrientation {
 	DEBUG_LOG(@"");
 	
-	UIInterfaceOrientation uiOrientation = self.view.window.windowScene.interfaceOrientation;
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	AVCaptureVideoOrientation avOrientation;
-	switch (uiOrientation) {
-		case AVCaptureVideoOrientationPortrait:
+	switch (orientation) {
+		default:
+		case UIDeviceOrientationPortrait:
 			avOrientation = AVCaptureVideoOrientationPortrait;
 			break;
-		case AVCaptureVideoOrientationLandscapeRight:
+		case UIDeviceOrientationLandscapeLeft:
 			avOrientation = AVCaptureVideoOrientationLandscapeRight;
 			break;
-		case AVCaptureVideoOrientationLandscapeLeft:
+		case UIDeviceOrientationLandscapeRight:
 			avOrientation = AVCaptureVideoOrientationLandscapeLeft;
 			break;
-		case AVCaptureVideoOrientationPortraitUpsideDown:
+		case UIDeviceOrientationPortraitUpsideDown:
 			avOrientation = AVCaptureVideoOrientationPortraitUpsideDown;
 			break;
-		default:
-			avOrientation = AVCaptureVideoOrientationPortrait;
 	}
 	return avOrientation;
 }
@@ -127,9 +126,10 @@
 	// ビデオキャプチャセッションを準備します。
 	self.session = [[AVCaptureSession alloc] init];
 	self.session.sessionPreset = AVCaptureSessionPresetHigh;
-	AVCaptureDevice* device =
-	[AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera
-									   mediaType:AVMediaTypeVideo position: AVCaptureDevicePositionBack];
+	AVCaptureDevice* device = [AVCaptureDevice
+							   defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera
+							   mediaType:AVMediaTypeVideo
+							   position: AVCaptureDevicePositionBack];
 	AVCaptureDeviceInput* deviceInput = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
 	[self.session addInput:deviceInput];
 	AVCaptureVideoDataOutput* output = [[AVCaptureVideoDataOutput alloc] init];
@@ -140,6 +140,16 @@
 	[output setSampleBufferDelegate:self queue:queue];
 	output.alwaysDiscardsLateVideoFrames = YES;
 	[self.session addOutput:output];
+	if ([device lockForConfiguration:nil]) {
+		device.focusMode = AVCaptureFocusModeContinuousAutoFocus;
+		if (device.isSmoothAutoFocusSupported) {
+			device.smoothAutoFocusEnabled = NO;
+		}
+		if ([device isExposureModeSupported:AVCaptureExposureModeContinuousAutoExposure]) {
+			device.exposureMode = AVCaptureExposureModeContinuousAutoExposure;
+		}
+		[device unlockForConfiguration];
+	}
 	
 	// プレビュー表示エリアを準備します。
 	self.previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:self.session];

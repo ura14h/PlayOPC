@@ -42,12 +42,8 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	_localName = nil;
 	_timeout = 5.0;
 	_peripheral = nil;
-	NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.BluetoothConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
-	_queue = dispatch_queue_create([dispatchQueueName UTF8String], NULL);
-	NSDictionary *managerOptions = @{
-		CBCentralManagerOptionShowPowerAlertKey: @YES
-	};
-	_centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options:managerOptions];
+	_queue = nil;
+	_centralManager = nil;
 	_cachedPeripheral = nil;
 	
 	return self;
@@ -72,16 +68,21 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 #if (TARGET_OS_SIMULATOR)
 	return BluetoothConnectionStatusConnected;
 #else
-	if (self.centralManager.state == CBManagerStatePoweredOn) {
-		if (self.peripheral) {
-			if (self.peripheral.state == CBPeripheralStateConnected) {
-				return BluetoothConnectionStatusConnected;
+	if (self.centralManager) {
+		if (self.centralManager.state == CBManagerStatePoweredOn) {
+			if (self.peripheral) {
+				if (self.peripheral.state == CBPeripheralStateConnected) {
+					return BluetoothConnectionStatusConnected;
+				} else {
+					return BluetoothConnectionStatusNotConnected;
+				}
 			} else {
-				return BluetoothConnectionStatusNotConnected;
+				return BluetoothConnectionStatusNotFound;
 			}
-		} else {
-			return BluetoothConnectionStatusNotFound;
 		}
+	} else {
+		// セントラルマネージャを初期化していない場合は便宜上未検索とします。
+		return BluetoothConnectionStatusNotFound;
 	}
 	return BluetoothConnectionStatusUnknown;
 #endif
@@ -99,6 +100,15 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:BluetoothConnectorErrorBusy description:NSLocalizedString(@"$desc:DiscorverPeripheralIsRunnning", @"BluetoothConnector.discoverPeripheral")];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	if ([self reqeustAuthorization] == CBManagerAuthorizationDenied) {
+		// Bluetoothデバイスは利用できません。
+		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.discoverPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;
@@ -131,12 +141,12 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 
 	// ペリフェラルに接続している場合はそれを利用します。
 	self.running = YES;
-	self.peripheral = nil;
-	if (!self.peripheral) {
-		DEBUG_LOG(@"");
+	{
 		NSArray *peripherals = [self.centralManager retrieveConnectedPeripheralsWithServices:self.services];
 		if (peripherals.count > 0) {
 			self.peripheral = [peripherals firstObject];
+		} else {
+			self.peripheral = nil;
 		}
 	}
 	// ペリフェラルをキャッシュしている場合は該当するか確認します。
@@ -186,6 +196,15 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:BluetoothConnectorErrorBusy description:NSLocalizedString(@"$desc:ConnectPeripheralIsRunnning", @"BluetoothConnector.connectPeripheral")];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	if ([self reqeustAuthorization] == CBManagerAuthorizationDenied) {
+		// Bluetoothデバイスは利用できません。
+		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.connectPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;
@@ -326,6 +345,41 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 
 #pragma mark -
 
+/// セントラルマネージャを準備します。
+- (CBManagerAuthorization)reqeustAuthorization {
+	DEBUG_LOG(@"");
+	
+	// Bluetoothデバイスが利用不可なら即答します。
+	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
+		return [CBCentralManager authorization];
+	}
+	if (!self.centralManager) {
+		NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.BluetoothConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
+		_queue = dispatch_queue_create([dispatchQueueName UTF8String], NULL);
+		NSDictionary *managerOptions = @{
+			CBCentralManagerOptionShowPowerAlertKey: @YES
+		};
+		self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options:managerOptions];
+	}
+	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
+	while ([CBCentralManager authorization] == CBManagerAuthorizationNotDetermined) {
+		[NSThread sleepForTimeInterval:0.05];
+	}
+
+	// ユーザーの選択した結果を返します。
+	DEBUG_LOG(@"authorization=%ld", [CBCentralManager authorization]);
+	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
+		self.centralManager = nil;
+		self.queue = nil;
+	}
+	return [CBCentralManager authorization];
+}
+
+// セントラルマネージャが電源オンしているか否かを取得します。
+- (BOOL)managerIsPoweredOn {
+	return (self.centralManager.state == CBManagerStatePoweredOn);
+}
+
 /// セントラルマネージャの状態が変わった時に呼び出されます。
 - (void)centralManagerDidUpdateState:(CBCentralManager *)central {
 	DEBUG_LOG(@"central.state=%ld", (long)central.state);
@@ -382,11 +436,6 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	};
 	NSError *error = [[NSError alloc] initWithDomain:BluetoothConnectorErrorDomain code:code userInfo:userInfo];
 	return error;
-}
-
-// セントラルマネージャが電源オンしているか否かを取得します。
-- (BOOL)managerIsPoweredOn {
-	return (self.centralManager.state == CBManagerStatePoweredOn);
 }
 
 @end

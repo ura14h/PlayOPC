@@ -22,7 +22,7 @@
 #import "UITableViewController+Cell.h"
 #import "UIImageView+Animation.h"
 
-@interface ConnectionViewController () <OLYCameraConnectionDelegate, CLLocationManagerDelegate>
+@interface ConnectionViewController () <OLYCameraConnectionDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableViewCell *showBluetoothSettingCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWifiSettingCell;
@@ -42,10 +42,6 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *showAcknowledgementCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showReferenceCell;
 
-@property (assign, nonatomic) BOOL startingActivity; ///< 画面を表示して活動を開始しているか否か
-@property (assign, nonatomic) BOOL pausingActivity; ///< 画面を表示して活動を一時停止ているか否か
-// ... システムの使用許可ダイアログがポップアップすると勝手にapplicationWillResignActiveが発生してしまうのをガードするフラグ
-@property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報へアクセスする権限があるか調べるための位置情報マネージャ
 @property (strong, nonatomic) BluetoothConnector *bluetoothConnector; ///< Bluetooth接続の監視
 @property (strong, nonatomic) WifiConnector *wifiConnector; ///< Wi-Fi接続の監視
 @property (strong, nonatomic) NSIndexPath *visibleWhenConnected; ///< アプリ接続が完了した後のスクロール位置
@@ -63,13 +59,6 @@
 - (void)viewDidLoad {
 	DEBUG_LOG(@"");
 	[super viewDidLoad];
-	
-	// ビューコントローラーの活動状態を初期化します。
-	self.startingActivity = NO;
-	
-	// 現在位置利用の権限確認を準備します。
-	self.locationManager = [[CLLocationManager alloc] init];
-	self.locationManager.delegate = self;
 	
 	// アプリケーションの実行状態を監視開始します。
 	NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
@@ -149,9 +138,6 @@
 	[notificationCenter removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
 	[notificationCenter removeObserver:self name:UIApplicationWillEnterForegroundNotification object:nil];
 	
-	_locationManager.delegate = nil;
-	_locationManager = nil;
-	
 	_visibleWhenConnected = nil;
 	_visibleWhenDisconnected = nil;
 	_visibleWhenSleeped = nil;
@@ -165,60 +151,36 @@
 	[self.navigationController setToolbarHidden:YES animated:animated];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-	DEBUG_LOG(@"");
-	[super viewDidAppear:animated];
-	
-	if (!self.startingActivity) {
-		// MARK: iOS9では初回の画面表示の際にapplicationDidBecomeActiveが呼び出されないのでここでフォローします。
-		NSOperatingSystemVersion iOS9 = { 9, 0, 0 };
-		if ([[NSProcessInfo processInfo] isOperatingSystemAtLeastVersion:iOS9]) {
-			DEBUG_LOG(@"The application is running on iOS9!");
-			[self applicationDidBecomeActive:nil];
-		}
-		self.startingActivity = YES;
-	}
-}
-
 /// アプリケーションがアクティブになる時に呼び出されます。
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-	
-	// アクティビティが一時停止中は呼び出しを無視します。
-	if (self.pausingActivity) {
-		DEBUG_LOG(@"Ignored this call.");
-		return;
-	}
-	
-	// BluetoothとWi-Fiの接続状態を監視開始します。
-	self.bluetoothConnector.peripheral = nil;
-	AppSetting *setting = GetAppSetting();
-	self.wifiConnector.SSID = setting.wifiSSID;
-	self.wifiConnector.passphrase = setting.wifiPassphrase;
-	[self.wifiConnector startMonitoring];
 	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
 	[self updateShowWifiSettingCell];
 	[self updateCameraConnectionCells];
 	[self updateCameraOperationCells];
-	
-	// 写真アルバム利用の権限があるか確認します。
-	[self verifyPhotoAlbumAuthorization];
-
-	// 現在位置利用の権限があるかを確認します。
-	[self verifyLocationAuthorization];
 }
 
 /// アプリケーションが非アクティブになる時に呼び出されます。
 - (void)applicationWillResignActive:(NSNotification *)notification {
 	DEBUG_LOG(@"");
+}
+
+/// アプリケーションがフォアグラウンドに入る時に呼び出されます。
+- (void)applicationWillEnterForeground:(NSNotification *)notification {
+	DEBUG_LOG(@"");
 	
-	// アクティビティが一時停止中は呼び出しを無視します。
-	if (self.pausingActivity) {
-		DEBUG_LOG(@"Ignored this call.");
-		return;
-	}
+	// Wi-Fiの接続状態を監視開始します。
+	AppSetting *setting = GetAppSetting();
+	self.wifiConnector.SSID = setting.wifiSSID;
+	self.wifiConnector.passphrase = setting.wifiPassphrase;
+	[self.wifiConnector startMonitoring];
+}
+
+/// アプリケーションがバックグラウンドに入る時に呼び出されます。
+- (void)applicationDidEnterBackground:(NSNotification *)notification {
+	DEBUG_LOG(@"");
 	
 	// 強制的に、カメラとのアプリ接続を解除します。
 	AppCamera *camera = GetAppCamera();
@@ -244,20 +206,6 @@
 	
 	// カメラ操作の子画面を表示している場合は、この画面に戻します。
 	[self backToConnectionView:NO];
-}
-
-/// アプリケーションがバックグラウンドに入る時に呼び出されます。
-- (void)applicationDidEnterBackground:(NSNotification *)notification {
-	DEBUG_LOG(@"");
-	
-	// TODO: このタイミングはカメラ接続を一時停止するために研究の余地があります。
-}
-
-/// アプリケーションがフォアグラウンドに入る時に呼び出されます。
-- (void)applicationWillEnterForeground:(NSNotification *)notification {
-	DEBUG_LOG(@"");
-	
-	// TODO: このタイミングはカメラ接続を復旧するために研究の余地があります。
 }
 
 #pragma mark -
@@ -299,66 +247,68 @@
 	}
 }
 
-/// 写真アルバムの利用権限があるかを確認します。
-- (void)verifyPhotoAlbumAuthorization {
-	DEBUG_LOG(@"");
-	
-	switch ([PHPhotoLibrary authorizationStatus]) {
-		case PHAuthorizationStatusNotDetermined:
-			DEBUG_LOG(@"Using assets library isn't determind.");
-			[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-				DEBUG_LOG(@"");
-			}];
-			break;
-		case PHAuthorizationStatusAuthorized:
-			DEBUG_LOG(@"Using assets library is already authorized.");
-			break;
-		case PHAuthorizationStatusDenied:
-		case PHAuthorizationStatusRestricted:
-		case PHAuthorizationStatusLimited:
-			DEBUG_LOG(@"Using assets library is restricted.");
-			break;
-	}
-}
-
-/// 現在位置利用の権限があるかを確認します。
-- (void)verifyLocationAuthorization {
-	DEBUG_LOG(@"");
-	
-	switch (self.locationManager.authorizationStatus) {
-		case kCLAuthorizationStatusNotDetermined:
-			DEBUG_LOG(@"Using location service isn't determind.");
-			[self.locationManager requestWhenInUseAuthorization];
-			break;
-		case kCLAuthorizationStatusAuthorizedAlways:
-		case kCLAuthorizationStatusAuthorizedWhenInUse:
-			DEBUG_LOG(@"Using location service is already authorized.");
-			break;
-		case kCLAuthorizationStatusDenied:
-		case kCLAuthorizationStatusRestricted:
-			DEBUG_LOG(@"Using location service is restricted.");
-			break;
-	}
-}
-
-/// 現在位置利用の権限が変化した時に呼び出されます。
-- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
-	DEBUG_LOG(@"");
-	
-	switch (self.locationManager.authorizationStatus) {
-		case kCLAuthorizationStatusNotDetermined:
-			DEBUG_LOG(@"Using location service isn't determind.");
-			break;
-		case kCLAuthorizationStatusAuthorizedAlways:
-		case kCLAuthorizationStatusAuthorizedWhenInUse:
-			DEBUG_LOG(@"Using location service is already authorized.");
-			break;
-		case kCLAuthorizationStatusDenied:
-		case kCLAuthorizationStatusRestricted:
-			DEBUG_LOG(@"Using location service is restricted.");
-			break;
-	}
-}
+// TODO: 以下は背面ステッカー読み取りのカメラと同じように、ここではなくそれぞれ必要になったシチュエーションで実行する
+//
+///// 写真アルバムの利用権限があるかを確認します。
+//- (void)verifyPhotoAlbumAuthorization {
+//	DEBUG_LOG(@"");
+//
+//	switch ([PHPhotoLibrary authorizationStatus]) {
+//		case PHAuthorizationStatusNotDetermined:
+//			DEBUG_LOG(@"Using assets library isn't determind.");
+//			[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+//				DEBUG_LOG(@"");
+//			}];
+//			break;
+//		case PHAuthorizationStatusAuthorized:
+//			DEBUG_LOG(@"Using assets library is already authorized.");
+//			break;
+//		case PHAuthorizationStatusDenied:
+//		case PHAuthorizationStatusRestricted:
+//		case PHAuthorizationStatusLimited:
+//			DEBUG_LOG(@"Using assets library is restricted.");
+//			break;
+//	}
+//}
+//
+///// 現在位置利用の権限があるかを確認します。
+//- (void)verifyLocationAuthorization {
+//	DEBUG_LOG(@"");
+//
+//	switch (self.locationManager.authorizationStatus) {
+//		case kCLAuthorizationStatusNotDetermined:
+//			DEBUG_LOG(@"Using location service isn't determind.");
+//			[self.locationManager requestWhenInUseAuthorization];
+//			break;
+//		case kCLAuthorizationStatusAuthorizedAlways:
+//		case kCLAuthorizationStatusAuthorizedWhenInUse:
+//			DEBUG_LOG(@"Using location service is already authorized.");
+//			break;
+//		case kCLAuthorizationStatusDenied:
+//		case kCLAuthorizationStatusRestricted:
+//			DEBUG_LOG(@"Using location service is restricted.");
+//			break;
+//	}
+//}
+//
+///// 現在位置利用の権限が変化した時に呼び出されます。
+//- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+//	DEBUG_LOG(@"");
+//
+//	switch (self.locationManager.authorizationStatus) {
+//		case kCLAuthorizationStatusNotDetermined:
+//			DEBUG_LOG(@"Using location service isn't determind.");
+//			break;
+//		case kCLAuthorizationStatusAuthorizedAlways:
+//		case kCLAuthorizationStatusAuthorizedWhenInUse:
+//			DEBUG_LOG(@"Using location service is already authorized.");
+//			break;
+//		case kCLAuthorizationStatusDenied:
+//		case kCLAuthorizationStatusRestricted:
+//			DEBUG_LOG(@"Using location service is restricted.");
+//			break;
+//	}
+//}
 
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -544,9 +494,7 @@
 		// カメラを探します。
 		NSError *error = nil;
 		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
-			self.pausingActivity = YES;
 			BOOL discovered = [weakSelf.bluetoothConnector discoverPeripheral:&error];
-			self.pausingActivity = NO;
 			if (!discovered) {
 				// カメラが見つかりませんでした。
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -556,9 +504,7 @@
 		
 		// カメラにBluetooth接続します。
 		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
-			self.pausingActivity = YES;
 			BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
-			self.pausingActivity = NO;
 			if (!connected) {
 				// カメラにBluetooth接続できませんでした。
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -572,9 +518,7 @@
 		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 		camera.bluetoothPassword = bluetoothPasscode;
 		camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
-		self.pausingActivity = YES;
 		BOOL opened = [camera connect:OLYCameraConnectionTypeBluetoothLE error:&error];
-		self.pausingActivity = NO;
 		if (!opened) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -685,9 +629,7 @@
 			// カメラを探します。
 			NSError *error = nil;
 			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
-				weakSelf.pausingActivity = YES;
 				BOOL discovered = [weakSelf.bluetoothConnector discoverPeripheral:&error];
-				weakSelf.pausingActivity = NO;
 				if (!discovered) {
 					// カメラが見つかりませんでした。
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
@@ -697,9 +639,7 @@
 			
 			// カメラにBluetooth接続します。
 			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
-				weakSelf.pausingActivity = YES;
 				BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
-				weakSelf.pausingActivity = NO;
 				if (!connected) {
 					// カメラにBluetooth接続できませんでした。
 					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
@@ -754,9 +694,7 @@
 			[weakSelf reportBlockConnectingWifi:progressView];
 			weakSelf.wifiConnector.SSID = wifiSSID;
 			weakSelf.wifiConnector.passphrase = wifiPassphrase;
-			weakSelf.pausingActivity = YES;
 			BOOL connected = [weakSelf.wifiConnector connect:&error];
-			weakSelf.pausingActivity = NO;
 			if (!connected) {
 				if (error == nil) {
 					// WiFi接続の試みをキャンセルしました。
@@ -774,9 +712,7 @@
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
 			// 作者の環境ではiPhone 6S (iOS 13.3) だと30秒程度かかっています。
-			weakSelf.pausingActivity = YES;
 			BOOL opened = [weakSelf.wifiConnector waitForConnected:40.0];
-			weakSelf.pausingActivity = NO;
 			if (!opened) {
 				// Connecting... を元に戻します。
 				[weakSelf executeAsynchronousBlockOnMainThread:^{

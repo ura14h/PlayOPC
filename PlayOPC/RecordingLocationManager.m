@@ -72,6 +72,37 @@
 
 #pragma mark -
 
+- (CLAuthorizationStatus)reqeustAuthorization {
+	DEBUG_LOG(@"");
+
+	// 現在位置の取得を準備を開始します。
+	if (!self.locationManager) {
+		self.locationManager = [[CLLocationManager alloc] init];
+		self.locationManager.delegate = self;
+		self.locationManager.desiredAccuracy = self.desiredAccuracy;
+		self.locationManager.distanceFilter = self.distanceFilter;
+		self.location = nil;
+		self.locationError = nil;
+	}
+
+	// 位置情報が利用不可なら即答します。
+	if (self.locationManager.authorizationStatus == kCLAuthorizationStatusDenied) {
+		return kCLAuthorizationStatusDenied;
+	}
+
+	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
+	if (self.locationManager.authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+		[self.locationManager requestWhenInUseAuthorization];
+	}
+	while (self.locationManager.authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+		[NSThread sleepForTimeInterval:0.05];
+	}
+
+	// ユーザーの選択した結果を返します。
+	DEBUG_LOG(@"authorization=%ld", (long)self.locationManager.authorizationStatus);
+	return self.locationManager.authorizationStatus;
+}
+
 - (CLLocation *)currentLocation:(NSTimeInterval)timeout error:(NSError **)error {
 	DEBUG_LOG(@"");
 	
@@ -100,24 +131,6 @@
 	}
 	self.running = YES;
 	
-	// 現在位置の取得を準備を開始します。
-	// MARK: 位置情報マネージャのセットアップはメインスレッドで実行しないとデリゲートが呼び出されないらしいです。
-	__weak RecordingLocationManager *weakSelf = self;
-	dispatch_sync(dispatch_get_main_queue(), ^{
-		DEBUG_DETAIL_LOG(@"");
-
-		// 現在位置の取得を準備します。
-		weakSelf.locationManager = [[CLLocationManager alloc] init];
-		weakSelf.locationManager.delegate = weakSelf;
-		weakSelf.locationManager.desiredAccuracy = weakSelf.desiredAccuracy;
-		weakSelf.locationManager.distanceFilter = weakSelf.distanceFilter;
-		weakSelf.location = nil;
-		weakSelf.locationError = nil;
-
-		// 現在位置の取得を開始します。
-		[weakSelf.locationManager startUpdatingLocation];
-	});
-
 	// 現在位置利用の権限があるかを確認します。
 	CLAuthorizationStatus authorizationStatus = self.locationManager.authorizationStatus;
 	if (authorizationStatus == kCLAuthorizationStatusNotDetermined ||
@@ -165,6 +178,25 @@
 	DEBUG_LOG(@"location=%@", location.description);
 	self.running = NO;
 	return location;
+}
+
+/// 現在位置利用の権限が変化した時に呼び出されます。
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+	DEBUG_LOG(@"");
+
+	switch (self.locationManager.authorizationStatus) {
+		case kCLAuthorizationStatusNotDetermined:
+			DEBUG_LOG(@"Using location service isn't determind.");
+			break;
+		case kCLAuthorizationStatusAuthorizedAlways:
+		case kCLAuthorizationStatusAuthorizedWhenInUse:
+			DEBUG_LOG(@"Using location service is already authorized.");
+			break;
+		case kCLAuthorizationStatusDenied:
+		case kCLAuthorizationStatusRestricted:
+			DEBUG_LOG(@"Using location service is restricted.");
+			break;
+	}
 }
 
 @end

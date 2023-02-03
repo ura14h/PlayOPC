@@ -331,20 +331,23 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			}
 		}
 		
-		// 現在位置を取得します。
+		// 位置情報が利用できるか確認します。
 		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
-		CLLocation *location = [locationManager currentLocation:10.0 error:&error];
-		if (location) {
-			// カメラに位置情報を設定します。
-			if (![camera setGeolocationWithCoreLocation:location error:&error]) {
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-			}
-		} else {
-			// カメラに設定されている位置情報をクリアします。
-			if (![camera clearGeolocation:&error]) {
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
+		if ([locationManager reqeustAuthorization] != kCLAuthorizationStatusDenied) {
+			// 現在位置を取得します。
+			CLLocation *location = [locationManager currentLocation:10.0 error:&error];
+			if (location) {
+				// カメラに位置情報を設定します。
+				if (![camera setGeolocationWithCoreLocation:location error:&error]) {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
+			} else {
+				// カメラに設定されている位置情報をクリアします。
+				if (![camera clearGeolocation:&error]) {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
 			}
 		}
 		

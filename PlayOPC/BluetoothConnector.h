@@ -47,6 +47,9 @@ extern NSString *const BluetoothConnectorErrorDomain; ///< Bluetooth接続状態
 /// 現在の接続状態を取得します。
 - (BluetoothConnectionStatus)connectionStatus;
 
+/// Bluetoothの使用許可を要求します。
+- (CBManagerAuthorization)reqeustAuthorization;
+
 /// ペリフェラルのキャッシュをクリアします。
 - (void)clearPeripheralCache;
 

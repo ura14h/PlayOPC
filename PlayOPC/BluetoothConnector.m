@@ -88,6 +88,38 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 #endif
 }
 
+/// セントラルマネージャを準備します。
+- (CBManagerAuthorization)reqeustAuthorization {
+	DEBUG_LOG(@"");
+	
+	// Bluetoothデバイスが利用不可なら即答します。
+	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
+		self.centralManager = nil;
+		self.queue = nil;
+		return [CBCentralManager authorization];
+	}
+	if (!self.centralManager) {
+		NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.BluetoothConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
+		_queue = dispatch_queue_create([dispatchQueueName UTF8String], NULL);
+		NSDictionary *managerOptions = @{
+			CBCentralManagerOptionShowPowerAlertKey: @YES
+		};
+		self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options:managerOptions];
+	}
+	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
+	while ([CBCentralManager authorization] == CBManagerAuthorizationNotDetermined) {
+		[NSThread sleepForTimeInterval:0.05];
+	}
+
+	// ユーザーの選択した結果を返します。
+	DEBUG_LOG(@"authorization=%ld", [CBCentralManager authorization]);
+	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
+		self.centralManager = nil;
+		self.queue = nil;
+	}
+	return [CBCentralManager authorization];
+}
+
 - (void)clearPeripheralCache {
 	DEBUG_LOG(@"");
 
@@ -344,36 +376,6 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 }
 
 #pragma mark -
-
-/// セントラルマネージャを準備します。
-- (CBManagerAuthorization)reqeustAuthorization {
-	DEBUG_LOG(@"");
-	
-	// Bluetoothデバイスが利用不可なら即答します。
-	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
-		return [CBCentralManager authorization];
-	}
-	if (!self.centralManager) {
-		NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.BluetoothConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
-		_queue = dispatch_queue_create([dispatchQueueName UTF8String], NULL);
-		NSDictionary *managerOptions = @{
-			CBCentralManagerOptionShowPowerAlertKey: @YES
-		};
-		self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options:managerOptions];
-	}
-	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
-	while ([CBCentralManager authorization] == CBManagerAuthorizationNotDetermined) {
-		[NSThread sleepForTimeInterval:0.05];
-	}
-
-	// ユーザーの選択した結果を返します。
-	DEBUG_LOG(@"authorization=%ld", [CBCentralManager authorization]);
-	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
-		self.centralManager = nil;
-		self.queue = nil;
-	}
-	return [CBCentralManager authorization];
-}
 
 // セントラルマネージャが電源オンしているか否かを取得します。
 - (BOOL)managerIsPoweredOn {

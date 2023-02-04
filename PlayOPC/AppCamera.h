@@ -9,7 +9,10 @@
 //  http://opensource.org/licenses/mit-license.php
 //
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
 #import <OLYCameraKit/OLYCamera.h>
+#pragma clang diagnostic pop
 #import <CoreLocation/CoreLocation.h>
 
 /// フォーカスモード

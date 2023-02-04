@@ -414,9 +414,6 @@
 /* BluetoothConnector.connectPeripheral */
 "$desc:BluetoothPeripheralConnected" = "Bluetooth device is already connected.";
 
-/* BluetoothConnector.disconnectPeripheral */
-"$desc:BluetoothPeripheralDisconnected" = "Bluetooth device is already disconnected.";
-
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetooth device is already found.";
 
@@ -440,7 +437,6 @@
 "$desc:CanNotSetCameraPropertyInTaking" = "Changing this camera property is not permitted during capturing image.";
 
 /* BluetoothConnector.connectPeripheral
-   BluetoothConnector.disconnectPeripheral
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth function is not available. Please enable it at Settings.";
 
@@ -543,8 +539,7 @@
 /* WifiConnector.startMonitoring */
 "$desc:MonitoringIsRunnning" = "Monitoring a status of Wi-Fi connection is already running.";
 
-/* BluetoothConnector.connectPeripheral
-   BluetoothConnector.disconnectPeripheral */
+/* BluetoothConnector.connectPeripheral */
 "$desc:NoBluetoothPeripherals" = "No Bluetooth devices.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */

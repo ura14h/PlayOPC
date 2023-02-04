@@ -414,9 +414,6 @@
 /* BluetoothConnector.connectPeripheral */
 "$desc:BluetoothPeripheralConnected" = "Bluetoothデバイスにすでに接続しています。";
 
-/* BluetoothConnector.disconnectPeripheral */
-"$desc:BluetoothPeripheralDisconnected" = "Bluetoothデバイスはすでに切断しています。";
-
 /* BluetoothConnector.discoverPeripheral */
 "$desc:BluetoothPeripheralFound" = "Bluetoothデバイスはすでに見つかっています。";
 
@@ -440,7 +437,6 @@
 "$desc:CanNotSetCameraPropertyInTaking" = "撮影動作中はカメラプロパティの変更は許可されていません。";
 
 /* BluetoothConnector.connectPeripheral
-   BluetoothConnector.disconnectPeripheral
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth機能は利用できません。「設定」で有効にしてください。";
 
@@ -543,8 +539,7 @@
 /* WifiConnector.startMonitoring */
 "$desc:MonitoringIsRunnning" = "Wi-Fi接続の状態監視は実行中です。";
 
-/* BluetoothConnector.connectPeripheral
-   BluetoothConnector.disconnectPeripheral */
+/* BluetoothConnector.connectPeripheral */
 "$desc:NoBluetoothPeripherals" = "Bluetoothデバイスがありません。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */

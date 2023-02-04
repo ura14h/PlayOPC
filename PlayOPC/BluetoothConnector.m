@@ -321,42 +321,23 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 		return NO;
 	}
-	if (![self managerIsPoweredOn]) {
-		// Bluetoothデバイスは利用できません。
-		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.disconnectPeripheral")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		return NO;
-	}
-	if (!self.peripheral) {
-		// ペリフェラルが用意されていません。
-		NSError *internalError = [self createError:BluetoothConnectorErrorNoPeripheral description:NSLocalizedString(@"$desc:NoBluetoothPeripherals", @"BluetoothConnector.disconnectPeripheral")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		return NO;
-	}
-	if (self.peripheral && self.peripheral.name == self.localName && self.peripheral.state == CBPeripheralStateDisconnected) {
-		// すでに切断してあるんじゃないですか。
-		NSError *internalError = [self createError:BluetoothConnectorErrorDisconnected description:NSLocalizedString(@"$desc:BluetoothPeripheralDisconnected", @"BluetoothConnector.disconnectPeripheral")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		// エラーは無視して続行します。
-	}
 
 	// ペリフェラルの接続を解除します。
 	self.running = YES;
-	[self.centralManager cancelPeripheralConnection:self.peripheral];
-	NSDate *scanStartTime = [NSDate date];
-	while (self.peripheral.state != CBPeripheralStateDisconnected && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
-		[NSThread sleepForTimeInterval:0.05];
+	BOOL disconnected = YES;
+	if (self.peripheral &&
+		self.peripheral.name == self.localName &&
+		self.peripheral.state == CBPeripheralStateConnected &&
+		[self managerIsPoweredOn]) {
+		[self.centralManager cancelPeripheralConnection:self.peripheral];
+		NSDate *scanStartTime = [NSDate date];
+		while (self.peripheral.state != CBPeripheralStateDisconnected && [[NSDate date] timeIntervalSinceDate:scanStartTime] < self.timeout) {
+			[NSThread sleepForTimeInterval:0.05];
+		}
+		disconnected = self.peripheral.state == CBPeripheralStateDisconnected;
+	} else {
+		DEBUG_LOG(@"");
 	}
-	BOOL disconnected = self.peripheral.state == CBPeripheralStateDisconnected;
 	self.peripheral = nil;
 	self.running = NO;
 	

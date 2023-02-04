@@ -258,6 +258,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	nw_path_status_t currentStatus = nw_path_get_status(path);
 	BOOL currentCameraResponded = NO;
 	
+	DEBUG_LOG(@"currentStatus=%ld", (long)currentStatus);
 	if (currentStatus == nw_path_status_satisfied) {
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 		__block NEHotspotNetwork *network;

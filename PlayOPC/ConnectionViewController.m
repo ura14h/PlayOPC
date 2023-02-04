@@ -149,10 +149,45 @@
 	[self.navigationController setToolbarHidden:YES animated:animated];
 }
 
+- (void)viewDidAppear:(BOOL)animated {
+	DEBUG_LOG(@"");
+	[super viewDidAppear:animated];
+	
+	// Wi-Fiの接続状態を監視開始します。
+	AppSetting *setting = GetAppSetting();
+	self.wifiConnector.SSID = setting.wifiSSID;
+	self.wifiConnector.passphrase = setting.wifiPassphrase;
+	[self.wifiConnector startMonitoring];
+
+	// 画面表示を更新します。
+	[self updateShowBluetoothSettingCell];
+	[self updateShowWifiSettingCell];
+	[self updateCameraConnectionCells];
+	[self updateCameraOperationCells];
+}
+
+/// アプリケーションがフォアグラウンドに入る時に呼び出されます。
+- (void)applicationWillEnterForeground:(NSNotification *)notification {
+	DEBUG_LOG(@"");
+	
+	// 監視のハンドラ登録をviewDidLoadでしているのでアプリ起動直後の初回は来ない...
+	// 何もしません。
+}
+
 /// アプリケーションがアクティブになる時に呼び出されます。
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-	
+
+	// 監視のハンドラ登録をviewDidLoadでしているのでアプリ起動直後の初回は来ない...
+	// アプリがユーザ対話を開始する時に呼び出されるほかに、
+	// OSの許可ダイアログが表示されて消えるとこれが呼び出されてしまう...
+
+	// Wi-Fiの接続状態を監視開始します。
+	AppSetting *setting = GetAppSetting();
+	self.wifiConnector.SSID = setting.wifiSSID;
+	self.wifiConnector.passphrase = setting.wifiPassphrase;
+	[self.wifiConnector startMonitoring];
+
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
 	[self updateShowWifiSettingCell];
@@ -163,17 +198,10 @@
 /// アプリケーションが非アクティブになる時に呼び出されます。
 - (void)applicationWillResignActive:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-}
-
-/// アプリケーションがフォアグラウンドに入る時に呼び出されます。
-- (void)applicationWillEnterForeground:(NSNotification *)notification {
-	DEBUG_LOG(@"");
 	
-	// Wi-Fiの接続状態を監視開始します。
-	AppSetting *setting = GetAppSetting();
-	self.wifiConnector.SSID = setting.wifiSSID;
-	self.wifiConnector.passphrase = setting.wifiPassphrase;
-	[self.wifiConnector startMonitoring];
+	// アプリがユーザ対話を終了する時に呼び出されるほかに、
+	// OSの許可ダイアログが表示されるとこれが呼び出されてしまう...
+	// 何もしません。
 }
 
 /// アプリケーションがバックグラウンドに入る時に呼び出されます。
@@ -595,7 +623,7 @@
 			DEBUG_LOG(@"");
 
 			// カメラを探します。
-			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
+			if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
 				BOOL discovered = [weakSelf.bluetoothConnector discoverPeripheral:&error];
 				if (!discovered) {
 					// カメラが見つかりませんでした。
@@ -606,7 +634,7 @@
 			DEBUG_LOG(@"");
 
 			// カメラにBluetooth接続します。
-			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
+			if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
 				BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
 				if (!connected) {
 					// カメラにBluetooth接続できませんでした。

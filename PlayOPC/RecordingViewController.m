@@ -14,6 +14,7 @@
 #import "AppSetting.h"
 #import "AppCamera.h"
 #import "RecordingLocationManager.h"
+#import "RecordingPhotoAlbumManager.h"
 #import "LiveImageView.h"
 #import "LiveImageOverallView.h"
 #import "RecImageButton.h"
@@ -28,7 +29,6 @@
 #import "VPanelViewController.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
-#import "PHPhotoLibrary+CustomAlbum.h"
 
 /// コントロールパネルの表示状態
 typedef enum : NSInteger {
@@ -337,7 +337,8 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		
 		// 現在位置を取得します。
 		CLLocation *location = nil;
-		if (authorization != kCLAuthorizationStatusDenied) {
+		if (authorization != kCLAuthorizationStatusDenied &&
+			authorization != kCLAuthorizationStatusRestricted) {
 			location = [locationManager currentLocation:10.0 error:&error];
 		}
 		if (location) {
@@ -736,10 +737,25 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)camera:(OLYCamera *)camera didReceiveCapturedImage:(NSData *)data {
 	DEBUG_LOG(@"data.length=%ld", (long)data.length);
 
-	// ダウンロードした画像を保存します。
+	// 写真アルバムが利用できるか確認します。
 	__weak RecordingViewController *weakSelf = self;
-	PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
-	[library writeImageDataToSavedPhotosAlbum:data metadata:nil groupName:PhotosAlbumGroupName completionBlock:^(BOOL success, NSError *error) {
+	RecordingPhotoAlbumManager *manager = [[RecordingPhotoAlbumManager alloc] init];
+	PHAuthorizationStatus authorization = [manager reqeustAuthorization];
+	if (authorization == PHAuthorizationStatusDenied ||
+		authorization == PHAuthorizationStatusRestricted) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// 進捗表示用のビューを消去します。
+			[weakSelf hideProgress:YES];
+
+			// 撮影画像の保存は拒否されました。
+			[weakSelf showAlertMessage:NSLocalizedString(@"$title:CouldNotUsePhotoAlbum", @"RecordingViewController.didReceiveCapturedImage") title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
+		}];
+		return;
+	}
+
+	// ダウンロードした画像を保存します。
+	[manager writeImageDataToSavedPhotosAlbum:data metadata:nil groupName:PhotosAlbumGroupName completionBlock:^(BOOL success, NSError *error) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			// 進捗表示用のビューを消去します。

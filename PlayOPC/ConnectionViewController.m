@@ -10,8 +10,6 @@
 //
 
 #import "ConnectionViewController.h"
-#import <Photos/Photos.h>
-#import <CoreLocation/CoreLocation.h>
 #import "AppDelegate.h"
 #import "AppSetting.h"
 #import "AppCamera.h"
@@ -246,31 +244,6 @@
 		// 何もしません。
 	}
 }
-
-// TODO: 以下は背面ステッカー読み取りのカメラと同じように、ここではなくそれぞれ必要になったシチュエーションで実行する
-//
-///// 写真アルバムの利用権限があるかを確認します。
-//- (void)verifyPhotoAlbumAuthorization {
-//	DEBUG_LOG(@"");
-//
-//	switch ([PHPhotoLibrary authorizationStatus]) {
-//		case PHAuthorizationStatusNotDetermined:
-//			DEBUG_LOG(@"Using assets library isn't determind.");
-//			[PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
-//				DEBUG_LOG(@"");
-//			}];
-//			break;
-//		case PHAuthorizationStatusAuthorized:
-//			DEBUG_LOG(@"Using assets library is already authorized.");
-//			break;
-//		case PHAuthorizationStatusDenied:
-//		case PHAuthorizationStatusRestricted:
-//		case PHAuthorizationStatusLimited:
-//			DEBUG_LOG(@"Using assets library is restricted.");
-//			break;
-//	}
-//}
-//
 
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -964,16 +937,6 @@
 }
 
 #pragma mark -
-
-/// 写真アルバムの利用してよいか問い合わせます。
-- (void)assetsLibraryRequestWhenInUseAuthorization {
-	DEBUG_LOG(@"");
-	
-	PHFetchResult<PHAssetCollection *> *collectionResult = [PHAssetCollection fetchAssetCollectionsWithType:PHAssetCollectionTypeAlbum subtype:PHAssetCollectionSubtypeAny options:nil];
-	for (PHAssetCollection *collection in collectionResult) {
-		DEBUG_LOG(@"group=%@", collection.localizedTitle);
-	}
-}
 
 /// カメラ操作の子画面を表示している場合は、この画面に戻します。
 - (void)backToConnectionView:(BOOL)animated {

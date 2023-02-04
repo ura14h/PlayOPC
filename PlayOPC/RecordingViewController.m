@@ -286,6 +286,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
+		// 位置情報が利用できるか確認します。
+		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
+		CLAuthorizationStatus authorization = [locationManager reqeustAuthorization];
+
 		// カメラを撮影モードに入れる前の準備をします。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
@@ -331,23 +335,22 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			}
 		}
 		
-		// 位置情報が利用できるか確認します。
-		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
-		if ([locationManager reqeustAuthorization] != kCLAuthorizationStatusDenied) {
-			// 現在位置を取得します。
-			CLLocation *location = [locationManager currentLocation:10.0 error:&error];
-			if (location) {
-				// カメラに位置情報を設定します。
-				if (![camera setGeolocationWithCoreLocation:location error:&error]) {
-					// エラーを無視して続行します。
-					DEBUG_LOG(@"An error occurred, but ignores it.");
-				}
-			} else {
-				// カメラに設定されている位置情報をクリアします。
-				if (![camera clearGeolocation:&error]) {
-					// エラーを無視して続行します。
-					DEBUG_LOG(@"An error occurred, but ignores it.");
-				}
+		// 現在位置を取得します。
+		CLLocation *location = nil;
+		if (authorization != kCLAuthorizationStatusDenied) {
+			location = [locationManager currentLocation:10.0 error:&error];
+		}
+		if (location) {
+			// カメラに位置情報を設定します。
+			if (![camera setGeolocationWithCoreLocation:location error:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+		} else {
+			// カメラに設定されている位置情報をクリアします。
+			if (![camera clearGeolocation:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
 		}
 		

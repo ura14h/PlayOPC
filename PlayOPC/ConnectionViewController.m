@@ -198,8 +198,7 @@
 		DEBUG_LOG(@"An error occurred, but ignores it.");
 	}
 	
-	// BluetoothとWi-Fiの接続状態を監視停止します。
-	self.bluetoothConnector.peripheral = nil;
+	// Wi-Fiの接続状態を監視停止します。
 	[self.wifiConnector stopMonitoring];
 	
 	// カメラ操作の子画面を表示している場合は、この画面に戻します。
@@ -418,6 +417,13 @@
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 		return;
 	}
+	if (!bluetoothPasscode || bluetoothPasscode.length == 0) {
+		// Bluetoothデバイスの設定が不完全です。
+		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
+		return;
+	}
+	DEBUG_LOG(@"");
+
 	// カメラへの接続を開始します。
 	__weak ConnectionViewController *weakSelf = self;
 	weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
@@ -431,6 +437,7 @@
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
+		DEBUG_LOG(@"");
 
 		// カメラを探します。
 		NSError *error = nil;
@@ -442,7 +449,8 @@
 				return;
 			}
 		}
-		
+		DEBUG_LOG(@"");
+
 		// カメラにBluetooth接続します。
 		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
 			BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
@@ -452,7 +460,8 @@
 				return;
 			}
 		}
-		
+		DEBUG_LOG(@"");
+
 		// カメラにアプリ接続します。
 		// この応答が返ってくるまでやや時間がかかるようです。作者の環境ではiPhone 4Sだと10秒程度かかっています。
 		AppCamera *camera = GetAppCamera();
@@ -471,10 +480,10 @@
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			weakSelf.bluetoothConnector.peripheral = nil;
 			return;
 		}
-		
+		DEBUG_LOG(@"");
+
 		// スマホの現在時刻をカメラに設定します。
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 		if (![camera changeTime:[NSDate date] error:&error]) {
@@ -482,7 +491,8 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
-		
+		DEBUG_LOG(@"");
+
 		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
@@ -490,7 +500,8 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
-		
+		DEBUG_LOG(@"");
+
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -498,7 +509,8 @@
 			[weakSelf updateCameraOperationCells];
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenConnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 		}];
-		
+		DEBUG_LOG(@"");
+
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
 		DEBUG_LOG(@"");
@@ -521,7 +533,9 @@
 	if (!wifiPassphrase || wifiPassphrase.length == 0) {
 		// Wi-Fiアクセスポイントの設定が不完全です。
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiPassphraseByEmptySetting", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+		return;
 	}
+	DEBUG_LOG(@"");
 
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
 	BOOL demandToWakeUpWithUsingBluetooth = NO;
@@ -545,6 +559,7 @@
 			return;
 		}
 	}
+	DEBUG_LOG(@"demandToWakeUpWithUsingBluetooth=%ld", (long)demandToWakeUpWithUsingBluetooth);
 
 	// Bluetoothデバイスの設定を確認します。
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
@@ -556,6 +571,7 @@
 			return;
 		}
 	}
+	DEBUG_LOG(@"");
 
 	// カメラの電源を投入し接続を開始します。
 	// 作者の環境ではiPhone 4Sだと電源投入から接続確率まで20秒近くかかっています。
@@ -568,12 +584,15 @@
 
 		// カメラに電源投入を試みます。
 		if (demandToWakeUpWithUsingBluetooth) {
+			DEBUG_LOG(@"");
+
 			// Bluetoothデバイスの使用許可を確認します。
 			if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 				// Bluetoothデバイスは使用不可です。
 				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
+			DEBUG_LOG(@"");
 
 			// カメラを探します。
 			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
@@ -584,7 +603,8 @@
 					return;
 				}
 			}
-			
+			DEBUG_LOG(@"");
+
 			// カメラにBluetooth接続します。
 			if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
 				BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
@@ -594,7 +614,8 @@
 					return;
 				}
 			}
-			
+			DEBUG_LOG(@"");
+
 			// カメラの電源を入れます。
 			// MARK: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
@@ -623,7 +644,8 @@
 			}
 			camera.bluetoothPeripheral = nil;
 			camera.bluetoothPassword = nil;
-			
+			DEBUG_LOG(@"");
+
 			// カメラとのBluetooth接続を解除します。
 			// MARK: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
 			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
@@ -631,16 +653,19 @@
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			weakSelf.bluetoothConnector.peripheral = nil;
-			
+			DEBUG_LOG(@"");
+
 			// カメラの電源を入れるのに失敗している場合はここで諦めます。
 			if (!wokenUp) {
 				return;
 			}
+			DEBUG_LOG(@"");
 		}
 
 		// カメラにWi-Fi接続を試みます。
 		{
+			DEBUG_LOG(@"");
+
 			// Wi-Fi接続を試みます。
 			[weakSelf reportBlockConnectingWifi:progressView];
 			weakSelf.wifiConnector.SSID = wifiSSID;
@@ -658,7 +683,8 @@
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 			}];
-			
+			DEBUG_LOG(@"");
+
 			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
@@ -679,7 +705,8 @@
 				}
 				return;
 			}
-			
+			DEBUG_LOG(@"");
+
 			// 電源投入が完了しました。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				progressView.mode = MBProgressHUDModeIndeterminate;
@@ -689,6 +716,8 @@
 		
 		// カメラにアプリ接続します。
 		{
+			DEBUG_LOG(@"");
+
 			AppCamera *camera = GetAppCamera();
 			NSError *error = nil;
 #if (TARGET_OS_SIMULATOR)
@@ -704,7 +733,8 @@
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
-			
+			DEBUG_LOG(@"");
+
 			// スマホの現在時刻をカメラに設定します。
 			// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 			if (![camera changeTime:[NSDate date] error:&error]) {
@@ -712,7 +742,8 @@
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
-			
+			DEBUG_LOG(@"");
+
 			// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 			// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 			if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
@@ -720,7 +751,8 @@
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
-			
+			DEBUG_LOG(@"");
+
 			// 画面表示を更新します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				[weakSelf updateShowWifiSettingCell];
@@ -728,6 +760,7 @@
 				[weakSelf updateCameraOperationCells];
 				[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenConnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 			}];
+			DEBUG_LOG(@"");
 		}
 		
 		// アプリ接続が完了しました。
@@ -769,7 +802,6 @@
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			weakSelf.bluetoothConnector.peripheral = nil;
 		}
 		
 		// カメラとのWiFi接続を解除します。
@@ -834,8 +866,6 @@
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			// カメラとのBluetooth接続を解除します。
-			weakSelf.bluetoothConnector.peripheral = nil;
 		}
 		
 		// カメラとのWiFi接続を解除します。

@@ -16,6 +16,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 
 @interface BluetoothConnector () <CBCentralManagerDelegate>
 
+@property (strong, nonatomic) CBPeripheral *peripheral; ///< ペリフェラル
 @property (assign, nonatomic) BOOL running; ///< 実行中か否か
 @property (strong, nonatomic) dispatch_queue_t queue; ///< Bluetooth処理専用のディスパッチキュー
 @property (strong, nonatomic) CBCentralManager *centralManager;	///< Bluetoothセントラルマネージャ
@@ -356,6 +357,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		[NSThread sleepForTimeInterval:0.05];
 	}
 	BOOL disconnected = self.peripheral.state == CBPeripheralStateDisconnected;
+	self.peripheral = nil;
 	self.running = NO;
 	
 	// ペリフェラルの接続を解除できていたら通知します。
@@ -409,12 +411,14 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 /// ペリフェラルに接続した時に呼び出されます。
 - (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
 	DEBUG_LOG(@"peripheral=%@", peripheral);
+	self.peripheral = peripheral;
 	self.cachedPeripheral = peripheral;
 }
 
 /// ペリフェラルに接続失敗した時に呼び出されます。
 - (void)centralManager:(CBCentralManager *)central didFailToConnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
 	DEBUG_LOG(@"peripheral=%@", peripheral);
+	self.peripheral = nil;
 	self.cachedPeripheral = nil;
 }
 

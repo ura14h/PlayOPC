@@ -388,7 +388,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 - (void)flattenMetadata:(id)element names:(NSMutableArray *)names result:(NSMutableArray *)result {
 	DEBUG_DETAIL_LOG(@"element=%@, names=%@, result=%@", element, names, result);
 	
-	if ([element isKindOfClass:[NSDictionary class]] || [element isKindOfClass:[NSMutableDictionary class]]) {
+	if ([element isKindOfClass:[NSMutableDictionary class]] || [element isKindOfClass:[NSDictionary class]]) {
 		// 要素が辞書の場合は列挙してそれぞれの値を要素として再帰呼び出しします。
 		for (NSString *name in [(NSDictionary *)element allKeys]) {
 			NSMutableArray *elementName;
@@ -410,7 +410,7 @@ static NSString *const ContentMetadataValueKey = @"ContentMetadataValueKey";
 			[elementName addObject:elementNameLastComponent];
 			[self flattenMetadata:element[name] names:elementName result:result];
 		}
-	} else if ([element isKindOfClass:[NSArray class]] || [element isKindOfClass:[NSMutableArray class]]) {
+	} else if ([element isKindOfClass:[NSMutableArray class]] || [element isKindOfClass:[NSArray class]]) {
 		// 要素が配列の場合は1つの文字列に結合します。
 		NSString *title = [names componentsJoinedByString:@"."];
 		__block NSMutableString *value = [[NSMutableString alloc] init];

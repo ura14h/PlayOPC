@@ -749,7 +749,7 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 			[weakSelf hideProgress:YES];
 
 			// 撮影画像の保存は拒否されました。
-			[weakSelf showAlertMessage:NSLocalizedString(@"$title:CouldNotUsePhotoAlbum", @"RecordingViewController.didReceiveCapturedImage") title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUsePhotoAlbum", @"RecordingViewController.didReceiveCapturedImage") title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
 		}];
 		return;
 	}

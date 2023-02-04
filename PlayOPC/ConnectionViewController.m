@@ -271,44 +271,6 @@
 //	}
 //}
 //
-///// 現在位置利用の権限があるかを確認します。
-//- (void)verifyLocationAuthorization {
-//	DEBUG_LOG(@"");
-//
-//	switch (self.locationManager.authorizationStatus) {
-//		case kCLAuthorizationStatusNotDetermined:
-//			DEBUG_LOG(@"Using location service isn't determind.");
-//			[self.locationManager requestWhenInUseAuthorization];
-//			break;
-//		case kCLAuthorizationStatusAuthorizedAlways:
-//		case kCLAuthorizationStatusAuthorizedWhenInUse:
-//			DEBUG_LOG(@"Using location service is already authorized.");
-//			break;
-//		case kCLAuthorizationStatusDenied:
-//		case kCLAuthorizationStatusRestricted:
-//			DEBUG_LOG(@"Using location service is restricted.");
-//			break;
-//	}
-//}
-//
-///// 現在位置利用の権限が変化した時に呼び出されます。
-//- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
-//	DEBUG_LOG(@"");
-//
-//	switch (self.locationManager.authorizationStatus) {
-//		case kCLAuthorizationStatusNotDetermined:
-//			DEBUG_LOG(@"Using location service isn't determind.");
-//			break;
-//		case kCLAuthorizationStatusAuthorizedAlways:
-//		case kCLAuthorizationStatusAuthorizedWhenInUse:
-//			DEBUG_LOG(@"Using location service is already authorized.");
-//			break;
-//		case kCLAuthorizationStatusDenied:
-//		case kCLAuthorizationStatusRestricted:
-//			DEBUG_LOG(@"Using location service is restricted.");
-//			break;
-//	}
-//}
 
 /// テーブルビューのセルが選択された時に呼び出されます。
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

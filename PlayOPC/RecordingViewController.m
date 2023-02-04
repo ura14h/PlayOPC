@@ -14,6 +14,7 @@
 #import "AppSetting.h"
 #import "AppCamera.h"
 #import "RecordingLocationManager.h"
+#import "RecordingPhotoAlbumManager.h"
 #import "LiveImageView.h"
 #import "LiveImageOverallView.h"
 #import "RecImageButton.h"
@@ -28,7 +29,6 @@
 #import "VPanelViewController.h"
 #import "UIViewController+Alert.h"
 #import "UIViewController+Threading.h"
-#import "PHPhotoLibrary+CustomAlbum.h"
 
 /// コントロールパネルの表示状態
 typedef enum : NSInteger {
@@ -286,6 +286,10 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
+		// 位置情報が利用できるか確認します。
+		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
+		CLAuthorizationStatus authorization = [locationManager reqeustAuthorization];
+
 		// カメラを撮影モードに入れる前の準備をします。
 		AppCamera *camera = GetAppCamera();
 		NSError *error = nil;
@@ -332,8 +336,11 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 		}
 		
 		// 現在位置を取得します。
-		RecordingLocationManager *locationManager = [[RecordingLocationManager alloc] init];
-		CLLocation *location = [locationManager currentLocation:10.0 error:&error];
+		CLLocation *location = nil;
+		if (authorization != kCLAuthorizationStatusDenied &&
+			authorization != kCLAuthorizationStatusRestricted) {
+			location = [locationManager currentLocation:10.0 error:&error];
+		}
 		if (location) {
 			// カメラに位置情報を設定します。
 			if (![camera setGeolocationWithCoreLocation:location error:&error]) {
@@ -403,56 +410,58 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
-		AppCamera *camera = GetAppCamera();
-		if (!camera.autoStartLiveView && !camera.liveViewEnabled) {
-			DEBUG_LOG(@"Why the live view is already stopped?");
-		}
-		
-		// ライブビューの表示を終了します。
-		// MARK: ライブビュー自動開始が有効でないなら、明示的にライブビューの表示停止を呼び出さなければなりません。
-		[camera removeLiveViewDelegate:weakSelf];
-		[camera removeRecordingDelegate:weakSelf];
-		[camera removeRecordingSupportsDelegate:weakSelf];
-		[camera removeTakingPictureDelegate:weakSelf];
-		NSError *error = nil;
-		if (![camera stopLiveView:&error]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// カメラ設定のスナップショットを取ります。
-		// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
-		AppSetting *setting = GetAppSetting();
-		if (setting.keepLastCameraSetting) {
-			NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
-			if (snapshot) {
-				NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
-				if (optimizedSnapshot) {
-					// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
-					// (接続画面側の画面更新がとても遅れる)
-					[weakSelf executeAsynchronousBlockOnMainThread:^{
-						setting.latestSnapshotOfCameraSetting = optimizedSnapshot;
-					}];
-				} else {
-					// エラーを無視して続行します。
-					DEBUG_LOG(@"An error occurred, but ignores it.");
-				}
-			} else {
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-			}
-		}
-		
-		// カメラを以前のモードに移行します。
-		if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-
 		// デバイスのスリープを許可します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			GetApp().idleTimerDisabled = NO;
 		}];
+
+		// カメラの撮影モードを終了します。
+		// 撮影モード中にアプリをバックグラウンドに切り替えるとここに入ってきますが、
+		// ライブビュー停止の辺りで時間切れになってカメラ設定のスナップショットを保存するところまで
+		// 到達していません。どうしたらいいのか。
+		{
+			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+			// ライブビューの表示を終了します。
+			// MARK: ライブビュー自動開始が有効でないなら、明示的にライブビューの表示停止を呼び出さなければなりません。
+			AppCamera *camera = GetAppCamera();
+			[camera removeLiveViewDelegate:weakSelf];
+			[camera removeRecordingDelegate:weakSelf];
+			[camera removeRecordingSupportsDelegate:weakSelf];
+			[camera removeTakingPictureDelegate:weakSelf];
+			NSError *error = nil;
+			if (![camera stopLiveView:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+			
+			// カメラ設定のスナップショットを取ります。
+			// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
+			AppSetting *setting = GetAppSetting();
+			if (setting.keepLastCameraSetting) {
+				NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
+				if (snapshot) {
+					NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+					if (optimizedSnapshot) {
+						setting.latestSnapshotOfCameraSetting = optimizedSnapshot;
+					} else {
+						// エラーを無視して続行します。
+						DEBUG_LOG(@"An error occurred, but ignores it.");
+					}
+				} else {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
+			}
+			
+			// カメラを以前のモードに移行します。
+			if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+
+			DEBUG_LOG(@"");
+		};
 
 		// 画面操作の後始末が完了しました。
 		weakSelf = nil;
@@ -730,10 +739,25 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 - (void)camera:(OLYCamera *)camera didReceiveCapturedImage:(NSData *)data {
 	DEBUG_LOG(@"data.length=%ld", (long)data.length);
 
-	// ダウンロードした画像を保存します。
+	// 写真アルバムが利用できるか確認します。
 	__weak RecordingViewController *weakSelf = self;
-	PHPhotoLibrary *library = [PHPhotoLibrary sharedPhotoLibrary];
-	[library writeImageDataToSavedPhotosAlbum:data metadata:nil groupName:PhotosAlbumGroupName completionBlock:^(BOOL success, NSError *error) {
+	RecordingPhotoAlbumManager *manager = [[RecordingPhotoAlbumManager alloc] init];
+	PHAuthorizationStatus authorization = [manager reqeustAuthorization];
+	if (authorization == PHAuthorizationStatusDenied ||
+		authorization == PHAuthorizationStatusRestricted) {
+		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			// 進捗表示用のビューを消去します。
+			[weakSelf hideProgress:YES];
+
+			// 撮影画像の保存は拒否されました。
+			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUsePhotoAlbum", @"RecordingViewController.didReceiveCapturedImage") title:NSLocalizedString(@"$title:CouldNotSaveCapturedImage", @"RecordingViewController.didReceiveCapturedImage")];
+		}];
+		return;
+	}
+
+	// ダウンロードした画像を保存します。
+	[manager writeImageDataToSavedPhotosAlbum:data metadata:nil groupName:PhotosAlbumGroupName completionBlock:^(BOOL success, NSError *error) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			// 進捗表示用のビューを消去します。

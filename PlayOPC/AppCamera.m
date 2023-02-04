@@ -5731,12 +5731,13 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 		url = [NSString stringWithFormat:@"%@%@:%ld%@", urlPrefix, self.host, self.commandPort, urlPostfix];
 	}
 	NSURLSessionConfiguration *config = [NSURLSessionConfiguration defaultSessionConfiguration];
+	config.requestCachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
+	config.waitsForConnectivity = YES;
 	config.timeoutIntervalForRequest = timeout * 0.5;
 	config.timeoutIntervalForResource = timeout * 0.5;
 	NSURLSession *session = [NSURLSession sessionWithConfiguration:config delegate:nil delegateQueue:nil];
 	NSMutableURLRequest *request = [NSMutableURLRequest new];
 	request.URL = [NSURL URLWithString:url];
-	request.cachePolicy = NSURLRequestReloadIgnoringLocalCacheData;
 	request.HTTPMethod = @"GET";
 	[request setValue:self.host forHTTPHeaderField:@"Host"];
 	[request setValue:@"OlympusCameraKit" forHTTPHeaderField:@"User-Agent"];

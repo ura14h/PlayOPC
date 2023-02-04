@@ -444,9 +444,6 @@
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth function is not available. Please enable it at Settings.";
 
-/* RecordingLocationManager.currentLocation */
-"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized" = "Location service is not authorized.";
-
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectingBluetoothPeripheralTimedOut" = "Connecting Bluetooth peripheral timed out.";
 
@@ -483,19 +480,20 @@
 /* ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "The device does not connect to the Internet. If you want to open the site via Wi-Fi, it is necessary to disconnect camera connection first.";
 
-/* RecordingLocationManager.currentLocation */
-"$desc:CouldNotPerformCurrentLocationInMainThread" = "Could not acquire the current location.";
-
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "Could not read a favorite setting file.";
 
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
+   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotUseBluetooth" = "Could not use Bluetooth. Please allow 'Bluetooth' in 'Settings'";
+
+/* RecordingViewController.didReceiveCapturedImage */
+"$desc:CouldNotUsePhotoAlbum" = "Cound not use the photo album. Please allow 'Photos' in 'Settings'";
+
 /* FavoriteForgingViewController.didTapSaveButton
    FavoriteSavingViewController.didTapSaveButton */
 "$desc:CouldNotWriteFavoriteSettingFile" = "Could not write a favorite setting file.";
-
-/* RecordingLocationManager.currentLocation */
-"$desc:CurrentLocationIsRunning" = "To acquire the current location is running.";
 
 /* AppCamera.restoreSnapshotOfSetting */
 "$desc:DataFormatIsNotSnapshotOfSetting" = "Data format is not snapshot of setting.";

@@ -41,11 +41,14 @@ extern NSString *const BluetoothConnectorErrorDomain; ///< Bluetooth接続状態
 @property (strong, nonatomic) NSArray *services; ///< ペリフェラルを検索するためのBluetoothサービスUUDのリスト
 @property (strong, nonatomic) NSString *localName; ///< ペリフェラルのローカルネーム
 @property (assign, nonatomic) NSTimeInterval timeout; ///< 処理のタイムアウト値
-@property (strong, nonatomic) CBPeripheral *peripheral; ///< ペリフェラル
+@property (strong, nonatomic, readonly) CBPeripheral *peripheral; ///< ペリフェラル
 @property (assign, nonatomic, readonly) BOOL running; ///< 処理実行中か否かを示します。
 
 /// 現在の接続状態を取得します。
 - (BluetoothConnectionStatus)connectionStatus;
+
+/// Bluetoothの使用許可を要求します。
+- (CBManagerAuthorization)reqeustAuthorization;
 
 /// ペリフェラルのキャッシュをクリアします。
 - (void)clearPeripheralCache;

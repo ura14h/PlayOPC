@@ -1,19 +1,71 @@
 //
-//  PHPhotoLibrary+CustomAlbum.m
+//  RecordingPhotoAlbumManager.m
 //  PlayOPC
 //
-//  Created by Hiroki Ishiura on 2017/03/04.
-//  Copyright (c) 2017 Hiroki Ishiura. All rights reserved.
+//  Created by Hiroki Ishiura on 2023/02/04.
+//  Copyright (c) 2023 Hiroki Ishiura. All rights reserved.
 //
 //  Released under the MIT license
 //  http://opensource.org/licenses/mit-license.php
 //
 
-#import "PHPhotoLibrary+CustomAlbum.h"
+#import "RecordingPhotoAlbumManager.h"
 
-@implementation PHPhotoLibrary (CustomAlbum)
+@interface RecordingPhotoAlbumManager ()
 
-- (void)writeImageDataToSavedPhotosAlbum:(NSData *)imageData metadata:(NSDictionary *)metadata groupName:(NSString *)groupName completionBlock:(PHPhotoLibraryWriteImageCompletionBlock)completionBlock {
+@property (strong, nonatomic) PHPhotoLibrary *library;
+
+@end
+
+#pragma mark -
+
+@implementation RecordingPhotoAlbumManager
+
+#pragma mark -
+
+- (instancetype)init {
+	DEBUG_LOG(@"");
+	
+	self = [super init];
+	if (!self) {
+		return nil;
+	}
+	
+	_library = [PHPhotoLibrary sharedPhotoLibrary];
+	
+	return self;
+}
+
+- (void)dealloc {
+	DEBUG_LOG(@"");
+	
+	_library = nil;
+}
+
+#pragma mark -
+
+- (PHAuthorizationStatus)reqeustAuthorization {
+	DEBUG_LOG(@"");
+	
+	// 写真アルバムが利用可または不可なら即答します。
+	if ([PHPhotoLibrary authorizationStatus] != PHAuthorizationStatusNotDetermined) {
+		return [PHPhotoLibrary authorizationStatus];
+	}
+	
+	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
+	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+	[PHPhotoLibrary requestAuthorizationForAccessLevel:PHAccessLevelAddOnly handler:^(PHAuthorizationStatus status) {
+		DEBUG_LOG(@"");
+		dispatch_semaphore_signal(semaphore);
+	}];
+	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
+
+	// ユーザーの選択した結果を返します。
+	DEBUG_LOG(@"authorization=%ld", (long)[PHPhotoLibrary authorizationStatus]);
+	return [PHPhotoLibrary authorizationStatus];
+}
+
+- (void)writeImageDataToSavedPhotosAlbum:(NSData *)imageData metadata:(NSDictionary *)metadata groupName:(NSString *)groupName completionBlock:(void (^)(BOOL success, NSError *error))completionBlock {
 	DEBUG_LOG(@"imageData.length=%ld, metadata=%@, group=%@", (long)imageData.length, metadata, groupName);
 
 	// いったん、画像をディスク上に保存します。
@@ -33,7 +85,7 @@
 	[self writeImageUrlToSavedPhotosAlbum:imageUrl groupName:groupName completionBlock:completionBlock];
 }
 
-- (void)writeImageUrlToSavedPhotosAlbum:(NSURL *)imageUrl groupName:(NSString *)groupName completionBlock:(PHPhotoLibraryWriteImageCompletionBlock)completionBlock {
+- (void)writeImageUrlToSavedPhotosAlbum:(NSURL *)imageUrl groupName:(NSString *)groupName completionBlock:(void (^)(BOOL success, NSError *error))completionBlock {
 
 	// 写真アルバムからカスタムコレクションを検索します。
 	__block PHAssetCollection *group = nil;
@@ -46,7 +98,7 @@
 	}
 	if (group) {
 		// 写真アルバムにカスタムグループが見つかった場合はそのグループに保存した画像を登録します。
-		[self performChanges:^{
+		[self.library performChanges:^{
 			PHAssetCollectionChangeRequest *request = [PHAssetCollectionChangeRequest changeRequestForAssetCollection:group];
 			PHAssetChangeRequest *imageRequest = [PHAssetChangeRequest creationRequestForAssetFromImageAtFileURL:imageUrl];
 			PHObjectPlaceholder *imagePlaceholder = [imageRequest placeholderForCreatedAsset];
@@ -57,7 +109,7 @@
 		}];
 	} else {
 		// 写真アルバムにカスタムグループが見つからなかった場合はグループを新規作成して画像を登録します。
-		[self performChanges:^{
+		[self.library performChanges:^{
 			[PHAssetCollectionChangeRequest creationRequestForAssetCollectionWithTitle:groupName];
 		} completionHandler:^(BOOL success, NSError *error) {
 			if (success) {

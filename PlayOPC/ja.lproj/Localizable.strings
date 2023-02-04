@@ -444,9 +444,6 @@
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth機能は利用できません。「設定」で有効にしてください。";
 
-/* RecordingLocationManager.currentLocation */
-"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized" = "位置情報サービスが許可されていません。";
-
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectingBluetoothPeripheralTimedOut" = "Bluetoothデバイスへの接続がタイムアウトしました。";
 
@@ -483,19 +480,20 @@
 /* ReferenceViewController.shouldStartLoadWithRequest */
 "$desc:CouldNotOpenWebLinkByNoInternet" = "このデバイスはインターネットに接続していません。Wi-Fi経由で開きたい場合は先にカメラとの接続を解除しておく必要があります。";
 
-/* RecordingLocationManager.currentLocation */
-"$desc:CouldNotPerformCurrentLocationInMainThread" = "現在地が取得できません。";
-
 /* FavoriteLoadingViewController.didSelectRowAtIndexPath
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "お気に入りファイルが読めません。";
 
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
+   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotUseBluetooth" = "Bluetoothを使用できませんでした。「設定」で「Bluetooth」を許可してください。";
+
+/* RecordingViewController.didReceiveCapturedImage */
+"$desc:CouldNotUsePhotoAlbum" = "写真アルバムを使用できませんでした。「設定」で「写真」を許可してください。";
+
 /* FavoriteForgingViewController.didTapSaveButton
    FavoriteSavingViewController.didTapSaveButton */
 "$desc:CouldNotWriteFavoriteSettingFile" = "お気に入りファイルに書き込めません。";
-
-/* RecordingLocationManager.currentLocation */
-"$desc:CurrentLocationIsRunning" = "現在地取得は実行中です。";
 
 /* AppCamera.restoreSnapshotOfSetting */
 "$desc:DataFormatIsNotSnapshotOfSetting" = "データフォーマットがカメラ設定のスナップショットではありません。";

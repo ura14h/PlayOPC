@@ -12,6 +12,7 @@
 		310639301B46B16800BE8597 /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3106392F1B46B16800BE8597 /* UIImageView+Animation.m */; };
 		310639311B46B16800BE8597 /* UIImageView+Animation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3106392F1B46B16800BE8597 /* UIImageView+Animation.m */; };
 		310D78251AECD21200FFCBA5 /* SystemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31A8097B1AD04DE400186E4D /* SystemViewController.m */; };
+		310FE7F6298DEAF9003699B4 /* RecordingPhotoAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 310FE7F5298DEAF9003699B4 /* RecordingPhotoAlbumManager.m */; };
 		311199B51B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
 		311199B61B086F4800538FA0 /* OLYCameraKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 311199B41B086F4800538FA0 /* OLYCameraKit.framework */; };
 		311199BC1B086FB200538FA0 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 311199B91B086FB200538FA0 /* MBProgressHUD.m */; };
@@ -175,8 +176,6 @@
 		31E0DAFD1BCFC8F1002B690C /* FavoriteForgingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E0DAFB1BCFC8F1002B690C /* FavoriteForgingViewController.m */; };
 		31E1B9DD1BDC5C190069198B /* LiveImageOverallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */; };
 		31E1B9DE1BDC5C190069198B /* LiveImageOverallView.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */; };
-		31E48B8D1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */; };
-		31E48B8E1E6A55BF00FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = 31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */; };
 		31E48B911E6A567800FF25B5 /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31E48B8F1E6A563800FF25B5 /* Photos.framework */; };
 		31E81A2C1B5B7A9E003685A9 /* Recording.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2A1B5B7A9E003685A9 /* Recording.storyboard */; };
 		31E81A2F1B5B7B08003685A9 /* Playback.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 31E81A2D1B5B7B08003685A9 /* Playback.storyboard */; };
@@ -214,6 +213,8 @@
 		3103FEA11B23F29E008244C9 /* RecImageButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecImageButton.m; sourceTree = "<group>"; };
 		3106392E1B46B16800BE8597 /* UIImageView+Animation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+Animation.h"; sourceTree = "<group>"; };
 		3106392F1B46B16800BE8597 /* UIImageView+Animation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+Animation.m"; sourceTree = "<group>"; };
+		310FE7F4298DEAF9003699B4 /* RecordingPhotoAlbumManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RecordingPhotoAlbumManager.h; sourceTree = "<group>"; };
+		310FE7F5298DEAF9003699B4 /* RecordingPhotoAlbumManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RecordingPhotoAlbumManager.m; sourceTree = "<group>"; };
 		311199B41B086F4800538FA0 /* OLYCameraKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OLYCameraKit.framework; path = PlayOPC/Imports/OLYCameraKit.framework; sourceTree = "<group>"; };
 		311199B81B086FB200538FA0 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MBProgressHUD.h; path = Imports/MBProgressHUD.h; sourceTree = "<group>"; };
 		311199B91B086FB200538FA0 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MBProgressHUD.m; path = Imports/MBProgressHUD.m; sourceTree = "<group>"; };
@@ -382,8 +383,6 @@
 		31E0DAFC1BCFC8F1002B690C /* FavoriteForgingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FavoriteForgingViewController.h; sourceTree = "<group>"; };
 		31E1B9DB1BDC5C190069198B /* LiveImageOverallView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LiveImageOverallView.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		31E1B9DC1BDC5C190069198B /* LiveImageOverallView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LiveImageOverallView.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		31E48B8B1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "PHPhotoLibrary+CustomAlbum.h"; sourceTree = "<group>"; };
-		31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "PHPhotoLibrary+CustomAlbum.m"; sourceTree = "<group>"; };
 		31E48B8F1E6A563800FF25B5 /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		31E81A2B1B5B7A9E003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Recording.storyboard; sourceTree = "<group>"; };
 		31E81A2E1B5B7B08003685A9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Playback.storyboard; sourceTree = "<group>"; };
@@ -462,8 +461,6 @@
 				3154BA621ADFDAA000D96EBE /* UITableViewController+Cell.m */,
 				3106392E1B46B16800BE8597 /* UIImageView+Animation.h */,
 				3106392F1B46B16800BE8597 /* UIImageView+Animation.m */,
-				31E48B8B1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.h */,
-				31E48B8C1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m */,
 			);
 			name = "Extended Classes";
 			sourceTree = "<group>";
@@ -495,6 +492,8 @@
 				319284331AD8E7E0003BC78F /* RecordingViewController.m */,
 				314E1DB11B3023E90052F8EF /* RecordingLocationManager.h */,
 				314E1DB21B3023E90052F8EF /* RecordingLocationManager.m */,
+				310FE7F4298DEAF9003699B4 /* RecordingPhotoAlbumManager.h */,
+				310FE7F5298DEAF9003699B4 /* RecordingPhotoAlbumManager.m */,
 				3165E5E31ADBC21200D4A680 /* LiveImageView.h */,
 				3165E5E41ADBC21200D4A680 /* LiveImageView.m */,
 				31EA271F1BF737B4003402C4 /* LiveImageGridLayer.h */,
@@ -1013,7 +1012,6 @@
 			files = (
 				319396941B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
 				314A4ECA1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
-				31E48B8D1E6A55B400FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */,
 				3142ACD61B23D44F008B2754 /* RecImageViewController.m in Sources */,
 				31731EB91AEB88140094193A /* EPanelViewController.m in Sources */,
 				311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */,
@@ -1032,6 +1030,7 @@
 				311268FC1AFF4A6600AEA860 /* PlaybackViewController.m in Sources */,
 				31392FCB1B14B69D0097FF1B /* ReferenceViewController.m in Sources */,
 				311B75BE1ABC287C00A7D38C /* main.m in Sources */,
+				310FE7F6298DEAF9003699B4 /* RecordingPhotoAlbumManager.m in Sources */,
 				31731EC51AEB88AB0094193A /* VPanelViewController.m in Sources */,
 				313D44B81B0CCF0700D6EEAC /* CPanelViewController.m in Sources */,
 				319284381AD914D3003BC78F /* UIViewController+Threading.m in Sources */,
@@ -1070,7 +1069,6 @@
 			files = (
 				319396951B04CD4B00EAAE35 /* PictureContentViewController.m in Sources */,
 				314A4ECB1B08B1C1002E4128 /* CameraLogViewCell.m in Sources */,
-				31E48B8E1E6A55BF00FF25B5 /* PHPhotoLibrary+CustomAlbum.m in Sources */,
 				3142ACD71B23D44F008B2754 /* RecImageViewController.m in Sources */,
 				31DB84051AD101C900E50B03 /* UIViewController+Alert.m in Sources */,
 				3162EB0A1ABE789B00C71BE7 /* BluetoothSettingViewController.m in Sources */,

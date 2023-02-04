@@ -13,10 +13,8 @@
 
 @interface RecordingLocationManager () <CLLocationManagerDelegate>
 
-@property (strong, nonatomic) CLLocationManager *locationManager; ///< 位置情報マネージャ
 @property (strong, nonatomic) CLLocation *location; ///< デバイスの現在位置
 @property (strong, nonatomic) NSError *locationError; ///< デバイスの現在位置が取得できなかった時のエラー内容
-@property (assign, nonatomic) BOOL running; ///< 実行中か否か
 
 @end
 
@@ -34,8 +32,8 @@
 		return nil;
 	}
 
-	_desiredAccuracy = kCLLocationAccuracyBest;
-	_distanceFilter = kCLHeadingFilterNone;
+	_location = nil;
+	_locationError = nil;
 	
 	return self;
 }
@@ -43,9 +41,6 @@
 - (void)dealloc {
 	DEBUG_LOG(@"");
 
-	[_locationManager stopUpdatingLocation];
-	_locationManager.delegate = nil;
-	_locationManager = nil;
 	_location = nil;
 	_locationError = nil;
 }
@@ -72,79 +67,64 @@
 
 #pragma mark -
 
+- (CLAuthorizationStatus)reqeustAuthorization {
+	DEBUG_LOG(@"");
+
+	// 位置情報が利用不可なら即答します。
+	CLLocationManager *manager = [[CLLocationManager alloc] init];
+	if (manager.authorizationStatus == kCLAuthorizationStatusDenied) {
+		return kCLAuthorizationStatusDenied;
+	}
+
+	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
+	if (manager.authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+		[manager requestWhenInUseAuthorization];
+	}
+	while (manager.authorizationStatus == kCLAuthorizationStatusNotDetermined) {
+		[NSThread sleepForTimeInterval:0.05];
+	}
+
+	// ユーザーの選択した結果を返します。
+	DEBUG_LOG(@"authorization=%ld", (long)manager.authorizationStatus);
+	return manager.authorizationStatus;
+}
+
 - (CLLocation *)currentLocation:(NSTimeInterval)timeout error:(NSError **)error {
 	DEBUG_LOG(@"");
-	
-	// メインスレッドで実行できません。
-	if ([NSThread isMainThread]) {
-		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CouldNotPerformCurrentLocationInMainThread", @"RecordingLocationManager.currentLocation")
-		};
-		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
-		if (error) {
-			*error = internalError;
-		}
-		return nil;
-	}
 
-	// すでに実行中の場合はさらに実行できません。
-	if (self.running) {
-		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CurrentLocationIsRunning", @"RecordingLocationManager.currentLocation")
-		};
-		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorLocationUnknown userInfo:userInfo];
-		if (error) {
-			*error = internalError;
-		}
-		return nil;
-	}
-	self.running = YES;
-	
-	// 現在位置の取得を準備を開始します。
+	// 現在位置の取得を準備します。
 	// MARK: 位置情報マネージャのセットアップはメインスレッドで実行しないとデリゲートが呼び出されないらしいです。
-	__weak RecordingLocationManager *weakSelf = self;
+	self.location = nil;
+	self.locationError = nil;
+	__block CLLocationManager *manager;
 	dispatch_sync(dispatch_get_main_queue(), ^{
 		DEBUG_DETAIL_LOG(@"");
-
-		// 現在位置の取得を準備します。
-		weakSelf.locationManager = [[CLLocationManager alloc] init];
-		weakSelf.locationManager.delegate = weakSelf;
-		weakSelf.locationManager.desiredAccuracy = weakSelf.desiredAccuracy;
-		weakSelf.locationManager.distanceFilter = weakSelf.distanceFilter;
-		weakSelf.location = nil;
-		weakSelf.locationError = nil;
-
+		
+		manager = [[CLLocationManager alloc] init];
+		manager.delegate = self;
+		manager.desiredAccuracy = kCLLocationAccuracyBest;
+		manager.distanceFilter = kCLHeadingFilterNone;
+		
 		// 現在位置の取得を開始します。
-		[weakSelf.locationManager startUpdatingLocation];
+		[manager startUpdatingLocation];
 	});
-
-	// 現在位置利用の権限があるかを確認します。
-	CLAuthorizationStatus authorizationStatus = self.locationManager.authorizationStatus;
-	if (authorizationStatus == kCLAuthorizationStatusNotDetermined ||
-		authorizationStatus == kCLAuthorizationStatusDenied ||
-		authorizationStatus == kCLAuthorizationStatusRestricted) {
-		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:CLLocationManagerAuthorizationStatusIsNotAuthorized", @"RecordingLocationManager.currentLocation")
-		};
-		NSError *internalError = [NSError errorWithDomain:kCLErrorDomain code:kCLErrorDenied userInfo:userInfo];
-		if (error) {
-			*error = internalError;
-		}
-		self.running = NO;
-		return nil;
-	}
-
+	
 	// 現在位置を取得します。
 	NSDate *scanStartTime = [NSDate date];
 	while (!self.location && !self.locationError && [[NSDate date] timeIntervalSinceDate:scanStartTime] < timeout) {
 		[NSThread sleepForTimeInterval:0.05];
 	}
-	[self.locationManager stopUpdatingLocation];
 	CLLocation *location = self.location;
 	NSError *locationError = self.locationError;
-	self.locationManager = nil;
+
+	// 現在位置の取得を終了します。
+	[manager stopUpdatingLocation];
+	manager.delegate = nil;
+	manager = nil;
 	self.location = nil;
 	self.locationError = nil;
+
+	// 取得した現在位置を返却します。
 	if (!location) {
 		// 現在位置が取得できませんでした。
 		if (!locationError) {
@@ -157,14 +137,29 @@
 		if (error) {
 			*error = locationError;
 		}
-		self.running = NO;
 		return nil;
 	}
-
-	// 取得した現在位置を返却します。
 	DEBUG_LOG(@"location=%@", location.description);
-	self.running = NO;
 	return location;
+}
+
+/// 現在位置利用の権限が変化した時に呼び出されます。
+- (void)locationManagerDidChangeAuthorization:(CLLocationManager *)manager {
+	DEBUG_LOG(@"");
+
+	switch (manager.authorizationStatus) {
+		case kCLAuthorizationStatusNotDetermined:
+			DEBUG_LOG(@"Using location service isn't determind.");
+			break;
+		case kCLAuthorizationStatusAuthorizedAlways:
+		case kCLAuthorizationStatusAuthorizedWhenInUse:
+			DEBUG_LOG(@"Using location service is already authorized.");
+			break;
+		case kCLAuthorizationStatusDenied:
+		case kCLAuthorizationStatusRestricted:
+			DEBUG_LOG(@"Using location service is restricted.");
+			break;
+	}
 }
 
 @end

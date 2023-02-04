@@ -336,7 +336,17 @@
 /// アプリケーション設定が変化した時に呼び出されます。
 - (void)didChangedAppSetting:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-	
+
+	// メインスレッド以外から呼び出された場合は、メインスレッドに投げなおします。
+	if (![NSThread isMainThread]) {
+		__weak ConnectionViewController *weakSelf = self;
+		[weakSelf executeAsynchronousBlockOnMainThread:^{
+			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+			[weakSelf didChangedAppSetting:notification];
+		}];
+		return;
+	}
+
 	// 画面表示を更新します。
 	[self updateClearRememberedCameraSettingCell];
 }

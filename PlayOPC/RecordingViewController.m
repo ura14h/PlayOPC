@@ -410,56 +410,58 @@ static NSString *const PhotosAlbumGroupName = @"OLYMPUS"; ///< 写真アルバ�
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
-		AppCamera *camera = GetAppCamera();
-		if (!camera.autoStartLiveView && !camera.liveViewEnabled) {
-			DEBUG_LOG(@"Why the live view is already stopped?");
-		}
-		
-		// ライブビューの表示を終了します。
-		// MARK: ライブビュー自動開始が有効でないなら、明示的にライブビューの表示停止を呼び出さなければなりません。
-		[camera removeLiveViewDelegate:weakSelf];
-		[camera removeRecordingDelegate:weakSelf];
-		[camera removeRecordingSupportsDelegate:weakSelf];
-		[camera removeTakingPictureDelegate:weakSelf];
-		NSError *error = nil;
-		if (![camera stopLiveView:&error]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-		
-		// カメラ設定のスナップショットを取ります。
-		// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
-		AppSetting *setting = GetAppSetting();
-		if (setting.keepLastCameraSetting) {
-			NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
-			if (snapshot) {
-				NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
-				if (optimizedSnapshot) {
-					// ユーザー設定の更新はメインスレッドで実行しないと接続画面で監視している人が困るようです。
-					// (接続画面側の画面更新がとても遅れる)
-					[weakSelf executeAsynchronousBlockOnMainThread:^{
-						setting.latestSnapshotOfCameraSetting = optimizedSnapshot;
-					}];
-				} else {
-					// エラーを無視して続行します。
-					DEBUG_LOG(@"An error occurred, but ignores it.");
-				}
-			} else {
-				// エラーを無視して続行します。
-				DEBUG_LOG(@"An error occurred, but ignores it.");
-			}
-		}
-		
-		// カメラを以前のモードに移行します。
-		if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
-			// エラーを無視して続行します。
-			DEBUG_LOG(@"An error occurred, but ignores it.");
-		}
-
 		// デバイスのスリープを許可します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			GetApp().idleTimerDisabled = NO;
 		}];
+
+		// カメラの撮影モードを終了します。
+		// 撮影モード中にアプリをバックグラウンドに切り替えるとここに入ってきますが、
+		// ライブビュー停止の辺りで時間切れになってカメラ設定のスナップショットを保存するところまで
+		// 到達していません。どうしたらいいのか。
+		{
+			DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+			// ライブビューの表示を終了します。
+			// MARK: ライブビュー自動開始が有効でないなら、明示的にライブビューの表示停止を呼び出さなければなりません。
+			AppCamera *camera = GetAppCamera();
+			[camera removeLiveViewDelegate:weakSelf];
+			[camera removeRecordingDelegate:weakSelf];
+			[camera removeRecordingSupportsDelegate:weakSelf];
+			[camera removeTakingPictureDelegate:weakSelf];
+			NSError *error = nil;
+			if (![camera stopLiveView:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+			
+			// カメラ設定のスナップショットを取ります。
+			// FIXME: 撮影中にここに突入してきた場合にここで取ったカメラ設定のスナップショットが復元可能なのか分かりません...
+			AppSetting *setting = GetAppSetting();
+			if (setting.keepLastCameraSetting) {
+				NSDictionary *snapshot = [camera createSnapshotOfSetting:&error];
+				if (snapshot) {
+					NSDictionary *optimizedSnapshot = [camera optimizeSnapshotOfSetting:snapshot error:&error];
+					if (optimizedSnapshot) {
+						setting.latestSnapshotOfCameraSetting = optimizedSnapshot;
+					} else {
+						// エラーを無視して続行します。
+						DEBUG_LOG(@"An error occurred, but ignores it.");
+					}
+				} else {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
+			}
+			
+			// カメラを以前のモードに移行します。
+			if (![camera changeRunMode:weakSelf.previousRunMode error:&error]) {
+				// エラーを無視して続行します。
+				DEBUG_LOG(@"An error occurred, but ignores it.");
+			}
+
+			DEBUG_LOG(@"");
+		};
 
 		// 画面操作の後始末が完了しました。
 		weakSelf = nil;

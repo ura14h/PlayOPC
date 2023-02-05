@@ -11,8 +11,8 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wstrict-prototypes"
+
 #import <OLYCameraKit/OLYCamera.h>
-#pragma clang diagnostic pop
 #import <CoreLocation/CoreLocation.h>
 
 /// フォーカスモード
@@ -367,6 +367,21 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 @property (assign, nonatomic, readonly) CGSize magnifyingOverallViewSize; ///< 現在のライブビュー拡大の全体サイズ
 @property (assign, nonatomic, readonly) CGRect magnifyingDisplayAreaRect; ///< 現在のライブビュー拡大の表示範囲
 
+
+/**
+ * Indicate if the application can connect to the camera.
+ * If the application is connected to the camera, the application will get an error.
+ *
+ * @param connectionType Type of connection. You specify 'Wi-Fi'.
+ * @param timeout Number of seconds for timeout. If 0 is specified, default value is set.
+ * @param error Error details are set when operation is abnormally terminated.
+ * @return If true, the application can connect to the camera.
+ *
+ * @attention
+ * This API is only for Wi-Fi.
+ */
+- (BOOL)canConnect:(OLYCameraConnectionType)connectionType timeout:(NSTimeInterval)timeout error:(NSError **)error;
+
 /// connectionDelegateのリストに登録します。
 /// connectionDelegateプロパティには直接代入せずにこのメソッドでデリゲートを登録してください。
 - (void)addConnectionDelegate:(id<OLYCameraConnectionDelegate>)delegate;
@@ -490,20 +505,6 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 /// 現在設定されている倍率でライブビュー拡大を位置指定で開始します。
 - (BOOL)startMagnifyingLiveViewAtPoint:(CGPoint)point error:(NSError **)error;
 
-/**
- * Indicate if the application can connect to the camera.
- * If the application is connected to the camera, the application will get an error.
- *
- * @param connectionType Type of connection. You specify 'Wi-Fi'.
- * @param timeout Number of seconds for timeout. If 0 is specified, default value is set.
- * @param error Error details are set when operation is abnormally terminated.
- * @return If true, the application can connect to the camera.
- *
- * @attention
- * This API is only for Wi-Fi.
- */
-- (BOOL)canConnect:(OLYCameraConnectionType)connectionType timeout:(NSTimeInterval)timeout error:(NSError **)error;
-
 @end
 
 /// 静止画連続撮影中に起きたイベントを通知します。
@@ -532,3 +533,21 @@ extern NSString *const CameraPropertyRecordingElapsedTime;
 - (void)cameraDidStopTakingPluralPictures:(AppCamera *)camera error:(NSError *)error;
 
 @end
+
+/// 隠された機能を召喚するカテゴリ
+///
+///   呪文を探すコマンド...
+///     $ strings Imports/OLYCameraKit.framework/OLYCameraKit | egrep '^-\[OLYCamera(\(.+\))? [A-Za-z0-9:]+\]$' | sort | uniq
+///
+///   プライベートなメソッドも大量にあるし、多分それぞれ動作の事前条件もあるし、呼び出すと副作用も多分あります。
+///   ということで、呪文を唱える際には知恵と勇気が必要です。
+///
+@interface OLYCamera(SummonHiddenFeatures)
+
+/// メディアカードをフォーマットします。
+///   メソッドのパラメータの並びが downloadContent とか unprotectAllContents と同じデザインらしい...
+- (void)formatMedia:(void (^)(float progress))progressHandler completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *error))errorHandler;
+
+@end
+
+#pragma clang diagnostic pop

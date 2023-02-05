@@ -9,6 +9,9 @@
 //  http://opensource.org/licenses/mit-license.php
 //
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wstrict-prototypes"
+
 #import "AppCamera.h"
 
 // このクラス用の表示文言ローカライズ ... ローカライズされた表示文言はAppCamera.stringsに格納されます。
@@ -826,10 +829,7 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 	return YES;
 }
 
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wstrict-prototypes"
 - (void)startRecordingVideo:(NSDictionary *)options completionHandler:(void (^)())completionHandler errorHandler:(void (^)(NSError *))errorHandler {
-#pragma clang diagnostic pop
 	DEBUG_LOG(@"");
 	
 	[super startRecordingVideo:options completionHandler:^() {
@@ -5775,3 +5775,5 @@ static NSString *const CameraSettingSnapshotMagnifyingLiveViewScaleKey = @"Magni
 }
 
 @end
+
+#pragma clang diagnostic pop

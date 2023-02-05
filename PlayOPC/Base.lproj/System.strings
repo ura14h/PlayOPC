@@ -20,6 +20,9 @@
 /* Class = "UILabel"; text = "<WIFI_CH>"; ObjectID = "A1L-2R-WNk"; */
 "A1L-2R-WNk.text" = "<WIFI_CH>";
 
+/* Class = "UITableViewSection"; headerTitle = "Media Setting"; ObjectID = "AZ4-GM-wRm"; */
+"AZ4-GM-wRm.headerTitle" = "Media Setting";
+
 /* Class = "UILabel"; text = "$liveViewStreamingPort"; ObjectID = "BLI-00-auo"; */
 "BLI-00-auo.text" = "$liveViewStreamingPort";
 
@@ -49,6 +52,9 @@
 
 /* Class = "UILabel"; text = "$lensMountStatus"; ObjectID = "SSX-Fr-ckr"; */
 "SSX-Fr-ckr.text" = "$lensMountStatus";
+
+/* Class = "UILabel"; text = "Format SD Card"; ObjectID = "Ue3-Hh-QGC"; */
+"Ue3-Hh-QGC.text" = "Format SD Card";
 
 /* Class = "UILabel"; text = "$mediaMountStatus"; ObjectID = "Xp8-EV-1b7"; */
 "Xp8-EV-1b7.text" = "$mediaMountStatus";

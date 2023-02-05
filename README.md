@@ -34,6 +34,7 @@ OLYMPUS AIR A01 is necessary to use this application.
 * Protecting or unprotecting pictures and videos which stored in the camera
 * Deleting pictures and videos which stored in the camera
 * Setting the current time at the camera automatically
+* Formatting a SD card
 * Changing Wi-Fi channel of the camera
 * Switching off the camera
 
@@ -41,7 +42,6 @@ OLYMPUS AIR A01 is necessary to use this application.
 
 * If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.
 * The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.
-* The app cannot initialize media cards in the camera. ~~Please use [OA.Central](app.olympus-imaging.com/oacentral/) provided by OLYMPUS.~~
 
 ## Runs Immediately
 
@@ -69,5 +69,5 @@ OLYCameraKit.framework is released under the terms of OLYMPUS license. This lice
 
 ## Other Information
 
-* If you are interested in handling the OLYMPUS AIR A01, please check the published instruction manual. (http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf]())  
+* If you are interested in handling the OLYMPUS AIR A01, please check the published instruction manual. [http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf]() 
 * If you have an interest in camera functions and camera parameters, please read SDK document. You may download it from: [https://dl-support.olympus-imaging.com/opc/en/]()

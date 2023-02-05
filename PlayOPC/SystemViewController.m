@@ -26,6 +26,7 @@
 @property (weak, nonatomic) IBOutlet UITableViewCell *cameraFirmwareVersionCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensModelIdCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *lensFirmwareVersionCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *formatMediaCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *ssidCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *showWifiChCell;
 @property (weak, nonatomic) IBOutlet UITableViewCell *hostCell;
@@ -78,9 +79,10 @@
 	self.cameraFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensModelIdCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.lensFirmwareVersionCell.detailTextLabel.text = emptyDetailTextLabel;
+	self.formatMediaCell.textLabel.enabled = NO;
+	self.formatMediaCell.selectionStyle = UITableViewCellSelectionStyleNone;
 	self.ssidCell.detailTextLabel.text = emptyDetailTextLabel;
 	self.showWifiChCell.detailTextLabel.text = emptyDetailTextLabel;
-	
 	self.hostCell.detailTextLabel.text = camera.host;
 	self.commandPortCell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)camera.commandPort];
 	self.eventPortCell.detailTextLabel.text = [NSString stringWithFormat:@"%ld", (long)camera.eventPort];
@@ -224,6 +226,27 @@
 	} else {
 		// 何もしません。
 	}
+}
+
+/// テーブルビューのセルが選択された時に呼び出されます。
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+	DEBUG_LOG(@"indexPath=%@", indexPath);
+	
+	// 選択されたセルが何であったか調べます。
+	UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+	NSString *cellReuseIdentifier = cell.reuseIdentifier;
+	
+	// セルに応じたカメラ操作処理を呼び出します。
+	if ([cellReuseIdentifier isEqualToString:@"FormatMedia"]) {
+		if (cell.selectionStyle == UITableViewCellSelectionStyleBlue) {
+			[self didSelectRowAtFormatMediaCell];
+		}
+	} else {
+		// 何もしません。
+	}
+	
+	// セルの選択を解除します。
+	[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 /// カメラプロパティ値選択ビューコントローラで値が選択されると呼び出されます。
@@ -412,6 +435,14 @@
 	}
 	// 表示を更新します。
 	self.mediaMountStatusCell.detailTextLabel.text = mediaMountStatus;
+	if ([camera.mediaMountStatus isEqualToString:@"normal"] ||
+		[camera.mediaMountStatus isEqualToString:@"cardfull"]) {
+		self.formatMediaCell.textLabel.enabled = YES;
+		self.formatMediaCell.selectionStyle = UITableViewCellSelectionStyleBlue;
+	} else {
+		self.formatMediaCell.textLabel.enabled = NO;
+		self.formatMediaCell.selectionStyle = UITableViewCellSelectionStyleNone;
+	}
 }
 
 /// ハードウェア情報を表示します。
@@ -550,6 +581,97 @@
 			}
 		}];
 	}];
+}
+
+/// 'Format Media'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtFormatMediaCell {
+	DEBUG_LOG(@"");
+	
+	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
+	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:style];
+	alertController.popoverPresentationController.sourceView = self.view;
+	alertController.popoverPresentationController.sourceRect = self.formatMediaCell.frame;
+	
+	__weak SystemViewController *weakSelf = self;
+	{
+		NSString *title = NSLocalizedString(@"$title:ExecuteFormatMedia", @"ConnectionViewController.didSelectRowAtFormatMediaCell");
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+			[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
+				DEBUG_LOG(@"weakSelf=%p", weakSelf);
+
+				// MARK: コンテンツのプロテクト解除は再生モードで実行できません。カメラを再生保守モードに移行します。
+				AppCamera *camera = GetAppCamera();
+				NSError *error = nil;
+				if (![camera changeRunMode:OLYCameraRunModePlaymaintenance error:&error]) {
+					// モードを移行できませんでした。
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotStartPlaymaintenanceMode", @"SystemViewController.didSelectRowAtFormatMediaCell")];
+				}
+
+				// メディアカードをフォーマットします。
+				__block BOOL formatCompleted = NO;
+				__block BOOL formatFailed = NO;
+				[camera formatMedia:^(float progress) {
+					// 進捗率表示モードに変更します。
+					if (progressView.mode == MBProgressHUDModeIndeterminate) {
+						progressView.mode = MBProgressHUDModeAnnularDeterminate;
+					}
+					// 進捗率の表示を更新します。
+					progressView.progress = progress;
+				} completionHandler:^{
+					formatCompleted = YES;
+				} errorHandler:^(NSError *error) {
+					DEBUG_LOG(@"error=%p", error);
+					formatFailed = YES; // 下の方で待っている人がいるので、すぐにフォーマットが終わったことにします。
+					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotFormatMedia", @"SystemViewController.didSelectRowAtFormatMediaCell")];
+				}];
+				
+				// コンテンツのプロテクト解除が完了するのを待ちます。
+				while (!formatCompleted && !formatFailed) {
+					[NSThread sleepForTimeInterval:0.05];
+				}
+				[weakSelf executeAsynchronousBlockOnMainThread:^{
+					progressView.mode = MBProgressHUDModeIndeterminate;
+				}];
+
+				// カメラ実行モードを保守モードにします。
+				if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
+					// エラーを無視して続行します。
+					DEBUG_LOG(@"An error occurred, but ignores it.");
+				}
+
+				// フォーマットが完了しました。
+				if (formatCompleted) {
+					[weakSelf reportBlockFinishedToProgress:progressView];
+				}
+			}];
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleDestructive handler:handler];
+		[alertController addAction:action];
+	}
+	{
+		NSString *title = NSLocalizedString(@"$title:CancelFormatMedia", @"ConnectionViewController.didSelectRowAtFormatMediaCell");
+		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
+		};
+		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:UIAlertActionStyleCancel handler:handler];
+		[alertController addAction:action];
+	}
+	
+	[self presentViewController:alertController animated:YES completion:nil];
+}
+
+/// 進捗画面に処理完了を報告します。
+- (void)reportBlockFinishedToProgress:(MBProgressHUD *)progress {
+	DEBUG_LOG(@"");
+	
+	__block UIImageView *progressImageView;
+	dispatch_sync(dispatch_get_main_queue(), ^{
+		UIImage *image = [UIImage imageNamed:@"Progress-Checkmark"];
+		progressImageView = [[UIImageView alloc] initWithImage:image];
+		progressImageView.tintColor = [UIColor labelColor];
+		progress.customView = progressImageView;
+		progress.mode = MBProgressHUDModeCustomView;
+	});
+	[NSThread sleepForTimeInterval:0.5];
 }
 
 @end

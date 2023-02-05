@@ -600,6 +600,9 @@
 /* VideoContentViewController.didTapEraseButton */
 "$title:CancelEraseVideo" = "取り消し";
 
+/* ConnectionViewController.didSelectRowAtFormatMediaCell */
+"$title:CancelFormatMedia" = "取り消し";
+
 /* PictureContentViewController.didTapProtectButton */
 "$title:CancelProtectPicture" = "取り消し";
 
@@ -682,6 +685,9 @@
 /* VideoContentViewController.eraseVideo */
 "$title:CouldNotEraseVideo" = "動画を削除できません";
 
+/* SystemViewController.didSelectRowAtFormatMediaCell */
+"$title:CouldNotFormatMedia" = "SDカードを初期化できません";
+
 /* CameraPropertyValueSelectionViewController.didStartActivity */
 "$title:CouldNotGetCameraPropertyValue" = "カメラプロパティの値を取得できません";
 
@@ -757,6 +763,9 @@
 /* PlaybackViewController.didStartActivity */
 "$title:CouldNotStartPlaybackMode" = "再生モードが開始できません";
 
+/* SystemViewController.didSelectRowAtFormatMediaCell */
+"$title:CouldNotStartPlaymaintenanceMode" = "再生保守モードが開始できません";
+
 /* RecordingViewController.didStartActivity */
 "$title:CouldNotStartRecordingMode" = "撮影モードが開始できません";
 
@@ -826,6 +835,9 @@
 
 /* VideoContentViewController.didTapEraseButton */
 "$title:ExecuteEraseVideo" = "この動画を削除";
+
+/* ConnectionViewController.didSelectRowAtFormatMediaCell */
+"$title:ExecuteFormatMedia" = "SDカードを初期化";
 
 /* PictureContentViewController.didTapProtectButton */
 "$title:ExecuteProtectPicture" = "この写真をプロテクト";

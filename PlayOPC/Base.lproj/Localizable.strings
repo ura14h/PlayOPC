@@ -600,6 +600,9 @@
 /* VideoContentViewController.didTapEraseButton */
 "$title:CancelEraseVideo" = "Cancel";
 
+/* ConnectionViewController.didSelectRowAtFormatMediaCell */
+"$title:CancelFormatMedia" = "Cancel";
+
 /* PictureContentViewController.didTapProtectButton */
 "$title:CancelProtectPicture" = "Cancel";
 
@@ -682,6 +685,9 @@
 /* VideoContentViewController.eraseVideo */
 "$title:CouldNotEraseVideo" = "Could not erase video";
 
+/* SystemViewController.didSelectRowAtFormatMediaCell */
+"$title:CouldNotFormatMedia" = "Could not format SD card";
+
 /* CameraPropertyValueSelectionViewController.didStartActivity */
 "$title:CouldNotGetCameraPropertyValue" = "Could not get camera property value";
 
@@ -757,6 +763,9 @@
 /* PlaybackViewController.didStartActivity */
 "$title:CouldNotStartPlaybackMode" = "Could not start Playback mode";
 
+/* SystemViewController.didSelectRowAtFormatMediaCell */
+"$title:CouldNotStartPlaymaintenanceMode" = "Could not start Playback maintenance mode";
+
 /* RecordingViewController.didStartActivity */
 "$title:CouldNotStartRecordingMode" = "Could not start Recording mode";
 
@@ -826,6 +835,9 @@
 
 /* VideoContentViewController.didTapEraseButton */
 "$title:ExecuteEraseVideo" = "Erase this video";
+
+/* ConnectionViewController.didSelectRowAtFormatMediaCell */
+"$title:ExecuteFormatMedia" = "Format SD card";
 
 /* PictureContentViewController.didTapProtectButton */
 "$title:ExecuteProtectPicture" = "Protect this picture";

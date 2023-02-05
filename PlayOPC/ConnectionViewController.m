@@ -158,7 +158,7 @@
 	self.wifiConnector.SSID = setting.wifiSSID;
 	self.wifiConnector.passphrase = setting.wifiPassphrase;
 	[self.wifiConnector startMonitoring];
-
+	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
 	[self updateShowWifiSettingCell];
@@ -177,17 +177,17 @@
 /// アプリケーションがアクティブになる時に呼び出されます。
 - (void)applicationDidBecomeActive:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-
+	
 	// 監視のハンドラ登録をviewDidLoadでしているのでアプリ起動直後の初回は来ない...
 	// アプリがユーザ対話を開始する時に呼び出されるほかに、
 	// OSの許可ダイアログが表示されて消えるとこれが呼び出されてしまう...
-
+	
 	// Wi-Fiの接続状態を監視開始します。
 	AppSetting *setting = GetAppSetting();
 	self.wifiConnector.SSID = setting.wifiSSID;
 	self.wifiConnector.passphrase = setting.wifiPassphrase;
 	[self.wifiConnector startMonitoring];
-
+	
 	// 画面表示を更新します。
 	[self updateShowBluetoothSettingCell];
 	[self updateShowWifiSettingCell];
@@ -299,6 +299,8 @@
 		[self didSelectRowAtSystemCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"ClearRememberedCameraSetting"]) {
 		[self didSelectRowAtClearRememberedCameraSettingCell];
+	} else if ([cellReuseIdentifier isEqualToString:@"OpenSystemSettings"]) {
+		[self didSelectRowAtOpenSystemSettingsCell];
 	} else {
 		// 何もしません。
 	}
@@ -336,7 +338,7 @@
 /// アプリケーション設定が変化した時に呼び出されます。
 - (void)didChangedAppSetting:(NSNotification *)notification {
 	DEBUG_LOG(@"");
-
+	
 	// メインスレッド以外から呼び出された場合は、メインスレッドに投げなおします。
 	if (![NSThread isMainThread]) {
 		__weak ConnectionViewController *weakSelf = self;
@@ -346,7 +348,7 @@
 		}];
 		return;
 	}
-
+	
 	// 画面表示を更新します。
 	[self updateClearRememberedCameraSettingCell];
 }
@@ -461,7 +463,7 @@
 		return;
 	}
 	DEBUG_LOG(@"");
-
+	
 	// カメラへの接続を開始します。
 	__weak ConnectionViewController *weakSelf = self;
 	weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
@@ -469,7 +471,7 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		NSDate *sequenceStartTime = [NSDate date];
-
+		
 		// Bluetoothデバイスの使用許可を確認します。
 		if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 			// Bluetoothデバイスは使用不可です。
@@ -477,7 +479,7 @@
 			return;
 		}
 		DEBUG_LOG(@"");
-
+		
 		// カメラを探します。
 		NSError *error = nil;
 		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotFound) {
@@ -489,7 +491,7 @@
 			}
 		}
 		DEBUG_LOG(@"");
-
+		
 		// カメラにBluetooth接続します。
 		if (weakSelf.bluetoothConnector.connectionStatus == BluetoothConnectionStatusNotConnected) {
 			BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
@@ -500,7 +502,7 @@
 			}
 		}
 		DEBUG_LOG(@"");
-
+		
 		// カメラにアプリ接続します。
 		// この応答が返ってくるまでやや時間がかかるようです。
 		AppCamera *camera = GetAppCamera();
@@ -525,7 +527,7 @@
 			return;
 		}
 		DEBUG_LOG(@"");
-
+		
 		// スマホの現在時刻をカメラに設定します。
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 		if (![camera changeTime:[NSDate date] error:&error]) {
@@ -534,7 +536,7 @@
 			return;
 		}
 		DEBUG_LOG(@"");
-
+		
 		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 		if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
@@ -543,7 +545,7 @@
 			return;
 		}
 		DEBUG_LOG(@"");
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf updateShowBluetoothSettingCell];
@@ -552,7 +554,7 @@
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenConnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 		}];
 		DEBUG_LOG(@"");
-
+		
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
 		NSDate *sequenceEndTime = [NSDate date];
@@ -579,7 +581,7 @@
 		return;
 	}
 	DEBUG_LOG(@"");
-
+	
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
 	BOOL demandToWakeUpWithUsingBluetooth = NO;
 	if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
@@ -603,7 +605,7 @@
 		}
 	}
 	DEBUG_LOG(@"demandToWakeUpWithUsingBluetooth=%ld", (long)demandToWakeUpWithUsingBluetooth);
-
+	
 	// Bluetoothデバイスの設定を確認します。
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
 	NSString *bluetoothPasscode = setting.bluetoothPasscode;
@@ -615,7 +617,7 @@
 		}
 	}
 	DEBUG_LOG(@"");
-
+	
 	// カメラの電源を投入し接続を開始します。
 	// 作者の環境ではiPhone 4Sだと電源投入から接続確率まで20秒近くかかっています。
 	__weak ConnectionViewController *weakSelf = self;
@@ -625,11 +627,11 @@
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		NSDate *sequenceStartTime = [NSDate date];
 		NSError *error = nil;
-
+		
 		// カメラに電源投入を試みます。
 		if (demandToWakeUpWithUsingBluetooth) {
 			DEBUG_LOG(@"");
-
+			
 			// Bluetoothデバイスの使用許可を確認します。
 			if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 				// Bluetoothデバイスは使用不可です。
@@ -637,7 +639,7 @@
 				return;
 			}
 			DEBUG_LOG(@"");
-
+			
 			// カメラを探します。
 			if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
 				BOOL discovered = [weakSelf.bluetoothConnector discoverPeripheral:&error];
@@ -648,7 +650,7 @@
 				}
 			}
 			DEBUG_LOG(@"");
-
+			
 			// カメラにBluetooth接続します。
 			if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
 				BOOL connected = [weakSelf.bluetoothConnector connectPeripheral:&error];
@@ -659,7 +661,7 @@
 				}
 			}
 			DEBUG_LOG(@"");
-
+			
 			// カメラの電源を入れます。
 			// MARK: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			// MARK: カメラがUSB経由で給電中だと、wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
@@ -691,7 +693,7 @@
 			camera.bluetoothPeripheral = nil;
 			camera.bluetoothPassword = nil;
 			DEBUG_LOG(@"");
-
+			
 			// カメラとのBluetooth接続を解除します。
 			// MARK: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
 			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
@@ -700,18 +702,18 @@
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
 			DEBUG_LOG(@"");
-
+			
 			// カメラの電源を入れるのに失敗している場合はここで諦めます。
 			if (!wokenUp) {
 				return;
 			}
 			DEBUG_LOG(@"");
 		}
-
+		
 		// カメラにWi-Fi接続を試みます。
 		{
 			DEBUG_LOG(@"");
-
+			
 			// Wi-Fi接続を試みます。
 			[weakSelf reportBlockConnectingWifi:progressView];
 			weakSelf.wifiConnector.SSID = wifiSSID;
@@ -730,7 +732,7 @@
 				weakSelf.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:ConnectingWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 			}];
 			DEBUG_LOG(@"");
-
+			
 			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
 			NSDate *connectStartTime = [NSDate date];
@@ -756,7 +758,7 @@
 				return;
 			}
 			DEBUG_LOG(@"");
-
+			
 			// 電源投入が完了しました。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				progressView.mode = MBProgressHUDModeIndeterminate;
@@ -767,7 +769,7 @@
 		// カメラにアプリ接続します。
 		{
 			DEBUG_LOG(@"");
-
+			
 			AppCamera *camera = GetAppCamera();
 			NSError *error = nil;
 			NSDate *connectStartTime = [NSDate date];
@@ -791,7 +793,7 @@
 				return;
 			}
 			DEBUG_LOG(@"");
-
+			
 			// スマホの現在時刻をカメラに設定します。
 			// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 			if (![camera changeTime:[NSDate date] error:&error]) {
@@ -800,7 +802,7 @@
 				return;
 			}
 			DEBUG_LOG(@"");
-
+			
 			// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 			// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
 			if (![camera changeRunMode:OLYCameraRunModeMaintenance error:&error]) {
@@ -809,7 +811,7 @@
 				return;
 			}
 			DEBUG_LOG(@"");
-
+			
 			// 画面表示を更新します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				[weakSelf updateShowWifiSettingCell];
@@ -836,7 +838,7 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		NSDate *sequenceStartTime = [NSDate date];
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenDisconnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -902,7 +904,7 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		NSDate *sequenceStartTime = [NSDate date];
-
+		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenSleeped atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -1027,6 +1029,15 @@
 	}
 	
 	[self presentViewController:alertController animated:YES completion:nil];
+}
+
+/// 'Open System Settings'のセルが選択されたときに呼び出されます。
+- (void)didSelectRowAtOpenSystemSettingsCell {
+	DEBUG_LOG(@"");
+
+	// 設定アプリを開きます。
+	NSURL *url = [[NSURL alloc] initWithString:UIApplicationOpenSettingsURLString];
+	[GetApp() openURL:url options:@{} completionHandler:nil];
 }
 
 #pragma mark -

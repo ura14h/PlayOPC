@@ -160,3 +160,6 @@
 
 /* Class = "UILabel"; text = "Disconnect"; ObjectID = "tA9-re-tiV"; */
 "tA9-re-tiV.text" = "Disconnect";
+
+/* Class = "UILabel"; text = "Open System Settings"; ObjectID = "z6f-xy-pDs"; */
+"z6f-xy-pDs.text" = "Open System Settings";

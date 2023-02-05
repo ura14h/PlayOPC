@@ -2,6 +2,7 @@
 // MBProgressHUD.m
 // Version 1.1.0
 // Created by Matej Bukovinski on 2.4.09.
+// Modified by Hiroki Ishiura on 2023/01/28
 //
 
 #import "MBProgressHUD.h"

@@ -12,7 +12,6 @@
 #import "WifiConnector.h"
 #import <NetworkExtension/NetworkExtension.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
-//#import "Reachability.h"
 #import <Network/Network.h>
 #import "AppDelegate.h"
 #import "AppCamera.h"

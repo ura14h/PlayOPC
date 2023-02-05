@@ -468,7 +468,8 @@
 	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
+		NSDate *sequenceStartTime = [NSDate date];
+
 		// Bluetoothデバイスの使用許可を確認します。
 		if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 			// Bluetoothデバイスは使用不可です。
@@ -501,13 +502,16 @@
 		DEBUG_LOG(@"");
 
 		// カメラにアプリ接続します。
-		// この応答が返ってくるまでやや時間がかかるようです。作者の環境ではiPhone 4Sだと10秒程度かかっています。
+		// この応答が返ってくるまでやや時間がかかるようです。
 		AppCamera *camera = GetAppCamera();
 		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 		camera.bluetoothPassword = bluetoothPasscode;
 		camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
-		BOOL opened = [camera connect:OLYCameraConnectionTypeBluetoothLE error:&error];
-		if (!opened) {
+		NSDate *connectStartTime = [NSDate date];
+		BOOL connected = [camera connect:OLYCameraConnectionTypeBluetoothLE error:&error];
+		NSDate *connectEndTime = [NSDate date];
+		DEBUG_LOG(@"Taken %f sec", [connectEndTime timeIntervalSinceDate:connectStartTime]);
+		if (!connected) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			camera.bluetoothPeripheral = nil;
@@ -551,7 +555,8 @@
 
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		DEBUG_LOG(@"");
+		NSDate *sequenceEndTime = [NSDate date];
+		DEBUG_LOG(@"Taken %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 	}];
 }
 
@@ -618,6 +623,7 @@
 	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+		NSDate *sequenceStartTime = [NSDate date];
 		NSError *error = nil;
 
 		// カメラに電源投入を試みます。
@@ -656,14 +662,16 @@
 
 			// カメラの電源を入れます。
 			// MARK: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
-			// 作者の環境ではiPhone 4Sだと10秒程度かかっています。
 			// MARK: カメラがUSB経由で給電中だと、wekeupメソッドはタイムアウトエラーが時々発生してしまうようです。
 			[weakSelf reportBlockWakingUp:progressView];
 			AppCamera *camera = GetAppCamera();
 			camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 			camera.bluetoothPassword = bluetoothPasscode;
 			camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
+			NSDate *wakeupStartTime = [NSDate date];
 			BOOL wokenUp = [camera wakeup:&error];
+			NSDate *wakeupEndTime = [NSDate date];
+			DEBUG_LOG(@"Taken %f sec", [wakeupEndTime timeIntervalSinceDate:wakeupStartTime]);
 			if (!wokenUp) {
 				// カメラの電源を入れるのに失敗しました。
 				if ([error.domain isEqualToString:OLYCameraErrorDomain] && error.code == OLYCameraErrorOperationAborted) {
@@ -725,10 +733,11 @@
 
 			// カメラにアクセスできるWi-Fi接続が有効になるまで待ちます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
-			// 作者の環境ではiPhone 4S (iOS 10) だと10秒程度かかっています。
-			// 作者の環境ではiPhone 6S (iOS 13.3) だと30秒程度かかっています。
-			BOOL opened = [weakSelf.wifiConnector waitForConnected:40.0];
-			if (!opened) {
+			NSDate *connectStartTime = [NSDate date];
+			connected = [weakSelf.wifiConnector waitForConnected:30.0];
+			NSDate *connectEndTime = [NSDate date];
+			DEBUG_LOG(@"Taken %f sec", [connectEndTime timeIntervalSinceDate:connectStartTime]);
+			if (!connected) {
 				// Connecting... を元に戻します。
 				[weakSelf executeAsynchronousBlockOnMainThread:^{
 					[weakSelf updateShowWifiSettingCell];
@@ -741,6 +750,9 @@
 					// カメラにアクセスできるWi-Fi接続ではありませんでした。(すでに別のアクセスポイントに接続している)
 					[weakSelf showAlertMessage:NSLocalizedString(@"$desc:WifiConnectionIsNotCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				}
+				// 念のため、カメラとのWiFi接続を解除します。
+				[weakSelf.wifiConnector disconnect];
+				[weakSelf.wifiConnector waitForDisconnected:1.0];
 				return;
 			}
 			DEBUG_LOG(@"");
@@ -758,17 +770,24 @@
 
 			AppCamera *camera = GetAppCamera();
 			NSError *error = nil;
+			NSDate *connectStartTime = [NSDate date];
 #if (TARGET_OS_SIMULATOR)
 			// 接続する前にやっておかないと次のSDK-API呼び出しでクラッシュする...
-			if (![camera canConnect:OLYCameraConnectionTypeWiFi timeout:3.0 error:&error]) {
-				// カメラにアプリ接続できませんでした。
-				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-				return;
+			BOOL connected = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:3.0 error:&error];
+			if (connected) {
+				connected = [camera connect:OLYCameraConnectionTypeWiFi error:&error];
 			}
+#else
+			BOOL connected = [camera connect:OLYCameraConnectionTypeWiFi error:&error];
 #endif
-			if (![camera connect:OLYCameraConnectionTypeWiFi error:&error]) {
+			NSDate *connectEndTime = [NSDate date];
+			DEBUG_LOG(@"Taken %f sec", [connectEndTime timeIntervalSinceDate:connectStartTime]);
+			if (!connected) {
 				// カメラにアプリ接続できませんでした。
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+				// 念のため、カメラとのWiFi接続を解除します。
+				[weakSelf.wifiConnector disconnect];
+				[weakSelf.wifiConnector waitForDisconnected:1.0];
 				return;
 			}
 			DEBUG_LOG(@"");
@@ -803,7 +822,8 @@
 		
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		DEBUG_LOG(@"");
+		NSDate *sequenceEndTime = [NSDate date];
+		DEBUG_LOG(@"Taken %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 	}];
 }
 
@@ -815,7 +835,8 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
+		NSDate *sequenceStartTime = [NSDate date];
+
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenDisconnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -867,7 +888,8 @@
 		
 		// カメラの接続解除が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		DEBUG_LOG(@"");
+		NSDate *sequenceEndTime = [NSDate date];
+		DEBUG_LOG(@"Taken %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 	}];
 }
 
@@ -879,7 +901,8 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
+		NSDate *sequenceStartTime = [NSDate date];
+
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenSleeped atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
@@ -931,6 +954,8 @@
 		
 		// カメラの接続解除が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
+		NSDate *sequenceEndTime = [NSDate date];
+		DEBUG_LOG(@"Taken %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 	}];
 }
 

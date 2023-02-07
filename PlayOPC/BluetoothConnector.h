@@ -35,7 +35,6 @@ extern NSString *const BluetoothConnectionChangedNotification; ///< Bluetoothの
 extern NSString *const BluetoothConnectorErrorDomain; ///< Bluetooth接続状態監視のエラードメイン
 
 /// Bluetoothペリフェラルへの接続をお手伝いをします。
-/// この内部ではBluetoothセントラルマネージャが動作しています。
 @interface BluetoothConnector : NSObject
 
 @property (strong, nonatomic) NSArray *services; ///< ペリフェラルを検索するためのBluetoothサービスUUDのリスト

@@ -15,37 +15,30 @@
 typedef enum : NSInteger {
 	WifiConnectionStatusUnknown = 0, ///< 不明
 	WifiConnectionStatusNotConnected, ///< 未接続
+	WifiConnectionStatusConnectedOther, ///< 接続中 (他のアクセスポイント)
 	WifiConnectionStatusConnected, ///< 接続中
 } WifiConnectionStatus;
-
-/// カメラにアクセスできるか否か
-typedef enum : NSInteger {
-	WifiCameraStatusUnknown = 0, ///< 不明
-	WifiCameraStatusUnreachable, ///< 到達不能
-	WifiCameraStatusReachable, ///< 到達可能
-} WifiCameraStatus;
 
 /// Wi-Fi接続状態監視のエラーコード
 typedef enum : NSInteger {
 	WifiConnectorErrorUnknown = 1000, ///< 不明
 	WifiConnectorErrorBusy, ///< 処理中につき多忙
-	WifiConnectorErrorReachabilityFailed, ///< 内部のReachabilityでエラー発生
+	WifiConnectorErrorTimeout, ///< 処理待ちがタイムアウトした
 } WifiConnectorError;
 
-extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態かカメラへアクセスできるかが変化した時の通知名
+extern NSString *const WifiConnectionChangedNotification; ///< Wi-Fiの接続状態が変化した時の通知名
+extern NSString *const WifiConnectorErrorDomain; ///< Wi-Fi接続状態監視のエラードメイン
 
 /// Wi-Fi接続の監視をお手伝いをします。
-/// この内部ではReachabilityが動作しています。
 @interface WifiConnector : NSObject
 
 @property (strong, nonatomic) NSString *SSID; ///< Wi-FiのSSID
 @property (strong, nonatomic) NSString *passphrase; ///< Wi-Fiのパスフレーズ
+@property (assign, nonatomic) NSTimeInterval timeout; ///< 処理のタイムアウト値
+@property (assign, nonatomic, readonly) BOOL running; ///< 処理実行中か否かを示します。
 
 /// Wi-Fiの接続状態を取得します。
 - (WifiConnectionStatus)connectionStatus;
-
-/// カメラにアクセスできるか否かを取得します。
-- (WifiCameraStatus)cameraStatus;
 
 /// 接続状態の監視を開始します。
 - (void)startMonitoring;
@@ -54,15 +47,9 @@ extern NSString *const WifiStatusChangedNotification; ///< Wi-Fiの接続状態�
 - (void)stopMonitoring;
 
 /// カメラのアクセスポイントへの接続を試みます。
-- (BOOL)connect:(NSError**)error;
-
-/// カメラへのアクセスが可能になるまで待ちます。
-- (BOOL)waitForConnected:(NSTimeInterval)timeout;
+- (BOOL)connectHotspot:(NSError**)error;
 
 /// カメラのアクセスポイントへの接続を切断します。
-- (void)disconnect;
-
-/// カメラへのアクセスが不能になるまで待ちます。
-- (BOOL)waitForDisconnected:(NSTimeInterval)timeout;
+- (BOOL)disconnectHotspot:(NSError **)error;
 
 @end

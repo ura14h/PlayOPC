@@ -22,7 +22,6 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 @property (strong, nonatomic) CBCentralManager *centralManager;	///< Bluetoothセントラルマネージャ
 @property (strong, nonatomic) CBPeripheral *cachedPeripheral; ///< キャッシュしたペリフェラル
 
-
 @end
 
 #pragma mark -
@@ -99,6 +98,8 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		self.queue = nil;
 		return [CBCentralManager authorization];
 	}
+	
+	// セントラルマネージャを準備します。
 	if (!self.centralManager) {
 		NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.BluetoothConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
 		_queue = dispatch_queue_create([dispatchQueueName UTF8String], NULL);
@@ -107,6 +108,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		};
 		self.centralManager = [[CBCentralManager alloc] initWithDelegate:self queue:self.queue options:managerOptions];
 	}
+	
 	// 決まっていないならユーザーが許可もしくは禁止を選択するまで待ちます。
 	while ([CBCentralManager authorization] == CBManagerAuthorizationNotDetermined) {
 		[NSThread sleepForTimeInterval:0.05];
@@ -141,7 +143,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	if ([self reqeustAuthorization] == CBManagerAuthorizationDenied) {
 		// Bluetoothデバイスは利用できません。
-		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.discoverPeripheral")];
+		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:BluetoothIsNotAvailable", @"BluetoothConnector.discoverPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;
@@ -161,15 +163,6 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 			*error = internalError;
 		}
 		return NO;
-	}
-	if (self.peripheral && [self.peripheral.name isEqualToString:self.localName]) {
-		// すでに検索してあるんじゃないですか。
-		NSError *internalError = [self createError:BluetoothConnectorErrorConnected description:NSLocalizedString(@"$desc:BluetoothPeripheralFound", @"BluetoothConnector.discoverPeripheral")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		// エラーは無視して続行します。
 	}
 
 	// ペリフェラルに接続している場合はそれを利用します。
@@ -211,13 +204,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 		[notificationCenter postNotificationName:BluetoothConnectionChangedNotification object:self];
 	} else {
-		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:DiscoveringBluetoothPeripheralTimedOut", @"BluetoothConnector.discoverPeripheral")
-		};
-		NSError *theError = [NSError errorWithDomain:BluetoothConnectorErrorDomain code:BluetoothConnectorErrorTimeout userInfo:userInfo];
-		DEBUG_LOG(@"error=%@", theError);
+		NSError *internalError = [self createError:BluetoothConnectorErrorTimeout description:NSLocalizedString(@"$desc:DiscoveringBluetoothPeripheralTimedOut", @"BluetoothConnector.discoverPeripheral")];
+		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
-			*error = theError;
+			*error = internalError;
 		}
 	}
 	return discovered;
@@ -237,7 +227,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	if ([self reqeustAuthorization] == CBManagerAuthorizationDenied) {
 		// Bluetoothデバイスは利用できません。
-		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:CBCentralManagerStateNotPoweredOn", @"BluetoothConnector.connectPeripheral")];
+		NSError *internalError = [self createError:BluetoothConnectorErrorNotAvailable description:NSLocalizedString(@"$desc:BluetoothIsNotAvailable", @"BluetoothConnector.connectPeripheral")];
 		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
 			*error = internalError;
@@ -267,15 +257,6 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 		return NO;
 	}
-	if (self.peripheral && self.peripheral.name == self.localName && self.peripheral.state == CBPeripheralStateConnected) {
-		// すでに接続してあるんじゃないですか。
-		NSError *internalError = [self createError:BluetoothConnectorErrorConnected description:NSLocalizedString(@"$desc:BluetoothPeripheralConnected", @"BluetoothConnector.connectPeripheral")];
-		DEBUG_LOG(@"error=%@", internalError);
-		if (error) {
-			*error = internalError;
-		}
-		// エラーは無視して続行します。
-	}
 
 	// ペリフェラルに接続します。
 	self.running = YES;
@@ -297,13 +278,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 		[notificationCenter postNotificationName:BluetoothConnectionChangedNotification object:self];
 	} else {
-		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:ConnectingBluetoothPeripheralTimedOut", @"BluetoothConnector.connectPeripheral")
-		};
-		NSError *theError = [NSError errorWithDomain:BluetoothConnectorErrorDomain code:BluetoothConnectorErrorTimeout userInfo:userInfo];
-		DEBUG_LOG(@"error=%@", theError);
+		NSError *internalError = [self createError:BluetoothConnectorErrorTimeout description:NSLocalizedString(@"$desc:ConnectingBluetoothPeripheralTimedOut", @"BluetoothConnector.connectPeripheral")];
+		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
-			*error = theError;
+			*error = internalError;
 		}
 	}
 	return connected;
@@ -346,13 +324,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
 		[notificationCenter postNotificationName:BluetoothConnectionChangedNotification object:self];
 	} else {
-		NSDictionary *userInfo = @{
-			NSLocalizedDescriptionKey: NSLocalizedString(@"$desc:DisconnectingBluetoothPeripheralTimedOut", @"BluetoothConnector.disconnectPeripheral")
-		};
-		NSError *theError = [NSError errorWithDomain:BluetoothConnectorErrorDomain code:BluetoothConnectorErrorTimeout userInfo:userInfo];
-		DEBUG_LOG(@"error=%@", theError);
+		NSError *internalError = [self createError:BluetoothConnectorErrorTimeout description:NSLocalizedString(@"$desc:DisconnectingBluetoothPeripheralTimedOut", @"BluetoothConnector.disconnectPeripheral")];
+		DEBUG_LOG(@"error=%@", internalError);
 		if (error) {
-			*error = theError;
+			*error = internalError;
 		}
 	}
 	return disconnected;

@@ -13,20 +13,19 @@
 #import <NetworkExtension/NetworkExtension.h>
 #import <SystemConfiguration/CaptiveNetwork.h>
 #import <Network/Network.h>
-#import "AppDelegate.h"
-#import "AppCamera.h"
 
-NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification";
+NSString *const WifiConnectionChangedNotification = @"WifiConnectionChangedNotification";
+NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 @interface WifiConnector ()
 
-@property (assign, nonatomic) BOOL monitoring; ///< 接続状態の監視中か否かを示します。
-@property (strong, nonatomic) dispatch_queue_t pathMonitorQueue; ///< 接続状態を確認するキュー
-@property (strong, nonatomic) nw_path_monitor_t pathMonitor; ///< 接続状態を監視するモニター
-@property (strong, nonatomic) nw_path_t path; ///< 接続情報
-@property (assign, nonatomic) nw_path_status_t pathStatus; ///< 接続状態
-@property (assign, nonatomic) BOOL cameraResponded; ///< カメラの応答があったか否か
-@property (assign, nonatomic) BOOL cameraDisconnecting; ///< カメラとの接続を解除中か否か
+@property (assign, nonatomic) BOOL monitoring; ///< 接続経路の監視中か否かを示します。
+@property (assign, nonatomic) BOOL running; ///< 実行中か否か
+@property (strong, nonatomic) dispatch_queue_t pathMonitorQueue; ///< 接続経路を確認するキュー
+@property (strong, nonatomic) nw_path_monitor_t pathMonitor; ///< 接続経路を監視するモニター
+@property (strong, nonatomic) nw_path_t path; ///< 接続経路
+@property (assign, nonatomic) nw_path_status_t pathStatus; ///< 接続経路の状態
+@property (strong, nonatomic) NEHotspotNetwork *network; ///< ネットワーク情報
 
 @end
 
@@ -46,12 +45,12 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	
 	_SSID = nil;
 	_passphrase = nil;
+	_timeout = 30.0;
 	_pathMonitorQueue = nil;
 	_pathMonitor = nil;
 	_path = nil;
 	_pathStatus = nw_path_status_invalid;
-	_cameraResponded = NO;
-	_cameraDisconnecting = NO;
+	_network = nil;
 	
 	return self;
 }
@@ -64,6 +63,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	_pathMonitorQueue = nil;
 	_pathMonitor = nil;
 	_path = nil;
+	_network = nil;
 }
 
 #pragma mark -
@@ -76,7 +76,11 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 #else
 	switch (self.pathStatus) {
 		case nw_path_status_satisfied:
-			return WifiConnectionStatusConnected;
+			if (self.network && [self.network.SSID isEqualToString:self.SSID]) {
+				return WifiConnectionStatusConnected;
+			} else {
+				return WifiConnectionStatusConnectedOther;
+			}
 		case nw_path_status_satisfiable:
 		case nw_path_status_unsatisfied:
 			return WifiConnectionStatusNotConnected;
@@ -88,34 +92,11 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 #endif
 }
 
-- (WifiCameraStatus)cameraStatus {
-	DEBUG_DETAIL_LOG(@"");
-	
-#if (TARGET_OS_SIMULATOR)
-	return WifiCameraStatusReachable;
-#else
-	switch (self.pathStatus) {
-		case nw_path_status_satisfied:
-			break;
-		case nw_path_status_satisfiable:
-		case nw_path_status_unsatisfied:
-		case nw_path_status_invalid:
-		default:
-			return WifiCameraStatusUnreachable;
-	}
-	if (!self.cameraResponded) {
-		return WifiCameraStatusUnreachable;
-	}
-	return WifiCameraStatusReachable;
-#endif
-}
-
 - (void)startMonitoring {
 	DEBUG_LOG(@"");
 	
 	if (self.monitoring) {
 		// 監視はすでに実行中です。
-		NSLog(NSLocalizedString(@"$desc:MonitoringIsRunnning", @"WifiConnector.startMonitoring"));
 		return;
 	}
 	
@@ -124,7 +105,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	nw_path_monitor_set_queue(self.pathMonitor, self.pathMonitorQueue);
 	self.path = nil;
 	self.pathStatus = nw_path_status_invalid;
-	self.cameraResponded = NO;
+	self.network = nil;
 	
 	__weak WifiConnector *weakSelf = self;
 	nw_path_monitor_set_cancel_handler(self.pathMonitor, ^{
@@ -133,8 +114,7 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		weakSelf.pathMonitor = nil;
 		weakSelf.path = nil;
 		weakSelf.pathStatus = nw_path_status_invalid;
-		weakSelf.cameraResponded = NO;
-		weakSelf.cameraDisconnecting = NO;
+		weakSelf.network = nil;
 	});
 	nw_path_monitor_set_update_handler(self.pathMonitor, ^(nw_path_t path) {
 		[weakSelf updatePath:path];
@@ -148,14 +128,13 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	
 	if (!self.monitoring) {
 		// 監視は未実行です。
-		NSLog(NSLocalizedString(@"$desc:MonitoringIsNotRunnning", @"WifiConnector.stopMonitoring"));
 		return;
 	}
 	
 	// 監視が停止するまで待ちます。
 	nw_path_monitor_cancel(self.pathMonitor);
 	NSDate *waitStartTime = [NSDate date];
-	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < 0.5) {
+	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < self.timeout) {
 		if (!self.monitoring) {
 			break;
 		}
@@ -163,20 +142,28 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 	}
 }
 
-- (BOOL)connect:(NSError**)error {
+- (BOOL)connectHotspot:(NSError**)error {
 	DEBUG_LOG(@"SSID=%@, passphrase=%@", self.SSID, self.passphrase);
 	
-	BOOL monitoring = self.monitoring;
-	self.monitoring = NO;
+	if (self.running) {
+		// すでに実行中です。
+		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:ConnectHotspotIsRunnning", @"WifiConnector.connectHotspot")];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	
+	// アクセスポイントに接続します。
+	self.running = YES;
 	__block BOOL applyResult = NO;
 	__block NSError *applyError = nil;
-	
 	NSString* ssid = self.SSID;
 	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
 	NEHotspotConfiguration *config = [[NEHotspotConfiguration alloc] initWithSSIDPrefix:ssid passphrase:self.passphrase isWEP:NO];
 	config.joinOnce = NO; // YESにするとiOS15ではエラーになってしまう...
 	config.lifeTimeInDays = [[NSNumber alloc] initWithInt:1];
-	
 	dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 	[manager applyConfiguration:config completionHandler:^(NSError *error) {
 		DEBUG_LOG(@"error=%@", error);
@@ -194,55 +181,75 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 		dispatch_semaphore_signal(semaphore);
 	}];
 	dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-	
-	self.monitoring = monitoring;
-	if (error != nil) {
-		*error = applyError;
-	}
-	return applyResult;
-}
 
-- (BOOL)waitForConnected:(NSTimeInterval)timeout {
-	DEBUG_LOG(@"timeout=%ld", (long)timeout);
+	// アクセスポイントに接続できませんでした。
+	if (!applyResult) {
+		if (error) {
+			*error = applyError;
+		}
+		self.running = NO;
+		return NO;
+	}
 	
-	// 接続状態の変化をポーリングします。
+	// 接続経路の変化をポーリングします。
 	BOOL connected = NO;
 	NSDate *waitStartTime = [NSDate date];
-	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		BOOL isWiFi = nw_path_uses_interface_type(self.path, nw_interface_type_wifi);
-		if (isWiFi && self.cameraResponded) {
+	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < self.timeout) {
+		if (self.connectionStatus == WifiConnectionStatusConnected) {
 			connected = YES;
 			break;
 		}
 		[NSThread sleepForTimeInterval:0.05];
 	}
+	if (!connected && error) {
+		NSError *internalError = [self createError:WifiConnectorErrorTimeout description:NSLocalizedString(@"$desc:ConnectingHotspotTimedOut", @"WifiConnector.disconnectHotspot")];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+	}
 	
+	self.running = NO;
 	return connected;
 }
 
-- (void)disconnect {
+- (BOOL)disconnectHotspot:(NSError **)error {
 	DEBUG_LOG(@"SSID=%@", self.SSID);
 	
+	if (self.running) {
+		// すでに実行中です。
+		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:ConnectHotspotIsRunnning", @"WifiConnector.disconnectHotspot")];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+		return NO;
+	}
+	
+	// アクセスポイントの接続を解除します。
+	self.running = YES;
 	NEHotspotConfigurationManager *manager = NEHotspotConfigurationManager.sharedManager;
 	[manager removeConfigurationForSSID:self.SSID];
-}
-
-- (BOOL)waitForDisconnected:(NSTimeInterval)timeout {
-	DEBUG_LOG(@"timeout=%ld", (long)timeout);
 	
-	// 接続状態の変化をポーリングします。
-	self.cameraDisconnecting = YES;
+	// 接続経路の変化をポーリングします。
 	BOOL disconnected = NO;
 	NSDate *waitStartTime = [NSDate date];
-	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < timeout) {
-		if (self.pathStatus != nw_path_status_satisfied || !self.cameraResponded) {
+	while ([[NSDate date] timeIntervalSinceDate:waitStartTime] < self.timeout) {
+		if (self.connectionStatus != WifiConnectionStatusConnected) {
 			disconnected = YES;
 			break;
 		}
 		[NSThread sleepForTimeInterval:0.05];
 	}
-	self.cameraDisconnecting = NO;
-	
+	if (!disconnected && error) {
+		NSError *internalError = [self createError:WifiConnectorErrorTimeout description:NSLocalizedString(@"$desc:ConnectingHotspotTimedOut", @"WifiConnector.disconnectHotspot")];
+		DEBUG_LOG(@"error=%@", internalError);
+		if (error) {
+			*error = internalError;
+		}
+	}
+
+	self.running = NO;
 	return disconnected;
 }
 
@@ -252,46 +259,58 @@ NSString *const WifiStatusChangedNotification = @"WifiStatusChangedNotification"
 /// カメラのアクセスポイントに接続している場合はカメラと通信できるか否かも確かめます。
 - (void)updatePath:(nw_path_t)path {
 	DEBUG_DETAIL_LOG(@"");
-	
+
+	// 接続経路を取得します。
 	nw_path_t currentPath = path;
 	nw_path_status_t currentStatus = nw_path_get_status(path);
-	BOOL currentCameraResponded = NO;
-	
 	DEBUG_LOG(@"currentStatus=%ld", (long)currentStatus);
+	
+	// ネットワーク情報を取得します。
+	__block NEHotspotNetwork *currentNetwork = nil;
 	if (currentStatus == nw_path_status_satisfied) {
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-		__block NEHotspotNetwork *network;
 		[NEHotspotNetwork fetchCurrentWithCompletionHandler:^(NEHotspotNetwork *current) {
-			network = current;
+			currentNetwork = current;
 			dispatch_semaphore_signal(semaphore);
 		}];
 		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
-		
-		if (network && [network.SSID isEqualToString:self.SSID]) {
-			// WiFiの接続解除中はカメラにコマンドを送信しないようにします。
-			// MARK: カメラのWiFiを接続解除中にCGIコマンドを送信すると接続解除が遅延したり電源がオフにならなかったりするようです。
-			if (!self.cameraDisconnecting) {
-				AppCamera *camera = GetAppCamera();
-				if (camera.connected) {
-					currentCameraResponded = YES;
-				} else {
-					currentCameraResponded = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:1.0 error:nil];
-				}
-			}
-		}
 	}
 	
-	BOOL changed = (self.pathStatus != currentStatus) || (self.cameraResponded != currentCameraResponded);
+	// 取得した情報を保持します。
+	BOOL changed = NO;
+	if (self.pathStatus != currentStatus) {
+		changed = YES;
+	}
+	if ((!self.network && currentNetwork) ||
+		(self.network && !currentNetwork)) {
+		changed = YES;
+	}
+	if ((self.network && currentNetwork) &&
+		![self.network.SSID isEqualToString:currentNetwork.SSID]) {
+		changed = YES;
+	}
 	self.path = currentPath;
 	self.pathStatus = currentStatus;
-	self.cameraResponded = currentCameraResponded;
+	self.network = currentNetwork;
 	
+	// 状態に変化があれば通知します。
 	if (changed) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
-			[notificationCenter postNotificationName:WifiStatusChangedNotification object:self];
+			[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
 		});
 	}
+}
+
+/// エラー情報を作成します。
+- (NSError *)createError:(NSInteger)code description:(NSString *)description {
+	DEBUG_LOG(@"code=%ld, description=%@", (long)code, description);
+	
+	NSDictionary *userInfo = @{
+		NSLocalizedDescriptionKey: description
+	};
+	NSError *error = [[NSError alloc] initWithDomain:WifiConnectorErrorDomain code:code userInfo:userInfo];
+	return error;
 }
 
 @end

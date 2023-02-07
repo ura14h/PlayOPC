@@ -37,9 +37,6 @@
 /* SystemViewController.updateHardwareInformationCells */
 "$cell:CameraModelNameUnknown" = "Unknown";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$cell:ConnectingWifi" = "Connecting...";
-
 /* PlaybackViewController.cellForRowAtIndexPath */
 "$cell:ContentFileSize(%@ Bytes)" = "%@ bytes";
 
@@ -391,16 +388,13 @@
 "$cell:WbRevUnknown" = "Unknown";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiConnected(null)" = "Connected";
+"$cell:WifiConnectedOther" = "Connected Other";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNoConfiguration" = "No Configurations";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected" = "Not Connected";
-
-/* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiNotConnected(null)" = "Connected Another";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "Unknown";
@@ -411,11 +405,9 @@
 /* AppCamera.startTakingPluralPictures */
 "$desc:AutoBrackettingStepIsIncorrect" = "Auto bracketing step is incorrect.";
 
-/* BluetoothConnector.connectPeripheral */
-"$desc:BluetoothPeripheralConnected" = "Bluetooth device is already connected.";
-
-/* BluetoothConnector.discoverPeripheral */
-"$desc:BluetoothPeripheralFound" = "Bluetooth device is already found.";
+/* BluetoothConnector.connectPeripheral
+   BluetoothConnector.discoverPeripheral */
+"$desc:BluetoothIsNotAvailable" = "Bluetooth function is not available. Please enable it at Settings.";
 
 /* AppCamera.startTakingPluralPictures */
 "$desc:CameraCouldNotChangeValueOfProperty" = "Camera could not change a value of property.";
@@ -440,29 +432,42 @@
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth function is not available. Please enable it at Settings.";
 
-/* BluetoothConnector.connectPeripheral */
-"$desc:ConnectingBluetoothPeripheralTimedOut" = "Connecting Bluetooth peripheral timed out.";
+/* WifiConnector.connectHotspot
+   WifiConnector.disconnectHotspot */
+"$desc:ConnectHotspotIsRunnning" = "Connecting to access point is already in progress.";
 
 /* BluetoothConnector.connectPeripheral */
-"$desc:ConnectPeripheralIsRunnning" = "Connecting a Bluetooth device is running.";
+"$desc:ConnectingBluetoothPeripheralTimedOut" = "Connecting to Bluetooth peripheral timed out.";
+
+/* WifiConnector.disconnectHotspot */
+"$desc:ConnectingHotspotTimedOut" = "Connecting to access point is timed out.";
+
+/* BluetoothConnector.connectPeripheral */
+"$desc:ConnectPeripheralIsRunnning" = "Connecting to Bluetooth peripheral is already in progress.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
-"$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
+"$desc:CouldNotConnectBluetoothByEmptyLocalname" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
+"$desc:CouldNotConnectBluetoothByEmptyPasscode" = "Bluetooth passcode is empty. Please configure it at Bluetooth setting.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";
+"$desc:CouldNotConnectCamera" = "Could not connect to camera. Please allow 'Local Network' at Settings.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-Fi SSID is empty. Please configure it at Wi-Fi setting.";
+"$desc:CouldNotConnectWifiByEmptyBluetoothLocalname" = "Bluetooth local name is empty. Please configure it at Bluetooth setting. Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiWithBluetoothByEmptySetting" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.  Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
+"$desc:CouldNotConnectWifiByEmptyBluetoothPasscode" = "Bluetooth passcode is empty. Please configure it at Bluetooth setting. Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiByEmptyPassphrase" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiByEmptySsid" = "Wi-Fi SSID is empty. Please configure it at Wi-Fi setting.";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "Could not erase a favorite setting file in the application's document folder.";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotDiscoverWifiConnection" = "The camera did wake up, but Wi-Fi connection was not found. This device is in condition not to be connected automatically, or other devices may be already connected.";
 
 /* FavoriteForgingViewController.didTapSaveButton */
 "$desc:CouldNotForgeFavoriteSnapshotOfSetting" = "Could not translate information to a favorite setting.";
@@ -533,17 +538,8 @@
    RecordingViewController.startMagnifyingLiveView */
 "$desc:LiveViewImageIsEmpty" = "The camera is not sending application any image of the live view. Could not calculate a touched point in the live view.";
 
-/* WifiConnector.stopMonitoring */
-"$desc:MonitoringIsNotRunnning" = "Monitoring a status of Wi-Fi connection is not running.";
-
-/* WifiConnector.startMonitoring */
-"$desc:MonitoringIsRunnning" = "Monitoring a status of Wi-Fi connection is already running.";
-
 /* BluetoothConnector.connectPeripheral */
 "$desc:NoBluetoothPeripherals" = "No Bluetooth devices.";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:NoWifiConnections" = "No Wi-fi Connections. You have to connect the device to the camera by manual operation at Setting.";
 
 /* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
 "$desc:PasteboardTextIsNotCameraSetting" = "Pasteboard text is not camera setting.";
@@ -574,9 +570,6 @@
 
 /* PictureContentViewController.didTapUnprotectButton */
 "$desc:UnprotectPicture" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:WifiConnectionIsNotCamera" = "Turned on  the camera, however, it seems that this Wi-Fi connection is unable to communicate with the camera. Please allow 'Local Network' in 'Settings' or manually disconnect the current Wi-Fi connection and connect to the camera.";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */

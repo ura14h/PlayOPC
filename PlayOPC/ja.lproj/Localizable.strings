@@ -37,9 +37,6 @@
 /* SystemViewController.updateHardwareInformationCells */
 "$cell:CameraModelNameUnknown" = "不明";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$cell:ConnectingWifi" = "接続中...";
-
 /* PlaybackViewController.cellForRowAtIndexPath */
 "$cell:ContentFileSize(%@ Bytes)" = "%@ バイト";
 
@@ -391,16 +388,13 @@
 "$cell:WbRevUnknown" = "不明";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiConnected(null)" = "接続済み";
+"$cell:WifiConnectedOther" = "他に接続";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNoConfiguration" = "未構成";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiNotConnected" = "未接続";
-
-/* ConnectionViewController.updateShowWifiSettingCell */
-"$cell:WifiNotConnected(null)" = "他に接続";
 
 /* ConnectionViewController.updateShowWifiSettingCell */
 "$cell:WifiStatusUnknown" = "不明";
@@ -411,11 +405,9 @@
 /* AppCamera.startTakingPluralPictures */
 "$desc:AutoBrackettingStepIsIncorrect" = "オートブラケットのステップ数が正しくありません。";
 
-/* BluetoothConnector.connectPeripheral */
-"$desc:BluetoothPeripheralConnected" = "Bluetoothデバイスにすでに接続しています。";
-
-/* BluetoothConnector.discoverPeripheral */
-"$desc:BluetoothPeripheralFound" = "Bluetoothデバイスはすでに見つかっています。";
+/* BluetoothConnector.connectPeripheral
+   BluetoothConnector.discoverPeripheral */
+"$desc:BluetoothIsNotAvailable" = "Bluetooth機能は利用できません。「設定」で有効にしてください。";
 
 /* AppCamera.startTakingPluralPictures */
 "$desc:CameraCouldNotChangeValueOfProperty" = "カメラプロパティ値が変更できません。";
@@ -440,29 +432,42 @@
    BluetoothConnector.discoverPeripheral */
 "$desc:CBCentralManagerStateNotPoweredOn" = "Bluetooth機能は利用できません。「設定」で有効にしてください。";
 
+/* WifiConnector.connectHotspot
+   WifiConnector.disconnectHotspot */
+"$desc:ConnectHotspotIsRunnning" = "アクセスポイントへの接続は実行中です。";
+
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectingBluetoothPeripheralTimedOut" = "Bluetoothデバイスへの接続がタイムアウトしました。";
+
+/* WifiConnector.disconnectHotspot */
+"$desc:ConnectingHotspotTimedOut" = "アクセスポイントへの接続がタイムアウトしました。";
 
 /* BluetoothConnector.connectPeripheral */
 "$desc:ConnectPeripheralIsRunnning" = "Bluetoothデバイスへの接続は実行中です。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
-"$desc:CouldNotConnectBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。";
+"$desc:CouldNotConnectBluetoothByEmptyLocalname" = "Bluetoothのローカルネームが空です。Bluetooth設定を構成してください。";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
+"$desc:CouldNotConnectBluetoothByEmptyPasscode" = "Bluetoothのパスコードが空です。Bluetooth設定を構成してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiPassphraseByEmptySetting" = "Wi-Fiのパスフレーズが空です。Wi-FIの設定でセットアップしてください。";
+"$desc:CouldNotConnectCamera" = "カメラに接続できませんでした。設定で「ローカルネットワーク」を許可してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiSsidByEmptySetting" = "Wi-FiのSSID名が空です。Wi-FIの設定でセットアップしてください。";
+"$desc:CouldNotConnectWifiByEmptyBluetoothLocalname" = "Bluetoothのローカルネームが空です。Bluetooth設定を構成してください。BluetoothはWi-Fi 経由でカメラにアクセスする前にカメラの電源を入れるために使用されます。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiWithBluetoothByEmptySetting" = "Bluetoothのローカル名が空です。Bluetoothの設定でセットアップしてください。 BluetoothはWi-Fi経由でアクセスする前にカメラの電源を入れるために使用されます。";
+"$desc:CouldNotConnectWifiByEmptyBluetoothPasscode" = "Bluetoothのパスコードが空です。Bluetooth設定を構成してください。BluetoothはWi-Fi 経由でカメラにアクセスする前にカメラの電源を入れるために使用されます。";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiByEmptyPassphrase" = "Wi-Fiのパスフレーズが空です。Wi-Fi設定を構成してください。";
+
+/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+"$desc:CouldNotConnectWifiByEmptySsid" = "Wi-FiのSSIDが空です。Wi-Fi設定を構成してください。";
 
 /* FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotDeleteFavoriteSetting" = "アプリのドキュメントフォルダにある、お気に入り設定ファイルを削除できません。";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotDiscoverWifiConnection" = "カメラの電源は入れましたが、Wi-Fi接続は見つかりませんでした。このデバイスが自動で接続しない状態か、他のデバイスがすでに接続中かもしれません。";
 
 /* FavoriteForgingViewController.didTapSaveButton */
 "$desc:CouldNotForgeFavoriteSnapshotOfSetting" = "詳細情報をお気に入りに変換できませんでした。";
@@ -533,17 +538,8 @@
    RecordingViewController.startMagnifyingLiveView */
 "$desc:LiveViewImageIsEmpty" = "カメラからライブビューの画像が送られていません。ライブビュー上でタッチした座標を計算できません。";
 
-/* WifiConnector.stopMonitoring */
-"$desc:MonitoringIsNotRunnning" = "Wi-Fi接続の状態監視は実行していません。";
-
-/* WifiConnector.startMonitoring */
-"$desc:MonitoringIsRunnning" = "Wi-Fi接続の状態監視は実行中です。";
-
 /* BluetoothConnector.connectPeripheral */
 "$desc:NoBluetoothPeripherals" = "Bluetoothデバイスがありません。";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:NoWifiConnections" = "Wi-fi接続がありません。「設定」で手動でカメラに接続してください。";
 
 /* SPanelViewController.didSelectRowAtDoPasteCameraSetting */
 "$desc:PasteboardTextIsNotCameraSetting" = "ペーストボードのテキストはカメラ設定ではありません。";
@@ -574,9 +570,6 @@
 
 /* PictureContentViewController.didTapUnprotectButton */
 "$desc:UnprotectPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:WifiConnectionIsNotCamera" = "カメラの電源を入れましたが、このWi-Fi接続ではカメラと通信できないようです。「設定」で「ローカルネットワーク」を許可するか、現在のWi-Fi接続を手動で切断してカメラに接続してください。";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */

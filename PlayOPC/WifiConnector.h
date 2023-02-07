@@ -23,7 +23,7 @@ typedef enum : NSInteger {
 typedef enum : NSInteger {
 	WifiConnectorErrorUnknown = 1000, ///< 不明
 	WifiConnectorErrorBusy, ///< 処理中につき多忙
-	WifiConnectorErrorTimeout, ///< 内部のReachabilityでエラー発生
+	WifiConnectorErrorTimeout, ///< 処理待ちがタイムアウトした
 } WifiConnectorError;
 
 extern NSString *const WifiConnectionChangedNotification; ///< Wi-Fiの接続状態が変化した時の通知名
@@ -35,6 +35,7 @@ extern NSString *const WifiConnectorErrorDomain; ///< Wi-Fi接続状態監視の
 @property (strong, nonatomic) NSString *SSID; ///< Wi-FiのSSID
 @property (strong, nonatomic) NSString *passphrase; ///< Wi-Fiのパスフレーズ
 @property (assign, nonatomic) NSTimeInterval timeout; ///< 処理のタイムアウト値
+@property (assign, nonatomic, readonly) BOOL running; ///< 処理実行中か否かを示します。
 
 /// Wi-Fiの接続状態を取得します。
 - (WifiConnectionStatus)connectionStatus;

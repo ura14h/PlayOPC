@@ -259,11 +259,13 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 /// カメラのアクセスポイントに接続している場合はカメラと通信できるか否かも確かめます。
 - (void)updatePath:(nw_path_t)path {
 	DEBUG_DETAIL_LOG(@"");
-	
+
+	// 接続経路を取得します。
 	nw_path_t currentPath = path;
 	nw_path_status_t currentStatus = nw_path_get_status(path);
-	
 	DEBUG_LOG(@"currentStatus=%ld", (long)currentStatus);
+	
+	// ネットワーク情報を取得します。
 	__block NEHotspotNetwork *currentNetwork = nil;
 	if (currentStatus == nw_path_status_satisfied) {
 		dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
@@ -274,6 +276,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		dispatch_semaphore_wait(semaphore, DISPATCH_TIME_FOREVER);
 	}
 	
+	// 取得した情報を保持します。
 	BOOL changed = NO;
 	if (self.pathStatus != currentStatus) {
 		changed = YES;
@@ -290,6 +293,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	self.pathStatus = currentStatus;
 	self.network = currentNetwork;
 	
+	// 状態に変化があれば通知します。
 	if (changed) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];

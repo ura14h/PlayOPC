@@ -100,7 +100,8 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		return;
 	}
 	
-	self.pathMonitorQueue = dispatch_queue_create("net.homeunix.hio.ipa.PlayOPC.monitorQueue", DISPATCH_QUEUE_SERIAL);
+	NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.WifiConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
+	self.pathMonitorQueue = dispatch_queue_create([dispatchQueueName UTF8String], DISPATCH_QUEUE_SERIAL);
 	self.pathMonitor = nw_path_monitor_create_with_type(nw_interface_type_wifi);
 	nw_path_monitor_set_queue(self.pathMonitor, self.pathMonitorQueue);
 	self.path = nil;

@@ -710,6 +710,7 @@
                     <connections>
                         <outlet property="bluetoothLocalNameText" destination="20e-sY-7p1" id="WmI-pH-2s4"/>
                         <outlet property="bluetoothPasscodeText" destination="M37-av-fFz" id="H9c-UY-hMW"/>
+                        <outlet property="doneButton" destination="7kj-67-zPh" id="0zb-Gs-HQ9"/>
                         <segue destination="dPb-zm-MkU" kind="unwind" identifier="DoneBluetoothSetting" unwindAction="exitToConnectionViewController:" id="I5s-Qj-jXn"/>
                     </connections>
                 </tableViewController>

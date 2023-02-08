@@ -18,6 +18,7 @@
 
 @interface BluetoothSettingViewController () <UITextFieldDelegate>
 
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *doneButton;
 @property (weak, nonatomic) IBOutlet UITextField *bluetoothLocalNameText;
 @property (weak, nonatomic) IBOutlet UITextField *bluetoothPasscodeText;
 
@@ -37,6 +38,7 @@
 	AppSetting *setting = GetAppSetting();
 	self.bluetoothLocalNameText.text = setting.bluetoothLocalName;
 	self.bluetoothPasscodeText.text = setting.bluetoothPasscode;
+	self.doneButton.enabled = NO;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -88,6 +90,34 @@
 		[self didSelectRowAtPasscodeCell];
 	}
 	[tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+/// キーボードから入力されるたびに呼び出されます。
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+	DEBUG_LOG(@"string=%@", string);
+	
+	// テキストフィールドを更新します。
+	textField.text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+	
+	// 入力されている値をチェックします。
+	BOOL enable = YES;
+	if (enable) {
+		NSString *name = self.bluetoothLocalNameText.text;
+		NSString* trimed = [name stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+		if (trimed.length < 1) {
+			enable = FALSE;
+		}
+	}
+	if (enable) {
+		NSString *passcode = self.bluetoothPasscodeText.text;
+		NSString* trimed = [passcode stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+		if (trimed.length < 1) {
+			enable = FALSE;
+		}
+	}
+	self.doneButton.enabled = enable;
+	
+	return NO; // この処理でテキストフィールドを更新したので、OSの既定処理は実行させません。
 }
 
 /// キーボードでリターンキーをタップした時に呼び出されます。

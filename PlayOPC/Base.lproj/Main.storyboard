@@ -647,7 +647,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$bleCode" placeholder="OPC Passcode (000000)" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M37-av-fFz">
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$bleCode" placeholder="OPC Passcode (000000)" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="M37-av-fFz" customClass="SecureTextField">
                                                     <rect key="frame" x="148" y="12" width="251" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="uQu-mb-LBR"/>
@@ -855,7 +855,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$wifiPassphrase" placeholder="OPC Password (00000000)" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8il-6K-2dT">
+                                                <textField clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="$wifiPassphrase" placeholder="OPC Password (00000000)" minimumFontSize="9" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8il-6K-2dT" customClass="SecureTextField">
                                                     <rect key="frame" x="148" y="12" width="251" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="QWL-HL-h9I"/>

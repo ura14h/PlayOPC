@@ -737,7 +737,7 @@
 			
 			AppCamera *camera = GetAppCamera();
 			NSError *error = nil;
-			NSTimeInterval reachTimeout = 5.0;
+			NSTimeInterval reachTimeout = self.wifiConnector.timeout;
 			NSDate *reachStartTime = [NSDate date];
 			BOOL reached = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:reachTimeout error:&error];
 			NSDate *reachEndTime = [NSDate date];
@@ -746,6 +746,7 @@
 			if (!reached) {
 				// カメラにアプリ接続できませんでした。
 				// 指定したタイムアウト時間よりも早く復帰している場合は設定に問題があるとみなします。
+				// TODO: この手法は初回接続でダイアログ応答待ちを判定できないのでまだ完全ではない。
 				NSString *message;
 				if (error.domain == NSURLErrorDomain && error.code == NSURLErrorTimedOut && timeToReach < reachTimeout) {
 					message = NSLocalizedString(@"$desc:CouldNotConnectCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");

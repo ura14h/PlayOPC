@@ -281,9 +281,7 @@
 	NSString *cellReuseIdentifier = cell.reuseIdentifier;
 	
 	// セルに応じたカメラ操作処理を呼び出します。
-	if ([cellReuseIdentifier isEqualToString:@"ShowWifiSetting"]) {
-		// iOSの設定画面のWi-Fiセクションを開くことができたら素晴らしいのに。
-	} else if ([cellReuseIdentifier isEqualToString:@"ConnectWithUsingBluetooth"]) {
+	if ([cellReuseIdentifier isEqualToString:@"ConnectWithUsingBluetooth"]) {
 		[self didSelectRowAtConnectWithUsingBluetoothCell];
 	} else if ([cellReuseIdentifier isEqualToString:@"ConnectWithUsingWifi"]) {
 		[self didSelectRowAtConnectWithUsingWifiCell];
@@ -1119,6 +1117,8 @@
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
 		// Bluetoothで接続中です。
+		[self tableViewCell:self.showBluetoothSettingCell enabled:NO];
+		[self tableViewCell:self.showWifiSettingCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingBluetoothCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 		[self tableViewCell:self.disconnectCell enabled:YES];
@@ -1127,6 +1127,8 @@
 		self.connectWithUsingWiFiCell.accessoryType = UITableViewCellAccessoryNone;
 	} else if (camera.connected && camera.connectionType == OLYCameraConnectionTypeWiFi) {
 		// Wi-Fiで接続中です。
+		[self tableViewCell:self.showBluetoothSettingCell enabled:NO];
+		[self tableViewCell:self.showWifiSettingCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingBluetoothCell enabled:NO];
 		[self tableViewCell:self.connectWithUsingWiFiCell enabled:NO];
 		[self tableViewCell:self.disconnectCell enabled:YES];
@@ -1135,6 +1137,8 @@
 		self.connectWithUsingWiFiCell.accessoryType = UITableViewCellAccessoryCheckmark;
 	} else {
 		// 未接続です。
+		[self tableViewCell:self.showBluetoothSettingCell enabled:YES];
+		[self tableViewCell:self.showWifiSettingCell enabled:YES];
 		if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
 			// Bluetooth使用可
 			[self tableViewCell:self.connectWithUsingBluetoothCell enabled:YES];

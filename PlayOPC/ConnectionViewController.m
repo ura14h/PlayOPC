@@ -457,11 +457,6 @@
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptyLocalname", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 		return;
 	}
-	if (!bluetoothPasscode || bluetoothPasscode.length == 0) {
-		// Bluetoothデバイスの設定が不完全です。
-		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptyPasscode", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
-		return;
-	}
 	DEBUG_LOG(@"");
 	
 	// カメラへの接続を開始します。
@@ -606,11 +601,6 @@
 		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
 			// Bluetoothデバイスの設定が不完全です。
 			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiByEmptyBluetoothLocalname", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-			return;
-		}
-		if (!bluetoothPasscode || bluetoothPasscode.length == 0) {
-			// Bluetoothデバイスの設定が不完全です。
-			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiByEmptyBluetoothPasscode", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 			return;
 		}
 	}

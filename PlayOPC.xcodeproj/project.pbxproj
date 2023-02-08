@@ -29,7 +29,6 @@
 		3116E8761B9A6DE30075046D /* AutoBracketingCountList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3116E8741B9A6DE30075046D /* AutoBracketingCountList.plist */; };
 		3116E8781B9A6EA60075046D /* AutoBracketingStepList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3116E8771B9A6EA60075046D /* AutoBracketingStepList.plist */; };
 		3116E8791B9A6EA60075046D /* AutoBracketingStepList.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3116E8771B9A6EA60075046D /* AutoBracketingStepList.plist */; };
-		3118109C2993AB3E009CFA8A /* SecureTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 3118109B2993AB3E009CFA8A /* SecureTextField.m */; };
 		311B75BE1ABC287C00A7D38C /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75BD1ABC287C00A7D38C /* main.m */; };
 		311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C01ABC287C00A7D38C /* AppDelegate.m */; };
 		311B75C41ABC287C00A7D38C /* ConnectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 311B75C31ABC287C00A7D38C /* ConnectionViewController.m */; };
@@ -227,8 +226,6 @@
 		3116E8711B9A6D470075046D /* IntervalTimerTimeList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = IntervalTimerTimeList.plist; sourceTree = "<group>"; };
 		3116E8741B9A6DE30075046D /* AutoBracketingCountList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AutoBracketingCountList.plist; sourceTree = "<group>"; };
 		3116E8771B9A6EA60075046D /* AutoBracketingStepList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AutoBracketingStepList.plist; sourceTree = "<group>"; };
-		3118109A2993AB3E009CFA8A /* SecureTextField.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SecureTextField.h; sourceTree = "<group>"; };
-		3118109B2993AB3E009CFA8A /* SecureTextField.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SecureTextField.m; sourceTree = "<group>"; };
 		311B75B81ABC287C00A7D38C /* PlayOPC.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PlayOPC.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		311B75BC1ABC287C00A7D38C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		311B75BD1ABC287C00A7D38C /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -609,8 +606,6 @@
 				3192843F1AD92E04003BC78F /* CameraPropertyValueSelectionViewController.m */,
 				31C80DEF1B6DD0E900E77BA4 /* MarginedLabel.h */,
 				31C80DF01B6DD0E900E77BA4 /* MarginedLabel.m */,
-				3118109A2993AB3E009CFA8A /* SecureTextField.h */,
-				3118109B2993AB3E009CFA8A /* SecureTextField.m */,
 				3165A3091BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.h */,
 				3165A30A1BF6DD8B002D7546 /* ImmediatelyPanGestureRecognizer.m */,
 				311199C01B08702100538FA0 /* Extended Classes */,
@@ -1024,7 +1019,6 @@
 				311B75C11ABC287C00A7D38C /* AppDelegate.m in Sources */,
 				3103FEA21B23F29E008244C9 /* RecImageButton.m in Sources */,
 				31E1B9DD1BDC5C190069198B /* LiveImageOverallView.m in Sources */,
-				3118109C2993AB3E009CFA8A /* SecureTextField.m in Sources */,
 				311F081C1ADFEE2F00318028 /* ItemSelectionViewController.m in Sources */,
 				314E1DB31B3023E90052F8EF /* RecordingLocationManager.m in Sources */,
 				313D44B41B0CCE7000D6EEAC /* SPanelViewController.m in Sources */,

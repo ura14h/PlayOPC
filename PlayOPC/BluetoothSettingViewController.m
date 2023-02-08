@@ -102,16 +102,16 @@
 	// 入力されている値をチェックします。
 	BOOL enable = YES;
 	if (enable) {
-		NSString *name = self.bluetoothLocalNameText.text;
-		NSString* trimed = [name stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-		if (trimed.length < 1) {
+		NSString *localName = self.bluetoothLocalNameText.text;
+		NSString* trimed = [localName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+		if (trimed.length < 1 || trimed.length > 8) {
 			enable = FALSE;
 		}
 	}
 	if (enable) {
 		NSString *passcode = self.bluetoothPasscodeText.text;
 		NSString* trimed = [passcode stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
-		if (trimed.length < 1) {
+		if (trimed.length != 0 && trimed.length != 6) {
 			enable = FALSE;
 		}
 	}
@@ -143,9 +143,13 @@
 	DEBUG_LOG(@"bluetoothPasscodeText.text=%@", self.bluetoothPasscodeText.text);
 	
 	// 現在入力されている値をBluetooth接続の設定値として保存します。
+	NSString *localName = self.bluetoothLocalNameText.text;
+	NSString* trimedLocalName = [localName stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	NSString *passcode = self.bluetoothPasscodeText.text;
+	NSString* trimedPasscode = [passcode stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	AppSetting *setting = GetAppSetting();
-	setting.bluetoothLocalName = self.bluetoothLocalNameText.text;
-	setting.bluetoothPasscode = self.bluetoothPasscodeText.text;
+	setting.bluetoothLocalName = trimedLocalName;
+	setting.bluetoothPasscode = trimedPasscode;
 
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {

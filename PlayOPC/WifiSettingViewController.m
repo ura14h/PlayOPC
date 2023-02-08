@@ -144,9 +144,13 @@
 	[self.view endEditing:YES];
 
 	// 現在入力されている値をWi-Fi接続の設定値として保存します。
+	NSString *ssid = self.wifiSsidText.text;
+	NSString* trimedSsid = [ssid stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
+	NSString *passphrase = self.wifiPassphraseText.text;
+	NSString* trimedPassphrase = [passphrase stringByTrimmingCharactersInSet:NSCharacterSet.whitespaceCharacterSet];
 	AppSetting *setting = GetAppSetting();
-	setting.wifiSSID = self.wifiSsidText.text;
-	setting.wifiPassphrase = self.wifiPassphraseText.text;
+	setting.wifiSSID = trimedSsid;
+	setting.wifiPassphrase = trimedPassphrase;
 
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeWiFi) {

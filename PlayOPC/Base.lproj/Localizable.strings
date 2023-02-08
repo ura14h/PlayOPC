@@ -448,17 +448,11 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$desc:CouldNotConnectBluetoothByEmptyLocalname" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
-"$desc:CouldNotConnectBluetoothByEmptyPasscode" = "Bluetooth passcode is empty. Please configure it at Bluetooth setting.";
-
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectCamera" = "Could not connect to camera. Please allow 'Local Network' at Settings.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiByEmptyBluetoothLocalname" = "Bluetooth local name is empty. Please configure it at Bluetooth setting. Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiByEmptyBluetoothPasscode" = "Bluetooth passcode is empty. Please configure it at Bluetooth setting. Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiByEmptyPassphrase" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";

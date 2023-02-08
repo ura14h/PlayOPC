@@ -307,7 +307,7 @@
 	if (bluetoothText.length != aira01.length) {
 		return;
 	}
-	NSString *passcodeText = @"000000";
+	NSString *passcodeText = @""; // 工場出荷設定にリセットするとパスコードなしになるらしい
 	self.completed = YES;
 	
 	// 確認ダイアログを表示します。
@@ -325,10 +325,8 @@
 		setting.wifiSSID = ssidText;
 		setting.wifiPassphrase = passwordText;
 		setting.bluetoothLocalName = bluetoothText;
-		if (!setting.bluetoothPasscode || setting.bluetoothPasscode.length < 1) {
-			// パスコードは未構成の場合だけ保存します。
-			setting.bluetoothPasscode = passcodeText;
-		}
+		setting.bluetoothPasscode = passcodeText;
+		
 		// 前の画面に戻ります。
 		[weakSelf performSegueWithIdentifier:@"DoneScanSticker" sender:self];
 	} cancelHandler:^(UIAlertAction *action) {

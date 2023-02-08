@@ -448,17 +448,11 @@
 /* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$desc:CouldNotConnectBluetoothByEmptyLocalname" = "Bluetoothのローカルネームが空です。Bluetooth設定を構成してください。";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
-"$desc:CouldNotConnectBluetoothByEmptyPasscode" = "Bluetoothのパスコードが空です。Bluetooth設定を構成してください。";
-
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectCamera" = "カメラに接続できませんでした。設定で「ローカルネットワーク」を許可してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiByEmptyBluetoothLocalname" = "Bluetoothのローカルネームが空です。Bluetooth設定を構成してください。BluetoothはWi-Fi 経由でカメラにアクセスする前にカメラの電源を入れるために使用されます。";
-
-/* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiByEmptyBluetoothPasscode" = "Bluetoothのパスコードが空です。Bluetooth設定を構成してください。BluetoothはWi-Fi 経由でカメラにアクセスする前にカメラの電源を入れるために使用されます。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiByEmptyPassphrase" = "Wi-Fiのパスフレーズが空です。Wi-Fi設定を構成してください。";

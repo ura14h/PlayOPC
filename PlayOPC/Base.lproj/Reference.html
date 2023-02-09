@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
-  Reference.html
-  PlayOPC
+Reference.html
+PlayOPC
 
-  Created by Hiroki Ishiura on 2015/06/05.
-  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
+Created by Hiroki Ishiura on 2015/06/05.
+Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 
-  Released under the MIT license
-  http://opensource.org/licenses/mit-license.php
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
 -->
 <html>
 	<head>
@@ -15,59 +15,64 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
-		:root {
-			color-scheme: light dark;
-			--body-color: black;
-			--body-background-color: white;
-			--header-color: #FFFFFF;
-			--header-background-color: #34B56C;
-			--border-color: lightgrey
-		}
-		@media (prefers-color-scheme: dark) {
 			:root {
-				--body-color: silver;
-				--body-background-color: #202020;
+				color-scheme: light dark;
+				--body-color: black;
+				--body-background-color: white;
 				--header-color: #FFFFFF;
-				--header-background-color: #278751;
-				--border-color: darkgray
+				--header-background-color: #34B56C;
+				--border-color: lightgrey
 			}
-		}
-		body {
-			font-size: 9pt;
-			color: var(--body-color);
-			background-color: var(--body-background-color);
-			-webkit-text-size-adjust: none;
-		}
-		h1 {
-			font-family: sans-serif;
-			margin-top: 0;
-			margin-bottom: 1pt;
-			padding-left: 4pt;
-			color: var(--header-color);
-			background-color: var(--header-background-color);
-		}
-		h2 {
-			font-family: sans-serif;
-			border-bottom: 1px solid var(--border-color);
-		}
-		h3 {
-			font-family: sans-serif;
-		}
-		ul {
-			-webkit-padding-start: 20pt;
-		}
-		h1 a.jump {
-			margin-right: 4pt;
-			float: right;
-			text-decoration: none;
-		}
-		div.section {
-			margin-left: 4pt;
-			margin-bottom: 18pt;
-		}
-		img {
-			background-color: white;
-		}
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--body-color: silver;
+					--body-background-color: #202020;
+					--header-color: #FFFFFF;
+					--header-background-color: #278751;
+					--border-color: darkgray
+				}
+			}
+			body {
+				font-size: 9pt;
+				color: var(--body-color);
+				background-color: var(--body-background-color);
+				-webkit-text-size-adjust: none;
+			}
+			h1 {
+				font-family: sans-serif;
+				margin-top: 0;
+				margin-bottom: 1pt;
+				padding-left: 4pt;
+				color: var(--header-color);
+				background-color: var(--header-background-color);
+			}
+			h2 {
+				font-family: sans-serif;
+				border-bottom: 1px solid var(--border-color);
+			}
+			h3 {
+				font-family: sans-serif;
+			}
+			ul {
+				-webkit-padding-start: 20pt;
+			}
+			h1 a.jump {
+				margin-right: 4pt;
+				float: right;
+				text-decoration: none;
+			}
+			div.section {
+				margin-left: 4pt;
+				margin-bottom: 18pt;
+			}
+			img {
+				background-color: white;
+			}
+			p.notice {
+				padding: 4pt 8pt;
+				background-color: #FFD0FF;
+				border: 2px solid #FF00FF;
+			}
 		</style>
 	</head>
 	<body>
@@ -94,27 +99,27 @@
 				<li>Exchanging a camera setting with the pasteboard</li>
 				<li>Preserving a favorite camera setting to the device</li>
 				<li>Sharing favorite camera settings</lib>
-				<li>Changing a shooting mode</li>
-				<li>Coordinating some exposure parameters</li>
-				<li>Shooting supports auto bracketing mode</li>
-				<li>Shooting supports interval timer mode</li>
-				<li>Changing the color taste of the image</li>
-				<li>Adding special effects to an image</li>
-				<li>Locking auto focus and auto exposure</li>
-				<li>Changing an angle of view using optical zoom and digital zoom (The optical zooming requires a motor zoom lens)</li>
-				<li>Magnifying real-time preview image by the camera</li>
-				<li>Changing a quality of picture to store at the camera</li>
-				<li>Changing sound volume</li>
-				<li>Registering the current geolocation as the photography place</li>
-				<li>Viewing and sharing a picture or a video which stored in the camera</li>
-				<li>Browsing a photo's information</li>
-				<li>Converting a photo's information to parameters of camera setting</li>
-				<li>Protecting or unprotecting pictures and videos which stored in the camera</li>
-				<li>Deleting pictures and videos which stored in the camera</li>
-				<li>Setting the current time at the camera automatically</li>
-				<li>Formatting a SD card</li>
-				<li>Changing Wi-Fi channel of the camera</li>
-				<li>Switching off the camera</li>
+					<li>Changing a shooting mode</li>
+					<li>Coordinating some exposure parameters</li>
+					<li>Shooting supports auto bracketing mode</li>
+					<li>Shooting supports interval timer mode</li>
+					<li>Changing the color taste of the image</li>
+					<li>Adding special effects to an image</li>
+					<li>Locking auto focus and auto exposure</li>
+					<li>Changing an angle of view using optical zoom and digital zoom (The optical zooming requires a motor zoom lens)</li>
+					<li>Magnifying real-time preview image by the camera</li>
+					<li>Changing a quality of picture to store at the camera</li>
+					<li>Changing sound volume</li>
+					<li>Registering the current geolocation as the photography place</li>
+					<li>Viewing and sharing a picture or a video which stored in the camera</li>
+					<li>Browsing a photo's information</li>
+					<li>Converting a photo's information to parameters of camera setting</li>
+					<li>Protecting or unprotecting pictures and videos which stored in the camera</li>
+					<li>Deleting pictures and videos which stored in the camera</li>
+					<li>Setting the current time at the camera automatically</li>
+					<li>Formatting a SD card</li>
+					<li>Changing Wi-Fi channel of the camera</li>
+					<li>Switching off the camera</li>
 			</ul>
 			<h3>Known Issue</h3>
 			<ul>
@@ -564,7 +569,12 @@
 				<li>Bluetooth local name is "AIR-A01"</li>
 				<li>Bluetooth passcode is not used"</li>
 			</ul>
-
+			<p class="notice">
+			By resetting, the authentication information for connecting to the camera is set to a value that is easy to guess, so the possibility of being hijacked by others increases.
+			If you have Olympus OA.Central, which has been discontinued on December 25, 2020, you can change the Bluetooth local name and passcode to any value, but this application does not have the same function due to SDK restrictions.
+			Please be careful when using a camera with network settings reset in public places.
+			</p>
+			
 		</div>
 	</body>
 </html>

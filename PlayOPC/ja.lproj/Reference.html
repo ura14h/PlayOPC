@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <!--
-  Reference.html
-  PlayOPC
+Reference.html
+PlayOPC
 
-  Created by Hiroki Ishiura on 2015/06/05.
-  Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
+Created by Hiroki Ishiura on 2015/06/05.
+Copyright (c) 2015 Hiroki Ishiura. All rights reserved.
 
-  Released under the MIT license
-  http://opensource.org/licenses/mit-license.php
+Released under the MIT license
+http://opensource.org/licenses/mit-license.php
 -->
 <html>
 	<head>
@@ -15,59 +15,64 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<style>
-		:root {
-			color-scheme: light dark;
-			--body-color: black;
-			--body-background-color: white;
-			--header-color: #FFFFFF;
-			--header-background-color: #34B56C;
-			--border-color: lightgrey
-		}
-		@media (prefers-color-scheme: dark) {
 			:root {
-				--body-color: silver;
-				--body-background-color: #202020;
+				color-scheme: light dark;
+				--body-color: black;
+				--body-background-color: white;
 				--header-color: #FFFFFF;
-				--header-background-color: #278751;
-				--border-color: darkgray
+				--header-background-color: #34B56C;
+				--border-color: lightgrey
 			}
-		}
-		body {
-			font-size: 9pt;
-			color: var(--body-color);
-			background-color: var(--body-background-color);
-			-webkit-text-size-adjust: none;
-		}
-		h1 {
-			font-family: sans-serif;
-			margin-top: 0;
-			margin-bottom: 1pt;
-			padding-left: 4pt;
-			color: var(--header-color);
-			background-color: var(--header-background-color);
-		}
-		h2 {
-			font-family: sans-serif;
-			border-bottom: 1px solid var(--border-color);
-		}
-		h3 {
-			font-family: sans-serif;
-		}
-		ul {
-			-webkit-padding-start: 20pt;
-		}
-		h1 a.jump {
-			margin-right: 4pt;
-			float: right;
-			text-decoration: none;
-		}
-		div.section {
-			margin-left: 4pt;
-			margin-bottom: 18pt;
-		}
-		img {
-			background-color: white;
-		}
+			@media (prefers-color-scheme: dark) {
+				:root {
+					--body-color: silver;
+					--body-background-color: #202020;
+					--header-color: #FFFFFF;
+					--header-background-color: #278751;
+					--border-color: darkgray
+				}
+			}
+			body {
+				font-size: 9pt;
+				color: var(--body-color);
+				background-color: var(--body-background-color);
+				-webkit-text-size-adjust: none;
+			}
+			h1 {
+				font-family: sans-serif;
+				margin-top: 0;
+				margin-bottom: 1pt;
+				padding-left: 4pt;
+				color: var(--header-color);
+				background-color: var(--header-background-color);
+			}
+			h2 {
+				font-family: sans-serif;
+				border-bottom: 1px solid var(--border-color);
+			}
+			h3 {
+				font-family: sans-serif;
+			}
+			ul {
+				-webkit-padding-start: 20pt;
+			}
+			h1 a.jump {
+				margin-right: 4pt;
+				float: right;
+				text-decoration: none;
+			}
+			div.section {
+				margin-left: 4pt;
+				margin-bottom: 18pt;
+			}
+			img {
+				background-color: white;
+			}
+			p.notice {
+				padding: 4pt 8pt;
+				background-color: #FFD0FF;
+				border: 2px solid #FF00FF;
+			}
 		</style>
 	</head>
 	<body>
@@ -128,7 +133,7 @@
 				<li>カメラ機能や設定値の詳細に興味のある方は公開されているSDKドキュメントをご確認ください。(<a href="https://dl-support.olympus-imaging.com/opc/jp/">https://dl-support.olympus-imaging.com/opc/jp/</a>)</li>
 				<li>このアプリケーションはオープンソースです。アプリが中で何をやっているのかを知りたい方は、GitHubからソースコードを入手できます。 (<a href="https://github.com/ura14h/PlayOPC">https://github.com/ura14h/PlayOPC</a>)</li>
 			</ul>
-		
+			
 		</div>
 		<h1><a name="Operations">操作できる項目</a>
 			<a href="#Introduction" class="jump">&uarr;</a>
@@ -542,7 +547,7 @@
 		</div>
 		<h1><a name="SpecialAppendix">特別付録</a><a href="#Operations" class="jump">&uarr;</a></h1>
 		<div class="section">
-
+			
 			<h2>カメラ</h2>
 			<h3>AIR A01 のネットワーク設定を購入時の状態にリセットする方法</h3>
 			<ol>
@@ -562,7 +567,12 @@
 				<li>Bluetoothのローカルネームは「AIR-A01」</li>
 				<li>Bluetoothのパスコードは使わない</li>
 			</ul>
+			<p class="notice">
+			リセットによってカメラに接続するための認証情報が類推されやすい値に設定されるため他者に乗っ取られる可能性が高まります。
+			2020年12月25日をもって配信停止になったオリンパスのOA.Centralをお持ちであればBluetoothのローカルネームとパスコードを任意の値に変更できますが、本アプリはSDKの制限により同様の機能は持っていません。
+			ネットワーク設定をリセットしたカメラを公共の場で使用する場合には十分にご注意ください。
+			</p>
 			
 		</div>
-</body>
+	</body>
 </html>

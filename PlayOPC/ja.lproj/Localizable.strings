@@ -524,10 +524,10 @@
 "$desc:DiscoveringBluetoothPeripheralTimedOut" = "Bluetoothデバイスが見つかりません。カメラの無線スイッチがオフになっているかもしれません。";
 
 /* PictureContentViewController.didTapEraseButton */
-"$desc:ErasePictureJpg" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
+"$desc:EraseJpegPicture" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
 
 /* PictureContentViewController.didTapEraseButton */
-"$desc:ErasePictureOrf" = "この写真に関連するJPEGファイルがある場合はそれも同時に削除されます。";
+"$desc:EraseRawPicture" = "この写真に関連するJPEGファイルがある場合はそれも同時に削除されます。";
 
 /* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerCountIsIncorrect" = "インターバルタイマーの回数が正しくありません。";
@@ -547,13 +547,13 @@
 "$desc:PasteboardTextIsNotCameraSetting" = "ペーストボードのテキストはカメラ設定ではありません。";
 
 /* PictureContentViewController.didTapProtectButton */
-"$desc:ProtectPictureJpg" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクトされます。";
+"$desc:ProtectJpegPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクトされます。";
 
 /* PictureContentViewController.didTapProtectButton */
-"$desc:ProtectPictureOrf" = "この写真に関連するJPEGファイルがある場合はそれも同時にプロテクトされます。";
+"$desc:ProtectRawPicture" = "この写真に関連するJPEGファイルがある場合はそれも同時にプロテクトされます。";
 
 /* PictureContentViewController.didTapResizeButton */
-"$desc:ResizePicture" = "指定したピクセル数に収まるようにリサイズした写真をダウンロードして現在表示されているものと差し替えます。";
+"$desc:ResizePicture" = "指定したピクセル数に収まるようにリサイズした写真またはオリジナルのファイルをダウンロードして現在表示されているものと差し替えます。";
 
 /* VideoContentViewController.didTapResizeButton */
 "$desc:ResizeVideo(wait %1.0f sec)" = "指定したピクセル数に収まるようにリサイズした動画をカメラのストレージに追加します。この処理には少なくとも %1.0f 秒かかります。";
@@ -565,7 +565,7 @@
 "$desc:ShareLargeVideo" = "この長い動画をダウンロードし共有します。この処理は数分以上かかるかもしれません。";
 
 /* PictureContentViewController.didTapShareButton */
-"$desc:SharePicture" = "このリサイズした写真を共有します。(EXIFタグ、GPSタグなどのメタデータを含みます)";
+"$desc:SharePicture" = "ダウンロードした写真を共有します。(EXIFタグ、GPSタグなどのメタデータを含みます)";
 
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareVideo" = "この動画をダウンロードし共有します。この処理にはやや時間がかかります。";
@@ -574,10 +574,10 @@
 "$desc:TakingPluralPicturesIsNotAvailable" = "オートブラケットもしくはインターバルタイマーが有効になっていません。";
 
 /* PictureContentViewController.didTapUnprotectButton */
-"$desc:UnprotectPictureJpg" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
+"$desc:UnprotectJpegPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
 
 /* PictureContentViewController.didTapUnprotectButton */
-"$desc:UnprotectPictureOrf" = "この写真に関連するJPEGファイルがある場合はそれも同時にプロテクト解除されます。";
+"$desc:UnprotectRawPicture" = "この写真に関連するJPEGファイルがある場合はそれも同時にプロテクト解除されます。";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */
@@ -862,7 +862,10 @@
 "$title:ExecuteResizePicture2048" = "2048 ピクセル";
 
 /* PictureContentViewController.didTapResizeButton */
-"$title:ExecuteResizePictureOriginal" = "オリジナルサイズ";
+"$title:ExecuteResizePictureOriginalJpeg" = "オリジナルJPEGファイル";
+
+/* PictureContentViewController.didTapResizeButton */
+"$title:ExecuteResizePictureOriginalRaw" = "オリジナルORFファイル";
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ExecuteResizeVideo1280Fine" = "1280 x 720, 高画質";

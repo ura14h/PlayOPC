@@ -333,7 +333,12 @@
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"$title:ExecuteResizePictureOriginal", @"PictureContentViewController.didTapResizeButton");
+		NSString *title;
+		if (self.isOrf) {
+			title = NSLocalizedString(@"$title:ExecuteResizePictureOriginalRaw", @"PictureContentViewController.didTapResizeButton");
+		} else {
+			title = NSLocalizedString(@"$title:ExecuteResizePictureOriginalJpeg", @"PictureContentViewController.didTapResizeButton");
+		}
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResizeNone];
 		};
@@ -357,9 +362,9 @@
 	
 	NSString *message;
 	if (self.isOrf) {
-		message = NSLocalizedString(@"$desc:ProtectPictureOrf", @"PictureContentViewController.didTapProtectButton");
+		message = NSLocalizedString(@"$desc:ProtectRawPicture", @"PictureContentViewController.didTapProtectButton");
 	} else {
-		message = NSLocalizedString(@"$desc:ProtectPictureJpg", @"PictureContentViewController.didTapProtectButton");
+		message = NSLocalizedString(@"$desc:ProtectJpegPicture", @"PictureContentViewController.didTapProtectButton");
 	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
@@ -392,9 +397,9 @@
 	
 	NSString *message;
 	if (self.isOrf) {
-		message = NSLocalizedString(@"$desc:UnprotectPictureOrf", @"PictureContentViewController.didTapUnprotectButton");
+		message = NSLocalizedString(@"$desc:UnprotectRawPicture", @"PictureContentViewController.didTapUnprotectButton");
 	} else {
-		message = NSLocalizedString(@"$desc:UnprotectPictureJpg", @"PictureContentViewController.didTapUnprotectButton");
+		message = NSLocalizedString(@"$desc:UnprotectJpegPicture", @"PictureContentViewController.didTapUnprotectButton");
 	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
@@ -427,9 +432,9 @@
 	
 	NSString *message;
 	if (self.isOrf) {
-		message = NSLocalizedString(@"$desc:ErasePictureOrf", @"PictureContentViewController.didTapEraseButton");
+		message = NSLocalizedString(@"$desc:EraseRawPicture", @"PictureContentViewController.didTapEraseButton");
 	} else {
-		message = NSLocalizedString(@"$desc:ErasePictureJpg", @"PictureContentViewController.didTapEraseButton");
+		message = NSLocalizedString(@"$desc:EraseJpegPicture", @"PictureContentViewController.didTapEraseButton");
 	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];

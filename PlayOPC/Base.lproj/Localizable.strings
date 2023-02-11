@@ -524,10 +524,10 @@
 "$desc:DiscoveringBluetoothPeripheralTimedOut" = "Bluetooth device was not found. A radio switch of camera may be off.";
 
 /* PictureContentViewController.didTapEraseButton */
-"$desc:ErasePictureJpg" = "If there is ORF file related to this picture, it will be erased at the same time too.";
+"$desc:EraseJpegPicture" = "If there is ORF file related to this picture, it will be erased at the same time too.";
 
 /* PictureContentViewController.didTapEraseButton */
-"$desc:ErasePictureOrf" = "If there is JPEG file related to this picture, it will be erased at the same time too.";
+"$desc:EraseRawPicture" = "If there is JPEG file related to this picture, it will be erased at the same time too.";
 
 /* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerCountIsIncorrect" = "Interval timer count is incorrect.";
@@ -547,13 +547,13 @@
 "$desc:PasteboardTextIsNotCameraSetting" = "Pasteboard text is not camera setting.";
 
 /* PictureContentViewController.didTapProtectButton */
-"$desc:ProtectPictureJpg" = "If there is ORF file related to this picture, it will be protected at the same time too.";
+"$desc:ProtectJpegPicture" = "If there is ORF file related to this picture, it will be protected at the same time too.";
 
 /* PictureContentViewController.didTapProtectButton */
-"$desc:ProtectPictureOrf" = "If there is JPEG file related to this picture, it will be protected at the same time too.";
+"$desc:ProtectRawPicture" = "If there is JPEG file related to this picture, it will be protected at the same time too.";
 
 /* PictureContentViewController.didTapResizeButton */
-"$desc:ResizePicture" = "An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it.";
+"$desc:ResizePicture" = "An image resized to fit the specified number of pixels or the original file is downloaded, the displaying image will be replaced at it.";
 
 /* VideoContentViewController.didTapResizeButton */
 "$desc:ResizeVideo(wait %1.0f sec)" = "A new video with a long side pixel size of specified length will be added to camera storage. This processing takes %1.0f seconds at least.";
@@ -565,7 +565,7 @@
 "$desc:ShareLargeVideo" = "The application downloads this long video before sharing it. The handling may take more than several minutes.";
 
 /* PictureContentViewController.didTapShareButton */
-"$desc:SharePicture" = "The application does share this resized picture. (EXIF tag, GPS tag and so metadata include)";
+"$desc:SharePicture" = "The application does share this downloaded picture. (EXIF tag, GPS tag and so metadata include)";
 
 /* VideoContentViewController.didTapShareButton */
 "$desc:ShareVideo" = "The application downloads this video before sharing it. The handling takes a little bit of time.";
@@ -574,10 +574,10 @@
 "$desc:TakingPluralPicturesIsNotAvailable" = "Auto bracketing or interval timer is not available.";
 
 /* PictureContentViewController.didTapUnprotectButton */
-"$desc:UnprotectPictureJpg" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
+"$desc:UnprotectJpegPicture" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
 
 /* PictureContentViewController.didTapUnprotectButton */
-"$desc:UnprotectPictureOrf" = "If there is JPEG file related to this picture, it will be unprotect at the same time too.";
+"$desc:UnprotectRawPicture" = "If there is JPEG file related to this picture, it will be unprotect at the same time too.";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */
@@ -862,7 +862,10 @@
 "$title:ExecuteResizePicture2048" = "2048 pixels";
 
 /* PictureContentViewController.didTapResizeButton */
-"$title:ExecuteResizePictureOriginal" = "Original size";
+"$title:ExecuteResizePictureOriginalJpeg" = "Original JPEG file";
+
+/* PictureContentViewController.didTapResizeButton */
+"$title:ExecuteResizePictureOriginalRaw" = "Original ORF file";
 
 /* VideoContentViewController.didTapResizeButton */
 "$title:ExecuteResizeVideo1280Fine" = "1280 x 720, Fine";

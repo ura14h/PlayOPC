@@ -45,6 +45,7 @@
 @property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
 @property (strong, nonatomic) NSData *contentData; ///< コンテンツのバイナリデータ
 @property (strong, nonatomic) UIImage *contentImage; ///< コンテンツの表示用画像データ
+@property (assign, nonatomic) OLYCameraImageResize contentImageSize; ///< コンテンツの画像サイズ
 @property (assign, nonatomic) BOOL isOrf; ///< コンテンツはORF形式か
 
 @end
@@ -306,6 +307,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize1024];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize1024) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -314,6 +318,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize1600];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize1600) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -322,6 +329,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize1920];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize1920) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -330,6 +340,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize2048];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize2048) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -343,6 +356,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResizeNone];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResizeNone) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -661,6 +677,7 @@
 			return;
 		}
 
+		// ダウンロードした画像を保持します。
 		if (size == OLYCameraImageResizeNone && self.isOrf) {
 			// ORF形式のバイナリデータは現像しないと表示できません。
 			weakSelf.contentImage = [self developRawImage:weakSelf.contentData];
@@ -668,6 +685,7 @@
 			// バイナリデータから画像データを抽出します。
 			weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
 		}
+		self.contentImageSize = size;
 		
 		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
 		

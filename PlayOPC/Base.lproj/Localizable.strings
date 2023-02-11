@@ -681,7 +681,7 @@
 "$title:CouldNotEraseVideo" = "Could not erase video";
 
 /* SystemViewController.didSelectRowAtFormatMediaCell */
-"$title:CouldNotFormatMedia" = "Could not format SD card";
+"$title:CouldNotFormatMedia" = "Could not format Micro SD card";
 
 /* CameraPropertyValueSelectionViewController.didStartActivity */
 "$title:CouldNotGetCameraPropertyValue" = "Could not get camera property value";
@@ -832,7 +832,7 @@
 "$title:ExecuteEraseVideo" = "Erase this video";
 
 /* ConnectionViewController.didSelectRowAtFormatMediaCell */
-"$title:ExecuteFormatMedia" = "Format SD card";
+"$title:ExecuteFormatMedia" = "Format Micro SD card";
 
 /* PictureContentViewController.didTapProtectButton */
 "$title:ExecuteProtectPicture" = "Protect this picture";

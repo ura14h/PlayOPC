@@ -53,8 +53,8 @@
 /* Class = "UILabel"; text = "$lensMountStatus"; ObjectID = "SSX-Fr-ckr"; */
 "SSX-Fr-ckr.text" = "$lensMountStatus";
 
-/* Class = "UILabel"; text = "Format SD Card"; ObjectID = "Ue3-Hh-QGC"; */
-"Ue3-Hh-QGC.text" = "Format SD Card";
+/* Class = "UILabel"; text = "Format Micro SD Card"; ObjectID = "Ue3-Hh-QGC"; */
+"Ue3-Hh-QGC.text" = "Format Micro SD Card";
 
 /* Class = "UILabel"; text = "$mediaMountStatus"; ObjectID = "Xp8-EV-1b7"; */
 "Xp8-EV-1b7.text" = "$mediaMountStatus";

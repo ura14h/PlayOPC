@@ -26,6 +26,9 @@
 "$cell:BluetoothNoConfiguration" = "未構成";
 
 /* ConnectionViewController.updateShowBluetoothSettingCell */
+"$cell:BluetoothNotAuthorized" = "利用不可";
+
+/* ConnectionViewController.updateShowBluetoothSettingCell */
 "$cell:BluetoothNotConnected" = "未接続";
 
 /* SystemViewController.updateHardwareInformationCells */
@@ -452,7 +455,7 @@
 "$desc:CouldNotConnectCamera" = "カメラに接続できませんでした。設定で「ローカルネットワーク」を許可してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiByEmptyBluetoothLocalname" = "Bluetoothのローカルネームが空です。Bluetooth設定を構成してください。BluetoothはWi-Fi 経由でカメラにアクセスする前にカメラの電源を入れるために使用されます。";
+"$desc:CouldNotConnectWifi" = "アクセスポイントが見つかりませんでした。 Wi-Fi設定とカメラの電源状態を確認するか手動で接続してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiByEmptyPassphrase" = "Wi-Fiのパスフレーズが空です。Wi-Fi設定を構成してください。";
@@ -479,8 +482,7 @@
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "お気に入りファイルが読めません。";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
-   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$desc:CouldNotUseBluetooth" = "Bluetoothを使用できませんでした。「設定」で「Bluetooth」を許可してください。";
 
 /* RecordingViewController.didReceiveCapturedImage */

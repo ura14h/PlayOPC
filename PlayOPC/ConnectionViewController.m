@@ -9,6 +9,7 @@
 //  http://opensource.org/licenses/mit-license.php
 //
 
+#import <NetworkExtension/NetworkExtension.h>
 #import "ConnectionViewController.h"
 #import "AppDelegate.h"
 #import "AppSetting.h"
@@ -369,9 +370,8 @@
 	AppCamera *camera = GetAppCamera();
 	if (camera.connected && camera.connectionType == OLYCameraConnectionTypeBluetoothLE) {
 		BluetoothConnectionStatus bluetoothStatus = self.bluetoothConnector.connectionStatus;
-		if (bluetoothStatus == BluetoothConnectionStatusNotFound ||
-			bluetoothStatus == BluetoothConnectionStatusNotConnected) {
-			DEBUG_LOG(@"");
+		if (bluetoothStatus != BluetoothConnectionStatusConnected) {
+			DEBUG_LOG(@"Clean up camera connection");
 			
 			// カメラとのアプリ接続を解除します。
 			NSError *error = nil;
@@ -455,12 +455,10 @@
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptyLocalname", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 		return;
 	}
-	DEBUG_LOG(@"");
+	DEBUG_LOG(@"Bluetooth setting is ok");
 	
 	// カメラへの接続を開始します。
 	__weak ConnectionViewController *weakSelf = self;
-	weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
-	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		NSDate *sequenceStartTime = [NSDate date];
@@ -471,10 +469,12 @@
 			[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Bluetooth is authorized");
 		
 		// カメラを探します。
 		NSError *error = nil;
+		weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
+		weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 		if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
 			BOOL discovered = [weakSelf.bluetoothConnector discoverPeripheral:&error];
 			if (!discovered) {
@@ -483,7 +483,7 @@
 				return;
 			}
 		}
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Pheripheral is discoverd");
 		
 		// カメラにBluetooth接続します。
 		if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
@@ -494,7 +494,7 @@
 				return;
 			}
 		}
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Pheripheral is connected");
 		
 		// カメラにアプリ接続します。
 		// この応答が返ってくるまでやや時間がかかるようです。
@@ -519,7 +519,7 @@
 			}
 			return;
 		}
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Camera is connected");
 		
 		// スマホの現在時刻をカメラに設定します。
 		// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
@@ -528,7 +528,6 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
-		DEBUG_LOG(@"");
 		
 		// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 		// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
@@ -537,7 +536,6 @@
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
 			return;
 		}
-		DEBUG_LOG(@"");
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -546,7 +544,6 @@
 			[weakSelf updateCameraOperationCells];
 			[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenConnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 		}];
-		DEBUG_LOG(@"");
 		
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
@@ -573,60 +570,49 @@
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiByEmptyPassphrase", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 		return;
 	}
-	DEBUG_LOG(@"");
+	DEBUG_LOG(@"Wi-Fi setting is ok");
 	
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
-	BOOL demandToWakeUpWithUsingBluetooth = NO;
+	__block BOOL demandToWakeUpWithUsingBluetooth = NO;
+	NSString *bluetoothLocalName = setting.bluetoothLocalName;
+	NSString *bluetoothPasscode = setting.bluetoothPasscode;
 	if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
 		// Wi-Fi接続先はカメラ
 	} else {
 		// Wi-Fi接続先はカメラではないが切り替えて接続できる見込みあり
 		if (self.bluetoothConnector.connectionStatus != BluetoothConnectionStatusUnknown) {
-			// Bluetooth経由の電源投入により自動接続できる見込みあり
-			demandToWakeUpWithUsingBluetooth = YES;
-		} else {
-			// Bluetooth使用不可なため自動でカメラに接続できる見込みなし
-			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-			return;
+			if (bluetoothLocalName && bluetoothLocalName.length > 0) {
+				// Bluetooth経由の電源投入により自動接続できる見込みあり
+				demandToWakeUpWithUsingBluetooth = YES;
+			}
 		}
 	}
 	DEBUG_LOG(@"demandToWakeUpWithUsingBluetooth=%ld", (long)demandToWakeUpWithUsingBluetooth);
 	
-	// Bluetoothデバイスの設定を確認します。
-	NSString *bluetoothLocalName = setting.bluetoothLocalName;
-	NSString *bluetoothPasscode = setting.bluetoothPasscode;
-	if (demandToWakeUpWithUsingBluetooth) {
-		if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
-			// Bluetoothデバイスの設定が不完全です。
-			[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectWifiByEmptyBluetoothLocalname", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-			return;
-		}
-	}
-	DEBUG_LOG(@"");
-	
 	// カメラの電源を投入し接続を開始します。
 	// 作者の環境ではiPhone 4Sだと電源投入から接続確率まで20秒近くかかっています。
 	__weak ConnectionViewController *weakSelf = self;
-	weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
-	weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 		NSDate *sequenceStartTime = [NSDate date];
 		NSError *error = nil;
 		
-		// カメラに電源投入を試みます。
+		// Bluetoothデバイスの使用許可を確認します。
 		if (demandToWakeUpWithUsingBluetooth) {
-			DEBUG_LOG(@"");
-			
-			// Bluetoothデバイスの使用許可を確認します。
 			if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 				// Bluetoothデバイスは使用不可です。
-				[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell") title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
-				return;
+				demandToWakeUpWithUsingBluetooth = NO;
 			}
-			DEBUG_LOG(@"");
-			
+		}
+		DEBUG_LOG(@"demandToWakeUpWithUsingBluetooth=%ld", (long)demandToWakeUpWithUsingBluetooth);
+
+		// カメラに電源投入を試みます。
+		if (demandToWakeUpWithUsingBluetooth) {
+			DEBUG_LOG(@"Started power on sequence");
+
 			// カメラを探します。
+			weakSelf.bluetoothConnector.services = [OLYCamera bluetoothServices];
+			weakSelf.bluetoothConnector.localName = bluetoothLocalName;
 			if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
 				BOOL discovered = [weakSelf.bluetoothConnector discoverPeripheral:&error];
 				if (!discovered) {
@@ -635,7 +621,7 @@
 					return;
 				}
 			}
-			DEBUG_LOG(@"");
+			DEBUG_LOG(@"Pheripheral is discoverd");
 			
 			// カメラにBluetooth接続します。
 			if (weakSelf.bluetoothConnector.connectionStatus != BluetoothConnectionStatusConnected) {
@@ -646,7 +632,7 @@
 					return;
 				}
 			}
-			DEBUG_LOG(@"");
+			DEBUG_LOG(@"Pheripheral is connected");
 			
 			// カメラの電源を入れます。
 			// MARK: カメラ本体のLEDはすぐに電源オン(青)になるが、この応答が返ってくるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
@@ -678,7 +664,7 @@
 			}
 			camera.bluetoothPeripheral = nil;
 			camera.bluetoothPassword = nil;
-			DEBUG_LOG(@"");
+			DEBUG_LOG(@"Camera is woke up");
 			
 			// カメラとのBluetooth接続を解除します。
 			// MARK: このタイミングで切断することによって、果たしてWi-FiとBluetoothの電波干渉を避けることができるか?
@@ -687,18 +673,19 @@
 				// エラーを無視して続行します。
 				DEBUG_LOG(@"An error occurred, but ignores it.");
 			}
-			DEBUG_LOG(@"");
+			DEBUG_LOG(@"Pheripheral is disconnected");
 			
 			// カメラの電源を入れるのに失敗している場合はここで諦めます。
 			if (!wokenUp) {
 				return;
 			}
-			DEBUG_LOG(@"");
+			
+			DEBUG_LOG(@"Finished power on sequence");
 		}
 		
 		// カメラにWi-Fi接続を試みます。
 		{
-			DEBUG_LOG(@"");
+			DEBUG_LOG(@"Started join sequence");
 			
 			// Wi-Fi接続を試みます。
 			// MARK: カメラ本体のLEDはすぐに接続中(緑)になるが、iOS側のWi-Fi接続が有効になるまで、10秒とか20秒とか、思っていたよりも時間がかかります。
@@ -714,24 +701,29 @@
 					// WiFi接続の試みをキャンセルしました。
 				} else {
 					// WiFi接続のパラメータに誤りがあるかもしれません。
-					[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
+					NSString *message = error.localizedDescription;
+					if ([error.domain isEqualToString:NEHotspotConfigurationErrorDomain]) {
+						// WiFi接続失敗のエラーにはおかしいメッセージ("<unknown>")が入っているので、別途用意したメッセージで差し替えて表示します。
+						message = NSLocalizedString(@"$desc:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
+					}
+					[weakSelf showAlertMessage:message title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				}
 				// 念のため、カメラとのWiFi接続を解除します。
 				[weakSelf.wifiConnector disconnectHotspot:nil];
 				return;
 			}
-			DEBUG_LOG(@"");
 			
 			// Wi-Fi接続が完了しました。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
 				progressView.mode = MBProgressHUDModeIndeterminate;
 			}];
-			DEBUG_LOG(@"");
+
+			DEBUG_LOG(@"Finished join sequence");
 		}
 		
 		// カメラにアプリ接続します。
 		{
-			DEBUG_LOG(@"");
+			DEBUG_LOG(@"Started connect sequence");
 			
 			AppCamera *camera = GetAppCamera();
 			NSError *error = nil;
@@ -767,8 +759,8 @@
 				[weakSelf.wifiConnector disconnectHotspot:nil];
 				return;
 			}
-			DEBUG_LOG(@"");
-			
+			DEBUG_LOG(@"Camera is connected");
+
 			// スマホの現在時刻をカメラに設定します。
 			// MARK: 保守モードでは受け付けないのでこのタイミングしかありません。
 			if (![camera changeTime:[NSDate date] error:&error]) {
@@ -776,7 +768,6 @@
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
-			DEBUG_LOG(@"");
 			
 			// MARK: 実行モードがスタンドアロンモードのまま放置するとカメラの自動スリープが働いてしまってスタンドアロンモード以外へ変更できなくなってしまうようです。
 			// カメラの自動スリープを防止するため、あらかじめ実行モードをスタンドアロンモード以外に変更しておきます。(取り敢えず保守モードへ)
@@ -785,7 +776,6 @@
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
 				return;
 			}
-			DEBUG_LOG(@"");
 			
 			// 画面表示を更新します。
 			[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -794,7 +784,8 @@
 				[weakSelf updateCameraOperationCells];
 				[weakSelf.tableView scrollToRowAtIndexPath:weakSelf.visibleWhenConnected atScrollPosition:UITableViewScrollPositionMiddle animated:YES];
 			}];
-			DEBUG_LOG(@"");
+
+			DEBUG_LOG(@"Finished connect sequence");
 		}
 		
 		// アプリ接続が完了しました。
@@ -1068,6 +1059,9 @@
 			// 接続されている場合はローカルネームを表示します。
 			CBPeripheral *peripheral = self.bluetoothConnector.peripheral;
 			self.showBluetoothSettingCell.detailTextLabel.text = peripheral.name;
+		} else if (status == BluetoothConnectionStatusNotNotAuthorized) {
+			// Bluetoothは利用不可です。
+			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotAuthorized", @"ConnectionViewController.updateShowBluetoothSettingCell");
 		} else {
 			// 接続されていない場合は未接続と表示します。
 			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotConnected", @"ConnectionViewController.updateShowBluetoothSettingCell");

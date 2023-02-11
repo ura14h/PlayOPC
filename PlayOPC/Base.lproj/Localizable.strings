@@ -26,6 +26,9 @@
 "$cell:BluetoothNoConfiguration" = "No Configurations";
 
 /* ConnectionViewController.updateShowBluetoothSettingCell */
+"$cell:BluetoothNotAuthorized" = "Not Authorized";
+
+/* ConnectionViewController.updateShowBluetoothSettingCell */
 "$cell:BluetoothNotConnected" = "Not Connected";
 
 /* SystemViewController.updateHardwareInformationCells */
@@ -452,7 +455,7 @@
 "$desc:CouldNotConnectCamera" = "Could not connect to camera. Please allow 'Local Network' at Settings.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectWifiByEmptyBluetoothLocalname" = "Bluetooth local name is empty. Please configure it at Bluetooth setting. Bluetooth is used to power on the camera before accessing it over Wi-Fi.";
+"$desc:CouldNotConnectWifi" = "Could not find the access point. Make sure the Wi-Fi settings and the camera power status, or connect manually.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifiByEmptyPassphrase" = "Wi-Fi passphrase is empty. Please configure it at Wi-Fi setting.";
@@ -479,12 +482,11 @@
    FavoriteLoadingViewController.editActionsForRowAtIndexPath */
 "$desc:CouldNotReadFavoriteSettingFile" = "Could not read a favorite setting file.";
 
-/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell
-   ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
+/* ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell */
 "$desc:CouldNotUseBluetooth" = "Could not use Bluetooth. Please allow 'Bluetooth' in 'Settings'";
 
 /* RecordingViewController.didReceiveCapturedImage */
-"$desc:CouldNotUsePhotoAlbum" = "Cound not use the photo album. Please allow 'Photos' in 'Settings'";
+"$desc:CouldNotUsePhotoAlbum" = "Could not use the photo album. Please allow 'Photos' in 'Settings'";
 
 /* FavoriteForgingViewController.didTapSaveButton
    FavoriteSavingViewController.didTapSaveButton */

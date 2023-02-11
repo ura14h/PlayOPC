@@ -68,6 +68,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 #if (TARGET_OS_SIMULATOR)
 	return BluetoothConnectionStatusConnected;
 #else
+	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied ||
+		[CBCentralManager authorization] == CBManagerAuthorizationRestricted) {
+		return BluetoothConnectionStatusNotNotAuthorized;
+	}
 	if (self.centralManager) {
 		if (self.centralManager.state == CBManagerStatePoweredOn) {
 			if (self.peripheral) {
@@ -116,7 +120,8 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 
 	// ユーザーの選択した結果を返します。
 	DEBUG_LOG(@"authorization=%ld", [CBCentralManager authorization]);
-	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
+	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied ||
+		[CBCentralManager authorization] == CBManagerAuthorizationRestricted) {
 		self.centralManager = nil;
 		self.queue = nil;
 	}
@@ -177,7 +182,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	// ペリフェラルをキャッシュしている場合は該当するか確認します。
 	if (!self.peripheral && self.cachedPeripheral) {
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Try retrieve peripherals");
 		NSArray *peripherals = [self. centralManager retrievePeripheralsWithIdentifiers:@[self.cachedPeripheral.identifier]];
 		if (peripherals.count > 0) {
 			self.peripheral = [peripherals firstObject];
@@ -185,7 +190,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	}
 	// ペリフェラルがキャッシュに該当しない場合はスキャンします。
 	if (!self.peripheral) {
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Try scan peripherals");
 		NSDictionary *scanOptions = @{
 			CBCentralManagerScanOptionAllowDuplicatesKey: @NO
 		};
@@ -314,7 +319,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 		disconnected = self.peripheral.state == CBPeripheralStateDisconnected;
 	} else {
-		DEBUG_LOG(@"");
+		DEBUG_LOG(@"Already disconnected");
 	}
 	self.peripheral = nil;
 	self.running = NO;

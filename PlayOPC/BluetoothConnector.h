@@ -15,6 +15,7 @@
 /// Bluetoothの接続状態
 typedef enum : NSInteger {
 	BluetoothConnectionStatusUnknown = 0, ///< 不明
+	BluetoothConnectionStatusNotNotAuthorized, ///< 許可されていない
 	BluetoothConnectionStatusNotFound, ///< ペリフェラルが見つからない
 	BluetoothConnectionStatusNotConnected, ///< 未接続
 	BluetoothConnectionStatusConnected, ///< 接続中

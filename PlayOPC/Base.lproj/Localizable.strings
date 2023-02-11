@@ -421,6 +421,9 @@
 /* AppCamera.startTakingPluralPictures */
 "$desc:CameraIsNotRecordingMode" = "Camera is not Recording mode.";
 
+/* ConnectionViewController.checkCameraBatteryLevel */
+"$desc:CameraLowBattery" = "Recommend to select \"Disconnect and Sleep\" and to start charging the camera.";
+
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSelectItemInTaking" = "Changing this setting is not permitted during capturing image.";
 
@@ -573,6 +576,9 @@
 
 /* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:AutoBracketingStart" = "Auto Bracketing";
+
+/* ConnectionViewController.checkCameraBatteryLevel */
+"$title:CameraLowBattery" = "Camera Low Battery";
 
 /* UIViewController.showAlertMessage */
 "$title:Cancel" = "Cancel";

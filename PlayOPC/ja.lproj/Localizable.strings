@@ -421,6 +421,9 @@
 /* AppCamera.startTakingPluralPictures */
 "$desc:CameraIsNotRecordingMode" = "カメラが撮影モードではありません。";
 
+/* ConnectionViewController.checkCameraBatteryLevel */
+"$desc:CameraLowBattery" = "「接続解除と電源オフ」を選択し、カメラの充電を開始することをお勧めします。";
+
 /* ItemSelectionViewController.didSelectRowAtIndexPath */
 "$desc:CanNotSelectItemInTaking" = "撮影動作中は設定の変更は許可されていません。";
 
@@ -573,6 +576,9 @@
 
 /* RecordingViewController.cameraDidStartTakingPluralPictures */
 "$title:AutoBracketingStart" = "オートブラケット";
+
+/* ConnectionViewController.checkCameraBatteryLevel */
+"$title:CameraLowBattery" = "カメラのバッテリー残量が少なくなっています";
 
 /* UIViewController.showAlertMessage */
 "$title:Cancel" = "取り消し";

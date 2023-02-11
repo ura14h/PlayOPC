@@ -549,6 +549,9 @@
 		[weakSelf reportBlockFinishedToProgress:progressView];
 		NSDate *sequenceEndTime = [NSDate date];
 		DEBUG_LOG(@"Total %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
+		
+		// バッテリーの残量を確認しておきます。
+		[weakSelf checkCameraBatteryLevel];
 	}];
 }
 
@@ -792,6 +795,9 @@
 		[weakSelf reportBlockFinishedToProgress:progressView];
 		NSDate *sequenceEndTime = [NSDate date];
 		DEBUG_LOG(@"Total %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
+		
+		// バッテリーの残量を確認しておきます。
+		[weakSelf checkCameraBatteryLevel];
 	}];
 }
 
@@ -1045,6 +1051,38 @@
 		[self hideProgress:NO];
 		[self.navigationController popToViewController:self animated:NO];
 	}
+}
+
+/// カメラのバッテリーを確認します。
+- (void)checkCameraBatteryLevel {
+	DEBUG_LOG(@"");
+
+	AppCamera *camera = GetAppCamera();
+	if (!camera.connected) {
+		return;
+	}
+	NSString *propertyValue = [camera cameraPropertyValue:CameraPropertyBatteryLevel error:nil];
+	if (!propertyValue) {
+		return;
+	}
+	DEBUG_LOG(@"propertyValue=%@", propertyValue);
+	NSArray *okValues = @[
+		CameraPropertyValueBatteryLevelUnknown,
+		CameraPropertyValueBatteryLevelCharge,
+		// CameraPropertyValueBatteryLevelEmpty,
+		// CameraPropertyValueBatteryLevelWarning,
+		// CameraPropertyValueBatteryLevelLow,
+		CameraPropertyValueBatteryLevelFull,
+		// CameraPropertyValueBatteryLevelEmptyAc,
+		// CameraPropertyValueBatteryLevelSupplyWarning,
+		CameraPropertyValueBatteryLevelSupplyLow,
+		CameraPropertyValueBatteryLevelSupplyFull,
+	];
+	if ([okValues containsObject:propertyValue]) {
+		return;
+	}
+
+	[self showAlertMessage:NSLocalizedString(@"$desc:CameraLowBattery", @"ConnectionViewController.checkCameraBatteryLevel") title:NSLocalizedString(@"$title:CameraLowBattery", @"ConnectionViewController.checkCameraBatteryLevel")];
 }
 
 /// Bluetooth接続の状態を表示します。

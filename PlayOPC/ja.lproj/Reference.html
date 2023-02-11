@@ -21,7 +21,8 @@ http://opensource.org/licenses/mit-license.php
 				--body-background-color: white;
 				--header-color: #FFFFFF;
 				--header-background-color: #34B56C;
-				--border-color: lightgrey
+				--border-color: lightgrey;
+				--table-border-color: lightgrey;
 			}
 			@media (prefers-color-scheme: dark) {
 				:root {
@@ -29,7 +30,8 @@ http://opensource.org/licenses/mit-license.php
 					--body-background-color: #202020;
 					--header-color: #FFFFFF;
 					--header-background-color: #278751;
-					--border-color: darkgray
+					--border-color: darkgray;
+					--table-border-color: darkgray;
 				}
 			}
 			body {
@@ -67,6 +69,16 @@ http://opensource.org/licenses/mit-license.php
 			}
 			img {
 				background-color: white;
+			}
+			table {
+				border-collapse: collapse;
+			}
+			th {
+				font-family: sans-serif;
+			}
+			th, td {
+				padding: 2pt 4pt;
+				border: 1px solid var(--table-border-color);
 			}
 			p.notice {
 				padding: 4pt 8pt;
@@ -548,8 +560,65 @@ http://opensource.org/licenses/mit-license.php
 		<h1><a name="SpecialAppendix">特別付録</a><a href="#Operations" class="jump">&uarr;</a></h1>
 		<div class="section">
 			
-			<h2>カメラ</h2>
-			<h3>AIR A01 のネットワーク設定を購入時の状態にリセットする方法</h3>
+			<h2>カメラについて</h2>
+			<h3>LEDの状態</h3>
+			<table>
+				<tr>
+					<th>色</th>
+					<th>動作</th>
+					<th>意味</th>
+				</tr>
+				<tr>
+					<td colspan="2">消灯</td>
+					<td>電源オフ</td>
+				</tr>
+				<tr>
+					<td>青</td>
+					<td>点灯</td>
+					<td>未接続</td>
+				</tr>
+				<tr>
+					<td>緑</td>
+					<td>点灯</td>
+					<td>接続中</td>
+				</tr>
+				<tr>
+					<td>緑</td>
+					<td>速い点滅</td>
+					<td>静止画撮影中 (マイクロSDカードへ書き込み中)</td>
+				</tr>
+				<tr>
+					<td>緑</td>
+					<td>遅い点滅</td>
+					<td>動画録画中 (マイクロSDカードへ書き込み中)</td>
+				</tr>
+				<tr>
+					<td>緑</td>
+					<td>間欠点滅</td>
+					<td>バッテリー残量が僅少</td>
+				</tr>
+				<tr>
+					<td>緑</td>
+					<td>非常に遅い点滅</td>
+					<td>省電力待機中</td>
+				</tr>
+				<tr>
+					<td>橙</td>
+					<td>点灯</td>
+					<td>バッテリー充電中</td>
+				</tr>
+			</table>
+			<h3>警告音</h3>
+			電源を入れた時や撮影しようとした時に警告音を発した場合の原因には以下のものが考えられます。
+			<ul>
+				<li>マイクロSDカードへの書き込み失敗</li>
+				<li>マイクロSDカードの残量なし</li>
+				<li>レンズの装着に問題あり</li>
+				<li>本体内部温度が異常</li>
+			</ul>
+			<h3>再起動する方法</h3>
+			<p>電源ボタンを8秒以上押しっぱなしにします。</p>
+			<h3>ネットワーク設定を購入時の状態にリセットする方法</h3>
 			<ol>
 				<li>電源をオフにします。</li>
 				<li>マイクロSDカードを取り出します。</li>

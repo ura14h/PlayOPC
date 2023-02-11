@@ -21,7 +21,8 @@ http://opensource.org/licenses/mit-license.php
 				--body-background-color: white;
 				--header-color: #FFFFFF;
 				--header-background-color: #34B56C;
-				--border-color: lightgrey
+				--border-color: lightgrey;
+				--table-border-color: lightgrey;
 			}
 			@media (prefers-color-scheme: dark) {
 				:root {
@@ -29,7 +30,8 @@ http://opensource.org/licenses/mit-license.php
 					--body-background-color: #202020;
 					--header-color: #FFFFFF;
 					--header-background-color: #278751;
-					--border-color: darkgray
+					--border-color: darkgray;
+					--table-border-color: darkgray;
 				}
 			}
 			body {
@@ -67,6 +69,16 @@ http://opensource.org/licenses/mit-license.php
 			}
 			img {
 				background-color: white;
+			}
+			table {
+				border-collapse: collapse;
+			}
+			th {
+				font-family: sans-serif;
+			}
+			th, td {
+				padding: 2pt 4pt;
+				border: 1px solid var(--table-border-color);
 			}
 			p.notice {
 				padding: 4pt 8pt;
@@ -551,6 +563,63 @@ http://opensource.org/licenses/mit-license.php
 		<div class="section">
 			
 			<h2>Camera</h2>
+			<h3>LED status</h3>
+			<table>
+				<tr>
+					<th>Color</th>
+					<th>Behavior</th>
+					<th>Meaning</th>
+				</tr>
+				<tr>
+					<td colspan="2">Off</td>
+					<td>Power off</td>
+				</tr>
+				<tr>
+					<td>Blue</td>
+					<td>Lighting</td>
+					<td>Disconnected</td>
+				</tr>
+				<tr>
+					<td>Green</td>
+					<td>Lighting</td>
+					<td>Connecting</td>
+				</tr>
+				<tr>
+					<td>Green</td>
+					<td>Fast blinking</td>
+					<td>Still image shooting (writing to micro SD card)</td>
+				</tr>
+				<tr>
+					<td>Green</td>
+					<td>Slow blinking</td>
+					<td>Recording video (writing to micro SD card)</td>
+				</tr>
+				<tr>
+					<td>Green</td>
+					<td>Intermittent blinking</td>
+					<td>Low battery</td>
+				</tr>
+				<tr>
+					<td>Green</td>
+					<td>Very slow blinking</td>
+					<td>Power saving standby</td>
+				</tr>
+				<tr>
+					<td>Orange</td>
+					<td>Lighting</td>
+					<td>Battery charging</td>
+				</tr>
+			</table>
+			<h3>Warning sound</h3>
+			If you hear a warning sound when you turn on the power or try to shoot, the possible causes are as follows.
+			<ul>
+				<li>Failed to write to Micro SD card</li>
+				<li>Micro SD card full</li>
+				<li>Problem with lens attachment</li>
+				<li>The temperature inside camera is too high</li>
+			</ul>
+			<h3>How to reboot</h3>
+			<p>Press and hold the power button for 8 seconds or more.</p>
 			<h3>How to reset AIR A01 network settings to factory default settings</h3>
 			<ol>
 				<li>Turn off the power.</li>
@@ -567,7 +636,7 @@ http://opensource.org/licenses/mit-license.php
 				<li>Wi-Fi SSID is the value on the sticker on the back of the camera (AIR-A01-<code>Serial Number</code>)</li>
 				<li>Wi-Fi passphrase is the value written on the sticker on the back of the camera (8-digit number)</li>
 				<li>Bluetooth local name is "AIR-A01"</li>
-				<li>Bluetooth passcode is not used"</li>
+				<li>Bluetooth passcode is not used</li>
 			</ul>
 			<p class="notice">
 			By resetting, the authentication information for connecting to the camera is set to a value that is easy to guess, so the possibility of being hijacked by others increases.

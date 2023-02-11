@@ -249,7 +249,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 	DEBUG_DETAIL_LOG(@"indexPath.row=%ld", (long)indexPath.row);
-
+	
 	PlaybackViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"PlaybackViewCell" forIndexPath:indexPath];
 	NSDictionary *content = self.contentList[indexPath.row];
 	
@@ -284,6 +284,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	// コンテンツが写真と動画の場合のみ、詳細画面があります。
 	NSString *extention = [[filename pathExtension] lowercaseString];
 	if ([extention isEqualToString:@"jpg"] ||
+		[extention isEqualToString:@"orf"] ||
 		[extention isEqualToString:@"mov"]) {
 		cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 	} else {
@@ -353,6 +354,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 
 	// コンテンツが写真と動画の場合のみ、タップに反応できます。
 	if ([extention isEqualToString:@"jpg"] ||
+		[extention isEqualToString:@"orf"] ||
 		[extention isEqualToString:@"mov"]) {
 		return YES;
 	}
@@ -368,6 +370,7 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	
 	// コンテンツが写真と動画の場合のみ、セルを選択できます。
 	if ([extention isEqualToString:@"jpg"] ||
+		[extention isEqualToString:@"orf"] ||
 		[extention isEqualToString:@"mov"]) {
 		return indexPath;
 	}
@@ -382,7 +385,8 @@ static NSString *const ContentThumbnailMetadataKey = @"metadata"; ///< コンテ
 	NSString *extention = [[filename pathExtension] lowercaseString];
 	
 	// コンテンツが写真と動画の場合のみ、それぞれの詳細画面へ遷移します。
-	if ([extention isEqualToString:@"jpg"]) {
+	if ([extention isEqualToString:@"jpg"] ||
+		[extention isEqualToString:@"orf"]) {
 		[self performSegueWithIdentifier:@"ShowPictureContent" sender:self];
 	} else if([extention isEqualToString:@"mov"]) {
 		[self performSegueWithIdentifier:@"ShowVideoContent" sender:self];

@@ -862,27 +862,29 @@
 	DEBUG_LOG(@"");
 
 	// Apple標準の現像システムでは Olympus AIR A01 はサポートしていないので、
-	// 似たような機能を持つカメラに置き換えて現像します。
-	unsigned char *ptr = (unsigned char *)data.bytes;
-	for (int index = 0; index < data.length - 5; index++) {
-		if (*(ptr + 0) == 'K' &&
-		    *(ptr + 1) == '0' &&
-			*(ptr + 2) == '0' &&
-			*(ptr + 3) == '5' &&
-			*(ptr + 4) == '5') {
-			*(ptr + 0) = 'S';
-			*(ptr + 1) = '0';
-			*(ptr + 2) = '0';
-			*(ptr + 3) = '4';
-			*(ptr + 4) = '6';
+	// メタデータのカメラタイプを同系列の似たようなサポートしている製品に置き換えます。
+	// TODO: もう少し真面目に解析して狙った場所を書き換えないとデータを破壊する可能性がある。
+	//
+	//   $ exiv2 -pa download.orf
+	//   Exif.Image.Model          Ascii 17 AIR-A01
+	//   Exif.OlympusEq.CameraType Ascii  6 K0055
+	//   $ exiv2 -M "set Exif.OlympusEq.CameraType S0046" download.orf
+	//
+	unsigned char search[] = { 'K', '0', '0', '5', '5'};
+	unsigned char replace[] = { 'S', '0', '0', '4', '6'}; // E-PL7
+	unsigned char *reader = (unsigned char *)data.bytes;
+	for (int count = 0; count < data.length - sizeof(search); count++) {
+		if (memcmp(reader, search, sizeof(search)) == 0) {
+			memcpy(reader, replace, sizeof(replace));
 			break;
 		}
-		ptr++;
+		reader++;
 	}
 	
+	// 現像します。
 	NSString *hint = @"com.olympus.raw-image";
 	CIRAWFilter *filter = [CIRAWFilter filterWithImageData:data identifierHint:hint];
-	UIImage *image = [[UIImage alloc] initWithCIImage:filter.previewImage];
+	UIImage *image = [[UIImage alloc] initWithCIImage:filter.outputImage];
 	
 	return image;
 }

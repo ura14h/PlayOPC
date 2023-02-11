@@ -157,7 +157,7 @@
 	NSString *extention = [[filename pathExtension] lowercaseString];
 	self.isOrf = [extention isEqualToString:@"orf"];
 
-	// MARK: 初期表示用の画像をダウンロードします。
+	// 初期表示用の画像をダウンロードします。
 	// デバイス用画像のダウンロード(downloadContentScreennail:progressHandler:completionHandler:errorHandler:)で
 	// 得た画像にはメタデータに回転情報が入っていないらしく、UIImageViewを使って表示した時に撮影時のカメラ本体の向きが再現されないようです。
 	// 通信速度が遅くなりますがここでは表示の正確性を求めたいので、
@@ -656,9 +656,14 @@
 			return;
 		}
 
-		// バイナリデータから画像データを抽出します。
-		weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
-
+		if (size == OLYCameraImageResizeNone && self.isOrf) {
+			// ORF形式のバイナリデータは現像しないと表示できません。
+			weakSelf.contentImage = [self developRawImage:weakSelf.contentData];
+		} else {
+			// バイナリデータから画像データを抽出します。
+			weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
+		}
+		
 		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
 		
 		// ダウンロードしたリサイズ画像を表示します。
@@ -850,6 +855,36 @@
 		self.eraseButton.enabled = YES;
 		[self setToolbarItems:self.unprotectedContentToolbarItems animated:animated];
 	}
+}
+
+/// RAW画像を現像してUIImageにします。
+- (UIImage *)developRawImage:(NSData *)data {
+	DEBUG_LOG(@"");
+
+	// Apple標準の現像システムでは Olympus AIR A01 はサポートしていないので、
+	// 似たような機能を持つカメラに置き換えて現像します。
+	unsigned char *ptr = (unsigned char *)data.bytes;
+	for (int index = 0; index < data.length - 5; index++) {
+		if (*(ptr + 0) == 'K' &&
+		    *(ptr + 1) == '0' &&
+			*(ptr + 2) == '0' &&
+			*(ptr + 3) == '5' &&
+			*(ptr + 4) == '5') {
+			*(ptr + 0) = 'S';
+			*(ptr + 1) = '0';
+			*(ptr + 2) = '0';
+			*(ptr + 3) = '4';
+			*(ptr + 4) = '6';
+			break;
+		}
+		ptr++;
+	}
+	
+	NSString *hint = @"com.olympus.raw-image";
+	CIRAWFilter *filter = [CIRAWFilter filterWithImageData:data identifierHint:hint];
+	UIImage *image = [[UIImage alloc] initWithCIImage:filter.previewImage];
+	
+	return image;
 }
 
 @end

@@ -45,6 +45,8 @@
 @property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
 @property (strong, nonatomic) NSData *contentData; ///< コンテンツのバイナリデータ
 @property (strong, nonatomic) UIImage *contentImage; ///< コンテンツの表示用画像データ
+@property (assign, nonatomic) OLYCameraImageResize contentImageSize; ///< コンテンツの画像サイズ
+@property (assign, nonatomic) BOOL isOrf; ///< コンテンツはORF形式か
 
 @end
 
@@ -150,8 +152,13 @@
 	// 現在のプロテクト状態をコンテンツ情報を元に初期化します。
 	NSArray *attributes = self.content[OLYCameraContentListAttributesKey];
 	self.protected = [attributes containsObject:@"protected"];
-	
-	// MARK: 初期表示用の画像をダウンロードします。
+
+	// 扱うコンテンツの画像形式がJPEGかRAWか判定します。
+	NSString *filename = self.content[OLYCameraContentListFilenameKey];
+	NSString *extention = [[filename pathExtension] lowercaseString];
+	self.isOrf = [extention isEqualToString:@"orf"];
+
+	// 初期表示用の画像をダウンロードします。
 	// デバイス用画像のダウンロード(downloadContentScreennail:progressHandler:completionHandler:errorHandler:)で
 	// 得た画像にはメタデータに回転情報が入っていないらしく、UIImageViewを使って表示した時に撮影時のカメラ本体の向きが再現されないようです。
 	// 通信速度が遅くなりますがここでは表示の正確性を求めたいので、
@@ -300,6 +307,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize1024];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize1024) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -308,6 +318,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize1600];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize1600) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -316,6 +329,9 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize1920];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize1920) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -324,14 +340,25 @@
 			[weakSelf downloadResizedImage:OLYCameraImageResize2048];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResize2048) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
-		NSString *title = NSLocalizedString(@"$title:ExecuteResizePictureOriginal", @"PictureContentViewController.didTapResizeButton");
+		NSString *title;
+		if (self.isOrf) {
+			title = NSLocalizedString(@"$title:ExecuteResizePictureOriginalRaw", @"PictureContentViewController.didTapResizeButton");
+		} else {
+			title = NSLocalizedString(@"$title:ExecuteResizePictureOriginalJpeg", @"PictureContentViewController.didTapResizeButton");
+		}
 		void (^handler)(UIAlertAction *action) = ^(UIAlertAction *action) {
 			[weakSelf downloadResizedImage:OLYCameraImageResizeNone];
 		};
 		UIAlertAction *action = [UIAlertAction actionWithTitle:title style:actionStyle handler:handler];
+		if (self.contentImageSize == OLYCameraImageResizeNone) {
+			action.enabled = NO;
+		}
 		[alertController addAction:action];
 	}
 	{
@@ -349,7 +376,12 @@
 - (IBAction)didTapProtectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"$desc:ProtectPicture", @"PictureContentViewController.didTapProtectButton");
+	NSString *message;
+	if (self.isOrf) {
+		message = NSLocalizedString(@"$desc:ProtectRawPicture", @"PictureContentViewController.didTapProtectButton");
+	} else {
+		message = NSLocalizedString(@"$desc:ProtectJpegPicture", @"PictureContentViewController.didTapProtectButton");
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -379,7 +411,12 @@
 - (IBAction)didTapUnprotectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"$desc:UnprotectPicture", @"PictureContentViewController.didTapUnprotectButton");
+	NSString *message;
+	if (self.isOrf) {
+		message = NSLocalizedString(@"$desc:UnprotectRawPicture", @"PictureContentViewController.didTapUnprotectButton");
+	} else {
+		message = NSLocalizedString(@"$desc:UnprotectJpegPicture", @"PictureContentViewController.didTapUnprotectButton");
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -409,7 +446,12 @@
 - (IBAction)didTapEraseButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"$desc:ErasePicture", @"PictureContentViewController.didTapEraseButton");
+	NSString *message;
+	if (self.isOrf) {
+		message = NSLocalizedString(@"$desc:EraseRawPicture", @"PictureContentViewController.didTapEraseButton");
+	} else {
+		message = NSLocalizedString(@"$desc:EraseJpegPicture", @"PictureContentViewController.didTapEraseButton");
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -635,9 +677,16 @@
 			return;
 		}
 
-		// バイナリデータから画像データを抽出します。
-		weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
-
+		// ダウンロードした画像を保持します。
+		if (size == OLYCameraImageResizeNone && self.isOrf) {
+			// ORF形式のバイナリデータは現像しないと表示できません。
+			weakSelf.contentImage = [self developRawImage:weakSelf.contentData];
+		} else {
+			// バイナリデータから画像データを抽出します。
+			weakSelf.contentImage = [UIImage imageWithData:weakSelf.contentData];
+		}
+		self.contentImageSize = size;
+		
 		// この後はすぐに完了するはずで表示のチラツキを抑えるため、進捗率の表示を止めません。
 		
 		// ダウンロードしたリサイズ画像を表示します。
@@ -829,6 +878,38 @@
 		self.eraseButton.enabled = YES;
 		[self setToolbarItems:self.unprotectedContentToolbarItems animated:animated];
 	}
+}
+
+/// RAW画像を現像してUIImageにします。
+- (UIImage *)developRawImage:(NSData *)data {
+	DEBUG_LOG(@"");
+
+	// Apple標準の現像システムでは Olympus AIR A01 はサポートしていないので、
+	// メタデータのカメラタイプを同系列の似たようなサポートしている製品に置き換えます。
+	// TODO: もう少し真面目に解析して狙った場所を書き換えないとデータを破壊する可能性がある。
+	//
+	//   $ exiv2 -pa download.orf
+	//   Exif.Image.Model          Ascii 17 AIR-A01
+	//   Exif.OlympusEq.CameraType Ascii  6 K0055
+	//   $ exiv2 -M "set Exif.OlympusEq.CameraType S0046" download.orf
+	//
+	unsigned char search[] = { 'K', '0', '0', '5', '5'};
+	unsigned char replace[] = { 'S', '0', '0', '4', '6'}; // E-PL7
+	unsigned char *reader = (unsigned char *)data.bytes;
+	for (int count = 0; count < data.length - sizeof(search); count++) {
+		if (memcmp(reader, search, sizeof(search)) == 0) {
+			memcpy(reader, replace, sizeof(replace));
+			break;
+		}
+		reader++;
+	}
+	
+	// 現像します。
+	NSString *hint = @"com.olympus.raw-image";
+	CIRAWFilter *filter = [CIRAWFilter filterWithImageData:data identifierHint:hint];
+	UIImage *image = [[UIImage alloc] initWithCIImage:filter.outputImage];
+	
+	return image;
 }
 
 @end

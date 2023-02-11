@@ -524,7 +524,10 @@
 "$desc:DiscoveringBluetoothPeripheralTimedOut" = "Bluetoothデバイスが見つかりません。カメラの無線スイッチがオフになっているかもしれません。";
 
 /* PictureContentViewController.didTapEraseButton */
-"$desc:ErasePicture" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
+"$desc:ErasePictureJpg" = "この写真に関連するORFファイルがある場合はそれも同時に削除されます。";
+
+/* PictureContentViewController.didTapEraseButton */
+"$desc:ErasePictureOrf" = "この写真に関連するJPEGファイルがある場合はそれも同時に削除されます。";
 
 /* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerCountIsIncorrect" = "インターバルタイマーの回数が正しくありません。";
@@ -544,7 +547,10 @@
 "$desc:PasteboardTextIsNotCameraSetting" = "ペーストボードのテキストはカメラ設定ではありません。";
 
 /* PictureContentViewController.didTapProtectButton */
-"$desc:ProtectPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクトされます。";
+"$desc:ProtectPictureJpg" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクトされます。";
+
+/* PictureContentViewController.didTapProtectButton */
+"$desc:ProtectPictureOrf" = "この写真に関連するJPEGファイルがある場合はそれも同時にプロテクトされます。";
 
 /* PictureContentViewController.didTapResizeButton */
 "$desc:ResizePicture" = "指定したピクセル数に収まるようにリサイズした写真をダウンロードして現在表示されているものと差し替えます。";
@@ -568,7 +574,10 @@
 "$desc:TakingPluralPicturesIsNotAvailable" = "オートブラケットもしくはインターバルタイマーが有効になっていません。";
 
 /* PictureContentViewController.didTapUnprotectButton */
-"$desc:UnprotectPicture" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
+"$desc:UnprotectPictureJpg" = "この写真に関連するORFファイルがある場合はそれも同時にプロテクト解除されます。";
+
+/* PictureContentViewController.didTapUnprotectButton */
+"$desc:UnprotectPictureOrf" = "この写真に関連するJPEGファイルがある場合はそれも同時にプロテクト解除されます。";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */

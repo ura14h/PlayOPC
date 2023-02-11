@@ -524,7 +524,10 @@
 "$desc:DiscoveringBluetoothPeripheralTimedOut" = "Bluetooth device was not found. A radio switch of camera may be off.";
 
 /* PictureContentViewController.didTapEraseButton */
-"$desc:ErasePicture" = "If there is ORF file related to this picture, it will be erased at the same time too.";
+"$desc:ErasePictureJpg" = "If there is ORF file related to this picture, it will be erased at the same time too.";
+
+/* PictureContentViewController.didTapEraseButton */
+"$desc:ErasePictureOrf" = "If there is JPEG file related to this picture, it will be erased at the same time too.";
 
 /* AppCamera.startTakingPluralPictures */
 "$desc:IntervalTimerCountIsIncorrect" = "Interval timer count is incorrect.";
@@ -544,7 +547,10 @@
 "$desc:PasteboardTextIsNotCameraSetting" = "Pasteboard text is not camera setting.";
 
 /* PictureContentViewController.didTapProtectButton */
-"$desc:ProtectPicture" = "If there is ORF file related to this picture, it will be protected at the same time too.";
+"$desc:ProtectPictureJpg" = "If there is ORF file related to this picture, it will be protected at the same time too.";
+
+/* PictureContentViewController.didTapProtectButton */
+"$desc:ProtectPictureOrf" = "If there is JPEG file related to this picture, it will be protected at the same time too.";
 
 /* PictureContentViewController.didTapResizeButton */
 "$desc:ResizePicture" = "An image with a long side pixel size of specified length is downloaded, the current image will be replaced at it.";
@@ -568,7 +574,10 @@
 "$desc:TakingPluralPicturesIsNotAvailable" = "Auto bracketing or interval timer is not available.";
 
 /* PictureContentViewController.didTapUnprotectButton */
-"$desc:UnprotectPicture" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
+"$desc:UnprotectPictureJpg" = "If there is ORF file related to this picture, it will be unprotect at the same time too.";
+
+/* PictureContentViewController.didTapUnprotectButton */
+"$desc:UnprotectPictureOrf" = "If there is JPEG file related to this picture, it will be unprotect at the same time too.";
 
 /* RecordingViewController.cameraDidTakePictureByAutoBracketing
    RecordingViewController.cameraWillTakePictureByAutoBracketing */

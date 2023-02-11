@@ -45,6 +45,7 @@
 @property (strong, nonatomic) NSArray *protectedContentToolbarItems; ///< プロテクト状態のコンテンツを表示するときのツールバーボタンセット
 @property (strong, nonatomic) NSData *contentData; ///< コンテンツのバイナリデータ
 @property (strong, nonatomic) UIImage *contentImage; ///< コンテンツの表示用画像データ
+@property (assign, nonatomic) BOOL isOrf; ///< コンテンツはORF形式か
 
 @end
 
@@ -150,7 +151,12 @@
 	// 現在のプロテクト状態をコンテンツ情報を元に初期化します。
 	NSArray *attributes = self.content[OLYCameraContentListAttributesKey];
 	self.protected = [attributes containsObject:@"protected"];
-	
+
+	// 扱うコンテンツの画像形式がJPEGかRAWか判定します。
+	NSString *filename = self.content[OLYCameraContentListFilenameKey];
+	NSString *extention = [[filename pathExtension] lowercaseString];
+	self.isOrf = [extention isEqualToString:@"orf"];
+
 	// MARK: 初期表示用の画像をダウンロードします。
 	// デバイス用画像のダウンロード(downloadContentScreennail:progressHandler:completionHandler:errorHandler:)で
 	// 得た画像にはメタデータに回転情報が入っていないらしく、UIImageViewを使って表示した時に撮影時のカメラ本体の向きが再現されないようです。
@@ -349,7 +355,12 @@
 - (IBAction)didTapProtectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"$desc:ProtectPicture", @"PictureContentViewController.didTapProtectButton");
+	NSString *message;
+	if (self.isOrf) {
+		message = NSLocalizedString(@"$desc:ProtectPictureOrf", @"PictureContentViewController.didTapProtectButton");
+	} else {
+		message = NSLocalizedString(@"$desc:ProtectPictureJpg", @"PictureContentViewController.didTapProtectButton");
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -379,7 +390,12 @@
 - (IBAction)didTapUnprotectButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"$desc:UnprotectPicture", @"PictureContentViewController.didTapUnprotectButton");
+	NSString *message;
+	if (self.isOrf) {
+		message = NSLocalizedString(@"$desc:UnprotectPictureOrf", @"PictureContentViewController.didTapUnprotectButton");
+	} else {
+		message = NSLocalizedString(@"$desc:UnprotectPictureJpg", @"PictureContentViewController.didTapUnprotectButton");
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;
@@ -409,7 +425,12 @@
 - (IBAction)didTapEraseButton:(id)sender {
 	DEBUG_LOG(@"");
 	
-	NSString *message = NSLocalizedString(@"$desc:ErasePicture", @"PictureContentViewController.didTapEraseButton");
+	NSString *message;
+	if (self.isOrf) {
+		message = NSLocalizedString(@"$desc:ErasePictureOrf", @"PictureContentViewController.didTapEraseButton");
+	} else {
+		message = NSLocalizedString(@"$desc:ErasePictureJpg", @"PictureContentViewController.didTapEraseButton");
+	}
 	UIAlertControllerStyle style = UIAlertControllerStyleActionSheet;
 	UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:message preferredStyle:style];
 	alertController.popoverPresentationController.sourceView = self.view;

@@ -461,7 +461,6 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		NSDate *sequenceStartTime = [NSDate date];
 		
 		// Bluetoothデバイスの使用許可を確認します。
 		if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
@@ -502,10 +501,7 @@
 		camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 		camera.bluetoothPassword = bluetoothPasscode;
 		camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
-		NSDate *connectStartTime = [NSDate date];
 		BOOL connected = [camera connect:OLYCameraConnectionTypeBluetoothLE error:&error];
-		NSDate *connectEndTime = [NSDate date];
-		DEBUG_LOG(@"To connect taken %f sec", [connectEndTime timeIntervalSinceDate:connectStartTime]);
 		if (!connected) {
 			// カメラにアプリ接続できませんでした。
 			[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -547,8 +543,6 @@
 		
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		NSDate *sequenceEndTime = [NSDate date];
-		DEBUG_LOG(@"Total %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 		
 		// バッテリーの残量を確認しておきます。
 		[weakSelf checkCameraBatteryLevel];
@@ -597,7 +591,6 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		NSDate *sequenceStartTime = [NSDate date];
 		NSError *error = nil;
 		
 		// Bluetoothデバイスの使用許可を確認します。
@@ -645,10 +638,7 @@
 			camera.bluetoothPeripheral = weakSelf.bluetoothConnector.peripheral;
 			camera.bluetoothPassword = bluetoothPasscode;
 			camera.bluetoothPrepareForRecordingWhenPowerOn = YES;
-			NSDate *wakeupStartTime = [NSDate date];
 			BOOL wokenUp = [camera wakeup:&error];
-			NSDate *wakeupEndTime = [NSDate date];
-			DEBUG_LOG(@"To wakeup taken %f sec", [wakeupEndTime timeIntervalSinceDate:wakeupStartTime]);
 			if (!wokenUp) {
 				// カメラの電源を入れるのに失敗しました。
 				if ([error.domain isEqualToString:OLYCameraErrorDomain] && error.code == OLYCameraErrorOperationAborted) {
@@ -695,10 +685,7 @@
 			[weakSelf reportBlockConnectingWifi:progressView];
 			weakSelf.wifiConnector.SSID = wifiSSID;
 			weakSelf.wifiConnector.passphrase = wifiPassphrase;
-			NSDate *joinStartTime = [NSDate date];
 			BOOL joined = [weakSelf.wifiConnector connectHotspot:&error];
-			NSDate *joinEndTime = [NSDate date];
-			DEBUG_LOG(@"To join taken %f sec", [joinEndTime timeIntervalSinceDate:joinStartTime]);
 			if (!joined) {
 				if (error == nil) {
 					// WiFi接続の試みをキャンセルしました。
@@ -734,13 +721,12 @@
 			NSDate *reachStartTime = [NSDate date];
 			BOOL reached = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:reachTimeout error:&error];
 			NSDate *reachEndTime = [NSDate date];
-			NSTimeInterval timeToReach = [reachEndTime timeIntervalSinceDate:reachStartTime];
-			DEBUG_LOG(@"To reach taken %f sec", timeToReach);
 			if (!reached) {
 				// カメラにアプリ接続できませんでした。
 				// 指定したタイムアウト時間よりも早く復帰している場合は設定に問題があるとみなします。
 				// TODO: この手法は初回接続でダイアログ応答待ちを判定できないのでまだ完全ではない。
 				NSString *message;
+				NSTimeInterval timeToReach = [reachEndTime timeIntervalSinceDate:reachStartTime];
 				if (error.domain == NSURLErrorDomain && error.code == NSURLErrorTimedOut && timeToReach < reachTimeout) {
 					message = NSLocalizedString(@"$desc:CouldNotConnectCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 				} else {
@@ -751,10 +737,7 @@
 				[weakSelf.wifiConnector disconnectHotspot:nil];
 				return;
 			}
-			NSDate *connectStartTime = [NSDate date];
 			BOOL connected = [camera connect:OLYCameraConnectionTypeWiFi error:&error];
-			NSDate *connectEndTime = [NSDate date];
-			DEBUG_LOG(@"To connect taken %f sec", [connectEndTime timeIntervalSinceDate:connectStartTime]);
 			if (!connected) {
 				// カメラにアプリ接続できませんでした。
 				[weakSelf showAlertMessage:error.localizedDescription title:NSLocalizedString(@"$title:CouldNotConnectWifi", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell")];
@@ -793,8 +776,6 @@
 		
 		// アプリ接続が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		NSDate *sequenceEndTime = [NSDate date];
-		DEBUG_LOG(@"Total %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 		
 		// バッテリーの残量を確認しておきます。
 		[weakSelf checkCameraBatteryLevel];

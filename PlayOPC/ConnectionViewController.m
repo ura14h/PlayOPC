@@ -790,7 +790,6 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		NSDate *sequenceStartTime = [NSDate date];
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -838,8 +837,6 @@
 		
 		// カメラの接続解除が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		NSDate *sequenceEndTime = [NSDate date];
-		DEBUG_LOG(@"Taken %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 	}];
 }
 
@@ -851,7 +848,6 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		NSDate *sequenceStartTime = [NSDate date];
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -899,8 +895,6 @@
 		
 		// カメラの接続解除が完了しました。
 		[weakSelf reportBlockFinishedToProgress:progressView];
-		NSDate *sequenceEndTime = [NSDate date];
-		DEBUG_LOG(@"Taken %f sec", [sequenceEndTime timeIntervalSinceDate:sequenceStartTime]);
 	}];
 }
 

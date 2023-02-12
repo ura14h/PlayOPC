@@ -886,22 +886,53 @@
 
 	// Apple標準の現像システムでは Olympus AIR A01 はサポートしていないので、
 	// メタデータのカメラタイプを同系列の似たようなサポートしている製品に置き換えます。
-	// TODO: もう少し真面目に解析して狙った場所を書き換えないとデータを破壊する可能性がある。
 	//
-	//   $ exiv2 -pa download.orf
-	//   Exif.Image.Model          Ascii 17 AIR-A01
-	//   Exif.OlympusEq.CameraType Ascii  6 K0055
-	//   $ exiv2 -M "set Exif.OlympusEq.CameraType S0046" download.orf
+	//   ADDRESS +0 +1 +2 +3 +4 +5 +6 +7 +8 +9 +A +B +C +D +E +F
+	//   0000000 49 49 52 4F                                     IIRO
+	//   0002030 00 00 00 00 00 00 00 00 4F 4C 59 4D 50 55 53 20 ........OLYMPUS.
+	//   0002040 44 49 47 49 54 41 4C 20 43 41 4D 45 52 41 20 20 DIGITAL.CAMERA..
+	//   0002040 20 20 20 20 20 20 20 00 30 31 30 30 4B 30 30 35 ........0100K005
+	//   0002050 35 00 ?? ?? ?? ?? ?? ?? ?? ?? ?? 20 20 20 20 20 5.<serial#>.....
+	//   0002060 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 20 ................
 	//
-	unsigned char search[] = { 'K', '0', '0', '5', '5'};
-	unsigned char replace[] = { 'S', '0', '0', '4', '6'}; // E-PL7
+	unsigned char search1[] = {
+		'I', 'I', 'R', 'O',
+	};
+	unsigned char search2[] = {
+		'O', 'L', 'Y', 'M', 'P', 'U', 'S', ' ',
+		'D', 'I', 'G', 'I', 'T', 'A', 'L', ' ',
+		'C', 'A', 'M', 'E', 'R', 'A', ' ', ' ',
+		' ', ' ', ' ', ' ', ' ', ' ', ' ', '\0',
+		'0', '1', '0', '0',
+	};
+	unsigned char search3[] = {
+		'K', '0', '0', '5', '5', '\0',
+	};
+	unsigned char replace[] = {
+		'S', '0', '0', '4', '6', // E-PL7
+	};
+	long count = (long)data.length - sizeof(search1) - sizeof(search2) - sizeof(search3);
 	unsigned char *reader = (unsigned char *)data.bytes;
-	for (int count = 0; count < data.length - sizeof(search); count++) {
-		if (memcmp(reader, search, sizeof(search)) == 0) {
-			memcpy(reader, replace, sizeof(replace));
-			break;
+	if (memcmp(reader, search1, sizeof(search1)) == 0) {
+		reader += sizeof(search1);
+		count -= sizeof(search1);
+		while (count > 0) {
+			if (memcmp(reader, search2, sizeof(search2)) == 0) {
+				reader += sizeof(search2);
+				count -= sizeof(search2);
+				if (memcmp(reader, search3, sizeof(search3)) == 0) {
+					memcpy(reader, replace, sizeof(replace));
+					DEBUG_LOG(@"Replaced camera type");
+					break;
+				} else {
+					reader += sizeof(search3);
+					count -= sizeof(search3);
+				}
+			} else {
+				reader++;
+				count--;
+			}
 		}
-		reader++;
 	}
 	
 	// 現像します。

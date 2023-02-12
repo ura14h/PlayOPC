@@ -116,56 +116,7 @@ PLAY OPCの開発中に気がついたことなどを記録しています。
   * モノクロフィルター効果(MonotoneFilter￼)は、通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
   * 調色効果(MonotoneColor)は、通信仕様書に記述のない"ERROR"という値が返される場合があるようです。また、先頭の"LIKE_"が取り除かれた形式で返されるようです。
   * ホワイトバランス(WhiteBalance)が自動の時にWB補正を伴うと、通信仕様書に記述のない"ERROR"という値が返される場合があるようです。
-
-## iOS 9 への移行
-
-* アプリのInfo.plistに以下の設定を忘れるとカメラとのHTTP通信がエラーになります。
-
-```
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-```
-
-* アプリのInfo.plistに以下の設定を忘れるとOA.Centralとの連携がエラーになります。
-
-```	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>jp.olympus-imaging.oacentral</string>
-		<string>jp.olympus-imaging.oacentralus</string>
-	</array>
-```
-
-* UIApplicationDelegateのapplicationDidBecomeActive:メソッドが呼び出されるタイミングが、viewDidLoadの後だったのがviewDidLoadよりも前に移動したようです。
-
-* OLYCameraKit.framworkの最新バージョン(1.1.1)をアプリのプロジェクトに組み込むとビルド時に警告が大量に発生する場合があるようです。なお、プロジェクトのビルド設定でDebug Information FormatをDWARF with dSYMからDWARFに変えると警告は消えるようです。 #reported-sdk-1.1.1 #avoided-app-1.5.2477
-
-## iOS 10 への移行
-
-* カメラ起動(wakeup:)メソッドなどのBluetoothLE接続を利用するアプリでは、Info.plistに以下の設定が必要になるようです。UIRequiredDeviceCapabilitiesキーの内容とNSBluetoothPeripheralUsageDescriptionキー有無の組み合わせによっては、iTunes Connectへの審査申請時にアプリバイナリがリジェクトされる場合があります。
-
-```
-	<key>UIRequiredDeviceCapabilities</key>
-	<array>
-	        :
-		<string>bluetooth-le</string>
-	</array>
-	<key>NSBluetoothPeripheralUsageDescription</key>
-	<string>This application uses Bluetooth to wake up a camera.</string>
-```
-
-* 上記以外にもカメラへの位置情報設定やダウンロードした画像をデバイスのアルバムに保存するなどのを備えているアプリでは、Info.plistに以下の設定が必要になるようです。例えば、NSPhotoLibraryUsageDescriptionキーを忘れるとアプリがクラッシュする場合があります。
-
-```
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>This application uses the current location to set the camera.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This application uses the photo library to save a captured image.</string>
-```
-
-* Appleが提供している[Reachability](https://developer.apple.com/library/content/samplecode/Reachability/Introduction/Intro.html)の古いバージョンでかつreachabilityForLocalWiFiメソッドを使用している場合は、Wi-Fi接続の状態変化を正しく検知できません。代替策としてreachabilityWithHostName:メソッドかreachabilityWithAddress:メソッドを使用する必要があるようです。
+* コンテンツ一覧取得(downloadContentList:)で得られる情報のうち、大きい動画ファイルのファイルサイズ(2GB超?)は正しい値にならないようです。
 
 ## iTunes Connectへの審査申請
 

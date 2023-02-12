@@ -1,7 +1,6 @@
 # PLAY OPC
 
 This application can operate Open Platform Camera (OLYMPUS AIR A01) of Olympus.
-You can try most functions of SDK 1.1 provided by Olympus with using this application.
 
 OLYMPUS AIR A01 is necessary to use this application.
 (It is OLYMPUS AIR A01 if this description says a camera.)
@@ -43,6 +42,13 @@ OLYMPUS AIR A01 is necessary to use this application.
 * If the device cannot connect the camera via Wi-Fi automatically, it is necessary to connect the camera by manual operation.
 * The operation of the camera is not stable and may not work at the place where Wi-Fi is crowded.
 
+## Other Information
+
+* The OLYMPUS AIR A01 was discontinued by the manufacturer on 2018-03-31 and is currently only available on the used market.
+* If you are interested in handling the OLYMPUS AIR A01, please check the published instruction manual. ([http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf](http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf))
+* If you are interested in the details of camera functions and setting values, please check the published SDK document. ([https://dl-support.olympus-imaging.com/opc/en/](https://dl-support.olympus-imaging.com/opc/en/))
+* This application is Open Source. If you want to know what the application does inside, you are able to find almost source codes in GitHub. ([https://github.com/ura14h/PlayOPC](https://github.com/ura14h/PlayOPC))
+
 ## Runs Immediately
 
 You may find the binary version of application in [iTunes App Store](https://itunes.apple.com/app/play-opc/id999316498). Please download it if you want to see immediately this application works. 
@@ -59,15 +65,10 @@ When the project that you downloaded does not seem to be able to build, please r
 
 ## Authors
 
-* Hiroki Ishiura (except file in /PlayOPC/Imports directory)
+* Hiroki Ishiura (except files in /PlayOPC/Imports directory)
 
 ## License
 
 Original souce code of PLAY OPC is released under the terms of MIT license. You may find the content of the license [http://opensource.org/licenses/mit-license.php]().
 
 OLYCameraKit.framework is released under the terms of OLYMPUS license. This license is not equal to MIT license.
-
-## Other Information
-
-* If you are interested in handling the OLYMPUS AIR A01, please check the published instruction manual. [http://sapp.olympus-imaging.com/manual/man_a01_us_enu.pdf]() 
-* If you have an interest in camera functions and camera parameters, please read SDK document. You may download it from: [https://dl-support.olympus-imaging.com/opc/en/]()

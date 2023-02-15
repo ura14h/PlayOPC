@@ -11,6 +11,7 @@
 
 #import "SystemViewController.h"
 #import "AppDelegate.h"
+#import "AppSetting.h"
 #import "AppCamera.h"
 #import "CameraPropertyValueSelectionViewController.h"
 #import "UIViewController+Alert.h"
@@ -525,7 +526,14 @@
 - (void)updateSsidCell {
 	DEBUG_LOG(@"");
 
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータでは設定値を表示します。
+	AppSetting *setting = GetAppSetting();
+	NSString *wifiSSID = setting.wifiSSID;
+	self.ssidCell.detailTextLabel.text = wifiSSID;
+#else
 	[self updateCameraPropertyCell:self.ssidCell name:CameraPropertySsid completion:nil];
+#endif
 }
 
 /// Wi-Fiチャンネルを表示します。

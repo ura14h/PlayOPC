@@ -455,7 +455,7 @@
 "$desc:CouldNotConnectBluetoothByEmptyLocalname" = "Bluetooth local name is empty. Please configure it at Bluetooth setting.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectCamera" = "Could not connect to camera. Please allow 'Local Network' at Settings.";
+"$desc:CouldNotConnectCamera" = "Could not connect to camera. Make sure 'Local Network' at Settings.";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifi" = "Could not find the access point. Make sure the Wi-Fi settings and the camera power status, or connect manually.";

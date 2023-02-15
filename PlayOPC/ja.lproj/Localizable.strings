@@ -455,7 +455,7 @@
 "$desc:CouldNotConnectBluetoothByEmptyLocalname" = "Bluetoothのローカルネームが空です。Bluetooth設定を構成してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
-"$desc:CouldNotConnectCamera" = "カメラに接続できませんでした。設定で「ローカルネットワーク」を許可してください。";
+"$desc:CouldNotConnectCamera" = "カメラに接続できませんでした。設定で「ローカルネットワーク」を確認してください。";
 
 /* ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell */
 "$desc:CouldNotConnectWifi" = "アクセスポイントが見つかりませんでした。 Wi-Fi設定とカメラの電源状態を確認するか手動で接続してください。";

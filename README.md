@@ -61,7 +61,15 @@ Building this application requires:
 * macOS 13.1 and later
 * Xcode 14.2 and later
 
-When the project that you downloaded does not seem to be able to build, please read the trouble-shooting section of [Wiki](https://github.com/ura14h/PlayOPC/wiki).
+## Documents
+
+These documents are written in Japanese.
+
+* [Developer Note](Documents/DeveloperNote.md)
+* [Implementation Status](Documents/ImplementationStatus.md)
+* [Instruction Manual](Documents/InstructionManual.md)
+* [Special Appendix](Documents/SpecialAppendix.md)
+
 
 ## Authors
 

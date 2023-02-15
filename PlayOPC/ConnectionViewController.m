@@ -468,7 +468,11 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
-		
+
+#if (TARGET_OS_SIMULATOR)
+		// シミュレータではBluetoothは使用できません。
+		[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
+#else
 		// Bluetoothデバイスの使用許可を確認します。
 		if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 			// Bluetoothデバイスは使用不可です。
@@ -553,6 +557,7 @@
 		
 		// バッテリーの残量を確認しておきます。
 		[weakSelf checkCameraBatteryLevel];
+#endif
 	}];
 }
 
@@ -578,6 +583,9 @@
 	
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
 	__block BOOL demandToWakeUpWithUsingBluetooth = NO;
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではBluetoothは使用できません。
+#else
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
 	NSString *bluetoothPasscode = setting.bluetoothPasscode;
 	if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
@@ -591,6 +599,7 @@
 			}
 		}
 	}
+#endif
 	DEBUG_LOG(@"demandToWakeUpWithUsingBluetooth=%ld", (long)demandToWakeUpWithUsingBluetooth);
 	
 	// カメラの電源を投入し接続を開始します。
@@ -598,8 +607,12 @@
 	__weak ConnectionViewController *weakSelf = self;
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
+	
+#if (TARGET_OS_SIMULATOR)
+		// シミュレータではBluetoothはとWiFi接続は使用できません。
+#else
 		NSError *error = nil;
-		
+
 		// Bluetoothデバイスの使用許可を確認します。
 		if (demandToWakeUpWithUsingBluetooth) {
 			if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
@@ -717,6 +730,7 @@
 
 			DEBUG_LOG(@"Finished join sequence");
 		}
+#endif
 		
 		// カメラにアプリ接続します。
 		{

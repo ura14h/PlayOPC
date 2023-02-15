@@ -66,7 +66,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	DEBUG_DETAIL_LOG(@"");
 	
 #if (TARGET_OS_SIMULATOR)
-	return BluetoothConnectionStatusConnected;
+	return BluetoothConnectionStatusNotFound;
 #else
 	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied ||
 		[CBCentralManager authorization] == CBManagerAuthorizationRestricted) {

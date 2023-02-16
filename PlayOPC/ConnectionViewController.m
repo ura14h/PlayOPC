@@ -456,9 +456,7 @@
 	// Bluetoothデバイスの設定を確認します。
 	AppSetting *setting = GetAppSetting();
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
-#if !(TARGET_OS_SIMULATOR)
 	NSString *bluetoothPasscode = setting.bluetoothPasscode;
-#endif
 	if (!bluetoothLocalName || bluetoothLocalName.length == 0) {
 		// Bluetoothデバイスの設定が不完全です。
 		[self showAlertMessage:NSLocalizedString(@"$desc:CouldNotConnectBluetoothByEmptyLocalname", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
@@ -471,10 +469,6 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 
-#if (TARGET_OS_SIMULATOR)
-		// シミュレータではBluetoothは使用できません。
-		[weakSelf showAlertMessage:NSLocalizedString(@"$desc:CouldNotUseBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell") title:NSLocalizedString(@"$title:CouldNotConnectBluetooth", @"ConnectionViewController.didSelectRowAtConnectWithUsingBluetoothCell")];
-#else
 		// Bluetoothデバイスの使用許可を確認します。
 		if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 			// Bluetoothデバイスは使用不可です。
@@ -559,7 +553,6 @@
 		
 		// バッテリーの残量を確認しておきます。
 		[weakSelf checkCameraBatteryLevel];
-#endif
 	}];
 }
 
@@ -585,9 +578,6 @@
 	
 	// カメラへの接続するのに電源投入も必要か否かを調べます。
 	__block BOOL demandToWakeUpWithUsingBluetooth = NO;
-#if (TARGET_OS_SIMULATOR)
-	// シミュレータではBluetoothは使用できません。
-#else
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
 	NSString *bluetoothPasscode = setting.bluetoothPasscode;
 	if (self.wifiConnector.connectionStatus == WifiConnectionStatusConnected) {
@@ -601,7 +591,6 @@
 			}
 		}
 	}
-#endif
 	DEBUG_LOG(@"demandToWakeUpWithUsingBluetooth=%ld", (long)demandToWakeUpWithUsingBluetooth);
 	
 	// カメラの電源を投入し接続を開始します。
@@ -610,12 +599,8 @@
 	[weakSelf showProgress:YES whileExecutingBlock:^(MBProgressHUD *progressView) {
 		DEBUG_LOG(@"weakSelf=%p", weakSelf);
 	
-#if (TARGET_OS_SIMULATOR)
-		// シミュレータではBluetoothとWiFi接続は使用できません。
-#else
-		NSError *error = nil;
-
 		// Bluetoothデバイスの使用許可を確認します。
+		NSError *error = nil;
 		if (demandToWakeUpWithUsingBluetooth) {
 			if ([self.bluetoothConnector reqeustAuthorization] == CBManagerAuthorizationDenied) {
 				// Bluetoothデバイスは使用不可です。
@@ -732,7 +717,6 @@
 
 			DEBUG_LOG(@"Finished join sequence");
 		}
-#endif
 		
 		// カメラにアプリ接続します。
 		{
@@ -824,9 +808,7 @@
 		
 		// カメラとのアプリ接続を解除します。
 		AppCamera *camera = GetAppCamera();
-#if !(TARGET_OS_SIMULATOR)
 		OLYCameraConnectionType lastConnectionType = camera.connectionType;
-#endif
 		NSError *error = nil;
 		if (![camera disconnectWithPowerOff:NO error:&error]) {
 			// カメラのアプリ接続を解除できませんでした。
@@ -836,9 +818,6 @@
 		camera.bluetoothPeripheral = nil;
 		camera.bluetoothPassword = nil;
 
-#if (TARGET_OS_SIMULATOR)
-		// シミュレータではBluetoothとWiFi切断は使用できません。
-#else
 		// カメラとのBluetooth接続を解除します。
 		if (lastConnectionType == OLYCameraConnectionTypeBluetoothLE) {
 			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
@@ -857,7 +836,6 @@
 			}];
 			[weakSelf.wifiConnector disconnectHotspot:nil];
 		}
-#endif
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -888,9 +866,7 @@
 		
 		// カメラとのアプリ接続を解除し電源を切ります。
 		AppCamera *camera = GetAppCamera();
-#if !(TARGET_OS_SIMULATOR)
 		OLYCameraConnectionType lastConnectionType = camera.connectionType;
-#endif
 		NSError *error = nil;
 		if (![camera disconnectWithPowerOff:YES error:&error]) {
 			// カメラのアプリ接続を解除できませんでした。
@@ -900,9 +876,6 @@
 		camera.bluetoothPeripheral = nil;
 		camera.bluetoothPassword = nil;
 		
-#if (TARGET_OS_SIMULATOR)
-		// シミュレータではBluetoothとWiFi切断は使用できません。
-#else
 		// カメラとのBluetooth接続を解除します。
 		if (lastConnectionType == OLYCameraConnectionTypeBluetoothLE) {
 			if (![weakSelf.bluetoothConnector disconnectPeripheral:&error]) {
@@ -921,7 +894,6 @@
 			}];
 			[weakSelf.wifiConnector disconnectHotspot:nil];
 		}
-#endif
 		
 		// 画面表示を更新します。
 		[weakSelf executeAsynchronousBlockOnMainThread:^{
@@ -1105,10 +1077,6 @@
 	AppSetting *setting = GetAppSetting();
 	NSString *bluetoothLocalName = setting.bluetoothLocalName;
 	if (bluetoothLocalName && bluetoothLocalName.length > 0) {
-#if (TARGET_OS_SIMULATOR)
-		// シミュレータでは未接続を表示します。
-		self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotConnected", @"ConnectionViewController.updateShowBluetoothSettingCell");
-#else
 		BluetoothConnectionStatus status = self.bluetoothConnector.connectionStatus;
 		if (status == BluetoothConnectionStatusConnected) {
 			// 接続されている場合はローカルネームを表示します。
@@ -1121,7 +1089,6 @@
 			// 接続されていない場合は未接続と表示します。
 			self.showBluetoothSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:BluetoothNotConnected", @"ConnectionViewController.updateShowBluetoothSettingCell");
 		}
-#endif
 		self.showBluetoothSettingCell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 	} else {
 		// 設定が未構成です。
@@ -1139,12 +1106,6 @@
 	NSString *wifiPassphrase = setting.wifiPassphrase;
 	if (wifiSSID && wifiSSID.length > 0 &&
 		wifiPassphrase && wifiPassphrase.length > 0) {
-#if (TARGET_OS_SIMULATOR)
-		// シミュレータでは設定値を表示します。
-		AppSetting *setting = GetAppSetting();
-		NSString *ssid = setting.wifiSSID;
-		self.showWifiSettingCell.detailTextLabel.text = ssid;
-#else
 		WifiConnectionStatus status = self.wifiConnector.connectionStatus;
 		if (status == WifiConnectionStatusConnected) {
 			// 接続先がカメラの場合はそのSSIDを表示します。
@@ -1158,7 +1119,6 @@
 		} else {
 			self.showWifiSettingCell.detailTextLabel.text = NSLocalizedString(@"$cell:WifiStatusUnknown", @"ConnectionViewController.updateShowWifiSettingCell");
 		}
-#endif
 		self.showWifiSettingCell.detailTextLabel.textColor = [UIColor secondaryLabelColor];
 	} else {
 		// 設定が未構成です。

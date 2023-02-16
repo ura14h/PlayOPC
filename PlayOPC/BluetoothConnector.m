@@ -66,6 +66,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 	DEBUG_DETAIL_LOG(@"");
 	
 #if (TARGET_OS_SIMULATOR)
+	// シミュレータではBluetooth制御は利用できません。
 	return BluetoothConnectionStatusNotFound;
 #else
 	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied ||
@@ -95,7 +96,11 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 /// セントラルマネージャを準備します。
 - (CBManagerAuthorization)reqeustAuthorization {
 	DEBUG_LOG(@"");
-	
+
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではBluetooth制御は利用できません。
+	return CBManagerAuthorizationDenied;
+#else
 	// Bluetoothデバイスが利用不可なら即答します。
 	if ([CBCentralManager authorization] == CBManagerAuthorizationDenied) {
 		self.centralManager = nil;
@@ -126,6 +131,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		self.queue = nil;
 	}
 	return [CBCentralManager authorization];
+#endif
 }
 
 - (void)clearPeripheralCache {
@@ -137,6 +143,10 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 - (BOOL)discoverPeripheral:(NSError **)error {
 	DEBUG_LOG(@"");
 
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではBluetooth制御は利用できません。
+	return NO;
+#else
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:BluetoothConnectorErrorBusy description:NSLocalizedString(@"$desc:DiscorverPeripheralIsRunnning", @"BluetoothConnector.discoverPeripheral")];
@@ -216,11 +226,16 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 	}
 	return discovered;
+#endif
 }
 
 - (BOOL)connectPeripheral:(NSError **)error {
 	DEBUG_LOG(@"");
 
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではBluetooth制御は利用できません。
+	return NO;
+#else
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:BluetoothConnectorErrorBusy description:NSLocalizedString(@"$desc:ConnectPeripheralIsRunnning", @"BluetoothConnector.connectPeripheral")];
@@ -290,11 +305,16 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 	}
 	return connected;
+#endif
 }
 
 - (BOOL)disconnectPeripheral:(NSError **)error {
 	DEBUG_LOG(@"");
 
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではBluetooth制御は利用できません。
+	return NO;
+#else
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:BluetoothConnectorErrorBusy description:NSLocalizedString(@"$desc:DisconnectPeripheralIsRunnning", @"BluetoothConnector.disconnectPeripheral")];
@@ -336,6 +356,7 @@ NSString *const BluetoothConnectorErrorDomain = @"BluetoothConnectorErrorDomain"
 		}
 	}
 	return disconnected;
+#endif
 }
 
 #pragma mark -

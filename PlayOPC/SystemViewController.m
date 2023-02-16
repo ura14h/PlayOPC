@@ -529,8 +529,7 @@
 #if (TARGET_OS_SIMULATOR)
 	// シミュレータでは設定値を表示します。
 	AppSetting *setting = GetAppSetting();
-	NSString *wifiSSID = setting.wifiSSID;
-	self.ssidCell.detailTextLabel.text = wifiSSID;
+	self.ssidCell.detailTextLabel.text = setting.wifiSSID;
 #else
 	[self updateCameraPropertyCell:self.ssidCell name:CameraPropertySsid completion:nil];
 #endif

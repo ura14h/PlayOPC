@@ -26,6 +26,9 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 @property (strong, nonatomic) nw_path_t path; ///< 接続経路
 @property (assign, nonatomic) nw_path_status_t pathStatus; ///< 接続経路の状態
 @property (strong, nonatomic) NEHotspotNetwork *network; ///< ネットワーク情報
+#if (TARGET_OS_SIMULATOR)
+@property (assign, nonatomic) BOOL connecting; ///< 接続中か否か
+#endif
 
 @end
 
@@ -72,7 +75,12 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	DEBUG_DETAIL_LOG(@"");
 	
 #if (TARGET_OS_SIMULATOR)
-	return WifiConnectionStatusConnected;
+	// シミュレータではWiFi制御は利用できません。
+	if (self.connecting) {
+		return WifiConnectionStatusConnected;
+	} else {
+		return WifiConnectionStatusNotConnected;
+	}
 #else
 	switch (self.pathStatus) {
 		case nw_path_status_satisfied:
@@ -94,12 +102,21 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 - (void)startMonitoring {
 	DEBUG_LOG(@"");
-	
+
 	if (self.monitoring) {
 		// 監視はすでに実行中です。
 		return;
 	}
 	
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではWiFi制御は利用できません。
+	// 監視開始をフェイクします。
+	self.monitoring = YES;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+		[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
+	});
+#else
 	NSString *dispatchQueueName = [NSString stringWithFormat:@"%@.WifiConnector.queue", [[NSBundle mainBundle] bundleIdentifier]];
 	self.pathMonitorQueue = dispatch_queue_create([dispatchQueueName UTF8String], DISPATCH_QUEUE_SERIAL);
 	self.pathMonitor = nw_path_monitor_create_with_type(nw_interface_type_wifi);
@@ -122,6 +139,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	});
 	nw_path_monitor_start(self.pathMonitor);
 	self.monitoring = YES;
+#endif
 }
 
 - (void)stopMonitoring {
@@ -132,6 +150,11 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		return;
 	}
 	
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではWiFi制御は利用できません。
+	// 監視停止をフェイクします。
+	self.monitoring = NO;
+#else
 	// 監視が停止するまで待ちます。
 	nw_path_monitor_cancel(self.pathMonitor);
 	NSDate *waitStartTime = [NSDate date];
@@ -141,11 +164,22 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 		}
 		[NSThread sleepForTimeInterval:0.05];
 	}
+#endif
 }
 
 - (BOOL)connectHotspot:(NSError**)error {
 	DEBUG_LOG(@"SSID=%@, passphrase=%@", self.SSID, self.passphrase);
 	
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではWiFi制御は利用できません。
+	// 接続完了をフェイクします。
+	self.connecting = YES;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+		[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
+	});
+	return YES;
+#else
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:ConnectHotspotIsRunnning", @"WifiConnector.connectHotspot")];
@@ -212,11 +246,22 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 	
 	self.running = NO;
 	return connected;
+#endif
 }
 
 - (BOOL)disconnectHotspot:(NSError **)error {
 	DEBUG_LOG(@"SSID=%@", self.SSID);
 	
+#if (TARGET_OS_SIMULATOR)
+	// シミュレータではWiFi制御は利用できません。
+	// 切断完了をフェイクします。
+	self.connecting = NO;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
+		[notificationCenter postNotificationName:WifiConnectionChangedNotification object:self];
+	});
+	return YES;
+#else
 	if (self.running) {
 		// すでに実行中です。
 		NSError *internalError = [self createError:WifiConnectorErrorBusy description:NSLocalizedString(@"$desc:ConnectHotspotIsRunnning", @"WifiConnector.disconnectHotspot")];
@@ -252,6 +297,7 @@ NSString *const WifiConnectorErrorDomain = @"WifiConnectorErrorDomain";
 
 	self.running = NO;
 	return disconnected;
+#endif
 }
 
 #pragma mark -

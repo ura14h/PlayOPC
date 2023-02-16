@@ -46,6 +46,7 @@
 @property (strong, nonatomic) NSIndexPath *visibleWhenConnected; ///< アプリ接続が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenDisconnected; ///< アプリ接続の切断が完了した後のスクロール位置
 @property (strong, nonatomic) NSIndexPath *visibleWhenSleeped; ///< カメラの電源オフが完了した後のスクロール位置
+@property (assign, nonatomic) NSUInteger applicationActives; ///< アプリがアクティブになった回数
 @property (assign, nonatomic) NSUInteger applicationInactives; ///< アプリが非アクティブになった回数
 
 @end
@@ -114,7 +115,8 @@
 	self.visibleWhenDisconnected = [NSIndexPath indexPathForRow:1 inSection:1]; // アプリ接続へ
 	self.visibleWhenSleeped = [NSIndexPath indexPathForRow:0 inSection:1]; // アプリ接続(カメラ電源投入)へ
 	
-	// アプリが非アクティブになった回数を初期化します。
+	// アプリがアクティブ/非アクティブになった回数を初期化します。
+	self.applicationActives = 0;
 	self.applicationInactives = 0;
 }
 
@@ -198,6 +200,10 @@
 	[self updateShowWifiSettingCell];
 	[self updateCameraConnectionCells];
 	[self updateCameraOperationCells];
+	
+	// アプリがアクティブになった数を更新します。
+	self.applicationActives++;
+	DEBUG_LOG(@"applicationActives=%ld", self.applicationActives);
 }
 
 /// アプリケーションが非アクティブになる時に呼び出されます。
@@ -207,7 +213,7 @@
 	// アプリがユーザ対話を終了する時に呼び出されるほかに、
 	// OSの許可ダイアログが表示されるとこれが呼び出されてしまう...
 	
-	// 非アクティブになった数を更新します。
+	// アプリが非アクティブになった数を更新します。
 	self.applicationInactives++;
 	DEBUG_LOG(@"applicationInactives=%ld", self.applicationInactives);
 }
@@ -722,22 +728,29 @@
 		{
 			DEBUG_LOG(@"Started connect sequence");
 			
+			// 最初にアプリ接続できるか確認します。
 			AppCamera *camera = GetAppCamera();
 			NSError *error = nil;
-			NSTimeInterval reachTimeout = self.wifiConnector.timeout;
-			NSDate *reachStartTime = [NSDate date];
-			NSUInteger countBefore = self.applicationInactives;
-			BOOL reached = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:reachTimeout error:&error];
-			NSUInteger countAfter = self.applicationInactives;
-			NSDate *reachEndTime = [NSDate date];
+			NSUInteger oldActives = self.applicationActives;
+			NSUInteger oldInactives = self.applicationInactives;
+			BOOL reached = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:5.0 error:&error];
+			if (!reached && error.domain == NSURLErrorDomain && error.code == NSURLErrorTimedOut) {
+				// ローカルネットワークの使用許可を問い合わせるシステムのダイアログが表示されてそれに答える前に、
+				// タイムアウトになったかもしれません。
+				if (self.applicationInactives > oldInactives && self.applicationActives == oldActives) {
+					// アクティブになるまで待機して、カメラへの接続を再度チャレンジします。
+					DEBUG_LOG(@"Wait applicationDidBecomeActive ...");
+					while (self.applicationActives == oldActives) {
+						[NSThread sleepForTimeInterval:0.05];
+					}
+					reached = [camera canConnect:OLYCameraConnectionTypeWiFi timeout:5.0 error:&error];
+				}
+			}
 			if (!reached) {
-				// カメラにアプリ接続できませんでした。
-				// 指定したタイムアウト時間よりも早く復帰している場合はローカルネットワークの使用が不許可の可能性があります。
-				// アプリが非アクティブになった回数が増えている場合はローカルネットワークの使用許可ダイアログが表示された可能性もあります。
+				// 確認できませんでした。
 				NSString *message;
-				NSTimeInterval timeToReach = [reachEndTime timeIntervalSinceDate:reachStartTime];
-				if (error.domain == NSURLErrorDomain && error.code == NSURLErrorTimedOut &&
-					(timeToReach < reachTimeout || countBefore != countAfter)) {
+				if (error.domain == NSURLErrorDomain && error.code == NSURLErrorTimedOut) {
+					// エラー理由がタイムアウトの場合はローカルネットワークの使用許可がおりていないとみなします。
 					message = NSLocalizedString(@"$desc:CouldNotConnectCamera", @"ConnectionViewController.didSelectRowAtConnectWithUsingWifiCell");
 				} else {
 					message = error.localizedDescription;
@@ -747,6 +760,8 @@
 				[weakSelf.wifiConnector disconnectHotspot:nil];
 				return;
 			}
+
+			// 改めて、アプリ接続します。
 			BOOL connected = [camera connect:OLYCameraConnectionTypeWiFi error:&error];
 			if (!connected) {
 				// カメラにアプリ接続できませんでした。
